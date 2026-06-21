@@ -48,12 +48,12 @@ const config = {
   url: 'https://2naq.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/shareme/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: '2naq', // Usually your GitHub org/user name.
-  projectName: 'Shareme', // Usually your repo name.
+  projectName: 'shareme', // Usually your repo name.
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
