@@ -1,0 +1,21 @@
+---
+id: Arithmetic-mitsubishi-fx3u
+title: Nhóm lệnh toán học
+sidebar_position: 6
+sidebar_label: Tập lệnh toán học
+tags: [plc, automation, cong-nghiep, mitsubishi, fx3u]
+---
+
+
+### 1. Nhóm lệnh Toán học (Arithmetic)
+
+*(Thêm tiền tố `D` phía trước để thực hiện tính toán 32-bit, ví dụ: `DADD`, `DSUB`)*
+
+| Tên lệnh | Ý nghĩa | Cú pháp (Lệnh) | Ghi chú / Ví dụ ứng dụng |
+| :--- | :--- | :--- | :--- |
+| **ADD** | Phép Cộng | `-[ADD D0 K5 D10]-` | D0 + 5 = Lưu kết quả vào D10 |
+| **SUB** | Phép Trừ | `-[SUB D0 D1 D10]-` | D0 - D1 = Lưu kết quả vào D10 |
+| **MUL** | Phép Nhân | `-[MUL D0 K10 D10]-` | D0 * 10 = Lưu vào D10 (chiếm 2 thanh ghi D10, D11) |
+| **DIV** | Phép Chia | `-[DIV D0 D1 D10]-` | D0 / D1 = Thương ở D10, Số dư ở D11 |
+| **INC** | Tăng 1 đơn vị (Increment) | `-[INC D0]-` | Mỗi lần gọi, giá trị D0 tăng thêm 1 |
+| **DEC** | Giảm 1 đơn vị (Decrement) | `-[DEC D0]-` | Mỗi lần gọi, giá trị D0 giảm đi 1 |

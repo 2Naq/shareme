@@ -1,0 +1,75 @@
+---
+id: pulse-output-mitsubishi-fx3u
+title: Nhóm lệnh phát xung (Điều khiển Servo/Stepper)
+sidebar_position: 8
+sidebar_label: Tập lệnh Phát xung
+tags: [plc, automation, cong-nghiep, mitsubishi, fx3u, servo, stepper]
+---
+
+## Giới thiệu chung
+
+Trong các hệ thống tự động hóa sử dụng động cơ Servo hoặc động cơ Bước (Stepper Motor), PLC FX3U điều khiển vị trí và tốc độ thông qua việc phát các xung vuông (Pulse Train) từ các ngõ ra tốc độ cao như `Y0`, `Y1`, `Y2`, `Y3`. 
+
+Bài viết này tổng hợp chi tiết các lệnh phát xung cơ bản và các vùng nhớ đặc biệt (Cờ M, Thanh ghi D) đi kèm.
+
+---
+
+## 1. Các lệnh phát xung cơ bản
+
+*(Thêm tiền tố `D` để thao tác với dữ liệu 32-bit, ví dụ: `DPLSY`, `DDRVI`)*
+
+| Tên lệnh | Ý nghĩa | Cú pháp (Lệnh) | Ghi chú / Ví dụ ứng dụng |
+| :--- | :--- | :--- | :--- |
+| **PLSY** | Phát xung tần số tĩnh | `-[PLSY S1 S2 D]-` | Phát xung liên tục không có tăng/giảm tốc. |
+| **PLSR** | Phát xung có gia tốc | `-[PLSR S1 S2 S3 D]-` | Phát xung có thời gian tăng tốc/giảm tốc mềm mượt. |
+| **DRVI** | Điều khiển vị trí tương đối | `-[DRVI S1 S2 D1 D2]-`| Phát xung theo vị trí tương đối (Drive to Increment). |
+| **DRVA** | Điều khiển vị trí tuyệt đối | `-[DRVA S1 S2 D1 D2]-`| Phát xung theo vị trí tuyệt đối so với điểm gốc (Drive to Absolute). |
+
+### Phân tích cú pháp:
+* **S1 (Tần số / Tốc độ):** Đơn vị Hz. Quyết định tốc độ quay của động cơ.
+* **S2 (Số lượng xung / Vị trí):** Số lượng xung cần phát ra để động cơ quay đến vị trí mong muốn. *(Nếu gán K0 ở lệnh PLSY, PLC sẽ phát xung liên tục không dừng).*
+* **S3 (Thời gian gia tốc):** Đơn vị ms. Chỉ dùng trong PLSR.
+* **D, D1 (Ngõ ra phát xung):** Bắt buộc là ngõ ra Transistor `Y0`, `Y1`, hoặc `Y2`.
+* **D2 (Ngõ ra báo chiều quay):** Chân xuất tín hiệu xác định chiều thuận/nghịch (Ví dụ: Y4).
+
+**Ví dụ:** `--[DDRVI K50000 K2000 Y0 Y4]--`
+- Xuất ra `50,000` xung với tần số `2000Hz`.
+- Xung nhịp xuất ở chân `Y0`, tín hiệu chiều (Direction) tự động xuất ở chân `Y4`.
+
+---
+
+## 2. Các cờ M đặc biệt (Special Relays) cho điều khiển phát xung
+
+Để theo dõi xem PLC có đang phát xung hay không, hoặc để chủ động ngắt xung khẩn cấp, chúng ta sử dụng các cờ M chuyên dụng tương ứng với từng chân ngõ ra.
+
+| Chân ngõ ra | Cờ báo đang phát xung (Busy Flag) | Cờ báo lỗi phát xung | Cờ dừng khẩn cấp (Stop Flag) |
+| :---: | :--- | :--- | :--- |
+| **Y0** | **M8147** *(ON khi Y0 đang phát xung)* | M8148 | **M8145** *(Set ON để cưỡng chế dừng)* |
+| **Y1** | **M8149** *(ON khi Y1 đang phát xung)* | M8150 | **M8146** *(Set ON để cưỡng chế dừng)* |
+| **Y2** | **M8152** *(ON khi Y2 đang phát xung)* | M8153 | **M8151** *(Set ON để cưỡng chế dừng)* |
+
+:::warning[Ứng dụng Cờ Busy (M8147/M8149/M8152)]
+Cờ báo bận (Busy) vô cùng quan trọng. Bạn phải luôn dùng tiếp điểm thường đóng (NC) của cờ Busy để khóa chéo ngõ vào lệnh phát xung. Nếu bạn kích hoạt lệnh phát xung khi cờ Busy đang ON, PLC sẽ bỏ qua hoặc báo lỗi.
+```text
+          (M8147)
+--[ X0 ]----[/]---------------------[ DDRVI K5000 K1000 Y0 Y4 ]--
+```
+:::
+
+---
+
+## 3. Các thanh ghi D đặc biệt giám sát vị trí
+
+Mỗi khi PLC xuất ra 1 xung, thanh ghi vị trí hiện tại sẽ tự động tăng hoặc giảm (tùy thuộc vào chiều quay). Điều này giúp PLC luôn ghi nhớ vị trí hiện tại của bàn máy.
+
+| Chân ngõ ra | Thanh ghi vị trí hiện tại (32-bit) | Thanh ghi chứa dữ liệu tần số tối đa (Max Speed) |
+| :---: | :--- | :--- |
+| **Y0** | **D8141** (High) - **D8140** (Low) | D8147 (High) - D8146 (Low) |
+| **Y1** | **D8143** (High) - **D8142** (Low) | D8147 (High) - D8146 (Low) |
+| **Y2** | **D8145** (High) - **D8144** (Low) | D8147 (High) - D8146 (Low) |
+
+:::tip[Thao tác với Thanh ghi 32-bit]
+Vì vị trí thường là một con số rất lớn (hàng triệu xung), nên các thanh ghi giám sát luôn ghép thành cặp 32-bit (Double word). Khi lập trình, bạn chỉ cần gọi tên thanh ghi mức thấp (Low) kết hợp với các lệnh 32-bit. 
+
+**Ví dụ hiển thị tọa độ Y0:** `-[ DMOV D8140 D100 ]-` *(Giá trị vị trí hiện tại sẽ được chuyển vào cặp D100-D101 để đưa lên màn hình HMI).*
+:::

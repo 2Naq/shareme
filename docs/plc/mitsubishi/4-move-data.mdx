@@ -1,0 +1,17 @@
+---
+id: mov-mitsubishi-fx3u
+title: Nhóm lệnh MOV
+sidebar_position: 4
+sidebar_label: Tập lệnh MOV
+tags: [plc, automation, cong-nghiep, mitsubishi, fx3u]
+---
+
+### 1. Nhóm lệnh Chuyển tiếp Dữ liệu (Data Transfer)
+
+| Tên lệnh | Ý nghĩa | Cú pháp (Lệnh) | Ghi chú / Ví dụ ứng dụng |
+| :--- | :--- | :--- | :--- |
+| **MOV** | Chép dữ liệu (Move) | `-[MOV K10 D0]-` | Chép hằng số 10 vào thanh ghi D0 |
+| **DMOV** | Chép dữ liệu 32-bit (Double Move) | `-[DMOV D0 D2]-` | Chép dữ liệu 32-bit từ cụm D0-D1 sang D2-D3 |
+| **BMOV** | Chép một khối dữ liệu (Block Move)| `-[BMOV D0 D10 K5]-` | Chép 5 thanh ghi từ D0-D4 sang D10-D14 |
+| **FMOV** | Điền khối dữ liệu (Fill Move) | `-[FMOV K0 D0 K10]-` | Ghi hằng số 0 vào 10 thanh ghi từ D0~D9 (Reset Data) |
+| **XCH** | Hoán đổi dữ liệu (Exchange) | `-[XCH D0 D1]-` | Đổi chéo giá trị giữa thanh ghi D0 và D1 |

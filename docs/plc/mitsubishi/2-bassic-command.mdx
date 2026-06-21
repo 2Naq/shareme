@@ -1,0 +1,35 @@
+---
+id: cac-lenh-co-ban-plc-mitsubishi-fx3u
+title: Hướng dẫn các lệnh cơ bản trong PLC Mitsubishi FX3U
+sidebar_position: 2
+sidebar_label: Tập lệnh cơ bản FX3U
+tags: [plc, automation, cong-nghiep, mitsubishi, fx3u]
+---
+
+## Giới thiệu
+
+Bài viết này cung cấp hướng dẫn chi tiết về các tập lệnh lập trình cơ bản thường được sử dụng nhất trên dòng PLC Mitsubishi FX3U. Việc làm chủ và sử dụng chính xác các lệnh Vào/Ra (I/O), Timer, Counter và các lệnh thao tác bit là bước nền tảng quan trọng để xây dựng cấu trúc logic điều khiển an toàn và tối ưu cho mọi hệ thống tự động hóa.
+
+---
+
+## Các bước tìm hiểu và thực hành tập lệnh
+
+Việc lập trình trên FX3U chủ yếu sử dụng ngôn ngữ Ladder (LAD). Dưới đây là các nhóm lệnh cơ bản và cách triển khai:
+
+### 1. Nhóm lệnh cơ bản (Basic Logic)
+
+| Tên lệnh | Ý nghĩa | Ký hiệu (Ladder) | Ghi chú / Ví dụ ứng dụng |
+| :--- | :--- | :--- | :--- |
+| **LD** | Tiếp điểm thường mở (Load) | `--[ ]--` | Khởi đầu 1 nhánh logic, dẫn điện khi ON |
+| **LDI** | Tiếp điểm thường đóng (Load Inverse) | `--[/]--` | Khởi đầu 1 nhánh logic, dẫn điện khi OFF |
+| **OUT** | Cuộn dây ngõ ra (Out) | `--()--` | Xuất tín hiệu ra Y, M, T, C... |
+| **AND** | Mắc nối tiếp thường mở (And) | `--[]--[]--` | Nối tiếp tiếp điểm NO vào mạch |
+| **ANI** | Mắc nối tiếp thường đóng (And Inverse) | `--[/]--` | Nối tiếp tiếp điểm NC vào mạch |
+| **OR** | Mắc song song thường mở (Or) | `'--[ ]--'` | Rẽ nhánh song song với tiếp điểm NO |
+| **ORI** | Mắc song song thường đóng (Or Inverse)| `'--[/]--'` | Rẽ nhánh song song với tiếp điểm NC |
+| **SET** | Lệnh chốt trạng thái ON | `-[SET Y0]-` | Giữ ngõ ra luôn ON bất chấp đầu vào |
+| **RST** | Lệnh xóa trạng thái (Reset) | `-[RST Y0]-` | Đưa ngõ ra, Timer, Counter, Data về 0 (OFF) |
+| **PLS** | Xung cạnh lên (Pulse) | `-[PLS M0]-` | ON 1 chu kỳ quét khi đầu vào từ OFF -> ON |
+| **PLF** | Xung cạnh xuống (Pulse Falling) | `-[PLF M0]-` | ON 1 chu kỳ quét khi đầu vào từ ON -> OFF |
+
+---

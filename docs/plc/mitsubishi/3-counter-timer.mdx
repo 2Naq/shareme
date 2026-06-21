@@ -1,0 +1,153 @@
+---
+id: counter-timer-mitsubishi-fx3u
+title: Nhóm lệnh Định thời và Đếm
+sidebar_position: 3
+sidebar_label: Tập lệnh Counter Timer
+tags: [plc, automation, cong-nghiep, mitsubishi, fx3u]
+---
+
+### 1. Nhóm lệnh Định thời và Đếm (Timer / Counter)
+
+| Tên lệnh | Ý nghĩa | Ký hiệu / Cú pháp | Ghi chú / Ví dụ ứng dụng |
+| :--- | :--- | :--- | :--- |
+| **T** | Bộ định thời gian (Timer) | `-[OUT T0 K50]-` | T0 đếm đến 50 (vd: 5 giây nếu độ phân giải 100ms) |
+| **C** | Bộ đếm (Counter 16-bit) | `-[OUT C0 K10]-` | C0 đếm lên, kích hoạt khi đạt 10 lần |
+| **C (32-bit)** | Bộ đếm tốc độ cao/2 chiều | `-[OUT C200 K5000]-`| Dành cho đếm xung Encoder (đếm lên/xuống) |
+| **RST T/C**| Reset Timer/Counter | `-[RST C0]-` | Xóa giá trị đếm hiện tại về 0 |
+
+---
+
+## Chi tiết các tập lệnh
+
+### 1. Bộ định thời gian (Timer - T)
+Timer trong PLC Mitsubishi dùng để đếm thời gian trễ. Có nhiều loại Timer với độ phân giải khác nhau (100ms, 10ms, 1ms).
+
+**Cách thức hoạt động:**
+- Khi điều kiện đầu vào `ON`, Timer bắt đầu đếm.
+- Khi giá trị đếm đạt đến giá trị cài đặt (Set Value - `K`), tiếp điểm của Timer sẽ chuyển trạng thái (NO thành đóng, NC thành mở).
+- Nếu điều kiện đầu vào `OFF` trước khi đạt giá trị cài đặt, Timer bị reset về 0 (đối với Timer thường).
+
+**Ví dụ:** `--[OUT T0 K50]--`
+- Nếu dùng T0 (độ phân giải 100ms), thời gian thực tế = `50 * 100ms = 5000ms = 5 giây`.
+- Sau khi đầu vào được giữ mức ON trong 5 giây, tiếp điểm `T0` sẽ đóng lại.
+
+:::tip[Các loại Timer FX3U]
+- **T0 ~ T199**: Timer 100ms (Max: 3276.7 giây)
+- **T200 ~ T245**: Timer 10ms (Max: 327.67 giây)
+- **T246 ~ T249**: Timer tích lũy 1ms (Giữ giá trị đếm khi mất tín hiệu đầu vào hoặc mất điện)
+- **T250 ~ T255**: Timer tích lũy 100ms
+:::
+
+### 2. Bộ đếm thông thường (Counter 16-bit - C)
+Counter dùng để đếm số lần tín hiệu ngõ vào chuyển từ `OFF` sang `ON` (đếm sườn lên).
+
+**Cách thức hoạt động:**
+- Mỗi lần có sườn lên ở tín hiệu đầu vào, giá trị Counter tăng lên 1.
+- Khi giá trị đếm bằng với giá trị cài đặt (`K`), tiếp điểm của Counter sẽ đóng lại và duy trì trạng thái đó.
+- Các xung đầu vào tiếp theo (khi Counter đã đạt giá trị cài đặt) sẽ bị bỏ qua, giá trị không đếm vượt quá.
+- Phải sử dụng lệnh `[RST Cxx]` để đưa giá trị Counter về 0 và ngắt tiếp điểm.
+
+**Ví dụ:** `--[OUT C0 K10]--`
+- Đếm đủ 10 sản phẩm đi qua cảm biến, `C0` sẽ ON để kích hoạt xi-lanh gạt.
+
+### 3. Bộ đếm tốc độ cao (High-Speed Counter 32-bit)
+Được sử dụng chủ yếu để đọc xung từ bộ mã hóa vòng quay (Encoder) ở tốc độ rất cao (lên đến 100kHz) mà vòng quét (Scan Time) của PLC không thể bắt kịp.
+
+**Bảng Phân bổ Ngõ vào Bộ đếm tốc độ cao (High-Speed Counter)**
+<div className="overflow-x-auto w-full mb-4 shadow-sm">
+<table style={{fontSize: '0.8rem', width: '100%', whiteSpace: 'nowrap'}}>
+  <thead>
+    <tr>
+      <th rowspan="2" style={{textAlign: 'center'}}>Input</th>
+      <th colspan="11" style={{textAlign: 'center'}}>1 phase 1 directional</th>
+      <th colspan="5" style={{textAlign: 'center'}}>2 phase bi-directional</th>
+      <th colspan="5" style={{textAlign: 'center'}}>A/B phase</th>
+    </tr>
+    <tr>
+      <th>C235</th><th>C236</th><th>C237</th><th>C238</th><th>C239</th><th>C240</th><th>C241</th><th>C242</th><th>C243</th><th>C244</th><th>C245</th>
+      <th>C246</th><th>C247</th><th>C248</th><th>C249</th><th>C250</th>
+      <th>C251</th><th>C252</th><th>C253</th><th>C254</th><th>C255</th>
+    </tr>
+  </thead>
+  <tbody style={{textAlign: 'center'}}>
+    <tr>
+      <td><b>X0</b></td>
+      <td>U/D</td><td></td><td></td><td></td><td></td><td></td><td>U/D</td><td></td><td></td><td>U/D</td><td></td>
+      <td>U</td><td>U</td><td></td><td>U</td><td></td>
+      <td>A</td><td>A</td><td></td><td>A</td><td></td>
+    </tr>
+    <tr>
+      <td><b>X1</b></td>
+      <td></td><td>U/D</td><td></td><td></td><td></td><td></td><td>R</td><td></td><td></td><td>R</td><td></td>
+      <td>D</td><td>D</td><td></td><td>D</td><td></td>
+      <td>B</td><td>B</td><td></td><td>B</td><td></td>
+    </tr>
+    <tr>
+      <td><b>X2</b></td>
+      <td></td><td></td><td>U/D</td><td></td><td></td><td></td><td></td><td>U/D</td><td></td><td></td><td>U/D</td>
+      <td></td><td>R</td><td></td><td>R</td><td></td>
+      <td></td><td>R</td><td></td><td>R</td><td></td>
+    </tr>
+    <tr>
+      <td><b>X3</b></td>
+      <td></td><td></td><td></td><td>U/D</td><td></td><td></td><td></td><td>R</td><td></td><td></td><td>R</td>
+      <td></td><td></td><td>U</td><td></td><td>U</td>
+      <td></td><td></td><td>A</td><td></td><td>A</td>
+    </tr>
+    <tr>
+      <td><b>X4</b></td>
+      <td></td><td></td><td></td><td></td><td>U/D</td><td></td><td></td><td></td><td>U/D</td><td></td><td></td>
+      <td></td><td></td><td>D</td><td></td><td>D</td>
+      <td></td><td></td><td>B</td><td></td><td>B</td>
+    </tr>
+    <tr>
+      <td><b>X5</b></td>
+      <td></td><td></td><td></td><td></td><td></td><td>U/D</td><td></td><td></td><td>R</td><td></td><td>R</td>
+      <td></td><td></td><td>R</td><td></td><td>R</td>
+      <td></td><td></td><td>R</td><td></td><td>R</td>
+    </tr>
+    <tr>
+      <td><b>X6</b></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>S</td><td></td>
+      <td></td><td></td><td></td><td>S</td><td></td>
+      <td></td><td></td><td></td><td>S</td><td></td>
+    </tr>
+    <tr>
+      <td><b>X7</b></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>S</td>
+      <td></td><td></td><td></td><td></td><td>S</td>
+      <td></td><td></td><td></td><td></td><td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+:::tip[Chú giải ký hiệu (Legend)]
+* **U/D (Up/Down):** Ngõ vào đếm lên hoặc đếm xuống.
+* **U (Up):** Ngõ vào đếm lên.
+* **D (Down):** Ngõ vào đếm xuống.
+* **R (Reset):** Ngõ vào xóa giá trị bộ đếm về 0.
+* **S (Start):** Ngõ vào bắt đầu cho phép đếm.
+* **A / B:** Ngõ vào nhận xung pha A / pha B (thường dùng cho Encoder).
+:::
+
+**Đặc điểm:**
+- Sử dụng trực tiếp các ngõ vào ngắt cứng `X0` đến `X7` của PLC.
+- **C235 ~ C245**: Đếm 1 pha (Tăng/giảm bằng cờ phụ).
+- **C246 ~ C250**: Đếm 1 pha 2 ngõ vào (1 ngõ đếm lên, 1 ngõ đếm xuống).
+- **C251 ~ C255**: Đếm 2 pha A/B lệch nhau 90 độ (Dùng phổ biến nhất cho Rotary Encoder).
+
+**Ví dụ lập trình đếm Encoder:**
+```text
+|--[ M8000 ]---------------------------[ OUT C251 K5000 ]--|
+```
+- Cấp nguồn liên tục cho khối Counter bằng `M8000` (Always ON).
+- Khi chọn C251, các chân `X0` và `X1` trên PLC tự động trở thành ngõ vào đọc pha A và pha B của Encoder.
+- Khi số xung đạt 5000, tiếp điểm `C251` sẽ ON.
+
+:::warning[Lưu ý khi dùng HSC]
+Counter tốc độ cao không thể dùng lệnh `OUT` nhiều lần cho cùng 1 bộ đếm. Để thực hiện so sánh số xung và xuất ngõ ra lập tức (không phụ thuộc chu kỳ quét PLC), bạn bắt buộc phải dùng thêm các lệnh xử lý ngắt tốc độ cao như **DHSCS** (Set ngõ ra), **DHSCR** (Reset ngõ ra) hoặc **DHSZ** (So sánh vùng).
+:::
+
+
+

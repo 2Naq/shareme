@@ -1,0 +1,17 @@
+---
+id: program-flow-mitsubishi-fx3u
+title: Nhóm lệnh điều khiển chương trình
+sidebar_position: 7
+sidebar_label: Tập lệnh điều khiển chương trình
+tags: [plc, automation, cong-nghiep, mitsubishi, fx3u]
+---
+
+### 1. Nhóm lệnh Điều khiển chương trình (Program Flow)
+
+| Tên lệnh | Ý nghĩa | Cú pháp (Lệnh) | Ghi chú / Ví dụ ứng dụng |
+| :--- | :--- | :--- | :--- |
+| **CJ** | Nhảy có điều kiện (Conditional Jump)| `-[CJ P0]-` | Nhảy bỏ qua các dòng code để đến con trỏ P0 |
+| **CALL** | Gọi chương trình con (Call Subroutine)| `-[CALL P10]-` | Chuyển đến chạy chương trình con tại P10 |
+| **SRET** | Thoát chương trình con (Subroutine Return)| `-[SRET]-` | Kết thúc chương trình con, quay về Main |
+| **FEND** | Kết thúc chương trình chính (First End)| `-[FEND]-` | Đặt trước các chương trình con |
+| **END** | Kết thúc toàn bộ chương trình | `-[END]-` | PLC tự động có lệnh này ở dòng cuối cùng |
