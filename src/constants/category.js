@@ -1,16 +1,16 @@
 export const categorys = [
   {
-    id: 'PLC',
+    id: 'plc',
     label: 'PLC',
-    path: 'docs/PLC',
-    routeBasePath: 'PLC',
-    introLink: '/PLC/intro',
+    path: 'docs/plc',
+    routeBasePath: 'plc',
+    introLink: '/plc/intro',
     description: 'Tổng hợp tài liệu lập trình các hãng PLC...',
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop',
   },
   {
     id: 'inverter',
-    label: 'inverter',
+    label: 'Inverter',
     path: 'docs/inverter',
     routeBasePath: 'inverter',
     introLink: '/inverter/intro',
