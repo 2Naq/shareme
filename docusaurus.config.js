@@ -45,10 +45,10 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://2naq.github.io/shareme',
+  url: 'https://2naq.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/shareme/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -70,13 +70,7 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          sidebarPath: './sidebars.js',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
+        docs: false,
         blog: {
           showReadingTime: true,
           feedOptions: {
@@ -99,27 +93,32 @@ const config = {
     ],
   ],
 
+  plugins: [
+    ...dynamicPlugins,
+    async function myPlugin(context, options) {
+      return {
+        name: "docusaurus-tailwindcss",
+        configurePostCss(postcssOptions) {
+          // Tích hợp TailwindCSS vào tiến trình build
+          postcssOptions.plugins.push(require("@tailwindcss/postcss"));
+          postcssOptions.plugins.push(require("autoprefixer"));
+          return postcssOptions;
+        },
+      };
+    },
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
       colorMode: {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'My Site',
-        logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
-        },
+        title: myData.brand_name,
         items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Tutorial',
-          },
+          ...dynamicNavbarItems,
           { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/facebook/docusaurus',
@@ -136,7 +135,7 @@ const config = {
             items: [
               {
                 label: 'Tutorial',
-                to: '/docs/intro',
+                to: '#',
               },
             ],
           },
@@ -145,15 +144,15 @@ const config = {
             items: [
               {
                 label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                href: '#',
               },
               {
                 label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                href: '#',
               },
               {
                 label: 'X',
-                href: 'https://x.com/docusaurus',
+                href: '#',
               },
             ],
           },
@@ -166,12 +165,12 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: myData.link_github,
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Built by ${myData.user_name}. TRUONG SA, HOANG SA BELONG TO VIETNAM.`,
       },
       prism: {
         theme: prismThemes.github,
