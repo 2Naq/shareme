@@ -53,7 +53,8 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: '2naq', // Usually your GitHub org/user name.
-  projectName: 'shareme', // Usually your repo name.
+  projectName: 'Shareme', // Usually your repo name.
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
 
