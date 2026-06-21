@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkshareme=self.webpackChunkshareme||[]).push([["3220"],{1912(e){e.exports=JSON.parse('{"blogBasePath":"/shareme/blog","blogTitle":"Blog","authorsListPath":"/shareme/blog/authors"}')}}]);
