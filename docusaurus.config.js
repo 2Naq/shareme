@@ -105,6 +105,15 @@ const config = {
           postcssOptions.plugins.push(require("autoprefixer"));
           return postcssOptions;
         },
+        configureWebpack(config, isServer, utils) {
+          return {
+            resolve: {
+              alias: {
+                '@': require('path').resolve(context.siteDir, 'src'),
+              },
+            },
+          };
+        },
       };
     },
   ],
@@ -120,9 +129,9 @@ const config = {
         title: myData.brand_name,
         items: [
           ...dynamicNavbarItems,
-          { to: '/blog', label: 'Blog', position: 'left' },
+          // { to: '/blog', label: 'Blog', position: 'left' },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: myData.link_github,
             label: 'GitHub',
             position: 'right',
           },

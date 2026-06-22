@@ -1,2 +1,4 @@
 
-# Kho tài liệu cho Omron (thay vì tên 'docs')
+# Kho tài liệu cho biến tần
+
+Đang cập nhật...
