@@ -17,6 +17,15 @@ export const categorys = [
     description: 'Tổng hợp tài liệu inverter',
     image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop',
   },
+  {
+    id: 'other',
+    label: 'Other',
+    path: 'docs/other',
+    routeBasePath: 'other',
+    introLink: '/other/intro',
+    description: 'Tài liệu sưu tầm',
+    image: 'https://images.unsplash.com/photo-1620325867502-221ddb5b4d75?q=80&w=800&auto=format&fit=crop',
+  }
   // {
   //   id: 'siemens',
   //   label: 'Siemens',

@@ -1,4 +1,5 @@
 import React from 'react';
+import Translate from '@docusaurus/Translate';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { myData } from '../constants/my_data';
@@ -14,9 +15,9 @@ const BoxInfo = {
   link_linkedin: "https://www.linkedin.com"
 }
 const infor = [
-  { name: 'Work / position', value: 'Thợ đụng gì làm đó', icon: CodeXml },
-  { name: 'Location', value: 'Viet Nam', icon: MapPin },
-  { name: 'Email', value: 'annguyen@gmail.com', icon: Mail },
+  { name: <Translate>Work / position</Translate>, value: <Translate>Thợ đụng, đụng là trụng</Translate>, icon: CodeXml },
+  { name: <Translate>Location</Translate>, value: <Translate>Viet Nam</Translate>, icon: MapPin },
+  { name: <Translate>Email</Translate>, value: 'annguyen@gmail.com', icon: Mail },
 ]
 
 
@@ -58,7 +59,7 @@ export default function Home() {
                   <VerifiedIcon className="size-[0.6em] text-blue-500" />
                 </h1>
                 <p className="text-sm text-gray-500 dark:text-gray-400 m-0">
-                  Ní sợ à!
+                  <Translate>Ní sợ à!</Translate>
                 </p>
               </div>
             </div>
@@ -104,7 +105,7 @@ export default function Home() {
           {/* === SECTION 4: NÚT VÀO DOCS === */}
           <div className="max-w-3xl mx-auto p-6">
             <Link className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-black font-semibold hover:opacity-90 transition-opacity no-underline w-full sm:w-auto" to="/plc/intro">
-              Xem tài liệu
+              <Translate>Xem tài liệu</Translate>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </Link>
           </div>
