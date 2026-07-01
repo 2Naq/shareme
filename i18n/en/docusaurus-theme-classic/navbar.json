@@ -1,0 +1,18 @@
+{
+  "title": {
+    "message": "Share me",
+    "description": "The title in the navbar"
+  },
+  "item.label.PLC": {
+    "message": "PLC",
+    "description": "Navbar item with label PLC"
+  },
+  "item.label.Inverter": {
+    "message": "Inverter",
+    "description": "Navbar item with label Inverter"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}
