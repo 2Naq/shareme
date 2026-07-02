@@ -34,5 +34,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          # Docusaurus tạo ra file trong thư mục build/
+          publish_dir: ./apps/docs/build
+          # Build của monorepo sẽ gộp chung vào thư mục apps/docs/build/

@@ -1,6 +1,6 @@
 # Docusaurus
 .docusaurus/
-.agent
+.agents
 build/
 
 # Node.js
@@ -31,4 +31,4 @@ Thumbs.db
 
 # Log files
 *.log
-/docs/example
+*/docs/example
