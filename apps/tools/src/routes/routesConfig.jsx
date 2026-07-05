@@ -5,6 +5,7 @@ import Rs485HexPage from '../pages/tool/rs485-hex';
 import HmiIntroPage from '../pages/tool/hmi-intro';
 import InverterIntroPage from '../pages/tool/inverter-intro';
 import SelectScrollable from '@/pages/tool/test';
+import ElectricalCalculatorPage from '../pages/tool/electrical-calculator';
 
 // Cấu hình các route của ứng dụng
 // Bạn có thể thêm icon, group, hoặc thuộc tính ẩn/hiện để sau này dùng cho Sidebar
@@ -29,6 +30,13 @@ export const routeConfig = [
     element: <AnalogScalingPage />,
     showInSidebar: true,
     icon: SlidersHorizontal,
+  },
+  {
+    path: '/tool/electrical-calculator',
+    label: 'Tính Toán Điện',
+    element: <ElectricalCalculatorPage />,
+    showInSidebar: true,
+    icon: Zap,
   },
   {
     path: '/tool/hmi-intro',
