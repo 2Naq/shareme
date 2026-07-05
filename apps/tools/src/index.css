@@ -65,6 +65,7 @@
 @utility no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -119,7 +120,8 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-.dark, [data-theme='dark'] {
+.dark,
+[data-theme='dark'] {
   --background: #0F172A;
   --foreground: #F8FAFC;
   --primary: #1E293B;
@@ -145,7 +147,7 @@
   --code-number: #60A5FA;
   --code-highlight: #334155;
   --shadow-popover: 0 0 24px rgba(0, 0, 0, 0.5);
-  
+
   --sidebar: #1E293B;
   --sidebar-foreground: #F8FAFC;
   --sidebar-primary: #22C55E;
@@ -194,10 +196,23 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
+}
+
+/* Lock main container scroll when Base UI Select/Dialog sets overflow:hidden on body */
+body[style*="overflow: hidden"] main {
+  overflow: hidden !important;
+}
+
+.bg-separator,
+.separator-pattern::before {
+  background-image: repeating-linear-gradient(315deg, rgba(0, 0, 0, 0.03) 0, rgba(0, 0, 0, 0.03) 1px, transparent 0, transparent 50%);
+  background-size: 10px 10px;
 }

@@ -59,12 +59,13 @@ function CommandDialog({
 
 function CommandInput({
   className,
+  classNameInput,
   ...props
 }) {
   return (
     <div data-slot="command-input-wrapper" className="p-1 pb-0">
       <InputGroup
-        className="h-8! rounded-lg! border-input/30 bg-input/30 shadow-none! *:data-[slot=input-group-addon]:pl-2!">
+        className={cn("h-8! rounded-lg! border-input/30 bg-input/30 shadow-none! *:data-[slot=input-group-addon]:pl-2!", classNameInput)}>
         <CommandPrimitive.Input
           data-slot="command-input"
           className={cn(

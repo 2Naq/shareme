@@ -46,8 +46,8 @@ export function CommandMenu() {
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Gõ tên công cụ cần tìm..." />
+      <CommandDialog open={open} onOpenChange={setOpen} className="min-w-1/3 pt-2">
+        <CommandInput classNameInput="h-10!" placeholder="Gõ tên công cụ cần tìm..." />
         <CommandList>
           <CommandEmpty>Không tìm thấy kết quả.</CommandEmpty>
           <CommandGroup heading="Công cụ">

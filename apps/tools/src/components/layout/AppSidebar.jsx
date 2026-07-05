@@ -25,7 +25,7 @@ export function AppSidebar() {
         </div>
         <div className="flex flex-col truncate">
           <span className="font-extrabold text-xl leading-tight tracking-tight">
-            <span className="bg-linear-to-r from-primary to-green-500 bg-clip-text text-transparent">Shareme</span>
+            <span className="bg-linear-to-r from-primary to-green-500 bg-clip-text text-transparent">Share</span>
             <span className="text-foreground/80 font-semibold ml-1.5">Tools</span>
           </span>
         </div>
@@ -45,12 +45,12 @@ export function AppSidebar() {
 
                   return (
                     <SidebarMenuItem key={index}>
-                      <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
-                        <Link to={item.path} className="flex items-center gap-2">
+                      <Link to={item.path}>
+                        <SidebarMenuButton className="flex items-center gap-2" asChild isActive={isActive} tooltip={item.label}>
                           {item.icon && <item.icon className="h-4 w-4 shrink-0" />}
                           <span className="truncate">{item.label}</span>
-                        </Link>
-                      </SidebarMenuButton>
+                        </SidebarMenuButton>
+                      </Link>
                     </SidebarMenuItem>
                   );
                 })}

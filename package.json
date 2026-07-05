@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev -w apps/docs\" \"npm run dev -w apps/tools\" \"node server.js\"",
     "build": "node scripts/build.js",
+    "preview": "npm run serve -w apps/docs",
     "deploy": "npm run build && npm run deploy -w apps/docs"
   },
   "workspaces": [

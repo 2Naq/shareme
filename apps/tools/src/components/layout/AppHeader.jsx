@@ -17,6 +17,7 @@ export function AppHeader() {
             </div>
             <div className="flex items-center gap-4">
                 <CommandMenu />
+                <Link to="/">Docs</Link>
                 <ThemeToggle />
             </div>
         </header>

@@ -135,13 +135,18 @@ const config = {
           ...dynamicNavbarItems,
           { href: 'pathname:///shareme/tool/', label: 'Tool', position: 'left', target: '_self' },
           // { to: '/blog', label: 'Blog', position: 'left' },
-          {
-            type: 'localeDropdown',
-            position: 'right',
-          },
+          // {
+          //   type: 'localeDropdown',
+          //   position: 'right',
+          // },
           {
             href: myData.link_github,
             label: 'GitHub',
+            position: 'right',
+          },
+          {
+            href: "/about",
+            label: 'About Me',
             position: 'right',
           },
         ],
