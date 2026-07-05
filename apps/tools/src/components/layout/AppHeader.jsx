@@ -17,7 +17,7 @@ export function AppHeader() {
             </div>
             <div className="flex items-center gap-4">
                 <CommandMenu />
-                <Link to="/">Docs</Link>
+                <a href="/shareme/" className="font-medium hover:text-primary transition-colors no-underline">Docs</a>
                 <ThemeToggle />
             </div>
         </header>
