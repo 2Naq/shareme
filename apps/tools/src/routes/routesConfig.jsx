@@ -1,4 +1,4 @@
-import { Home, SlidersHorizontal, Hash, MonitorPlay, Zap } from 'lucide-react';
+import { Home, SlidersHorizontal, Hash, MonitorPlay, Zap, CircuitBoard } from 'lucide-react';
 import ToolPage from '../pages/tool/index';
 import AnalogScalingPage from '../pages/tool/analog-scaling';
 import Rs485HexPage from '../pages/tool/rs485-hex';
@@ -6,6 +6,7 @@ import HmiIntroPage from '../pages/tool/hmi-intro';
 import InverterIntroPage from '../pages/tool/inverter-intro';
 import SelectScrollable from '@/pages/tool/test';
 import ElectricalCalculatorPage from '../pages/tool/electrical-calculator';
+import ResistorCalculatorPage from '../pages/tool/resistor-calculator';
 
 // Cấu hình các route của ứng dụng
 // Bạn có thể thêm icon, group, hoặc thuộc tính ẩn/hiện để sau này dùng cho Sidebar
@@ -37,6 +38,13 @@ export const routeConfig = [
     element: <ElectricalCalculatorPage />,
     showInSidebar: true,
     icon: Zap,
+  },
+  {
+    path: '/tool/resistor-calculator',
+    label: 'Tính Toán Điện Trở',
+    element: <ResistorCalculatorPage />,
+    showInSidebar: true,
+    icon: CircuitBoard,
   },
   {
     path: '/tool/hmi-intro',

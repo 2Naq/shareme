@@ -11,24 +11,16 @@ import {
   SidebarMenuItem,
   SidebarHeader,
 } from "../ui/sidebar";
-import { routeConfig } from "../../routes/routesConfig";
-import { Settings2 } from "lucide-react";
+import { routeConfig } from "@/routes/routesConfig";
+import { ShareToolsLogo } from "../ShareToolsLogo";
 
 export function AppSidebar() {
   const location = useLocation();
 
   return (
     <Sidebar>
-      <SidebarHeader className="p-4 flex flex-row items-center space-x-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-primary to-green-500 text-primary-foreground shadow-lg shadow-primary/20 mr-0">
-          <Settings2 className="h-6 w-6" />
-        </div>
-        <div className="flex flex-col truncate">
-          <span className="font-extrabold text-xl leading-tight tracking-tight">
-            <span className="bg-linear-to-r from-primary to-green-500 bg-clip-text text-transparent">Share</span>
-            <span className="text-foreground/80 font-semibold ml-1.5">Tools</span>
-          </span>
-        </div>
+      <SidebarHeader className="p-4">
+        <ShareToolsLogo size="md" />
       </SidebarHeader>
 
       <SidebarContent>
