@@ -1,10 +1,10 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { routeConfig } from './routes/routesConfig';
 import Page404 from './components/page-404';
 
 function App() {
   return (
-    <Router basename="/shareme">
+    <Router>
       <Routes>
         <Route path="/" element={<Navigate to="/tool" replace />} />
         {routeConfig.map((route, index) => (
