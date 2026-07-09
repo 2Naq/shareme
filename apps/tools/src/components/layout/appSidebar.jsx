@@ -25,7 +25,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Công cụ Kỹ thuật</SidebarGroupLabel>
+          <SidebarGroupLabel>Toolkit</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {routeConfig

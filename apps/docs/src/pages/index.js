@@ -20,7 +20,7 @@ export default function Home() {
           Welcom to {myData.brand_name}
         </h1>
         <p className="text-xl text-muted-foreground mt-2">
-          Sharing knowledge
+          Practice - Challenge - Persevere
         </p>
 
         <div className="w-full sm:max-w-[450px]">

@@ -20,7 +20,7 @@ export default function ToolPage() {
       <div className="flex flex-col gap-8 py-6 max-w-6xl mx-auto">
         <div className="text-left mb-2 space-y-4">
           <h1 className="text-4xl tracking-tight lg:text-5xl text-foreground">
-            Tổng hợp 1 số tool{" "}
+            Tổng hợp số tool{" "}
             <AboutHighlight text="Tự động hóa" className="italic font-semibold" />
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { SidebarProvider } from '../ui/sidebar';
-import { AppSidebar } from '../layout/AppSidebar';
-import { AppHeader } from '../layout/AppHeader';
+import { AppSidebar } from '../layout/appSidebar';
+import { AppHeader } from '../layout/appHeader';
 
 export default function ToolLayout({ children }) {
   return (

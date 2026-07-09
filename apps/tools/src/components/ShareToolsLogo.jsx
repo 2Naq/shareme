@@ -22,7 +22,7 @@ export function ShareToolsLogo({ size = 'md', showText = true, className = '' })
     <div className={`flex items-center gap-2.5 ${className}`}>
       {/* Icon Mark */}
       <div className={`${s.icon} shrink-0 relative flex items-center justify-center`}>
-        <SvgTool className="text-blue-600 dark:text-blue-400 size-full drop-shadow-sm" />
+        <SvgTool className="text-blue-600 dark:text-blue-400 size-full drop-shadow-sm " />
       </div>
 
       {/* Wordmark */}
@@ -34,8 +34,8 @@ export function ShareToolsLogo({ size = 'md', showText = true, className = '' })
             </span>
             <span className="text-foreground/80 font-semibold ml-0.5">Tools</span>
           </span>
-          <span className={`${s.tagline} text-muted-foreground font-medium tracking-wider uppercase mt-0.5`}>
-            Bộ công cụ kỹ thuật
+          <span className={`${s.tagline} text-muted-foreground font-medium tracking-wider uppercase mt-0.5 truncate`} title='Practice - Challenge - Persevere'>
+            Practice - Challenge - Persevere
           </span>
         </div>
       )}
