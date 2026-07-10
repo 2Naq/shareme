@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '@theme/Layout';
-import Translate, { translate } from '@docusaurus/Translate';
+import { translate } from '@docusaurus/Translate';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { ArrowLeft } from 'lucide-react';
@@ -17,7 +17,7 @@ export default function NotFound() {
           404
         </h1>
         <p className="text-xl text-muted-foreground mt-2">
-          Ôi! Ní bị lạc rồi à?
+          Ôi không! Ní đi lạc rồi?
         </p>
 
         <div className="w-full sm:max-w-[450px]">
@@ -30,7 +30,7 @@ export default function NotFound() {
 
         <Link className="inline-flex items-center justify-center gap-2 pl-4 pr-6 py-3 rounded-lg bg-black text-white font-semibold hover:opacity-90 transition-opacity no-underline w-full sm:w-auto mt-4" to="/">
           <ArrowLeft className="w-5 h-5" />
-          <span className="leading-none mb-[2px]">Trở về trang chủ</span>
+          <span className="leading-none mb-[2px]">Quay lại</span>
         </Link>
       </main>
     </Layout>

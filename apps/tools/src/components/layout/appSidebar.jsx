@@ -38,7 +38,7 @@ export function AppSidebar() {
                   return (
                     <SidebarMenuItem key={index}>
                       <Link to={item.path}>
-                        <SidebarMenuButton className="flex items-center gap-2" asChild isActive={isActive} tooltip={item.label}>
+                        <SidebarMenuButton className="flex items-center gap-2" isActive={isActive} tooltip={item.label}>
                           {item.icon && <item.icon className="h-4 w-4 shrink-0" />}
                           <span className="truncate">{item.label}</span>
                         </SidebarMenuButton>

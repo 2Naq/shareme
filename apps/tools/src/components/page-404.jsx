@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
+import SvgLoading from './loading';
 
 export default function Page404() {
   return (
@@ -14,9 +15,12 @@ export default function Page404() {
           <p className="mt-6 text-lg font-medium text-pretty text-muted-foreground sm:text-xl/8">
             Sorry, we couldn’t find the page you’re looking for.
           </p>
+          <div className='flex justify-center'>
+            <SvgLoading />
+          </div>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link to="/">
-              <Button asChild className="h-10 flex-row justify-center items-center">
+              <Button className="h-10 flex-row justify-center items-center">
                 <ArrowLeft className=" h-4 w-4" /> Go home
               </Button>
             </Link>

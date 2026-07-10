@@ -1,12 +1,15 @@
+import React from 'react';
 import { Home, SlidersHorizontal, Hash, MonitorPlay, Zap, CircuitBoard } from 'lucide-react';
-import ToolPage from '../pages/tool/index';
-import AnalogScalingPage from '../pages/tool/analog-scaling';
-import Rs485HexPage from '../pages/tool/rs485-hex';
-import HmiIntroPage from '../pages/tool/hmi-intro';
-import InverterIntroPage from '../pages/tool/inverter-intro';
-import SelectScrollable from '@/pages/tool/test';
-import ElectricalCalculatorPage from '../pages/tool/electrical-calculator';
-import ResistorCalculatorPage from '../pages/tool/resistor-calculator';
+
+// Sử dụng React.lazy để load component (kết hợp với Suspense ở App.jsx để show Loading)
+const ToolPage = React.lazy(() => import('@/pages/tool/index'));
+const AnalogScalingPage = React.lazy(() => import('@/pages/tool/analog-scaling'));
+const Rs485HexPage = React.lazy(() => import('@/pages/tool/rs485-hex'));
+const HmiIntroPage = React.lazy(() => import('@/pages/tool/hmi-intro'));
+const InverterIntroPage = React.lazy(() => import('@/pages/tool/inverter-intro'));
+const SelectScrollable = React.lazy(() => import('@/pages/tool/test'));
+const ElectricalCalculatorPage = React.lazy(() => import('@/pages/tool/electrical-calculator'));
+const ResistorCalculatorPage = React.lazy(() => import('@/pages/tool/resistor-calculator'));
 
 // Cấu hình các route của ứng dụng
 // Bạn có thể thêm icon, group, hoặc thuộc tính ẩn/hiện để sau này dùng cho Sidebar

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
@@ -39,9 +39,6 @@ export default function AnalogScaling() {
 
   return (
     <Card className=" mx-auto bg-card ">
-      {/* <CardHeader>
-        <CardTitle className="text-xl">Thông số đầu vào (mA)</CardTitle>
-      </CardHeader> */}
       <CardContent className="space-y-6">
         <div className='grid grid-cols-1 sm:grid-cols-3 gap-3'>
           <div className='sm:col-span-2 space-y-4'>

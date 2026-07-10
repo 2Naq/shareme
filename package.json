@@ -15,5 +15,8 @@
     "concurrently": "^10.0.3",
     "express": "^5.2.1",
     "http-proxy-middleware": "^4.1.1"
+  },
+  "dependencies": {
+    "classnames": "^2.5.1"
   }
 }
