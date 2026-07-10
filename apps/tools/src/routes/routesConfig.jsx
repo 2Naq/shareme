@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, SlidersHorizontal, Hash, MonitorPlay, Zap, CircuitBoard } from 'lucide-react';
+import { Home, SlidersHorizontal, Hash, MonitorPlay, Zap, CircuitBoard, Scissors } from 'lucide-react';
 
 // Sử dụng React.lazy để load component (kết hợp với Suspense ở App.jsx để show Loading)
 const ToolPage = React.lazy(() => import('@/pages/tool/index'));
@@ -10,6 +10,7 @@ const InverterIntroPage = React.lazy(() => import('@/pages/tool/inverter-intro')
 const SelectScrollable = React.lazy(() => import('@/pages/tool/test'));
 const ElectricalCalculatorPage = React.lazy(() => import('@/pages/tool/electrical-calculator'));
 const ResistorCalculatorPage = React.lazy(() => import('@/pages/tool/resistor-calculator'));
+const CableCuttingPage = React.lazy(() => import('@/pages/tool/cable-cutting'));
 
 // Cấu hình các route của ứng dụng
 // Bạn có thể thêm icon, group, hoặc thuộc tính ẩn/hiện để sau này dùng cho Sidebar
@@ -48,6 +49,13 @@ export const routeConfig = [
     element: <ResistorCalculatorPage />,
     showInSidebar: true,
     icon: CircuitBoard,
+  },
+  {
+    path: '/tool/cable-cutting',
+    label: 'Tính Toán Cắt Máng',
+    element: <CableCuttingPage />,
+    showInSidebar: true,
+    icon: Scissors,
   },
   {
     path: '/tool/hmi-intro',
