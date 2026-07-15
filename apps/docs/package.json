@@ -53,7 +53,18 @@
     "@rspack/binding-wasm32-wasi": "1.7.12",
     "@rspack/binding-win32-arm64-msvc": "1.7.12",
     "@rspack/binding-win32-ia32-msvc": "1.7.12",
-    "@rspack/binding-win32-x64-msvc": "1.7.12"
+    "@rspack/binding-win32-x64-msvc": "1.7.12",
+    "lightningcss-android-arm64": "1.32.0",
+    "lightningcss-darwin-arm64": "1.32.0",
+    "lightningcss-darwin-x64": "1.32.0",
+    "lightningcss-freebsd-x64": "1.32.0",
+    "lightningcss-linux-arm-gnueabihf": "1.32.0",
+    "lightningcss-linux-arm64-gnu": "1.32.0",
+    "lightningcss-linux-arm64-musl": "1.32.0",
+    "lightningcss-linux-x64-gnu": "1.32.0",
+    "lightningcss-linux-x64-musl": "1.32.0",
+    "lightningcss-win32-arm64-msvc": "1.32.0",
+    "lightningcss-win32-x64-msvc": "1.32.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.10.2",
