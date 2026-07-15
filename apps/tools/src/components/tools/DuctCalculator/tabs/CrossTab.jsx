@@ -4,10 +4,12 @@ import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import Svg2DView from '../Svg2DView';
 import ThreeView from '../ThreeView';
+import FlatPatternView from '../FlatPatternView';
 import ReadoutPanel from '../ReadoutPanel';
 import FormulaBar from '../FormulaBar';
 import { calcCross, fmt, deg2rad } from '../utils/calculations';
 import { defsBlock, gridRect, angleArc, dimHorizontal, dimVertical, AMBER, STEEL, STEEL_L, CYAN } from '../utils/svgHelpers';
+import { flatPattern_cross } from '../utils/flatPatterns';
 import { build3D_cross } from '../threeBuilders';
 
 export default function CrossTab() {
@@ -53,7 +55,10 @@ export default function CrossTab() {
     svg += angleArc(cx, mainY - mainH / 2, 34, verticalAngle, branchAngle, CYAN, alpha + '°');
 
     return svg;
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [W1, W2, alpha, result]);
+
+  const flatData = useMemo(() => flatPattern_cross(W1, W2, alpha), [W1, W2, alpha]);
 
   const buildScene = useCallback((THREE, objGroup, setTarget) => {
     build3D_cross(THREE, objGroup, setTarget, W1, W2, alpha);
@@ -89,7 +94,7 @@ export default function CrossTab() {
             Góc nhánh — α
             <span className="font-mono text-amber-400">{fmt(alpha)}°</span>
           </Label>
-          <Slider value={[alpha]} min={20} max={160} step={1} onValueChange={v => setAlpha(v[0])} />
+          <Slider value={[alpha]} min={20} max={160} step={1} onValueChange={(v) => setAlpha(Array.isArray(v) ? v[0] : v)} />
         </div>
         <p className="text-xs text-muted-foreground border-t border-dashed border-border pt-3">
           Chữ thập = 2 khấc cắt đối xứng hai bên thân máng chính, mỗi bên tính như một mối tê.
@@ -104,12 +109,17 @@ export default function CrossTab() {
           <button onClick={() => setView('2d')} className={`px-3 py-1.5 rounded text-xs font-mono border transition-colors ${view === '2d' ? 'border-amber-400 text-amber-400 bg-amber-400/10' : 'border-border text-muted-foreground hover:text-foreground'}`}>
             2D mặt cắt
           </button>
+          <button onClick={() => setView('flat')} className={`px-3 py-1.5 rounded text-xs font-mono border transition-colors ${view === 'flat' ? 'border-red-400 text-red-400 bg-red-400/10' : 'border-border text-muted-foreground hover:text-foreground'}`}>
+            ✂ Trải tấm
+          </button>
         </div>
 
         {view === '3d' ? (
           <ThreeView buildScene={buildScene} deps={[W1, W2, alpha]} />
-        ) : (
+        ) : view === '2d' ? (
           <Svg2DView svgContent={svgContent} viewBox="0 0 640 340" />
+        ) : (
+          <FlatPatternView svgContent={flatData.svg} viewBox={flatData.viewBox} />
         )}
 
         <div className="flex gap-4 flex-wrap text-[11px] text-muted-foreground px-0.5">

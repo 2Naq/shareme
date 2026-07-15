@@ -40,14 +40,21 @@ export function CommandMenu() {
         onClick={() => setOpen(true)}
       >
         <Search className="mr-2 h-4 w-4" />
-        <span className="hidden lg:inline-flex">Tìm kiếm công cụ...</span>
+        <span className="hidden lg:inline-flex">Tìm kiếm nhanh...</span>
         <span className="inline-flex lg:hidden">Tìm kiếm...</span>
         <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-6 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
-      <CommandDialog open={open} onOpenChange={setOpen} className="min-w-1/3 pt-2">
-        <CommandInput classNameInput="h-10!" placeholder="Gõ tên công cụ cần tìm..." />
+      <CommandDialog
+        open={open}
+        onOpenChange={setOpen}
+        className="min-w-1/3 pt-2"
+      >
+        <CommandInput
+          classNameInput="h-10!"
+          placeholder="Gõ tên công cụ cần tìm..."
+        />
         <CommandList>
           <CommandEmpty>Không tìm thấy kết quả.</CommandEmpty>
           <CommandGroup heading="Công cụ">

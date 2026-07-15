@@ -53,26 +53,26 @@ export function angleArc(cx, cy, r, a1, a2, color, label) {
   const lx = cx + (r + 16) * Math.cos(mid);
   const ly = cy + (r + 16) * Math.sin(mid);
   return `<path d="M${p1[0].toFixed(1)},${p1[1].toFixed(1)} A${r},${r} 0 ${large} ${sweep} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}" fill="none" stroke="${color}" stroke-width="1.6"/>`
-    + labelPill(lx, ly, label, color);
+    + labelPill(lx + 10, ly, label, color);
 }
 
 export function dimVertical(x, y1, y2, text, color = STEEL_L) {
   const tick = 7;
   return `
-   <line x1="${x - tick}" y1="${y1}" x2="${x + tick}" y2="${y1}" stroke="${color}" stroke-width="1.3"/>
-   <line x1="${x - tick}" y1="${y2}" x2="${x + tick}" y2="${y2}" stroke="${color}" stroke-width="1.3"/>
-   <line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}" stroke="${color}" stroke-width="1.3" marker-start="url(#arrowSteel)" marker-end="url(#arrowSteel)"/>
-   ${labelPill(x, (y1 + y2) / 2, text, color)}
+    <line x1="${x - tick}" y1="${y1}" x2="${x + tick}" y2="${y1}" stroke="${color}" stroke-width="1.3"/>
+    <line x1="${x - tick}" y1="${y2}" x2="${x + tick}" y2="${y2}" stroke="${color}" stroke-width="1.3"/>
+    <line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}" stroke="${color}" stroke-width="1.3" marker-start="url(#arrowSteel)" marker-end="url(#arrowSteel)"/>
+    ${labelPill(x, (y1 + y2) / 2, text, color)}
   `;
 }
 
 export function dimHorizontal(x1, x2, y, text, color = STEEL_L) {
   const tick = 7;
   return `
-   <line x1="${x1}" y1="${y - tick}" x2="${x1}" y2="${y + tick}" stroke="${color}" stroke-width="1.3"/>
-   <line x1="${x2}" y1="${y - tick}" x2="${x2}" y2="${y + tick}" stroke="${color}" stroke-width="1.3"/>
-   <line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="${color}" stroke-width="1.3" marker-start="url(#arrowSteel)" marker-end="url(#arrowSteel)"/>
-   ${labelPill((x1 + x2) / 2, y, text, color)}
+    <line x1="${x1}" y1="${y - tick}" x2="${x1}" y2="${y + tick}" stroke="${color}" stroke-width="1.3"/>
+    <line x1="${x2}" y1="${y - tick}" x2="${x2}" y2="${y + tick}" stroke="${color}" stroke-width="1.3"/>
+    <line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="${color}" stroke-width="1.3" marker-start="url(#arrowSteel)" marker-end="url(#arrowSteel)"/>
+    ${labelPill((x1 + x2) / 2, y, text, color)}
   `;
 }
 

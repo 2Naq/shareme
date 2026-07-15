@@ -447,7 +447,7 @@ function SvgLoading(props) {
             ></path>
             <defs>
                 <filter
-                    color-interpolation-filters="sRGB"
+                    colorInterpolationFilters="sRGB"
                     filterUnits="userSpaceOnUse"
                     height="275.295"
                     width="468.883"
@@ -455,7 +455,7 @@ function SvgLoading(props) {
                     x="4.05835"
                     id={cx("filter0_i_163_1030")}
                 >
-                    <feFlood result="BackgroundImageFix" flood-opacity="0"></feFlood>
+                    <feFlood result="BackgroundImageFix" floodOpacity="0"></feFlood>
                     <feBlend
                         result="shape"
                         in2="BackgroundImageFix"
@@ -494,8 +494,8 @@ function SvgLoading(props) {
                     x1="135.05"
                     id={cx("paint0_linear_163_1030")}
                 >
-                    <stop stop-opacity="0.01" stop-color="white" offset="0.305"></stop>
-                    <stop stop-color="#4054B2" offset="1"></stop>
+                    <stop stopOpacity="0.01" stopColor="white" offset="0.305"></stop>
+                    <stop stopColor="#4054B2" offset="1"></stop>
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -505,8 +505,8 @@ function SvgLoading(props) {
                     x1="340.265"
                     id={cx("paint1_linear_163_1030")}
                 >
-                    <stop stop-opacity="0.01" stop-color="white" offset="0.305"></stop>
-                    <stop stop-color="#4054B2" offset="1"></stop>
+                    <stop stopOpacity="0.01" stopColor="white" offset="0.305"></stop>
+                    <stop stopColor="#4054B2" offset="1"></stop>
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -516,8 +516,8 @@ function SvgLoading(props) {
                     x1="412.313"
                     id={cx("paint2_linear_163_1030")}
                 >
-                    <stop stop-color="#313654"></stop>
-                    <stop stop-color="#313654" offset="1"></stop>
+                    <stop stopColor="#313654"></stop>
+                    <stop stopColor="#313654" offset="1"></stop>
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -527,8 +527,8 @@ function SvgLoading(props) {
                     x1="236.934"
                     id={cx("paint3_linear_163_1030")}
                 >
-                    <stop stop-color="#7281B8"></stop>
-                    <stop stop-color="#333952" offset="1"></stop>
+                    <stop stopColor="#7281B8"></stop>
+                    <stop stopColor="#333952" offset="1"></stop>
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -538,8 +538,8 @@ function SvgLoading(props) {
                     x1="65.0839"
                     id={cx("paint4_linear_163_1030")}
                 >
-                    <stop stop-color="#7281B8"></stop>
-                    <stop stop-color="#5D6EA4" offset="1"></stop>
+                    <stop stopColor="#7281B8"></stop>
+                    <stop stopColor="#5D6EA4" offset="1"></stop>
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -549,8 +549,8 @@ function SvgLoading(props) {
                     x1="412.313"
                     id={cx("paint5_linear_163_1030")}
                 >
-                    <stop stop-color="#313654"></stop>
-                    <stop stop-color="#313654" offset="1"></stop>
+                    <stop stopColor="#313654"></stop>
+                    <stop stopColor="#313654" offset="1"></stop>
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -560,8 +560,8 @@ function SvgLoading(props) {
                     x1="236.934"
                     id={cx("paint6_linear_163_1030")}
                 >
-                    <stop stop-color="#7281B8"></stop>
-                    <stop stop-color="#333952" offset="1"></stop>
+                    <stop stopColor="#7281B8"></stop>
+                    <stop stopColor="#333952" offset="1"></stop>
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -571,8 +571,8 @@ function SvgLoading(props) {
                     x1="65.0839"
                     id={cx("paint7_linear_163_1030")}
                 >
-                    <stop stop-color="#7281B8"></stop>
-                    <stop stop-color="#5D6EA4" offset="1"></stop>
+                    <stop stopColor="#7281B8"></stop>
+                    <stop stopColor="#5D6EA4" offset="1"></stop>
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -582,8 +582,8 @@ function SvgLoading(props) {
                     x1="62.762"
                     id={cx("paint8_linear_163_1030")}
                 >
-                    <stop stop-color="#7382B9"></stop>
-                    <stop stop-color="#5D6EA4" offset="1"></stop>
+                    <stop stopColor="#7382B9"></stop>
+                    <stop stopColor="#5D6EA4" offset="1"></stop>
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -593,8 +593,8 @@ function SvgLoading(props) {
                     x1="413.451"
                     id={cx("paint9_linear_163_1030")}
                 >
-                    <stop stop-color="#5F6E99"></stop>
-                    <stop stop-color="#465282" offset="1"></stop>
+                    <stop stopColor="#5F6E99"></stop>
+                    <stop stopColor="#465282" offset="1"></stop>
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -604,8 +604,8 @@ function SvgLoading(props) {
                     x1="417.16"
                     id={cx("paint10_linear_163_1030")}
                 >
-                    <stop stop-color="#7281B8"></stop>
-                    <stop stop-color="#333952" offset="1"></stop>
+                    <stop stopColor="#7281B8"></stop>
+                    <stop stopColor="#333952" offset="1"></stop>
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -615,8 +615,8 @@ function SvgLoading(props) {
                     x1="335.442"
                     id={cx("paint11_linear_163_1030")}
                 >
-                    <stop stop-color="#313654"></stop>
-                    <stop stop-color="#313654" offset="1"></stop>
+                    <stop stopColor="#313654"></stop>
+                    <stop stopColor="#313654" offset="1"></stop>
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -626,8 +626,8 @@ function SvgLoading(props) {
                     x1="138.189"
                     id={cx("paint12_linear_163_1030")}
                 >
-                    <stop stop-opacity="0.01" stop-color="white" offset="0.305"></stop>
-                    <stop stop-color="#4054B2" offset="1"></stop>
+                    <stop stopOpacity="0.01" stopColor="white" offset="0.305"></stop>
+                    <stop stopColor="#4054B2" offset="1"></stop>
                 </linearGradient>
             </defs>
             <style>{`

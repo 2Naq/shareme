@@ -63,6 +63,58 @@ function dashLine(THREE, p1, p2, color) {
   return line;
 }
 
+/** Create a translucent red triangle mesh for cut visualization */
+function cutTriangleMesh(THREE, p1, p2, p3) {
+  const geo = new THREE.BufferGeometry();
+  const vertices = new Float32Array([
+    p1.x, p1.y, p1.z,
+    p2.x, p2.y, p2.z,
+    p3.x, p3.y, p3.z,
+  ]);
+  geo.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+  geo.computeVertexNormals();
+  const mat = new THREE.MeshStandardMaterial({
+    color: CUT_HEX,
+    transparent: true,
+    opacity: 0.35,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+  });
+  return new THREE.Mesh(geo, mat);
+}
+
+/** Create a cut quad (2 triangles) for flat cut areas */
+function cutQuadMesh(THREE, p1, p2, p3, p4) {
+  const geo = new THREE.BufferGeometry();
+  const vertices = new Float32Array([
+    p1.x, p1.y, p1.z,
+    p2.x, p2.y, p2.z,
+    p3.x, p3.y, p3.z,
+    p1.x, p1.y, p1.z,
+    p3.x, p3.y, p3.z,
+    p4.x, p4.y, p4.z,
+  ]);
+  geo.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+  geo.computeVertexNormals();
+  const mat = new THREE.MeshStandardMaterial({
+    color: CUT_HEX,
+    transparent: true,
+    opacity: 0.35,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+  });
+  return new THREE.Mesh(geo, mat);
+}
+
+/** Create edges around a cut triangle */
+function cutTriangleEdges(THREE, p1, p2, p3) {
+  const geo = new THREE.BufferGeometry().setFromPoints([p1, p2, p3, p1]);
+  const mat = new THREE.LineDashedMaterial({ color: CUT_HEX, dashSize: 0.04, gapSize: 0.03, linewidth: 2 });
+  const line = new THREE.Line(geo, mat);
+  line.computeLineDistances();
+  return line;
+}
+
 function deg2rad(d) { return d * Math.PI / 180; }
 
 // ── Tab 1: Offset 1 khúc ──
@@ -80,13 +132,54 @@ export function build3D_offset1(THREE, objGroup, setTarget, A, beta) {
 
   const seg1 = makeUSegment(THREE, p1.distanceTo(p0), width, wallH); alignSegment(THREE, seg1, p0, p1);
   const seg2 = makeUSegment(THREE, p2.distanceTo(p1), width, wallH); alignSegment(THREE, seg2, p1, p2);
-  const seg3 = makeUSegment(THREE, p3.distanceTo(p2), width, wallH); alignSegment(THREE, seg3, p2, p3);
+
+  // Shift top horizontal segment (seg3) so its top edge meets seg2's top edge (hinge at top)
+  const p2_shifted = new THREE.Vector3(p2.x - wallH * Math.sin(b), rise - wallH * (1 - Math.cos(b)), 0);
+  const p3_shifted = new THREE.Vector3(p3.x - wallH * Math.sin(b), p2_shifted.y, 0);
+  const seg3 = makeUSegment(THREE, p3_shifted.distanceTo(p2_shifted), width, wallH); alignSegment(THREE, seg3, p2_shifted, p3_shifted);
   objGroup.add(seg1, seg2, seg3);
 
   const dirDiag = new THREE.Vector3().subVectors(p2, p1).normalize();
   const dirH = new THREE.Vector3(1, 0, 0);
   objGroup.add(cutMarker(THREE, p1, dirDiag.clone().multiplyScalar(0.4), width, wallH));
-  objGroup.add(cutMarker(THREE, p2, dirH.clone().multiplyScalar(0.4), width, wallH));
+  objGroup.add(cutMarker(THREE, p2_shifted, dirH.clone().multiplyScalar(0.4), width, wallH));
+
+  // --- Cut Visualization at Junction p1 (Bend UP: cut side walls from top down) ---
+  const halfW = width / 2;
+  const p1_top_left = new THREE.Vector3(p1.x, wallH, -halfW);
+  const p1_top_right = new THREE.Vector3(p1.x, wallH, halfW);
+  const p1_top_seg2_left = new THREE.Vector3(p1.x - wallH * Math.sin(b), wallH * Math.cos(b), -halfW);
+  const p1_top_seg2_right = new THREE.Vector3(p1.x - wallH * Math.sin(b), wallH * Math.cos(b), halfW);
+
+  // Left wall V-notch (apex at bottom p1)
+  const p1_bot_left = new THREE.Vector3(p1.x, 0, -halfW);
+  objGroup.add(cutTriangleMesh(THREE, p1_bot_left, p1_top_left, p1_top_seg2_left));
+  objGroup.add(cutTriangleEdges(THREE, p1_bot_left, p1_top_left, p1_top_seg2_left));
+
+  // Right wall V-notch (apex at bottom p1)
+  const p1_bot_right = new THREE.Vector3(p1.x, 0, halfW);
+  objGroup.add(cutTriangleMesh(THREE, p1_bot_right, p1_top_right, p1_top_seg2_right));
+  objGroup.add(cutTriangleEdges(THREE, p1_bot_right, p1_top_right, p1_top_seg2_right));
+
+  // --- Cut Visualization at Junction p2 (Bend DOWN: cut from bottom up) ---
+  // Hinge at top edge: p2_top
+  const p2_top_left = new THREE.Vector3(p2.x - wallH * Math.sin(b), rise + wallH * Math.cos(b), -halfW);
+  const p2_top_right = new THREE.Vector3(p2.x - wallH * Math.sin(b), rise + wallH * Math.cos(b), halfW);
+  
+  // Left wall V-notch (apex at top)
+  const p2_bot1_left = new THREE.Vector3(p2.x, rise, -halfW);
+  const p2_bot2_left = new THREE.Vector3(p2_shifted.x, p2_shifted.y, -halfW);
+  objGroup.add(cutTriangleMesh(THREE, p2_top_left, p2_bot1_left, p2_bot2_left));
+  objGroup.add(cutTriangleEdges(THREE, p2_top_left, p2_bot1_left, p2_bot2_left));
+
+  // Right wall V-notch (apex at top)
+  const p2_bot1_right = new THREE.Vector3(p2.x, rise, halfW);
+  const p2_bot2_right = new THREE.Vector3(p2_shifted.x, p2_shifted.y, halfW);
+  objGroup.add(cutTriangleMesh(THREE, p2_top_right, p2_bot1_right, p2_bot2_right));
+  objGroup.add(cutTriangleEdges(THREE, p2_top_right, p2_bot1_right, p2_bot2_right));
+
+  // Bottom plate V-notch cut (at p2 since bottom opens up)
+  objGroup.add(cutQuadMesh(THREE, p2_bot1_left, p2_bot1_right, p2_bot2_right, p2_bot2_left));
 
   setTarget(new THREE.Vector3((p0.x + p3.x) / 2, rise / 2, 0), Math.max(4.5, legLen * 2 + run + 1.5));
 }
@@ -116,6 +209,14 @@ export function build3D_offset2(THREE, objGroup, setTarget, A, phi) {
   const topR = new THREE.Vector3(q1.x - notchDepth, wallH, width / 2 - 0.001);
   objGroup.add(dashLine(THREE, hingeL, topL));
   objGroup.add(dashLine(THREE, hingeR, topR));
+
+  // V-notch cut triangle on each side wall
+  const apexL = new THREE.Vector3(q1.x, 0, -width / 2 + 0.002);
+  objGroup.add(cutTriangleMesh(THREE, topL, new THREE.Vector3(q1.x, wallH, -width / 2 + 0.001), apexL));
+  objGroup.add(cutTriangleEdges(THREE, topL, new THREE.Vector3(q1.x, wallH, -width / 2 + 0.001), apexL));
+  const apexR = new THREE.Vector3(q1.x, 0, width / 2 - 0.002);
+  objGroup.add(cutTriangleMesh(THREE, topR, new THREE.Vector3(q1.x, wallH, width / 2 - 0.001), apexR));
+  objGroup.add(cutTriangleEdges(THREE, topR, new THREE.Vector3(q1.x, wallH, width / 2 - 0.001), apexR));
 
   const hingeGeo = new THREE.BufferGeometry().setFromPoints([hingeL, hingeR]);
   const hingeMat = new THREE.LineBasicMaterial({ color: AMBER_HEX, linewidth: 2 });
@@ -175,6 +276,9 @@ export function build3D_elbow(THREE, objGroup, setTarget, A, theta) {
   objGroup.add(dashLine(THREE, outer, outerTop));
   objGroup.add(dashLine(THREE, inner, innerTop));
 
+  // Cut plane triangle visualization (miter cut area)
+  objGroup.add(cutQuadMesh(THREE, outer, inner, innerTop, outerTop));
+
   setTarget(new THREE.Vector3(0, wallH * 0.6, 0), legLen * 1.8 + 1.5);
 }
 
@@ -205,6 +309,15 @@ export function build3D_tee(THREE, objGroup, setTarget, W1, W2, alpha) {
   const mat = new THREE.LineDashedMaterial({ color: CUT_HEX, dashSize: 0.05, gapSize: 0.04, linewidth: 2 });
   const line = new THREE.Line(geo, mat); line.computeLineDistances();
   objGroup.add(line);
+
+  // Cut area triangles on the main duct wall (where branch connects)
+  const perpBranch = new THREE.Vector3(dirBranch.z, 0, -dirBranch.x).normalize();
+  const notchW = w1 * 0.4; // visual depth of notch on wall
+  const nc1 = c1.clone();
+  const nc2 = c2.clone();
+  const nc3 = c2.clone().add(perpBranch.clone().multiplyScalar(notchW));
+  const nc4 = c1.clone().add(perpBranch.clone().multiplyScalar(notchW));
+  objGroup.add(cutQuadMesh(THREE, nc1, nc2, nc3, nc4));
 
   setTarget(new THREE.Vector3(0, wallH, 0), mainLen * 0.95);
 }
@@ -237,6 +350,15 @@ export function build3D_cross(THREE, objGroup, setTarget, W1, W2, alpha) {
     const mat = new THREE.LineDashedMaterial({ color: CUT_HEX, dashSize: 0.05, gapSize: 0.04, linewidth: 2 });
     const line = new THREE.Line(geo, mat); line.computeLineDistances();
     objGroup.add(line);
+
+    // Cut area on main duct wall
+    const perpBranch = new THREE.Vector3(dir.z, 0, -dir.x).normalize();
+    const notchW = w1 * 0.35;
+    const nc1 = c1.clone();
+    const nc2 = c2.clone();
+    const nc3 = c2.clone().add(perpBranch.clone().multiplyScalar(sign * notchW));
+    const nc4 = c1.clone().add(perpBranch.clone().multiplyScalar(sign * notchW));
+    objGroup.add(cutQuadMesh(THREE, nc1, nc2, nc3, nc4));
   }
 
   addBranch(1);
