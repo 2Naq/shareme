@@ -1,1 +1,0 @@
-import{t as e}from"./ToolLayout-zVhOkBN-.js";import{t}from"./Rs485HexCalculator-a7KsoPPE.js";import{In as n,kn as r}from"./index-DyqptUxT.js";n();var i=r();function a(){return(0,i.jsx)(e,{title:`RS485 Hex Calculator - Mitsubishi PLC`,description:`Công cụ tính mã Hex cấu hình RS485 cho thanh ghi D8120/D8420 PLC Mitsubishi dòng FX.`,children:(0,i.jsx)(t,{})})}export{a as default};

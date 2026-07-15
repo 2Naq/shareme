@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshareme=self.webpackChunkshareme||[]).push([["4250"],{76961(e,r,s){s.d(r,{createArchitectureServices:()=>c.S});var c=s(32442);s(64071)}}]);

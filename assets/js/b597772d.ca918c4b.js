@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshareme=self.webpackChunkshareme||[]).push([["4317"],{68267(e){e.exports=JSON.parse('{"tags":[{"label":"mitsubishi","permalink":"/shareme/inverter/tags/mitsubishi","count":1},{"label":"e720","permalink":"/shareme/inverter/tags/e-720","count":1}]}')}}]);

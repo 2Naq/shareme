@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkshareme=self.webpackChunkshareme||[]).push([["2831"],{8464(e){e.exports=JSON.parse('{"tags":[{"label":"Temperature","permalink":"/shareme/en/other/tags/temperature","count":1},{"label":"Omron","permalink":"/shareme/en/other/tags/omron","count":1},{"label":"E5CC","permalink":"/shareme/en/other/tags/e-5-cc","count":1}]}')}}]);
