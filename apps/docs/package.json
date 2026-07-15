@@ -43,6 +43,18 @@
     "vaul": "^1.1.2",
     "zod": "^4.4.3"
   },
+  "optionalDependencies": {
+    "@rspack/binding-darwin-arm64": "1.7.12",
+    "@rspack/binding-darwin-x64": "1.7.12",
+    "@rspack/binding-linux-arm64-gnu": "1.7.12",
+    "@rspack/binding-linux-arm64-musl": "1.7.12",
+    "@rspack/binding-linux-x64-gnu": "1.7.12",
+    "@rspack/binding-linux-x64-musl": "1.7.12",
+    "@rspack/binding-wasm32-wasi": "1.7.12",
+    "@rspack/binding-win32-arm64-msvc": "1.7.12",
+    "@rspack/binding-win32-ia32-msvc": "1.7.12",
+    "@rspack/binding-win32-x64-msvc": "1.7.12"
+  },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.10.2",
     "@docusaurus/types": "^3.10.2"
