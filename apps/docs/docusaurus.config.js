@@ -44,6 +44,11 @@ const config = {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
 
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
+
   // Set the production url of your site here
   url: 'https://2naq.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -84,9 +89,9 @@ const config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
+          // editUrl:
+          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          // // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
@@ -140,17 +145,21 @@ const config = {
         title: myData.brand_name,
         items: [
           ...dynamicNavbarItems,
-          { href: 'pathname:///shareme/tool/', label: 'Tool', position: 'left', target: '_self' },
           // { to: '/blog', label: 'Blog', position: 'left' },
           // {
           //   type: 'localeDropdown',
           //   position: 'right',
           // },
           {
+            type: 'search',
+            position: 'right',
+          },
+          {
             href: myData.link_github,
             label: 'GitHub',
             position: 'right',
           },
+          { href: 'pathname:///shareme/tool/', label: 'Tool', position: 'right', target: '_self' },
           {
             href: "/about",
             label: 'About Me',
@@ -160,47 +169,47 @@ const config = {
       },
       footer: {
         style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '#',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: '#',
-              },
-              {
-                label: 'Discord',
-                href: '#',
-              },
-              {
-                label: 'X',
-                href: '#',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: myData.link_github,
-              },
-            ],
-          },
-        ],
+        // links: [
+        //   {
+        //     title: 'Docs',
+        //     items: [
+        //       {
+        //         label: 'Tutorial',
+        //         to: '#',
+        //       },
+        //     ],
+        //   },
+          // {
+          //   title: 'Community',
+          //   items: [
+          //     {
+          //       label: 'Stack Overflow',
+          //       href: '#',
+          //     },
+          //     {
+          //       label: 'Discord',
+          //       href: '#',
+          //     },
+          //     {
+          //       label: 'X',
+          //       href: '#',
+          //     },
+          //   ],
+          // },
+          // {
+          //   title: 'More',
+          //   items: [
+          //     {
+          //       label: 'Blog',
+          //       to: '/blog',
+          //     },
+          //     {
+          //       label: 'GitHub',
+          //       href: myData.link_github,
+          //     },
+          //   ],
+          // },
+        // ],
         copyright: `Built by ${myData.user_name}. TRUONG SA, HOANG SA BELONG TO VIETNAM.`,
       },
       prism: {

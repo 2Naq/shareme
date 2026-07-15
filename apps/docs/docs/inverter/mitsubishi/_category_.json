@@ -1,0 +1,8 @@
+{
+  "label": "inverter",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Biến tần Mitsubishi"
+  }
+}

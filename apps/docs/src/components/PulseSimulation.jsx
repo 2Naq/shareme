@@ -10,6 +10,14 @@ import {
 } from "lucide-react";
 import clsx from "clsx";
 
+// Import shadcn UI components
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+
 export default function PulseSimulation() {
   const [mode, setMode] = useState("DRVI"); // DRVI or DRVA
   const [currentPos, setCurrentPos] = useState(0);
@@ -72,7 +80,7 @@ export default function PulseSimulation() {
     setLogs([
       {
         id: logIdRef.current++,
-        text: `[${new Date().toLocaleTimeString()}] Trả về điểm gốc Origin thành công (X = 0).`,
+        text: `[${new Date().toLocaleTimeString()}]: Đã về gốc (Origin) thành công (X = 0).`,
         type: "info",
       },
     ]);
@@ -186,25 +194,26 @@ export default function PulseSimulation() {
   };
 
   return (
-    <div className="my-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm overflow-hidden font-sans">
+    <Card className="my-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm overflow-hidden font-sans">
       {/* Simulation Banner */}
       <div className="px-6 py-4 bg-linear-to-r from-emerald-600 to-teal-700 text-white flex justify-between items-center">
         <div>
-          <h4 className="m-0 text-lg font-bold">
+          <h4 className="m-0 text-lg font-bold text-white">
             Mô phỏng Lệnh Phát Xung: DRVI vs DRVA
           </h4>
           <p className="m-0 text-xs text-emerald-100">
             Trực quan hóa sự khác biệt giữa vị trí Tương đối & Tuyệt đối
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs bg-white/20 px-2 py-1 rounded font-mono">
-            Mitsubishi FX
-          </span>
-        </div>
+        <Badge
+          variant="outline"
+          className="bg-white/20 text-white hover:bg-white/30 border-none font-mono"
+        >
+          Mitsubishi FX
+        </Badge>
       </div>
 
-      <div className="p-6 space-y-6">
+      <CardContent className="p-6 space-y-6">
         {/* State LED Panel */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-150 dark:border-zinc-800 flex items-center justify-between">
@@ -359,43 +368,36 @@ export default function PulseSimulation() {
               Cấu hình lệnh
             </h5>
 
-            {/* Mode selection buttons */}
+            {/* Mode selection with Tabs */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
                 Lựa chọn lệnh
               </label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => {
-                    setMode("DRVI");
-                    setTargetInput(200);
-                  }}
-                  disabled={isMoving}
-                  className={clsx(
-                    "py-2 px-3 rounded-lg text-xs font-bold border transition-all cursor-pointer text-center",
-                    mode === "DRVI"
-                      ? "bg-emerald-50 border-emerald-500 text-emerald-700 dark:bg-emerald-950/30 dark:border-emerald-500 dark:text-emerald-400"
-                      : "border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900",
-                  )}
-                >
-                  DDRVI (Vị trí tương đối)
-                </button>
-                <button
-                  onClick={() => {
-                    setMode("DRVA");
-                    setTargetInput(200);
-                  }}
-                  disabled={isMoving}
-                  className={clsx(
-                    "py-2 px-3 rounded-lg text-xs font-bold border transition-all cursor-pointer text-center",
-                    mode === "DRVA"
-                      ? "bg-emerald-50 border-emerald-500 text-emerald-700 dark:bg-emerald-950/30 dark:border-emerald-500 dark:text-emerald-400"
-                      : "border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900",
-                  )}
-                >
-                  DDRVA (Vị trí tuyệt đối)
-                </button>
-              </div>
+              <Tabs
+                value={mode}
+                onValueChange={(val) => {
+                  setMode(val);
+                  setTargetInput(val === "DRVI" ? 200 : 0);
+                }}
+                className="w-full"
+              >
+                <TabsList className="grid grid-cols-2 w-full">
+                  <TabsTrigger
+                    value="DRVI"
+                    disabled={isMoving}
+                    className="cursor-pointer"
+                  >
+                    DDRVI (Vị trí tương đối)
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="DRVA"
+                    disabled={isMoving}
+                    className="cursor-pointer"
+                  >
+                    DDRVA (Vị trí tuyệt đối)
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
             </div>
 
             {/* S1: Distance/Target value */}
@@ -411,12 +413,12 @@ export default function PulseSimulation() {
                 </span>
               </div>
               <div className="flex gap-2">
-                <input
+                <Input
                   type="number"
                   disabled={isMoving}
                   value={targetInput}
                   onChange={(e) => setTargetInput(e.target.value)}
-                  className="flex-1 px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-emerald-500 text-zinc-900 dark:text-zinc-100"
+                  className="font-mono"
                 />
               </div>
 
@@ -424,65 +426,81 @@ export default function PulseSimulation() {
               <div className="flex flex-wrap gap-1.5 pt-1">
                 {mode === "DRVI" ? (
                   <>
-                    <button
+                    <Button
+                      variant="secondary"
+                      size="sm"
                       disabled={isMoving}
                       onClick={() => setQuickInput(100)}
-                      className="px-2 py-1 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] rounded cursor-pointer"
+                      className="cursor-pointer text-[10px] h-7"
                     >
                       +100 xung
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
                       disabled={isMoving}
                       onClick={() => setQuickInput(300)}
-                      className="px-2 py-1 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] rounded cursor-pointer"
+                      className="cursor-pointer text-[10px] h-7"
                     >
                       +300 xung
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
                       disabled={isMoving}
                       onClick={() => setQuickInput(-150)}
-                      className="px-2 py-1 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] rounded cursor-pointer"
+                      className="cursor-pointer text-[10px] h-7"
                     >
                       -150 xung
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
                       disabled={isMoving}
                       onClick={() => setQuickInput(-300)}
-                      className="px-2 py-1 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] rounded cursor-pointer"
+                      className="cursor-pointer text-[10px] h-7"
                     >
                       -300 xung
-                    </button>
+                    </Button>
                   </>
                 ) : (
                   <>
-                    <button
+                    <Button
+                      variant="secondary"
+                      size="sm"
                       disabled={isMoving}
                       onClick={() => setQuickInput(0)}
-                      className="px-2 py-1 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] rounded cursor-pointer"
+                      className="cursor-pointer text-[10px] h-7"
                     >
                       Về 0 (Home)
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
                       disabled={isMoving}
                       onClick={() => setQuickInput(250)}
-                      className="px-2 py-1 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] rounded cursor-pointer"
+                      className="cursor-pointer text-[10px] h-7"
                     >
                       Đến +250
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
                       disabled={isMoving}
                       onClick={() => setQuickInput(-250)}
-                      className="px-2 py-1 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] rounded cursor-pointer"
+                      className="cursor-pointer text-[10px] h-7"
                     >
                       Đến -250
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
                       disabled={isMoving}
                       onClick={() => setQuickInput(500)}
-                      className="px-2 py-1 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] rounded cursor-pointer"
+                      className="cursor-pointer text-[10px] h-7"
                     >
                       Đến +500
-                    </button>
+                    </Button>
                   </>
                 )}
               </div>
@@ -495,23 +513,20 @@ export default function PulseSimulation() {
               </label>
               <div className="flex gap-2">
                 {Object.keys(speedConfigs).map((s) => (
-                  <button
+                  <Button
                     key={s}
+                    variant={speed === s ? "default" : "outline"}
+                    size="sm"
                     disabled={isMoving}
                     onClick={() => setSpeed(s)}
-                    className={clsx(
-                      "flex-1 py-1.5 text-center text-xs font-semibold rounded-lg border transition-all cursor-pointer",
-                      speed === s
-                        ? "bg-zinc-800 dark:bg-zinc-200 text-white dark:text-zinc-900 border-zinc-800 dark:border-zinc-200"
-                        : "border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:bg-zinc-50 dark:hover:bg-zinc-900",
-                    )}
+                    className="flex-1 cursor-pointer"
                   >
                     {s === "slow"
                       ? "Chậm"
                       : s === "medium"
                         ? "Thường"
                         : "Nhanh"}
-                  </button>
+                  </Button>
                 ))}
               </div>
             </div>
@@ -525,41 +540,33 @@ export default function PulseSimulation() {
 
             {/* Action buttons */}
             <div className="grid grid-cols-3 gap-2">
-              <button
+              <Button
                 onClick={handleStart}
                 disabled={isMoving}
-                className={clsx(
-                  "py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 text-xs font-bold transition-all shadow cursor-pointer text-white",
-                  isMoving
-                    ? "bg-zinc-300 dark:bg-zinc-800 cursor-not-allowed text-zinc-500 shadow-none"
-                    : "bg-emerald-600 hover:bg-emerald-500 shadow-emerald-600/20",
-                )}
+                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold cursor-pointer"
               >
-                <Play className="w-3.5 h-3.5 fill-current" />
+                <Play className="w-3.5 h-3.5 fill-current mr-1" />
                 Chạy Lệnh
-              </button>
+              </Button>
 
-              <button
+              <Button
+                variant="destructive"
                 onClick={() => stopMovement(true)}
                 disabled={!isMoving}
-                className={clsx(
-                  "py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 text-xs font-bold transition-all shadow cursor-pointer text-white",
-                  !isMoving
-                    ? "bg-zinc-300 dark:bg-zinc-800 cursor-not-allowed text-zinc-500 shadow-none"
-                    : "bg-rose-600 hover:bg-rose-500 shadow-rose-600/20",
-                )}
+                className="font-bold cursor-pointer"
               >
-                <Square className="w-3.5 h-3.5 fill-current" />
+                <Square className="w-3.5 h-3.5 fill-current mr-1" />
                 Dừng Khẩn
-              </button>
+              </Button>
 
-              <button
+              <Button
+                variant="outline"
                 onClick={handleReset}
-                className="py-2.5 px-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 flex items-center justify-center gap-1.5 text-xs font-bold transition-all border border-zinc-200 dark:border-zinc-700 cursor-pointer"
+                className="cursor-pointer"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
+                <RotateCcw className="w-3.5 h-3.5 mr-1" />
                 Về Origin
-              </button>
+              </Button>
             </div>
 
             {/* Log Console Box */}
@@ -590,47 +597,47 @@ export default function PulseSimulation() {
           </div>
         </div>
 
-        {/* Explain Card */}
-        <div className="p-4 rounded-xl border border-emerald-100 dark:border-emerald-950 bg-emerald-50/40 dark:bg-emerald-950/10 flex gap-3 text-xs leading-relaxed text-zinc-650 dark:text-zinc-300">
-          <AlertCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-          <div>
-            <span className="font-bold text-emerald-800 dark:text-emerald-400">
-              Cách so sánh đơn giản:
-            </span>
-            <ul className="list-disc pl-4 mt-1 space-y-1">
+        {/* Explain Card using Alert Component */}
+        <Alert className="border-emerald-100 dark:border-emerald-950 bg-emerald-50/40 dark:bg-emerald-950/10 text-zinc-650 dark:text-zinc-300">
+          <AlertCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+          <AlertTitle className="font-bold text-emerald-800 dark:text-emerald-400">
+            Cách so sánh đơn giản:
+          </AlertTitle>
+          <AlertDescription className="text-zinc-650 dark:text-zinc-300 mt-1">
+            <ul className="list-disc pl-4 space-y-1">
               <li>
                 <strong>Lệnh DDRVI (Tương đối):</strong> Vị trí tiếp theo phụ
                 thuộc vào vị trí hiện tại. Nếu đang ở{" "}
-                <code className="font-mono text-[10px] bg-zinc-100 dark:bg-zinc-900 px-1 py-0.5 rounded">
+                <code className="font-mono text-[10px] bg-zinc-150 dark:bg-zinc-900 px-1 py-0.5 rounded text-zinc-800 dark:text-zinc-200">
                   100
                 </code>
                 , kích hoạt di chuyển{" "}
-                <code className="font-mono text-[10px] bg-zinc-100 dark:bg-zinc-900 px-1 py-0.5 rounded">
+                <code className="font-mono text-[10px] bg-zinc-150 dark:bg-zinc-900 px-1 py-0.5 rounded text-zinc-800 dark:text-zinc-200">
                   +200
                 </code>{" "}
-                sẽ đưa bạn tới{" "}
-                <code className="font-mono text-[10px] bg-zinc-100 dark:bg-zinc-900 px-1 py-0.5 rounded">
+                sẽ đưa ní tới{" "}
+                <code className="font-mono text-[10px] bg-zinc-150 dark:bg-zinc-900 px-1 py-0.5 rounded text-zinc-800 dark:text-zinc-200">
                   300
                 </code>
                 .
               </li>
               <li>
                 <strong>Lệnh DDRVA (Tuyệt đối):</strong> Vị trí đích đến hoàn
-                toàn cố định so với điểm gốc (Origin). Bất kể bạn đang ở đâu,
+                toàn cố định so với điểm gốc (Origin). Bất kể ní đang ở đâu,
                 kích hoạt di chuyển đến vị trí{" "}
-                <code className="font-mono text-[10px] bg-zinc-100 dark:bg-zinc-900 px-1 py-0.5 rounded">
+                <code className="font-mono text-[10px] bg-zinc-150 dark:bg-zinc-900 px-1 py-0.5 rounded text-zinc-800 dark:text-zinc-200">
                   200
                 </code>{" "}
                 sẽ luôn dừng lại chính xác tại vị trí{" "}
-                <code className="font-mono text-[10px] bg-zinc-100 dark:bg-zinc-900 px-1 py-0.5 rounded">
+                <code className="font-mono text-[10px] bg-zinc-150 dark:bg-zinc-900 px-1 py-0.5 rounded text-zinc-800 dark:text-zinc-200">
                   200
                 </code>{" "}
                 trên trục tọa độ.
               </li>
             </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+          </AlertDescription>
+        </Alert>
+      </CardContent>
+    </Card>
   );
 }

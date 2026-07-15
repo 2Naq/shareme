@@ -4,10 +4,8 @@ on:
   push:
     branches:
       - main
-      # Hoặc thay bằng tên nhánh chính của bạn (master, v.v.)
-    # Đảm bảo workflow chỉ chạy khi có thay đổi trong thư mục dự án
     paths-ignore:
-      - 'README.md'
+      - "README.md"
 
 jobs:
   build-and-deploy:
@@ -35,4 +33,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./apps/docs/build
-          # Build của monorepo sẽ gộp chung vào thư mục apps/docs/build/
