@@ -138,8 +138,10 @@ const config = {
         appId: 'EN380UNNOE',
         apiKey: 'a21094e5e6565a08632d958eb85c8f49',
         indexName: 'Shareme',
-        // Tùy chọn: Tự động filter kết quả tìm kiếm theo version/language hiện tại
-        contextualSearch: true,
+        contextualSearch: false,
+        // searchParameters: {
+        //   hitsPerPage: 20,
+        // },
       },
       navbar: {
         title: myData.brand_name,
