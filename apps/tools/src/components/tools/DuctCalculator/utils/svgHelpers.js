@@ -1,10 +1,10 @@
 // SVG helper functions for 2D duct diagrams
-const AMBER = '#ffb020';
-const STEEL = '#7f97a3';
-const STEEL_L = '#c3d3da';
-const CYAN = '#57c7c7';
-const LINE = '#26313a';
-const BG = '#0d1418';
+const AMBER = "#ffb020";
+const STEEL = "#7f97a3";
+const STEEL_L = "#c3d3da";
+const CYAN = "#57c7c7";
+const LINE = "#26313a";
+const BG = "#0d1418";
 
 export { AMBER, STEEL, STEEL_L, CYAN, LINE, BG };
 
@@ -27,12 +27,20 @@ export function gridRect(w, h) {
 }
 
 export function trayPath(points, color, width) {
-  const d = points.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+  const d = points
+    .map(
+      (p, i) => (i === 0 ? "M" : "L") + p[0].toFixed(1) + "," + p[1].toFixed(1),
+    )
+    .join(" ");
   return `<path d="${d}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linejoin="round" stroke-linecap="round"/>`;
 }
 
 export function centerlinePath(points, color) {
-  const d = points.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+  const d = points
+    .map(
+      (p, i) => (i === 0 ? "M" : "L") + p[0].toFixed(1) + "," + p[1].toFixed(1),
+    )
+    .join(" ");
   return `<path d="${d}" fill="none" stroke="${color}" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.5"/>`;
 }
 
@@ -52,8 +60,10 @@ export function angleArc(cx, cy, r, a1, a2, color, label) {
   const mid = (a1 + a2) / 2;
   const lx = cx + (r + 16) * Math.cos(mid);
   const ly = cy + (r + 16) * Math.sin(mid);
-  return `<path d="M${p1[0].toFixed(1)},${p1[1].toFixed(1)} A${r},${r} 0 ${large} ${sweep} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}" fill="none" stroke="${color}" stroke-width="1.6"/>`
-    + labelPill(lx + 10, ly, label, color);
+  return (
+    `<path d="M${p1[0].toFixed(1)},${p1[1].toFixed(1)} A${r},${r} 0 ${large} ${sweep} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}" fill="none" stroke="${color}" stroke-width="1.6"/>` +
+    labelPill(lx + 10, ly, label, color)
+  );
 }
 
 export function dimVertical(x, y1, y2, text, color = STEEL_L) {
@@ -77,7 +87,10 @@ export function dimHorizontal(x1, x2, y, text, color = STEEL_L) {
 }
 
 export function dimAlong(x1, y1, x2, y2, text, color = AMBER, width = 2.4) {
-  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
-  return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${width}" marker-start="url(#arrowAmber)" marker-end="url(#arrowAmber)"/>`
-    + labelPill(mx, my, text, color);
+  const mx = (x1 + x2) / 2,
+    my = (y1 + y2) / 2;
+  return (
+    `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${width}" marker-start="url(#arrowAmber)" marker-end="url(#arrowAmber)"/>` +
+    labelPill(mx, my, text, color)
+  );
 }

@@ -1,10 +1,10 @@
 // Utility functions for duct calculator math
 export function fmt(n, d = 1) {
-  return Number(n).toFixed(d).replace(/\.0+$/, '');
+  return Number(n).toFixed(d).replace(/\.0+$/, "");
 }
 
 export function deg2rad(d) {
-  return d * Math.PI / 180;
+  return (d * Math.PI) / 180;
 }
 
 /**

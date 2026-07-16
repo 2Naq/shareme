@@ -1,21 +1,22 @@
+// oxlint-disable no-unused-vars
 // @ts-check
 // `@type` JSDoc annotations allow editor autocompletion and type checking
 // (when paired with `@ts-check`).
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import { themes as prismThemes } from 'prism-react-renderer';
-import { categorys } from './src/constants/category.js';
-import { myData } from './src/constants/my_data.js';
+import { themes as prismThemes } from "prism-react-renderer";
+import { categorys } from "./src/constants/category.js";
+import { myData } from "./src/constants/my_data.js";
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const dynamicPlugins = categorys.map((category) => [
-  '@docusaurus/plugin-content-docs',
+  "@docusaurus/plugin-content-docs",
   {
     id: category.id,
     path: category.path,
     routeBasePath: category.routeBasePath,
-    sidebarPath: './sidebars.js',
+    sidebarPath: "./sidebars.js",
   },
 ]);
 
@@ -23,7 +24,7 @@ const dynamicPlugins = categorys.map((category) => [
 const dynamicNavbarItems = categorys.map((category) => ({
   to: category.introLink,
   label: category.label,
-  position: 'left',
+  position: "left",
   activeBaseRegex: `/${category.routeBasePath}/`,
 }));
 
@@ -37,7 +38,7 @@ const dynamicFooterLinks = categorys.map((category) => ({
 const config = {
   title: myData.brand_name,
   tagline: `${myData.brand_name} - Sharing knowledge ${myData.user_name}`,
-  favicon: 'img/favicon.ico',
+  favicon: "img/favicon.ico",
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -47,21 +48,21 @@ const config = {
   markdown: {
     mermaid: true,
   },
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: ["@docusaurus/theme-mermaid"],
 
   // Set the production url of your site here
-  url: 'https://2naq.github.io',
+  url: "https://2naq.github.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/shareme',
+  baseUrl: "/shareme",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: '2naq', // Usually your GitHub org/user name.
-  projectName: 'shareme', // Usually your repo name.
+  organizationName: "2naq", // Usually your GitHub org/user name.
+  projectName: "shareme", // Usually your repo name.
   trailingSlash: false,
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: "throw",
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -77,14 +78,14 @@ const config = {
 
   presets: [
     [
-      'classic',
+      "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: false,
         blog: {
           showReadingTime: true,
           feedOptions: {
-            type: ['rss', 'atom'],
+            type: ["rss", "atom"],
             xslt: true,
           },
           // Please change this to your repo.
@@ -92,12 +93,12 @@ const config = {
           // editUrl:
           //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
           // // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
+          onInlineTags: "warn",
+          onInlineAuthors: "warn",
+          onUntruncatedBlogPosts: "warn",
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
       }),
     ],
@@ -118,7 +119,7 @@ const config = {
           return {
             resolve: {
               alias: {
-                '@': require('path').resolve(context.siteDir, 'src'),
+                "@": require("path").resolve(context.siteDir, "src"),
               },
             },
           };
@@ -135,9 +136,9 @@ const config = {
         respectPrefersColorScheme: true,
       },
       algolia: {
-        appId: 'EN380UNNOE',
-        apiKey: 'a21094e5e6565a08632d958eb85c8f49',
-        indexName: 'Shareme',
+        appId: "EN380UNNOE",
+        apiKey: "a21094e5e6565a08632d958eb85c8f49",
+        indexName: "Shareme",
         contextualSearch: false,
         // searchParameters: {
         //   hitsPerPage: 20,
@@ -153,24 +154,29 @@ const config = {
           //   position: 'right',
           // },
           {
-            type: 'search',
-            position: 'right',
+            type: "search",
+            position: "right",
           },
           {
             href: myData.link_github,
-            label: 'GitHub',
-            position: 'right',
+            label: "GitHub",
+            position: "right",
           },
-          { href: 'pathname:///shareme/tool/', label: 'Tool', position: 'right', target: '_self' },
+          {
+            href: "pathname:///shareme/tool/",
+            label: "Tool",
+            position: "right",
+            target: "_self",
+          },
           {
             href: "/about",
-            label: 'About Me',
-            position: 'right',
+            label: "About Me",
+            position: "right",
           },
         ],
       },
       footer: {
-        style: 'dark',
+        style: "dark",
         // links: [
         //   {
         //     title: 'Docs',
@@ -181,36 +187,36 @@ const config = {
         //       },
         //     ],
         //   },
-          // {
-          //   title: 'Community',
-          //   items: [
-          //     {
-          //       label: 'Stack Overflow',
-          //       href: '#',
-          //     },
-          //     {
-          //       label: 'Discord',
-          //       href: '#',
-          //     },
-          //     {
-          //       label: 'X',
-          //       href: '#',
-          //     },
-          //   ],
-          // },
-          // {
-          //   title: 'More',
-          //   items: [
-          //     {
-          //       label: 'Blog',
-          //       to: '/blog',
-          //     },
-          //     {
-          //       label: 'GitHub',
-          //       href: myData.link_github,
-          //     },
-          //   ],
-          // },
+        // {
+        //   title: 'Community',
+        //   items: [
+        //     {
+        //       label: 'Stack Overflow',
+        //       href: '#',
+        //     },
+        //     {
+        //       label: 'Discord',
+        //       href: '#',
+        //     },
+        //     {
+        //       label: 'X',
+        //       href: '#',
+        //     },
+        //   ],
+        // },
+        // {
+        //   title: 'More',
+        //   items: [
+        //     {
+        //       label: 'Blog',
+        //       to: '/blog',
+        //     },
+        //     {
+        //       label: 'GitHub',
+        //       href: myData.link_github,
+        //     },
+        //   ],
+        // },
         // ],
         copyright: `Built by ${myData.user_name}. TRUONG SA, HOANG SA BELONG TO VIETNAM.`,
       },

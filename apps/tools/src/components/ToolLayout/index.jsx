@@ -1,7 +1,7 @@
-import React from 'react';
-import { SidebarProvider } from '../ui/sidebar';
-import { AppSidebar } from '../layout/appSidebar';
-import { AppHeader } from '../layout/appHeader';
+import React from "react";
+import { SidebarProvider } from "../ui/sidebar";
+import { AppSidebar } from "../layout/appSidebar";
+import { AppHeader } from "../layout/appHeader";
 
 export default function ToolLayout({ children }) {
   return (
@@ -12,7 +12,7 @@ export default function ToolLayout({ children }) {
         <main className="flex-1 overflow-auto bg-muted/20 scrollbar-gutter-stable">
           <div className="p-4 md:p-8 max-w-5xl mx-auto h-full">
             {children}
-            <div className='h-10 bg-transparent' />
+            <div className="h-10 bg-transparent" />
           </div>
         </main>
       </div>

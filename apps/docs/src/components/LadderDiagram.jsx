@@ -1,14 +1,14 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { 
-  Play, 
-  RotateCcw, 
-  Info, 
-  ToggleLeft, 
-  ToggleRight, 
-  HelpCircle, 
+import {
+  Play,
+  RotateCcw,
+  Info,
+  ToggleLeft,
+  ToggleRight,
+  HelpCircle,
   CheckCircle,
   Zap,
-  RefreshCw
+  RefreshCw,
 } from "lucide-react";
 import clsx from "clsx";
 
@@ -16,18 +16,34 @@ import clsx from "clsx";
 const DEMO_CIRCUITS = {
   anb: {
     title: "Mạch ANB (AND Block - Nối tiếp hai khối)",
-    description: "Kết nối tiếp một cụm mạch song song (Khối 1: X1 hoặc X2) với một cụm mạch song song khác (Khối 2: (X3 và X4) hoặc X5). Toàn bộ khối này nối tiếp với tiếp điểm điều kiện X0 để kích hoạt Y0.",
+    description:
+      "Kết nối tiếp một cụm mạch song song (Khối 1: X1 hoặc X2) với một cụm mạch song song khác (Khối 2: (X3 và X4) hoặc X5). Toàn bộ khối này nối tiếp với tiếp điểm điều kiện X0 để kích hoạt Y0.",
     data: {
       type: "series",
       children: [
-        { type: "contact", kind: "NO", label: "X0", description: "Điều kiện kích hoạt chung (Start/Enable)" },
+        {
+          type: "contact",
+          kind: "NO",
+          label: "X0",
+          description: "Điều kiện kích hoạt chung (Start/Enable)",
+        },
         {
           type: "parallel",
           label: "Khối 1 (OR)",
           children: [
-            { type: "contact", kind: "NO", label: "X1", description: "Nhánh 1 - Khối 1" },
-            { type: "contact", kind: "NO", label: "X2", description: "Nhánh 2 - Khối 1" }
-          ]
+            {
+              type: "contact",
+              kind: "NO",
+              label: "X1",
+              description: "Nhánh 1 - Khối 1",
+            },
+            {
+              type: "contact",
+              kind: "NO",
+              label: "X2",
+              description: "Nhánh 2 - Khối 1",
+            },
+          ],
         },
         {
           type: "parallel",
@@ -36,20 +52,41 @@ const DEMO_CIRCUITS = {
             {
               type: "series",
               children: [
-                { type: "contact", kind: "NO", label: "X3", description: "Nhánh 1a - Khối 2" },
-                { type: "contact", kind: "NO", label: "X4", description: "Nhánh 1b - Khối 2" }
-              ]
+                {
+                  type: "contact",
+                  kind: "NO",
+                  label: "X3",
+                  description: "Nhánh 1a - Khối 2",
+                },
+                {
+                  type: "contact",
+                  kind: "NO",
+                  label: "X4",
+                  description: "Nhánh 1b - Khối 2",
+                },
+              ],
             },
-            { type: "contact", kind: "NO", label: "X5", description: "Nhánh 2 - Khối 2" }
-          ]
+            {
+              type: "contact",
+              kind: "NO",
+              label: "X5",
+              description: "Nhánh 2 - Khối 2",
+            },
+          ],
         },
-        { type: "coil", kind: "normal", label: "Y0", description: "Ngõ ra kết quả Y0" }
-      ]
-    }
+        {
+          type: "coil",
+          kind: "normal",
+          label: "Y0",
+          description: "Ngõ ra kết quả Y0",
+        },
+      ],
+    },
   },
   orb: {
     title: "Mạch ORB (OR Block - Song song hai khối)",
-    description: "Mắc song song hai khối nối tiếp với nhau. Khối 1 gồm X0 nối tiếp X1. Khối 2 gồm X2 nối tiếp X3. Chỉ cần một trong hai khối dẫn điện thì Y0 sẽ được kích hoạt.",
+    description:
+      "Mắc song song hai khối nối tiếp với nhau. Khối 1 gồm X0 nối tiếp X1. Khối 2 gồm X2 nối tiếp X3. Chỉ cần một trong hai khối dẫn điện thì Y0 sẽ được kích hoạt.",
     data: {
       type: "series",
       children: [
@@ -60,77 +97,126 @@ const DEMO_CIRCUITS = {
             {
               type: "series",
               children: [
-                { type: "contact", kind: "NO", label: "X0", description: "Nhánh 1 - Điều kiện A" },
-                { type: "contact", kind: "NO", label: "X1", description: "Nhánh 1 - Điều kiện B" }
-              ]
+                {
+                  type: "contact",
+                  kind: "NO",
+                  label: "X0",
+                  description: "Nhánh 1 - Điều kiện A",
+                },
+                {
+                  type: "contact",
+                  kind: "NO",
+                  label: "X1",
+                  description: "Nhánh 1 - Điều kiện B",
+                },
+              ],
             },
             {
               type: "series",
               children: [
-                { type: "contact", kind: "NO", label: "X2", description: "Nhánh 2 - Điều kiện C" },
-                { type: "contact", kind: "NO", label: "X3", description: "Nhánh 2 - Điều kiện D" }
-              ]
-            }
-          ]
+                {
+                  type: "contact",
+                  kind: "NO",
+                  label: "X2",
+                  description: "Nhánh 2 - Điều kiện C",
+                },
+                {
+                  type: "contact",
+                  kind: "NO",
+                  label: "X3",
+                  description: "Nhánh 2 - Điều kiện D",
+                },
+              ],
+            },
+          ],
         },
-        { type: "coil", kind: "normal", label: "Y0", description: "Ngõ ra Y0" }
-      ]
-    }
+        { type: "coil", kind: "normal", label: "Y0", description: "Ngõ ra Y0" },
+      ],
+    },
   },
   self_holding: {
     title: "Mạch Tự Giữ (Self-Holding Circuit)",
-    description: "Mạch khởi động/dừng động cơ cơ bản. Nhấn nút Start (X0) kích hoạt Y0. Khi Y0 có điện, tiếp điểm thường mở Y0 khép lại để tự duy trì dòng điện kể cả khi nhả Start (X0). Nhấn nút Stop (X1 - thường đóng NC) để ngắt mạch.",
+    description:
+      "Mạch khởi động/dừng động cơ cơ bản. Nhấn nút Start (X0) kích hoạt Y0. Khi Y0 có điện, tiếp điểm thường mở Y0 khép lại để tự duy trì dòng điện kể cả khi nhả Start (X0). Nhấn nút Stop (X1 - thường đóng NC) để ngắt mạch.",
     data: {
       type: "series",
       children: [
         {
           type: "parallel",
           children: [
-            { type: "contact", kind: "NO", label: "X0", description: "Nút nhấn Start (NO)" },
-            { type: "contact", kind: "NO", label: "Y0", description: "Tiếp điểm tự giữ của ngõ ra Y0" }
-          ]
+            {
+              type: "contact",
+              kind: "NO",
+              label: "X0",
+              description: "Nút nhấn Start (NO)",
+            },
+            {
+              type: "contact",
+              kind: "NO",
+              label: "Y0",
+              description: "Tiếp điểm tự giữ của ngõ ra Y0",
+            },
+          ],
         },
-        { type: "contact", kind: "NC", label: "X1", description: "Nút nhấn Stop (NC - Thường đóng)" },
-        { type: "coil", kind: "normal", label: "Y0", description: "Cuộn dây ngõ ra Y0 (Động cơ/Khởi động từ)" }
-      ]
-    }
-  }
+        {
+          type: "contact",
+          kind: "NC",
+          label: "X1",
+          description: "Nút nhấn Stop (NC - Thường đóng)",
+        },
+        {
+          type: "coil",
+          kind: "normal",
+          label: "Y0",
+          description: "Cuộn dây ngõ ra Y0 (Động cơ/Khởi động từ)",
+        },
+      ],
+    },
+  },
 };
 
 // Measure dimensions of nodes recursively
 function measureNode(node) {
-  if (node.type === "contact" || node.type === "coil" || node.type === "block") {
+  if (
+    node.type === "contact" ||
+    node.type === "coil" ||
+    node.type === "block"
+  ) {
     return {
       ...node,
       width: node.type === "block" ? 130 : 90,
-      height: 60
+      height: 60,
     };
   }
 
   if (node.type === "series") {
     const children = node.children.map(measureNode);
     const spacing = 16;
-    const width = children.reduce((sum, c) => sum + c.width, 0) + spacing * (children.length - 1);
-    const height = Math.max(...children.map(c => c.height), 60);
+    const width =
+      children.reduce((sum, c) => sum + c.width, 0) +
+      spacing * (children.length - 1);
+    const height = Math.max(...children.map((c) => c.height), 60);
     return {
       ...node,
       width,
       height,
-      children
+      children,
     };
   }
 
   if (node.type === "parallel") {
     const children = node.children.map(measureNode);
     const sidePadding = 24;
-    const width = Math.max(...children.map(c => c.width)) + sidePadding * 2;
+    const width = Math.max(...children.map((c) => c.width)) + sidePadding * 2;
     const spacing = 20;
-    const height = children.reduce((sum, c) => sum + c.height, 0) + spacing * (children.length - 1);
+    const height =
+      children.reduce((sum, c) => sum + c.height, 0) +
+      spacing * (children.length - 1);
     return {
       ...node,
       width,
       height,
-      children
+      children,
     };
   }
 
@@ -147,12 +233,12 @@ function propagatePower(node, hasPowerIn, contactStates) {
     const contactOn = !!contactStates[baseLabel];
     const active = isNC ? !contactOn : contactOn;
     const hasPowerOut = hasPowerIn && active;
-    
+
     return {
       ...node,
       hasPowerIn,
       hasPowerOut,
-      active
+      active,
     };
   }
 
@@ -161,7 +247,7 @@ function propagatePower(node, hasPowerIn, contactStates) {
       ...node,
       hasPowerIn,
       hasPowerOut: hasPowerIn,
-      active: hasPowerIn
+      active: hasPowerIn,
     };
   }
 
@@ -170,7 +256,7 @@ function propagatePower(node, hasPowerIn, contactStates) {
       ...node,
       hasPowerIn,
       hasPowerOut: hasPowerIn,
-      active: hasPowerIn
+      active: hasPowerIn,
     };
   }
 
@@ -186,7 +272,7 @@ function propagatePower(node, hasPowerIn, contactStates) {
       ...node,
       hasPowerIn,
       hasPowerOut: currentPower,
-      children
+      children,
     };
   }
 
@@ -204,7 +290,7 @@ function propagatePower(node, hasPowerIn, contactStates) {
       ...node,
       hasPowerIn,
       hasPowerOut: anyPowerOut,
-      children
+      children,
     };
   }
 
@@ -219,20 +305,20 @@ function generateSvgElements(node, cx, cy, elements) {
     const w = node.width;
     // Left and right connection wires
     elements.lines.push({
-      x1: cx - w/2,
+      x1: cx - w / 2,
       y1: cy,
       x2: cx - 8,
       y2: cy,
-      hasPower: hasPowerIn
+      hasPower: hasPowerIn,
     });
     elements.lines.push({
       x1: cx + 8,
       y1: cy,
-      x2: cx + w/2,
+      x2: cx + w / 2,
       y2: cy,
-      hasPower: hasPowerOut
+      hasPower: hasPowerOut,
     });
-    
+
     elements.contacts.push({
       cx,
       cy,
@@ -242,27 +328,25 @@ function generateSvgElements(node, cx, cy, elements) {
       active,
       hasPowerIn,
       hasPowerOut,
-      node
+      node,
     });
-  }
-  
-  else if (type === "coil") {
+  } else if (type === "coil") {
     const w = node.width;
     elements.lines.push({
-      x1: cx - w/2,
+      x1: cx - w / 2,
       y1: cy,
       x2: cx - 12,
       y2: cy,
-      hasPower: hasPowerIn
+      hasPower: hasPowerIn,
     });
     elements.lines.push({
       x1: cx + 12,
       y1: cy,
-      x2: cx + w/2,
+      x2: cx + w / 2,
       y2: cy,
-      hasPower: hasPowerOut
+      hasPower: hasPowerOut,
     });
-    
+
     elements.coils.push({
       cx,
       cy,
@@ -271,25 +355,23 @@ function generateSvgElements(node, cx, cy, elements) {
       description: node.description,
       active,
       hasPowerIn,
-      hasPowerOut
+      hasPowerOut,
     });
-  }
-
-  else if (type === "block") {
+  } else if (type === "block") {
     const w = node.width;
     elements.lines.push({
-      x1: cx - w/2,
+      x1: cx - w / 2,
       y1: cy,
       x2: cx - 45,
       y2: cy,
-      hasPower: hasPowerIn
+      hasPower: hasPowerIn,
     });
     elements.lines.push({
       x1: cx + 45,
       y1: cy,
-      x2: cx + w/2,
+      x2: cx + w / 2,
       y2: cy,
-      hasPower: hasPowerOut
+      hasPower: hasPowerOut,
     });
 
     elements.blocks.push({
@@ -301,47 +383,43 @@ function generateSvgElements(node, cx, cy, elements) {
       inputs: node.inputs,
       active,
       hasPowerIn,
-      hasPowerOut
+      hasPowerOut,
     });
-  }
-
-  else if (type === "series") {
+  } else if (type === "series") {
     let currentX = cx - node.width / 2;
     const spacing = 16;
     for (let i = 0; i < node.children.length; i++) {
       const child = node.children[i];
       const childCx = currentX + child.width / 2;
       generateSvgElements(child, childCx, cy, elements);
-      
+
       if (i < node.children.length - 1) {
         elements.lines.push({
           x1: currentX + child.width,
           y1: cy,
           x2: currentX + child.width + spacing,
           y2: cy,
-          hasPower: child.hasPowerOut
+          hasPower: child.hasPowerOut,
         });
       }
       currentX += child.width + spacing;
     }
-  }
-
-  else if (type === "parallel") {
+  } else if (type === "parallel") {
     const sidePadding = 24;
     const innerWidth = node.width - sidePadding * 2;
-    
+
     let currentY = cy - node.height / 2;
     const spacing = 20;
-    
+
     const branchCenterYs = [];
-    
+
     for (let i = 0; i < node.children.length; i++) {
       const child = node.children[i];
       const childCy = currentY + child.height / 2;
       branchCenterYs.push(childCy);
-      
+
       generateSvgElements(child, cx, childCy, elements);
-      
+
       // Connect branch to left vertical line
       const childStartX = cx - child.width / 2;
       elements.lines.push({
@@ -349,9 +427,9 @@ function generateSvgElements(node, cx, cy, elements) {
         y1: childCy,
         x2: childStartX,
         y2: childCy,
-        hasPower: child.hasPowerIn
+        hasPower: child.hasPowerIn,
       });
-      
+
       // Connect branch to right vertical line
       const childEndX = cx + child.width / 2;
       elements.lines.push({
@@ -359,55 +437,55 @@ function generateSvgElements(node, cx, cy, elements) {
         y1: childCy,
         x2: cx + innerWidth / 2,
         y2: childCy,
-        hasPower: child.hasPowerOut
+        hasPower: child.hasPowerOut,
       });
-      
+
       currentY += child.height + spacing;
     }
-    
+
     // Draw left vertical rail
     elements.lines.push({
       x1: cx - innerWidth / 2,
       y1: branchCenterYs[0],
       x2: cx - innerWidth / 2,
       y2: branchCenterYs[branchCenterYs.length - 1],
-      hasPower: node.hasPowerIn
+      hasPower: node.hasPowerIn,
     });
-    
+
     // Draw right vertical rail
-    const anyActivePowerOut = node.children.some(child => child.hasPowerOut);
+    const anyActivePowerOut = node.children.some((child) => child.hasPowerOut);
     elements.lines.push({
       x1: cx + innerWidth / 2,
       y1: branchCenterYs[0],
       x2: cx + innerWidth / 2,
       y2: branchCenterYs[branchCenterYs.length - 1],
-      hasPower: anyActivePowerOut
+      hasPower: anyActivePowerOut,
     });
-    
+
     // Draw entry line
     elements.lines.push({
       x1: cx - node.width / 2,
       y1: cy,
       x2: cx - innerWidth / 2,
       y2: cy,
-      hasPower: node.hasPowerIn
+      hasPower: node.hasPowerIn,
     });
-    
+
     // Draw exit line
     elements.lines.push({
       x1: cx + innerWidth / 2,
       y1: cy,
       x2: cx + node.width / 2,
       y2: cy,
-      hasPower: node.hasPowerOut
+      hasPower: node.hasPowerOut,
     });
-    
+
     if (node.label) {
       elements.texts.push({
         x: cx - node.width / 2 + 10,
         y: branchCenterYs[branchCenterYs.length - 1] + 16,
         text: node.label,
-        type: "bracket-label"
+        type: "bracket-label",
       });
     }
   }
@@ -420,7 +498,7 @@ function getUniqueLabels(node, acc = new Set()) {
     acc.add(node.label);
   }
   if (node.children) {
-    node.children.forEach(child => getUniqueLabels(child, acc));
+    node.children.forEach((child) => getUniqueLabels(child, acc));
   }
   return acc;
 }
@@ -428,7 +506,7 @@ function getUniqueLabels(node, acc = new Set()) {
 export default function LadderDiagram({ data, title, description }) {
   // Option to switch demo circuits
   const [selectedDemo, setSelectedDemo] = useState(data ? "" : "anb");
-  
+
   // Decide active circuit data
   const circuit = useMemo(() => {
     if (data) return { data, title, description };
@@ -446,7 +524,7 @@ export default function LadderDiagram({ data, title, description }) {
   // Reset/Initialize states when circuit changes
   useEffect(() => {
     const initial = {};
-    uniqueLabels.forEach(label => {
+    uniqueLabels.forEach((label) => {
       // NC starts as false in state (i.e. not forced active), NO starts as false
       initial[label] = false;
     });
@@ -458,9 +536,9 @@ export default function LadderDiagram({ data, title, description }) {
 
   // Toggle helper
   const toggleContact = (label) => {
-    setContactStates(prev => {
+    setContactStates((prev) => {
       const nextState = !prev[label];
-      // Self-holding logic hook: If Y0 coil goes active, Y0 contact triggers. 
+      // Self-holding logic hook: If Y0 coil goes active, Y0 contact triggers.
       // In this basic simulator, we can trigger Y0 state from coil status below
       return { ...prev, [label]: nextState };
     });
@@ -483,14 +561,14 @@ export default function LadderDiagram({ data, title, description }) {
     // If coil Y0 is active, we also set Y0 contact state to true automatically (Self-holding simulation!)
     // To do this properly without loops, we do a multi-pass resolve for self-holding logic:
     let resolvedStates = { ...contactStates };
-    
+
     // First pass evaluation
     let tempTree = propagatePower(measuredTree, true, resolvedStates);
-    
+
     // If the coil matching a contact label is powered, we activate that contact
     // We check if Y0 (coil) is powered, then force Y0 contact = true (if not manually toggled off)
     let stateChanged = false;
-    
+
     // Standard self-holding feedback look: 1 iteration is enough for simple circuits
     const coils = [];
     const findCoils = (n) => {
@@ -499,7 +577,7 @@ export default function LadderDiagram({ data, title, description }) {
     };
     findCoils(tempTree);
 
-    coils.forEach(coil => {
+    coils.forEach((coil) => {
       if (coil.active && !resolvedStates[coil.label]) {
         resolvedStates[coil.label] = true;
         stateChanged = true;
@@ -509,7 +587,7 @@ export default function LadderDiagram({ data, title, description }) {
     if (stateChanged) {
       tempTree = propagatePower(measuredTree, true, resolvedStates);
     }
-    
+
     return tempTree;
   }, [measuredTree, contactStates]);
 
@@ -532,7 +610,7 @@ export default function LadderDiagram({ data, title, description }) {
       contacts: [],
       coils: [],
       blocks: [],
-      texts: []
+      texts: [],
     };
 
     // Draw main power rail line left to root node
@@ -541,11 +619,16 @@ export default function LadderDiagram({ data, title, description }) {
       y1: centerY,
       x2: paddingX,
       y2: centerY,
-      hasPower: true
+      hasPower: true,
     });
 
     // Generate inner tree drawing
-    generateSvgElements(evaluatedTree, paddingX + measuredTree.width / 2, centerY, elements);
+    generateSvgElements(
+      evaluatedTree,
+      paddingX + measuredTree.width / 2,
+      centerY,
+      elements,
+    );
 
     // Draw right connection rail line from root node to right rail
     elements.lines.push({
@@ -553,7 +636,7 @@ export default function LadderDiagram({ data, title, description }) {
       y1: centerY,
       x2: totalWidth - 20,
       y2: centerY,
-      hasPower: evaluatedTree.hasPowerOut
+      hasPower: evaluatedTree.hasPowerOut,
     });
 
     return elements;
@@ -565,7 +648,14 @@ export default function LadderDiagram({ data, title, description }) {
       <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-slate-50/50 dark:bg-slate-950/20">
         <div>
           <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-            <Zap className={clsx("w-5 h-5 transition-transform duration-500", outputCoilActive ? "text-amber-500 scale-110 animate-pulse" : "text-slate-400")} />
+            <Zap
+              className={clsx(
+                "w-5 h-5 transition-transform duration-500",
+                outputCoilActive
+                  ? "text-amber-500 scale-110 animate-pulse"
+                  : "text-slate-400",
+              )}
+            />
             {circuit.title}
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
@@ -576,18 +666,22 @@ export default function LadderDiagram({ data, title, description }) {
         {/* Demo Selector (only if not loaded with explicit props) */}
         {!data && (
           <div className="flex gap-1 bg-slate-200/50 dark:bg-slate-800 p-1 rounded-lg self-start md:self-auto">
-            {Object.keys(DEMO_CIRCUITS).map(key => (
+            {Object.keys(DEMO_CIRCUITS).map((key) => (
               <button
                 key={key}
                 onClick={() => setSelectedDemo(key)}
                 className={clsx(
                   "px-3 py-1 text-xs font-medium rounded-md transition-all",
-                  selectedDemo === key 
-                    ? "bg-white dark:bg-slate-700 shadow-sm text-slate-800 dark:text-white" 
-                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                  selectedDemo === key
+                    ? "bg-white dark:bg-slate-700 shadow-sm text-slate-800 dark:text-white"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200",
                 )}
               >
-                {key === "anb" ? "Mạch ANB" : key === "orb" ? "Mạch ORB" : "Tự Giữ"}
+                {key === "anb"
+                  ? "Mạch ANB"
+                  : key === "orb"
+                    ? "Mạch ORB"
+                    : "Tự Giữ"}
               </button>
             ))}
           </div>
@@ -598,22 +692,34 @@ export default function LadderDiagram({ data, title, description }) {
       <div className="p-6 flex flex-col lg:flex-row gap-6 items-stretch justify-between bg-slate-50/30 dark:bg-slate-950/5">
         {/* Interactive SVG Wrapper */}
         <div className="flex-1 min-w-0 bg-slate-50 dark:bg-slate-950 rounded-lg p-4 border border-slate-100 dark:border-slate-800 flex items-center justify-center relative overflow-x-auto">
-          <svg 
-            width={totalWidth} 
-            height={totalHeight} 
+          <svg
+            width={totalWidth}
+            height={totalHeight}
             viewBox={`0 0 ${totalWidth} ${totalHeight}`}
             className="select-none mx-auto"
           >
             {/* Definitions for Glow Filters */}
             <defs>
-              <filter id="glow-power" x="-20%" y="-20%" width="140%" height="140%">
+              <filter
+                id="glow-power"
+                x="-20%"
+                y="-20%"
+                width="140%"
+                height="140%"
+              >
                 <feGaussianBlur stdDeviation="3" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
-              <filter id="glow-coil" x="-30%" y="-30%" width="160%" height="160%">
+              <filter
+                id="glow-coil"
+                x="-30%"
+                y="-30%"
+                width="160%"
+                height="160%"
+              >
                 <feGaussianBlur stdDeviation="5" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
@@ -624,25 +730,25 @@ export default function LadderDiagram({ data, title, description }) {
 
             {/* Left and Right Main Bus Rails */}
             {/* Left Bus Rail (Power Rail - Live) */}
-            <line 
-              x1={20} 
-              y1={10} 
-              x2={20} 
-              y2={totalHeight - 10} 
-              stroke="#10B981" 
-              strokeWidth={5} 
+            <line
+              x1={20}
+              y1={10}
+              x2={20}
+              y2={totalHeight - 10}
+              stroke="#10B981"
+              strokeWidth={5}
               filter="url(#glow-power)"
-              strokeLinecap="round" 
+              strokeLinecap="round"
             />
             {/* Right Bus Rail (Neutral Rail) */}
-            <line 
-              x1={totalWidth - 20} 
-              y1={10} 
-              x2={totalWidth - 20} 
-              y2={totalHeight - 10} 
-              stroke="#94A3B8" 
-              strokeWidth={4} 
-              strokeLinecap="round" 
+            <line
+              x1={totalWidth - 20}
+              y1={10}
+              x2={totalWidth - 20}
+              y2={totalHeight - 10}
+              stroke="#94A3B8"
+              strokeWidth={4}
+              strokeLinecap="round"
             />
 
             {/* Draw Connecting Lines / Wires */}
@@ -665,12 +771,12 @@ export default function LadderDiagram({ data, title, description }) {
             {svgElements.contacts.map((contact, idx) => {
               const isNC = contact.kind === "NC" || contact.kind === "falling";
               const isForced = contactStates[contact.label];
-              
+
               // Contact status determines how we render the lines
               const conducts = contact.active;
-              
+
               return (
-                <g 
+                <g
                   key={`contact-${idx}`}
                   onClick={() => toggleContact(contact.label)}
                   onMouseEnter={() => setSelectedContact(contact)}
@@ -754,9 +860,9 @@ export default function LadderDiagram({ data, title, description }) {
                     textAnchor="middle"
                     className={clsx(
                       "font-semibold text-xs transition-colors duration-300",
-                      isForced 
-                        ? "fill-emerald-600 dark:fill-emerald-400 font-bold" 
-                        : "fill-slate-700 dark:fill-slate-300"
+                      isForced
+                        ? "fill-emerald-600 dark:fill-emerald-400 font-bold"
+                        : "fill-slate-700 dark:fill-slate-300",
                     )}
                   >
                     {contact.label}
@@ -770,7 +876,7 @@ export default function LadderDiagram({ data, title, description }) {
                     className="transition-all duration-300"
                     fill={isForced ? "#10B981" : "transparent"}
                   />
-                  
+
                   {/* Subtle hover feedback box */}
                   <rect
                     x={contact.cx - 20}
@@ -792,14 +898,16 @@ export default function LadderDiagram({ data, title, description }) {
             {svgElements.coils.map((coil, idx) => {
               const active = coil.active;
               return (
-                <g 
+                <g
                   key={`coil-${idx}`}
-                  onMouseEnter={() => setSelectedContact({
-                    label: coil.label,
-                    description: coil.description || "Cuộn dây ngõ ra",
-                    kind: "Coil",
-                    active: coil.active
-                  })}
+                  onMouseEnter={() =>
+                    setSelectedContact({
+                      label: coil.label,
+                      description: coil.description || "Cuộn dây ngõ ra",
+                      kind: "Coil",
+                      active: coil.active,
+                    })
+                  }
                   className="group cursor-default"
                 >
                   {/* Left Arc '(' */}
@@ -841,7 +949,9 @@ export default function LadderDiagram({ data, title, description }) {
                     textAnchor="middle"
                     className={clsx(
                       "font-bold text-xs transition-colors duration-300",
-                      active ? "fill-emerald-500 dark:fill-emerald-400" : "fill-slate-600 dark:fill-slate-400"
+                      active
+                        ? "fill-emerald-500 dark:fill-emerald-400"
+                        : "fill-slate-600 dark:fill-slate-400",
                     )}
                   >
                     {coil.label}
@@ -876,7 +986,9 @@ export default function LadderDiagram({ data, title, description }) {
                     textAnchor="middle"
                     className={clsx(
                       "font-bold text-xs",
-                      active ? "fill-emerald-500 dark:fill-emerald-400" : "fill-slate-800 dark:fill-slate-200"
+                      active
+                        ? "fill-emerald-500 dark:fill-emerald-400"
+                        : "fill-slate-800 dark:fill-slate-200",
                     )}
                   >
                     {block.title}
@@ -917,14 +1029,15 @@ export default function LadderDiagram({ data, title, description }) {
               <RefreshCw className="w-4 h-4 text-emerald-500" />
               Bảng Điều Khiển
             </h4>
-            
+
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Nhấp trực tiếp vào tiếp điểm trong hình để kích hoạt hoặc sử dụng các phím gạt nhanh bên dưới:
+              Nhấp trực tiếp vào tiếp điểm trong hình để kích hoạt hoặc sử dụng
+              các phím gạt nhanh bên dưới:
             </p>
 
             <div className="flex flex-col gap-2 max-h-[140px] overflow-y-auto pr-1">
-              {uniqueLabels.map(label => (
-                <div 
+              {uniqueLabels.map((label) => (
+                <div
                   key={label}
                   onClick={() => toggleContact(label)}
                   className="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer transition-colors"
@@ -946,7 +1059,7 @@ export default function LadderDiagram({ data, title, description }) {
             <button
               onClick={() => {
                 const initial = {};
-                uniqueLabels.forEach(label => {
+                uniqueLabels.forEach((label) => {
                   initial[label] = false;
                 });
                 setContactStates(initial);
@@ -964,45 +1077,58 @@ export default function LadderDiagram({ data, title, description }) {
               <Info className="w-4 h-4 text-sky-500" />
               Chi Tiết Tiếp Điểm
             </h4>
-            
+
             {selectedContact ? (
               <div className="flex flex-col gap-2 animate-fadeIn">
                 <div className="flex items-center justify-between">
                   <span className="text-base font-bold font-mono text-slate-800 dark:text-slate-100">
                     {selectedContact.label}
                   </span>
-                  <span className={clsx(
-                    "text-[10px] font-semibold px-2 py-0.5 rounded-full",
-                    selectedContact.active
-                      ? "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400"
-                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
-                  )}>
-                    {selectedContact.active ? "ĐANG THÔNG MẠCH" : "ĐANG NGẮT MẠCH"}
+                  <span
+                    className={clsx(
+                      "text-[10px] font-semibold px-2 py-0.5 rounded-full",
+                      selectedContact.active
+                        ? "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400"
+                        : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400",
+                    )}
+                  >
+                    {selectedContact.active
+                      ? "ĐANG THÔNG MẠCH"
+                      : "ĐANG NGẮT MẠCH"}
                   </span>
                 </div>
-                
+
                 {selectedContact.kind && (
                   <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                    Phân loại: <span className="font-semibold text-slate-700 dark:text-slate-300">{selectedContact.kind === "NO" ? "Thường mở (NO)" : selectedContact.kind === "NC" ? "Thường đóng (NC)" : selectedContact.kind}</span>
+                    Phân loại:{" "}
+                    <span className="font-semibold text-slate-700 dark:text-slate-300">
+                      {selectedContact.kind === "NO"
+                        ? "Thường mở (NO)"
+                        : selectedContact.kind === "NC"
+                          ? "Thường đóng (NC)"
+                          : selectedContact.kind}
+                    </span>
                   </div>
                 )}
 
                 <div className="text-xs text-slate-600 dark:text-slate-300 mt-1 bg-slate-50 dark:bg-slate-950 p-2 rounded border border-slate-100 dark:border-slate-800/80 leading-relaxed font-sans">
-                  {selectedContact.description || "Không có chú giải cụ thể cho tiếp điểm này."}
+                  {selectedContact.description ||
+                    "Không có chú giải cụ thể cho tiếp điểm này."}
                 </div>
               </div>
             ) : (
               <div className="flex-1 flex flex-col items-center justify-center text-center p-4">
                 <HelpCircle className="w-8 h-8 text-slate-300 dark:text-slate-700 mb-2" />
                 <p className="text-xs text-slate-400 dark:text-slate-500">
-                  Rê chuột vào tiếp điểm hoặc cuộn dây để xem mô tả chi tiết tại đây.
+                  Rê chuột vào tiếp điểm hoặc cuộn dây để xem mô tả chi tiết tại
+                  đây.
                 </p>
               </div>
             )}
           </div>
         </div>
       </div>
-      
+
       {/* Footer Legend */}
       <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-950/10 flex flex-wrap gap-x-5 gap-y-2 justify-center text-[10px] text-slate-500 dark:text-slate-400 font-medium">
         <div className="flex items-center gap-1.5">

@@ -6,7 +6,8 @@
     "dev": "concurrently \"npm run dev -w apps/docs\" \"npm run dev -w apps/tools\" \"node server.js\"",
     "build": "node scripts/build.js",
     "preview": "npm run serve -w apps/docs",
-    "deploy": "npm run build && npm run deploy -w apps/docs"
+    "deploy": "npm run build && npm run deploy -w apps/docs",
+    "format": "prettier --write \"apps/docs/**/*.{js,jsx,ts,tsx}\" \"apps/tools/**/*.{js,jsx,ts,tsx}\""
   },
   "workspaces": [
     "apps/*"
@@ -14,7 +15,8 @@
   "devDependencies": {
     "concurrently": "^10.0.3",
     "express": "^5.2.1",
-    "http-proxy-middleware": "^4.1.1"
+    "http-proxy-middleware": "^4.1.1",
+    "prettier": "^3.9.5"
   },
   "dependencies": {
     "classnames": "^2.5.1"

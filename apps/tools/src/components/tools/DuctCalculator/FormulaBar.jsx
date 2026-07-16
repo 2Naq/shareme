@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * FormulaBar: displays a formula string with syntax highlighting.

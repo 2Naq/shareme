@@ -1,7 +1,7 @@
-import React from 'react';
-import ToolLayout from '@/components/ToolLayout';
-import AnalogScaling from '@/components/tools/AnalogScaling';
-import MathRenderer from '@/components/MathRenderer';
+import React from "react";
+import ToolLayout from "@/components/ToolLayout";
+import AnalogScaling from "@/components/tools/AnalogScaling";
+import MathRenderer from "@/components/MathRenderer";
 
 export default function AnalogScalingPage() {
   return (
@@ -10,9 +10,12 @@ export default function AnalogScalingPage() {
       description="Công cụ tính toán quy đổi tín hiệu Analog 4-20mA về dải giá trị thực tế (Engineering Value)."
     >
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Tính toán Scaling Analog 4-20mA</h1>
+        <h1 className="text-3xl font-bold mb-2">
+          Tính toán Scaling Analog 4-20mA
+        </h1>
         <p className="text-gray-500">
-          Đây là công cụ hỗ trợ quy đổi tín hiệu Analog 4-20mA về dải giá trị thực tế (Engineering Value) dùng cho lập trình PLC.
+          Đây là công cụ hỗ trợ quy đổi tín hiệu Analog 4-20mA về dải giá trị
+          thực tế (Engineering Value) dùng cho lập trình PLC.
         </p>
       </div>
 

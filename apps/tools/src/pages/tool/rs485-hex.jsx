@@ -1,6 +1,6 @@
-import React from 'react';
-import ToolLayout from '../../components/ToolLayout';
-import Rs485HexCalculator from '../../components/tools/Rs485HexCalculator';
+import React from "react";
+import ToolLayout from "../../components/ToolLayout";
+import Rs485HexCalculator from "../../components/tools/Rs485HexCalculator";
 
 export default function Rs485HexPage() {
   return (

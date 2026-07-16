@@ -1,16 +1,16 @@
 // Flat pattern SVG generators for duct cutting visualization
 // Shows unfolded sheet metal with cut lines, fold lines, and dimensions
-import { fmt, deg2rad } from './calculations';
+import { fmt, deg2rad } from "./calculations";
 
-const AMBER = '#ffb020';
-const STEEL = '#7f97a3';
-const STEEL_L = '#c3d3da';
-const CYAN = '#57c7c7';
-const CUT_RED = '#ff5a4d';
-const CUT_FILL = 'rgba(255,90,77,0.18)';
-const FOLD_COLOR = '#4dc9f6';
-const BG = '#0d1418';
-const LINE = '#26313a';
+const AMBER = "#ffb020";
+const STEEL = "#7f97a3";
+const STEEL_L = "#c3d3da";
+const CYAN = "#57c7c7";
+const CUT_RED = "#ff5a4d";
+const CUT_FILL = "rgba(255,90,77,0.18)";
+const FOLD_COLOR = "#4dc9f6";
+const BG = "#0d1418";
+const LINE = "#26313a";
 
 function defsBlock() {
   return `<defs>
@@ -45,7 +45,14 @@ function labelPill(x, y, text, color, fontSize = 11) {
 }
 
 function dimH(x1, x2, y, text, color = STEEL_L) {
-  const markerId = color === AMBER ? 'dimArrowAmber' : color === CYAN ? 'dimArrowCyan' : color === CUT_RED ? 'dimArrowRed' : 'dimArrow';
+  const markerId =
+    color === AMBER
+      ? "dimArrowAmber"
+      : color === CYAN
+        ? "dimArrowCyan"
+        : color === CUT_RED
+          ? "dimArrowRed"
+          : "dimArrow";
   const tick = 5;
   return `
     <line x1="${x1}" y1="${y - tick}" x2="${x1}" y2="${y + tick}" stroke="${color}" stroke-width="1"/>
@@ -55,7 +62,14 @@ function dimH(x1, x2, y, text, color = STEEL_L) {
 }
 
 function dimV(x, y1, y2, text, color = STEEL_L) {
-  const markerId = color === AMBER ? 'dimArrowAmber' : color === CYAN ? 'dimArrowCyan' : color === CUT_RED ? 'dimArrowRed' : 'dimArrow';
+  const markerId =
+    color === AMBER
+      ? "dimArrowAmber"
+      : color === CYAN
+        ? "dimArrowCyan"
+        : color === CUT_RED
+          ? "dimArrowRed"
+          : "dimArrow";
   const tick = 5;
   return `
     <line x1="${x - tick}" y1="${y1}" x2="${x + tick}" y2="${y1}" stroke="${color}" stroke-width="1"/>
@@ -65,20 +79,30 @@ function dimV(x, y1, y2, text, color = STEEL_L) {
 }
 
 function angleArc(cx, cy, r, a1, a2, color, label) {
-  const p1x = cx + r * Math.cos(a1), p1y = cy + r * Math.sin(a1);
-  const p2x = cx + r * Math.cos(a2), p2y = cy + r * Math.sin(a2);
+  const p1x = cx + r * Math.cos(a1),
+    p1y = cy + r * Math.sin(a1);
+  const p2x = cx + r * Math.cos(a2),
+    p2y = cy + r * Math.sin(a2);
   const large = Math.abs(a2 - a1) > Math.PI ? 1 : 0;
   const sweep = a2 > a1 ? 1 : 0;
   const mid = (a1 + a2) / 2;
   const lx = cx + (r + 14) * Math.cos(mid);
   const ly = cy + (r + 14) * Math.sin(mid);
-  return `<path d="M${p1x.toFixed(1)},${p1y.toFixed(1)} A${r},${r} 0 ${large} ${sweep} ${p2x.toFixed(1)},${p2y.toFixed(1)}" fill="none" stroke="${color}" stroke-width="1.4"/>`
-    + labelPill(lx, ly, label, color, 10);
+  return (
+    `<path d="M${p1x.toFixed(1)},${p1y.toFixed(1)} A${r},${r} 0 ${large} ${sweep} ${p2x.toFixed(1)},${p2y.toFixed(1)}" fill="none" stroke="${color}" stroke-width="1.4"/>` +
+    labelPill(lx, ly, label, color, 10)
+  );
 }
 
 // Cut triangle with hatching
 function cutTriangle(pts, id) {
-  const d = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ') + ' Z';
+  const d =
+    pts
+      .map(
+        (p, i) =>
+          (i === 0 ? "M" : "L") + p[0].toFixed(1) + "," + p[1].toFixed(1),
+      )
+      .join(" ") + " Z";
   return `<defs>
     <pattern id="hatch${id}" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y1="0" x2="0" y2="6" stroke="${CUT_RED}" stroke-width="0.8" opacity="0.5"/>
@@ -104,7 +128,8 @@ export function flatPattern_offset1(A, beta) {
   const b = deg2rad(beta);
   const L = A / Math.sin(b);
   const run = A / Math.tan(b);
-  const W = 700, H = 420;
+  const W = 700,
+    H = 420;
 
   // Scale to fit
   const maxDim = Math.max(L, A);
@@ -115,10 +140,11 @@ export function flatPattern_offset1(A, beta) {
   const ductW = 50; // width of duct wall representation
 
   let svg = defsBlock() + bgRect(W, H);
-  svg += sectionTitle(W / 2, 24, 'TRẢI TẤM — ĐOẠN CHÉO OFFSET 1 KHÚC');
+  svg += sectionTitle(W / 2, 24, "TRẢI TẤM — ĐOẠN CHÉO OFFSET 1 KHÚC");
 
   // === Part 1: Bottom plate (trải đáy) ===
-  const bx = 60, by = 80;
+  const bx = 60,
+    by = 80;
   const plateW = Lpx + 60;
   const plateH = ductW;
 
@@ -128,22 +154,36 @@ export function flatPattern_offset1(A, beta) {
   // Cut lines at both ends (angled)
   const cutDx = plateH / Math.tan(b);
   // Left cut triangle
-  const leftTri = [[bx, by], [bx + cutDx, by], [bx, by + plateH]];
-  svg += cutTriangle(leftTri, 'o1L');
-  // Right cut triangle  
-  const rightTri = [[bx + plateW, by + plateH], [bx + plateW - cutDx, by + plateH], [bx + plateW, by]];
-  svg += cutTriangle(rightTri, 'o1R');
+  const leftTri = [
+    [bx, by],
+    [bx + cutDx, by],
+    [bx, by + plateH],
+  ];
+  svg += cutTriangle(leftTri, "o1L");
+  // Right cut triangle
+  const rightTri = [
+    [bx + plateW, by + plateH],
+    [bx + plateW - cutDx, by + plateH],
+    [bx + plateW, by],
+  ];
+  svg += cutTriangle(rightTri, "o1R");
 
   // Angle arc at left cut
-  svg += angleArc(bx, by + plateH, 22, -Math.PI / 2, -b, CYAN, fmt(beta) + '°');
+  svg += angleArc(bx, by + plateH, 22, -Math.PI / 2, -b, CYAN, fmt(beta) + "°");
 
   // Dimensions
-  svg += dimH(bx, bx + plateW, by - 18, 'L = ' + fmt(L) + ' mm', AMBER);
-  svg += dimV(bx + plateW + 20, by, by + plateH, 'W', STEEL_L);
-  svg += dimH(bx, bx + cutDx, by + plateH + 22, 'cắt = ' + fmt(run > 0 ? ductW / Math.tan(b) * (A / Apx) : 0, 1) + ' mm', CUT_RED);
+  svg += dimH(bx, bx + plateW, by - 18, "L = " + fmt(L) + " mm", AMBER);
+  svg += dimV(bx + plateW + 20, by, by + plateH, "W", STEEL_L);
+  svg += dimH(
+    bx,
+    bx + cutDx,
+    by + plateH + 22,
+    "cắt = " + fmt(run > 0 ? (ductW / Math.tan(b)) * (A / Apx) : 0, 1) + " mm",
+    CUT_RED,
+  );
 
   // Labels
-  svg += labelPill(bx + plateW / 2, by + plateH / 2, 'ĐÁY MÁNG', STEEL);
+  svg += labelPill(bx + plateW / 2, by + plateH / 2, "ĐÁY MÁNG", STEEL);
 
   // === Part 2: Side walls (trải thành) ===
   const sy = 200;
@@ -154,16 +194,35 @@ export function flatPattern_offset1(A, beta) {
 
   // Cut triangles at both ends of side wall
   const wallCutDx = wallH / Math.tan(b);
-  const wLeftTri = [[bx, sy], [bx + wallCutDx, sy], [bx, sy + wallH]];
-  svg += cutTriangle(wLeftTri, 'o1WL');
-  const wRightTri = [[bx + wallPlateW, sy + wallH], [bx + wallPlateW - wallCutDx, sy + wallH], [bx + wallPlateW, sy]];
-  svg += cutTriangle(wRightTri, 'o1WR');
+  const wLeftTri = [
+    [bx, sy],
+    [bx + wallCutDx, sy],
+    [bx, sy + wallH],
+  ];
+  svg += cutTriangle(wLeftTri, "o1WL");
+  const wRightTri = [
+    [bx + wallPlateW, sy + wallH],
+    [bx + wallPlateW - wallCutDx, sy + wallH],
+    [bx + wallPlateW, sy],
+  ];
+  svg += cutTriangle(wRightTri, "o1WR");
 
   // Fold line at bottom
   svg += foldLine(bx, sy + wallH, bx + wallPlateW, sy + wallH);
 
-  svg += dimV(bx + wallPlateW + 20, sy, sy + wallH, 'A = ' + fmt(A) + ' mm', AMBER);
-  svg += labelPill(bx + wallPlateW / 2, sy + wallH / 2, 'THÀNH MÁNG (x2)', STEEL);
+  svg += dimV(
+    bx + wallPlateW + 20,
+    sy,
+    sy + wallH,
+    "A = " + fmt(A) + " mm",
+    AMBER,
+  );
+  svg += labelPill(
+    bx + wallPlateW / 2,
+    sy + wallH / 2,
+    "THÀNH MÁNG (x2)",
+    STEEL,
+  );
 
   // === Part 3: Assembly note after cutting ===
   const ny = sy + wallH + 50;
@@ -189,7 +248,8 @@ export function flatPattern_offset2(A, phi) {
   const X = A * Math.tan(p);
   const L2a = A * (1 - Math.tan(p));
   // const L2b = A * (1 + Math.tan(p));
-  const W = 700, H = 420;
+  const W = 700,
+    H = 420;
 
   const scale = Math.min(200 / A, 1.5);
   const Apx = A * scale;
@@ -197,10 +257,11 @@ export function flatPattern_offset2(A, phi) {
   const wallLen = Apx * 3;
 
   let svg = defsBlock() + bgRect(W, H);
-  svg += sectionTitle(W / 2, 24, 'TRẢI TẤM — KHẤC CHỮ V (OFFSET 2 KHÚC)');
+  svg += sectionTitle(W / 2, 24, "TRẢI TẤM — KHẤC CHỮ V (OFFSET 2 KHÚC)");
 
   // === Side wall flat pattern with V-notch ===
-  const bx = 80, by = 60;
+  const bx = 80,
+    by = 60;
   const cx = bx + wallLen / 2;
 
   // Main rectangle outline
@@ -213,26 +274,48 @@ export function flatPattern_offset2(A, phi) {
   const notchApex = [cx, notchTop + Apx]; // bottom of V
 
   const vTri = [notchLeft, notchRight, notchApex];
-  svg += cutTriangle(vTri, 'o2V');
+  svg += cutTriangle(vTri, "o2V");
 
   // Angle arcs at notch
-  svg += angleArc(notchApex[0], notchApex[1], 24, -Math.PI / 2 - p, -Math.PI / 2, CYAN, fmt(phi) + '°');
-  svg += angleArc(notchApex[0], notchApex[1], 24, -Math.PI / 2, -Math.PI / 2 + p, CYAN, fmt(phi) + '°');
+  svg += angleArc(
+    notchApex[0],
+    notchApex[1],
+    24,
+    -Math.PI / 2 - p,
+    -Math.PI / 2,
+    CYAN,
+    fmt(phi) + "°",
+  );
+  svg += angleArc(
+    notchApex[0],
+    notchApex[1],
+    24,
+    -Math.PI / 2,
+    -Math.PI / 2 + p,
+    CYAN,
+    fmt(phi) + "°",
+  );
 
   // Dimensions
-  svg += dimH(cx, cx + Xpx, by - 18, 'X = ' + fmt(X) + ' mm', AMBER);
-  svg += dimV(bx - 24, by, by + Apx, 'A = ' + fmt(A) + ' mm', STEEL_L);
+  svg += dimH(cx, cx + Xpx, by - 18, "X = " + fmt(X) + " mm", AMBER);
+  svg += dimV(bx - 24, by, by + Apx, "A = " + fmt(A) + " mm", STEEL_L);
 
   // Inner/outer edge lengths after fold
-  svg += dimH(bx, cx - Xpx, by + Apx + 22, 'L₂ trong = ' + fmt(L2a) + ' mm', CYAN);
-  svg += dimH(cx + Xpx, bx + wallLen, by + Apx + 22, 'L₂ trong', CYAN);
+  svg += dimH(
+    bx,
+    cx - Xpx,
+    by + Apx + 22,
+    "L₂ trong = " + fmt(L2a) + " mm",
+    CYAN,
+  );
+  svg += dimH(cx + Xpx, bx + wallLen, by + Apx + 22, "L₂ trong", CYAN);
 
-  svg += labelPill(cx, by + Apx / 3, 'PHẦN CẮT BỎ', CUT_RED, 10);
-  svg += labelPill(bx + wallLen / 4, by + Apx / 2, 'THÀNH MÁNG', STEEL);
+  svg += labelPill(cx, by + Apx / 3, "PHẦN CẮT BỎ", CUT_RED, 10);
+  svg += labelPill(bx + wallLen / 4, by + Apx / 2, "THÀNH MÁNG", STEEL);
 
   // === After folding visualization ===
   const fy = by + Apx + 70;
-  svg += sectionTitle(W / 2, fy, 'SAU KHI GẬP LẠI');
+  svg += sectionTitle(W / 2, fy, "SAU KHI GẬP LẠI");
 
   const foldLen = 120;
   const foldAngle = 2 * p;
@@ -245,9 +328,17 @@ export function flatPattern_offset2(A, phi) {
   svg += `<circle cx="${f1[0]}" cy="${f1[1]}" r="4" fill="${AMBER}"/>`;
 
   // Angle arc at bend point
-  svg += angleArc(f1[0], f1[1], 30, Math.PI, Math.atan2(f2y - f1[1], f2x - f1[0]), CYAN, fmt(2 * phi) + '°');
+  svg += angleArc(
+    f1[0],
+    f1[1],
+    30,
+    Math.PI,
+    Math.atan2(f2y - f1[1], f2x - f1[0]),
+    CYAN,
+    fmt(2 * phi) + "°",
+  );
 
-  svg += labelPill(f1[0], fy + 50, 'ĐIỂM GẬP', AMBER, 10);
+  svg += labelPill(f1[0], fy + 50, "ĐIỂM GẬP", AMBER, 10);
 
   // Legend
   const ny = fy + 120;
@@ -268,7 +359,8 @@ export function flatPattern_offset2(A, phi) {
 export function flatPattern_elbow(A, theta) {
   const halfAngle = deg2rad(theta) / 2;
   const L = A / Math.cos(halfAngle);
-  const W = 700, H = 400;
+  const W = 700,
+    H = 400;
 
   const scale = Math.min(140 / A, 1.2);
   const Apx = A * scale;
@@ -276,10 +368,15 @@ export function flatPattern_elbow(A, theta) {
   const segLen = 160;
 
   let svg = defsBlock() + bgRect(W, H);
-  svg += sectionTitle(W / 2, 24, 'TRẢI TẤM — CO NGANG (ELBOW ' + fmt(theta) + '°)');
+  svg += sectionTitle(
+    W / 2,
+    24,
+    "TRẢI TẤM — CO NGANG (ELBOW " + fmt(theta) + "°)",
+  );
 
   // === Segment 1 (left) ===
-  const bx = 50, by = 70;
+  const bx = 50,
+    by = 70;
   svg += `<rect x="${bx}" y="${by}" width="${segLen}" height="${Apx}" fill="none" stroke="${STEEL}" stroke-width="2"/>`;
 
   // Miter cut at right end of segment 1
@@ -287,20 +384,34 @@ export function flatPattern_elbow(A, theta) {
   const miterTri1 = [
     [bx + segLen, by],
     [bx + segLen, by + Apx],
-    [bx + segLen - cutH, by + Apx]
+    [bx + segLen - cutH, by + Apx],
   ];
-  svg += cutTriangle(miterTri1, 'e1');
+  svg += cutTriangle(miterTri1, "e1");
 
   // Angle arc
-  svg += angleArc(bx + segLen, by, 20, Math.PI / 2, Math.PI / 2 + halfAngle, CYAN, fmt(theta / 2) + '°');
+  svg += angleArc(
+    bx + segLen,
+    by,
+    20,
+    Math.PI / 2,
+    Math.PI / 2 + halfAngle,
+    CYAN,
+    fmt(theta / 2) + "°",
+  );
 
-  svg += dimH(bx, bx + segLen, by - 16, 'Đoạn 1', STEEL_L);
-  svg += dimV(bx - 18, by, by + Apx, 'A=' + fmt(A), STEEL_L);
-  svg += labelPill(bx + segLen / 2, by + Apx / 2, 'ĐOẠN 1', STEEL);
+  svg += dimH(bx, bx + segLen, by - 16, "Đoạn 1", STEEL_L);
+  svg += dimV(bx - 18, by, by + Apx, "A=" + fmt(A), STEEL_L);
+  svg += labelPill(bx + segLen / 2, by + Apx / 2, "ĐOẠN 1", STEEL);
 
   // Dimension of miter line
   svg += `<line x1="${bx + segLen}" y1="${by}" x2="${bx + segLen - cutH}" y2="${by + Apx}" stroke="${AMBER}" stroke-width="2" stroke-dasharray="5 3"/>`;
-  svg += labelPill(bx + segLen - cutH / 2 + 30, by + Apx / 2, 'L=' + fmt(L), AMBER, 10);
+  svg += labelPill(
+    bx + segLen - cutH / 2 + 30,
+    by + Apx / 2,
+    "L=" + fmt(L),
+    AMBER,
+    10,
+  );
 
   // === Segment 2 (right) — mirror ===
   const gap = 40;
@@ -311,20 +422,29 @@ export function flatPattern_elbow(A, theta) {
   const miterTri2 = [
     [bx2, by],
     [bx2, by + Apx],
-    [bx2 + cutH, by + Apx]
+    [bx2 + cutH, by + Apx],
   ];
-  svg += cutTriangle(miterTri2, 'e2');
+  svg += cutTriangle(miterTri2, "e2");
 
-  svg += angleArc(bx2, by, 20, Math.PI / 2 - halfAngle, Math.PI / 2, CYAN, fmt(theta / 2) + '°');
+  svg += angleArc(
+    bx2,
+    by,
+    20,
+    Math.PI / 2 - halfAngle,
+    Math.PI / 2,
+    CYAN,
+    fmt(theta / 2) + "°",
+  );
 
-  svg += dimH(bx2, bx2 + segLen, by - 16, 'Đoạn 2', STEEL_L);
-  svg += labelPill(bx2 + segLen / 2, by + Apx / 2, 'ĐOẠN 2', STEEL);
+  svg += dimH(bx2, bx2 + segLen, by - 16, "Đoạn 2", STEEL_L);
+  svg += labelPill(bx2 + segLen / 2, by + Apx / 2, "ĐOẠN 2", STEEL);
 
   // === After joining visualization ===
   const jy = by + Apx + 50;
-  svg += sectionTitle(W / 2, jy, 'SAU KHI GHÉP');
+  svg += sectionTitle(W / 2, jy, "SAU KHI GHÉP");
 
-  const jx = 140, jby = jy + 30;
+  const jx = 140,
+    jby = jy + 30;
   const leg1End = [jx + segLen, jby + Apx / 2];
   const dir2x = Math.cos(deg2rad(theta));
   const dir2y = -Math.sin(deg2rad(theta));
@@ -332,10 +452,15 @@ export function flatPattern_elbow(A, theta) {
 
   svg += `<path d="M${jx},${jby + Apx / 2} L${leg1End[0]},${leg1End[1]} L${leg2End[0].toFixed(1)},${leg2End[1].toFixed(1)}" fill="none" stroke="${STEEL}" stroke-width="3" stroke-linejoin="round"/>`;
   svg += `<circle cx="${leg1End[0]}" cy="${leg1End[1]}" r="3" fill="${AMBER}"/>`;
-  svg += angleArc(leg1End[0], leg1End[1], 28,
+  svg += angleArc(
+    leg1End[0],
+    leg1End[1],
+    28,
     Math.atan2(0, -1),
     Math.atan2(dir2y, dir2x),
-    CYAN, fmt(theta) + '°');
+    CYAN,
+    fmt(theta) + "°",
+  );
 
   // Legend
   const ny = Math.max(jby + Apx / 2 + 60, jby + 100);
@@ -353,7 +478,8 @@ export function flatPattern_elbow(A, theta) {
 export function flatPattern_tee(W1, W2, alpha) {
   const a = deg2rad(alpha);
   const notch = W2 / Math.sin(a);
-  const W = 700, H = 420;
+  const W = 700,
+    H = 420;
 
   const scale = Math.min(220 / W1, 1.0);
   const W1px = Math.max(W1 * scale, 100);
@@ -362,10 +488,11 @@ export function flatPattern_tee(W1, W2, alpha) {
   const wallH = W1px * 0.5;
 
   let svg = defsBlock() + bgRect(W, H);
-  svg += sectionTitle(W / 2, 24, 'TRẢI TẤM — TÊ NHÁNH (T)');
+  svg += sectionTitle(W / 2, 24, "TRẢI TẤM — TÊ NHÁNH (T)");
 
   // === Top wall of main duct (where notch is cut) ===
-  const bx = 60, by = 70;
+  const bx = 60,
+    by = 70;
   const cx = bx + mainLen / 2;
 
   svg += `<rect x="${bx}" y="${by}" width="${mainLen}" height="${wallH}" fill="none" stroke="${STEEL}" stroke-width="2"/>`;
@@ -386,13 +513,19 @@ export function flatPattern_tee(W1, W2, alpha) {
     [cx - halfN, by],
     [cx + halfN, by],
     [cx + halfN, by + Math.min(wallH * 0.8, notchPx * 0.4)],
-    [cx - halfN, by + Math.min(wallH * 0.8, notchPx * 0.4)]
+    [cx - halfN, by + Math.min(wallH * 0.8, notchPx * 0.4)],
   ];
-  svg += cutTriangle(notchShape, 'tN');
+  svg += cutTriangle(notchShape, "tN");
 
   // Dimension of notch
-  svg += dimH(cx - halfN, cx + halfN, by - 18, 'khấc = ' + fmt(notch) + ' mm', AMBER);
-  svg += dimV(bx - 22, by, by + wallH, 'W₁ = ' + fmt(W1) + ' mm', STEEL_L);
+  svg += dimH(
+    cx - halfN,
+    cx + halfN,
+    by - 18,
+    "khấc = " + fmt(notch) + " mm",
+    AMBER,
+  );
+  svg += dimV(bx - 22, by, by + wallH, "W₁ = " + fmt(W1) + " mm", STEEL_L);
 
   // Angle lines
   if (Math.abs(alpha - 90) > 1) {
@@ -402,11 +535,23 @@ export function flatPattern_tee(W1, W2, alpha) {
     const ax2 = ax1 + angLineLen * Math.cos(a);
     const ay2 = ay1 - angLineLen * Math.sin(a);
     svg += `<line x1="${ax1}" y1="${ay1}" x2="${ax2.toFixed(1)}" y2="${ay2.toFixed(1)}" stroke="${CYAN}" stroke-width="1" stroke-dasharray="4 3"/>`;
-    svg += angleArc(ax1, ay1, 18, -Math.PI / 2, -a, CYAN, fmt(alpha) + '°');
+    svg += angleArc(ax1, ay1, 18, -Math.PI / 2, -a, CYAN, fmt(alpha) + "°");
   }
 
-  svg += labelPill(bx + mainLen / 4, by + wallH / 2, 'THÀNH TRÊN MÁNG CHÍNH', STEEL, 9);
-  svg += labelPill(cx, by + Math.min(wallH * 0.4, notchPx * 0.2), 'CẮT BỎ', CUT_RED, 9);
+  svg += labelPill(
+    bx + mainLen / 4,
+    by + wallH / 2,
+    "THÀNH TRÊN MÁNG CHÍNH",
+    STEEL,
+    9,
+  );
+  svg += labelPill(
+    cx,
+    by + Math.min(wallH * 0.4, notchPx * 0.2),
+    "CẮT BỎ",
+    CUT_RED,
+    9,
+  );
 
   // === Branch piece ===
   const brY = by + wallH + 50;
@@ -414,8 +559,14 @@ export function flatPattern_tee(W1, W2, alpha) {
   const brH = W2 * scale * 0.8;
 
   svg += `<rect x="${cx - brLen / 2}" y="${brY}" width="${brLen}" height="${brH}" fill="none" stroke="${STEEL}" stroke-width="2"/>`;
-  svg += dimV(cx + brLen / 2 + 18, brY, brY + brH, 'W₂ = ' + fmt(W2) + ' mm', CYAN);
-  svg += labelPill(cx, brY + brH / 2, 'NHÁNH RẼ', STEEL);
+  svg += dimV(
+    cx + brLen / 2 + 18,
+    brY,
+    brY + brH,
+    "W₂ = " + fmt(W2) + " mm",
+    CYAN,
+  );
+  svg += labelPill(cx, brY + brH / 2, "NHÁNH RẼ", STEEL);
 
   // Fold line
   svg += foldLine(bx, by + wallH, bx + mainLen, by + wallH);
@@ -439,7 +590,8 @@ export function flatPattern_tee(W1, W2, alpha) {
 export function flatPattern_cross(W1, W2, alpha) {
   const a = deg2rad(alpha);
   const notch = W2 / Math.sin(a);
-  const W = 700, H = 440;
+  const W = 700,
+    H = 440;
 
   const scale = Math.min(200 / W1, 1.0);
   const W1px = Math.max(W1 * scale, 100);
@@ -448,10 +600,11 @@ export function flatPattern_cross(W1, W2, alpha) {
   const wallH = W1px * 0.45;
 
   let svg = defsBlock() + bgRect(W, H);
-  svg += sectionTitle(W / 2, 24, 'TRẢI TẤM — CHỮ THẬP (X)');
+  svg += sectionTitle(W / 2, 24, "TRẢI TẤM — CHỮ THẬP (X)");
 
   // === Main duct wall flat pattern ===
-  const bx = 60, by = 60;
+  const bx = 60,
+    by = 60;
   const cx = bx + mainLen / 2;
 
   svg += `<rect x="${bx}" y="${by}" width="${mainLen}" height="${wallH}" fill="none" stroke="${STEEL}" stroke-width="2"/>`;
@@ -464,26 +617,38 @@ export function flatPattern_cross(W1, W2, alpha) {
     [cx - halfN, by],
     [cx + halfN, by],
     [cx + halfN, by + notchDepth],
-    [cx - halfN, by + notchDepth]
+    [cx - halfN, by + notchDepth],
   ];
-  svg += cutTriangle(n1, 'c1');
-  svg += labelPill(cx, by + notchDepth / 2, 'CẮT 1', CUT_RED, 9);
+  svg += cutTriangle(n1, "c1");
+  svg += labelPill(cx, by + notchDepth / 2, "CẮT 1", CUT_RED, 9);
 
   // Notch 2 (bottom edge)
   const n2 = [
     [cx - halfN, by + wallH],
     [cx + halfN, by + wallH],
     [cx + halfN, by + wallH - notchDepth],
-    [cx - halfN, by + wallH - notchDepth]
+    [cx - halfN, by + wallH - notchDepth],
   ];
-  svg += cutTriangle(n2, 'c2');
-  svg += labelPill(cx, by + wallH - notchDepth / 2, 'CẮT 2', CUT_RED, 9);
+  svg += cutTriangle(n2, "c2");
+  svg += labelPill(cx, by + wallH - notchDepth / 2, "CẮT 2", CUT_RED, 9);
 
   // Dimensions
-  svg += dimH(cx - halfN, cx + halfN, by - 18, 'khấc = ' + fmt(notch) + ' mm', AMBER);
-  svg += dimV(bx - 22, by, by + wallH, 'W₁ = ' + fmt(W1) + ' mm', STEEL_L);
+  svg += dimH(
+    cx - halfN,
+    cx + halfN,
+    by - 18,
+    "khấc = " + fmt(notch) + " mm",
+    AMBER,
+  );
+  svg += dimV(bx - 22, by, by + wallH, "W₁ = " + fmt(W1) + " mm", STEEL_L);
 
-  svg += labelPill(bx + mainLen / 5, by + wallH / 2, 'THÀNH MÁNG CHÍNH', STEEL, 9);
+  svg += labelPill(
+    bx + mainLen / 5,
+    by + wallH / 2,
+    "THÀNH MÁNG CHÍNH",
+    STEEL,
+    9,
+  );
 
   // === Two branch pieces ===
   const brY = by + wallH + 50;
@@ -494,21 +659,35 @@ export function flatPattern_cross(W1, W2, alpha) {
   // Branch 1
   const br1x = cx - brLen - brGap / 2;
   svg += `<rect x="${br1x}" y="${brY}" width="${brLen}" height="${brH}" fill="none" stroke="${STEEL}" stroke-width="2"/>`;
-  svg += labelPill(br1x + brLen / 2, brY + brH / 2, 'NHÁNH 1', STEEL, 9);
+  svg += labelPill(br1x + brLen / 2, brY + brH / 2, "NHÁNH 1", STEEL, 9);
 
   // Branch 2
   const br2x = cx + brGap / 2;
   svg += `<rect x="${br2x}" y="${brY}" width="${brLen}" height="${brH}" fill="none" stroke="${STEEL}" stroke-width="2"/>`;
-  svg += labelPill(br2x + brLen / 2, brY + brH / 2, 'NHÁNH 2', STEEL, 9);
+  svg += labelPill(br2x + brLen / 2, brY + brH / 2, "NHÁNH 2", STEEL, 9);
 
-  svg += dimV(br2x + brLen + 18, brY, brY + brH, 'W₂ = ' + fmt(W2) + ' mm', CYAN);
+  svg += dimV(
+    br2x + brLen + 18,
+    brY,
+    brY + brH,
+    "W₂ = " + fmt(W2) + " mm",
+    CYAN,
+  );
 
   // Fold lines
   svg += foldLine(bx, by + wallH, bx + mainLen, by + wallH);
 
   // Angle indicator
   if (Math.abs(alpha - 90) > 1) {
-    svg += angleArc(cx - halfN, by, 16, -Math.PI / 2, -a, CYAN, fmt(alpha) + '°');
+    svg += angleArc(
+      cx - halfN,
+      by,
+      16,
+      -Math.PI / 2,
+      -a,
+      CYAN,
+      fmt(alpha) + "°",
+    );
   }
 
   // Legend
