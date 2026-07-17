@@ -142,7 +142,7 @@ export default function ElectricalCalculator() {
     <div className="mx-auto space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-foreground mb-2">
-          Tính Toán Điện Công Nghiệp
+          Tính Toán Thông Số Điện
         </h1>
         <p className="text-muted-foreground">
           Công cụ tính toán công suất, dòng điện, điện áp và gợi ý chọn thiết bị
@@ -274,7 +274,7 @@ export default function ElectricalCalculator() {
                 <Label className="text-xs text-primary uppercase tracking-wider">
                   Công thức áp dụng
                 </Label>
-                <div className="mt-2 p-2 bg-background rounded border flex justify-center overflow-x-auto min-h-[60px] items-center">
+                <div className="mt-2 p-2 bg-background rounded border flex justify-center overflow-x-auto min-h-[60px] items-center bg-grid">
                   <MathRenderer formula={formula} />
                 </div>
               </div>

@@ -93,12 +93,12 @@ export default function AnalogScaling() {
             </div>
           </div>
           {/* Result */}
-          <div className="p-4 bg-white/10 border bg-separator rounded-lg flex flex-col items-center justify-center">
+          <div className="p-4 bg-white/10 border bg-grid rounded-lg flex flex-col items-center justify-center">
             <MathRenderer
               formula={`\\frac{(${inputValue} - ${rawMin}) \\times (${engMax} - ${engMin})}{${rawMax} - ${rawMin}} + ${engMin}`}
             />
             <div>
-              <strong className="text-primary">Kết quả thực tế: </strong>
+              <strong className="text-primary">Kết quả: </strong>
               <span className="text-xl font-bold text-primary">
                 {calculateResult()}
               </span>

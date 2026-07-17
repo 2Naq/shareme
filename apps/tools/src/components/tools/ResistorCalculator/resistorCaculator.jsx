@@ -404,8 +404,8 @@ export default function ResistorCaculator() {
                 </Badge>
               </div>
             </div>
-            <div className="mt-4 p-3 bg-background rounded-lg border">
-              <p className="text-xs text-muted-foreground mb-1">Công thức</p>
+            <div className="mt-4 p-3 bg-background rounded-lg border bg-grid">
+              <p className="text-xs text-muted-foreground mb-1 ">Công thức</p>
               {/* <p className="font-mono text-sm text-foreground">{formula}</p> */}
               <MathRenderer formula={formula} />
             </div>
