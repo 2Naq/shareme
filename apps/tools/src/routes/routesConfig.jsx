@@ -7,6 +7,8 @@ import {
   Zap,
   CircuitBoard,
   Scissors,
+  Activity,
+  Binary,
 } from "lucide-react";
 
 const ToolPage = React.lazy(() => import("@/pages/tool/index"));
@@ -22,10 +24,14 @@ const SelectScrollable = React.lazy(() => import("@/pages/tool/test"));
 const ElectricalCalculatorPage = React.lazy(
   () => import("@/pages/tool/electrical-calculator"),
 );
+const VoltageDropPage = React.lazy(() => import("@/pages/tool/voltage-drop"));
 const ResistorCalculatorPage = React.lazy(
   () => import("@/pages/tool/resistor-calculator"),
 );
 const CableCuttingPage = React.lazy(() => import("@/pages/tool/cable-cutting"));
+const DataConversionPage = React.lazy(
+  () => import("@/pages/tool/data-conversion"),
+);
 
 // Cấu hình các route của ứng dụng
 export const routeConfig = [
@@ -44,6 +50,13 @@ export const routeConfig = [
     icon: Hash,
   },
   {
+    path: "/tool/data-conversion",
+    label: "Chuyển Đổi Dữ Liệu",
+    element: <DataConversionPage />,
+    showInSidebar: true,
+    icon: Binary,
+  },
+  {
     path: "/tool/analog-scaling",
     label: "Chuyển đổi Analog",
     element: <AnalogScalingPage />,
@@ -56,6 +69,13 @@ export const routeConfig = [
     element: <ElectricalCalculatorPage />,
     showInSidebar: true,
     icon: Zap,
+  },
+  {
+    path: "/tool/voltage-drop",
+    label: "Tính Độ Sụt Áp",
+    element: <VoltageDropPage />,
+    showInSidebar: true,
+    icon: Activity,
   },
   {
     path: "/tool/resistor-calculator",

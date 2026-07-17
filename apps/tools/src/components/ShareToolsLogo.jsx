@@ -1,5 +1,6 @@
 import React from "react";
 import SvgTool from "./svg_Tool";
+import { Marker, MarkerContent } from "./ui/marker";
 
 /**
  * ShareTools Logo Component
@@ -49,16 +50,21 @@ export function ShareToolsLogo({
       {/* Wordmark */}
       {showText && (
         <div className="flex flex-col truncate leading-none">
-          <span
-            className={`${s.text} font-extrabold tracking-tight leading-tight`}
-          >
-            <span className="bg-linear-to-r from-blue-700 via-blue-500 to-blue-400 bg-clip-text text-transparent dark:from-blue-400 dark:via-blue-300 dark:to-sky-300">
-              Share
-            </span>
-            <span className="text-foreground/80 font-semibold ml-0.5">
-              Tools
-            </span>
-          </span>
+          <Marker role="status">
+            <MarkerContent className="shimmer">
+              <span
+                className={`${s.text} font-extrabold tracking-tight leading-tight`}
+              >
+                <span className="bg-linear-to-r from-blue-700 via-blue-500 to-blue-400 bg-clip-text text-transparent dark:from-blue-400 dark:via-blue-300 dark:to-sky-300">
+                  Share
+                </span>
+                <span className="text-foreground/80 font-semibold ml-0.5">
+                  Tools
+                </span>
+              </span>
+            </MarkerContent>
+          </Marker>
+
           <span
             className={`${s.tagline} text-muted-foreground font-medium tracking-wider uppercase mt-0.5 truncate`}
             title="Practice - Challenge - Persevere"

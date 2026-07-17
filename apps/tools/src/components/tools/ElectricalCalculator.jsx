@@ -25,9 +25,9 @@ const SYSTEM_OPTIONS = [
 ];
 
 const TARGET_OPTIONS = [
-  { label: "Tính Dòng Điện (I)", value: "I" },
-  { label: "Tính Công Suất (P)", value: "P" },
-  { label: "Tính Điện Áp (U)", value: "U" },
+  { label: "Dòng Điện (I)", value: "I" },
+  { label: "Công Suất (P)", value: "P" },
+  { label: "Điện Áp (U)", value: "U" },
 ];
 
 const CB_SIZES = [
@@ -74,8 +74,8 @@ export default function ElectricalCalculator() {
       const I = Number(current) || 0;
       const P = Number(power) * 1000 || 0; // Chuyển kW sang W
       const PF = Number(powerFactor) || 1;
-      const sqrt3 = Math.sqrt(3);
-
+      const sqrt3 = Math.sqrt(3); // Căn 3
+      // Công thức
       if (calcTarget === "I") {
         if (systemType === "DC") {
           resI = U > 0 ? P / U : 0;
@@ -146,7 +146,7 @@ export default function ElectricalCalculator() {
         </h1>
         <p className="text-muted-foreground">
           Công cụ tính toán công suất, dòng điện, điện áp và gợi ý chọn thiết bị
-          CB, dây dẫn.
+          CB, dây dẫn...
         </p>
       </div>
 
@@ -187,7 +187,16 @@ export default function ElectricalCalculator() {
                 <Label>Đại lượng cần tính</Label>
                 <Select value={calcTarget} onValueChange={setCalcTarget}>
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Chọn đại lượng" />
+                    <SelectValue placeholder="Chọn đại lượng">
+                      {calcTarget
+                        ? `${
+                            TARGET_OPTIONS.find((opt) => {
+                              console.log(opt);
+                              return opt.value === calcTarget;
+                            }).label
+                          }`
+                        : "Chọn đại lượng"}
+                    </SelectValue>
                   </SelectTrigger>
                   <SelectContent>
                     {TARGET_OPTIONS.map((opt) => (

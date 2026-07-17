@@ -5,7 +5,6 @@ import { _UseCx } from "@/lib/utils";
 const cx = _UseCx(style);
 
 function SvgLoading(props) {
-  console.log(cx("svg_svg"));
   return (
     <svg
       id={cx("svg_svg")}

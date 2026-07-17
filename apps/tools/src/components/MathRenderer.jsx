@@ -60,3 +60,15 @@ export default function MathRenderer({
 
   return <div ref={containerRef} className={className} />;
 }
+
+/**
+ * - Sử dụng $...$ để render công thức toán trong chuỗi text
+ * - Ví dụ: "Công thức tính điện trở là $R = \frac{V}{I}$"
+ *
+ */
+export function RenderMathInText(text) {
+  const html = text.replace(/\$([^$]+)\$/g, (_, formula) =>
+    katex.renderToString(formula, { throwOnError: false, displayMode: false }),
+  );
+  return <span dangerouslySetInnerHTML={{ __html: html }} />;
+}
