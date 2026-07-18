@@ -8,6 +8,8 @@
 import { themes as prismThemes } from "prism-react-renderer";
 import { categorys } from "./src/constants/category.js";
 import { myData } from "./src/constants/my_data.js";
+// import remarkMath from "remark-math";
+// import rehypeKatex from "rehype-katex";
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const dynamicPlugins = categorys.map((category) => [
@@ -17,6 +19,8 @@ const dynamicPlugins = categorys.map((category) => [
     path: category.path,
     routeBasePath: category.routeBasePath,
     sidebarPath: "./sidebars.js",
+    // remarkPlugins: [remarkMath],
+    // rehypePlugins: [rehypeKatex],
   },
 ]);
 
@@ -39,6 +43,12 @@ const config = {
   title: myData.brand_name,
   tagline: `${myData.brand_name} - Sharing knowledge ${myData.user_name}`,
   favicon: "img/favicon.ico",
+  // stylesheets: [
+  //   {
+  //     href: "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css",
+  //     type: "text/css",
+  //   },
+  // ],
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -88,6 +98,8 @@ const config = {
             type: ["rss", "atom"],
             xslt: true,
           },
+          // remarkPlugins: [remarkMath],
+          // rehypePlugins: [rehypeKatex],
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl:
@@ -96,6 +108,8 @@ const config = {
           onInlineTags: "warn",
           onInlineAuthors: "warn",
           onUntruncatedBlogPosts: "warn",
+          blogSidebarCount: "ALL",
+          postsPerPage: 24,
         },
         theme: {
           customCss: "./src/css/custom.css",
@@ -135,6 +149,10 @@ const config = {
       colorMode: {
         respectPrefersColorScheme: true,
       },
+      tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 5,
+    },
       algolia: {
         appId: "EN380UNNOE",
         apiKey: "a21094e5e6565a08632d958eb85c8f49",
@@ -157,11 +175,11 @@ const config = {
             type: "search",
             position: "right",
           },
-          {
-            href: myData.link_github,
-            label: "GitHub",
-            position: "right",
-          },
+          // {
+          //   href: myData.link_github,
+          //   label: "GitHub",
+          //   position: "right",
+          // },
           {
             href: "pathname:///shareme/tool/",
             label: "Tool",
