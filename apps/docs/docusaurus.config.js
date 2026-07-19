@@ -166,7 +166,6 @@ const config = {
         title: myData.brand_name,
         items: [
           ...dynamicNavbarItems,
-          // { to: '/blog', label: 'Blog', position: 'left' },
           // {
           //   type: 'localeDropdown',
           //   position: 'right',
@@ -186,6 +185,7 @@ const config = {
             position: "right",
             target: "_self",
           },
+          { to: '/blog', label: 'Blog', position: 'right' },
           {
             href: "/about",
             label: "About Me",

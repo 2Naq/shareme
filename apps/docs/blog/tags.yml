@@ -1,19 +1,42 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
-
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
-
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
-
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+modbus:
+  label: Modbus
+  permalink: /modbus
+plc:
+  label: PLC
+  permalink: /plc
+scada:
+  label: SCADA
+  permalink: /scada
+data-conversion:
+  label: Data Conversion
+  permalink: /data-conversion
+ieee754:
+  label: IEEE 754
+  permalink: /ieee754
+crc16:
+  label: CRC16
+  permalink: /crc16
+tu-dong-hoa:
+  label: Tự Động Hóa
+  permalink: /tu-dong-hoa
+dien-cong-nghiep:
+  label: Điện Công Nghiệp
+  permalink: /dien-cong-nghiep
+networking:
+  label: Mạng Truyền Thông
+  permalink: /networking
+motor-control:
+  label: Điều Khiển Động Cơ
+  permalink: /motor-control
+sensors:
+  label: Cảm Biến
+  permalink: /sensors
+pid-control:
+  label: Bộ Điều Khiển PID
+  permalink: /pid-control
+schematics:
+  label: Bản Vẽ Điện
+  permalink: /schematics
+standards:
+  label: Tiêu Chuẩn IP
+  permalink: /standards

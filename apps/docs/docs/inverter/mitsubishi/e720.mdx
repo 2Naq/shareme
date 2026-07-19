@@ -14,11 +14,11 @@ Tài liệu tổng hợp chi tiết các mã lệnh và dải cài đặt tham s
 
 | Mã lệnh | Tên thông số / Chức năng | Dải cài đặt | Mặc định |
 | --- | --- | --- | --- |
-| **ALLC** | All Parameter Clear (Khôi phục toàn bộ cài đặt gốc) | `0`, `1` | 0 |
-| **Pr.79** | Operation mode selection (Lựa chọn chế độ vận hành PU/EXT) | `0` - `8` | 0 |
-| **Pr.77** | Parameter write selection (Quyền khóa/cho phép ghi tham số) | `0`, `1`, `2` | 0 |
-| **Pr.75** | Reset/PU stop selection (Lựa chọn lệnh Reset và nút Dừng PU) | `0` - `17` | 14 |
-| **Pr.145** | PU display language (Ngôn ngữ hiển thị trên màn hình) | `0` - `7` | Tùy vùng |
+| <span id="allc">**ALLC**</span> | All Parameter Clear (Khôi phục toàn bộ cài đặt gốc) | `0`, `1` | 0 |
+| <span id="pr79">**Pr.79**</span> | Operation mode selection (Lựa chọn chế độ vận hành PU/EXT) | `0` - `8` | 0 |
+| <span id="pr77">**Pr.77**</span> | Parameter write selection (Quyền khóa/cho phép ghi tham số) | `0`, `1`, `2` | 0 |
+| <span id="pr75">**Pr.75**</span> | Reset/PU stop selection (Lựa chọn lệnh Reset và nút Dừng PU) | `0` - `17` | 14 |
+| <span id="pr145">**Pr.145**</span> | PU display language (Ngôn ngữ hiển thị trên màn hình) | `0` - `7` | Tùy vùng |
 
 ### ALLC (Khôi phục cài đặt gốc)
     *   `0`: Không thực hiện.
@@ -35,7 +35,7 @@ Tài liệu tổng hợp chi tiết các mã lệnh và dải cài đặt tham s
     *   `8`: Chế độ kết hợp JOG (Chạy nhấp). Cho phép kết hợp chạy nhấp PU và điều khiển External.
 ### Pr.77 (Quyền ghi tham số)
     *   `0`: Chỉ cho phép sửa tham số khi động cơ đã dừng hẳn và biến tần ở chế độ PU.
-    *   `1`: Khóa ghi tham số. Không cho phép thay đổi bất kỳ tham số nào (ngoại trừ chính tham số Pr.77 và Pr.79) nhằm tránh việc thay đổi ngoài ý muốn trong quá trình vận hành.
+    *   `1`: Khóa ghi tham số. Không cho phép thay đổi bất kỳ tham số nào (ngoại trừ chính tham số [Pr.77](#pr77) và [Pr.79](#pr79)) nhằm tránh việc thay đổi ngoài ý muốn trong quá trình vận hành.
     *   `2`: Cho phép ghi và thay đổi tham số ngay cả khi động cơ đang chạy.
 ### Pr.75 (Lệnh Reset & nút STOP) 
 **Cấu hình bảo vệ khi mất kết nối màn hình và quy định hoạt động nút STOP khẩn cấp.**
@@ -57,18 +57,18 @@ Tài liệu tổng hợp chi tiết các mã lệnh và dải cài đặt tham s
 
 | Mã lệnh | Tên thông số / Chức năng | Dải cài đặt | Mặc định |
 | --- | --- | --- | --- |
-| **Pr.1** | Maximum Frequency (Tần số hoạt động tối đa) | `0` - `120` Hz | 120 Hz |
-| **Pr.2** | Minimum Frequency (Tần số hoạt động tối thiểu) | `0` - `120` Hz | 0 Hz |
-| **Pr.3** | Base Frequency (Tần số cơ bản của động cơ) | `0` - `400` Hz | 50/60 Hz |
-| **Pr.4** | Multi-speed setting (Tốc độ cao - kích hoạt qua chân RH) | `0` - `400` Hz | 50/60 Hz |
-| **Pr.5** | Multi-speed setting (Tốc độ trung bình - qua chân RM) | `0` - `400` Hz | 30 Hz |
-| **Pr.6** | Multi-speed setting (Tốc độ thấp - qua chân RL) | `0` - `400` Hz | 10 Hz |
-| **Pr.24-27** | Multi-speed setting (Tốc độ đa cấp mở rộng cấp 4 đến 7) | `0` - `400` Hz, `9999` | 9999 |
-| **Pr.125** | Terminal 2 frequency setting gain (Tần số tối đa khi dùng chiết áp) | `0` - `400` Hz | 50/60 Hz |
+| <span id="pr1">**Pr.1**</span> | Maximum Frequency (Tần số hoạt động tối đa) | `0` - `120` Hz | 120 Hz |
+| <span id="pr2">**Pr.2**</span> | Minimum Frequency (Tần số hoạt động tối thiểu) | `0` - `120` Hz | 0 Hz |
+| <span id="pr3">**Pr.3**</span> | Base Frequency (Tần số cơ bản của động cơ) | `0` - `400` Hz | 50/60 Hz |
+| <span id="pr4">**Pr.4**</span> | Multi-speed setting (Tốc độ cao - kích hoạt qua chân RH) | `0` - `400` Hz | 50/60 Hz |
+| <span id="pr5">**Pr.5**</span> | Multi-speed setting (Tốc độ trung bình - qua chân RM) | `0` - `400` Hz | 30 Hz |
+| <span id="pr6">**Pr.6**</span> | Multi-speed setting (Tốc độ thấp - qua chân RL) | `0` - `400` Hz | 10 Hz |
+| <span id="pr24-27">**Pr.24-27**</span> | Multi-speed setting (Tốc độ đa cấp mở rộng cấp 4 đến 7) | `0` - `400` Hz, `9999` | 9999 |
+| <span id="pr125">**Pr.125**</span> | Terminal 2 frequency setting gain (Tần số tối đa khi dùng chiết áp) | `0` - `400` Hz | 50/60 Hz |
 
 
 ### Pr.1 & Pr.2 (Giới hạn tần số)
-Thiết lập ngưỡng tần số tối đa và tối thiểu để bảo vệ cơ cấu chấp hành. Ví dụ, nếu chiết áp ngoài vặn kịch kim mà tần số chỉ đạt tối đa là 50Hz, thì Pr.1 chính là giới hạn trên.
+Thiết lập ngưỡng tần số tối đa và tối thiểu để bảo vệ cơ cấu chấp hành. Ví dụ, nếu chiết áp ngoài vặn kịch kim mà tần số chỉ đạt tối đa là 50Hz, thì [Pr.1](#pr1) chính là giới hạn trên.
 ### Pr.24 - Pr.27 (Tốc độ mở rộng)
 Các cấp tốc độ từ 4 đến 7 được kích hoạt bằng cách kết hợp đồng thời các chân đầu vào (ví dụ: RH + RM, RM + RL, v.v.). Giá trị mặc định là `9999` nghĩa là chức năng cấp tốc độ tương ứng chưa được kích hoạt.
 ### Pr.125 (Gain chân số 2)
@@ -80,15 +80,15 @@ Các cấp tốc độ từ 4 đến 7 được kích hoạt bằng cách kết 
 
 | Mã lệnh | Tên thông số / Chức năng | Dải cài đặt | Mặc định |
 | --- | --- | --- | --- |
-| **Pr.0** | Torque Boost (Tăng cường mô-men xoắn khởi động) | `0` - `30` % | Tùy công suất |
-| **Pr.7** | Acceleration Time (Thời gian tăng tốc lên tần số định mức) | `0` - `3600` s | 5s / 10s |
-| **Pr.8** | Deceleration Time (Thời gian giảm tốc về 0 Hz) | `0` - `3600` s | 5s / 10s |
-| **Pr.9** | Electronic thermal O/L relay (Dòng bảo vệ quá tải nhiệt động cơ) | `0` - `500` A | Dòng định mức |
-| **Pr.14** | Load pattern selection (Lựa chọn đường cong đặc tuyến V/F) | `0`, `1`, `2`, `3` | 0 |
-| **Pr.22** | Stall prevention operation level (Mức dòng điện chống sụt tốc) | `0` - `200` % | 150% |
-| **Pr.156** | Stall prevention operation selection (Cấu hình hành vi khi chống trượt) | `0` - `101` | 0 |
-| **Pr.261** | Power-failure stop (Xử lý khi mất điện chớp nhoáng) | `0` - `12` | 0 |
-| **Pr.882-886** | Regenerative avoidance (Tránh lỗi quá áp do năng lượng tái sinh) | Đa dạng | 9999 |
+| <span id="pr0">**Pr.0**</span> | Torque Boost (Tăng cường mô-men xoắn khởi động) | `0` - `30` % | Tùy công suất |
+| <span id="pr7">**Pr.7**</span> | Acceleration Time (Thời gian tăng tốc lên tần số định mức) | `0` - `3600` s | 5s / 10s |
+| <span id="pr8">**Pr.8**</span> | Deceleration Time (Thời gian giảm tốc về 0 Hz) | `0` - `3600` s | 5s / 10s |
+| <span id="pr9">**Pr.9**</span> | Electronic thermal O/L relay (Dòng bảo vệ quá tải nhiệt động cơ) | `0` - `500` A | Dòng định mức |
+| <span id="pr14">**Pr.14**</span> | Load pattern selection (Lựa chọn đường cong đặc tuyến V/F) | `0`, `1`, `2`, `3` | 0 |
+| <span id="pr22">**Pr.22**</span> | Stall prevention operation level (Mức dòng điện chống sụt tốc) | `0` - `200` % | 150% |
+| <span id="pr156">**Pr.156**</span> | Stall prevention operation selection (Cấu hình hành vi khi chống trượt) | `0` - `101` | 0 |
+| <span id="pr261">**Pr.261**</span> | Power-failure stop (Xử lý khi mất điện chớp nhoáng) | `0` - `12` | 0 |
+| <span id="pr882-886">**Pr.882-886**</span> | Regenerative avoidance (Tránh lỗi quá áp do năng lượng tái sinh) | Đa dạng | 9999 |
 
 
 ### Pr.14 (Đặc tuyến tải V/F)
@@ -104,12 +104,12 @@ Các cấp tốc độ từ 4 đến 7 được kích hoạt bằng cách kết 
 
 | Mã lệnh | Tên thông số / Chức năng | Dải cài đặt | Mặc định |
 | --- | --- | --- | --- |
-| **Pr.71** | Applied motor (Lựa chọn loại động cơ) | `0`, `1`, `3`, `13`, `40`, `50`... | 0 |
-| **Pr.72** | PWM frequency selection (Tần số băm xung sóng mang - Carrier Frequency) | `0` - `15` | Tùy công suất |
-| **Pr.80** | Motor capacity (Công suất động cơ - dùng cho Auto-Tuning) | `0.1` - `15` kW | 9999 |
-| **Pr.81** | Number of motor poles (Số cực của động cơ) | `2`, `4`, `6`, `8`, `10` | 9999 |
-| **Pr.83** | Rated motor voltage (Điện áp định mức của động cơ) | `0` - `1000` V | 200V / 400V |
-| **Pr.84** | Rated motor frequency (Tần số định mức của động cơ) | `10` - `400` Hz | 50/60 Hz |
+| <span id="pr71">**Pr.71**</span> | Applied motor (Lựa chọn loại động cơ) | `0`, `1`, `3`, `13`, `40`, `50`... | 0 |
+| <span id="pr72">**Pr.72**</span> | PWM frequency selection (Tần số băm xung sóng mang - Carrier Frequency) | `0` - `15` | Tùy công suất |
+| <span id="pr80">**Pr.80**</span> | Motor capacity (Công suất động cơ - dùng cho Auto-Tuning) | `0.1` - `15` kW | 9999 |
+| <span id="pr81">**Pr.81**</span> | Number of motor poles (Số cực của động cơ) | `2`, `4`, `6`, `8`, `10` | 9999 |
+| <span id="pr83">**Pr.83**</span> | Rated motor voltage (Điện áp định mức của động cơ) | `0` - `1000` V | 200V / 400V |
+| <span id="pr84">**Pr.84**</span> | Rated motor frequency (Tần số định mức của động cơ) | `10` - `400` Hz | 50/60 Hz |
 
 ### Pr.71 (Loại động cơ sử dụng)
 **Thiết lập bảo vệ nhiệt và hỗ trợ đo thông số động cơ (Auto-Tuning).**
@@ -129,14 +129,14 @@ Các cấp tốc độ từ 4 đến 7 được kích hoạt bằng cách kết 
 
 | Mã lệnh | Tên thông số / Chức năng | Dải cài đặt | Mặc định |
 | --- | --- | --- | --- |
-| **Pr.54** | FM terminal function selection (Gán chức năng ngõ ra xung FM) | `1` - `21` | 1 |
-| **Pr.73** | Analog input selection (Cấu hình loại ngõ vào Analog - 0-5V/0-10V) | `0` - `17` | 1 |
-| **Pr.128** | PID action selection (Kích hoạt bộ điều khiển PID thuận/nghịch) | `0`, `10`, `11`, `20`, `21` | 0 |
-| **Pr.129-134** | Nhóm tham số điều chỉnh độ lợi Kp, Ki, Kd của bộ PID | Đa dạng | Đa dạng |
-| **Pr.178-182** | Input terminal function (Lập trình chức năng chân STF, STR, RL...) | `0` - `9999` | Theo từng chân |
-| **Pr.190-192** | Output terminal function (Gán chức năng cảnh báo ngõ ra Relay) | `0` - `9999` | Theo từng chân |
-| **Pr.244** | Cooling fan operation (Điều khiển quạt tản nhiệt của biến tần) | `0`, `1`, `101` | 1 |
-| **Pr.267** | Terminal 4 input selection (Cấu hình ngõ vào cho Terminal số 4) | `0`, `1`, `2` | 0 |
+| <span id="pr54">**Pr.54**</span> | FM terminal function selection (Gán chức năng ngõ ra xung FM) | `1` - `21` | 1 |
+| <span id="pr73">**Pr.73**</span> | Analog input selection (Cấu hình loại ngõ vào Analog - 0-5V/0-10V) | `0` - `17` | 1 |
+| <span id="pr128">**Pr.128**</span> | PID action selection (Kích hoạt bộ điều khiển PID thuận/nghịch) | `0`, `10`, `11`, `20`, `21` | 0 |
+| <span id="pr129-134">**Pr.129-134**</span> | Nhóm tham số điều chỉnh độ lợi Kp, Ki, Kd của bộ PID | Đa dạng | Đa dạng |
+| <span id="pr178-182">**Pr.178-182**</span> | Input terminal function (Lập trình chức năng chân STF, STR, RL...) | `0` - `9999` | Theo từng chân |
+| <span id="pr190-192">**Pr.190-192**</span> | Output terminal function (Gán chức năng cảnh báo ngõ ra Relay) | `0` - `9999` | Theo từng chân |
+| <span id="pr244">**Pr.244**</span> | Cooling fan operation (Điều khiển quạt tản nhiệt của biến tần) | `0`, `1`, `101` | 1 |
+| <span id="pr267">**Pr.267**</span> | Terminal 4 input selection (Cấu hình ngõ vào cho Terminal số 4) | `0`, `1`, `2` | 0 |
 
 
 ### Pr.128 (Lựa chọn chế độ PID)
@@ -222,12 +222,12 @@ graph TD
 #### 2. Các bước cài đặt tham số (Parameter Settings)
 
 *   **Bước 1:** Chuyển biến tần sang chế độ vận hành `External`.
-    *   Cài đặt **Pr.79 = 2** (Cố định chạy bằng nút nhấn/chiết áp ngoài).
+    *   Cài đặt **[Pr.79](#pr79) = 2** (Cố định chạy bằng nút nhấn/chiết áp ngoài).
 *   **Bước 2:** Cài đặt thông số chiết áp nhận tín hiệu Analog.
-    *   Cài đặt **Pr.73 = 1** (Nhận dải điện áp `0 - 5 VDC`, khuyên dùng vì nguồn chân 10 mặc định là 5V).
-    *   *Lưu ý:* Nếu ní muốn dùng nguồn `0 - 10 VDC` (cần cấp nguồn 10V ngoài hoặc cấu hình chân), hãy cài **Pr.73 = 0**.
+    *   Cài đặt **[Pr.73](#pr73) = 1** (Nhận dải điện áp `0 - 5 VDC`, khuyên dùng vì nguồn chân 10 mặc định là 5V).
+    *   *Lưu ý:* Nếu ní muốn dùng nguồn `0 - 10 VDC` (cần cấp nguồn 10V ngoài hoặc cấu hình chân), hãy cài **[Pr.73](#pr73) = 0**.
 *   **Bước 3:** Hiệu chỉnh tần số tương ứng với chiết áp tối đa.
-    *   Mặc định khi chiết áp vặn tối đa (5V), tần số đầu ra là 50Hz hoặc 60Hz. Nếu muốn thay đổi (ví dụ tối đa là 80Hz), hãy cài **Pr.125 = 80**.
+    *   Mặc định khi chiết áp vặn tối đa (5V), tần số đầu ra là 50Hz hoặc 60Hz. Nếu muốn thay đổi (ví dụ tối đa là 80Hz), hãy cài **[Pr.125](#pr125) = 80**.
 
 ---
 
@@ -269,12 +269,12 @@ graph LR
 
 #### 2. Các bước cài đặt tham số (Parameter Settings)
 
-*   **Bước 1:** Kích hoạt chế độ điều khiển External bằng cách cài đặt **Pr.79 = 2**.
+*   **Bước 1:** Kích hoạt chế độ điều khiển External bằng cách cài đặt **[Pr.79](#pr79) = 2**.
 *   **Bước 2:** Cài đặt các mức tần số mong muốn cho từng cấp tốc độ:
-    *   **Pr.4 (Tốc độ cao - kích hoạt chân RH):** Cài đặt `50.00` Hz.
-    *   **Pr.5 (Tốc độ trung bình - kích hoạt chân RM):** Cài đặt `30.00` Hz.
-    *   **Pr.6 (Tốc độ thấp - kích hoạt chân RL):** Cài đặt `15.00` Hz.
-*   **Bước 3 (Tùy chọn):** Nếu muốn chạy đa cấp mở rộng lên tới 7 cấp tốc độ bằng cách phối hợp logic các chân, ní cài đặt thêm các tham số **Pr.24** (Cấp 4) đến **Pr.27** (Cấp 7).
+    *   **[Pr.4](#pr4) (Tốc độ cao - kích hoạt chân RH):** Cài đặt `50.00` Hz.
+    *   **[Pr.5](#pr5) (Tốc độ trung bình - kích hoạt chân RM):** Cài đặt `30.00` Hz.
+    *   **[Pr.6](#pr6) (Tốc độ thấp - kích hoạt chân RL):** Cài đặt `15.00` Hz.
+*   **Bước 3 (Tùy chọn):** Nếu muốn chạy đa cấp mở rộng lên tới 7 cấp tốc độ bằng cách phối hợp logic các chân, ní cài đặt thêm các tham số **[Pr.24](#pr24-27)** (Cấp 4) đến **[Pr.27](#pr24-27)** (Cấp 7).
 *   **Bảng logic kích hoạt đầu vào:**
 
 | Chân RH | Chân RM | Chân RL | Tốc độ hoạt động | Tần số ngõ ra (Hz) |
@@ -282,7 +282,7 @@ graph LR
 | OFF | OFF | **ON** | Tốc độ thấp | **15.00 Hz** |
 | OFF | **ON** | OFF | Tốc độ trung bình | **30.00 Hz** |
 | **ON** | OFF | OFF | Tốc độ cao | **50.00 Hz** |
-| OFF | **ON** | **ON** | Cấp tốc độ 4 (Pr.24) | Tùy cài đặt (mặc định 9999) |
+| OFF | **ON** | **ON** | Cấp tốc độ 4 ([Pr.24](#pr24-27)) | Tùy cài đặt (mặc định 9999) |
 
 ---
 
@@ -309,13 +309,13 @@ Cổng cắm mạng (RJ45) phía trước mặt biến tần chính là cổng g
 
 Cần thực hiện cài đặt các tham số sau bằng bàn phím (trong chế độ PU) trước khi kết nối mạng:
 
-1.  **Pr.549 = 1** (Lựa chọn giao thức Modbus RTU. Mặc định là `0` là giao thức riêng của Mitsubishi).
-2.  **Pr.117 = 1** (Đặt địa chỉ Station của biến tần trong mạng. Tránh trùng lặp với các thiết bị khác).
-3.  **Pr.118 = 96** (Tốc độ truyền dữ liệu - Baudrate. Số `96` tương đương với `9600 bps`. Nếu cần nhanh hơn, chọn `192` cho `19200 bps`).
-4.  **Pr.119 = 10** (Định dạng khung dữ liệu: `8-bit data`, parity `Even` chẵn, `1 stop bit`. Đây là định dạng chuẩn cực kỳ phổ biến).
-5.  **Pr.120 = 2** (Bật kiểm tra lỗi chẵn lẻ Parity chẵn).
-6.  **Pr.122 = 9999** (Thời gian giám sát lỗi truyền thông. Đặt `9999` để tắt bảo vệ lỗi truyền thông trong quá trình lập trình/thử nghiệm đầu tiên để tránh biến tần báo lỗi sụt mạng liên tục).
-7.  **Pr.340 = 10** (Chế độ khởi động mạng. Khi bật nguồn, biến tần sẽ tự động nhận lệnh điều khiển trực tiếp từ đường truyền RS-485 mạng NET mà không cần bấm nút chuyển đổi trên bàn phím).
+1.  <span id="pr549">**Pr.549**</span> = 1 (Lựa chọn giao thức Modbus RTU. Mặc định là `0` là giao thức riêng của Mitsubishi).
+2.  <span id="pr117">**Pr.117**</span> = 1 (Đặt địa chỉ Station của biến tần trong mạng. Tránh trùng lặp với các thiết bị khác).
+3.  <span id="pr118">**Pr.118**</span> = 96 (Tốc độ truyền dữ liệu - Baudrate. Số `96` tương đương với `9600 bps`. Nếu cần nhanh hơn, chọn `192` cho `19200 bps`).
+4.  <span id="pr119">**Pr.119**</span> = 10 (Định dạng khung dữ liệu: `8-bit data`, parity `Even` chẵn, `1 stop bit`. Đây là định dạng chuẩn cực kỳ phổ biến).
+5.  <span id="pr120">**Pr.120**</span> = 2 (Bật kiểm tra lỗi chẵn lẻ Parity chẵn).
+6.  <span id="pr122">**Pr.122**</span> = 9999 (Thời gian giám sát lỗi truyền thông. Đặt `9999` để tắt bảo vệ lỗi truyền thông trong quá trình lập trình/thử nghiệm đầu tiên để tránh biến tần báo lỗi sụt mạng liên tục).
+7.  <span id="pr340">**Pr.340**</span> = 10 (Chế độ khởi động mạng. Khi bật nguồn, biến tần sẽ tự động nhận lệnh điều khiển trực tiếp từ đường truyền RS-485 mạng NET mà không cần bấm nút chuyển đổi trên bàn phím).
 
 :::warning[Quan trọng:]
 Sau khi cài đặt xong các thông số trên, ní **phải tắt nguồn biến tần, đợi màn hình tắt hẳn rồi bật nguồn lại** để các cấu hình truyền thông chính thức được kích hoạt.

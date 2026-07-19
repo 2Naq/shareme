@@ -1,33 +1,39 @@
-import React, { useState, useMemo } from 'react';
-import clsx from 'clsx';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
+import React, { useState, useMemo } from "react";
+import clsx from "clsx";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Layout from "@theme/Layout";
 import {
   PageMetadata,
   HtmlClassNameProvider,
   ThemeClassNames,
-} from '@docusaurus/theme-common';
-import BlogListPaginator from '@theme/BlogListPaginator';
-import SearchMetadata from '@theme/SearchMetadata';
-import BlogPostItems from '@theme/BlogPostItems';
-import BlogListPageStructuredData from '@theme/BlogListPage/StructuredData';
-import Link from '@docusaurus/Link';
+} from "@docusaurus/theme-common";
+import BlogListPaginator from "@theme/BlogListPaginator";
+import SearchMetadata from "@theme/SearchMetadata";
+import BlogPostItems from "@theme/BlogPostItems";
+import BlogListPageStructuredData from "@theme/BlogListPage/StructuredData";
+import Link from "@docusaurus/Link";
 
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import AuthorCard from "@/components/blog/AuthorCard";
+import { Menu, SearchIcon, XIcon } from "lucide-react";
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from '@/components/ui/card';
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupButton,
+} from "@/components/ui/input-group";
+import { Button } from "@/components/ui/button";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from "@/components/ui/command";
 
 // ─── Metadata ────────────────────────────────────────────────
 function BlogListPageMetadata(props) {
@@ -36,7 +42,7 @@ function BlogListPageMetadata(props) {
     siteConfig: { title: siteTitle },
   } = useDocusaurusContext();
   const { blogDescription, blogTitle, permalink } = metadata;
-  const isBlogOnlyMode = permalink === '/';
+  const isBlogOnlyMode = permalink === "/";
   const title = isBlogOnlyMode ? siteTitle : blogTitle;
   return (
     <>
@@ -46,39 +52,18 @@ function BlogListPageMetadata(props) {
   );
 }
 
-// ─── Sidebar: Author Card ─────────────────────────────────────
-function AuthorCard() {
-  return (
-    <Card>
-      <CardHeader>
-        <div className="flex flex-col items-center gap-3">
-          <Avatar className="size-16">
-            <AvatarImage src="https://github.com/2Naq.png" />
-            <AvatarFallback>AN</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col items-center gap-1">
-            <CardTitle className="text-base">An Nguyễn</CardTitle>
-            <CardDescription className="text-center text-xs">
-              Thợ đụng, tập đụng — Chia sẻ kiến thức Điện & Tự Động Hóa công nghiệp
-            </CardDescription>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="flex flex-wrap justify-center gap-2">
-        <Badge variant="outline" render={
-          <a href="https://github.com/2Naq" target="_blank" rel="noopener noreferrer" className="no-underline">
-            GitHub
-          </a>
-        } />
-        <Badge variant="outline" render={
-          <a href="https://2naq.github.io/shareme" target="_blank" rel="noopener noreferrer" className="no-underline">
-            Website
-          </a>
-        } />
-      </CardContent>
-    </Card>
-  );
-}
+// ─── Sidebar: Author data cho AuthorCard ─────────────────────
+const PRIMARY_AUTHOR = {
+  name: "An Nguyễn",
+  title: "Thợ đụng, tập đụng",
+  imageURL: "https://github.com/2Naq.png",
+  url: "https://2naq.github.io/shareme",
+  page: { permalink: "/blog/authors/an-nguyen" },
+  socials: {
+    github: "https://github.com/2Naq",
+    newsletter: "https://2naq.github.io/shareme",
+  },
+};
 
 // ─── Sidebar: Popular Posts ──────────────────────────────────
 function PopularPosts({ items }) {
@@ -104,7 +89,7 @@ function PopularPosts({ items }) {
                   {title}
                 </span>
                 <span className="text-xs text-muted-foreground">
-                  {dateObj.toLocaleDateString('vi-VN')}
+                  {dateObj.toLocaleDateString("vi-VN")}
                 </span>
               </Link>
             </React.Fragment>
@@ -126,13 +111,11 @@ function TagCloud({ allTags, selectedTag, onSelectTag }) {
         {allTags.map((tag) => (
           <Badge
             key={tag}
-            variant={selectedTag === tag ? 'default' : 'outline'}
+            variant={selectedTag === tag ? "default" : "outline"}
             className="cursor-pointer transition-all"
             render={
-              <button
-                onClick={() => onSelectTag(tag)}
-              >
-                {tag === 'Tất cả' ? 'Tất cả' : `#${tag}`}
+              <button onClick={() => onSelectTag(tag)}>
+                {tag === "Tất cả" ? "Tất cả" : `#${tag}`}
               </button>
             }
           />
@@ -145,53 +128,105 @@ function TagCloud({ allTags, selectedTag, onSelectTag }) {
 // ─── Blog Horizontal Filter Bar ─────────────────────────────
 function TagFilterBar({ allTags, selectedTag, onSelectTag }) {
   return (
-    <ScrollArea className="w-full">
-      <div className="flex gap-2 pb-3">
-        {allTags.map((tag) => (
-          <button
-            key={tag}
-            onClick={() => onSelectTag(tag)}
-            className={clsx(
-              'shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold border border-solid transition-all duration-200 cursor-pointer',
-              selectedTag === tag
-                ? 'bg-primary text-primary-foreground border-primary'
-                : 'bg-card text-muted-foreground border-border hover:bg-accent hover:text-accent-foreground'
-            )}
-          >
-            {tag === 'Tất cả' ? '🏷️ Tất cả' : `# ${tag}`}
-          </button>
-        ))}
-      </div>
-      <ScrollBar orientation="horizontal" />
-    </ScrollArea>
+    <div className="flex gap-2 items-center">
+      {allTags.map((tag) => (
+        <button
+          key={tag}
+          onClick={() => onSelectTag(tag)}
+          className={clsx(
+            "shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold border border-solid transition-all duration-200 cursor-pointer",
+            selectedTag === tag
+              ? "bg-primary text-primary-foreground border-primary"
+              : "bg-card text-muted-foreground border-border hover:bg-accent hover:text-accent-foreground",
+          )}
+        >
+          {tag === "Tất cả" ? "🏷️ Tất cả" : `# ${tag}`}
+        </button>
+      ))}
+    </div>
   );
 }
 
 // ─── Main Content ───────────────────────────────────────────
 function BlogListPageContent(props) {
   const { metadata, items, sidebar } = props;
-  const [selectedTag, setSelectedTag] = useState('Tất cả');
+  const [selectedTag, setSelectedTag] = useState("Tất cả");
+  const [openDialog, setOpenDialog] = useState(false);
 
-  // Trích xuất danh sách tag duy nhất
-  const allTags = useMemo(() => {
-    const tagsSet = new Set();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Trích xuất danh sách tag duy nhất và đếm số lượng bài viết của từng tag
+  const { allTags, topTags, tagCounts } = useMemo(() => {
+    const counts = { "Tất cả": items.length };
     items.forEach((item) => {
       if (item.content?.metadata?.tags) {
         item.content.metadata.tags.forEach((tag) => {
-          tagsSet.add(tag.label);
+          counts[tag.label] = (counts[tag.label] || 0) + 1;
         });
       }
     });
-    return ['Tất cả', ...Array.from(tagsSet)];
+
+    const tagsList = Object.keys(counts).filter((tag) => tag !== "Tất cả");
+
+    // Sắp xếp các tag theo số bài viết giảm dần
+    const sortedTags = [...tagsList].sort((a, b) => counts[b] - counts[a]);
+
+    // Lấy top 4 tags nhiều bài nhất
+    const top4 = sortedTags.slice(0, 4);
+
+    return {
+      allTags: ["Tất cả", ...sortedTags],
+      topTags: ["Tất cả", ...top4],
+      tagCounts: counts,
+    };
   }, [items]);
 
-  // Lọc bài viết theo tag
+  // Lọc danh sách tag hiển thị ở thanh bar nằm ngang:
+  // Nếu tag đang chọn không nằm trong topTags, chèn thêm vào cuối để người dùng thấy feedback
+  const visibleTags = useMemo(() => {
+    if (topTags.includes(selectedTag)) {
+      return topTags;
+    }
+    return [...topTags, selectedTag];
+  }, [topTags, selectedTag]);
+
+  // Số lượng tag bị ẩn
+  const hiddenTagsCount = useMemo(() => {
+    return allTags.length - visibleTags.length;
+  }, [allTags, visibleTags]);
+
+  // Lọc bài viết theo tag và từ khóa tìm kiếm (searchQuery)
   const filteredItems = useMemo(() => {
-    if (selectedTag === 'Tất cả') return items;
-    return items.filter((item) =>
-      item.content?.metadata?.tags?.some((tag) => tag.label === selectedTag)
-    );
-  }, [items, selectedTag]);
+    let result = items;
+
+    // Lọc theo tag
+    if (selectedTag !== "Tất cả") {
+      result = result.filter((item) =>
+        item.content?.metadata?.tags?.some((tag) => tag.label === selectedTag),
+      );
+    }
+
+    // Lọc theo từ khóa tìm kiếm (title, description, tags)
+    if (searchQuery.trim() !== "") {
+      const query = searchQuery.toLowerCase().trim();
+      result = result.filter((item) => {
+        const title = item.content?.metadata?.title?.toLowerCase() || "";
+        const description =
+          item.content?.metadata?.description?.toLowerCase() || "";
+        const tagsStr =
+          item.content?.metadata?.tags
+            ?.map((t) => t.label.toLowerCase())
+            .join(" ") || "";
+        return (
+          title.includes(query) ||
+          description.includes(query) ||
+          tagsStr.includes(query)
+        );
+      });
+    }
+
+    return result;
+  }, [items, selectedTag, searchQuery]);
 
   return (
     <Layout>
@@ -199,31 +234,109 @@ function BlogListPageContent(props) {
         {/* ── Header ────────────────────────────────── */}
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-foreground mb-1">Blog</h1>
-          <p className="text-muted-foreground text-sm">
-            Chia sẻ kiến thức Điện & Tự Động Hóa công nghiệp
-          </p>
         </div>
 
-        {/* ── Tag Filter Bar (cuộn ngang) ────────────── */}
-        <div className="mb-6">
-          <TagFilterBar
-            allTags={allTags}
-            selectedTag={selectedTag}
-            onSelectTag={setSelectedTag}
-          />
+        {/* ── Tag Filter Bar & Search Input (cuộn ngang và tìm kiếm bài viết) ── */}
+        <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between mb-6 w-full min-w-0">
+          {/* Cụm bộ lọc tag bên trái */}
+          <div className="flex gap-3 items-center w-full md:w-auto min-w-0">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setOpenDialog(true)}
+              className="shrink-0 size-8"
+              title="Xem tất cả danh mục"
+            >
+              <Menu className="size-4" />
+            </Button>
+
+            <Separator orientation="vertical" className="h-6 w-px" />
+
+            <ScrollArea className="w-84 sm:w-3xl">
+              <div className="flex gap-2 w-full">
+                <TagFilterBar
+                  allTags={visibleTags}
+                  selectedTag={selectedTag}
+                  onSelectTag={setSelectedTag}
+                />
+                {hiddenTagsCount > 0 && (
+                  <div className="flex-1 shrink-0">
+                    <span className="px-4 py-1.5 rounded-full text-xs font-semibold border border-input/30 bg-secondary select-none">
+                      +{hiddenTagsCount}
+                    </span>
+                  </div>
+                )}
+              </div>
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
+          </div>
+
+          {/* Ô tìm kiếm bài viết bên phải */}
+          <InputGroup className="w-full md:max-w-xs h-8 shrink-0">
+            <InputGroupAddon align="inline-start">
+              <SearchIcon className="size-4 opacity-50" />
+            </InputGroupAddon>
+            <InputGroupInput
+              placeholder="Tìm kiếm bài viết..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {searchQuery && (
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton
+                  size="icon-xs"
+                  onClick={() => setSearchQuery("")}
+                  title="Xóa tìm kiếm"
+                >
+                  <XIcon className="size-3.5" />
+                </InputGroupButton>
+              </InputGroupAddon>
+            )}
+          </InputGroup>
         </div>
 
-        <Separator className="mb-8" />
+        {/* ── Command Dialog tìm kiếm danh mục ──────────────── */}
+        <CommandDialog
+          open={openDialog}
+          onOpenChange={setOpenDialog}
+          title="Tìm kiếm danh mục"
+          description="Tìm kiếm và lựa chọn danh mục bài viết"
+        >
+          <CommandInput placeholder="Tìm kiếm danh mục..." />
+          <CommandList>
+            <CommandEmpty>Không tìm thấy danh mục nào.</CommandEmpty>
+            <CommandGroup heading="Danh mục bài viết">
+              {allTags.map((tag) => (
+                <CommandItem
+                  key={tag}
+                  value={tag}
+                  onSelect={() => {
+                    setSelectedTag(tag);
+                    setOpenDialog(false);
+                  }}
+                  data-checked={selectedTag === tag ? "true" : "false"}
+                >
+                  <span>{tag === "Tất cả" ? "🏷️ Tất cả" : `# ${tag}`}</span>
+                  {tagCounts[tag] !== undefined && (
+                    <span className="ml-auto text-xs text-muted-foreground">
+                      {tagCounts[tag]} bài viết
+                    </span>
+                  )}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </CommandDialog>
 
         {/* ── Layout 2 cột ──────────────────────────── */}
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Cột trái: Grid bài viết */}
           <main className="flex-1 min-w-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <BlogPostItems items={filteredItems} />
             </div>
             {/* Pagination — chỉ khi không đang lọc */}
-            {selectedTag === 'Tất cả' && (
+            {selectedTag === "Tất cả" && (
               <div className="mt-8">
                 <BlogListPaginator metadata={metadata} />
               </div>
@@ -232,7 +345,7 @@ function BlogListPageContent(props) {
 
           {/* Cột phải: Sidebar */}
           <aside className="w-full lg:w-72 xl:w-80 shrink-0 flex flex-col gap-6 lg:sticky lg:top-[calc(var(--ifm-navbar-height)+2rem)] lg:self-start">
-            <AuthorCard />
+            <AuthorCard author={PRIMARY_AUTHOR} />
             <PopularPosts items={items} />
             <TagCloud
               allTags={allTags}
@@ -253,7 +366,8 @@ export default function BlogListPage(props) {
       className={clsx(
         ThemeClassNames.wrapper.blogPages,
         ThemeClassNames.page.blogListPage,
-      )}>
+      )}
+    >
       <BlogListPageMetadata {...props} />
       <BlogListPageStructuredData {...props} />
       <BlogListPageContent {...props} />

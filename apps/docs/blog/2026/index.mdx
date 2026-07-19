@@ -1,0 +1,196 @@
+---
+slug: data-conversion-tool-guide
+title: Hướng Dẫn Sử Dụng Tool Data Converter
+authors: [anTng,slorber,yangshun]
+tags: [data-conversion, ieee754, crc16, modbus]
+image: https://pbs.twimg.com/media/HNSX94cawAAw37i.png
+---
+
+import MathRenderer from "@site/src/components/MathRenderer";
+
+Trong lĩnh vực tự động hóa, lập trình PLC/SCADA/HMI và thiết kế thiết bị IoT công nghiệp, việc xử lý dữ liệu thô (raw bytes) từ các cảm biến hay cơ cấu chấp hành qua đường truyền **RS-485 / Modbus RTU** là công việc thường xuyên diễn ra hàng ngày...
+
+Để giải quyết triệt để các vấn đề này, mình đã xây dựng bộ công cụ **[Data Conversion Tool](pathname:///shareme/tool/)**...
+
+{/* truncate */}
+
+---
+
+## 1. Giới thiệu tổng quan về Tool Data Conversion
+
+Bộ công cụ **Data Conversion Tool** là một ứng dụng web single-page đa năng giúp Ní nhanh chóng phân tích, chuyển đổi và đóng gói dữ liệu mà không cần viết code hay cài đặt các phần mềm mô phỏng phức tạp.
+
+Giao diện bao gồm 6 tab chức năng chuyên biệt:
+1. **Hệ cơ số (Number Base Converter):** Chuyển đổi qua lại giữa Thập phân, Thập lục phân, Nhị phân và Bát phân, đồng thời tách Byte/Word và xem Bit Map.
+2. **CRC16 (Modbus RTU Calculator):** Tính toán mã kiểm tra lỗi 16-bit theo chuẩn Modbus RTU.
+3. **Dec/Hex/Swap (Data Converter):** Chuyển đổi Dec $\leftrightarrow$ Hex có/không dấu (8/16/32-bit) và hoán đổi vị trí Byte/Word.
+4. **Float $\leftrightarrow$ Reg (IEEE 754 Converter):** Chuyển đổi số thực 32-bit thành hai thanh ghi Modbus 16-bit và ngược lại.
+5. **Modbus Frame (RTU Builder):** Tự động tạo khung truyền Modbus RTU chuẩn theo mã hàm đọc/ghi.
+6. **ASCII $\leftrightarrow$ HEX Converter:** Dịch chuỗi ký tự ASCII sang HEX bytes và ngược lại kèm bảng tra cứu mã điều khiển.
+
+---
+
+## 2. Công dụng, Công thức toán học và Cách áp dụng của từng Tab
+
+### 2.1. Tab 1: Hệ cơ số (Number Base Converter)
+
+#### Công dụng
+Chuyển đổi tức thời một giá trị số giữa các hệ cơ số phổ biến: Thập phân (Dec), Thập lục phân (Hex), Nhị phân (Bin) và Bát phân (Oct). Đồng thời phân tích một số nguyên lớn thành các phần nhỏ hơn: **Low Byte, High Byte, Low Word, High Word** và biểu diễn dưới dạng sơ đồ Bit Map 16-bit trực quan.
+
+#### Công thức toán học
+Để chuyển đổi một số ở hệ cơ số <MathRenderer displayMode={false} formula={String.raw`b`} /> có các chữ số <MathRenderer displayMode={false} formula={String.raw`d_n d_{n-1} \dots d_0`} /> sang hệ thập phân (Dec):
+<MathRenderer formula={String.raw`N_{10} = \sum_{i=0}^{n} d_i \cdot b^i = d_n \cdot b^n + d_{n-1} \cdot b^{n-1} + \dots + d_0 \cdot b^0`} />
+
+*Ví dụ:* Với số HEX <MathRenderer displayMode={false} formula={String.raw`FF_{16}`} />:
+<MathRenderer formula={String.raw`N_{10} = F \cdot 16^1 + F \cdot 16^0 = 15 \cdot 16 + 15 \cdot 1 = 255_{10}`} />
+
+Công thức tách các thành phần Byte và Word từ một số nguyên không dấu <MathRenderer displayMode={false} formula={String.raw`N`} />:
+*   **Low Byte (Byte 0):** 
+    <MathRenderer formula={String.raw`N_{\text{Low Byte}} = N \pmod{2^8} = N \ \& \ \text{0xFF}`} />
+*   **High Byte (Byte 1):** 
+    <MathRenderer formula={String.raw`N_{\text{High Byte}} = \lfloor \frac{N}{2^8} \rfloor \pmod{2^8} = (N \gg 8) \ \& \ \text{0xFF}`} />
+*   **Low Word (Word 0):** 
+    <MathRenderer formula={String.raw`N_{\text{Low Word}} = N \pmod{2^{16}} = N \ \& \ \text{0xFFFF}`} />
+*   **High Word (Word 1):** 
+    <MathRenderer formula={String.raw`N_{\text{High Word}} = \lfloor \frac{N}{2^{16}} \rfloor \pmod{2^{16}} = (N \gg 16) \ \& \ \text{0xFFFF}`} />
+
+*(Trong đó <MathRenderer displayMode={false} formula={String.raw`\&`} /> ký hiệu cho phép toán bitwise AND, và <MathRenderer displayMode={false} formula={String.raw`\gg`} /> ký hiệu cho phép toán dịch phải bitwise).*
+
+#### Áp dụng thực tế
+Khi cấu hình bản đồ bộ nhớ (Address Map) trên HMI, ta thường phải phân rã một thanh ghi 16-bit thành các bit đơn lẻ (Bit Lamp/Bit Switch). Ví dụ thanh ghi trạng thái máy có giá trị Dec là `32768`, nhập vào công cụ sẽ thấy ngay bit thứ `15` đang ở mức `1` (ON), các bit khác bằng `0` (OFF).
+
+---
+
+### 2.2. Tab 2: CRC16 Modbus Calculator
+
+#### Công dụng
+Tính toán mã kiểm tra lỗi (Cyclic Redundancy Check) 16-bit cho một chuỗi dữ liệu đầu vào (hệ HEX hoặc chuỗi ký tự ASCII). Đầu ra trả về giá trị CRC đầy đủ, chia sẵn Byte thấp (gửi trước) và Byte cao (gửi sau) cùng khung truyền hoàn chỉnh kèm mã kiểm tra lỗi.
+
+#### Công thức toán học (Thuật toán CRC16 Modbus)
+Sử dụng đa thức sinh (Polynomial): **<MathRenderer displayMode={false} formula={String.raw`0x8005`} />** đảo ngược bit thành **<MathRenderer displayMode={false} formula={String.raw`0xA001`} />**.
+Giá trị khởi tạo ban đầu (Initial Value) là **<MathRenderer displayMode={false} formula={String.raw`0xFFFF`} />**.
+
+Thuật toán tính toán từng byte như sau:
+1. Gán giá trị thanh ghi <MathRenderer displayMode={false} formula={String.raw`\text{CRC} = \text{0xFFFF}`} />.
+2. Với mỗi byte dữ liệu <MathRenderer displayMode={false} formula={String.raw`B_j`} /> trong chuỗi (<MathRenderer displayMode={false} formula={String.raw`j`} /> chạy từ <MathRenderer displayMode={false} formula={String.raw`0`} /> đến <MathRenderer displayMode={false} formula={String.raw`M-1`} />):
+   <MathRenderer formula={String.raw`\text{CRC} = \text{CRC} \oplus B_j`} />
+3. Thực hiện lặp 8 lần ứng với 8 bit (biến chạy <MathRenderer displayMode={false} formula={String.raw`k`} /> từ <MathRenderer displayMode={false} formula={String.raw`0`} /> đến <MathRenderer displayMode={false} formula={String.raw`7`} />):
+   <MathRenderer formula={String.raw`\text{CRC}_{next} = \begin{cases} (\text{CRC} \gg 1) \oplus \text{0xA001} & \text{nếu LSB}(\text{CRC}) = 1 \\ \text{CRC} \gg 1 & \text{nếu LSB}(\text{CRC}) = 0 \end{cases}`} />
+4. Sau khi duyệt hết tất cả các byte, giá trị <MathRenderer displayMode={false} formula={String.raw`\text{CRC}`} /> cuối cùng chính là mã kiểm tra lỗi. Theo chuẩn Modbus RTU, byte thấp của <MathRenderer displayMode={false} formula={String.raw`\text{CRC}`} /> sẽ được chèn vào trước, byte cao chèn vào sau trong khung truyền.
+
+#### Áp dụng thực tế
+Khi ní viết chương trình vi điều khiển (Arduino/STM32) hoặc Script trong Python/C# để giao tiếp với thiết bị Modbus, ní có thể nhập thủ công khung dữ liệu ví dụ `01 03 00 00 00 0A` vào công cụ để lấy nhanh CRC là `0xC5CD` (Lo Byte: `C5`, Hi Byte: `CD`). Dùng kết quả này để kiểm tra xem thuật toán mã hóa trong chương trình của ní đã viết đúng chưa.
+
+---
+
+### 2.3. Tab 3: Dec/Hex/Swap (Data Converter)
+
+#### Công dụng
+Hỗ trợ chuyển đổi nâng cao giữa số Thập phân và Thập lục phân có tùy chọn kích thước dữ liệu (8-bit, 16-bit, 32-bit) và chế độ có dấu (Signed) hoặc không dấu (Unsigned). Đồng thời hiển thị kết quả **Byte Swap** (cho dữ liệu 16-bit) và **Word Swap** (cho dữ liệu 32-bit).
+
+#### Công thức toán học
+Đối với số nguyên có dấu (Signed) sử dụng biểu diễn **Bù 2 (Two's Complement)**, một số nguyên không dấu <MathRenderer displayMode={false} formula={String.raw`X`} /> có độ rộng <MathRenderer displayMode={false} formula={String.raw`N`} />-bit sẽ được ánh xạ sang số có dấu như sau:
+<MathRenderer formula={String.raw`X_{\text{signed}} = \begin{cases} X_{\text{unsigned}} & \text{nếu } X_{\text{unsigned}} < 2^{N-1} \\ X_{\text{unsigned}} - 2^N & \text{nếu } X_{\text{unsigned}} \ge 2^{N-1} \end{cases}`} />
+
+*Ví dụ 16-bit (<MathRenderer displayMode={false} formula={String.raw`N=16`} />):*
+*   Nếu đọc được giá trị HEX là `FFFF` (Dec không dấu là <MathRenderer displayMode={false} formula={String.raw`65535 \ge 32768`} />):
+    <MathRenderer formula={String.raw`X_{\text{signed}} = 65535 - 65536 = -1`} />
+*   **Phép Byte Swap (16-bit):** Đảo vị trí byte cao và byte thấp của số <MathRenderer displayMode={false} formula={String.raw`V_{16} = B_1 B_0`} />:
+    <MathRenderer formula={String.raw`\text{ByteSwap}(V_{16}) = (B_0 \ll 8) \ | \ B_1`} />
+*   **Phép Word Swap (32-bit):** Đảo vị trí 2 word 16-bit của số <MathRenderer displayMode={false} formula={String.raw`V_{32} = W_1 W_0`} />:
+    <MathRenderer formula={String.raw`\text{WordSwap}(V_{32}) = ((W_0 \ \& \ \text{0xFFFF}) \ll 16) \ | \ (W_1 \ \& \ \text{0xFFFF})`} />
+
+#### Áp dụng thực tế
+*   **Xử lý số âm:** PLC đọc cảm biến nhiệt độ trả về giá trị raw dạng số nguyên 16-bit. Cảm biến báo lỗi trả về `-1`. Nếu HMI đọc ở cấu hình Unsigned sẽ hiển thị `65535` gây hiểu nhầm. Công cụ giúp ta đối chiếu nhanh để nhận dạng lỗi kiểu dữ liệu.
+*   **Khắc phục Byte/Word Swap:** Khi gửi dữ liệu từ PLC hãng Siemens (Big-Endian) sang PLC hãng Mitsubishi (Little-Endian), thứ tự byte hoặc word thường bị đảo lộn. Chỉ cần nhập giá trị lỗi vào, xem kết quả Swap để biết cấu hình hoán đổi nào là chính xác.
+
+---
+
+### 2.4. Tab 4: Float $\leftrightarrow$ Register (IEEE 754 Converter)
+
+#### Công dụng
+Chuyển đổi một số thực 32-bit (Float 32) sang hai thanh ghi Modbus 16-bit (Holding Register) và ngược lại theo chuẩn **IEEE 754**. Hỗ trợ lựa chọn thứ tự hiển thị Word (High Word trước hay Low Word trước).
+
+#### Công thức toán học (Chuẩn số thực IEEE 754)
+Số thực đơn độ chính xác (Single-precision floating-point) 32-bit gồm 3 phần:
+1.  **Bit dấu (Sign bit - <MathRenderer displayMode={false} formula={String.raw`s`} />):** 1 bit (bit 31).
+2.  **Phần mũ (Exponent - <MathRenderer displayMode={false} formula={String.raw`E`} />):** 8 bit (bit 30 đến 23).
+3.  **Phần định trị (Fraction / Mantissa - <MathRenderer displayMode={false} formula={String.raw`M`} />):** 23 bit (bit 22 đến 0).
+
+Giá trị thực <MathRenderer displayMode={false} formula={String.raw`V`} /> được tính bằng công thức:
+<MathRenderer formula={String.raw`V = (-1)^s \times \left(1 + \sum_{i=1}^{23} b_{23-i} \cdot 2^{-i}\right) \times 2^{E - 127}`} />
+Hay viết gọn:
+<MathRenderer formula={String.raw`V = (-1)^s \times (1 + M) \times 2^{E - 127}`} />
+
+*Ví dụ:* Số thực <MathRenderer displayMode={false} formula={String.raw`3.14`} /> có biểu diễn nhị phân 32-bit là:
+<MathRenderer formula={String.raw`\text{0x4048F5C3} \rightarrow \text{High Word} = \text{0x4048} \ (16456), \ \text{Low Word} = \text{0xF5C3} \ (62915)`} />
+
+#### Áp dụng thực tế
+Khi PLC đọc thông số Lưu lượng (Flow rate) hoặc Điện năng tiêu thụ (kWh) dạng số thực từ đồng hồ đo thông qua giao thức Modbus, kết quả trả về là hai thanh ghi 16-bit độc lập. 
+Nếu ní nhận được hai giá trị `16456` và `62915` từ đồng hồ, chỉ cần nhập vào Tab 4 ở chế độ Register $\rightarrow$ Float sẽ giải mã được ngay giá trị thực là `3.14`. Nếu ra số kỳ lạ, hãy chuyển đổi Word Order từ **High Word trước (Big-Endian)** sang **Low Word trước (Little-Endian Word)** để dò xem thiết bị của ní đang gửi theo chuẩn nào.
+
+---
+
+### 2.5. Tab 5: Modbus Frame (Modbus RTU Frame Builder)
+
+#### Công dụng
+Giúp tự động đóng gói một khung truyền Modbus RTU hoàn chỉnh dựa trên các tham số cấu hình: **Slave ID, Function Code (FC01 - FC10), Start Address, Quantity** và **Dữ liệu ghi (Write Data)**. 
+
+#### Công thức toán học
+Khung truyền Modbus RTU Application Data Unit (ADU) có cấu trúc:
+<MathRenderer formula={String.raw`\text{ADU} = [\text{Slave ID}] + [\text{Function Code}] + [\text{Data Field}] + [\text{CRC16 Checksum}`} />
+
+*   **Slave ID (1 byte):** Địa chỉ thiết bị đích (<MathRenderer displayMode={false} formula={String.raw`0x01 - 0xF7`} />).
+*   **Function Code (1 byte):** Mã hàm xử lý dữ liệu (<MathRenderer displayMode={false} formula={String.raw`0x01`} />: đọc Coil, <MathRenderer displayMode={false} formula={String.raw`0x03`} />: đọc thanh ghi, <MathRenderer displayMode={false} formula={String.raw`0x10`} />: ghi nhiều thanh ghi...).
+*   **Data Field (<MathRenderer displayMode={false} formula={String.raw`N`} /> bytes):** Địa chỉ bắt đầu, số lượng, hoặc giá trị ghi cụ thể.
+*   **CRC16 Checksum (2 bytes):** Tính theo thuật toán CRC16 Modbus trên toàn bộ các byte trước đó.
+
+#### Áp dụng thực tế
+Khi kiểm tra lỗi truyền thông bằng các công cụ Terminal chuyên dụng như Hercules, RealTerm, hay Docklight, ní không thể gửi trực tiếp lệnh thô nếu không tính mã CRC. Thay vì mở các phần mềm tính CRC rời rạc, ní chỉ cần điền các tham số trực quan trong Tab 5, copy toàn bộ khung Hex thu được và dán vào phần mềm Terminal để gửi trực tiếp xuống biến tần, cảm biến.
+
+---
+
+### 2.6. Tab 6: ASCII $\leftrightarrow$ HEX Converter
+
+#### Công dụng
+Chuyển đổi nhanh chóng giữa một chuỗi ký tự văn bản (ASCII) và một chuỗi mã HEX tương ứng (cách nhau bởi khoảng trắng). Tab này cũng tích hợp sẵn bảng tra cứu nhanh các ký tự điều khiển đặc biệt thường gặp trong giao thức truyền thông công nghiệp.
+
+#### Công thức toán học
+Phép chuyển đổi dựa trên bảng mã hóa tiêu chuẩn ASCII, ánh xạ ký tự <MathRenderer displayMode={false} formula={String.raw`c`} /> sang mã số thập lục phân tương ứng:
+<MathRenderer formula={String.raw`\text{ASCII}(c) \longleftrightarrow \text{HEX Code}`} />
+
+*Ví dụ:* Ký tự `'A'` có mã Hex là `41` (Dec: 65), ký tự điều khiển bắt đầu khung truyền `STX` (Start of Text) có mã Hex là `02`.
+
+#### Áp dụng thực tế
+Nhiều thiết bị công nghiệp cũ hoặc đầu đọc mã vạch (Barcode Scanner), cân điện tử truyền thông bằng giao thức ASCII thô qua cổng RS-232. Khung truyền thường được định dạng kiểu: `[STX] + Dữ liệu + [ETX]`. Công cụ này giúp ní dịch các chuỗi Hex đọc được từ cổng COM thành chuỗi văn bản đọc được và ngược lại.
+
+---
+
+## 3. Tổng hợp cách khắc phục các lỗi thực tế bằng Tool
+
+| Tên lỗi truyền thông | Biểu hiện thực tế | Cách áp dụng Tool để xử lý |
+| :--- | :--- | :--- |
+| **Lỗi 1: Sai thứ tự Word (Word Swap / Endianness)** | Đọc số thực Float 32-bit từ đồng hồ đo, thay vì hiển thị `220.5` V thì màn hình PLC hiển thị một số cực lớn hoặc cực nhỏ vô nghĩa. | Nhập hai thanh ghi HEX đọc được vào **Tab 4 (Float $\leftrightarrow$ Reg)**, thử đổi tùy chọn thứ tự Word giữa **High Word trước** và **Low Word trước** cho đến khi thu được số thực mong muốn. |
+| **Lỗi 2: Hiển thị tràn số âm (Signed Mismatch)** | Cảm biến lực kéo hiển thị tải trọng âm `-50` kg nhưng PLC lại hiển thị `65486`. | Nhập giá trị `65486` vào phần HEX của **Tab 3 (Dec/Hex/Swap)**, chọn kích thước **16-bit** và chuyển đổi qua lại giữa **Unsigned** và **Signed** để đối chiếu công thức bù 2. |
+| **Lỗi 3: Khung truyền bị lỗi CRC (CRC Fail)** | Gửi lệnh từ PLC nhưng biến tần không phản hồi, đèn RX/TX trên cổng truyền thông nháy đỏ cảnh báo lỗi CRC. | Nhập khung Hex của lệnh vào **Tab 2 (CRC16)** để tính lại CRC, so sánh với mã CRC đang gửi trong PLC để xem có bị lỗi lập trình hoặc đảo ngược byte CRC hay không. |
+| **Lỗi 4: Gửi sai địa chỉ thanh ghi Modbus** | Gửi lệnh đọc thanh ghi nhưng thiết bị Slave trả về mã lỗi ngoại lệ `02` (Illegal Data Address). | Sử dụng **Tab 5 (Modbus Frame)** để xây dựng lại khung truyền chuẩn, lưu ý địa chỉ trong khung truyền Modbus thực tế phải trừ đi 1 đơn vị so với địa chỉ trên tài liệu (ví dụ đọc thanh ghi `40001` thì điền Start Address là `0000`). |
+
+---
+
+## 4. Đánh giá ưu điểm & Nhược điểm của Tool
+
+### Ưu điểm
+*   **Tất cả trong một (All-in-One):** Tích hợp tất cả các tiện ích chuyển đổi cần thiết nhất cho dân lập trình điều khiển tự động hóa trên một trang duy nhất.
+*   **Phản hồi thời gian thực (Real-time):** Nhập giá trị ở bất cứ ô nào, toàn bộ các ô còn lại tự động tính toán và cập nhật ngay lập tức.
+*   **Phân tích khung trực quan:** Giúp bóc tách các thành phần trong gói tin Modbus (ID, FC, Addr, CRC) một cách sinh động, rất hữu ích cho đào tạo và nghiên cứu.
+*   **Giao diện hiện đại:** Tối ưu hiển thị trên cả điện thoại và máy tính, hỗ trợ copy nhanh kết quả qua một nút nhấn bấm tiện dụng.
+
+### Nhược điểm
+*   **Chưa hỗ trợ các thuật toán CRC khác:** Hiện tại công cụ mới chỉ hỗ trợ tính toán CRC16 Modbus (đa thức $0xA001$). Chưa tích hợp các chuẩn CRC phổ biến khác như CRC8, CRC32, hay CRC16-CCITT.
+*   **Chưa hỗ trợ kết nối phần cứng:** Chưa hỗ trợ tính năng Web Serial API để gửi trực tiếp dữ liệu từ trình duyệt xuống cổng COM vật lý của máy tính (chỉ dừng lại ở phân tích tĩnh).
+
+---
+
+## 5. Kết luận
+
+Bộ công cụ **Data Conversion Tool** là trợ thủ đắc lực giúp rút ngắn thời gian chuẩn đoán và khắc phục lỗi truyền thông công nghiệp. Việc hiểu rõ các công thức toán học đứng sau như IEEE 754, Two's Complement bù 2 hay cơ chế CRC16 giúp chúng ta làm chủ hoàn toàn dữ liệu của hệ thống điều khiển. Hãy truy cập trang **[Tool Chuyển Đổi Dữ Liệu](pathname:///shareme/tool/)** để trải nghiệm và tối ưu hóa công việc của ní ngay hôm nay!

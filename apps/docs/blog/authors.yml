@@ -17,9 +17,22 @@ slorber:
   image_url: https://github.com/slorber.png
   page:
     # customize the url of the author page at /blog/authors/<permalink>
-    permalink: '/all-sebastien-lorber-articles'
+    permalink: "/all-sebastien-lorber-articles"
   socials:
     x: sebastienlorber
     linkedin: sebastienlorber
     github: slorber
     newsletter: https://thisweekinreact.com
+
+anTng:
+  name: An Nguyễn
+  title: Thợ đụng, tập đụng
+  url: https://2naq.github.io/shareme
+  image_url: https://github.com/2Naq.png
+  page:
+    # custom link author
+    permalink: "/an-nguyen"
+  socials:
+    zalo: https://zalo.me/2naq
+    github: 2Naq
+    newsletter: https://2naq.github.io/shareme
