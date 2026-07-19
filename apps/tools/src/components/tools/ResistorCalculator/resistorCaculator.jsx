@@ -15,7 +15,7 @@ import {
 import ResistorSVG from "./component/resistorSVG";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
-import MathRenderer from "@/components/MathRenderer";
+import MathRendererBlock from "@/components/MathRenderer";
 import { formatResistance, formatMultiplier } from "./utils";
 
 const COLOR_BANDS = [
@@ -407,7 +407,7 @@ export default function ResistorCaculator() {
             <div className="mt-4 p-3 bg-background rounded-lg border bg-grid">
               <p className="text-xs text-muted-foreground mb-1 ">Công thức</p>
               {/* <p className="font-mono text-sm text-foreground">{formula}</p> */}
-              <MathRenderer formula={formula} />
+              <MathRendererBlock formula={formula} />
             </div>
 
             {/* Current band selection summary */}

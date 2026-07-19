@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Settings2 } from "lucide-react";
-import { RenderMathInText } from "@/components/MathRenderer";
+import { MathRenderInline } from "@/components/MathRenderer";
 import { Button } from "@/components/ui/button";
 import {
   SYSTEM_OPTIONS,
@@ -160,7 +160,9 @@ export default function ConfigForm({
                   )
                 }
               >
-                {wireSizeMode === "select" ? "Nhập thủ công" : "Chọn size chuẩn"}
+                {wireSizeMode === "select"
+                  ? "Nhập thủ công"
+                  : "Chọn size chuẩn"}
               </Button>
             </div>
 
@@ -256,7 +258,9 @@ export default function ConfigForm({
                   type="number"
                   step="0.01"
                   value={power}
-                  onChange={(e) => setPower(Math.max(0, Number(e.target.value)))}
+                  onChange={(e) =>
+                    setPower(Math.max(0, Number(e.target.value)))
+                  }
                   placeholder="VD: 5.5"
                 />
               </div>
@@ -289,14 +293,16 @@ export default function ConfigForm({
             <Checkbox
               id="reactance"
               checked={includeReactance}
-              onCheckedChange={(checked) => setIncludeReactance(checked === true)}
+              onCheckedChange={(checked) =>
+                setIncludeReactance(checked === true)
+              }
             />
             <label
               htmlFor="reactance"
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
             >
               <span className="flex items-center gap-1">
-                Bao gồm cảm kháng đường dây {RenderMathInText("$X_L$")}
+                Bao gồm cảm kháng đường dây {MathRenderInline("$X_L$")}
               </span>
             </label>
           </div>
@@ -317,7 +323,8 @@ export default function ConfigForm({
               </div>
               <div className="text-xs text-muted-foreground flex items-center">
                 Cảm kháng mặc định thông thường của cáp là 0.08 Ω/km (0.00008
-                Ω/m). Thường chỉ ảnh hưởng rõ rệt khi cáp lớn và chiều dài rất xa.
+                Ω/m). Thường chỉ ảnh hưởng rõ rệt khi cáp lớn và chiều dài rất
+                xa.
               </div>
             </div>
           )}

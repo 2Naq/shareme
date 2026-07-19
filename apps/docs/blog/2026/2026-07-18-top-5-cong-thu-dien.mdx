@@ -1,0 +1,264 @@
+---
+slug: top-5-cong-thuc-dien-tu-dong-hoa
+title: Top 5 công thức tính toán cốt lõi
+authors: [anTng]
+tags: [tu-dong-hoa, dien-cong-nghiep]
+---
+
+
+Mười năm lăn lộn với tủ bảng điện, từ các nhà máy xi măng, dệt may cho tới các trạm bơm, mình nhận ra một điều: dù công nghệ có thay đổi, PLC có thông minh thế nào, thì nền tảng cơ điện vẫn là cái gốc. Rất nhiều kỹ sư trẻ thiết kế code PLC rất giỏi nhưng khi tính toán chọn cáp, chọn khởi động từ (contactor) hay cài dòng cho relay nhiệt thì lại chọn sai, dẫn đến tủ điện bị cháy sém hoặc động cơ của khách hàng bị om dây. 
+
+Để giúp các ní (đặc biệt là sinh viên năm cuối và kỹ sư mới ra trường) tự tin thiết kế và thi công tủ điện công nghiệp mà không sợ bị "đền tiền", mình xin chia sẻ **top 5 công thức tính toán cốt lõi** cùng với những kinh nghiệm thực chiến tích lũy suốt 10 năm qua.
+
+{/* truncate */}
+
+---
+
+## 1. Công thức tính dòng điện định mức cho động cơ 3 pha
+
+Đây là công thức nền tảng nhất. Mọi thiết kế từ việc chọn tiết diện dây dẫn, Aptomat, Contactor đến cài đặt Relay nhiệt đều bắt đầu từ việc xác định chính xác dòng điện định mức của động cơ.
+
+### Công thức tổng quát
+
+
+
+```math
+I = \frac{P}{\sqrt{3} \cdot U \cdot \cos\varphi \cdot \eta}
+```
+
+
+
+### Ký hiệu & Ý nghĩa các đại lượng
+*   $I$: **Dòng điện định mức** của động cơ (đơn vị: Ampe - A).
+*   $P$: **Công suất định mức** ghi trên nhãn động cơ (đơn vị: Watt - W). Lưu ý nếu nhãn ghi mã lực (HP hoặc h.p), ní phải đổi sang Watt: 1 HP ≈ 746 W = 0.746 kW.
+*   $U$: **Điện áp dây** định mức cấp vào động cơ (đơn vị: Vôn - V). Ở Việt Nam, mạng hạ thế công nghiệp thường là mạng 3 pha 380V.
+*   $\cos\varphi$: **Hệ số công suất** (Power Factor) của động cơ, thường dao động trong khoảng từ 0.8 đến 0.89 tùy công suất và hãng sản xuất.
+*   $\eta$ (Eta): **Hiệu suất** của động cơ, biểu thị phần công suất điện chuyển đổi thành công suất cơ học trên trục cơ cấu, thường từ 0.85 đến 0.95.
+
+### Lời khuyên thực tế từ công trình
+*   **Mẹo tính nhanh tại hiện trường:** Đối với lưới điện 3 pha 380V tiêu chuẩn, nếu nhãn động cơ bị mờ $\cos\varphi$ và hiệu suất, ní có thể lấy **công suất định mức (kW) nhân với 2** để ra dòng điện định mức (A) xấp xỉ. Ví dụ: động cơ 11 kW sẽ có dòng điện định mức khoảng 22 A. Mẹo này chính xác tới 90% đối với các động cơ thông dụng từ 4 kW đến 110 kW.
+*   Nếu động cơ hoạt động trong môi trường nhiệt độ cao (trên 40°C) hoặc chạy quá tải nhẹ liên tục, dòng điện thực tế có thể tăng lên. Hãy luôn trừ hao khoảng 10% khi chọn thiết bị đóng cắt bảo vệ.
+
+### Ví dụ tính toán cụ thể
+Giả sử ní cần tính dòng điện định mức cho một động cơ bơm nước 3 pha có thông số trên nameplate như sau:
+*   Công suất: P = 15 kW = 15000 W
+*   Điện áp: U = 380 V
+*   Hệ số công suất: $\cos\varphi = 0.85$
+*   Hiệu suất: $\eta = 0.90$
+
+Áp dụng công thức:
+
+
+```math
+I = \frac{15000}{\sqrt{3} \cdot 380 \cdot 0.85 \cdot 0.90} \approx 29.8 \text{ A}
+```
+
+
+
+Vậy dòng điện định mức của động cơ này là **29.8 A**.
+
+---
+
+## 2. Công thức tính và chọn tiết diện dây dẫn điện (Cable Sizing)
+
+Sau khi có được dòng điện định mức, việc tiếp theo là tính toán tiết diện dây dẫn. Chọn dây quá nhỏ sẽ làm dây nóng lên, chảy lớp vỏ cách điện gây chập cháy tủ. Chọn dây quá lớn sẽ làm tăng giá thành tủ điện và rất khó đấu nối vào cầu đấu (Terminal).
+
+### Công thức tính tiết diện
+
+
+
+```math
+S = \frac{I_{tk}}{J}
+```
+
+
+
+### Ký hiệu & Ý nghĩa các đại lượng
+*   $S$: **Tiết diện danh định** của ruột dẫn (đơn vị: milimét vuông - mm²).
+*   $I_{tk}$: **Dòng điện tính toán** lớn nhất chạy qua dây dẫn (đơn vị: Ampe - A). Với động cơ, dòng điện tính toán lấy bằng dòng định mức I nhân thêm hệ số an toàn.
+*   $J$: **Mật độ dòng điện cho phép** (đơn vị: A/mm²). Đại lượng này phụ thuộc vào vật liệu làm lõi dây (đồng hoặc nhôm), loại cách điện (PVC hoặc XLPE), phương pháp đi dây (đi trong máng cáp, đi ngầm dưới đất hay đi trên không).
+
+### Lời khuyên thực tế từ công trình
+*   Trong thiết kế tủ điện công nghiệp tiêu chuẩn, chúng ta chủ yếu dùng **dây cáp đồng (Cu) cách điện PVC hoặc XLPE**.
+*   Đối với dây đi bên trong tủ điện (điều kiện tản nhiệt kém vì dây bó sát nhau trong máng nhựa), kinh nghiệm xương máu là chọn mật độ $J = 4 \sim 5 \text{ A/mm}^2$ để đảm bảo an toàn vận hành liên tục 24/7.
+*   Nếu dây dẫn chạy ngoài trời, đi riêng lẻ trên khay cáp thoáng khí, ní có thể lấy $J = 6 \text{ A/mm}^2$.
+*   **Lưu ý sụt áp:** Đối với những tải ở rất xa tủ điện (khoảng cách trên 50 mét), bắt buộc phải tính toán thêm độ sụt áp đường dây. Quy định tiêu chuẩn độ sụt áp không quá 3% đối với tải động cơ. Nếu sụt áp quá lớn, động cơ sẽ bị yếu và sinh nhiệt dữ dội khi khởi động. Lúc này phải tăng tiết diện dây lên 1 đến 2 cấp so với tính toán lý thuyết.
+
+### Ví dụ tính toán cụ thể
+Chọn tiết diện cáp đồng cấp nguồn cho động cơ 3 pha ở Ví dụ 1 có dòng định mức I = 29.8 A. Động cơ cách tủ điện khoảng 15 mét, đi dây trong máng cáp kín.
+
+Chọn dòng điện tính toán an toàn bằng 1.25 lần dòng định mức:
+
+
+```math
+I_{tk} = 29.8 \times 1.25 = 37.25 \text{ A}
+```
+
+
+
+Chọn mật độ dòng điện an toàn đi trong máng kín cho dây đồng là J = 5 A/mm²:
+
+
+```math
+S = \frac{37.25}{5} = 7.45 \text{ mm}^2
+```
+
+
+
+Theo tiêu chuẩn sản xuất cáp điện tại Việt Nam (như Cadivi, Lioa...), các tiết diện dây đồng chuẩn là: 1.5, 2.5, 4, 6, 10, 16 mm²...
+So sánh với kết quả tính toán 7.45 mm², ta chọn tiết diện cáp đồng tiêu chuẩn gần nhất và lớn hơn là **10 mm²** (sử dụng loại cáp 3 pha 4 lõi Copper/PVC/PVC 4x10 mm² hoặc cáp đơn CV 10 mm² đi trong máng).
+
+---
+
+## 3. Công thức tính chọn Aptomat (CB) và Contactor (Khởi động từ)
+
+Aptomat (CB) dùng để bảo vệ ngắn mạch và quá tải lớn cho toàn bộ nhánh động cơ. Contactor (khởi động từ) dùng để đóng cắt nguồn động lực điều khiển động cơ hoạt động dưới lệnh của PLC hoặc nút nhấn.
+
+### Công thức chọn thiết bị
+
+
+
+```math
+I_{CB} \ge (1.25 \sim 1.5) \cdot I_{đm}
+```
+
+
+
+
+
+```math
+I_{Contactor} \ge (1.15 \sim 1.25) \cdot I_{đm}
+```
+
+
+
+### Ký hiệu & Ý nghĩa các đại lượng
+*   $I_{CB}$: **Dòng định mức** của Aptomat bảo vệ (đơn vị: Ampe - A).
+*   $I_{Contactor}$: **Dòng định mức** của tiếp điểm động lực Contactor (đơn vị: Ampe - A).
+*   $I_{đm}$: **Dòng điện định mức** của động cơ (đơn vị: Ampe - A).
+
+### Lời khuyên thực tế từ công trình
+*   **Chọn đặc tuyến dòng cắt (Trip Curve) của CB:** Khi khởi động trực tiếp (DOL), dòng điện khởi động của động cơ tăng vọt gấp 5 đến 7 lần dòng định mức. Do đó, tuyệt đối không dùng loại CB chuyên dụng cho dân dụng (Curve B). Đối với tải động cơ tự động hóa, bắt buộc chọn CB có đặc tính dòng cắt loại **Curve C** hoặc **Curve D** (chịu được dòng khởi động mà không nhảy CB).
+*   **Hệ số dòng cắt ngắn mạch (Icu):** Tủ điện đặt gần trạm biến áp nguồn cần chọn CB có dòng cắt ngắn mạch lớn (ví dụ 15kA, 25kA hoặc 36kA). Nếu đặt xa trạm có thể chọn dòng cắt thấp hơn (6kA, 10kA) để tiết kiệm chi phí.
+*   **Chọn Contactor theo loại tải (Category):** Bắt buộc chọn Contactor đáp ứng tiêu chuẩn **AC-3** (dành cho động cơ không đồng bộ rô-to lồng sóc, ngắt dòng khi động cơ đang chạy). Nếu hệ thống yêu cầu đảo chiều quay liên tục hoặc chạy nhấp nhả (Jogging) liên tục như cẩu trục, ní phải chọn Contactor tiêu chuẩn **AC-4** có dòng định mức lớn hơn nhiều.
+
+### Ví dụ tính toán cụ thể
+Tính chọn CB và Contactor bảo vệ điều khiển cho động cơ có dòng điện định mức $I_{đm} = 29.8 \text{ A}$, chế độ làm việc thông thường **AC-3**.
+
+1.  **Tính chọn Aptomat (CB):**
+    
+
+```math
+I_{CB} \ge 1.25 \cdot 29.8 = 37.25 \text{ A}
+```
+
+
+    Các dòng định mức tiêu chuẩn của CB trên thị trường thường là: 6, 10, 16, 20, 25, 32, 40, 50, 63, 80 A...
+    Ta chọn Aptomat MCCB hoặc MCB 3 pha loại **40 A**, dòng cắt ngắn mạch khuyến nghị tối thiểu là **10 kA**, đặc tính dòng cắt **Curve C**.
+2.  **Tính chọn Contactor:**
+    
+
+```math
+I_{Contactor} \ge 1.2 \cdot 29.8 = 35.76 \text{ A}
+```
+
+
+    Các dòng định mức Contactor tiêu chuẩn của các hãng (Schneider, LS, Mitsubishi...) là: 9, 12, 18, 22, 32, 40, 50 A...
+    Ta chọn Contactor tiêu chuẩn **40 A** (ví dụ mã dòng LCc1D40 của Schneider) hoặc contactor **38 A** để hoạt động an toàn và bền bỉ.
+
+---
+
+## 4. Công thức chỉnh định dòng bảo vệ cho Relay nhiệt (Overload Relay)
+
+Relay nhiệt là thiết bị bảo vệ động cơ chống lại hiện tượng quá tải lâu dài (dẫn đến cháy cuộn dây). Tuy nhiên, nếu cài đặt dòng bảo vệ quá cao thì động cơ sẽ cháy trước khi relay kịp tác động. Ngược lại, nếu cài quá thấp thì relay sẽ nhảy liên tục làm gián đoạn dây chuyền sản xuất.
+
+### Công thức cài đặt dòng chỉnh định
+
+
+
+```math
+I_{cài} = (1.0 \sim 1.05) \cdot I_{đm}
+```
+
+
+
+### Ký hiệu & Ý nghĩa các đại lượng
+*   $I_{cài}$: **Dòng điện chỉnh định** (núm xoay cấu hình trên mặt trước của relay nhiệt) (đơn vị: Ampe - A).
+*   $I_{đm}$: **Dòng điện định mức** thực tế ghi trên nhãn động cơ (đơn vị: Ampe - A).
+
+### Lời khuyên thực tế từ công trình
+*   **Sai lầm phổ biến:** Rất nhiều thợ điện vận hành có thói quen khi thấy relay nhiệt nhảy bảo vệ quá tải liền vặn núm xoay lên kịch kim (tăng dòng chỉnh định lên gấp 1.2 hoặc 1.3 lần dòng định mức) để "chữa cháy" tạm thời. Đây là hành động hủy hoại thiết bị. Động cơ chạy quá tải lâu dài sẽ tích tụ nhiệt làm hỏng lớp sơn cách điện của cuộn dây, gây chạm chập và cháy nổ động cơ.
+*   Nếu động cơ kéo tải nặng và thời gian khởi động kéo dài (ví dụ quạt ly tâm công nghiệp cánh lớn, máy nghiền đá), relay nhiệt có thể nhảy khi đang khởi động. Để khắc phục, ní phải chọn bộ khởi động mềm/biến tần hoặc lắp relay nhiệt loại **Class 20** hoặc **Class 30** (chịu thời gian khởi động lâu hơn) thay vì cố tình vặn tăng dòng chỉnh định của relay nhiệt Class 10 thông thường.
+
+### Ví dụ tính toán cụ thể
+Chỉnh định dòng bảo vệ cho động cơ ở Ví dụ 1 có dòng định mức là $I_{đm} = 29.8 \text{ A}$.
+Áp dụng công thức chỉnh định:
+
+
+```math
+I_{cài} = 1.0 \cdot 29.8 = 29.8 \text{ A}
+```
+
+
+Thực tế ta sẽ chọn một Relay nhiệt có dải chỉnh bảo phủ giá trị này (thường là dải 23 ~ 32 A hoặc 28 ~ 40 A tùy hãng sản xuất). Khi lắp ráp vào tủ, ta dùng tuốc-nơ-vít xoay núm chỉnh trên mặt relay nhiệt chỉ chính xác vào vạch số **30 A**.
+
+---
+
+## 5. Công thức tính bù công suất phản kháng (Bù hệ số công suất Cos phi)
+
+Tại các nhà máy, xí nghiệp sử dụng lượng lớn động cơ điện (tải cảm), hệ số công suất tổng của mạng điện sẽ bị kéo xuống rất thấp. Điện lực quy định nếu hệ số cos phi nhỏ hơn 0.9, nhà máy sẽ bị phạt tiền điện năng phản kháng rất nặng hàng tháng. Do đó, kỹ sư tự động hóa cần biết cách tính toán dung lượng tụ bù để thiết kế tủ bù tự động.
+
+### Công thức tính dung lượng tụ bù
+
+
+```math
+Q_b = P \cdot (\tan\varphi_1 - \tan\varphi_2)
+```
+
+
+### Ký hiệu & Ý nghĩa các đại lượng
+*   $Q_b$: **Dung lượng công suất phản kháng** cần bù (đơn vị: kilovolt-ampe phản kháng - kVAR).
+*   $P$: **Công suất tác dụng** của toàn hệ thống tải cần bù (đơn vị: kilowatt - kW).
+*   $\tan\varphi_1$: Hệ số phản kháng trước khi bù, xác định từ hệ số công suất ban đầu $\cos\varphi_1$.
+*   $\tan\varphi_2$: Hệ số phản kháng sau khi bù, xác định từ hệ số công suất mục tiêu $\cos\varphi_2$.
+
+Công thức chuyển đổi từ hệ số công suất $\cos\varphi$ sang hệ số phản kháng $\tan\varphi$:
+
+
+```math
+\tan\varphi = \frac{\sqrt{1 - \cos^2\varphi}}{\cos\varphi}
+```
+
+
+### Lời khuyên thực tế từ công trình
+*   **Mục tiêu bù:** Thông thường, chúng ta tính toán bù hệ số cos phi từ giá trị ban đầu lên mức **0.95**. Không nên thiết kế bù kịch kim lên 0.99 hoặc 1.0 vì rất dễ xảy ra hiện tượng **bù dư (overcompensation)** khi tải giảm. Bù dư sẽ sinh ra hiện tượng tăng áp lưới điện, gây hỏng hóc các thiết bị nhạy cảm trong hệ thống điều khiển PLC/HMI và làm nóng máy biến áp.
+*   **Chia cấp tụ hợp lý:** Thay vì dùng một tụ bù lớn duy nhất, hãy chia nhỏ dung lượng cần bù thành nhiều bước tụ nhỏ (ví dụ 10 kVAR, 15 kVAR, 20 kVAR) kết hợp với bộ điều khiển tụ bù tự động (APFC). Điều này giúp hệ thống bù bám sát công suất thực tế của nhà xưởng, hạn chế tối đa số lần đóng cắt của contactor và bảo vệ tuổi thọ tụ.
+
+### Ví dụ tính toán cụ thể
+Một nhà xưởng cơ khí có tổng công suất tiêu thụ tác dụng là P = 120 kW. Hệ số công suất trung bình đo được là $\cos\varphi_1 = 0.72$. Tính dung lượng tụ bù cần thiết để nâng hệ số công suất lên đạt chuẩn yêu cầu là $\cos\varphi_2 = 0.95$.
+
+1.  **Tính hệ số phản kháng trước khi bù ($\tan\varphi_1$):**
+    
+
+```math
+\tan\varphi_1 = \frac{\sqrt{1 - 0.72^2}}{0.72} \approx 0.964
+```
+
+
+2.  **Tính hệ số phản kháng sau khi bù ($\tan\varphi_2$):**
+    
+
+```math
+\tan\varphi_2 = \frac{\sqrt{1 - 0.95^2}}{0.95} \approx 0.329
+```
+
+
+3.  **Tính dung lượng tụ bù cần lắp đặt (Q_b):**
+    
+
+```math
+Q_b = 120 \cdot (0.964 - 0.329) = 120 \cdot 0.635 = 76.2 \text{ kVAR}
+```
+
+
+Với kết quả tính toán là $Q_b = 76.2 \text{ kVAR}$, trong thực tế thi công tủ tụ bù điện, ta chọn lắp đặt tổng dung lượng tụ bù khoảng **80 kVAR**. Ta có thể thiết kế tủ bù tự động chia làm 4 cấp tụ bù: 2 tụ 20 kVAR và 4 tụ 10 kVAR kết hợp điều khiển tuần tự để tối ưu hóa quá trình bù công suất.

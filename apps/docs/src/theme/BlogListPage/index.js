@@ -1,3 +1,4 @@
+// oxlint-disable no-unused-vars
 import React, { useState, useMemo } from "react";
 import clsx from "clsx";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
@@ -55,7 +56,7 @@ function BlogListPageMetadata(props) {
 // ─── Sidebar: Author data cho AuthorCard ─────────────────────
 const PRIMARY_AUTHOR = {
   name: "An Nguyễn",
-  title: "Thợ đụng, tập đụng",
+  title: "Tập sự",
   imageURL: "https://github.com/2Naq.png",
   url: "https://2naq.github.io/shareme",
   page: { permalink: "/blog/authors/an-nguyen" },
@@ -126,23 +127,31 @@ function TagCloud({ allTags, selectedTag, onSelectTag }) {
 }
 
 // ─── Blog Horizontal Filter Bar ─────────────────────────────
-function TagFilterBar({ allTags, selectedTag, onSelectTag }) {
+function TagFilterBar({ allTags, selectedTag, onSelectTag, hiddenTagsCount }) {
   return (
     <div className="flex gap-2 items-center">
-      {allTags.map((tag) => (
-        <button
-          key={tag}
-          onClick={() => onSelectTag(tag)}
-          className={clsx(
-            "shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold border border-solid transition-all duration-200 cursor-pointer",
-            selectedTag === tag
-              ? "bg-primary text-primary-foreground border-primary"
-              : "bg-card text-muted-foreground border-border hover:bg-accent hover:text-accent-foreground",
-          )}
-        >
-          {tag === "Tất cả" ? "🏷️ Tất cả" : `# ${tag}`}
-        </button>
-      ))}
+      <>
+        {allTags.map((tag) => (
+          <button
+            key={tag}
+            onClick={() => onSelectTag(tag)}
+            className={clsx(
+              "shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold border border-solid transition-all duration-200 cursor-pointer",
+              selectedTag === tag
+                ? "bg-primary text-primary-foreground border-primary"
+                : "bg-card text-muted-foreground border-border hover:bg-accent hover:text-accent-foreground",
+            )}
+          >
+            {tag === "Tất cả" ? "🏷️ Tất cả" : `# ${tag}`}
+          </button>
+        ))}
+
+        {hiddenTagsCount > 0 && (
+          <div className="shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold border border-foreground/30 bg-muted select-none">
+            <span>+{hiddenTagsCount}</span>
+          </div>
+        )}
+      </>
     </div>
   );
 }
@@ -239,34 +248,28 @@ function BlogListPageContent(props) {
         {/* ── Tag Filter Bar & Search Input (cuộn ngang và tìm kiếm bài viết) ── */}
         <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between mb-6 w-full min-w-0">
           {/* Cụm bộ lọc tag bên trái */}
-          <div className="flex gap-3 items-center w-full md:w-auto min-w-0">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setOpenDialog(true)}
-              className="shrink-0 size-8"
-              title="Xem tất cả danh mục"
-            >
-              <Menu className="size-4" />
-            </Button>
+          <div className="flex gap-2 items-center w-full flex-1 overflow-x-hidden">
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setOpenDialog(true)}
+                className="shrink-0 size-8"
+                title="Xem tất cả danh mục"
+              >
+                <Menu className="size-4" />
+              </Button>
 
-            <Separator orientation="vertical" className="h-6 w-px" />
+              <Separator orientation="vertical" className="h-6 w-px" />
+            </div>
 
-            <ScrollArea className="w-84 sm:w-3xl">
-              <div className="flex gap-2 w-full">
-                <TagFilterBar
-                  allTags={visibleTags}
-                  selectedTag={selectedTag}
-                  onSelectTag={setSelectedTag}
-                />
-                {hiddenTagsCount > 0 && (
-                  <div className="flex-1 shrink-0">
-                    <span className="px-4 py-1.5 rounded-full text-xs font-semibold border border-input/30 bg-secondary select-none">
-                      +{hiddenTagsCount}
-                    </span>
-                  </div>
-                )}
-              </div>
+            <ScrollArea className="w-60 flex-1">
+              <TagFilterBar
+                allTags={visibleTags}
+                selectedTag={selectedTag}
+                onSelectTag={setSelectedTag}
+                hiddenTagsCount={hiddenTagsCount}
+              />
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
           </div>

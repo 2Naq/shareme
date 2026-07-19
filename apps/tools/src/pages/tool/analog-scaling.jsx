@@ -1,7 +1,7 @@
 import React from "react";
 import ToolLayout from "@/components/ToolLayout";
 import AnalogScaling from "@/components/tools/AnalogScaling";
-import MathRenderer from "@/components/MathRenderer";
+import MathRendererBlock from "@/components/MathRenderer";
 
 export default function AnalogScalingPage() {
   return (
@@ -26,7 +26,7 @@ export default function AnalogScalingPage() {
       <div>
         <h2 className="text-2xl font-semibold mb-4">Công thức sử dụng:</h2>
         <div className="p-4 rounded-lg overflow-x-auto border bg-card bg-grid">
-          <MathRenderer formula="\text{Result} = \frac{(\text{Input} - \text{Raw\_Min}) \times (\text{Eng\_Max} - \text{Eng\_Min})}{\text{Raw\_Max} - \text{Raw\_Min}} + \text{Eng\_Min}" />
+          <MathRendererBlock formula="\text{Result} = \frac{(\text{Input} - \text{Raw\_Min}) \times (\text{Eng\_Max} - \text{Eng\_Min})}{\text{Raw\_Max} - \text{Raw\_Min}} + \text{Eng\_Min}" />
         </div>
       </div>
     </ToolLayout>

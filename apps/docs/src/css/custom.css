@@ -284,3 +284,87 @@
 .blog-list-page article.margin-bottom--xl {
   margin-bottom: 0 !important;
 }
+
+/* Make markdown tables responsive and scrollable horizontally on mobile */
+.markdown table,
+table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+/* Transform table to card list layout on mobile for superior readability */
+@media (max-width: 768px) {
+  .mobile-cards-table table,
+  .mobile-cards-table thead,
+  .mobile-cards-table tbody,
+  .mobile-cards-table th,
+  .mobile-cards-table td,
+  .mobile-cards-table tr {
+    display: block;
+  }
+  
+  .mobile-cards-table thead {
+    display: none; /* Hide header row on mobile */
+  }
+  
+  .mobile-cards-table tr {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: var(--card);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .mobile-cards-table td {
+    border: none !important;
+    padding: 0.35rem 0 !important;
+  }
+  
+  /* Bold heading style for the first column */
+  .mobile-cards-table td:first-child {
+    font-weight: bold;
+    font-size: 1.05rem;
+    color: var(--primary);
+    border-bottom: 1px solid var(--border) !important;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem !important;
+  }
+  
+  /* Add pseudoclasses for prefixes for other columns */
+  .mobile-cards-table td:nth-child(2)::before {
+    content: "Biểu hiện thực tế: ";
+    font-weight: bold;
+    color: var(--muted-foreground);
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.15rem;
+  }
+  
+  .mobile-cards-table td:nth-child(3)::before {
+    content: "Cách khắc phục bằng Tool: ";
+    font-weight: bold;
+    color: var(--muted-foreground);
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.15rem;
+  }
+}
+
+/* Scale down math formula size on narrow viewports to avoid scrolling where possible */
+@media (max-width: 768px) {
+  .katex-display {
+    font-size: 0.85em !important;
+  }
+}
+@media (max-width: 480px) {
+  .katex-display {
+    font-size: 0.75em !important;
+  }
+}

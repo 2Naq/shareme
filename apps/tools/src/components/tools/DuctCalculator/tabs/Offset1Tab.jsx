@@ -23,7 +23,7 @@ import {
 } from "../utils/svgHelpers";
 import { flatPattern_offset1 } from "../utils/flatPatterns";
 import { build3D_offset1 } from "../threeBuilders";
-import MathRenderer from "@/components/MathRenderer";
+import MathRendererBlock from "@/components/MathRenderer";
 
 export default function Offset1Tab() {
   const [A, setA] = useState(300);
@@ -186,7 +186,7 @@ export default function Offset1Tab() {
 
         <FormulaBar>
           <b>L</b> =
-          <MathRenderer
+          <MathRendererBlock
             formula={String.raw`\frac{A}{\sin(\beta)} = \frac{${fmt(A)}}{\sin(${fmt(beta)}°)}`}
           />
           = <b>{fmt(result.L)} mm</b>

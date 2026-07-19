@@ -1,0 +1,86 @@
+---
+slug: analog-4-20ma-va-cong-thuc-scaling-analog-plc
+title: Tại sao dùng tín hiệu dòng 4-20mA và công thức scaling tuyến tính trong PLC
+authors: [anTng]
+tags: [tu-dong-hoa, sensors, plc]
+---
+
+
+Trong điều khiển tự động hóa, bên cạnh các tín hiệu số ON/OFF (Digital Input/Output), chúng ta thường xuyên phải làm việc với các đại lượng vật lý biến đổi liên tục như nhiệt độ, áp suất, lưu lượng, mực nước... Để PLC hiểu được các giá trị này, chúng phải được chuyển đổi thành tín hiệu điện tương tự (**Analog**).
+
+Hai chuẩn tín hiệu analog phổ biến nhất là **0-10V** và **4-20mA**. Tuy nhiên, tại các môi trường nhà máy công nghiệp lớn, chuẩn dòng điện **4-20mA** gần như chiếm vị thế độc tôn. Bài viết này mình sẽ giải thích lý do tại sao dòng 4-20mA lại ưu việt hơn, đồng thời chia sẻ công thức toán học cùng cách viết code **scaling tuyến tính** để đổi giá trị raw đọc về thành số đo thực tế trong PLC.
+
+{/* truncate */}
+
+---
+
+## 1. Tại sao lại chọn tín hiệu dòng 4-20mA thay vì điện áp 0-10V?
+
+Có 3 lý do chính mà các kỹ sư thiết kế hệ thống luôn ưu tiên chọn chuẩn dòng điện 4-20mA:
+
+### 1.1. Khả năng chống nhiễu vượt trội và truyền xa
+Tín hiệu điện áp 0-10V rất dễ bị sụt áp trên đường truyền do điện trở của dây dẫn (đặc biệt khi kéo dây đi xa trên 50 mét). Đồng thời, điện áp xoay chiều sinh ra từ các dây động lực đi cạnh bên sẽ dễ dàng cảm ứng vào dây tín hiệu điện áp gây sai lệch chỉ số.
+Ngược lại, nguồn dòng điện 4-20mA hoạt động dựa trên cơ chế vòng lặp dòng điện (Current Loop). Bộ phát tín hiệu (Transmitter) sẽ tự động điều chỉnh điện áp đầu ra để dòng điện trong vòng lặp luôn giữ đúng mức tương ứng với giá trị đo, bất kể điện trở đường dây thay đổi. Do đó, tín hiệu dòng điện không bị suy hao theo khoảng cách và cực kỳ khó bị nhiễu.
+
+### 1.2. Phát hiện lỗi đứt dây tức thời (Live Zero)
+Đây là ưu điểm cực kỳ đắt giá. 
+*   Nếu dùng tín hiệu **0-10V**: Khi cảm biến đo được giá trị nhỏ nhất (ví dụ áp suất bằng 0 bar) thì đầu ra là `0V`. Nếu dây dẫn bị đứt, PLC nhận về điện áp là `0V`. PLC không thể phân biệt được cảm biến đang đo mức 0 hay dây truyền tín hiệu đang bị đứt.
+*   Nếu dùng tín hiệu **4-20mA**: Khi cảm biến đo mức nhỏ nhất, dòng điện gửi về là `4mA`. Nếu dây tín hiệu bị đứt, dòng điện lập tức rớt về `0mA`. PLC chỉ cần kiểm tra nếu dòng nhận về `< 3.6mA` thì lập tức kích hoạt cảnh báo đứt dây (Wire Break Fault) bảo vệ hệ thống an toàn.
+
+---
+
+## 2. Công thức toán học Scaling tuyến tính trong PLC
+
+Khi module Analog Input (ADC) của PLC nhận tín hiệu 4-20mA, nó sẽ chuyển đổi dòng điện vật lý này thành một số nguyên (Raw Value) lưu trong bộ nhớ. Ví dụ:
+*   PLC Siemens S7-1200 chuyển đổi 4-20mA thành số nguyên từ **0 đến 27648**.
+*   PLC Mitsubishi FX5U chuyển đổi thành số nguyên từ **0 đến 16000** hoặc **0 đến 32000**.
+
+Nhiệm vụ của kỹ sư là phải chuyển đổi số nguyên Raw này về lại giá trị vật lý thực tế (ví dụ: nhiệt độ từ 0 đến 100°C). Phép biến đổi này được gọi là **Scaling tuyến tính (tỷ lệ tuyến tính)**.
+
+### Công thức tổng quát
+
+Dựa trên phương trình đường thẳng đi qua hai điểm trong hệ tọa độ Descardes, ta có công thức tính giá trị thực tế Scaled từ giá trị Raw đầu vào:
+
+
+
+```math
+Scaled = Out_{min} + \frac{Raw - In_{min}}{In_{max} - In_{min}} \cdot (Out_{max} - Out_{min})
+```
+
+
+
+### Ký hiệu & Ý nghĩa các đại lượng
+*   $Raw$: Giá trị số nguyên đọc về hiện tại từ kênh Analog của PLC.
+*   $In_{min}$: Giá trị số nguyên ứng với điểm giới hạn dưới (ví dụ với 4mA của Siemens là `0`).
+*   $In_{max}$: Giá trị số nguyên ứng với điểm giới hạn trên (ví dụ với 20mA của Siemens là `27648`).
+*   $Out_{min}$: Giá trị đo thực tế tương ứng giới hạn dưới của cảm biến (ví dụ cảm biến áp suất 0-10 Bar thì giới hạn dưới là `0`).
+*   $Out_{max}$: Giá trị đo thực tế tương ứng giới hạn trên của cảm biến (ví dụ cảm biến áp suất 0-10 Bar thì giới hạn trên là `10`).
+*   $Scaled$: Giá trị thực tế sau khi tính toán (đơn vị vật lý như °C, Bar, m³/h...).
+
+---
+
+## 3. Ví dụ tính toán cụ thể
+
+Giả sử ní có một cảm biến áp suất nước dải đo **0 đến 10 Bar**, xuất tín hiệu dòng **4-20mA** đưa vào Module Analog Input của PLC Siemens S7-1200. PLC đang đọc về giá trị nguyên Raw là **13824**. Hãy tính áp suất nước thực tế trong đường ống hiện tại.
+
+Các thông số đã biết:
+*   $Raw = 13824$
+*   $In_{min} = 0$ (tương ứng 4mA của kênh Analog Input Siemens)
+*   $In_{max} = 27648$ (tương ứng 20mA)
+*   $Out_{min} = 0.0 \text{ Bar}$
+*   $Out_{max} = 10.0 \text{ Bar}$
+
+Áp dụng công thức:
+
+
+```math
+Scaled = 0.0 + \frac{13824 - 0}{27648 - 0} \cdot (10.0 - 0.0) = 0.5 \cdot 10.0 = 5.0 \text{ Bar}
+```
+
+
+
+Vậy áp suất nước hiện tại trong đường ống đo được là **5.0 Bar**.
+
+### Hướng dẫn lập trình trong PLC
+*   **Với PLC Siemens (TIA Portal):** Ní sử dụng kết hợp hai khối lệnh có sẵn là **NORM_X** (để chuẩn hóa giá trị Raw về dải số thực 0.0 - 1.0) và khối **SCALE_X** (để nhân tỷ lệ từ số thực 0.0 - 1.0 sang dải đo vật lý của cảm biến).
+*   **Với PLC Mitsubishi (GX Works):** Nếu không có hàm Scale sẵn, ní tự viết một hàm chức năng (Function Block) hoặc viết code tay trực tiếp theo công thức toán học nêu trên bằng các lệnh toán học số thực `SUB`, `DIV`, `MUL`, `ADD`. Lưu ý luôn chuyển đổi biến số `Raw` sang kiểu dữ liệu số thực (`REAL`) trước khi thực hiện phép chia để không bị mất phần thập phân.

@@ -1,0 +1,61 @@
+---
+slug: kien-truc-dieu-khien-tap-trung-plc-vs-phan-tan-dcs
+title: So sánh kiến trúc điều khiển tập trung (Centralized PLC) và phân tán (DCS)
+authors: [anTng]
+tags: [tu-dong-hoa, plc, scada]
+---
+
+
+Khi tìm hiểu về các giải pháp tự động hóa cho nhà máy quy mô công nghiệp lớn (như lọc hóa dầu, xi măng, nhiệt điện hay xử lý nước thải), các ní sẽ thường xuyên nghe nhắc đến hai khái niệm: **Hệ thống điều khiển giám sát SCADA kết hợp PLC tập trung (Centralized PLC & SCADA)** và **Hệ thống điều khiển phân tán DCS (Distributed Control System)**.
+
+Nhiều kỹ sư trẻ thường nghĩ đơn giản rằng "DCS chỉ là sự kết hợp của nhiều bộ PLC ghép lại với nhau". Thực chất, đây là hai triết lý thiết kế hệ thống hoàn toàn khác biệt từ gốc rễ cấu trúc phần cứng, phần mềm đến phương thức vận hành. Bài viết này mình sẽ phân tích sâu, so sánh chi tiết và đưa ra lời khuyên lựa chọn kiến trúc phù hợp cho các ní.
+
+{/* truncate */}
+
+---
+
+## 1. Kiến trúc điều khiển tập trung (Centralized PLC & SCADA)
+
+Trong hệ thống này, các bộ lập trình độc lập **PLC (Programmable Logic Controller)** chịu trách nhiệm xử lý logic điều khiển tại các máy hoặc công đoạn riêng lẻ. Một hoặc nhiều máy tính cài phần mềm **SCADA (Supervisory Control and Data Acquisition)** được nối mạng Ethernet để thu thập dữ liệu và giám sát tập trung.
+
+### Đặc điểm kiến trúc
+*   **Xử lý cục bộ:** PLC chạy chương trình điều khiển cục bộ rất nhanh (chu kỳ vòng quét chỉ vài mili-giây).
+*   **Thiết kế Bottom-up (Từ dưới lên):** Kỹ sư viết code điều khiển cho từng bộ PLC độc lập trước, sau đó mới tiến hành thiết kế giao diện SCADA, tạo cơ sở dữ liệu tag (Tag Database) trên phần mềm SCADA và liên kết (map) các địa chỉ tag từ SCADA xuống PLC bằng các driver truyền thông (như OPC UA, Modbus...).
+*   **Tính độc lập:** Nếu máy tính SCADA bị treo hay tắt nguồn, các bộ PLC ở dưới vẫn tự động chạy bình thường theo chương trình đã lập trình sẵn để giữ an toàn cho máy móc.
+
+---
+
+## 2. Kiến trúc điều khiển phân tán (DCS - Distributed Control System)
+
+DCS là một hệ thống tự động hóa tích hợp toàn diện quy mô lớn. Ở đây, quyền điều khiển không tập trung vào một bộ xử lý mà được phân chia rải rác cho nhiều bộ điều khiển chức năng **DPU (Distributed Processing Unit)** hoặc bộ điều khiển cục bộ đặt ở các khu vực khác nhau trong nhà máy.
+
+### Đặc điểm kiến trúc
+*   **Tính tích hợp hệ thống cực cao:** DCS kết nối tất cả các bộ điều khiển, trạm vận hành (Operator Station), trạm kỹ sư (Engineering Station) và cơ sở dữ liệu thông qua một mạng xương sống tốc độ cao, dự phòng kép (Redundant) được thiết kế riêng gọi là **Control Bus** (ví dụ mạng Ethernet công nghiệp thời gian thực).
+*   **Cơ sở dữ liệu tag tập trung duy nhất (Single Global Database):** Đây là điểm khác biệt lớn nhất của DCS. 
+    *   *Trong hệ thống PLC/SCADA:* ní tạo tag ở PLC và tạo tag ở SCADA riêng, rồi liên kết chúng lại. 
+    *   *Trong hệ thống DCS:* ní chỉ cần tạo tag **một lần duy nhất** tại trạm kỹ sư. Tag đó tự động được hiểu ở cả cấp điều khiển phần cứng lẫn giao diện vận hành trên màn hình giám sát. Không cần thực hiện map tag phức tạp.
+*   **Dự phòng nóng hoàn toàn (Full Redundant):** DCS luôn thiết kế dự phòng kép cho tất cả các thành phần cốt lõi: CPU điều khiển (chạy chế độ Hot-Standby song song), card I/O nguồn, mạng truyền thông và máy chủ dữ liệu. Nếu một CPU bị lỗi đột ngột, CPU dự phòng sẽ tiếp quản điều khiển ngay lập tức trong vòng dưới 10ms mà không gây gián đoạn dây chuyền.
+
+---
+
+## 3. So sánh chi tiết Centralized PLC + SCADA vs. DCS
+
+Để các ní dễ đối chiếu đưa ra quyết định thiết kế hệ thống, mình đã tóm tắt các tiêu chí cốt lõi nhất dưới đây:
+
+| Tiêu chí | Hệ PLC + SCADA | Hệ thống phân tán DCS |
+| :--- | :--- | :--- |
+| **Quy mô hệ thống** | Nhỏ đến trung bình (dưới 5000 I/O) | Rất lớn (lên đến hàng chục nghìn I/O) |
+| **Loại hình sản xuất** | Điều khiển rời rạc (Discrete Control) như lắp ráp, đóng gói, băng tải. | Điều khiển quá trình liên tục (Process Control) như hóa chất, dầu khí, giấy, điện. |
+| **Cơ sở dữ liệu (Database)** | Tách biệt giữa PLC và SCADA | Cơ sở dữ liệu toàn cục tập trung duy nhất |
+| **Khả năng dự phòng** | Có thể cấu hình dự phòng nhưng phức tạp và giá thành cao. | Dự phòng nóng mặc định từ phần cứng đến phần mềm. |
+| **Tốc độ đáp ứng (Scan time)** | Cực kỳ nhanh (1 ~ 10ms), thích hợp bảo vệ khẩn cấp, máy chạy tốc độ cao. | Chậm hơn (100 ~ 500ms), do tập trung xử lý thuật toán phức tạp (PID, Cascade). |
+| **Mức độ mở rộng và sửa đổi** | Dễ dàng nâng cấp nhỏ lẻ, chi phí rẻ. | Yêu cầu nghiêm ngặt, chi phí bản quyền nâng cấp tag rất lớn. |
+| **Chi phí đầu tư** | Thấp đến trung bình | Rất cao |
+
+---
+
+## 4. Lời khuyên lựa chọn thực tế cho kỹ sư tự động hóa
+
+*   **Chọn PLC + SCADA khi:** ní thiết kế các máy móc chạy độc lập, trạm bơm nước, xử lý nước thải quy mô vừa, dây chuyền sản xuất thực phẩm đóng chai dạng rời rạc. Tốc độ đáp ứng của logic cần rất nhanh và chi phí đầu tư dự án ở mức vừa phải.
+*   **Chọn DCS khi:** ní làm việc trong các nhà máy có quy trình công nghệ liên tục siêu phức tạp. Nơi mà một giây gián đoạn sản xuất có thể gây thiệt hại hàng tỷ đồng hoặc gây tai nạn thảm họa (như nhà máy hóa chất, lọc dầu). Lúc này, tính năng **dự phòng nóng**, **cơ sở dữ liệu thống nhất** và thuật toán kiểm soát quá trình tiên tiến của DCS là sự lựa chọn duy nhất đáng tin cậy.
+*   **Xu hướng tích hợp:** Ngày nay ranh giới giữa PLC và DCS đang dần thu hẹp. Nhiều hãng tự động hóa đã phát triển các hệ thống lai (Hybrid DCS) có giá thành tốt của PLC nhưng cấu trúc cơ sở dữ liệu tập trung gần tương đương DCS (ví dụ hệ thống PlantPAx của Rockwell Automation hay PCS7 của Siemens). Đây là hướng đi mới mà các ní nên tìm hiểu sâu để đón đầu công nghệ.

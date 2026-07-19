@@ -8,7 +8,7 @@ import katex from "katex";
  * ### Cách sử dụng
  * ```jsx
  * // Khuyên dùng template literal (String.raw) để tránh lỗi escape ký tự '\'
- * <MathRenderer formula={String.raw`R_{tổng} = R_1 + R_2`} />
+ * <MathRendererBlock formula={String.raw`R_{tổng} = R_1 + R_2`} />
  * ```
  *
  * ### Cú pháp Toán học (KaTeX/LaTeX) cơ bản:
@@ -42,7 +42,7 @@ import katex from "katex";
  * @param {boolean} [props.displayMode=true] - `true`: Hiển thị dạng Block (to, giữa). `false`: Dạng Inline (nhỏ, cùng dòng).
  * @param {string} [props.className=""] - CSS class (Tailwind) để custom style (màu chữ, margin...).
  */
-export default function MathRenderer({
+export default function MathRendererBlock({
   formula,
   displayMode = true,
   className = "",
@@ -66,9 +66,22 @@ export default function MathRenderer({
  * - Ví dụ: "Công thức tính điện trở là $R = \frac{V}{I}$"
  *
  */
-export function RenderMathInText(text) {
-  const html = text.replace(/\$([^$]+)\$/g, (_, formula) =>
+export function MathRenderInline(propsOrText) {
+  let content = "";
+  let className = "";
+  if (typeof propsOrText === "string") {
+    content = propsOrText;
+  } else if (propsOrText && typeof propsOrText === "object") {
+    content = propsOrText.text || propsOrText.children || "";
+    className = propsOrText.className || "";
+  }
+
+  if (typeof content !== "string") {
+    return <span className={className}>{content}</span>;
+  }
+
+  const html = content.replace(/\$([^$]+)\$/g, (_, formula) =>
     katex.renderToString(formula, { throwOnError: false, displayMode: false }),
   );
-  return <span dangerouslySetInnerHTML={{ __html: html }} />;
+  return <span className={className} dangerouslySetInnerHTML={{ __html: html }} />;
 }

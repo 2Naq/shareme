@@ -88,8 +88,9 @@ export default function BlogPostItem({ children, className }) {
   }
 
   // Render tối đa 2 tác giả trong Avatar Group
+  const showAuthorAvt = 4;
   const avatarGroup = authors
-    ?.slice(0, 2)
+    ?.slice(0, showAuthorAvt)
     .map((author, index) => <AuthorAvatar key={index} author={author} />);
 
   return (
@@ -99,8 +100,10 @@ export default function BlogPostItem({ children, className }) {
           <div className="relative z-20">
             <AvatarGroup>
               {avatarGroup}
-              {authors && authors.length > 3 && (
-                <AvatarGroupCount>+{authors.length - 3}</AvatarGroupCount>
+              {authors && authors.length > showAuthorAvt && (
+                <AvatarGroupCount>
+                  +{authors.length - showAuthorAvt}
+                </AvatarGroupCount>
               )}
             </AvatarGroup>
           </div>

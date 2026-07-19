@@ -1,0 +1,194 @@
+---
+slug: huong-dan-viet-blog-docusaurus
+title: Hướng dẫn viết bài và vận hành Docusaurus Blog cho các "Ní"
+authors: [anTng]
+tags: [tu-dong-hoa]
+---
+
+Chào các ní! Trong quá trình vận hành trang chia sẻ kiến thức này, việc viết các bài chia sẻ (blog) không chỉ đơn thuần là gõ văn bản, mà chúng ta còn tận dụng sức mạnh của **MDX (Markdown + JSX)** để bài viết sinh động hơn với các khối code, công thức toán học, cảnh báo (admonitions) và các công cụ bổ trợ.
+
+Để giúp các ní mới làm quen hoặc muốn tra cứu nhanh cách định dạng bài viết chuẩn chỉnh mà **không làm lỗi hệ thống build**, mình đã tổng hợp toàn bộ hướng dẫn vận hành và viết blog dưới đây.
+
+{/* truncate */}
+
+---
+
+## 1. Quy trình tạo bài viết mới
+
+### Bước 1: Quy tắc đặt tên file
+Mọi bài viết trong blog đều được lưu trong thư mục `apps/docs/blog/2026/` (hoặc thư mục năm tương ứng).
+Tên file phải tuân theo cấu trúc ngày tháng chuẩn để Docusaurus tự động sắp xếp:
+`YYYY-MM-DD-ten-bai-viet-viet-lien-khong-dau.mdx`
+
+*Ví dụ:* `2026-07-20-huong-dan-viet-blog-docusaurus.mdx`
+
+---
+
+## 2. Cấu hình Frontmatter (Phần đầu file)
+
+Mỗi file bài viết bắt đầu bằng một khối Frontmatter nằm giữa cặp dấu ba gạch ngang `---`. Dưới đây là các thông số cốt lõi:
+
+```yaml
+---
+slug: huong-dan-viet-blog-docusaurus
+title: Hướng dẫn viết bài và vận hành Docusaurus Blog cho các "Ní"
+authors: [anTng]
+tags: [tu-dong-hoa]
+image: https://pbs.twimg.com/media/HNSX94cawAAw37i.png
+---
+```
+
+*   **`slug`**: Đường dẫn URL rút gọn của bài viết (ví dụ: `https://.../blog/huong-dan-viet-blog-docusaurus`).
+*   **`title`**: Tiêu đề hiển thị của bài viết.
+*   **`authors`**: Danh sách tác giả viết bài. Các key tác giả được định nghĩa trong file `blog/authors.yml` (ví dụ: `anTng`, `yangshun`, `slorber`).
+*   **`tags`**: Các từ khóa phân loại bài viết. Các tags được đăng ký trong file `blog/tags.yml` (ví dụ: `tu-dong-hoa`, `networking`, `plc`).
+*   **`image`**: Link ảnh bìa đại diện khi bài viết được chia sẻ trên mạng xã hội.
+
+### Cách cấu hình thêm Tác giả & Thẻ mới
+*   **Thêm tác giả:** Mở file [blog/authors.yml](file:///e:/10.WorkSpace-Code/Nodejs/Docusaurus_PLC/shareme/apps/docs/blog/authors.yml) và thêm cấu hình theo mẫu:
+    ```yaml
+    tenTacGiaKey:
+      name: Tên Hiển Thị
+      title: Chức danh / Mô tả ngắn
+      url: https://...
+      image_url: https://github.com/username.png
+      socials:
+        github: username
+    ```
+*   **Thêm thẻ:** Mở file [blog/tags.yml](file:///e:/10.WorkSpace-Code/Nodejs/Docusaurus_PLC/shareme/apps/docs/blog/tags.yml) và khai báo:
+    ```yaml
+    tag-key:
+      label: Tên Thẻ Hiển Thị
+      permalink: /tag-permalink
+    ```
+
+---
+
+## 3. Các quy tắc định dạng nội dung cốt lõi
+
+### 3.1. Điểm ngắt tóm tắt bài viết (`truncate`)
+Hãy chèn cú pháp `{/* truncate */}` vào ngay sau 1-2 đoạn văn giới thiệu đầu tiên của bài viết. 
+*   **Tác dụng:** Toàn bộ nội dung phía trước `{/* truncate */}` sẽ hiển thị làm phần mô tả ngắn (excerpt) trên trang chủ danh sách Blog. Nội dung phía sau sẽ chỉ hiển thị khi người đọc bấm vào nút "Đọc thêm" (Read More).
+
+---
+
+### 3.2. Khối thông tin nổi bật (Admonitions)
+Docusaurus hỗ trợ 5 kiểu hộp cảnh báo/chú thích trực quan bằng cách sử dụng 3 dấu hai chấm `:::`.
+
+:::note [Chú ý]
+Sử dụng hộp này cho các thông tin bổ sung, ghi chú bên lề hoặc ngữ cảnh chung.
+:::
+
+:::tip [Mẹo nhỏ]
+Dành cho các mẹo thực hành, kinh nghiệm xương máu hoặc phím tắt hữu ích.
+:::
+
+:::info [Thông tin]
+Cung cấp thông tin quan trọng hoặc tài liệu tham khảo chính thống cần người đọc chú ý.
+:::
+
+:::warning [Cảnh báo]
+Dành cho các cảnh báo nguy hiểm, hành động dễ gây lỗi hệ thống hoặc thiết bị.
+:::
+
+:::danger [Cực kỳ nguy hiểm]
+Những hành động có thể gây cháy hỏng tủ điện, mất dữ liệu, hoặc "đền tiền" cho dự án!
+:::
+
+#### Cú pháp viết trong MDX:
+```markdown
+:::warning [Tiêu đề tùy chỉnh]
+Nội dung cảnh báo của các ní viết ở đây.
+:::
+```
+
+---
+
+### 3.3. Viết Khối Code (Code Blocks)
+Để viết mã nguồn hoặc các tập lệnh cấu hình, hãy sử dụng dấu bao code: \`\`\`. Docusaurus hỗ trợ tô sáng cú pháp rất mạnh mẽ kèm theo các tính năng cao cấp như:
+
+#### Ví dụ 1: Đặt tiêu đề cho file code bằng `title`
+```javascript title="src/components/MathRenderer.jsx"
+import React from 'react';
+// Code của ní
+```
+
+#### Ví dụ 2: Tô sáng (Highlight) dòng cụ thể bằng `{dòng}`
+```python {2,4-5} title="calculator.py"
+def add(a, b):
+    return a + b  # Dòng này được tô sáng
+
+def subtract(a, b):
+    return a - b  # Hai dòng này cũng được tô sáng
+    # để người đọc chú ý
+```
+
+#### Cú pháp viết trong MDX:
+````markdown
+```python {2,4-5} title="calculator.py"
+def add(a, b):
+    return a + b
+...
+```
+````
+
+---
+
+### 3.4. Viết Công thức Toán học (LaTeX) - QUY TẮC SỐNG CÒN
+
+> [!IMPORTANT]
+> **Lưu ý cực kỳ quan trọng đối với MDX v3:** 
+> Do MDX tự động hiểu các dấu ngoặc nhọn `{}` là mã code JavaScript, nếu bạn viết công thức toán học chứa ngoặc nhọn (như `\frac{A}{B}`, `\sqrt{3}`, hoặc chỉ số dưới `_{tk}`) bên trong cặp dấu đô-la kép `$$` thông thường, **trình biên dịch sẽ bị sập và báo lỗi Acorn parse error**.
+
+#### Giải pháp khắc phục triệt để:
+
+1.  **Với công thức khối lớn (Block Math):** **BẮT BUỘC** sử dụng khối code block có ngôn ngữ là `math`. Trình phân tích cú pháp sẽ coi đây là code tĩnh và không quét lỗi JS.
+    
+    *Cách viết:*
+    ````markdown
+    ```math
+    I = \frac{P}{\sqrt{3} \cdot U \cdot \cos\varphi \cdot \eta}
+    ```
+    ````
+
+    *Kết quả hiển thị trên trang:*
+    ```math
+    I = \frac{P}{\sqrt{3} \cdot U \cdot \cos\varphi \cdot \eta}
+    ```
+
+2.  **Với công thức nội dòng (Inline Math):** Sử dụng một dấu đô-la đơn `$ ... $` nhưng **không được để khoảng trắng sát dấu đô-la**, và tránh dùng ký tự `{}` phức tạp trong câu văn. Nếu công thức inline có dấu `{}` gây lỗi, hãy đổi sang dùng thẻ JSX `<MathRenderer>` có sẵn của dự án:
+    
+    *Ví dụ:* Sử dụng `<MathRenderer displayMode={false} formula="I_{đm}" />` để hiển thị an toàn.
+
+---
+
+### 3.5. Chèn Hình ảnh & Liên kết (Links)
+
+#### Chèn hình ảnh
+Bạn nên tạo một thư mục ảnh cục bộ nằm cùng cấp với file bài viết để dễ quản lý.
+*   Cú pháp: `![Mô tả ảnh](./img/ten-anh.png)`
+
+#### Tạo liên kết nội bộ (Link qua lại giữa các bài viết)
+Hãy dùng đường dẫn tương đối trỏ trực tiếp đến file `.mdx` nguồn. Docusaurus sẽ tự động chuyển đổi nó thành URL hoàn chỉnh và kiểm tra xem link có bị hỏng (broken link) khi build hay không.
+*   Cú pháp: `[Xem thêm công thức dòng điện](./2026-07-18-top-5-cong-thu-dien.mdx)`
+
+#### Tạo liên kết đến trang công cụ (Tool của dự án)
+Nếu muốn dẫn link từ blog sang trang Tool tiện ích nằm trong monorepo, hãy sử dụng tiền tố `pathname:///` để tránh Docusaurus hiểu lầm là link ảo của Single Page App.
+*   Cú pháp: `[Bộ công cụ Data Converter](pathname:///shareme/tool/)`
+
+---
+
+## 4. Kiểm tra trước khi xuất bản
+
+Trước khi đẩy bài viết lên GitHub/Staging, các ní hãy chạy các lệnh sau tại thư mục gốc để đảm bảo bài viết hoạt động mượt mà:
+
+1.  Chạy server local để xem trước trực quan bài viết:
+    ```bash
+    npm run dev
+    ```
+2.  Chạy thử lệnh kiểm tra build tĩnh để rà soát toàn bộ lỗi cú pháp hoặc liên kết hỏng:
+    ```bash
+    npm run build
+    ```
+
+Hy vọng bài viết này sẽ giúp các ní tự tin sản xuất những nội dung chất lượng nhất trên blog. Chúc các ní viết bài vui vẻ và không bao giờ bị "đập màn hình" vì lỗi build!

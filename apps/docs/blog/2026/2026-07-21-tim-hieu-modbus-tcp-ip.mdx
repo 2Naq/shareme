@@ -1,0 +1,76 @@
+---
+slug: tim-hieu-modbus-tcp-ip-vs-modbus-rtu
+title: Tìm hiểu giao thức Modbus TCP/IP và phân biệt với Modbus RTU
+authors: [anTng]
+tags: [tu-dong-hoa, networking, modbus]
+---
+
+
+Nếu ní bước chân vào ngành tự động hóa, chắc chắn ní sẽ gặp từ khóa **Modbus**. Đây là giao thức truyền thông công nghiệp phổ biến nhất thế giới nhờ tính mở, miễn phí và cực kỳ đơn giản. Modbus có hai biến thể ngự trị ở hai tầng vật lý khác nhau: **Modbus RTU** chạy trên cáp nối tiếp (RS-485/RS-232) và **Modbus TCP/IP** chạy trên nền Ethernet tiêu chuẩn.
+
+Nhiều kỹ sư mới ra trường thường nhầm lẫn giữa hai chuẩn này hoặc lúng túng khi cấu hình kết nối thiết bị. Trong bài viết này, mình sẽ phân tích chi tiết cấu trúc khung truyền của Modbus TCP/IP, chỉ ra điểm khác biệt cốt lõi và hướng dẫn cách chuyển đổi giữa hai chuẩn này trong thực tế.
+
+{/* truncate */}
+
+---
+
+## 1. Cấu trúc khung truyền Modbus TCP/IP: MBAP Header là gì?
+
+Ở chuẩn Modbus RTU truyền thống chạy trên RS-485, khung truyền được gọi là **ADU (Application Data Unit)** bao gồm:
+*   `[Address] (1 byte)`: Địa chỉ Slave ID.
+*   `[PDU (Protocol Data Unit)]`: Mã hàm (Function Code) + Dữ liệu.
+*   `[CRC Checksum] (2 bytes)`: Mã kiểm tra lỗi.
+
+Khi chuyển sang môi trường Ethernet (Modbus TCP/IP), giao thức không cần mã kiểm tra lỗi CRC nữa, vì bản thân tầng liên kết dữ liệu và tầng vận chuyển của bộ giao thức TCP/IP đã tự thực hiện cơ chế phát hiện và sửa lỗi truyền nhận cực kỳ tin cậy rồi.
+
+Thay vào đó, Modbus TCP/IP loại bỏ trường `Address` và `CRC`, đồng thời thêm vào một đoạn dữ liệu dài 7 bytes đứng đầu khung truyền gọi là **MBAP Header (Modbus Application Protocol Header)**.
+
+### Công thức phân rã khung truyền Modbus TCP/IP
+
+Khung truyền Modbus TCP/IP hoàn chỉnh có cấu trúc như sau:
+
+
+
+```math
+\text{Modbus TCP/IP ADU} = [\text{MBAP Header (7 bytes)}] + [\text{PDU (Mã hàm + Dữ liệu)}]
+```
+
+
+
+### Chi tiết các trường trong MBAP Header:
+1.  **Transaction Identifier (2 bytes):** ID của giao dịch. Master dùng để nhận dạng gói tin phản hồi tương ứng từ Slave. Giá trị này tăng dần sau mỗi lần gửi.
+2.  **Protocol Identifier (2 bytes):** ID giao thức. Luôn bằng `0x0000` (đại diện cho Modbus).
+3.  **Length (2 bytes):** Độ dài của các bytes tiếp theo (bao gồm Unit Identifier và PDU).
+4.  **Unit Identifier (1 byte):** ID thiết bị đích. Thường bằng `0xFF` hoặc `0x01` nếu kết nối trực tiếp Ethernet. Trường này được dùng khi Modbus TCP/IP đi qua một bộ chuyển đổi gateway để giao tiếp với thiết bị Modbus RTU (RS-485) nối phía sau.
+
+---
+
+## 2. Phân biệt chi tiết Modbus RTU và Modbus TCP/IP
+
+Để các ní dễ hình dung, mình đã tổng hợp sự khác biệt cơ bản nhất vào bảng dưới đây:
+
+| Tiêu chí so sánh | Modbus RTU | Modbus TCP/IP |
+| :--- | :--- | :--- |
+| **Tầng vật lý (Physical)** | Cáp nối tiếp RS-485 / RS-232 | Cáp mạng Ethernet (RJ45, Wifi, Cáp quang) |
+| **Kiến trúc mạng** | Master - Slave (Chỉ có 1 Master duy nhất) | Client - Server (Có thể có nhiều Client truy cập đồng thời) |
+| **Cổng kết nối mạng** | Cổng COM xoắn 2 dây (A, B) | Cổng mạng RJ45 TCP Port mặc định: **502** |
+| **Kiểm tra lỗi** | Dùng mã kiểm tra **CRC-16** | Tự động xử lý bởi lớp dưới của **TCP/IP** |
+| **Khoảng cách truyền** | Lên đến **1200 mét** không lặp | Tối đa **100 mét** (với cáp mạng Cat5e/Cat6 thông thường), không giới hạn nếu dùng cáp quang/Internet |
+| **Tốc độ truyền** | Chậm (thường từ 9600 bps đến 115200 bps) | Rất nhanh (10 Mbps, 100 Mbps, 1 Gbps) |
+
+---
+
+## 3. Cách chuyển đổi giữa Modbus RTU và Modbus TCP/IP trong thực tế
+
+Trong các dự án tự động hóa hiện đại, việc kết nối các thiết bị Modbus RTU cũ (như đồng hồ nhiệt độ, biến tần) về hệ thống giám sát SCADA trung tâm chạy chuẩn Modbus TCP/IP là nhu cầu rất lớn. Kỹ sư thường sử dụng 2 giải pháp sau:
+
+### Giải pháp 1: Sử dụng bộ chuyển đổi Gateway phần cứng (Hardware Gateway)
+*   Ní mua các thiết bị chuyển đổi Gateway chuyên dụng như **Moxa NPort 5150**, **ICP DAS tGW-715**, hay **ATC-3000**.
+*   Thiết bị này có 1 cổng RJ45 và 1 cổng RS-485. Nó hoạt động như một cầu nối thông tin. Khi nhận được gói tin Modbus TCP/IP từ SCADA, Gateway sẽ bóc tách MBAP Header, tính toán và thêm mã CRC-16 vào để tạo thành khung Modbus RTU chuẩn rồi đẩy ra cổng RS-485 xuống các Slave. Sau khi nhận được phản hồi từ Slave, nó làm ngược lại để gửi trả dữ liệu về SCADA.
+
+### Giải pháp 2: Sử dụng PLC làm thiết bị chuyển đổi trung gian
+*   Hầu hết các dòng PLC trung bình hiện nay (như Siemens S7-1200, Mitsubishi FX5U) đều tích hợp sẵn cả cổng Ethernet và cổng RS-485.
+*   Ní viết chương trình trong PLC lập lịch gọi các khối lệnh Modbus RTU Master để đọc dữ liệu từ thiết bị RS-485 lưu vào bộ nhớ đệm (DB/M). Đồng thời bật tính năng Modbus TCP Server trên PLC để cho phép phần mềm SCADA kết nối vào và đọc trực tiếp từ các vùng nhớ đệm đó. Cách này tốn thêm công viết code nhưng lại tiết kiệm chi phí phần cứng rất nhiều.
+
+### Lời khuyên thực tế
+*   Khi cấu hình kết nối Modbus TCP/IP trên các phần mềm SCADA (như Kepware, Igniton), nếu kết nối bị lỗi ngắt quãng, hãy tăng thời gian **Timeout** của driver lên khoảng **1000ms đến 2000ms** nếu hệ thống đi qua bộ Gateway chuyển đổi RTU. Bởi vì tốc độ truyền trên đường truyền RS-485 chậm hơn mạng Ethernet hàng trăm lần, nên SCADA cần chờ lâu hơn để thiết bị Slave phản hồi xong.

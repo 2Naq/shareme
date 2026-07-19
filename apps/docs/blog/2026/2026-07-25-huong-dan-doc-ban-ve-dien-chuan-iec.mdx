@@ -1,0 +1,85 @@
+---
+slug: huong-dan-doc-ban-ve-dien-cong-nghiep-chuan-iec
+title: Hướng dẫn đọc bản vẽ sơ đồ mạch điện công nghiệp chuẩn IEC cho người mới
+authors: [anTng]
+tags: [dien-cong-nghiep, schematics]
+---
+
+
+Khi ní bước chân vào một công trình điện, nhận bàn giao một tủ điện điều khiển PLC từ nhà thầu, thứ đầu tiên ní cần cầm trên tay là bộ **Bản vẽ sơ đồ mạch điện**. Bản vẽ điện giống như bản đồ kho báu, nếu không đọc hiểu được ký hiệu và nguyên lý hoạt động, ní sẽ không thể đấu nối dây, không biết cách viết code PLC cho đúng dải I/O và hoàn toàn bất lực khi tủ điện xảy ra sự cố cần sửa chữa.
+
+Hầu hết các bản vẽ thiết kế tủ điện công nghiệp hiện nay đều tuân theo tiêu chuẩn quốc tế **IEC (International Electrotechnical Commission)**. Trong bài viết này, mình sẽ chia sẻ những kinh nghiệm thực chiến giúp các ní nhanh chóng làm chủ kỹ năng đọc bản vẽ điện chuẩn IEC từ những chi tiết nhỏ nhất.
+
+{/* truncate */}
+
+---
+
+## 1. Cách đọc khung tên và tọa độ trang bản vẽ điện
+
+Một tập bản vẽ điện công nghiệp thường rất dày (từ vài chục đến hàng trăm trang). Để người đọc dễ dàng định vị các thiết bị và điểm đấu nối, các trang bản vẽ luôn được thiết kế theo hệ tọa độ lưới.
+
+### Hệ tọa độ lưới (Grid Coordinates)
+*   **Trục ngang (X-axis):** Thường được chia thành các vùng từ **1 đến 8** hoặc **1 đến 10** ở viền trên và viền dưới trang giấy.
+*   **Trục dọc (Y-axis):** Thường được chia thành các vùng chữ cái từ **A đến F** ở viền trái và viền phải trang giấy.
+*   **Cách gọi tên tọa độ:** Một điểm giao cắt trên bản vẽ sẽ có tọa độ ví dụ là `Page 12 / Column 4` (viết tắt là `12/4` hoặc `12.4`). 
+
+### Ý nghĩa của tọa độ liên kết trang (Cross-Reference)
+Khi một sợi dây chạy từ trang này sang trang khác (ví dụ dây nguồn điều khiển 24VDC chạy xuyên suốt nhiều trang), cuối đầu dây ở trang cũ sẽ có ký hiệu mũi tên kèm tọa độ trang đích, ví dụ: **`→ 15.2`**. 
+Điều này có nghĩa là sợi dây này sẽ được đấu nối tiếp tục ở **Trang 15, Vùng tọa độ cột số 2**. Khi lật sang trang 15.2, ní sẽ thấy đầu dây đi vào có ký hiệu ngược lại chỉ về trang nguồn: **`← 12.4`**. 
+Đây là kỹ năng tối quan trọng để dò dây (wiring tracing) khi sửa chữa tủ điện.
+
+---
+
+## 2. Ký hiệu chữ của các thiết bị điện thường gặp theo chuẩn IEC 81346
+
+Chuẩn IEC quy định các thiết bị điện phải được gán nhãn bắt đầu bằng các chữ cái đại diện cho nhóm chức năng của chúng. Dưới đây là bảng các chữ cái ký hiệu phổ biến nhất mà ní cần thuộc lòng:
+
+| Ký hiệu chữ | Loại thiết bị điện thực tế | Ý nghĩa chức năng |
+| :--- | :--- | :--- |
+| **Q** | Aptomat (CB, MCCB, MCB), Dao cách ly | Thiết bị đóng cắt nguồn động lực |
+| **F** | Cầu chì, Rơ-le nhiệt bảo vệ quá tải, bộ chống sét | Thiết bị bảo vệ dòng điện/quá áp |
+| **K** | Contactor (Khởi động từ), Relay trung gian | Thiết bị đóng cắt điều khiển điện cơ |
+| **T** | Máy biến áp (Transformer), Bộ nguồn chuyển mạch (SPS) | Thiết bị biến đổi năng lượng điện |
+| **S** | Nút nhấn, Công tắc xoay, Công tắc hành trình | Thiết bị phát lệnh đầu vào bằng tay |
+| **B** | Cảm biến tiệm cận, cảm biến áp suất, cảm biến nhiệt độ | Thiết bị cảm biến vật lý đầu vào |
+| **H** | Đèn báo pha, còi báo động (Horn) | Thiết bị phát tín hiệu cảnh báo đầu ra |
+| **X** | Cầu đấu dây (Terminal block) | Điểm nối cáp trung gian |
+
+Ví dụ gán nhãn trên bản vẽ:
+*   `1Q1`: Aptomat số 1 nằm ở Trang 1.
+*   `3KM2`: Contactor số 2 nằm ở Trang 3.
+*   `5KA1`: Rơ-le trung gian số 1 nằm ở Trang 5.
+
+---
+
+## 3. Cách đọc sơ đồ mạch lực và mạch điều khiển
+
+Bản vẽ điện thường chia làm hai phần rõ rệt: **Mạch lực (Power Circuit)** và **Mạch điều khiển (Control Circuit)**.
+
+### 3.1. Mạch lực (Động lực)
+*   Thường nằm ở những trang đầu tiên của tập bản vẽ.
+*   Thể hiện đường đi của dòng điện nguồn xoay chiều 3 pha (L1, L2, L3, PE) từ Aptomat tổng, thanh cái (busbar), qua Aptomat nhánh, Contactor động lực, Relay nhiệt rồi đi ra cầu đấu dây `X` cấp xuống động cơ.
+*   Dây vẽ ở mạch lực thường là nét đậm. Ký hiệu tiếp điểm động lực của contactor luôn có 3 cặp tiếp điểm song song được đánh số ngõ vào là `1, 3, 5` và ngõ ra là `2, 4, 6`.
+
+### 3.2. Mạch điều khiển
+*   Thể hiện logic điều khiển các thiết bị. Nguồn điện mạch điều khiển thường là 24VDC hoặc 220VAC để đảm bảo an toàn cho người vận hành.
+*   Ký hiệu cuộn hút của Contactor hay Relay trung gian là hình chữ nhật đứng, có hai đầu đấu nối ký hiệu là **A1** và **A2**.
+*   **Tiếp điểm phụ:**
+    *   Tiếp điểm thường mở (**NO** - Normally Open): Ký hiệu bằng chữ số tận cùng là `.3` và `.4` (ví dụ tiếp điểm phụ của contactor KM là `13-14` hoặc `43-44`). Tiếp điểm này đóng lại khi cuộn hút có điện.
+    *   Tiếp điểm thường đóng (**NC** - Normally Closed): Ký hiệu bằng chữ số tận cùng là `.1` và `.2` (ví dụ tiếp điểm phụ của rơ-le nhiệt là `95-96` dùng để ngắt mạch điều khiển khi quá tải). Tiếp điểm này mở ra khi cuộn hút có điện/relay nhiệt tác động.
+
+---
+
+## 4. Hướng dẫn đọc bảng chỉ dẫn tiếp điểm (Contact Map)
+
+Ở dưới chân trang bản vẽ, ngay dưới ký hiệu cuộn dây của Contactor `KM` hoặc Relay trung gian `KA`, ní sẽ thấy một bảng nhỏ chứa các con số. Đây là **Contact Map (Bản đồ tiếp điểm)**.
+
+Bảng này chỉ ra cho ní biết:
+*   Cuộn hút này có bao nhiêu tiếp điểm phụ NO và NC.
+*   Các tiếp điểm phụ đó đang được sử dụng ở trang vẽ nào và vùng tọa độ nào.
+
+*Ví dụ:* Dưới chân cuộn hút Contactor `2KM1` có ghi thông số:
+*   `NO: 3.4, 5.2` (Nghĩa là contactor này có 2 tiếp điểm phụ thường mở đang được sử dụng ở Trang 3 cột 4 và Trang 5 cột 2).
+*   `NC: 3.8` (Nghĩa là có 1 tiếp điểm phụ thường đóng đang được sử dụng làm mạch liên khóa khóa chéo ở Trang 3 cột 8).
+
+Kỹ năng này giúp ní kiểm soát được toàn bộ liên động cơ điện của tủ, tránh việc đấu nối thiếu hoặc đấu trùng lặp tiếp điểm phụ.

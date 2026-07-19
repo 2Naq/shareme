@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import MathRenderer from "../MathRenderer";
+import MathRendererBlock from "../MathRenderer";
 
 const AnalogInput = ({ className, label, value, onChange }) => {
   return (
@@ -94,7 +94,7 @@ export default function AnalogScaling() {
           </div>
           {/* Result */}
           <div className="p-4 bg-white/10 border bg-grid rounded-lg flex flex-col items-center justify-center">
-            <MathRenderer
+            <MathRendererBlock
               formula={`\\frac{(${inputValue} - ${rawMin}) \\times (${engMax} - ${engMin})}{${rawMax} - ${rawMin}} + ${engMin}`}
             />
             <div>

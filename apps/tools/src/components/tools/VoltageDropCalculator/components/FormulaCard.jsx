@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import MathRenderer, { RenderMathInText } from "@/components/MathRenderer";
+import MathRendererBlock, { MathRenderInline } from "@/components/MathRenderer";
 
 export default function FormulaCard({ calculations }) {
   return (
@@ -12,10 +12,10 @@ export default function FormulaCard({ calculations }) {
       </CardHeader>
       <CardContent>
         <div className="p-3 bg-background rounded-lg border flex justify-center items-center overflow-x-auto min-h-[70px] bg-grid">
-          <MathRenderer formula={calculations.latexFormula} />
+          <MathRendererBlock formula={calculations.latexFormula} />
         </div>
         <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
-          {RenderMathInText(
+          {MathRenderInline(
             String.raw`Trong đó:
             <br /> $\rho$ là điện trở suất dây dẫn ($\Omega \cdot mm^2/m$) 
             <br /> $L$ là chiều dài (m), 

@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import MathRenderer from "@/components/MathRenderer";
+import MathRendererBlock from "@/components/MathRenderer";
 
 const SYSTEM_OPTIONS = [
   { label: "Điện 1 Pha AC (220V)", value: "1-phase" },
@@ -275,7 +275,7 @@ export default function ElectricalCalculator() {
                   Công thức áp dụng
                 </Label>
                 <div className="mt-2 p-2 bg-background rounded border flex justify-center overflow-x-auto min-h-[60px] items-center bg-grid">
-                  <MathRenderer formula={formula} />
+                  <MathRendererBlock formula={formula} />
                 </div>
               </div>
 

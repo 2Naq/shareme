@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Gauge } from "lucide-react";
-import { RenderMathInText } from "@/components/MathRenderer";
+import { MathRenderInline } from "@/components/MathRenderer";
 
 export default function ResultCard({ calculations, statusEvaluation }) {
   const {
@@ -106,7 +106,7 @@ export default function ResultCard({ calculations, statusEvaluation }) {
         <div className="grid grid-cols-2 gap-4 pt-2 border-t text-sm">
           <div>
             <span className="text-muted-foreground text-xs flex items-center gap-1">
-              Điện áp tại phụ tải {RenderMathInText("$U_{tải}$")}
+              Điện áp tại phụ tải {MathRenderInline("$U_{tải}$")}
             </span>
             <span className="font-mono font-bold text-foreground text-base">
               {uEnd.toFixed(1)} V
@@ -114,7 +114,7 @@ export default function ResultCard({ calculations, statusEvaluation }) {
           </div>
           <div>
             <span className="text-muted-foreground text-xs items-center flex gap-1">
-              Dòng điện tải {RenderMathInText("$I_{tải}$")}
+              Dòng điện tải {MathRenderInline("$I_{tải}$")}
             </span>
             <span className="font-mono font-bold text-foreground text-base">
               {loadCurrent.toFixed(2)} A

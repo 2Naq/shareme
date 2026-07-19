@@ -8,8 +8,8 @@
 import { themes as prismThemes } from "prism-react-renderer";
 import { categorys } from "./src/constants/category.js";
 import { myData } from "./src/constants/my_data.js";
-// import remarkMath from "remark-math";
-// import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const dynamicPlugins = categorys.map((category) => [
@@ -19,8 +19,8 @@ const dynamicPlugins = categorys.map((category) => [
     path: category.path,
     routeBasePath: category.routeBasePath,
     sidebarPath: "./sidebars.js",
-    // remarkPlugins: [remarkMath],
-    // rehypePlugins: [rehypeKatex],
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeKatex],
   },
 ]);
 
@@ -73,6 +73,7 @@ const config = {
   trailingSlash: false,
 
   onBrokenLinks: "throw",
+  onBrokenAnchors: "ignore",
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -98,8 +99,8 @@ const config = {
             type: ["rss", "atom"],
             xslt: true,
           },
-          // remarkPlugins: [remarkMath],
-          // rehypePlugins: [rehypeKatex],
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl:
@@ -150,9 +151,9 @@ const config = {
         respectPrefersColorScheme: true,
       },
       tableOfContents: {
-      minHeadingLevel: 2,
-      maxHeadingLevel: 5,
-    },
+        minHeadingLevel: 2,
+        maxHeadingLevel: 5,
+      },
       algolia: {
         appId: "EN380UNNOE",
         apiKey: "a21094e5e6565a08632d958eb85c8f49",
@@ -185,7 +186,7 @@ const config = {
             position: "right",
             target: "_self",
           },
-          { to: '/blog', label: 'Blog', position: 'right' },
+          { to: "/blog", label: "Blog", position: "right" },
           {
             href: "/about",
             label: "About Me",
