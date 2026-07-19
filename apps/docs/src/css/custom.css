@@ -280,10 +280,7 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
-.navbar-glass {
-  @apply bg-[rgba(255,255,255,0.6)] backdrop-blur-md backdrop-saturate-180 shadow-[0_4px_30px_rgba(0,0,0,0.05)] border-b-[rgba(255,255,255,0.3)] border-b border-solid;
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-}
-html[data-theme="dark"] .navbar-glass {
-  @apply bg-[rgba(10,10,10,0.5)] border-b-[rgba(255,255,255,0.05)] border-b border-solid;
+/* Blog grid items — remove default Docusaurus article margins */
+.blog-list-page article.margin-bottom--xl {
+  margin-bottom: 0 !important;
 }
