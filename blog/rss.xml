@@ -4,87 +4,172 @@
         <title>Share docs Blog</title>
         <link>https://2naq.github.io/shareme/blog</link>
         <description>Share docs Blog</description>
-        <lastBuildDate>Thu, 26 Aug 2021 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 19 Jul 2026 13:19:20 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <item>
-            <title><![CDATA[Welcome]]></title>
-            <link>https://2naq.github.io/shareme/blog/welcome</link>
-            <guid>https://2naq.github.io/shareme/blog/welcome</guid>
-            <pubDate>Thu, 26 Aug 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[Docusaurus blogging features are powered by the blog plugin.]]></description>
-            <content:encoded><![CDATA[<p><a href="https://docusaurus.io/docs/blog" target="_blank" rel="noopener noreferrer" class="">Docusaurus blogging features</a> are powered by the <a href="https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog" target="_blank" rel="noopener noreferrer" class="">blog plugin</a>.</p>
-<p>Here are a few tips you might find useful.</p>
+            <title><![CDATA[Hướng Dẫn Sử Dụng Tool Data Converter]]></title>
+            <link>https://2naq.github.io/shareme/blog/data-conversion-tool-guide</link>
+            <guid>https://2naq.github.io/shareme/blog/data-conversion-tool-guide</guid>
+            <pubDate>Sun, 19 Jul 2026 13:19:20 GMT</pubDate>
+            <description><![CDATA[Trong lĩnh vực tự động hóa, lập trình PLC/SCADA/HMI và thiết kế thiết bị IoT công nghiệp, việc xử lý dữ liệu thô (raw bytes) từ các cảm biến hay cơ cấu chấp hành qua đường truyền RS-485 / Modbus RTU là công việc thường xuyên diễn ra hàng ngày...]]></description>
+            <content:encoded><![CDATA[<p>Trong lĩnh vực tự động hóa, lập trình PLC/SCADA/HMI và thiết kế thiết bị IoT công nghiệp, việc xử lý dữ liệu thô (raw bytes) từ các cảm biến hay cơ cấu chấp hành qua đường truyền <strong>RS-485 / Modbus RTU</strong> là công việc thường xuyên diễn ra hàng ngày...</p>
+<p>Để giải quyết triệt để các vấn đề này, mình đã xây dựng bộ công cụ <strong><a href="https://2naq.github.io/shareme/tool/" target="_blank" rel="noopener noreferrer" class="">Data Conversion Tool</a></strong>...</p>
 <!-- -->
-<p>Simply add Markdown files (or folders) to the <code>blog</code> directory.</p>
-<p>Regular blog authors can be added to <code>authors.yml</code>.</p>
-<p>The blog post date can be extracted from filenames, such as:</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id="1-giới-thiệu-tổng-quan-về-tool-data-conversion">1. Giới thiệu tổng quan về Tool Data Conversion<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#1-gi%E1%BB%9Bi-thi%E1%BB%87u-t%E1%BB%95ng-quan-v%E1%BB%81-tool-data-conversion" class="hash-link" aria-label="Direct link to 1. Giới thiệu tổng quan về Tool Data Conversion" title="Direct link to 1. Giới thiệu tổng quan về Tool Data Conversion" translate="no">​</a></h2>
+<p>Bộ công cụ <strong>Data Conversion Tool</strong> là một ứng dụng web single-page đa năng giúp Ní nhanh chóng phân tích, chuyển đổi và đóng gói dữ liệu mà không cần viết code hay cài đặt các phần mềm mô phỏng phức tạp.</p>
+<p>Giao diện bao gồm 6 tab chức năng chuyên biệt:</p>
+<ol>
+<li class=""><strong>Hệ cơ số (Number Base Converter):</strong> Chuyển đổi qua lại giữa Thập phân, Thập lục phân, Nhị phân và Bát phân, đồng thời tách Byte/Word và xem Bit Map.</li>
+<li class=""><strong>CRC16 (Modbus RTU Calculator):</strong> Tính toán mã kiểm tra lỗi 16-bit theo chuẩn Modbus RTU.</li>
+<li class=""><strong>Dec/Hex/Swap (Data Converter):</strong> Chuyển đổi Dec $\leftrightarrow$ Hex có/không dấu (8/16/32-bit) và hoán đổi vị trí Byte/Word.</li>
+<li class=""><strong>Float $\leftrightarrow$ Reg (IEEE 754 Converter):</strong> Chuyển đổi số thực 32-bit thành hai thanh ghi Modbus 16-bit và ngược lại.</li>
+<li class=""><strong>Modbus Frame (RTU Builder):</strong> Tự động tạo khung truyền Modbus RTU chuẩn theo mã hàm đọc/ghi.</li>
+<li class=""><strong>ASCII $\leftrightarrow$ HEX Converter:</strong> Dịch chuỗi ký tự ASCII sang HEX bytes và ngược lại kèm bảng tra cứu mã điều khiển.</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id="2-công-dụng-công-thức-toán-học-và-cách-áp-dụng-của-từng-tab">2. Công dụng, Công thức toán học và Cách áp dụng của từng Tab<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#2-c%C3%B4ng-d%E1%BB%A5ng-c%C3%B4ng-th%E1%BB%A9c-to%C3%A1n-h%E1%BB%8Dc-v%C3%A0-c%C3%A1ch-%C3%A1p-d%E1%BB%A5ng-c%E1%BB%A7a-t%E1%BB%ABng-tab" class="hash-link" aria-label="Direct link to 2. Công dụng, Công thức toán học và Cách áp dụng của từng Tab" title="Direct link to 2. Công dụng, Công thức toán học và Cách áp dụng của từng Tab" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="21-tab-1-hệ-cơ-số-number-base-converter">2.1. Tab 1: Hệ cơ số (Number Base Converter)<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#21-tab-1-h%E1%BB%87-c%C6%A1-s%E1%BB%91-number-base-converter" class="hash-link" aria-label="Direct link to 2.1. Tab 1: Hệ cơ số (Number Base Converter)" title="Direct link to 2.1. Tab 1: Hệ cơ số (Number Base Converter)" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="công-dụng">Công dụng<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#c%C3%B4ng-d%E1%BB%A5ng" class="hash-link" aria-label="Direct link to Công dụng" title="Direct link to Công dụng" translate="no">​</a></h4>
+<p>Chuyển đổi tức thời một giá trị số giữa các hệ cơ số phổ biến: Thập phân (Dec), Thập lục phân (Hex), Nhị phân (Bin) và Bát phân (Oct). Đồng thời phân tích một số nguyên lớn thành các phần nhỏ hơn: <strong>Low Byte, High Byte, Low Word, High Word</strong> và biểu diễn dưới dạng sơ đồ Bit Map 16-bit trực quan.</p>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="công-thức-toán-học">Công thức toán học<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#c%C3%B4ng-th%E1%BB%A9c-to%C3%A1n-h%E1%BB%8Dc" class="hash-link" aria-label="Direct link to Công thức toán học" title="Direct link to Công thức toán học" translate="no">​</a></h4>
+<p>Để chuyển đổi một số ở hệ cơ số <span class="" style="display:inline-block"></span> có các chữ số <span class="" style="display:inline-block"></span> sang hệ thập phân (Dec):</p>
+<span class="" style="display:block"></span>
+<p><em>Ví dụ:</em> Với số HEX <span class="" style="display:inline-block"></span>:</p>
+<span class="" style="display:block"></span>
+<p>Công thức tách các thành phần Byte và Word từ một số nguyên không dấu <span class="" style="display:inline-block"></span>:</p>
 <ul>
-<li class=""><code>2019-05-30-welcome.md</code></li>
-<li class=""><code>2019-05-30-welcome/index.md</code></li>
+<li class=""><strong>Low Byte (Byte 0):</strong>
+<span class="" style="display:block"></span>
+</li>
+<li class=""><strong>High Byte (Byte 1):</strong>
+<span class="" style="display:block"></span>
+</li>
+<li class=""><strong>Low Word (Word 0):</strong>
+<span class="" style="display:block"></span>
+</li>
+<li class=""><strong>High Word (Word 1):</strong>
+<span class="" style="display:block"></span>
+</li>
 </ul>
-<p>A blog post folder can be convenient to co-locate blog post images:</p>
-<p><img decoding="async" loading="lazy" alt="Docusaurus Plushie" src="https://2naq.github.io/shareme/assets/images/docusaurus-plushie-banner-a60f7593abca1e3eef26a9afa244e4fb.jpeg" width="1500" height="500" class="img__Ss2"></p>
-<p>The blog supports tags as well!</p>
-<p><strong>And if you don't want a blog</strong>: just delete this directory, and use <code>blog: false</code> in your Docusaurus config.</p>]]></content:encoded>
-            <category>Facebook</category>
-            <category>Hello</category>
-            <category>Docusaurus</category>
-        </item>
-        <item>
-            <title><![CDATA[MDX Blog Post]]></title>
-            <link>https://2naq.github.io/shareme/blog/mdx-blog-post</link>
-            <guid>https://2naq.github.io/shareme/blog/mdx-blog-post</guid>
-            <pubDate>Sun, 01 Aug 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[Blog posts support Docusaurus Markdown features, such as MDX.]]></description>
-            <content:encoded><![CDATA[<p>Blog posts support <a href="https://docusaurus.io/docs/markdown-features" target="_blank" rel="noopener noreferrer" class="">Docusaurus Markdown features</a>, such as <a href="https://mdxjs.com/" target="_blank" rel="noopener noreferrer" class="">MDX</a>.</p>
-<div class="theme-admonition theme-admonition-tip admonition_IZjC alert alert--success"><div class="admonitionHeading_uVvU"><span class="admonitionIcon_HiR3"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_bl22"><p>Use the power of React to create interactive blog posts.</p></div></div>
-<!-- -->
-<p>For example, use JSX to create an interactive button:</p>
-<div class="language-js codeBlockContainer_ZGJx theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_kX1v"><pre tabindex="0" class="prism-code language-js codeBlock_TAPP thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_AdAo"><div class="token-line" style="color:#393A34"><span class="token operator" style="color:#393A34">&lt;</span><span class="token plain">button onClick</span><span class="token operator" style="color:#393A34">=</span><span class="token punctuation" style="color:#393A34">{</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token arrow operator" style="color:#393A34">=&gt;</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">alert</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">'button clicked!'</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">}</span><span class="token operator" style="color:#393A34">&gt;</span><span class="token maybe-class-name">Click</span><span class="token plain"> me</span><span class="token operator" style="color:#393A34">!</span><span class="token operator" style="color:#393A34">&lt;</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">button</span><span class="token operator" style="color:#393A34">&gt;</span><br></div></code></pre></div></div>
-<button>Click me!</button>]]></content:encoded>
-            <category>Docusaurus</category>
-        </item>
-        <item>
-            <title><![CDATA[Long Blog Post]]></title>
-            <link>https://2naq.github.io/shareme/blog/long-blog-post</link>
-            <guid>https://2naq.github.io/shareme/blog/long-blog-post</guid>
-            <pubDate>Wed, 29 May 2019 00:00:00 GMT</pubDate>
-            <description><![CDATA[This is the summary of a very long blog post,]]></description>
-            <content:encoded><![CDATA[<p>This is the summary of a very long blog post,</p>
-<p>Use a <code>{/*</code> <code>truncate</code> <code>*/}</code> comment to limit blog post size in the list view.</p>
-<!-- -->
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>]]></content:encoded>
-            <category>Hello</category>
-            <category>Docusaurus</category>
-        </item>
-        <item>
-            <title><![CDATA[First Blog Post]]></title>
-            <link>https://2naq.github.io/shareme/blog/first-blog-post</link>
-            <guid>https://2naq.github.io/shareme/blog/first-blog-post</guid>
-            <pubDate>Tue, 28 May 2019 00:00:00 GMT</pubDate>
-            <description><![CDATA[Lorem ipsum dolor sit amet...]]></description>
-            <content:encoded><![CDATA[<p>Lorem ipsum dolor sit amet...</p>
-<!-- -->
-<p>...consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>]]></content:encoded>
-            <category>Hola</category>
-            <category>Docusaurus</category>
+<p><em>(Trong đó <span class="" style="display:inline-block"></span> ký hiệu cho phép toán bitwise AND, và <span class="" style="display:inline-block"></span> ký hiệu cho phép toán dịch phải bitwise).</em></p>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="áp-dụng-thực-tế">Áp dụng thực tế<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#%C3%A1p-d%E1%BB%A5ng-th%E1%BB%B1c-t%E1%BA%BF" class="hash-link" aria-label="Direct link to Áp dụng thực tế" title="Direct link to Áp dụng thực tế" translate="no">​</a></h4>
+<p>Khi cấu hình bản đồ bộ nhớ (Address Map) trên HMI, ta thường phải phân rã một thanh ghi 16-bit thành các bit đơn lẻ (Bit Lamp/Bit Switch). Ví dụ thanh ghi trạng thái máy có giá trị Dec là <code>32768</code>, nhập vào công cụ sẽ thấy ngay bit thứ <code>15</code> đang ở mức <code>1</code> (ON), các bit khác bằng <code>0</code> (OFF).</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="22-tab-2-crc16-modbus-calculator">2.2. Tab 2: CRC16 Modbus Calculator<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#22-tab-2-crc16-modbus-calculator" class="hash-link" aria-label="Direct link to 2.2. Tab 2: CRC16 Modbus Calculator" title="Direct link to 2.2. Tab 2: CRC16 Modbus Calculator" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="công-dụng-1">Công dụng<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#c%C3%B4ng-d%E1%BB%A5ng-1" class="hash-link" aria-label="Direct link to Công dụng" title="Direct link to Công dụng" translate="no">​</a></h4>
+<p>Tính toán mã kiểm tra lỗi (Cyclic Redundancy Check) 16-bit cho một chuỗi dữ liệu đầu vào (hệ HEX hoặc chuỗi ký tự ASCII). Đầu ra trả về giá trị CRC đầy đủ, chia sẵn Byte thấp (gửi trước) và Byte cao (gửi sau) cùng khung truyền hoàn chỉnh kèm mã kiểm tra lỗi.</p>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="công-thức-toán-học-thuật-toán-crc16-modbus">Công thức toán học (Thuật toán CRC16 Modbus)<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#c%C3%B4ng-th%E1%BB%A9c-to%C3%A1n-h%E1%BB%8Dc-thu%E1%BA%ADt-to%C3%A1n-crc16-modbus" class="hash-link" aria-label="Direct link to Công thức toán học (Thuật toán CRC16 Modbus)" title="Direct link to Công thức toán học (Thuật toán CRC16 Modbus)" translate="no">​</a></h4>
+<p>Sử dụng đa thức sinh (Polynomial): <strong><span class="" style="display:inline-block"></span></strong> đảo ngược bit thành <strong><span class="" style="display:inline-block"></span></strong>.
+Giá trị khởi tạo ban đầu (Initial Value) là <strong><span class="" style="display:inline-block"></span></strong>.</p>
+<p>Thuật toán tính toán từng byte như sau:</p>
+<ol>
+<li class="">Gán giá trị thanh ghi <span class="" style="display:inline-block"></span>.</li>
+<li class="">Với mỗi byte dữ liệu <span class="" style="display:inline-block"></span> trong chuỗi (<span class="" style="display:inline-block"></span> chạy từ <span class="" style="display:inline-block"></span> đến <span class="" style="display:inline-block"></span>):<!-- -->
+<span class="" style="display:block"></span>
+</li>
+<li class="">Thực hiện lặp 8 lần ứng với 8 bit (biến chạy <span class="" style="display:inline-block"></span> từ <span class="" style="display:inline-block"></span> đến <span class="" style="display:inline-block"></span>):<!-- -->
+<span class="" style="display:block"></span>
+</li>
+<li class="">Sau khi duyệt hết tất cả các byte, giá trị <span class="" style="display:inline-block"></span> cuối cùng chính là mã kiểm tra lỗi. Theo chuẩn Modbus RTU, byte thấp của <span class="" style="display:inline-block"></span> sẽ được chèn vào trước, byte cao chèn vào sau trong khung truyền.</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="áp-dụng-thực-tế-1">Áp dụng thực tế<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#%C3%A1p-d%E1%BB%A5ng-th%E1%BB%B1c-t%E1%BA%BF-1" class="hash-link" aria-label="Direct link to Áp dụng thực tế" title="Direct link to Áp dụng thực tế" translate="no">​</a></h4>
+<p>Khi ní viết chương trình vi điều khiển (Arduino/STM32) hoặc Script trong Python/C# để giao tiếp với thiết bị Modbus, ní có thể nhập thủ công khung dữ liệu ví dụ <code>01 03 00 00 00 0A</code> vào công cụ để lấy nhanh CRC là <code>0xC5CD</code> (Lo Byte: <code>C5</code>, Hi Byte: <code>CD</code>). Dùng kết quả này để kiểm tra xem thuật toán mã hóa trong chương trình của ní đã viết đúng chưa.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="23-tab-3-dechexswap-data-converter">2.3. Tab 3: Dec/Hex/Swap (Data Converter)<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#23-tab-3-dechexswap-data-converter" class="hash-link" aria-label="Direct link to 2.3. Tab 3: Dec/Hex/Swap (Data Converter)" title="Direct link to 2.3. Tab 3: Dec/Hex/Swap (Data Converter)" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="công-dụng-2">Công dụng<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#c%C3%B4ng-d%E1%BB%A5ng-2" class="hash-link" aria-label="Direct link to Công dụng" title="Direct link to Công dụng" translate="no">​</a></h4>
+<p>Hỗ trợ chuyển đổi nâng cao giữa số Thập phân và Thập lục phân có tùy chọn kích thước dữ liệu (8-bit, 16-bit, 32-bit) và chế độ có dấu (Signed) hoặc không dấu (Unsigned). Đồng thời hiển thị kết quả <strong>Byte Swap</strong> (cho dữ liệu 16-bit) và <strong>Word Swap</strong> (cho dữ liệu 32-bit).</p>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="công-thức-toán-học-1">Công thức toán học<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#c%C3%B4ng-th%E1%BB%A9c-to%C3%A1n-h%E1%BB%8Dc-1" class="hash-link" aria-label="Direct link to Công thức toán học" title="Direct link to Công thức toán học" translate="no">​</a></h4>
+<p>Đối với số nguyên có dấu (Signed) sử dụng biểu diễn <strong>Bù 2 (Two's Complement)</strong>, một số nguyên không dấu <span class="" style="display:inline-block"></span> có độ rộng <span class="" style="display:inline-block"></span>-bit sẽ được ánh xạ sang số có dấu như sau:</p>
+<span class="" style="display:block"></span>
+<p><em>Ví dụ 16-bit (<span class="" style="display:inline-block"></span>):</em></p>
+<ul>
+<li class="">Nếu đọc được giá trị HEX là <code>FFFF</code> (Dec không dấu là <span class="" style="display:inline-block"></span>):<!-- -->
+<span class="" style="display:block"></span>
+</li>
+<li class=""><strong>Phép Byte Swap (16-bit):</strong> Đảo vị trí byte cao và byte thấp của số <span class="" style="display:inline-block"></span>:<!-- -->
+<span class="" style="display:block"></span>
+</li>
+<li class=""><strong>Phép Word Swap (32-bit):</strong> Đảo vị trí 2 word 16-bit của số <span class="" style="display:inline-block"></span>:<!-- -->
+<span class="" style="display:block"></span>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="áp-dụng-thực-tế-2">Áp dụng thực tế<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#%C3%A1p-d%E1%BB%A5ng-th%E1%BB%B1c-t%E1%BA%BF-2" class="hash-link" aria-label="Direct link to Áp dụng thực tế" title="Direct link to Áp dụng thực tế" translate="no">​</a></h4>
+<ul>
+<li class=""><strong>Xử lý số âm:</strong> PLC đọc cảm biến nhiệt độ trả về giá trị raw dạng số nguyên 16-bit. Cảm biến báo lỗi trả về <code>-1</code>. Nếu HMI đọc ở cấu hình Unsigned sẽ hiển thị <code>65535</code> gây hiểu nhầm. Công cụ giúp ta đối chiếu nhanh để nhận dạng lỗi kiểu dữ liệu.</li>
+<li class=""><strong>Khắc phục Byte/Word Swap:</strong> Khi gửi dữ liệu từ PLC hãng Siemens (Big-Endian) sang PLC hãng Mitsubishi (Little-Endian), thứ tự byte hoặc word thường bị đảo lộn. Chỉ cần nhập giá trị lỗi vào, xem kết quả Swap để biết cấu hình hoán đổi nào là chính xác.</li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="24-tab-4-float-leftrightarrow-register-ieee-754-converter">2.4. Tab 4: Float $\leftrightarrow$ Register (IEEE 754 Converter)<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#24-tab-4-float-leftrightarrow-register-ieee-754-converter" class="hash-link" aria-label="Direct link to 2.4. Tab 4: Float $\leftrightarrow$ Register (IEEE 754 Converter)" title="Direct link to 2.4. Tab 4: Float $\leftrightarrow$ Register (IEEE 754 Converter)" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="công-dụng-3">Công dụng<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#c%C3%B4ng-d%E1%BB%A5ng-3" class="hash-link" aria-label="Direct link to Công dụng" title="Direct link to Công dụng" translate="no">​</a></h4>
+<p>Chuyển đổi một số thực 32-bit (Float 32) sang hai thanh ghi Modbus 16-bit (Holding Register) và ngược lại theo chuẩn <strong>IEEE 754</strong>. Hỗ trợ lựa chọn thứ tự hiển thị Word (High Word trước hay Low Word trước).</p>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="công-thức-toán-học-chuẩn-số-thực-ieee-754">Công thức toán học (Chuẩn số thực IEEE 754)<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#c%C3%B4ng-th%E1%BB%A9c-to%C3%A1n-h%E1%BB%8Dc-chu%E1%BA%A9n-s%E1%BB%91-th%E1%BB%B1c-ieee-754" class="hash-link" aria-label="Direct link to Công thức toán học (Chuẩn số thực IEEE 754)" title="Direct link to Công thức toán học (Chuẩn số thực IEEE 754)" translate="no">​</a></h4>
+<p>Số thực đơn độ chính xác (Single-precision floating-point) 32-bit gồm 3 phần:</p>
+<ol>
+<li class=""><strong>Bit dấu (Sign bit - <span class="" style="display:inline-block"></span>):</strong> 1 bit (bit 31).</li>
+<li class=""><strong>Phần mũ (Exponent - <span class="" style="display:inline-block"></span>):</strong> 8 bit (bit 30 đến 23).</li>
+<li class=""><strong>Phần định trị (Fraction / Mantissa - <span class="" style="display:inline-block"></span>):</strong> 23 bit (bit 22 đến 0).</li>
+</ol>
+<p>Giá trị thực <span class="" style="display:inline-block"></span> được tính bằng công thức:</p>
+<span class="" style="display:block"></span>
+<p>Hay viết gọn:</p>
+<span class="" style="display:block"></span>
+<p><em>Ví dụ:</em> Số thực <span class="" style="display:inline-block"></span> có biểu diễn nhị phân 32-bit là:</p>
+<span class="" style="display:block"></span>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="áp-dụng-thực-tế-3">Áp dụng thực tế<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#%C3%A1p-d%E1%BB%A5ng-th%E1%BB%B1c-t%E1%BA%BF-3" class="hash-link" aria-label="Direct link to Áp dụng thực tế" title="Direct link to Áp dụng thực tế" translate="no">​</a></h4>
+<p>Khi PLC đọc thông số Lưu lượng (Flow rate) hoặc Điện năng tiêu thụ (kWh) dạng số thực từ đồng hồ đo thông qua giao thức Modbus, kết quả trả về là hai thanh ghi 16-bit độc lập.
+Nếu ní nhận được hai giá trị <code>16456</code> và <code>62915</code> từ đồng hồ, chỉ cần nhập vào Tab 4 ở chế độ Register $\rightarrow$ Float sẽ giải mã được ngay giá trị thực là <code>3.14</code>. Nếu ra số kỳ lạ, hãy chuyển đổi Word Order từ <strong>High Word trước (Big-Endian)</strong> sang <strong>Low Word trước (Little-Endian Word)</strong> để dò xem thiết bị của ní đang gửi theo chuẩn nào.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="25-tab-5-modbus-frame-modbus-rtu-frame-builder">2.5. Tab 5: Modbus Frame (Modbus RTU Frame Builder)<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#25-tab-5-modbus-frame-modbus-rtu-frame-builder" class="hash-link" aria-label="Direct link to 2.5. Tab 5: Modbus Frame (Modbus RTU Frame Builder)" title="Direct link to 2.5. Tab 5: Modbus Frame (Modbus RTU Frame Builder)" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="công-dụng-4">Công dụng<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#c%C3%B4ng-d%E1%BB%A5ng-4" class="hash-link" aria-label="Direct link to Công dụng" title="Direct link to Công dụng" translate="no">​</a></h4>
+<p>Giúp tự động đóng gói một khung truyền Modbus RTU hoàn chỉnh dựa trên các tham số cấu hình: <strong>Slave ID, Function Code (FC01 - FC10), Start Address, Quantity</strong> và <strong>Dữ liệu ghi (Write Data)</strong>.</p>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="công-thức-toán-học-2">Công thức toán học<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#c%C3%B4ng-th%E1%BB%A9c-to%C3%A1n-h%E1%BB%8Dc-2" class="hash-link" aria-label="Direct link to Công thức toán học" title="Direct link to Công thức toán học" translate="no">​</a></h4>
+<p>Khung truyền Modbus RTU Application Data Unit (ADU) có cấu trúc:</p>
+<span class="" style="display:block"></span>
+<ul>
+<li class=""><strong>Slave ID (1 byte):</strong> Địa chỉ thiết bị đích (<span class="" style="display:inline-block"></span>).</li>
+<li class=""><strong>Function Code (1 byte):</strong> Mã hàm xử lý dữ liệu (<span class="" style="display:inline-block"></span>: đọc Coil, <span class="" style="display:inline-block"></span>: đọc thanh ghi, <span class="" style="display:inline-block"></span>: ghi nhiều thanh ghi...).</li>
+<li class=""><strong>Data Field (<span class="" style="display:inline-block"></span> bytes):</strong> Địa chỉ bắt đầu, số lượng, hoặc giá trị ghi cụ thể.</li>
+<li class=""><strong>CRC16 Checksum (2 bytes):</strong> Tính theo thuật toán CRC16 Modbus trên toàn bộ các byte trước đó.</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="áp-dụng-thực-tế-4">Áp dụng thực tế<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#%C3%A1p-d%E1%BB%A5ng-th%E1%BB%B1c-t%E1%BA%BF-4" class="hash-link" aria-label="Direct link to Áp dụng thực tế" title="Direct link to Áp dụng thực tế" translate="no">​</a></h4>
+<p>Khi kiểm tra lỗi truyền thông bằng các công cụ Terminal chuyên dụng như Hercules, RealTerm, hay Docklight, ní không thể gửi trực tiếp lệnh thô nếu không tính mã CRC. Thay vì mở các phần mềm tính CRC rời rạc, ní chỉ cần điền các tham số trực quan trong Tab 5, copy toàn bộ khung Hex thu được và dán vào phần mềm Terminal để gửi trực tiếp xuống biến tần, cảm biến.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="26-tab-6-ascii-leftrightarrow-hex-converter">2.6. Tab 6: ASCII $\leftrightarrow$ HEX Converter<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#26-tab-6-ascii-leftrightarrow-hex-converter" class="hash-link" aria-label="Direct link to 2.6. Tab 6: ASCII $\leftrightarrow$ HEX Converter" title="Direct link to 2.6. Tab 6: ASCII $\leftrightarrow$ HEX Converter" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="công-dụng-5">Công dụng<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#c%C3%B4ng-d%E1%BB%A5ng-5" class="hash-link" aria-label="Direct link to Công dụng" title="Direct link to Công dụng" translate="no">​</a></h4>
+<p>Chuyển đổi nhanh chóng giữa một chuỗi ký tự văn bản (ASCII) và một chuỗi mã HEX tương ứng (cách nhau bởi khoảng trắng). Tab này cũng tích hợp sẵn bảng tra cứu nhanh các ký tự điều khiển đặc biệt thường gặp trong giao thức truyền thông công nghiệp.</p>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="công-thức-toán-học-3">Công thức toán học<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#c%C3%B4ng-th%E1%BB%A9c-to%C3%A1n-h%E1%BB%8Dc-3" class="hash-link" aria-label="Direct link to Công thức toán học" title="Direct link to Công thức toán học" translate="no">​</a></h4>
+<p>Phép chuyển đổi dựa trên bảng mã hóa tiêu chuẩn ASCII, ánh xạ ký tự <span class="" style="display:inline-block"></span> sang mã số thập lục phân tương ứng:</p>
+<span class="" style="display:block"></span>
+<p><em>Ví dụ:</em> Ký tự <code>'A'</code> có mã Hex là <code>41</code> (Dec: 65), ký tự điều khiển bắt đầu khung truyền <code>STX</code> (Start of Text) có mã Hex là <code>02</code>.</p>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="áp-dụng-thực-tế-5">Áp dụng thực tế<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#%C3%A1p-d%E1%BB%A5ng-th%E1%BB%B1c-t%E1%BA%BF-5" class="hash-link" aria-label="Direct link to Áp dụng thực tế" title="Direct link to Áp dụng thực tế" translate="no">​</a></h4>
+<p>Nhiều thiết bị công nghiệp cũ hoặc đầu đọc mã vạch (Barcode Scanner), cân điện tử truyền thông bằng giao thức ASCII thô qua cổng RS-232. Khung truyền thường được định dạng kiểu: <code>[STX] + Dữ liệu + [ETX]</code>. Công cụ này giúp ní dịch các chuỗi Hex đọc được từ cổng COM thành chuỗi văn bản đọc được và ngược lại.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id="3-tổng-hợp-cách-khắc-phục-các-lỗi-thực-tế-bằng-tool">3. Tổng hợp cách khắc phục các lỗi thực tế bằng Tool<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#3-t%E1%BB%95ng-h%E1%BB%A3p-c%C3%A1ch-kh%E1%BA%AFc-ph%E1%BB%A5c-c%C3%A1c-l%E1%BB%97i-th%E1%BB%B1c-t%E1%BA%BF-b%E1%BA%B1ng-tool" class="hash-link" aria-label="Direct link to 3. Tổng hợp cách khắc phục các lỗi thực tế bằng Tool" title="Direct link to 3. Tổng hợp cách khắc phục các lỗi thực tế bằng Tool" translate="no">​</a></h2>
+<table><thead><tr><th style="text-align:left">Tên lỗi truyền thông</th><th style="text-align:left">Biểu hiện thực tế</th><th style="text-align:left">Cách áp dụng Tool để xử lý</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Lỗi 1: Sai thứ tự Word (Word Swap / Endianness)</strong></td><td style="text-align:left">Đọc số thực Float 32-bit từ đồng hồ đo, thay vì hiển thị <code>220.5</code> V thì màn hình PLC hiển thị một số cực lớn hoặc cực nhỏ vô nghĩa.</td><td style="text-align:left">Nhập hai thanh ghi HEX đọc được vào <strong>Tab 4 (Float $\leftrightarrow$ Reg)</strong>, thử đổi tùy chọn thứ tự Word giữa <strong>High Word trước</strong> và <strong>Low Word trước</strong> cho đến khi thu được số thực mong muốn.</td></tr><tr><td style="text-align:left"><strong>Lỗi 2: Hiển thị tràn số âm (Signed Mismatch)</strong></td><td style="text-align:left">Cảm biến lực kéo hiển thị tải trọng âm <code>-50</code> kg nhưng PLC lại hiển thị <code>65486</code>.</td><td style="text-align:left">Nhập giá trị <code>65486</code> vào phần HEX của <strong>Tab 3 (Dec/Hex/Swap)</strong>, chọn kích thước <strong>16-bit</strong> và chuyển đổi qua lại giữa <strong>Unsigned</strong> và <strong>Signed</strong> để đối chiếu công thức bù 2.</td></tr><tr><td style="text-align:left"><strong>Lỗi 3: Khung truyền bị lỗi CRC (CRC Fail)</strong></td><td style="text-align:left">Gửi lệnh từ PLC nhưng biến tần không phản hồi, đèn RX/TX trên cổng truyền thông nháy đỏ cảnh báo lỗi CRC.</td><td style="text-align:left">Nhập khung Hex của lệnh vào <strong>Tab 2 (CRC16)</strong> để tính lại CRC, so sánh với mã CRC đang gửi trong PLC để xem có bị lỗi lập trình hoặc đảo ngược byte CRC hay không.</td></tr><tr><td style="text-align:left"><strong>Lỗi 4: Gửi sai địa chỉ thanh ghi Modbus</strong></td><td style="text-align:left">Gửi lệnh đọc thanh ghi nhưng thiết bị Slave trả về mã lỗi ngoại lệ <code>02</code> (Illegal Data Address).</td><td style="text-align:left">Sử dụng <strong>Tab 5 (Modbus Frame)</strong> để xây dựng lại khung truyền chuẩn, lưu ý địa chỉ trong khung truyền Modbus thực tế phải trừ đi 1 đơn vị so với địa chỉ trên tài liệu (ví dụ đọc thanh ghi <code>40001</code> thì điền Start Address là <code>0000</code>).</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id="4-đánh-giá-ưu-điểm--nhược-điểm-của-tool">4. Đánh giá ưu điểm &amp; Nhược điểm của Tool<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#4-%C4%91%C3%A1nh-gi%C3%A1-%C6%B0u-%C4%91i%E1%BB%83m--nh%C6%B0%E1%BB%A3c-%C4%91i%E1%BB%83m-c%E1%BB%A7a-tool" class="hash-link" aria-label="Direct link to 4. Đánh giá ưu điểm &amp; Nhược điểm của Tool" title="Direct link to 4. Đánh giá ưu điểm &amp; Nhược điểm của Tool" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="ưu-điểm">Ưu điểm<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#%C6%B0u-%C4%91i%E1%BB%83m" class="hash-link" aria-label="Direct link to Ưu điểm" title="Direct link to Ưu điểm" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Tất cả trong một (All-in-One):</strong> Tích hợp tất cả các tiện ích chuyển đổi cần thiết nhất cho dân lập trình điều khiển tự động hóa trên một trang duy nhất.</li>
+<li class=""><strong>Phản hồi thời gian thực (Real-time):</strong> Nhập giá trị ở bất cứ ô nào, toàn bộ các ô còn lại tự động tính toán và cập nhật ngay lập tức.</li>
+<li class=""><strong>Phân tích khung trực quan:</strong> Giúp bóc tách các thành phần trong gói tin Modbus (ID, FC, Addr, CRC) một cách sinh động, rất hữu ích cho đào tạo và nghiên cứu.</li>
+<li class=""><strong>Giao diện hiện đại:</strong> Tối ưu hiển thị trên cả điện thoại và máy tính, hỗ trợ copy nhanh kết quả qua một nút nhấn bấm tiện dụng.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="nhược-điểm">Nhược điểm<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#nh%C6%B0%E1%BB%A3c-%C4%91i%E1%BB%83m" class="hash-link" aria-label="Direct link to Nhược điểm" title="Direct link to Nhược điểm" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Chưa hỗ trợ các thuật toán CRC khác:</strong> Hiện tại công cụ mới chỉ hỗ trợ tính toán CRC16 Modbus (đa thức $0xA001$). Chưa tích hợp các chuẩn CRC phổ biến khác như CRC8, CRC32, hay CRC16-CCITT.</li>
+<li class=""><strong>Chưa hỗ trợ kết nối phần cứng:</strong> Chưa hỗ trợ tính năng Web Serial API để gửi trực tiếp dữ liệu từ trình duyệt xuống cổng COM vật lý của máy tính (chỉ dừng lại ở phân tích tĩnh).</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id="5-kết-luận">5. Kết luận<a href="https://2naq.github.io/shareme/blog/data-conversion-tool-guide#5-k%E1%BA%BFt-lu%E1%BA%ADn" class="hash-link" aria-label="Direct link to 5. Kết luận" title="Direct link to 5. Kết luận" translate="no">​</a></h2>
+<p>Bộ công cụ <strong>Data Conversion Tool</strong> là trợ thủ đắc lực giúp rút ngắn thời gian chuẩn đoán và khắc phục lỗi truyền thông công nghiệp. Việc hiểu rõ các công thức toán học đứng sau như IEEE 754, Two's Complement bù 2 hay cơ chế CRC16 giúp chúng ta làm chủ hoàn toàn dữ liệu của hệ thống điều khiển. Hãy truy cập trang <strong><a href="https://2naq.github.io/shareme/tool/" target="_blank" rel="noopener noreferrer" class="">Tool Chuyển Đổi Dữ Liệu</a></strong> để trải nghiệm và tối ưu hóa công việc của ní ngay hôm nay!</p>]]></content:encoded>
+            <category>Data Conversion</category>
+            <category>IEEE 754</category>
+            <category>CRC16</category>
+            <category>Modbus</category>
         </item>
     </channel>
 </rss>
