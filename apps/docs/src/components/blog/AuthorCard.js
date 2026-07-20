@@ -11,15 +11,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import SocialLinks from "@/components/blog/SocialLinks";
 
-/**
- * AuthorCard — Card hiển thị thông tin 1 tác giả
- * @param {object} props
- * @param {object} props.author - Docusaurus AuthorItemProp
- * @param {number} [props.count] - Số bài viết (nếu có)
- * @param {'compact'|'default'|'large'} [props.variant='default'] - Kích cỡ hiển thị
- */
 export default function AuthorCard({ author, count, variant = "default" }) {
-  const { name, title, imageURL, email, page, socials, description } = author;
+  const { name, title, imageURL, email, page, socials, description, isPro } =
+    author;
   const link =
     page?.permalink || author.url || (email && `mailto:${email}`) || undefined;
 
@@ -49,16 +43,10 @@ export default function AuthorCard({ author, count, variant = "default" }) {
           {/* Avatar */}
           {link ? (
             <Link to={link} className="no-underline">
-              <Avatar className={avatarSize}>
-                <AvatarImage src={imageURL} alt={name} />
-                <AvatarFallback>{initials}</AvatarFallback>
-              </Avatar>
+              {AuthorAvt({ imageURL, name, initials, avatarSize, isPro })}
             </Link>
           ) : (
-            <Avatar className={avatarSize}>
-              <AvatarImage src={imageURL} alt={name} />
-              <AvatarFallback>{initials}</AvatarFallback>
-            </Avatar>
+            AuthorAvt({ imageURL, name, initials, avatarSize, isPro })
           )}
 
           {/* Name + Count */}
@@ -111,3 +99,38 @@ export default function AuthorCard({ author, count, variant = "default" }) {
     </Card>
   );
 }
+
+function AuthorAvt({
+  imageURL,
+  name,
+  initials,
+  avatarSize,
+  isPro,
+  isShowPro = true,
+}) {
+  const avatarEl = (
+    <Avatar className={avatarSize}>
+      <AvatarImage src={imageURL} alt={name} />
+      <AvatarFallback>{initials}</AvatarFallback>
+    </Avatar>
+  );
+  if (isShowPro && isPro) {
+    return (
+      <div
+        className="rounded-full p-[2.5px] flex items-center justify-center transition-all duration-300 _hover:scale-105 z-10"
+        style={{
+          background:
+            "conic-gradient(from -45deg, #ea4335 0deg 90deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc04 270deg 360deg)",
+        }}
+      >
+        <div className="rounded-full bg-card p-0.5 flex items-center justify-center">
+          {avatarEl}
+        </div>
+      </div>
+    );
+  }
+
+  return avatarEl;
+}
+
+export { AuthorAvt };

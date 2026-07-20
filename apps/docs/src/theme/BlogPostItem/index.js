@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import AuthorCard, { AuthorAvt } from "@/components/blog/AuthorCard";
 
 // Component con hiển thị Avatar của từng Tác giả với hiệu ứng Hover Card
 const AuthorAvatar = React.memo(({ author }) => {
@@ -35,34 +36,18 @@ const AuthorAvatar = React.memo(({ author }) => {
 
   return (
     <HoverCard>
-      <HoverCardTrigger delay={0} closeDelay={10}>
-        <Avatar>
-          <AvatarImage src={author.imageURL} />
-          <AvatarFallback>{authorInitials}</AvatarFallback>
-        </Avatar>
+      <HoverCardTrigger delay={0} closeDelay={0}>
+        {AuthorAvt({
+          imageURL: author.imageURL,
+          name: author.name,
+          initials: authorInitials,
+          avatarSize: "size-8",
+          isPro: author.isPro,
+          isShowPro: false,
+        })}
       </HoverCardTrigger>
-      <HoverCardContent>
-        <div className="flex flex-col gap-1 justify-start">
-          <div className="flex flex-col gap-1">
-            <Avatar className="size-12">
-              <AvatarImage src={author.imageURL} />
-              <AvatarFallback>{authorInitials}</AvatarFallback>
-            </Avatar>
-            <Link
-              to={author.page ? author.page.permalink : "#"}
-              className="hover:no-underline text-foreground hover:text-primary"
-            >
-              <p className="text-base font-bold m-0 leading-tight">
-                {author.name}
-              </p>
-            </Link>
-            {author.title && (
-              <p className="text-xs text-muted-foreground m-0 leading-normal">
-                {author.title}
-              </p>
-            )}
-          </div>
-        </div>
+      <HoverCardContent className="bg-transparent border-none ring-0 shadow-none">
+        <AuthorCard author={author} count={author.count} variant="compact" />
       </HoverCardContent>
     </HoverCard>
   );
@@ -94,7 +79,10 @@ export default function BlogPostItem({ children, className }) {
     .map((author, index) => <AuthorAvatar key={index} author={author} />);
 
   return (
-    <Card className="relative group/card h-[404px] px-0 overflow-hidden">
+    <Card
+      title={title}
+      className="relative group/card h-101 px-0 overflow-hidden"
+    >
       <CardHeader>
         <div className="flex flex-row items-center">
           <div className="relative z-20">
@@ -152,6 +140,7 @@ export default function BlogPostItem({ children, className }) {
               </span>
             )}
           </div>
+          <ScrollBar orientation="horizontal" />
         </ScrollArea>
         <div className="flex flex-col">
           <div className="text-xs text-zinc-600 my-1 font-semibold">
@@ -159,7 +148,7 @@ export default function BlogPostItem({ children, className }) {
             <span> • </span>
             <span>{readingTime.toFixed(0)} phút đọc</span>
           </div>
-          <div className="max-h-48 h-full bg-accent w-full rounded-md border border-md border-input/30 overflow-hidden">
+          <div className="max-h-48 sm:min-h-48 min-h-32 h-full bg-accent w-full rounded-md border border-md border-input/30 overflow-hidden">
             {thumbnail ? (
               <img
                 src={thumbnail}

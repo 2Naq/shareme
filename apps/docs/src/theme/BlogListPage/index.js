@@ -53,19 +53,6 @@ function BlogListPageMetadata(props) {
   );
 }
 
-// ─── Sidebar: Author data cho AuthorCard ─────────────────────
-const PRIMARY_AUTHOR = {
-  name: "An Nguyễn",
-  title: "Tập sự",
-  imageURL: "https://github.com/2Naq.png",
-  url: "https://2naq.github.io/shareme",
-  page: { permalink: "/blog/authors/an-nguyen" },
-  socials: {
-    github: "https://github.com/2Naq",
-    newsletter: "https://2naq.github.io/shareme",
-  },
-};
-
 // ─── Sidebar: Popular Posts ──────────────────────────────────
 function PopularPosts({ items }) {
   const topPosts = items.slice(0, 5);
@@ -73,11 +60,11 @@ function PopularPosts({ items }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-sm">🔥 Bài viết nổi bật</CardTitle>
+        <CardTitle className="text-sm">🔥Các bài viết nổi bật</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         {topPosts.map((item, index) => {
-          const { title, permalink, date } = item.content.metadata;
+          const { title, permalink, date, authors } = item.content.metadata;
           const dateObj = new Date(date);
           return (
             <React.Fragment key={permalink}>
@@ -89,9 +76,11 @@ function PopularPosts({ items }) {
                 <span className="text-sm font-medium text-foreground group-hover/popular:text-primary transition-colors line-clamp-2">
                   {title}
                 </span>
-                <span className="text-xs text-muted-foreground">
-                  {dateObj.toLocaleDateString("vi-VN")}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">
+                    {dateObj.toLocaleDateString("vi-VN")}
+                  </span>
+                </div>
               </Link>
             </React.Fragment>
           );
@@ -106,7 +95,7 @@ function TagCloud({ allTags, selectedTag, onSelectTag }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-sm">🏷️ Danh mục</CardTitle>
+        <CardTitle className="text-sm font-bold">Danh mục</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-wrap gap-1.5">
         {allTags.map((tag) => (
@@ -156,9 +145,20 @@ function TagFilterBar({ allTags, selectedTag, onSelectTag, hiddenTagsCount }) {
   );
 }
 
-// ─── Main Content ───────────────────────────────────────────
 function BlogListPageContent(props) {
   const { metadata, items, sidebar } = props;
+  console.log({ props });
+  const { siteConfig } = useDocusaurusContext();
+  const authors = siteConfig.customFields?.authors || {};
+  const authorRaw = authors.anTng;
+  const PRIMARY_AUTHOR = authorRaw
+    ? {
+        ...authorRaw,
+        imageURL: authorRaw.image_url || authorRaw.imageURL,
+        page: { permalink: "/blog/authors/an-nguyen" },
+      }
+    : null;
+
   const [selectedTag, setSelectedTag] = useState("Tất cả");
   const [openDialog, setOpenDialog] = useState(false);
 

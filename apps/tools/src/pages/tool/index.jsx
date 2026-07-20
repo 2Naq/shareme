@@ -37,7 +37,7 @@ export default function ToolPage() {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 auto-rows-[220px] gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 auto-rows-55 gap-4">
           {tools.map((tool, index) => {
             const Icon = tool.icon;
 

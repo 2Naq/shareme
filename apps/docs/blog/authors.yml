@@ -1,3 +1,18 @@
+slorber:
+  name: Sébastien Lorber
+  title: Docusaurus maintainer, This Week In React editor
+  url: https://thisweekinreact.com
+  image_url: https://github.com/slorber.png
+  page: true
+  description: A freelance React and React-Native developer near Paris and Docusaurus maintainer. Also runs ThisWeekInReact.com, a newsletter to stay updated with the React ecosystem.
+  socials:
+    bluesky: sebastienlorber.com
+    x: sebastienlorber
+    linkedin: sebastienlorber
+    github: slorber
+    instagram: thisweekinreact
+    newsletter: https://thisweekinreact.com
+
 yangshun:
   name: Yangshun Tay
   title: Ex-Meta Staff Engineer, Co-founder GreatFrontEnd
@@ -10,25 +25,12 @@ yangshun:
     github: yangshun
     newsletter: https://www.greatfrontend.com
 
-slorber:
-  name: Sébastien Lorber
-  title: Docusaurus maintainer
-  url: https://sebastienlorber.com
-  image_url: https://github.com/slorber.png
-  page:
-    # customize the url of the author page at /blog/authors/<permalink>
-    permalink: "/all-sebastien-lorber-articles"
-  socials:
-    x: sebastienlorber
-    linkedin: sebastienlorber
-    github: slorber
-    newsletter: https://thisweekinreact.com
-
 anTng:
   name: An Nguyễn
-  title: Thợ đụng, tập đụng
+  title: Tập sự
   url: https://2naq.github.io/shareme
   image_url: https://github.com/2Naq.png
+  isPro: true
   page:
     # custom link author
     permalink: "/an-nguyen"
@@ -36,3 +38,24 @@ anTng:
     zalo: https://zalo.me/2naq
     github: 2Naq
     newsletter: https://2naq.github.io/shareme
+
+gemini:
+  name: Gemini
+  isPro: true
+  title: AI
+  url: https://gemini.google.com
+  image_url: /img/gemini_logo.svg
+  page:
+    # custom link author
+    permalink: "/gemini"
+  socials:
+    newsletter: https://gemini.google.com/
+
+shortcuts:
+  name: Clément Vannicatte
+  title: Software Engineer @ Algolia
+  url: https://github.com/shortcuts
+  image_url: https://github.com/shortcuts.png
+  socials:
+    x: sh0rtcts
+    github: shortcuts

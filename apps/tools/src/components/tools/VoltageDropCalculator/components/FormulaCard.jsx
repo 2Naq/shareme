@@ -11,7 +11,7 @@ export default function FormulaCard({ calculations }) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="p-3 bg-background rounded-lg border flex justify-center items-center overflow-x-auto min-h-[70px] bg-grid">
+        <div className="p-3 bg-background rounded-lg border flex justify-center items-center overflow-x-auto min-h-17.5 bg-grid">
           <MathRendererBlock formula={calculations.latexFormula} />
         </div>
         <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">

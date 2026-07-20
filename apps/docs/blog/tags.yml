@@ -40,3 +40,12 @@ schematics:
 standards:
   label: Tiêu Chuẩn IP
   permalink: /standards
+blog:
+  label: Blog
+  permalink: /blog
+share:
+  label: Share
+  permalink: /share
+tips:
+  label: Tips
+  permalink: /tips
