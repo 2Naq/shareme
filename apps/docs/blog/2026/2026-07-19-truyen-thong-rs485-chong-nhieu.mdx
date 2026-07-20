@@ -1,6 +1,6 @@
 ---
 slug: truyen-thong-rs485-va-giai-phap-chong-nhieu
-title: Tìm hiểu chuẩn truyền thông RS485 và giải pháp chống nhiễu thực tế ở công trường
+title: Tìm hiểu chuẩn truyền thông RS485 và giải pháp chống nhiễu thực tế
 authors: [gemini]
 tags: [tu-dong-hoa, networking]
 image: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80
@@ -34,8 +34,8 @@ V_{diff} = V_B - V_A
 
 
 Quy ước trạng thái logic đầu nhận:
-*   Nếu $V_{diff} \ge +200text{ mV}$: Trạng thái logic là **1** (Mark/Idle).
-*   Nếu $V_{diff} \le -200text{ mV}$: Trạng thái logic là **0** (Space).
+*   Nếu $V_{diff} \ge +200{ mV}$: Trạng thái logic là **1** (Mark/Idle).
+*   Nếu $V_{diff} \le -200{ mV}$: Trạng thái logic là **0** (Space).
 
 ### Cơ chế tự triệt tiêu nhiễu
 Khi một nguồn nhiễu điện từ (ví dụ từ cáp động lực biến tần chạy song song) tác động lên đường dây RS-485, do hai dây A và B được xoắn chặt với nhau, nhiễu sẽ tác động lên cả hai dây một lượng điện áp nhiễu giống nhau $V_{noise}$:
@@ -68,7 +68,7 @@ Lý thuyết là vậy, nhưng nếu ní đấu nối sai kỹ thuật thì đư
 *   Luôn chọn loại cáp chuyên dụng cho RS-485 (ví dụ cáp Belden 9841 hoặc cáp Alantek). Cáp phải có các lõi xoắn kép với nhau và có lớp lá nhôm/lưới đồng bọc xung quanh (Shield).
 *   **Nguyên tắc nối đất chống nhiễu cáp (Shield Grounding):** Lớp bọc kim (Shield) của cáp chống nhiễu **chỉ được nối đất duy nhất tại 1 điểm** (thường là tại tủ điện trung tâm hoặc phía Master). Tuyệt đối không nối đất cả hai đầu của lớp bọc kim vì sẽ tạo ra vòng lặp tiếp địa (Ground Loop), sinh ra dòng điện chạy trên vỏ cáp làm đường truyền nhiễu nặng hơn.
 
-### 2.4. Tránh đi chung máng cáp lực
+### 2.4. Tránh đi chung máng cáp động lực
 *   Tuyệt đối không đi chung dây cáp tín hiệu RS-485 song song sát bên cạnh cáp động lực cấp nguồn cho động cơ, biến tần.
 *   Nếu bắt buộc phải đi chung máng cáp, hãy giữ khoảng cách tối thiểu **20 cm** giữa cáp tín hiệu và cáp động lực, hoặc sử dụng máng cáp có vách ngăn bằng kim loại được nối đất tốt.
 
@@ -83,4 +83,4 @@ Một lần mình đi xử lý sự cố cho hệ thống đọc dữ liệu 10 
 2.  **Đo trở kháng cuối đường dây:** Khi ngắt nguồn, đo điện trở giữa dây A và B ở cuối đường dây thấy trở kháng vô cùng (do chưa lắp điện trở đầu cuối). Mình đã lắp thêm điện trở **120 Ohm, 1/4W** tại cổng PLC Master và tại đồng hồ nhiệt độ số 10.
 3.  **Xử lý tiếp địa vỏ cáp:** Lớp Shield của cáp được đấu vào vỏ kim loại của cả 10 đồng hồ nhiệt. Mình đã ngắt hết tiếp địa vỏ cáp ở các đồng hồ, chỉ giữ lại tiếp địa duy nhất tại đầu tủ PLC Master.
 
-Sau khi thực hiện 3 bước trên, hệ thống hoạt động cực kỳ ổn định, chu kỳ đọc Modbus giảm từ 500ms xuống còn 50ms mà không hề xảy ra bất kỳ lỗi mất gói tin (packet loss) nào. Hy vọng kinh nghiệm này giúp ích cho các ní khi đi công trình!
+Sau khi thực hiện 3 bước trên, hệ thống hoạt động cực kỳ ổn định, chu kỳ đọc Modbus giảm từ 500ms xuống còn 50ms mà không hề xảy ra bất kỳ lỗi mất gói tin (packet loss) nào. Hy vọng kinh nghiệm này giúp ích cho các ní khi làm thực tế!

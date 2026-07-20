@@ -1,5 +1,5 @@
 // oxlint-disable no-unused-vars
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import clsx from "clsx";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
@@ -163,6 +163,17 @@ function BlogListPageContent(props) {
   const [openDialog, setOpenDialog] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchQuery]);
 
   // Trích xuất danh sách tag duy nhất và đếm số lượng bài viết của từng tag
   const { allTags, topTags, tagCounts } = useMemo(() => {
@@ -204,7 +215,7 @@ function BlogListPageContent(props) {
     return allTags.length - visibleTags.length;
   }, [allTags, visibleTags]);
 
-  // Lọc bài viết theo tag và từ khóa tìm kiếm (searchQuery)
+  // Lọc bài viết theo tag và từ khóa tìm kiếm (debouncedSearchQuery)
   const filteredItems = useMemo(() => {
     let result = items;
 
@@ -216,8 +227,8 @@ function BlogListPageContent(props) {
     }
 
     // Lọc theo từ khóa tìm kiếm (title, description, tags)
-    if (searchQuery.trim() !== "") {
-      const query = searchQuery.toLowerCase().trim();
+    if (debouncedSearchQuery.trim() !== "") {
+      const query = debouncedSearchQuery.toLowerCase().trim();
       result = result.filter((item) => {
         const title = item.content?.metadata?.title?.toLowerCase() || "";
         const description =
@@ -235,7 +246,7 @@ function BlogListPageContent(props) {
     }
 
     return result;
-  }, [items, selectedTag, searchQuery]);
+  }, [items, selectedTag, debouncedSearchQuery]);
 
   return (
     <Layout>
