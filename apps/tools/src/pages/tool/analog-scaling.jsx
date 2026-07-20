@@ -26,7 +26,9 @@ export default function AnalogScalingPage() {
       <div>
         <h2 className="text-2xl font-semibold mb-4">Công thức sử dụng:</h2>
         <div className="p-4 rounded-lg overflow-x-auto border bg-card bg-grid">
-          <MathRendererBlock formula="\text{Result} = \frac{(\text{Input} - \text{Raw\_Min}) \times (\text{Eng\_Max} - \text{Eng\_Min})}{\text{Raw\_Max} - \text{Raw\_Min}} + \text{Eng\_Min}" />
+          <MathRendererBlock
+            formula={String.raw`\text{Result} = \frac{(Input_{currentValue} - \text{Raw}_{Min}) \times (\text{Eng}_{Max} - \text{Eng}_{Min})}{\text{Raw}_{Max} - \text{Raw}_{Min}} + Eng_{Min}`}
+          />
         </div>
       </div>
     </ToolLayout>

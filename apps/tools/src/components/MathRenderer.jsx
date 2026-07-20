@@ -72,7 +72,7 @@ export function MathRenderInline(propsOrText) {
   if (typeof propsOrText === "string") {
     content = propsOrText;
   } else if (propsOrText && typeof propsOrText === "object") {
-    content = propsOrText.text || propsOrText.children || "";
+    content = propsOrText.formula || propsOrText.text || propsOrText.children || "";
     className = propsOrText.className || "";
   }
 

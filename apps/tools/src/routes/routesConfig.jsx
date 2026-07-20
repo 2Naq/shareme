@@ -65,7 +65,7 @@ export const routeConfig = [
   },
   {
     path: "/tool/electrical-calculator",
-    label: "Tính Toán Điện",
+    label: "Tính Toán Thông số Điện",
     element: <ElectricalCalculatorPage />,
     showInSidebar: true,
     icon: Zap,

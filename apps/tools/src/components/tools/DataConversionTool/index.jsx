@@ -15,6 +15,7 @@ import {
   Crc16Calculator,
   AsciiHexConverter,
 } from "./tabs";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 const TABS = [
   { value: "base", label: "Hệ cơ số", icon: Binary, comp: NumberBaseConverter },
@@ -55,7 +56,7 @@ export default function DataConversionTool() {
       </div>
 
       <Tabs defaultValue="base">
-        <div className="overflow-x-scroll">
+        <ScrollArea>
           <TabsList className="flex h-auto gap-1 mb-2">
             {TABS.map(({ value, label, icon: Icon }) => (
               <TabsTrigger key={value} value={value} className="gap-1.5">
@@ -64,7 +65,8 @@ export default function DataConversionTool() {
               </TabsTrigger>
             ))}
           </TabsList>
-        </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
 
         {TABS.map(({ value, comp: Comp }) => (
           <TabsContent key={value} value={value}>
