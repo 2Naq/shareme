@@ -12,13 +12,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarGroup,
-  AvatarGroupCount,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { AvatarGroup, AvatarGroupCount } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import AuthorCard, { AuthorAvt } from "@/components/blog/AuthorCard";

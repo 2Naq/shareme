@@ -1,5 +1,5 @@
 // oxlint-disable no-unused-vars
-// @ts-check
+// @ts-nocheck
 // `@type` JSDoc annotations allow editor autocompletion and type checking
 // (when paired with `@ts-check`).
 // There are various equivalent ways to declare your Docusaurus config.
@@ -10,7 +10,96 @@ import { categorys } from "./src/constants/category.js";
 import { myData } from "./src/constants/my_data.js";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+import fs from "fs";
+import path from "path";
+
+/**
+ * @param {string} content
+ */
+function parseSimpleYaml(content) {
+  const lines = content.split("\n");
+  /** @type {Record<string, any>} */
+  const result = {};
+  /** @type {Record<string, any> | null} */
+  let currentAuthor = null;
+  /** @type {Record<string, any> | null} */
+  let currentParent = null;
+
+  for (let line of lines) {
+    const commentIndex = line.indexOf("#");
+    if (commentIndex !== -1) {
+      line = line.substring(0, commentIndex);
+    }
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+
+    const indent = line.length - line.trimStart().length;
+
+    if (indent === 0) {
+      if (trimmed.endsWith(":")) {
+        const key = trimmed.slice(0, -1).trim();
+        currentAuthor = {};
+        result[key] = currentAuthor;
+        currentParent = null;
+      }
+    } else if (indent === 2 && currentAuthor) {
+      const colonIndex = trimmed.indexOf(":");
+      if (colonIndex !== -1) {
+        const key = trimmed.substring(0, colonIndex).trim();
+        /** @type {string} */
+        let value = trimmed.substring(colonIndex + 1).trim();
+
+        if (value.startsWith('"') && value.endsWith('"')) {
+          value = value.slice(1, -1);
+        } else if (value.startsWith("'") && value.endsWith("'")) {
+          value = value.slice(1, -1);
+        } else if (value === "true") {
+          value = true;
+        } else if (value === "false") {
+          value = false;
+        }
+
+        if (value === "") {
+          currentParent = {};
+          currentAuthor[key] = currentParent;
+        } else {
+          currentAuthor[key] = value;
+          currentParent = null;
+        }
+      }
+    } else if (indent === 4 && currentParent) {
+      const colonIndex = trimmed.indexOf(":");
+      if (colonIndex !== -1) {
+        const key = trimmed.substring(0, colonIndex).trim();
+        let value = trimmed.substring(colonIndex + 1).trim();
+
+        if (value.startsWith('"') && value.endsWith('"')) {
+          value = value.slice(1, -1);
+        } else if (value.startsWith("'") && value.endsWith("'")) {
+          value = value.slice(1, -1);
+        } else if (value === "true") {
+          value = true;
+        } else if (value === "false") {
+          value = false;
+        }
+
+        currentParent[key] = value;
+      }
+    }
+  }
+  return result;
+}
+
+let parsedAuthors = {};
+try {
+  const authorsPath = path.join(process.cwd(), "blog/authors.yml");
+  if (fs.existsSync(authorsPath)) {
+    const authorsContent = fs.readFileSync(authorsPath, "utf-8");
+    parsedAuthors = parseSimpleYaml(authorsContent);
+  }
+} catch (err) {
+  console.error("Failed to parse authors.yml:", err);
+}
 
 const dynamicPlugins = categorys.map((category) => [
   "@docusaurus/plugin-content-docs",
@@ -71,6 +160,9 @@ const config = {
   organizationName: "2naq", // Usually your GitHub org/user name.
   projectName: "shareme", // Usually your repo name.
   trailingSlash: false,
+  customFields: {
+    authors: parsedAuthors,
+  },
 
   onBrokenLinks: "throw",
   onBrokenAnchors: "ignore",

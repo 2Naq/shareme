@@ -1,8 +1,9 @@
 ---
 slug: huong-dan-viet-blog-docusaurus
-title: Hướng dẫn viết bài và vận hành Docusaurus Blog cho các "Ní"
-authors: [anTng]
-tags: [tu-dong-hoa]
+title: Hướng dẫn viết bài Docusaurus Blog
+authors: [gemini, anTng, yangshun, slorber, shortcuts]
+tags: [blog,share,tips]
+image: https://docusaurus.io/assets/images/social-card-77e4a0d9b978e519751c324db47003e5.png
 ---
 
 Chào các ní! Trong quá trình vận hành trang chia sẻ kiến thức này, việc viết các bài chia sẻ (blog) không chỉ đơn thuần là gõ văn bản, mà chúng ta còn tận dụng sức mạnh của **MDX (Markdown + JSX)** để bài viết sinh động hơn với các khối code, công thức toán học, cảnh báo (admonitions) và các công cụ bổ trợ.
@@ -31,7 +32,7 @@ Mỗi file bài viết bắt đầu bằng một khối Frontmatter nằm giữa
 ```yaml
 ---
 slug: huong-dan-viet-blog-docusaurus
-title: Hướng dẫn viết bài và vận hành Docusaurus Blog cho các "Ní"
+title: Hướng dẫn viết bài Docusaurus Blog 
 authors: [anTng]
 tags: [tu-dong-hoa]
 image: https://pbs.twimg.com/media/HNSX94cawAAw37i.png
@@ -75,29 +76,29 @@ Hãy chèn cú pháp `{/* truncate */}` vào ngay sau 1-2 đoạn văn giới th
 ### 3.2. Khối thông tin nổi bật (Admonitions)
 Docusaurus hỗ trợ 5 kiểu hộp cảnh báo/chú thích trực quan bằng cách sử dụng 3 dấu hai chấm `:::`.
 
-:::note [Chú ý]
+:::note
 Sử dụng hộp này cho các thông tin bổ sung, ghi chú bên lề hoặc ngữ cảnh chung.
 :::
 
-:::tip [Mẹo nhỏ]
+:::tip
 Dành cho các mẹo thực hành, kinh nghiệm xương máu hoặc phím tắt hữu ích.
 :::
 
-:::info [Thông tin]
+:::info
 Cung cấp thông tin quan trọng hoặc tài liệu tham khảo chính thống cần người đọc chú ý.
 :::
 
-:::warning [Cảnh báo]
+:::warning
 Dành cho các cảnh báo nguy hiểm, hành động dễ gây lỗi hệ thống hoặc thiết bị.
 :::
 
-:::danger [Cực kỳ nguy hiểm]
+:::danger
 Những hành động có thể gây cháy hỏng tủ điện, mất dữ liệu, hoặc "đền tiền" cho dự án!
 :::
 
 #### Cú pháp viết trong MDX:
 ```markdown
-:::warning [Tiêu đề tùy chỉnh]
+:::warning
 Nội dung cảnh báo của các ní viết ở đây.
 :::
 ```
@@ -128,17 +129,17 @@ def subtract(a, b):
 ```python {2,4-5} title="calculator.py"
 def add(a, b):
     return a + b
-...
 ```
 ````
-
 ---
 
 ### 3.4. Viết Công thức Toán học (LaTeX) - QUY TẮC SỐNG CÒN
 
-> [!IMPORTANT]
-> **Lưu ý cực kỳ quan trọng đối với MDX v3:** 
-> Do MDX tự động hiểu các dấu ngoặc nhọn `{}` là mã code JavaScript, nếu bạn viết công thức toán học chứa ngoặc nhọn (như `\frac{A}{B}`, `\sqrt{3}`, hoặc chỉ số dưới `_{tk}`) bên trong cặp dấu đô-la kép `$$` thông thường, **trình biên dịch sẽ bị sập và báo lỗi Acorn parse error**.
+:::warning
+**Lưu ý cực kỳ quan trọng đối với MDX v3:** 
+Do MDX tự động hiểu các dấu ngoặc nhọn `{}` là mã code JavaScript, nếu bạn viết công thức toán học chứa ngoặc nhọn (như `\frac{A}{B}`, `\sqrt{3}`, hoặc chỉ số dưới `_{tk}`) bên trong cặp dấu đô-la kép `$$` thông thường, **trình biên dịch sẽ bị sập và báo lỗi Acorn parse error**.
+
+:::
 
 #### Giải pháp khắc phục triệt để:
 
@@ -156,9 +157,12 @@ def add(a, b):
     I = \frac{P}{\sqrt{3} \cdot U \cdot \cos\varphi \cdot \eta}
     ```
 
-2.  **Với công thức nội dòng (Inline Math):** Sử dụng một dấu đô-la đơn `$ ... $` nhưng **không được để khoảng trắng sát dấu đô-la**, và tránh dùng ký tự `{}` phức tạp trong câu văn. Nếu công thức inline có dấu `{}` gây lỗi, hãy đổi sang dùng thẻ JSX `<MathRenderer>` có sẵn của dự án:
+2.  **Với công thức nội dòng (Inline Math):** Sử dụng một dấu đô-la đơn `$ ... $` nhưng **không được để khoảng trắng sát dấu đô-la**, và tránh dùng ký tự `{}` phức tạp trong câu văn. Nếu công thức inline có dấu `{}` gây lỗi, hãy đổi sang dùng thẻ JSX `<MathRendererInline>` có sẵn của dự án:
     
-    *Ví dụ:* Sử dụng `<MathRenderer displayMode={false} formula="I_{đm}" />` để hiển thị an toàn.
+    *Ví dụ:* Sử dụng `<MathRendererInline displayMode={false} formula="I_{đm}" />` để hiển thị an toàn.
+    ```math
+        I_{đm} 
+    ```
 
 ---
 
@@ -190,5 +194,3 @@ Trước khi đẩy bài viết lên GitHub/Staging, các ní hãy chạy các l
     ```bash
     npm run build
     ```
-
-Hy vọng bài viết này sẽ giúp các ní tự tin sản xuất những nội dung chất lượng nhất trên blog. Chúc các ní viết bài vui vẻ và không bao giờ bị "đập màn hình" vì lỗi build!

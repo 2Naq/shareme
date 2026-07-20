@@ -45,7 +45,7 @@ function ViewAllAuthorsLink() {
   );
 }
 
-function Content({ author, items, sidebar, listMetadata }) {
+function Content({ author, items, listMetadata }) {
   return (
     <Layout>
       <div className="container mx-auto max-w-6xl px-4 py-8">
