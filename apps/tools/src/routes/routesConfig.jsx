@@ -10,6 +10,7 @@ import {
   Activity,
   Binary,
   QrCode,
+  Scan,
 } from "lucide-react";
 
 const ToolPage = React.lazy(() => import("@/pages/tool/index"));
@@ -34,6 +35,33 @@ const DataConversionPage = React.lazy(
   () => import("@/pages/tool/data-conversion"),
 );
 const QrCodePage = React.lazy(() => import("@/pages/tool/qr-code"));
+const QrCodeScannerPage = React.lazy(
+  () => import("@/pages/tool/qr-code-scanner"),
+);
+
+// Định nghĩa các nhóm công cụ
+export const groups = [
+  {
+    id: "system",
+    label: "Hệ thống",
+  },
+  {
+    id: "qr",
+    label: "Mã QR Code",
+  },
+  {
+    id: "data",
+    label: "Xử lý & Chuyển đổi dữ liệu",
+  },
+  {
+    id: "calculation",
+    label: "Tính toán Kỹ thuật",
+  },
+  {
+    id: "intro",
+    label: "Tài liệu Giới thiệu",
+  },
+];
 
 // Cấu hình các route của ứng dụng
 export const routeConfig = [
@@ -43,6 +71,7 @@ export const routeConfig = [
     element: <ToolPage />,
     showInSidebar: true,
     icon: Home,
+    group: "system",
   },
   {
     path: "/tool/qr-code",
@@ -50,6 +79,15 @@ export const routeConfig = [
     element: <QrCodePage />,
     showInSidebar: true,
     icon: QrCode,
+    group: "qr",
+  },
+  {
+    path: "/tool/qr-code-scanner",
+    label: "Quét Mã QR Code",
+    element: <QrCodeScannerPage />,
+    showInSidebar: true,
+    icon: Scan,
+    group: "qr",
   },
   {
     path: "/tool/rs485-hex",
@@ -57,6 +95,7 @@ export const routeConfig = [
     element: <Rs485HexPage />,
     showInSidebar: true,
     icon: Hash,
+    group: "data",
   },
   {
     path: "/tool/data-conversion",
@@ -64,6 +103,7 @@ export const routeConfig = [
     element: <DataConversionPage />,
     showInSidebar: true,
     icon: Binary,
+    group: "data",
   },
   {
     path: "/tool/analog-scaling",
@@ -71,6 +111,7 @@ export const routeConfig = [
     element: <AnalogScalingPage />,
     showInSidebar: true,
     icon: SlidersHorizontal,
+    group: "calculation",
   },
   {
     path: "/tool/electrical-calculator",
@@ -78,6 +119,7 @@ export const routeConfig = [
     element: <ElectricalCalculatorPage />,
     showInSidebar: true,
     icon: Zap,
+    group: "calculation",
   },
   {
     path: "/tool/voltage-drop",
@@ -85,6 +127,7 @@ export const routeConfig = [
     element: <VoltageDropPage />,
     showInSidebar: true,
     icon: Activity,
+    group: "calculation",
   },
   {
     path: "/tool/resistor-calculator",
@@ -92,6 +135,7 @@ export const routeConfig = [
     element: <ResistorCalculatorPage />,
     showInSidebar: true,
     icon: CircuitBoard,
+    group: "calculation",
   },
   {
     path: "/tool/cable-cutting",
@@ -99,6 +143,7 @@ export const routeConfig = [
     element: <CableCuttingPage />,
     showInSidebar: false,
     icon: Scissors,
+    group: "calculation",
   },
   {
     path: "/tool/hmi-intro",
@@ -106,6 +151,7 @@ export const routeConfig = [
     element: <HmiIntroPage />,
     showInSidebar: false,
     icon: MonitorPlay,
+    group: "intro",
   },
   {
     path: "/tool/inverter-intro",
@@ -113,6 +159,7 @@ export const routeConfig = [
     element: <InverterIntroPage />,
     showInSidebar: false,
     icon: Zap,
+    group: "intro",
   },
   {
     path: "/tool/test",
@@ -120,5 +167,6 @@ export const routeConfig = [
     element: <SelectScrollable />,
     showInSidebar: false,
     icon: Zap,
+    group: "system",
   },
 ];

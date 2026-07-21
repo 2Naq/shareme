@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from "../ui/command";
-import { routeConfig } from "../../routes/routesConfig";
+import { routeConfig, groups } from "../../routes/routesConfig";
 import { Search } from "lucide-react";
 import { Button } from "../ui/button";
 
@@ -57,19 +57,27 @@ export function CommandMenu() {
         />
         <CommandList>
           <CommandEmpty>Không tìm thấy kết quả.</CommandEmpty>
-          <CommandGroup heading="Công cụ">
-            {routeConfig
-              .filter((route) => route.showInSidebar)
-              .map((route, index) => (
-                <CommandItem
-                  key={index}
-                  onSelect={() => runCommand(() => navigate(route.path))}
-                >
-                  {route.icon && <route.icon className="mr-2 h-4 w-4" />}
-                  <span>{route.label}</span>
-                </CommandItem>
-              ))}
-          </CommandGroup>
+          {groups.map((group) => {
+            const groupRoutes = routeConfig.filter(
+              (route) => route.group === group.id && route.showInSidebar
+            );
+
+            if (groupRoutes.length === 0) return null;
+
+            return (
+              <CommandGroup key={group.id} heading={group.label}>
+                {groupRoutes.map((route, index) => (
+                  <CommandItem
+                    key={index}
+                    onSelect={() => runCommand(() => navigate(route.path))}
+                  >
+                    {route.icon && <route.icon className="mr-2 h-4 w-4" />}
+                    <span>{route.label}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            );
+          })}
         </CommandList>
       </CommandDialog>
     </>

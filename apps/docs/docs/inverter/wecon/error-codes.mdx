@@ -1,0 +1,73 @@
+---
+id: error-codes-wecon
+title: Bảng mã lỗi biến tần Wecon và cách khắc phục
+sidebar_position: 3
+sidebar_label: Bảng mã lỗi & Khắc phục
+tags: [wecon, errors, troubleshooting]
+---
+
+Biến tần **Wecon** (phổ biến nhất là dòng PI9000, PI500 Series) được sử dụng rộng rãi trong các hệ thống máy móc, băng tải và bơm quạt nhờ giá thành hợp lý và tính năng linh hoạt. Khi xảy ra sự cố trong quá trình vận hành, biến tần sẽ hiển thị mã lỗi dạng **Err.XX** trên bàn phím. Tài liệu này tổng hợp bảng mã lỗi chuẩn xác, nguyên nhân và hướng dẫn xử lý sự cố thực tế.
+
+---
+
+## 1. Bảng tra cứu nhanh mã lỗi biến tần Wecon
+
+| Mã lỗi | Tên lỗi hiển thị | Ý nghĩa và Nguyên nhân phổ biến |
+| :---: | --- | --- |
+| **Err.01** | Inverter unit protection | Lỗi bảo vệ khối công suất (ngắn mạch ngõ ra, quá nhiệt mô-đun IGBT, lỗi phần cứng lái dòng) |
+| **Err.02** | Overcurrent during acceleration | Quá dòng điện ngõ ra trong quá trình tăng tốc |
+| **Err.03** | Overcurrent during deceleration | Quá dòng điện ngõ ra trong quá trình giảm tốc |
+| **Err.04** | Overcurrent during constant speed | Quá dòng điện ngõ ra khi đang chạy ổn định ở tần số cài đặt |
+| **Err.05** | Overvoltage during acceleration | Quá áp Bus DC trong quá trình tăng tốc |
+| **Err.06** | Overvoltage during deceleration | Quá áp Bus DC trong quá trình giảm tốc (năng lượng tái sinh phản hồi lớn) |
+| **Err.07** | Overvoltage during constant speed | Quá áp Bus DC khi chạy ở tốc độ không đổi |
+| **Err.09** | Undervoltage fault | Thấp áp Bus DC (nguồn đầu vào yếu, mất pha đầu vào, hỏng cầu chỉnh lưu) |
+| **Err.10** | Inverter overload | Quá tải biến tần (tải nặng vượt quá dòng định mức của biến tần) |
+| **Err.11** | Motor overload | Quá tải động cơ (được tính toán bằng rơ-le nhiệt điện tử) |
+| **Err.13** | Output phase loss | Mất pha đầu ra (đứt cáp kết nối động cơ, tiếp điểm lỏng lẻo) |
+| **Err.14** | Power module overheat | Quá nhiệt mô-đun công suất (IGBT quá nhiệt do quạt hỏng hoặc tắc bụi) |
+| **Err.18** | Current detection fault | Lỗi mạch phát hiện dòng điện (hỏng cảm biến Hall hoặc bo điều khiển) |
+| **Err.23** | Parameter read/write error | Lỗi đọc/ghi tham số chip lưu trữ EEPROM |
+
+---
+
+## 2. Hướng dẫn chi tiết khắc phục sự cố
+
+### Lỗi Bảo Vệ Khối Công Suất (Err.01)
+Đây là lỗi bảo vệ tức thời của phần cứng biến tần khi phát hiện dòng điện cực đại tăng vọt hoặc mô-đun công suất bị đe dọa cháy hỏng.
+
+*   **Nguyên nhân:**
+    1. Đầu ra của biến tần U-V-W bị ngắn mạch hoặc rò rỉ chạm đất.
+    2. Cáp động cơ quá dài gây dòng rò xung điện dung lớn.
+    3. Mô-đun IGBT bị hỏng hoàn toàn.
+    4. Cáp kết nối giữa bo điều khiển và bo công suất bị lỏng.
+*   **Hướng xử lý:**
+    *   *Bước 1:* Tách cáp động cơ khỏi đầu ra U-V-W của biến tần. Bật nguồn biến tần và thử ra lệnh chạy. Nếu vẫn báo lỗi **Err.01** ngay lập tức, bo công suất IGBT đã bị hỏng.
+    *   *Bước 2:* Dùng đồng hồ đo điện trở cách điện của cáp và động cơ để tìm điểm ngắn mạch.
+    *   *Bước 3:* Nếu cáp động cơ dài quá 50 mét, hãy lắp thêm cuộn kháng đầu ra (Output AC Reactor) để khử dòng điện dung ký sinh.
+
+### Lỗi Quá Dòng (Err.02, Err.03, Err.04)
+*   **Điểm kiểm tra:**
+    *   Kiểm tra tải cơ khí xem có bị kẹt, khớp nối có bị bó cứng.
+    *   Thời gian tăng tốc (`F0.13`) hoặc giảm tốc (`F0.14`) quá nhanh.
+    *   Công suất biến tần bị nhỏ hơn so với công suất thực tế của động cơ.
+*   **Hướng xử lý:**
+    *   Tăng thời gian tăng/giảm tốc (`F0.13`, `F0.14`).
+    *   Sử dụng phương pháp điều khiển Vector nếu cần mô-men xoắn lớn ở tần số thấp, đồng thời thực hiện dò tham số tự động động cơ (Auto-tuning trong nhóm tham số `b0`).
+    *   Kiểm tra điện áp nguồn cấp đầu vào trong lúc khởi động động cơ tải nặng có bị sụt giảm quá mức hay không.
+
+### Lỗi Quá Áp Bus DC khi giảm tốc (Err.06)
+*   **Điểm kiểm tra:**
+    *   Thời gian dừng động cơ tải nặng, quán tính lớn quá nhanh.
+*   **Hướng xử lý:**
+    *   Tăng thời gian giảm tốc (`F0.14`).
+    *   Lắp đặt điện trở xả hãm. Đấu điện trở xả vào chân **(+)** và **PB** (đối với biến tần tích hợp sẵn bộ hãm - Braking Unit) hoặc qua bộ phanh động năng lắp ngoài (Braking Unit) đấu nối vào Bus DC **(+)** và **(-)**.
+    *   Kích hoạt chức năng tự động ngăn quá áp trong quá trình giảm tốc để biến tần tự động nới lỏng dốc giảm tốc khi áp DC Link tăng quá cao.
+
+### Lỗi Mất Pha Ngõ Ra (Err.13)
+*   **Điểm kiểm tra:**
+    *   Kết nối giữa ngõ ra U-V-W của biến tần và động cơ bị gián đoạn.
+*   **Hướng xử lý:**
+    *   Kiểm tra các cọc đấu dây cáp động cơ trên biến tần và hộp cực động cơ xem có tiếp xúc tốt không.
+    *   Kiểm tra các tiếp điểm của contactor hoặc cầu dao phụ (nếu có lắp giữa biến tần và động cơ) xem có bị cháy rỗ hay hở mạch 1 pha hay không.
+    *   Đo điện trở 3 cuộn dây động cơ từ đầu cáp nối biến tần để đảm bảo tính thông suốt và cân bằng điện trở.

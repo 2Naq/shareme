@@ -1,0 +1,91 @@
+---
+id: error-codes-mitsubishi
+title: Bảng mã lỗi biến tần Mitsubishi và cách khắc phục
+sidebar_position: 3
+sidebar_label: Bảng mã lỗi & Khắc phục
+tags: [mitsubishi, errors, troubleshooting]
+---
+
+Biến tần **Mitsubishi Electric** (các dòng FR-D700, FR-E700, FR-A800 Series) được sử dụng rất phổ biến trong công nghiệp. Khi xảy ra sự cố, màn hình hiển thị (PU) của biến tần sẽ báo mã sự cố bắt đầu bằng chữ **E.** (Trip). Dưới đây là bảng tổng hợp mã lỗi chính xác từ tài liệu kỹ thuật của hãng, nguyên nhân và các bước khắc phục sự cố.
+
+---
+
+## 1. Bảng tra cứu nhanh mã lỗi biến tần Mitsubishi
+
+| Mã lỗi | Tên lỗi hiển thị | Ý nghĩa và Nguyên nhân phổ biến |
+| :---: | --- | --- |
+| **E.OC1** | Overcurrent trip during acceleration | Quá dòng ngõ ra trong quá trình tăng tốc động cơ |
+| **E.OC2** | Overcurrent trip during constant speed | Quá dòng ngõ ra khi đang chạy ổn định ở tần số cài đặt |
+| **E.OC3** | Overcurrent trip during deceleration | Quá dòng ngõ ra trong quá trình giảm tốc |
+| **E.OV1** | Regenerative overvoltage during acceleration | Quá áp Bus DC trong quá trình tăng tốc (quán tính tải phản hồi) |
+| **E.OV2** | Regenerative overvoltage during constant speed | Quá áp Bus DC khi chạy ở tốc độ không đổi |
+| **E.OV3** | Regenerative overvoltage during deceleration | Quá áp Bus DC trong quá trình giảm tốc (lỗi rất phổ biến) |
+| **E.THT** | Inverter overload trip | Quá tải biến tần (dòng đầu ra lớn hơn dòng định mức của biến tần) |
+| **E.THM** | Motor overload trip | Quá tải động cơ (bảo vệ bằng relay nhiệt điện tử tích hợp) |
+| **E.FIN** | Heatsink overheat | Khối cánh nhôm tản nhiệt công suất bị quá nhiệt |
+| **E.UVT** | Undervoltage | Điện áp Bus DC thấp (nguồn lưới sụt, mất pha đầu vào, lỗi tụ) |
+| **E.IPF** | Instantaneous power failure | Mất điện ngõ vào chớp nhoáng (mất nguồn trong thời gian ngắn) |
+| **E.GF** | Output side earth fault overcurrent | Phát hiện chạm chập đất (Ground Fault) ở ngõ ra phía động cơ |
+| **E.LF** | Output phase loss | Mất pha đầu ra (đứt cáp kết nối động cơ, một pha không có dòng) |
+| **E.ILF** | Input phase loss | Mất pha nguồn điện đầu vào (đối với dòng biến tần 3 pha) |
+| **E.OHT** | External thermal relay operation | Tiếp điểm rơ-le nhiệt ngoài bảo vệ động cơ tác động |
+| **E.PTC** | PTC thermistor operation | Điện trở nhiệt PTC của động cơ báo quá nhiệt |
+| **E.PE** | Parameter storage device alarm | Lỗi chip nhớ EEPROM lưu trữ tham số |
+| **E.PUE** | PU disconnection | Mất kết nối cáp nối giữa bàn phím màn hình điều khiển và biến tần |
+| **E.RET** | Retry count excess | Vượt quá số lần tự động khởi động lại sau khi báo lỗi |
+| **E.CPU** | CPU error | Sự cố hỏng bo điều khiển, nhiễu điện nặng hoặc lỗi vi xử lý |
+
+---
+
+## 2. Hướng dẫn khắc phục chi tiết các lỗi cốt lõi
+
+### Lỗi Quá Dòng (E.OC1, E.OC2, E.OC3)
+*   **Điểm kiểm tra:**
+    *   Kiểm tra xem động cơ có bị bó cứng cơ khí hoặc kẹt tải hay không.
+    *   Kiểm tra cách điện cuộn dây động cơ bằng đồng hồ đo Megomet (đo pha-pha và pha-vỏ).
+    *   Kiểm tra thời gian tăng tốc (`Pr.7`) và giảm tốc (`Pr.8`) xem có quá ngắn đối với tải hay không.
+*   **Hướng xử lý:**
+    *   Tăng thời gian tăng tốc `Pr.7` (nếu lỗi `E.OC1`) hoặc giảm tốc `Pr.8` (nếu lỗi `E.OC3`).
+    *   Điều chỉnh lại thông số tăng mô-men khởi động (Torque Boost - `Pr.0`). Nếu đặt quá cao sẽ gây quá dòng khởi động (`E.OC1`).
+    *   Nếu tháo cáp động cơ ra khỏi biến tần, cho biến tần chạy không tải mà vẫn báo lỗi `E.OC1` ngay lập tức, chứng tỏ khối công suất IGBT bên trong biến tần bị hỏng chập.
+
+### Lỗi Quá Áp Bus DC (E.OV1, E.OV2, E.OV3)
+*   **Điểm kiểm tra:**
+    *   Tải có quán tính lớn (như quạt công nghiệp ly tâm, cẩu trục nâng hạ tải, máy quay ly tâm) khi giảm tốc độ sẽ đẩy ngược điện năng về biến tần.
+    *   Kiểm tra thời gian giảm tốc có quá đột ngột hay không.
+*   **Hướng xử lý:**
+    *   Tăng thời gian giảm tốc `Pr.8`.
+    *   Lắp đặt thêm **Điện trở xả (Braking Resistor)** vào các chân **P/+** và **PR** (đối với dòng biến tần có tích hợp bộ phanh hãm động năng như FR-E700 công suất nhỏ) để giải phóng năng lượng dư thừa.
+    *   Cài đặt tham số tự động giảm tốc tránh quá áp (Regenerative overvoltage avoidance - `Pr.882` đến `Pr.886`).
+
+### Lỗi Chạm Đất Ngõ Ra (E.GF)
+*   **Điểm kiểm tra:**
+    *   Phát hiện rò điện hoặc chập mạch từ ngõ ra biến tần xuống vỏ mát (Ground).
+*   **Hướng xử lý:**
+    *   Kiểm tra kỹ cáp nối từ biến tần U-V-W đến động cơ xem có bị xước xát chạm vào máng cáp hoặc vỏ máy hay không.
+    *   Dùng đồng hồ đo kiểm tra cuộn dây động cơ xem có bị rò mát.
+    *   *Chú ý:* Lỗi này xảy ra ngay tại thời điểm biến tần xuất lệnh chạy. Tránh cố gắng xóa lỗi và bật lại liên tục để không gây hỏng bo mạch công suất.
+
+---
+
+## 3. Các mã trạng thái cảnh báo vận hành (Không phải lỗi phần cứng)
+
+Bên cạnh các mã sự cố tự ngắt (Trip), biến tần Mitsubishi còn hiển thị các mã cảnh báo hoặc mã khóa vận hành:
+
+### Cảnh báo HOLD (Khóa bàn phím)
+*   **Hiện tượng:** Không thể điều chỉnh tần số hoặc cài đặt tham số, màn hình hiển thị chữ `HOLD`.
+*   **Khắc phục:** Nhấn và giữ phím **MODE** trên bàn phím trong khoảng 2 giây để mở khóa bàn phím (hoặc khóa lại).
+
+### Cảnh báo LOCD (Khóa mật khẩu)
+*   **Hiện tượng:** Tham số bị khóa bởi mật khẩu bảo mật.
+*   **Khắc phục:** Cần nhập đúng mã số mật khẩu đã cài đặt trong tham số **Pr.297** để mở khóa chỉnh sửa.
+
+### Lỗi Er1, Er2, Er3, Er4 (Lỗi ghi tham số)
+*   **Er1 (Write mode error):** Đang cố tình ghi tham số khi biến tần không ở chế độ PU. Cần chuyển chế độ vận hành sang **PU** (tham số [Pr.79](#pr79) = 1) rồi mới thực hiện sửa đổi.
+*   **Er2 (Parameter write error during run):** Đang cố sửa tham số khi động cơ đang chạy. Phải nhấn nút **STOP** cho động cơ dừng hẳn mới được sửa đổi (ngoại trừ các tham số cho phép ghi khi chạy được cài đặt trong `Pr.77 = 2`).
+*   **Er3 (Calibration error):** Lỗi hiệu chuẩn ngõ vào analog.
+*   **Er4 (Mode designation error):** Cố thay đổi tham số khi đang khóa ghi (tham số `Pr.77 = 1`). Cần sửa `Pr.77 = 0` hoặc `2` trước.
+
+### Cảnh báo PS (PU Stop)
+*   **Hiện tượng:** Biến tần đang chạy ở chế độ External (điều khiển ngoài), nhưng người dùng nhấn nút **STOP/RESET** trên bàn phím màn hình. Biến tần sẽ dừng động cơ và hiển thị chớp nháy chữ `PS`.
+*   **Khắc phục:** Tắt công tắc lệnh chạy ngoài (OFF chân STF hoặc STR), sau đó lỗi `PS` sẽ tự biến mất. Lúc này có thể bật lại lệnh chạy ngoài để tiếp tục vận hành.
