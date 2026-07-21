@@ -20,7 +20,7 @@ export function AppHeader() {
           className="font-bold text-lg text-primary no-underline hover:text-primary/80"
         >
           <span className="sm:flex hidden"> Về trang chủ</span>
-          <Home className="sm:hidden block"></Home>
+          <Home className="sm:hidden block size-5"></Home>
         </Link>
       </div>
       <div className="flex-1 flex sm:justify-end">

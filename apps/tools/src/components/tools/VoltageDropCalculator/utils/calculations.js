@@ -46,14 +46,11 @@ export function calculateVoltageDrop({
 
   // 2. Điện trở và cảm kháng của dây dẫn (cho 1 sợi đơn)
   const R_single = S > 0 ? (activeRho * L) / S : 0;
-  const X_single = includeReactance
-    ? (Number(reactanceVal) || 0.00008) * L
-    : 0;
+  const X_single = includeReactance ? (Number(reactanceVal) || 0.00008) * L : 0;
 
   // Kháng trở tổng hợp (Z)
   // Z = R*cos(phi) + X*sin(phi)
-  const sinPhi =
-    systemType === "DC" ? 0 : Math.sqrt(Math.max(0, 1 - PF * PF));
+  const sinPhi = systemType === "DC" ? 0 : Math.sqrt(Math.max(0, 1 - PF * PF));
   const Z_single = R_single * PF + X_single * sinPhi;
 
   // 3. Tính độ sụt áp (Delta U)

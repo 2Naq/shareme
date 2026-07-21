@@ -26,21 +26,21 @@ import { calculateResidentialLoad, suggestACUnit } from "../utils/calculations";
 export default function ResidentialCalculator() {
   // State: danh sách thiết bị với số lượng
   const [appliances, setAppliances] = useState(() =>
-    APPLIANCE_DATABASE.map((a) => ({ ...a, qty: 0, acArea: 15 }))
+    APPLIANCE_DATABASE.map((a) => ({ ...a, qty: 0, acArea: 15 })),
   );
   const [demandFactor, setDemandFactor] = useState(0.7);
 
   const updateQty = useCallback((id, delta) => {
     setAppliances((prev) =>
       prev.map((a) =>
-        a.id === id ? { ...a, qty: Math.max(0, a.qty + delta) } : a
-      )
+        a.id === id ? { ...a, qty: Math.max(0, a.qty + delta) } : a,
+      ),
     );
   }, []);
 
   const updateACArea = useCallback((id, area) => {
     setAppliances((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, acArea: Number(area) || 0 } : a))
+      prev.map((a) => (a.id === id ? { ...a, acArea: Number(area) || 0 } : a)),
     );
   }, []);
 

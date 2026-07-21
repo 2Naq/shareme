@@ -48,13 +48,15 @@ export default function RecommendationCard({ calculations, activeWireSize }) {
           <div className="flex justify-between items-center text-xs opacity-95">
             <span>Sụt áp khi tăng cỡ dây:</span>
             <span className="font-semibold font-mono">
-              {recommendedDeltaU.toFixed(1)} V ({recommendedDeltaUPercent.toFixed(2)}%)
+              {recommendedDeltaU.toFixed(1)} V (
+              {recommendedDeltaUPercent.toFixed(2)}%)
             </span>
           </div>
         </div>
         <p className="text-xs opacity-75 italic mt-1">
-          * Khuyến nghị chỉ dựa trên khía cạnh độ sụt áp. Ní cần đối chiếu với dòng định
-          mức cho phép của cáp (Ampacity) trong catalog nhà sản xuất nhé.
+          * Khuyến nghị chỉ dựa trên khía cạnh độ sụt áp. Ní cần đối chiếu với
+          dòng định mức cho phép của cáp (Ampacity) trong catalog nhà sản xuất
+          nhé.
         </p>
       </CardContent>
     </Card>

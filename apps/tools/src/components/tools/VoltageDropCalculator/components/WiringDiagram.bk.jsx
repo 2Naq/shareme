@@ -41,16 +41,16 @@ export default function WiringDiagram({
     wireMaterial === "Cu"
       ? "Đồng (Cu)"
       : wireMaterial === "Al"
-      ? "Nhôm (Al)"
-      : "Tùy chọn";
+        ? "Nhôm (Al)"
+        : "Tùy chọn";
 
   const wireCount = systemType === "3-phase" ? 3 : 2;
   const wireLabels =
     systemType === "3-phase"
       ? ["L1", "L2", "L3"]
       : systemType === "DC"
-      ? ["+", "−"]
-      : ["L", "N"];
+        ? ["+", "−"]
+        : ["L", "N"];
 
   const statusColor =
     deltaU_percent > 5 ? "#ef4444" : deltaU_percent > 3 ? "#f59e0b" : "#22c55e";
@@ -58,8 +58,8 @@ export default function WiringDiagram({
     deltaU_percent > 5
       ? "NGUY HIỂM"
       : deltaU_percent > 3
-      ? "CHẤP NHẬN"
-      : "AN TOÀN";
+        ? "CHẤP NHẬN"
+        : "AN TOÀN";
 
   const rTotal = ((activeRho * Number(length)) / activeWireSize).toFixed(4);
   const xTotal = includeReactance
@@ -89,16 +89,13 @@ export default function WiringDiagram({
     const anims = [];
 
     // 1. Entry animation — fade in and slide elements
-    const entryAnim = animate(
-      svgRef.current.querySelectorAll(".anim-entry"),
-      {
-        opacity: [0, 1],
-        translateY: [10, 0],
-        duration: 800,
-        delay: stagger(60),
-        ease: "outCubic",
-      },
-    );
+    const entryAnim = animate(svgRef.current.querySelectorAll(".anim-entry"), {
+      opacity: [0, 1],
+      translateY: [10, 0],
+      duration: 800,
+      delay: stagger(60),
+      ease: "outCubic",
+    });
     anims.push(entryAnim);
 
     // 2. Source terminal pulse glow
@@ -115,16 +112,13 @@ export default function WiringDiagram({
     anims.push(sourcePulse);
 
     // 3. Load terminal pulse glow
-    const loadPulse = animate(
-      svgRef.current.querySelectorAll(".load-glow"),
-      {
-        opacity: [0.1, 0.35],
-        duration: 1800,
-        direction: "alternate",
-        loop: true,
-        ease: "inOutSine",
-      },
-    );
+    const loadPulse = animate(svgRef.current.querySelectorAll(".load-glow"), {
+      opacity: [0.1, 0.35],
+      duration: 1800,
+      direction: "alternate",
+      loop: true,
+      ease: "inOutSine",
+    });
     anims.push(loadPulse);
 
     // 4. Electron flow particles along wires
@@ -215,7 +209,7 @@ export default function WiringDiagram({
           <svg
             ref={svgRef}
             viewBox={`0 0 820 ${diagramHeight}`}
-            className="w-full min-w-[640px]"
+            className="w-full min-w-160"
             style={{ fontFamily: "'Inter', ui-sans-serif, sans-serif" }}
           >
             <defs>
@@ -236,18 +230,41 @@ export default function WiringDiagram({
               </pattern>
 
               {/* Glow filter for terminals */}
-              <filter id="glowSource" x="-30%" y="-30%" width="160%" height="160%">
+              <filter
+                id="glowSource"
+                x="-30%"
+                y="-30%"
+                width="160%"
+                height="160%"
+              >
                 <feGaussianBlur stdDeviation="6" result="blur" />
                 <feComposite in="SourceGraphic" in2="blur" operator="over" />
               </filter>
-              <filter id="glowLoad" x="-30%" y="-30%" width="160%" height="160%">
+              <filter
+                id="glowLoad"
+                x="-30%"
+                y="-30%"
+                width="160%"
+                height="160%"
+              >
                 <feGaussianBlur stdDeviation="6" result="blur" />
                 <feComposite in="SourceGraphic" in2="blur" operator="over" />
               </filter>
 
               {/* Drop shadow for boxes */}
-              <filter id="shadowBox" x="-10%" y="-10%" width="120%" height="130%">
-                <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.08" />
+              <filter
+                id="shadowBox"
+                x="-10%"
+                y="-10%"
+                width="120%"
+                height="130%"
+              >
+                <feDropShadow
+                  dx="0"
+                  dy="2"
+                  stdDeviation="3"
+                  floodOpacity="0.08"
+                />
               </filter>
 
               {/* Arrowhead */}
@@ -268,7 +285,11 @@ export default function WiringDiagram({
 
               {/* Gradient for voltage bar */}
               <linearGradient id="voltageGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.8" />
+                <stop
+                  offset="0%"
+                  stopColor="hsl(var(--primary))"
+                  stopOpacity="0.8"
+                />
                 <stop
                   offset={`${100 - deltaU_percent}%`}
                   stopColor="hsl(var(--primary))"
@@ -279,8 +300,16 @@ export default function WiringDiagram({
 
               {/* Electron particle gradient */}
               <radialGradient id="electronGrad">
-                <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.9" />
-                <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+                <stop
+                  offset="0%"
+                  stopColor="hsl(var(--primary))"
+                  stopOpacity="0.9"
+                />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(var(--primary))"
+                  stopOpacity="0"
+                />
               </radialGradient>
             </defs>
 

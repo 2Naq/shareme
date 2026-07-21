@@ -12,21 +12,29 @@ import {
 // ===== CHỌN CB =====
 export function selectCB(currentAmps, factor = 1.25) {
   const target = currentAmps * factor;
-  return CB_SIZES.find((size) => size >= target) || CB_SIZES[CB_SIZES.length - 1];
+  return (
+    CB_SIZES.find((size) => size >= target) || CB_SIZES[CB_SIZES.length - 1]
+  );
 }
 
 // ===== CHỌN DÂY DẪN =====
 export function selectWire(currentAmps, factor = 1.25) {
   const target = currentAmps * factor;
-  const wire = WIRE_SIZES.find((w) => w.maxI >= target) || WIRE_SIZES[WIRE_SIZES.length - 1];
+  const wire =
+    WIRE_SIZES.find((w) => w.maxI >= target) ||
+    WIRE_SIZES[WIRE_SIZES.length - 1];
   return wire;
 }
 
 // ===== CHỌN RELAY NHIỆT =====
 export function selectThermalRelay(currentAmps) {
-  return THERMAL_RELAY_RANGES.find((r) => currentAmps >= r.min && currentAmps <= r.max)
-    || THERMAL_RELAY_RANGES.find((r) => currentAmps < r.max)
-    || THERMAL_RELAY_RANGES[THERMAL_RELAY_RANGES.length - 1];
+  return (
+    THERMAL_RELAY_RANGES.find(
+      (r) => currentAmps >= r.min && currentAmps <= r.max,
+    ) ||
+    THERMAL_RELAY_RANGES.find((r) => currentAmps < r.max) ||
+    THERMAL_RELAY_RANGES[THERMAL_RELAY_RANGES.length - 1]
+  );
 }
 
 // ===== TÍNH TOÁN MOTOR =====
@@ -46,7 +54,7 @@ export function calculateMotorParams({
 
   // Tìm motor trong database
   const closestMotor = MOTOR_DATABASE.reduce((prev, curr) =>
-    Math.abs(curr.kW - P) < Math.abs(prev.kW - P) ? curr : prev
+    Math.abs(curr.kW - P) < Math.abs(prev.kW - P) ? curr : prev,
   );
 
   // Dòng định mức = P / (sqrt3 * U * cosφ * η)
@@ -68,8 +76,9 @@ export function calculateMotorParams({
   const suggestedRelay = selectThermalRelay(I_dm);
 
   // Gợi ý biến tần
-  const vfdSuggestion = VFD_SUGGESTIONS.find((v) => v.motorKW >= P)
-    || VFD_SUGGESTIONS[VFD_SUGGESTIONS.length - 1];
+  const vfdSuggestion =
+    VFD_SUGGESTIONS.find((v) => v.motorKW >= P) ||
+    VFD_SUGGESTIONS[VFD_SUGGESTIONS.length - 1];
 
   // Công thức LaTeX
   const formula = String.raw`I_{\text{đm}} = \frac{P}{\sqrt{3} \cdot U \cdot \cos\varphi \cdot \eta} = \frac{${P} \times 1000}{\sqrt{3} \times ${U} \times ${PF} \times ${EFF}}`;
@@ -98,7 +107,9 @@ export function calculateBasicElectrical({
   power,
   powerFactor,
 }) {
-  let resI = 0, resP = 0, resU = 0;
+  let resI = 0,
+    resP = 0,
+    resU = 0;
   let currentFormula = "";
 
   const U = Number(voltage) || 0;
@@ -197,9 +208,10 @@ export function calculateResidentialLoad(appliances, demandFactor = 0.7) {
   }
 
   const branchDetails = Object.entries(groups).map(([groupId, data]) => {
-    const branchI = data.watts > 0
-      ? data.watts / (220 * (data.watts / data.apparent || 0.85))
-      : 0;
+    const branchI =
+      data.watts > 0
+        ? data.watts / (220 * (data.watts / data.apparent || 0.85))
+        : 0;
     return {
       groupId,
       ...data,
@@ -225,8 +237,10 @@ export function calculateResidentialLoad(appliances, demandFactor = 0.7) {
 // ===== GỢI Ý MÁY LẠNH =====
 export function suggestACUnit(areaSqm) {
   const area = Number(areaSqm) || 0;
-  return AC_BTU_TABLE.find((ac) => area >= ac.areaMin && area < ac.areaMax)
-    || AC_BTU_TABLE[AC_BTU_TABLE.length - 1];
+  return (
+    AC_BTU_TABLE.find((ac) => area >= ac.areaMin && area < ac.areaMax) ||
+    AC_BTU_TABLE[AC_BTU_TABLE.length - 1]
+  );
 }
 
 // ===== TÍNH TOÁN PHỤ TẢI CÔNG NGHIỆP =====
@@ -245,9 +259,8 @@ export function calculateIndustrialLoad(loads) {
 
   const avgPF = 0.85;
   const sqrt3 = Math.sqrt(3);
-  const totalI = totalDemandP > 0
-    ? (totalDemandP * 1000) / (sqrt3 * 380 * avgPF)
-    : 0;
+  const totalI =
+    totalDemandP > 0 ? (totalDemandP * 1000) / (sqrt3 * 380 * avgPF) : 0;
 
   const mainCB = selectCB(totalI, 1.25);
   const mainWire = selectWire(totalI, 1.25);

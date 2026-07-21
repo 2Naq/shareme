@@ -299,7 +299,7 @@ export default function QrCodeGenerator() {
         </h1>
         <p className="text-muted-foreground">
           Công cụ tạo mã QR Code hỗ trợ chèn logo, phối màu gradient, định dạng
-          góc mắt và tải về file chất lượng cao.
+          góc mắt và tải file free chất lượng cao.
         </p>
       </div>
 

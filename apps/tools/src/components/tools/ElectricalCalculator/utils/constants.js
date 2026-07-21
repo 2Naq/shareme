@@ -13,8 +13,8 @@ export const TARGET_OPTIONS = [
 
 // ===== CB & DÂY DẪN =====
 export const CB_SIZES = [
-  6, 10, 16, 20, 25, 32, 40, 50, 63, 80, 100, 125, 160, 200, 250, 320, 400,
-  500, 630, 800, 1000, 1250, 1600,
+  6, 10, 16, 20, 25, 32, 40, 50, 63, 80, 100, 125, 160, 200, 250, 320, 400, 500,
+  630, 800, 1000, 1250, 1600,
 ];
 
 export const WIRE_SIZES = [
@@ -42,31 +42,80 @@ export const WIRE_SIZES = [
 // eta: hiệu suất, cosPhi: hệ số công suất
 export const MOTOR_DATABASE = [
   { kW: 0.37, hp: 0.5, I_dm: 1.2, startMultiplier: 5, eta: 0.72, cosPhi: 0.72 },
-  { kW: 0.55, hp: 0.75, I_dm: 1.7, startMultiplier: 5, eta: 0.75, cosPhi: 0.75 },
-  { kW: 0.75, hp: 1.0, I_dm: 2.2, startMultiplier: 5.5, eta: 0.78, cosPhi: 0.76 },
-  { kW: 1.1, hp: 1.5, I_dm: 3.0, startMultiplier: 5.5, eta: 0.80, cosPhi: 0.78 },
-  { kW: 1.5, hp: 2.0, I_dm: 3.9, startMultiplier: 6, eta: 0.81, cosPhi: 0.80 },
+  {
+    kW: 0.55,
+    hp: 0.75,
+    I_dm: 1.7,
+    startMultiplier: 5,
+    eta: 0.75,
+    cosPhi: 0.75,
+  },
+  {
+    kW: 0.75,
+    hp: 1.0,
+    I_dm: 2.2,
+    startMultiplier: 5.5,
+    eta: 0.78,
+    cosPhi: 0.76,
+  },
+  { kW: 1.1, hp: 1.5, I_dm: 3.0, startMultiplier: 5.5, eta: 0.8, cosPhi: 0.78 },
+  { kW: 1.5, hp: 2.0, I_dm: 3.9, startMultiplier: 6, eta: 0.81, cosPhi: 0.8 },
   { kW: 2.2, hp: 3.0, I_dm: 5.5, startMultiplier: 6, eta: 0.83, cosPhi: 0.81 },
-  { kW: 3.0, hp: 4.0, I_dm: 7.2, startMultiplier: 6.5, eta: 0.84, cosPhi: 0.82 },
-  { kW: 4.0, hp: 5.5, I_dm: 9.4, startMultiplier: 6.5, eta: 0.85, cosPhi: 0.83 },
+  {
+    kW: 3.0,
+    hp: 4.0,
+    I_dm: 7.2,
+    startMultiplier: 6.5,
+    eta: 0.84,
+    cosPhi: 0.82,
+  },
+  {
+    kW: 4.0,
+    hp: 5.5,
+    I_dm: 9.4,
+    startMultiplier: 6.5,
+    eta: 0.85,
+    cosPhi: 0.83,
+  },
   { kW: 5.5, hp: 7.5, I_dm: 12.5, startMultiplier: 7, eta: 0.86, cosPhi: 0.84 },
   { kW: 7.5, hp: 10, I_dm: 16.8, startMultiplier: 7, eta: 0.87, cosPhi: 0.85 },
   { kW: 11, hp: 15, I_dm: 24.0, startMultiplier: 7, eta: 0.88, cosPhi: 0.85 },
   { kW: 15, hp: 20, I_dm: 32.0, startMultiplier: 7, eta: 0.89, cosPhi: 0.86 },
-  { kW: 18.5, hp: 25, I_dm: 38.5, startMultiplier: 7, eta: 0.90, cosPhi: 0.86 },
-  { kW: 22, hp: 30, I_dm: 45.0, startMultiplier: 7.5, eta: 0.90, cosPhi: 0.87 },
+  { kW: 18.5, hp: 25, I_dm: 38.5, startMultiplier: 7, eta: 0.9, cosPhi: 0.86 },
+  { kW: 22, hp: 30, I_dm: 45.0, startMultiplier: 7.5, eta: 0.9, cosPhi: 0.87 },
   { kW: 30, hp: 40, I_dm: 60.0, startMultiplier: 7.5, eta: 0.91, cosPhi: 0.87 },
   { kW: 37, hp: 50, I_dm: 73.0, startMultiplier: 7.5, eta: 0.92, cosPhi: 0.87 },
   { kW: 45, hp: 60, I_dm: 88.0, startMultiplier: 7.5, eta: 0.92, cosPhi: 0.88 },
   { kW: 55, hp: 75, I_dm: 106, startMultiplier: 7.5, eta: 0.93, cosPhi: 0.88 },
   { kW: 75, hp: 100, I_dm: 143, startMultiplier: 7.5, eta: 0.93, cosPhi: 0.89 },
   { kW: 90, hp: 125, I_dm: 170, startMultiplier: 7.5, eta: 0.94, cosPhi: 0.89 },
-  { kW: 110, hp: 150, I_dm: 207, startMultiplier: 7.5, eta: 0.94, cosPhi: 0.89 },
-  { kW: 132, hp: 175, I_dm: 247, startMultiplier: 7.5, eta: 0.95, cosPhi: 0.89 },
-  { kW: 160, hp: 215, I_dm: 298, startMultiplier: 7.5, eta: 0.95, cosPhi: 0.90 },
-  { kW: 200, hp: 270, I_dm: 370, startMultiplier: 7.5, eta: 0.95, cosPhi: 0.90 },
-  { kW: 250, hp: 340, I_dm: 460, startMultiplier: 7.5, eta: 0.96, cosPhi: 0.90 },
-  { kW: 315, hp: 430, I_dm: 577, startMultiplier: 7.5, eta: 0.96, cosPhi: 0.91 },
+  {
+    kW: 110,
+    hp: 150,
+    I_dm: 207,
+    startMultiplier: 7.5,
+    eta: 0.94,
+    cosPhi: 0.89,
+  },
+  {
+    kW: 132,
+    hp: 175,
+    I_dm: 247,
+    startMultiplier: 7.5,
+    eta: 0.95,
+    cosPhi: 0.89,
+  },
+  { kW: 160, hp: 215, I_dm: 298, startMultiplier: 7.5, eta: 0.95, cosPhi: 0.9 },
+  { kW: 200, hp: 270, I_dm: 370, startMultiplier: 7.5, eta: 0.95, cosPhi: 0.9 },
+  { kW: 250, hp: 340, I_dm: 460, startMultiplier: 7.5, eta: 0.96, cosPhi: 0.9 },
+  {
+    kW: 315,
+    hp: 430,
+    I_dm: 577,
+    startMultiplier: 7.5,
+    eta: 0.96,
+    cosPhi: 0.91,
+  },
 ];
 
 // ===== PHƯƠNG PHÁP KHỞI ĐỘNG =====
@@ -136,44 +185,191 @@ export const VFD_SUGGESTIONS = [
 // Thông số bảo vệ biến tần mặc định
 export const VFD_PROTECTION_DEFAULTS = {
   overloadPercent: 150, // % quá tải (so với dòng đm)
-  overloadTime: 60,     // giây cho phép quá tải
+  overloadTime: 60, // giây cho phép quá tải
   overCurrentPercent: 200, // % quá dòng tức thời
   overVoltagePercent: 120, // % quá áp
   underVoltagePercent: 80, // % thấp áp
-  minFreq: 0.5,    // Hz
-  maxFreq: 50,     // Hz
-  minRPM: 15,      // vòng/phút (4-pole motor)
-  maxRPM: 1500,    // vòng/phút (4-pole motor)
-  carrierFreq: 4,  // kHz PWM
+  minFreq: 0.5, // Hz
+  maxFreq: 50, // Hz
+  minRPM: 15, // vòng/phút (4-pole motor)
+  maxRPM: 1500, // vòng/phút (4-pole motor)
+  carrierFreq: 4, // kHz PWM
 };
 
 // ===== THIẾT BỊ DÂN DỤNG =====
 export const APPLIANCE_DATABASE = [
-  { id: "fan", name: "Quạt trần / Quạt đứng", watts: 75, cosPhi: 0.85, group: "general", icon: "🌀" },
-  { id: "led", name: "Đèn LED (bộ)", watts: 20, cosPhi: 0.95, group: "lighting", icon: "💡" },
-  { id: "fluorescent", name: "Đèn huỳnh quang", watts: 40, cosPhi: 0.6, group: "lighting", icon: "💡" },
-  { id: "outlet", name: "Ổ cắm đa năng", watts: 200, cosPhi: 0.85, group: "general", icon: "🔌" },
-  { id: "fridge", name: "Tủ lạnh", watts: 150, cosPhi: 0.65, group: "kitchen", icon: "🧊" },
-  { id: "washing", name: "Máy giặt", watts: 500, cosPhi: 0.75, group: "heavy", icon: "🫧" },
-  { id: "water_heater", name: "Bình nóng lạnh", watts: 2500, cosPhi: 1.0, group: "heavy", icon: "🔥" },
-  { id: "rice_cooker", name: "Nồi cơm điện", watts: 700, cosPhi: 1.0, group: "kitchen", icon: "🍚" },
-  { id: "microwave", name: "Lò vi sóng", watts: 1200, cosPhi: 0.9, group: "kitchen", icon: "📡" },
-  { id: "tv", name: "TV / Màn hình", watts: 100, cosPhi: 0.85, group: "general", icon: "📺" },
-  { id: "computer", name: "Máy tính bàn", watts: 300, cosPhi: 0.7, group: "general", icon: "🖥️" },
-  { id: "iron", name: "Bàn ủi", watts: 1000, cosPhi: 1.0, group: "heavy", icon: "👔" },
-  { id: "pump", name: "Máy bơm nước", watts: 750, cosPhi: 0.75, group: "heavy", icon: "💧" },
-  { id: "ac", name: "Máy lạnh (Điều hòa)", watts: 0, cosPhi: 0.85, group: "ac", icon: "❄️" },
+  {
+    id: "fan",
+    name: "Quạt trần / Quạt đứng",
+    watts: 75,
+    cosPhi: 0.85,
+    group: "general",
+    icon: "🌀",
+  },
+  {
+    id: "led",
+    name: "Đèn LED (bộ)",
+    watts: 20,
+    cosPhi: 0.95,
+    group: "lighting",
+    icon: "💡",
+  },
+  {
+    id: "fluorescent",
+    name: "Đèn huỳnh quang",
+    watts: 40,
+    cosPhi: 0.6,
+    group: "lighting",
+    icon: "💡",
+  },
+  {
+    id: "outlet",
+    name: "Ổ cắm đa năng",
+    watts: 200,
+    cosPhi: 0.85,
+    group: "general",
+    icon: "🔌",
+  },
+  {
+    id: "fridge",
+    name: "Tủ lạnh",
+    watts: 150,
+    cosPhi: 0.65,
+    group: "kitchen",
+    icon: "🧊",
+  },
+  {
+    id: "washing",
+    name: "Máy giặt",
+    watts: 500,
+    cosPhi: 0.75,
+    group: "heavy",
+    icon: "🫧",
+  },
+  {
+    id: "water_heater",
+    name: "Bình nóng lạnh",
+    watts: 2500,
+    cosPhi: 1.0,
+    group: "heavy",
+    icon: "🔥",
+  },
+  {
+    id: "rice_cooker",
+    name: "Nồi cơm điện",
+    watts: 700,
+    cosPhi: 1.0,
+    group: "kitchen",
+    icon: "🍚",
+  },
+  {
+    id: "microwave",
+    name: "Lò vi sóng",
+    watts: 1200,
+    cosPhi: 0.9,
+    group: "kitchen",
+    icon: "📡",
+  },
+  {
+    id: "tv",
+    name: "TV / Màn hình",
+    watts: 100,
+    cosPhi: 0.85,
+    group: "general",
+    icon: "📺",
+  },
+  {
+    id: "computer",
+    name: "Máy tính bàn",
+    watts: 300,
+    cosPhi: 0.7,
+    group: "general",
+    icon: "🖥️",
+  },
+  {
+    id: "iron",
+    name: "Bàn ủi",
+    watts: 1000,
+    cosPhi: 1.0,
+    group: "heavy",
+    icon: "👔",
+  },
+  {
+    id: "pump",
+    name: "Máy bơm nước",
+    watts: 750,
+    cosPhi: 0.75,
+    group: "heavy",
+    icon: "💧",
+  },
+  {
+    id: "ac",
+    name: "Máy lạnh (Điều hòa)",
+    watts: 0,
+    cosPhi: 0.85,
+    group: "ac",
+    icon: "❄️",
+  },
 ];
 
 // ===== MÁY LẠNH — GỢI Ý BTU =====
 export const AC_BTU_TABLE = [
-  { areaMin: 0, areaMax: 10, btu: 9000, hp: 1.0, watts: 900, label: "9,000 BTU (1.0 HP)" },
-  { areaMin: 10, areaMax: 15, btu: 12000, hp: 1.5, watts: 1200, label: "12,000 BTU (1.5 HP)" },
-  { areaMin: 15, areaMax: 20, btu: 18000, hp: 2.0, watts: 1800, label: "18,000 BTU (2.0 HP)" },
-  { areaMin: 20, areaMax: 30, btu: 24000, hp: 2.5, watts: 2400, label: "24,000 BTU (2.5 HP)" },
-  { areaMin: 30, areaMax: 40, btu: 30000, hp: 3.0, watts: 3000, label: "30,000 BTU (3.0 HP)" },
-  { areaMin: 40, areaMax: 60, btu: 36000, hp: 3.5, watts: 3500, label: "36,000 BTU (3.5 HP)" },
-  { areaMin: 60, areaMax: 80, btu: 48000, hp: 5.0, watts: 4800, label: "48,000 BTU (5.0 HP)" },
+  {
+    areaMin: 0,
+    areaMax: 10,
+    btu: 9000,
+    hp: 1.0,
+    watts: 900,
+    label: "9,000 BTU (1.0 HP)",
+  },
+  {
+    areaMin: 10,
+    areaMax: 15,
+    btu: 12000,
+    hp: 1.5,
+    watts: 1200,
+    label: "12,000 BTU (1.5 HP)",
+  },
+  {
+    areaMin: 15,
+    areaMax: 20,
+    btu: 18000,
+    hp: 2.0,
+    watts: 1800,
+    label: "18,000 BTU (2.0 HP)",
+  },
+  {
+    areaMin: 20,
+    areaMax: 30,
+    btu: 24000,
+    hp: 2.5,
+    watts: 2400,
+    label: "24,000 BTU (2.5 HP)",
+  },
+  {
+    areaMin: 30,
+    areaMax: 40,
+    btu: 30000,
+    hp: 3.0,
+    watts: 3000,
+    label: "30,000 BTU (3.0 HP)",
+  },
+  {
+    areaMin: 40,
+    areaMax: 60,
+    btu: 36000,
+    hp: 3.5,
+    watts: 3500,
+    label: "36,000 BTU (3.5 HP)",
+  },
+  {
+    areaMin: 60,
+    areaMax: 80,
+    btu: 48000,
+    hp: 5.0,
+    watts: 4800,
+    label: "48,000 BTU (5.0 HP)",
+  },
 ];
 
 // Nhóm tải dân dụng (để phân nhánh CB)

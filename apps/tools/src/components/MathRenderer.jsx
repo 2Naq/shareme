@@ -72,7 +72,8 @@ export function MathRenderInline(propsOrText) {
   if (typeof propsOrText === "string") {
     content = propsOrText;
   } else if (propsOrText && typeof propsOrText === "object") {
-    content = propsOrText.formula || propsOrText.text || propsOrText.children || "";
+    content =
+      propsOrText.formula || propsOrText.text || propsOrText.children || "";
     className = propsOrText.className || "";
   }
 
@@ -83,5 +84,7 @@ export function MathRenderInline(propsOrText) {
   const html = content.replace(/\$([^$]+)\$/g, (_, formula) =>
     katex.renderToString(formula, { throwOnError: false, displayMode: false }),
   );
-  return <span className={className} dangerouslySetInnerHTML={{ __html: html }} />;
+  return (
+    <span className={className} dangerouslySetInnerHTML={{ __html: html }} />
+  );
 }

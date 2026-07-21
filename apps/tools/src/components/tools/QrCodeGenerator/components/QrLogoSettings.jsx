@@ -15,13 +15,15 @@ export default function QrLogoSettings({
   logoMargin,
   setLogoMargin,
   excavateLogo,
-  setExcavateLogo
+  setExcavateLogo,
 }) {
   return (
     <Card>
       <CardContent className="p-5 space-y-5">
         <div className="space-y-2">
-          <Label className="text-sm font-semibold">Tải ảnh lên (Logo/Image):</Label>
+          <Label className="text-sm font-semibold">
+            Tải ảnh lên (Logo/Image):
+          </Label>
           <div className="flex gap-3 items-center">
             <div className="relative">
               <input
@@ -32,28 +34,26 @@ export default function QrLogoSettings({
                 className="hidden"
               />
               <Button
-                asChild
+                nativeButton={false}
                 variant="outline"
-                className="cursor-pointer gap-2"
-              >
-                <label htmlFor="logo-upload">
-                  <Upload className="w-4 h-4" />
-                  Chọn Ảnh Từ Máy
-                </label>
-              </Button>
+                className="cursor-pointer gap-2 flex flex-col items-center justify-center h-fit! p-2 shadow"
+                render={
+                  <Label htmlFor="logo-upload">
+                    <Upload className="w-4 h-4" />
+                    Chọn Ảnh Từ Máy
+                  </Label>
+                }
+              ></Button>
             </div>
             {logoFile && (
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={handleResetLogo}
-              >
+              <Button variant="destructive" size="sm" onClick={handleResetLogo}>
                 Xóa Logo
               </Button>
             )}
           </div>
           <p className="text-xs text-muted-foreground">
-            Hỗ trợ file PNG, JPG có nền trong suốt để hiển thị tốt nhất. Dung lượng tối đa 2MB.
+            Hỗ trợ file PNG, JPG có nền trong suốt để hiển thị tốt nhất. Dung
+            lượng tối đa 2MB.
           </p>
         </div>
 
@@ -79,9 +79,7 @@ export default function QrLogoSettings({
             {/* Tùy chỉnh kích thước Logo */}
             <div className="space-y-1.5">
               <div className="flex justify-between text-xs">
-                <Label>
-                  Kích thước Logo: {(logoSize * 100).toFixed(0)}%
-                </Label>
+                <Label>Kích thước Logo: {(logoSize * 100).toFixed(0)}%</Label>
                 <span className="text-muted-foreground text-[10px]">
                   (Khuyên dùng: 20% - 30%)
                 </span>
@@ -126,10 +124,7 @@ export default function QrLogoSettings({
                 checked={excavateLogo}
                 onCheckedChange={setExcavateLogo}
               />
-              <Label
-                htmlFor="excavate-logo"
-                className="text-xs cursor-pointer"
-              >
+              <Label htmlFor="excavate-logo" className="text-xs cursor-pointer">
                 Xóa các điểm ảnh đè dưới Logo (Nên bật để hiển thị rõ)
               </Label>
             </div>

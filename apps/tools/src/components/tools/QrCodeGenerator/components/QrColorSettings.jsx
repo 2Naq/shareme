@@ -2,7 +2,13 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -31,14 +37,16 @@ export default function QrColorSettings({
   bgColor,
   setBgColor,
   isBgTransparent,
-  setIsBgTransparent
+  setIsBgTransparent,
 }) {
   return (
     <Card>
       <CardContent className="p-5 space-y-6">
         {/* Màu các chấm (Dots) */}
         <div className="space-y-3">
-          <Label className="text-sm font-bold block">1. Màu họa tiết (Dots Color):</Label>
+          <Label className="text-sm font-bold block">
+            1. Màu họa tiết (Dots Color):
+          </Label>
           <RadioGroup
             value={dotsColorType}
             onValueChange={setDotsColorType}
@@ -46,11 +54,15 @@ export default function QrColorSettings({
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="single" id="col-single" />
-              <Label htmlFor="col-single" className="cursor-pointer">Màu đơn</Label>
+              <Label htmlFor="col-single" className="cursor-pointer">
+                Màu đơn
+              </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="gradient" id="col-grad" />
-              <Label htmlFor="col-grad" className="cursor-pointer">Màu Gradient (Chuyển màu)</Label>
+              <Label htmlFor="col-grad" className="cursor-pointer">
+                Màu Gradient (Chuyển màu)
+              </Label>
             </div>
           </RadioGroup>
 
@@ -116,7 +128,9 @@ export default function QrColorSettings({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="linear">Tuyến tính (Linear)</SelectItem>
+                      <SelectItem value="linear">
+                        Tuyến tính (Linear)
+                      </SelectItem>
                       <SelectItem value="radial">Tỏa tròn (Radial)</SelectItem>
                     </SelectContent>
                   </Select>
@@ -147,14 +161,21 @@ export default function QrColorSettings({
         {/* Họa tiết Viền Mắt (Corners Square Color) */}
         <div className="space-y-3 pt-3 border-t">
           <div className="flex items-center justify-between">
-            <Label className="text-sm font-bold">2. Màu viền mắt (Corners Square Color):</Label>
+            <Label className="text-sm font-bold">
+              2. Màu viền mắt (Corners Square Color):
+            </Label>
             <div className="flex items-center gap-2">
               <Switch
                 id="custom-corners"
                 checked={customCornersColor}
                 onCheckedChange={setCustomCornersColor}
               />
-              <Label htmlFor="custom-corners" className="text-xs cursor-pointer">Tùy biến màu riêng</Label>
+              <Label
+                htmlFor="custom-corners"
+                className="text-xs cursor-pointer"
+              >
+                Tùy biến màu riêng
+              </Label>
             </div>
           </div>
           {customCornersColor && (
@@ -178,14 +199,21 @@ export default function QrColorSettings({
         {/* Nhân Mắt (Corners Dot Color) */}
         <div className="space-y-3 pt-3 border-t">
           <div className="flex items-center justify-between">
-            <Label className="text-sm font-bold">3. Màu nhân mắt (Corners Dot Color):</Label>
+            <Label className="text-sm font-bold">
+              3. Màu nhân mắt (Corners Dot Color):
+            </Label>
             <div className="flex items-center gap-2">
               <Switch
                 id="custom-corners-dot"
                 checked={customCornersDotColor}
                 onCheckedChange={setCustomCornersDotColor}
               />
-              <Label htmlFor="custom-corners-dot" className="text-xs cursor-pointer">Tùy biến màu riêng</Label>
+              <Label
+                htmlFor="custom-corners-dot"
+                className="text-xs cursor-pointer"
+              >
+                Tùy biến màu riêng
+              </Label>
             </div>
           </div>
           {customCornersDotColor && (
@@ -209,14 +237,21 @@ export default function QrColorSettings({
         {/* Màu nền QR (Background Options) */}
         <div className="space-y-3 pt-3 border-t">
           <div className="flex items-center justify-between">
-            <Label className="text-sm font-bold">4. Màu nền (Background Color):</Label>
+            <Label className="text-sm font-bold">
+              4. Màu nền (Background Color):
+            </Label>
             <div className="flex items-center gap-2">
               <Switch
                 id="transparent-bg"
                 checked={isBgTransparent}
                 onCheckedChange={setIsBgTransparent}
               />
-              <Label htmlFor="transparent-bg" className="text-xs cursor-pointer">Nền trong suốt</Label>
+              <Label
+                htmlFor="transparent-bg"
+                className="text-xs cursor-pointer"
+              >
+                Nền trong suốt
+              </Label>
             </div>
           </div>
           {!isBgTransparent && (
