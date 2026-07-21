@@ -326,7 +326,7 @@ export default function PulseSimulation() {
             </div>
 
             {/* Zero point indicator flag */}
-            <div className="absolute top-[-18px] left-1/2 -translate-x-1/2 flex flex-col items-center">
+            <div className="absolute -top-4.5 left-1/2 -translate-x-1/2 flex flex-col items-center">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
               <div className="w-px h-3 bg-emerald-500"></div>
             </div>
@@ -570,14 +570,14 @@ export default function PulseSimulation() {
             </div>
 
             {/* Log Console Box */}
-            <div className="flex-1 flex flex-col min-h-[160px] bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden">
+            <div className="flex-1 flex flex-col min-h-40 bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden">
               <div className="px-3 py-1.5 bg-zinc-950 border-b border-zinc-850 flex items-center gap-1.5">
                 <Terminal className="w-3 h-3 text-zinc-500" />
                 <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider font-mono">
                   Console Log
                 </span>
               </div>
-              <div className="p-3 flex-1 overflow-y-auto font-mono text-[10px] space-y-1.5 text-zinc-350 max-h-[180px]">
+              <div className="p-3 flex-1 overflow-y-auto font-mono text-[10px] space-y-1.5 text-zinc-350 max-h-45">
                 {logs.map((log) => (
                   <div
                     key={log.id}

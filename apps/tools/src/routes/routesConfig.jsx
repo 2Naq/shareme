@@ -9,6 +9,7 @@ import {
   Scissors,
   Activity,
   Binary,
+  QrCode,
 } from "lucide-react";
 
 const ToolPage = React.lazy(() => import("@/pages/tool/index"));
@@ -32,6 +33,7 @@ const CableCuttingPage = React.lazy(() => import("@/pages/tool/cable-cutting"));
 const DataConversionPage = React.lazy(
   () => import("@/pages/tool/data-conversion"),
 );
+const QrCodePage = React.lazy(() => import("@/pages/tool/qr-code"));
 
 // Cấu hình các route của ứng dụng
 export const routeConfig = [
@@ -41,6 +43,13 @@ export const routeConfig = [
     element: <ToolPage />,
     showInSidebar: true,
     icon: Home,
+  },
+  {
+    path: "/tool/qr-code",
+    label: "Tạo Mã QR Code",
+    element: <QrCodePage />,
+    showInSidebar: true,
+    icon: QrCode,
   },
   {
     path: "/tool/rs485-hex",
