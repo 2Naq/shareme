@@ -231,6 +231,61 @@ const config = {
             },
           };
         },
+        injectHtmlTags() {
+          return {
+            headTags: [
+              {
+                tagName: "script",
+                innerHTML: `
+                  (function() {
+                    try {
+                      const urlParams = new URLSearchParams(window.location.search);
+                      const pwaType = urlParams.get('pwa') || localStorage.getItem('pwa-preference') || 'all';
+                      let manifestUrl = '/shareme/manifest-all.json';
+                      
+                      if (pwaType === 'docs') {
+                        manifestUrl = '/shareme/manifest-docs.json';
+                        localStorage.setItem('pwa-preference', 'docs');
+                      } else {
+                        manifestUrl = '/shareme/manifest-all.json';
+                        localStorage.setItem('pwa-preference', 'all');
+                      }
+
+                      let link = document.getElementById('pwa-manifest');
+                      if (!link) {
+                        link = document.createElement('link');
+                        link.rel = 'manifest';
+                        link.id = 'pwa-manifest';
+                        document.head.appendChild(link);
+                      }
+                      link.href = manifestUrl;
+                    } catch(e) {
+                      console.error('Failed to set manifest', e);
+                    }
+
+                    if ('serviceWorker' in navigator) {
+                      window.addEventListener('load', function() {
+                        navigator.serviceWorker.register('/shareme/sw.js', { scope: '/shareme/' })
+                          .then(function(reg) {
+                            console.log('Docs SW registered:', reg.scope);
+                          })
+                          .catch(function(err) {
+                            console.error('Docs SW registration failed:', err);
+                          });
+                      });
+                    }
+
+                    window.addEventListener('beforeinstallprompt', (e) => {
+                      e.preventDefault();
+                      window.deferredPrompt = e;
+                      window.dispatchEvent(new CustomEvent('pwa-install-prompt-ready'));
+                    });
+                  })();
+                `,
+              }
+            ],
+          };
+        },
       };
     },
   ],

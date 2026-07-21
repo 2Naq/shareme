@@ -52,7 +52,9 @@ export default function ImageScanner({ onScanSuccess, isActive }) {
   const processFile = (file) => {
     // Validation định dạng file
     if (!file.type.startsWith("image/")) {
-      toast.error("Vui lòng tải lên một tệp tin hình ảnh (.png, .jpg, .jpeg, .webp).");
+      toast.error(
+        "Vui lòng tải lên một tệp tin hình ảnh (.png, .jpg, .jpeg, .webp).",
+      );
       return;
     }
 
@@ -83,7 +85,9 @@ export default function ImageScanner({ onScanSuccess, isActive }) {
           })
           .catch((err) => {
             console.warn("Lỗi quét file QR:", err);
-            toast.error("Không tìm thấy mã QR nào trong hình ảnh này. Vui lòng chọn ảnh khác rõ nét hơn.");
+            toast.error(
+              "Không tìm thấy mã QR nào trong hình ảnh này. Vui lòng chọn ảnh khác rõ nét hơn.",
+            );
             setIsScanning(false);
           });
       } catch (err) {
@@ -111,7 +115,11 @@ export default function ImageScanner({ onScanSuccess, isActive }) {
   return (
     <div className="space-y-4">
       {/* Thẻ div ẩn làm container cho html5-qrcode file scanner */}
-      <div id={containerId} className="hidden" style={{ display: "none" }}></div>
+      <div
+        id={containerId}
+        className="hidden"
+        style={{ display: "none" }}
+      ></div>
 
       {/* Vùng kéo thả / chọn file */}
       {!imagePreview ? (
@@ -121,7 +129,7 @@ export default function ImageScanner({ onScanSuccess, isActive }) {
           onDragLeave={handleDrag}
           onDrop={handleDrop}
           onClick={triggerFileInput}
-          className={`flex flex-col items-center justify-center p-8 text-center border-2 border-dashed rounded-xl cursor-pointer transition-all min-h-[260px] ${
+          className={`flex flex-col items-center justify-center p-8 text-center border-2 border-dashed rounded-xl cursor-pointer transition-all min-h-65 ${
             dragActive
               ? "border-primary bg-primary/5 scale-[0.99]"
               : "border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/50"
@@ -172,7 +180,7 @@ export default function ImageScanner({ onScanSuccess, isActive }) {
           </div>
 
           <div className="mt-4 text-center">
-            <p className="text-sm font-medium text-foreground truncate max-w-[280px]">
+            <p className="text-sm font-medium text-foreground truncate max-w-70">
               {selectedFile?.name}
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">

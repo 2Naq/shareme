@@ -35,7 +35,7 @@ export default function Home() {
               Practice - Challenge - Persevere
             </p>
 
-            <div className="w-full sm:max-w-[450px]">
+            <div className="w-full sm:max-w-112.5">
               <img
                 src={useBaseUrl("/img/dribbble_1.gif")}
                 alt="hello"
@@ -46,7 +46,7 @@ export default function Home() {
               className="inline-flex items-center justify-center gap-2 pr-4 pl-6 py-3 rounded-lg bg-black text-white font-semibold hover:opacity-90 transition-opacity no-underline w-full sm:w-auto mt-4"
               to="/plc/intro"
             >
-              <span className="leading-none mb-[2px]">Get started</span>
+              <span className="leading-none mb-0.5">Get started</span>
               <ArrowRight className="size-5" />
             </Link>
           </main>

@@ -1,12 +1,10 @@
 import React, { useState, useMemo, useEffect } from "react";
 import {
-  Play,
   RotateCcw,
   Info,
   ToggleLeft,
   ToggleRight,
   HelpCircle,
-  CheckCircle,
   Zap,
   RefreshCw,
 } from "lucide-react";
@@ -1035,7 +1033,7 @@ export default function LadderDiagram({ data, title, description }) {
               các phím gạt nhanh bên dưới:
             </p>
 
-            <div className="flex flex-col gap-2 max-h-[140px] overflow-y-auto pr-1">
+            <div className="flex flex-col gap-2 max-h-35 overflow-y-auto pr-1">
               {uniqueLabels.map((label) => (
                 <div
                   key={label}

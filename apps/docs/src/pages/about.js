@@ -9,13 +9,10 @@ import GithubIcon from "../components/icons/github";
 import { CodeXml, Mail, MapPin, MoveRight } from "lucide-react";
 import Separator from "../components/Separator";
 
-const BoxInfo = {
-  link_linkedin: "https://www.linkedin.com",
-};
 const infor = [
   {
     name: <Translate>Work / position</Translate>,
-    value: <Translate>Thợ đụng, đụng là trụng</Translate>,
+    value: <Translate>Tập sự</Translate>,
     icon: CodeXml,
   },
   {
@@ -48,7 +45,7 @@ export default function Aboutme() {
           <div className=" border-edge flex flex-row sm:flex-row">
             {/* Box Trái: Avatar */}
             <div className="shrink-0 border-r border-edge p-2">
-              <div className="mx-[2px] my-[3px]">
+              <div className="mx-0.5 my-0.75">
                 <img
                   src={myData.avt}
                   alt="Avatar"

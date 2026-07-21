@@ -6,7 +6,7 @@ import { toast } from "sonner";
 export default function CameraScanner({ onScanSuccess, isActive }) {
   const scannerRef = useRef(null);
   const containerId = "qr-reader-camera";
-  
+
   const [cameras, setCameras] = useState([]);
   const [selectedCameraId, setSelectedCameraId] = useState("");
   const [isScanning, setIsScanning] = useState(false);
@@ -24,10 +24,11 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
         if (devices && devices.length > 0) {
           setCameras(devices);
           // Chọn camera sau (back camera) làm mặc định nếu có
-          const backCam = devices.find((device) =>
-            device.label.toLowerCase().includes("back") ||
-            device.label.toLowerCase().includes("sau") ||
-            device.label.toLowerCase().includes("environment")
+          const backCam = devices.find(
+            (device) =>
+              device.label.toLowerCase().includes("back") ||
+              device.label.toLowerCase().includes("sau") ||
+              device.label.toLowerCase().includes("environment"),
           );
           setSelectedCameraId(backCam ? backCam.id : devices[0].id);
         } else {
@@ -37,7 +38,9 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
       .catch((err) => {
         console.error("Lỗi yêu cầu quyền camera:", err);
         setHasPermission(false);
-        toast.error("Không thể truy cập camera. Vui lòng cấp quyền truy cập camera cho trang web.");
+        toast.error(
+          "Không thể truy cập camera. Vui lòng cấp quyền truy cập camera cho trang web.",
+        );
       })
       .finally(() => {
         setIsLoading(false);
@@ -63,60 +66,65 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
   }, []);
 
   // Hàm bắt đầu quét
-  const startScanning = useCallback(async (cameraId = selectedCameraId) => {
-    if (!cameraId) return;
-    setIsLoading(true);
+  const startScanning = useCallback(
+    async (cameraId = selectedCameraId) => {
+      if (!cameraId) return;
+      setIsLoading(true);
 
-    try {
-      // Nếu đã có scanner cũ đang chạy, dừng trước khi tạo mới
-      if (scannerRef.current) {
-        if (scannerRef.current.isScanning) {
-          await scannerRef.current.stop();
+      try {
+        // Nếu đã có scanner cũ đang chạy, dừng trước khi tạo mới
+        if (scannerRef.current) {
+          if (scannerRef.current.isScanning) {
+            await scannerRef.current.stop();
+          }
+          scannerRef.current = null;
         }
-        scannerRef.current = null;
-      }
 
-      const html5QrCode = new Html5Qrcode(containerId);
-      scannerRef.current = html5QrCode;
+        const html5QrCode = new Html5Qrcode(containerId);
+        scannerRef.current = html5QrCode;
 
-      // Cấu hình vùng quét responsive
-      const qrboxFunction = (viewfinderWidth, viewfinderHeight) => {
-        const minEdge = Math.min(viewfinderWidth, viewfinderHeight);
-        const qrboxSize = Math.floor(minEdge * 0.7); // 70% của chiều nhỏ nhất
-        return {
-          width: Math.max(qrboxSize, 200), // Tối thiểu 200px
-          height: Math.max(qrboxSize, 200),
+        // Cấu hình vùng quét responsive
+        const qrboxFunction = (viewfinderWidth, viewfinderHeight) => {
+          const minEdge = Math.min(viewfinderWidth, viewfinderHeight);
+          const qrboxSize = Math.floor(minEdge * 0.7); // 70% của chiều nhỏ nhất
+          return {
+            width: Math.max(qrboxSize, 200), // Tối thiểu 200px
+            height: Math.max(qrboxSize, 200),
+          };
         };
-      };
 
-      await html5QrCode.start(
-        cameraId,
-        {
-          fps: 15,
-          qrbox: qrboxFunction,
-          aspectRatio: 1.0,
-        },
-        (decodedText) => {
-          // Quét thành công
-          onScanSuccess(decodedText);
-          // Tự động dừng camera
-          stopScanning();
-        },
-        () => {
-          // Quét thất bại (bỏ qua log lỗi liên tục khi không tìm thấy QR trong khung hình)
-        }
-      );
+        await html5QrCode.start(
+          cameraId,
+          {
+            fps: 15,
+            qrbox: qrboxFunction,
+            aspectRatio: 1.0,
+          },
+          (decodedText) => {
+            // Quét thành công
+            onScanSuccess(decodedText);
+            // Tự động dừng camera
+            stopScanning();
+          },
+          () => {
+            // Quét thất bại (bỏ qua log lỗi liên tục khi không tìm thấy QR trong khung hình)
+          },
+        );
 
-      setIsScanning(true);
-      toast.success("Camera đã được bật.");
-    } catch (err) {
-      console.error("Không thể khởi động camera:", err);
-      toast.error(`Lỗi camera: ${err.message || "Vui lòng thử lại hoặc chọn camera khác."}`);
-      setIsScanning(false);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [selectedCameraId, onScanSuccess, stopScanning]);
+        setIsScanning(true);
+        toast.success("Camera đã được bật.");
+      } catch (err) {
+        console.error("Không thể khởi động camera:", err);
+        toast.error(
+          `Lỗi camera: ${err.message || "Vui lòng thử lại hoặc chọn camera khác."}`,
+        );
+        setIsScanning(false);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [selectedCameraId, onScanSuccess, stopScanning],
+  );
 
   // Quản lý việc bật/tắt camera
   useEffect(() => {
@@ -128,7 +136,8 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
     return () => {
       // Cleanup khi unmount
       if (scannerRef.current && scannerRef.current.isScanning) {
-        scannerRef.current.stop()
+        scannerRef.current
+          .stop()
           .then(() => {
             scannerRef.current = null;
           })
@@ -150,9 +159,12 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
     return (
       <div className="flex flex-col items-center justify-center p-8 text-center border-2 border-dashed border-destructive/30 rounded-xl bg-destructive/5 space-y-4">
         <AlertTriangle className="w-12 h-12 text-destructive animate-pulse" />
-        <h3 className="font-semibold text-lg text-foreground">Không có quyền truy cập Camera</h3>
+        <h3 className="font-semibold text-lg text-foreground">
+          Không có quyền truy cập Camera
+        </h3>
         <p className="text-sm text-muted-foreground max-w-md">
-          Trình duyệt đã chặn quyền truy cập máy ảnh. Vui lòng cấp quyền truy cập camera trong cài đặt trang web của trình duyệt và tải lại trang.
+          Trình duyệt đã chặn quyền truy cập máy ảnh. Vui lòng cấp quyền truy
+          cập camera trong cài đặt trang web của trình duyệt và tải lại trang.
         </p>
       </div>
     );
@@ -163,7 +175,10 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
       {/* Chọn Camera */}
       {cameras.length > 1 && (
         <div className="flex items-center gap-2">
-          <label htmlFor="camera-select" className="text-sm font-medium shrink-0 text-foreground">
+          <label
+            htmlFor="camera-select"
+            className="text-sm font-medium shrink-0 text-foreground"
+          >
             Chọn Camera:
           </label>
           <select
@@ -182,7 +197,7 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
       )}
 
       {/* Vùng quét */}
-      <div className="relative w-full aspect-square max-w-[400px] mx-auto overflow-hidden rounded-xl border bg-black shadow-inner flex items-center justify-center">
+      <div className="relative w-full aspect-square max-w-100 mx-auto overflow-hidden rounded-xl border bg-black shadow-inner flex items-center justify-center">
         {/* DOM element cho html5-qrcode */}
         <div id={containerId} className="w-full h-full object-cover"></div>
 
@@ -217,13 +232,13 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
             {/* Bo góc vùng quét */}
             <div className="w-[70%] h-[70%] border-2 border-primary/50 relative rounded-lg">
               {/* 4 Góc màu đậm hơn */}
-              <div className="absolute -top-[2px] -left-[2px] w-6 h-6 border-t-4 border-l-4 border-primary rounded-tl-lg"></div>
-              <div className="absolute -top-[2px] -right-[2px] w-6 h-6 border-t-4 border-r-4 border-primary rounded-tr-lg"></div>
-              <div className="absolute -bottom-[2px] -left-[2px] w-6 h-6 border-b-4 border-l-4 border-primary rounded-bl-lg"></div>
-              <div className="absolute -bottom-[2px] -right-[2px] w-6 h-6 border-b-4 border-r-4 border-primary rounded-br-lg"></div>
-              
+              <div className="absolute -top-0.5 -left-0.5 w-6 h-6 border-t-4 border-l-4 border-primary rounded-tl-lg"></div>
+              <div className="absolute -top-0.5 -right-0.5 w-6 h-6 border-t-4 border-r-4 border-primary rounded-tr-lg"></div>
+              <div className="absolute -bottom-0.5 -left-0.5 w-6 h-6 border-b-4 border-l-4 border-primary rounded-bl-lg"></div>
+              <div className="absolute -bottom-0.5 -right-0.5 w-6 h-6 border-b-4 border-r-4 border-primary rounded-br-lg"></div>
+
               {/* Dòng laser đỏ quét dọc */}
-              <div className="absolute left-0 w-full h-[3px] bg-red-500 shadow-[0_0_8px_#ef4444] animate-[scan_2s_ease-in-out_infinite]"></div>
+              <div className="absolute left-0 w-full h-0.75 bg-red-500 shadow-[0_0_8px_#ef4444] animate-[scan_2s_ease-in-out_infinite]"></div>
             </div>
           </div>
         )}

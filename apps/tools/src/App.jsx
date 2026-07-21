@@ -11,7 +11,7 @@ import SvgLoading from "./components/loading";
 
 function App() {
   return (
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Suspense
         fallback={
           <div className="flex flex-col items-center justify-center w-screen h-screen bg-background gap-2">

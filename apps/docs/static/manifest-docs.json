@@ -1,0 +1,26 @@
+{
+  "id": "shareme-docs",
+  "name": "ShareMe Docs",
+  "short_name": "SM Docs",
+  "description": "Ứng dụng tra cứu tài liệu.",
+  "start_url": "/shareme/?utm_source=pwa_docs&pwa=docs",
+  "scope": "/shareme/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/shareme/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/shareme/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

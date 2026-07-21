@@ -19,7 +19,7 @@ export default function NotFound() {
           Ôi không! Ní đi lạc rồi?
         </p>
 
-        <div className="w-full sm:max-w-[450px]">
+        <div className="w-full sm:max-w-112.5">
           <img
             src={useBaseUrl("/img/dribbble_1.gif")}
             alt="404 Animation"
@@ -32,7 +32,7 @@ export default function NotFound() {
           to="/"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span className="leading-none mb-[2px]">Quay lại</span>
+          <span className="leading-none mb-0.5">Quay lại</span>
         </Link>
       </main>
     </Layout>
