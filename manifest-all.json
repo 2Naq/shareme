@@ -1,13 +1,13 @@
 {
   "id": "shareme-all",
-  "name": "ShareMe (Docs & Tools)",
-  "short_name": "ShareMe",
-  "description": "Ứng dụng tổng hợp tài liệu, tool lỏ",
+  "name": "Automation Notes",
+  "short_name": "Sharedocs",
+  "description": "Docs for me, yes! I love Me",
   "start_url": "/shareme/?utm_source=pwa_all",
   "scope": "/shareme/",
   "display": "standalone",
   "background_color": "#09090b",
-  "theme_color": "#0f172a",
+  "theme_color": "#09090b",
   "orientation": "any",
   "icons": [
     {
