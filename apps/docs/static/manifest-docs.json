@@ -1,13 +1,13 @@
 {
   "id": "shareme-docs",
   "name": "ShareMe Docs",
-  "short_name": "SM Docs",
-  "description": "Ứng dụng tra cứu tài liệu.",
+  "short_name": "Sharedocs",
+  "description": "Docs for me, yes! I love Me",
   "start_url": "/shareme/?utm_source=pwa_docs&pwa=docs",
   "scope": "/shareme/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
   "orientation": "any",
   "icons": [
     {

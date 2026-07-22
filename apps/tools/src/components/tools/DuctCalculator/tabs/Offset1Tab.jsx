@@ -46,8 +46,6 @@ export default function Offset1Tab() {
     const p2 = [p1[0] + runPx, baseY - unitA];
     const p3 = [p2[0] + legLen, p2[1]];
 
-    console.log(p2[1] - p1[1], p2[0] - p1[0]);
-
     let svg = defsBlock() + gridRect(640, 360);
     svg += trayPath([p0, p1], STEEL, 18);
     svg += trayPath([p1, p2], AMBER, 18);

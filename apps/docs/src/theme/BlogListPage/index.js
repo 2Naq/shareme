@@ -147,7 +147,6 @@ function TagFilterBar({ allTags, selectedTag, onSelectTag, hiddenTagsCount }) {
 
 function BlogListPageContent(props) {
   const { metadata, items, sidebar } = props;
-  console.log({ props });
   const { siteConfig } = useDocusaurusContext();
   const authors = siteConfig.customFields?.authors || {};
   const authorRaw = authors.anTng;

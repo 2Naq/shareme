@@ -1,8 +1,8 @@
 {
-  "id": "shareme-tools",
-  "name": "ShareMe Tools",
-  "short_name": "SM Tools",
-  "description": "Ứng dụng công cụ lỏ",
+  "id": "automation-notes",
+  "name": "Automation Notes",
+  "short_name": "AN Kit",
+  "description": "Tool kit for me, yes! I love Me",
   "start_url": "/shareme/tool/?utm_source=pwa_tools",
   "scope": "/shareme/tool/",
   "display": "standalone",

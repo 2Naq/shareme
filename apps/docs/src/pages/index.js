@@ -44,7 +44,7 @@ export default function Home() {
             </div>
             <Link
               className="inline-flex items-center justify-center gap-2 pr-4 pl-6 py-3 rounded-lg bg-black text-white font-semibold hover:opacity-90 transition-opacity no-underline w-full sm:w-auto mt-4"
-              to="/plc/intro"
+              to="/docs"
             >
               <span className="leading-none mb-0.5">Get started</span>
               <ArrowRight className="size-5" />

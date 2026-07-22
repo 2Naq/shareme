@@ -131,7 +131,7 @@ const dynamicFooterLinks = categorys.map((category) => ({
 const config = {
   title: myData.brand_name,
   tagline: `${myData.brand_name} - Sharing knowledge ${myData.user_name}`,
-  favicon: "img/favicon.ico",
+  favicon: "/favicon.ico",
   // stylesheets: [
   //   {
   //     href: "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css",
@@ -282,7 +282,7 @@ const config = {
                     });
                   })();
                 `,
-              }
+              },
             ],
           };
         },
@@ -311,6 +311,10 @@ const config = {
         // },
       },
       navbar: {
+        logo: {
+          alt: myData.brand_name,
+          src: "/favicon.svg",
+        },
         title: myData.brand_name,
         items: [
           ...dynamicNavbarItems,
@@ -343,16 +347,38 @@ const config = {
       },
       footer: {
         style: "dark",
-        // links: [
-        //   {
-        //     title: 'Docs',
-        //     items: [
-        //       {
-        //         label: 'Tutorial',
-        //         to: '#',
-        //       },
-        //     ],
-        //   },
+        links: [
+          {
+            title: "Share docs",
+            items: [
+              {
+                label: "PLC",
+                to: "/plc/intro",
+              },
+              {
+                label: "Invertor",
+                to: "/inverter/intro",
+              },
+              {
+                label: "Other",
+                to: "/other/intro",
+              },
+            ],
+          },
+          {
+            title: "Blog",
+            items: [
+              {
+                label: "All blog",
+                to: "/blog",
+              },
+              {
+                label: "Authors",
+                to: "/blog/authors",
+              },
+            ],
+          },
+        ],
         // {
         //   title: 'Community',
         //   items: [

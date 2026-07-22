@@ -97,7 +97,7 @@ export function AppSidebar() {
 
           return (
             <SidebarGroup key={group.id} className="py-2">
-              <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground/75 uppercase tracking-wider px-3">
+              <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground/75 tracking-wider px-3">
                 {group.label}
               </SidebarGroupLabel>
               <SidebarGroupContent>
@@ -152,7 +152,7 @@ export function AppSidebar() {
                         alt="ShareMe"
                       />
                       <AvatarFallback className="rounded-lg bg-primary text-primary-foreground font-bold text-xs">
-                        SM
+                        AN
                       </AvatarFallback>
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
@@ -183,7 +183,7 @@ export function AppSidebar() {
                           alt="ShareMe"
                         />
                         <AvatarFallback className="rounded-lg bg-primary text-primary-foreground font-bold">
-                          SM
+                          AN
                         </AvatarFallback>
                       </Avatar>
                       <div className="grid flex-1 text-left text-sm leading-tight">
@@ -233,32 +233,36 @@ export function AppSidebar() {
 
                 {/* External links */}
                 <DropdownMenuGroup>
-                  <DropdownMenuItem asChild>
-                    <a
-                      href="/shareme/"
-                      className="cursor-pointer flex items-center w-full no-underline py-2 rounded-lg text-foreground"
-                    >
-                      <BookOpen className="mr-2 h-4 w-4 text-muted-foreground" />
-                      <span>Tài liệu & Blog</span>
-                      <ExternalLink className="ml-auto h-3.5 w-3.5 text-muted-foreground/60" />
-                    </a>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <a
-                      href="/shareme/pwa"
-                      className="cursor-pointer flex items-center w-full no-underline py-2 rounded-lg text-foreground"
-                    >
-                      <Sparkles className="mr-2 h-4 w-4 text-indigo-400" />
-                      <span>Trung tâm PWA (3 bản)</span>
-                      <Download className="ml-auto h-3.5 w-3.5 text-muted-foreground/60" />
-                    </a>
-                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    render={
+                      <a
+                        href="/shareme/"
+                        className="cursor-pointer flex items-center w-full no-underline py-2 rounded-lg text-foreground"
+                      >
+                        <BookOpen className="mr-2 h-4 w-4 text-muted-foreground" />
+                        <span>Tài liệu & Blog</span>
+                        <ExternalLink className="ml-auto h-3.5 w-3.5 text-muted-foreground/60" />
+                      </a>
+                    }
+                  ></DropdownMenuItem>
+                  <DropdownMenuItem
+                    render={
+                      <a
+                        href="/shareme/pwa"
+                        className="cursor-pointer flex items-center w-full no-underline py-2 rounded-lg text-foreground"
+                      >
+                        <Sparkles className="mr-2 h-4 w-4 text-indigo-400" />
+                        <span>Ứng dụng PWA</span>
+                        <Download className="ml-auto h-3.5 w-3.5 text-muted-foreground/60" />
+                      </a>
+                    }
+                  ></DropdownMenuItem>
                 </DropdownMenuGroup>
 
-                <DropdownMenuSeparator className="my-1.5" />
+                <DropdownMenuSeparator className="my-1.5 sm:hidden" />
 
                 {/* Theme Toggle row */}
-                <div className="flex items-center justify-between px-2 py-1">
+                <div className="flex items-center justify-between px-2 py-1 sm:hidden">
                   <span className="text-xs font-medium text-muted-foreground">
                     Chế độ giao diện
                   </span>

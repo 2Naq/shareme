@@ -6,3 +6,4 @@ export { default as YoutubeIcon } from "./youtube";
 export { default as InstagramIcon } from "./instagram";
 export { default as EmailIcon } from "./email";
 export { default as WebsiteIcon } from "./website";
+export { default as NotFileIcon } from "./not-file";

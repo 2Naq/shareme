@@ -117,7 +117,7 @@ export default function Aboutme() {
           <div className="max-w-3xl mx-auto p-6">
             <Link
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-black font-semibold hover:opacity-90 transition-opacity no-underline w-full sm:w-auto"
-              to="/plc/intro"
+              to="/docs"
             >
               <Translate>Xem tài liệu</Translate>
               <svg
