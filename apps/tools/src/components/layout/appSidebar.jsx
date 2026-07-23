@@ -34,6 +34,12 @@ import {
   Sparkles,
 } from "lucide-react";
 
+const configData = {
+  appName: "Automation Notes",
+  appIcon: "./web-app-manifest-192x192.png",
+  appVersion: "v1.0.0",
+  appDescription: "Luyện tập - Thử thách - không ngại khó",
+};
 export function AppSidebar() {
   const location = useLocation();
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -157,10 +163,10 @@ export function AppSidebar() {
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
                       <span className="truncate font-semibold text-foreground">
-                        ShareMe Tools
+                        {configData.appName}
                       </span>
                       <span className="truncate text-[11px] text-muted-foreground font-mono">
-                        v1.0.0
+                        {configData.appVersion}
                       </span>
                     </div>
                     <ChevronsUpDown className="ml-auto size-4 text-muted-foreground" />
@@ -179,8 +185,8 @@ export function AppSidebar() {
                     <div className="flex items-center gap-2.5 px-1 py-1 text-left text-sm">
                       <Avatar className="h-9 w-9 rounded-lg">
                         <AvatarImage
-                          src="./web-app-manifest-192x192.png"
-                          alt="ShareMe"
+                          src={configData.appIcon}
+                          alt="Automation Notes"
                         />
                         <AvatarFallback className="rounded-lg bg-primary text-primary-foreground font-bold">
                           AN
@@ -188,10 +194,10 @@ export function AppSidebar() {
                       </Avatar>
                       <div className="grid flex-1 text-left text-sm leading-tight">
                         <span className="truncate font-semibold text-foreground">
-                          ShareMe System
+                          {configData.appName}
                         </span>
                         <span className="truncate text-xs text-muted-foreground">
-                          Tell me!
+                          {configData.appDescription}
                         </span>
                       </div>
                     </div>
@@ -264,7 +270,7 @@ export function AppSidebar() {
                 {/* Theme Toggle row */}
                 <div className="flex items-center justify-between px-2 py-1 sm:hidden">
                   <span className="text-xs font-medium text-muted-foreground">
-                    Chế độ giao diện
+                    Chế độ (Dark/Light)
                   </span>
                   <ThemeToggle />
                 </div>

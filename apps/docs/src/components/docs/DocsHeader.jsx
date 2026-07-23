@@ -18,7 +18,7 @@ export default function DocsHeader({
   return (
     <div className="text-center space-y-4 max-w-3xl mx-auto">
       <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-        Thư Viện Tài Liệu Kỹ Thuật
+        Danh sách tài liệu
       </h1>
 
       {/* SEARCH & FILTER BAR */}

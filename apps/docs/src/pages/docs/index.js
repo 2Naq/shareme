@@ -47,10 +47,7 @@ export default function DocsShowcase() {
   };
 
   return (
-    <Layout
-      title={`Danh mục Tài Liệu - ${siteConfig.title}`}
-      description="Thư viện tài liệu kỹ thuật"
-    >
+    <Layout title={`${siteConfig.title}`} description="Automation notes">
       <main className="min-h-screen py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto space-y-10">
           <DocsHeader

@@ -26,8 +26,8 @@ export default function Home() {
         <Navbar />
 
         {/* Tự do custom nội dung bên dưới mà không bị gò bó bởi Layout mặc định */}
-        <div className="custom-layout-wrapper">
-          <main className="bg-white container flex flex-col justify-center items-center min-h-[calc(100vh-60px)] text-center">
+        <div className="custom-layout-wrapper bg-white">
+          <main className=" container flex flex-col justify-center items-center min-h-[calc(100vh-60px)] text-center">
             <h1 className="text-6xl text-primary">
               Welcom to {myData.brand_name}
             </h1>

@@ -1,11 +1,11 @@
 import React from "react";
-import { FolderGit2, Cpu, Zap, Sliders } from "lucide-react";
+import { FolderGit2, Cpu, Sliders, CircuitBoard } from "lucide-react";
 import DocCard from "./DocCard";
 import { Badge } from "../ui/badge";
 
 const CATEGORY_ICONS = {
   plc: Cpu,
-  inverter: Zap,
+  inverter: CircuitBoard,
   other: Sliders,
 };
 

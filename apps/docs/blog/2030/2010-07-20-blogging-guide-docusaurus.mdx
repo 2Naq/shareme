@@ -194,3 +194,44 @@ Trước khi đẩy bài viết lên GitHub/Staging, các ní hãy chạy các l
     ```bash
     npm run build
     ```
+
+## 5. Ẩn bài viết (blogs) 
+Sẽ có 3 cách ẩn bài viết tùy mục đích:
+
+### Cách 1: Đánh dấu làm bản nháp (draft: true) — Khuyên dùng
+Nếu bài viết chưa hoàn thiện và bạn không muốn hiển thị khi build trang web chính thức (Production):
+
+Thêm dòng draft: true vào phần Frontmatter (đầu tệp .md hoặc .mdx):
+
+```yaml
+---
+title: "Tiêu đề bài viết"
+authors: [admin]
+date: 2026-07-23
+draft: true
+---
+```
+Kết quả:
+Khi chạy npm run build: Bài viết sẽ bị ẩn hoàn toàn và không được tạo trang HTML.
+Khi chạy dev (npm run start): Docusaurus có thể hiển thị cảnh báo bài viết là bản nháp để bạn chỉnh sửa tiện lợi.
+
+### Cách 2: Chế độ Không công khai (unlisted: true)
+Nếu bạn muốn bài viết không xuất hiện trong danh sách Blog, trang chủ hay RSS Feed, nhưng những ai có đường dẫn (URL) trực tiếp vẫn có thể xem được (tương tự chế độ "Không công khai" của YouTube):
+
+Thêm dòng unlisted: true vào phần Frontmatter:
+
+```yaml
+---
+title: "Tiêu đề bài viết nội bộ"
+authors: [admin]
+date: 2026-07-23
+unlisted: true
+---
+```
+Kết quả: Bài viết sẽ bị ẩn khỏi danh sách danh mục blog, bài viết gần đây, trang phân trang... nhưng truy cập trực tiếp bằng đường dẫn URL thì vẫn hiển thị.
+
+### Cách 3: Thêm dấu gạch dưới _ ở đầu tên file hoặc thư mục
+Docusaurus mặc định bỏ qua tất cả các file hoặc folder bắt đầu bằng dấu gạch dưới _.
+
+Ví dụ: Đổi tên file từ bai-viet-cu.mdx thành _bai-viet-cu.mdx (hoặc gom các bài nháp vào thư mục apps/docs/blog/_drafts/).
+Kết quả: Docusaurus sẽ bỏ qua hoàn toàn và không tạo bất kỳ đường dẫn nào cho bài viết này.

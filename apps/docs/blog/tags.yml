@@ -49,3 +49,7 @@ share:
 tips:
   label: Tips
   permalink: /tips
+regex:
+  label: Regex
+  permalink: /regex
+
