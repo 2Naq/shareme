@@ -4,10 +4,151 @@
         <title>Automation Notes Blog</title>
         <link>https://2naq.github.io/shareme/blog</link>
         <description>Automation Notes Blog</description>
-        <lastBuildDate>Sun, 26 Jul 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 27 Jul 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Lộ Trình Học & Đọc Hiểu Regex (Regular Expression)]]></title>
+            <link>https://2naq.github.io/shareme/blog/regex-bassic</link>
+            <guid>https://2naq.github.io/shareme/blog/regex-bassic</guid>
+            <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Regex (Regular Expression) hay Biểu thức chính quy thường được xem là "mật mã ma thuật" trong thế giới lập trình. Một chuỗi Regex như ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ có thể khiến bất kỳ ai mới bắt đầu cảm thấy hoang mang.]]></description>
+            <content:encoded><![CDATA[<p><strong>Regex (Regular Expression)</strong> hay <em>Biểu thức chính quy</em> thường được xem là "mật mã ma thuật" trong thế giới lập trình. Một chuỗi Regex như <code>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$</code> có thể khiến bất kỳ ai mới bắt đầu cảm thấy hoang mang.</p>
+<p>Tuy nhiên, khi đã nắm vững nguyên lý đọc hiểu và lộ trình luyện tập đúng đắn, Regex sẽ trở thành một <strong>siêu công cụ</strong> giúp bạn tìm kiếm, bóc tách và kiểm tra dữ liệu chuỗi (String Validation &amp; Parsing) chỉ trong vài dòng code thay vì phải viết hàng chục vòng lặp phức tạp.</p>
+<p>Bài viết này sẽ chia sẻ bí quyết tư duy "bóc tách" Regex và lộ trình 5 bước học Regex từ cơ bản đến nâng cao hiệu quả nhất.</p>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id="1-tư-duy-cốt-lõi-làm-sao-để-đọc-hiểu-một-đoạn-regex">1. Tư duy cốt lõi: Làm sao để đọc hiểu một đoạn Regex?<a href="https://2naq.github.io/shareme/blog/regex-bassic#1-t%C6%B0-duy-c%E1%BB%91t-l%C3%B5i-l%C3%A0m-sao-%C4%91%E1%BB%83-%C4%91%E1%BB%8Dc-hi%E1%BB%83u-m%E1%BB%99t-%C4%91o%E1%BA%A1n-regex" class="hash-link" aria-label="Direct link to 1. Tư duy cốt lõi: Làm sao để đọc hiểu một đoạn Regex?" title="Direct link to 1. Tư duy cốt lõi: Làm sao để đọc hiểu một đoạn Regex?" translate="no">​</a></h2>
+<p>Lỗi lớn nhất của người mới học Regex là <strong>cố gắng đọc toàn bộ biểu thức cùng một lúc</strong>.</p>
+<p>Regex thực chất được cấu tạo từ các <strong>khối mã nhỏ (Tokens)</strong> ghép nối lại với nhau theo thứ tự từ trái sang phải.</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="quy-tắc-chẻ-nhỏ-chuỗi-token-by-token-parsing">Quy tắc "Chẻ nhỏ chuỗi" (Token-by-Token Parsing)<a href="https://2naq.github.io/shareme/blog/regex-bassic#quy-t%E1%BA%AFc-ch%E1%BA%BB-nh%E1%BB%8F-chu%E1%BB%97i-token-by-token-parsing" class="hash-link" aria-label="Direct link to Quy tắc &quot;Chẻ nhỏ chuỗi&quot; (Token-by-Token Parsing)" title="Direct link to Quy tắc &quot;Chẻ nhỏ chuỗi&quot; (Token-by-Token Parsing)" translate="no">​</a></h3>
+<p>Khi gặp một đoạn Regex dài, hãy chia nhỏ nó thành 4 câu hỏi cơ bản:</p>
+<ol>
+<li class=""><strong>Neo ở đâu?</strong> (Bắt đầu <code>^</code> hay Kết thúc <code>$</code>)</li>
+<li class=""><strong>Tìm cái gì?</strong> (Chữ cái, chữ số, hay khoảng trắng? <code>\d</code>, <code>\w</code>, <code>[a-z]</code>)</li>
+<li class=""><strong>Lặp lại bao nhiêu lần?</strong> (Xuất hiện 1 lần, nhiều lần hay tùy chọn? <code>*</code>, <code>+</code>, <code>{m,n}</code>)</li>
+<li class=""><strong>Có gom nhóm hay điều kiện gì không?</strong> (Nhóm <code>(...)</code> hay phủ định <code>[^...]</code>)</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id="2-lộ-trình-5-bước-chinh-phục-regex-từ-zero-đến-master">2. Lộ trình 5 bước chinh phục Regex từ Zero đến Master<a href="https://2naq.github.io/shareme/blog/regex-bassic#2-l%E1%BB%99-tr%C3%ACnh-5-b%C6%B0%E1%BB%9Bc-chinh-ph%E1%BB%A5c-regex-t%E1%BB%AB-zero-%C4%91%E1%BA%BFn-master" class="hash-link" aria-label="Direct link to 2. Lộ trình 5 bước chinh phục Regex từ Zero đến Master" title="Direct link to 2. Lộ trình 5 bước chinh phục Regex từ Zero đến Master" translate="no">​</a></h2>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="bước-1-làm-quen-với-ký-tự-cơ-bản--meta-characters">Bước 1: Làm quen với Ký tự cơ bản &amp; Meta Characters<a href="https://2naq.github.io/shareme/blog/regex-bassic#b%C6%B0%E1%BB%9Bc-1-l%C3%A0m-quen-v%E1%BB%9Bi-k%C3%BD-t%E1%BB%B1-c%C6%A1-b%E1%BA%A3n--meta-characters" class="hash-link" aria-label="Direct link to Bước 1: Làm quen với Ký tự cơ bản &amp; Meta Characters" title="Direct link to Bước 1: Làm quen với Ký tự cơ bản &amp; Meta Characters" translate="no">​</a></h3>
+<p>Ký tự trong Regex chia làm 2 loại:</p>
+<ul>
+<li class=""><strong>Ký tự thường (Literal)</strong>: Tìm chính xác ký tự đó (Ví dụ: <code>abc</code> sẽ khớp đúng chuỗi "abc").</li>
+<li class=""><strong>Ký tự đặc biệt (Meta Characters)</strong>: Có ý nghĩa đại diện đặc biệt.</li>
+</ul>
+<table><thead><tr><th style="text-align:left">Ký tự</th><th style="text-align:left">Ý nghĩa</th><th style="text-align:left">Ví dụ khớp</th></tr></thead><tbody><tr><td style="text-align:left"><code>.</code></td><td style="text-align:left">Đại diện cho <strong>bất kỳ ký tự nào</strong> (trừ xuống dòng)</td><td style="text-align:left"><code>a.c</code> khớp với "abc", "a1c", "a#c"</td></tr><tr><td style="text-align:left"><code>\d</code></td><td style="text-align:left">Chữ số (<code>0-9</code>)</td><td style="text-align:left"><code>\d\d</code> khớp với "23", "09"</td></tr><tr><td style="text-align:left"><code>\D</code></td><td style="text-align:left">Không phải chữ số</td><td style="text-align:left"><code>\D</code> khớp với "a", "@"</td></tr><tr><td style="text-align:left"><code>\w</code></td><td style="text-align:left">Chữ cái, chữ số và dấu gạch dưới <code>_</code></td><td style="text-align:left"><code>\w+</code> khớp với "user_123"</td></tr><tr><td style="text-align:left"><code>\W</code></td><td style="text-align:left">Ký tự đặc biệt (không phải word)</td><td style="text-align:left"><code>\W</code> khớp với "!", "@", "#"</td></tr><tr><td style="text-align:left"><code>\s</code></td><td style="text-align:left">Khoảng trắng (Space, Tab, Enter)</td><td style="text-align:left"><code>\s</code> khớp với " "</td></tr><tr><td style="text-align:left"><code>\S</code></td><td style="text-align:left">Không phải khoảng trắng</td><td style="text-align:left"><code>\S+</code> khớp với "Hello"</td></tr></tbody></table>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="bước-2-tập-hợp-ký-tự-character-sets-">Bước 2: Tập hợp ký tự (Character Sets <code>[...]</code>)<a href="https://2naq.github.io/shareme/blog/regex-bassic#b%C6%B0%E1%BB%9Bc-2-t%E1%BA%ADp-h%E1%BB%A3p-k%C3%BD-t%E1%BB%B1-character-sets-" class="hash-link" aria-label="Direct link to bước-2-tập-hợp-ký-tự-character-sets-" title="Direct link to bước-2-tập-hợp-ký-tự-character-sets-" translate="no">​</a></h3>
+<p>Khi bạn muốn cho phép chọn 1 trong nhiều ký tự tại một vị trí:</p>
+<ul>
+<li class=""><code>[aeiou]</code>: Khớp với 1 nguyên âm bất kỳ ('a', 'e', 'i', 'o', 'u').</li>
+<li class=""><code>[a-z]</code>: Khớp với 1 chữ cái viết thường từ a đến z.</li>
+<li class=""><code>[A-Z0-9]</code>: Khớp với 1 chữ cái viết hoa hoặc 1 chữ số.</li>
+<li class=""><code>[^0-9]</code>: Dấu <code>^</code> bên trong ngoặc vuông nghĩa là <strong>Phủ định</strong> (KHÔNG phải là chữ số).</li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="bước-3-thước-đo-số-lượng-quantifiers">Bước 3: Thước đo số lượng (Quantifiers)<a href="https://2naq.github.io/shareme/blog/regex-bassic#b%C6%B0%E1%BB%9Bc-3-th%C6%B0%E1%BB%9Bc-%C4%91o-s%E1%BB%91-l%C6%B0%E1%BB%A3ng-quantifiers" class="hash-link" aria-label="Direct link to Bước 3: Thước đo số lượng (Quantifiers)" title="Direct link to Bước 3: Thước đo số lượng (Quantifiers)" translate="no">​</a></h3>
+<p>Quantifier xác định ký tự/nhóm đứng trước nó được lặp lại bao nhiêu lần.</p>
+<table><thead><tr><th style="text-align:left">Ký hiệu</th><th style="text-align:left">Số lần lặp</th><th style="text-align:left">Giải thích</th></tr></thead><tbody><tr><td style="text-align:left"><code>*</code></td><td style="text-align:left">0 hoặc nhiều lần (<code>&gt;= 0</code>)</td><td style="text-align:left">Có thể không có hoặc có rất nhiều</td></tr><tr><td style="text-align:left"><code>+</code></td><td style="text-align:left">1 hoặc nhiều lần (<code>&gt;= 1</code>)</td><td style="text-align:left">Bắt buộc phải có ít nhất 1 lần</td></tr><tr><td style="text-align:left"><code>?</code></td><td style="text-align:left">0 hoặc 1 lần (<code>0 hoặc 1</code>)</td><td style="text-align:left">Thành phần tùy chọn (Optional)</td></tr><tr><td style="text-align:left"><code>{n}</code></td><td style="text-align:left">Đúng <code>n</code> lần</td><td style="text-align:left"><code>\d{4}</code> khớp với đúng 4 chữ số (ví dụ: 2026)</td></tr><tr><td style="text-align:left"><code>{n,}</code></td><td style="text-align:left">Tối thiểu <code>n</code> lần</td><td style="text-align:left"><code>\d{2,}</code> khớp với 2 chữ số trở lên</td></tr><tr><td style="text-align:left"><code>{n,m}</code></td><td style="text-align:left">Từ <code>n</code> đến <code>m</code> lần</td><td style="text-align:left"><code>\d{2,4}</code> khớp với 2, 3 hoặc 4 chữ số</td></tr></tbody></table>
+<blockquote>
+<p><strong>Lưu ý quan trọng (Greedy vs Lazy):</strong></p>
+<ul>
+<li class="">Mặc định Quantifiers là <strong>Greedy</strong> (tham ăn - cố bắt chuỗi dài nhất có thể).</li>
+<li class="">Thêm dấu <code>?</code> sau Quantifier (ví dụ <code>*?</code> hoặc <code>+?</code>) sẽ chuyển thành <strong>Lazy</strong> (cố bắt chuỗi ngắn nhất khớp điều kiện).</li>
+</ul>
+</blockquote>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="bước-4-neo-vị-trí-anchors--gom-nhóm-capturing-groups">Bước 4: Neo vị trí (Anchors) &amp; Gom nhóm (Capturing Groups)<a href="https://2naq.github.io/shareme/blog/regex-bassic#b%C6%B0%E1%BB%9Bc-4-neo-v%E1%BB%8B-tr%C3%AD-anchors--gom-nh%C3%B3m-capturing-groups" class="hash-link" aria-label="Direct link to Bước 4: Neo vị trí (Anchors) &amp; Gom nhóm (Capturing Groups)" title="Direct link to Bước 4: Neo vị trí (Anchors) &amp; Gom nhóm (Capturing Groups)" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="1-neo-vị-trí-anchors">1. Neo vị trí (Anchors)<a href="https://2naq.github.io/shareme/blog/regex-bassic#1-neo-v%E1%BB%8B-tr%C3%AD-anchors" class="hash-link" aria-label="Direct link to 1. Neo vị trí (Anchors)" title="Direct link to 1. Neo vị trí (Anchors)" translate="no">​</a></h4>
+<p>Anchors không đại diện cho ký tự nào, mà dùng để <strong>khóa vị trí</strong>:</p>
+<ul>
+<li class=""><code>^</code>: Bắt đầu chuỗi (hoặc dòng).</li>
+<li class=""><code>$</code>: Kết thúc chuỗi (hoặc dòng).</li>
+<li class=""><code>\b</code>: Ranh giới của một từ (Word boundary).</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="2-gom-nhóm-">2. Gom nhóm <code>(...)</code><a href="https://2naq.github.io/shareme/blog/regex-bassic#2-gom-nh%C3%B3m-" class="hash-link" aria-label="Direct link to 2-gom-nhóm-" title="Direct link to 2-gom-nhóm-" translate="no">​</a></h4>
+<ul>
+<li class="">Dấu ngoặc đơn <code>(abc)</code> gom các ký tự thành 1 nhóm để áp dụng Quantifier hoặc bắt giá trị (Capture Group).</li>
+<li class=""><code>(?:abc)</code>: Nhóm không bắt giá trị (Non-capturing group - giúp tối ưu hiệu năng).</li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="bước-5-kỹ-thuật-nâng-cao-lookaround--flags">Bước 5: Kỹ thuật nâng cao (Lookaround &amp; Flags)<a href="https://2naq.github.io/shareme/blog/regex-bassic#b%C6%B0%E1%BB%9Bc-5-k%E1%BB%B9-thu%E1%BA%ADt-n%C3%A2ng-cao-lookaround--flags" class="hash-link" aria-label="Direct link to Bước 5: Kỹ thuật nâng cao (Lookaround &amp; Flags)" title="Direct link to Bước 5: Kỹ thuật nâng cao (Lookaround &amp; Flags)" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="lookaround-nhìn-trước--nhìn-sau">Lookaround (Nhìn trước / Nhìn sau)<a href="https://2naq.github.io/shareme/blog/regex-bassic#lookaround-nh%C3%ACn-tr%C6%B0%E1%BB%9Bc--nh%C3%ACn-sau" class="hash-link" aria-label="Direct link to Lookaround (Nhìn trước / Nhìn sau)" title="Direct link to Lookaround (Nhìn trước / Nhìn sau)" translate="no">​</a></h4>
+<p>Lookaround giúp kiểm tra điều kiện xung quanh mà không tính ký tự đó vào kết quả khớp (Zero-width assertions):</p>
+<ul>
+<li class=""><code>(?=pattern)</code> - <strong>Positive Lookahead</strong>: Đứng trước pattern này. (Ví dụ: <code>\d+(?=px)</code> khớp số đứng trước "px").</li>
+<li class=""><code>(?!pattern)</code> - <strong>Negative Lookahead</strong>: KHÔNG đứng trước pattern này.</li>
+<li class=""><code>(?&lt;=pattern)</code> - <strong>Positive Lookbehind</strong>: Đứng sau pattern này. (Ví dụ: <code>(?&lt;=\$)\d+</code> khớp số đứng sau dấu <code>$</code>).</li>
+<li class=""><code>(?&lt;!pattern)</code> - <strong>Negative Lookbehind</strong>: KHÔNG đứng sau pattern này.</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_SAay" id="cờ-hiệu-flags-phổ-biến">Cờ hiệu (Flags) phổ biến<a href="https://2naq.github.io/shareme/blog/regex-bassic#c%E1%BB%9D-hi%E1%BB%87u-flags-ph%E1%BB%95-bi%E1%BA%BFn" class="hash-link" aria-label="Direct link to Cờ hiệu (Flags) phổ biến" title="Direct link to Cờ hiệu (Flags) phổ biến" translate="no">​</a></h4>
+<ul>
+<li class=""><code>g</code> (Global): Tìm tất cả các kết quả khớp chứ không dừng lại ở kết quả đầu tiên.</li>
+<li class=""><code>i</code> (Ignore Case): Không phân biệt chữ hoa / chữ thường.</li>
+<li class=""><code>m</code> (Multiline): Xử lý <code>^</code> và <code>$</code> trên từng dòng của văn bản nhiều dòng.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id="3-thực-hành-phân-tích-3-mẫu-regex-thực-tế-từng-bước">3. Thực hành phân tích 3 mẫu Regex thực tế từng bước<a href="https://2naq.github.io/shareme/blog/regex-bassic#3-th%E1%BB%B1c-h%C3%A0nh-ph%C3%A2n-t%C3%ADch-3-m%E1%BA%ABu-regex-th%E1%BB%B1c-t%E1%BA%BF-t%E1%BB%ABng-b%C6%B0%E1%BB%9Bc" class="hash-link" aria-label="Direct link to 3. Thực hành phân tích 3 mẫu Regex thực tế từng bước" title="Direct link to 3. Thực hành phân tích 3 mẫu Regex thực tế từng bước" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="ví-dụ-1-regex-kiểm-tra-số-điện-thoại-việt-nam">Ví dụ 1: Regex kiểm tra Số điện thoại Việt Nam<a href="https://2naq.github.io/shareme/blog/regex-bassic#v%C3%AD-d%E1%BB%A5-1-regex-ki%E1%BB%83m-tra-s%E1%BB%91-%C4%91i%E1%BB%87n-tho%E1%BA%A1i-vi%E1%BB%87t-nam" class="hash-link" aria-label="Direct link to Ví dụ 1: Regex kiểm tra Số điện thoại Việt Nam" title="Direct link to Ví dụ 1: Regex kiểm tra Số điện thoại Việt Nam" translate="no">​</a></h3>
+<p>Đoạn Regex: <code>^(?:0|\+84)(?:3|5|7|8|9)\d{8}$</code></p>
+<p>Phân tích từng Token từ trái qua phải:</p>
+<ol>
+<li class=""><code>^</code>: Bắt đầu chuỗi.</li>
+<li class=""><code>(?:0|\+84)</code>: Nhóm đầu số, chấp nhận bắt đầu bằng <code>0</code> HOẶC <code>+84</code>.</li>
+<li class=""><code>(?:3|5|7|8|9)</code>: Nhóm mạng viễn thông, theo sau bởi 1 trong các số <code>3, 5, 7, 8, 9</code>.</li>
+<li class=""><code>\d{8}</code>: Đúng 8 chữ số tiếp theo.</li>
+<li class=""><code>$</code>: Kết thúc chuỗi.</li>
+</ol>
+<p>Kết quả: Khớp chính xác với "0912345678" hoặc "+84912345678".</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="ví-dụ-2-regex-kiểm-tra-địa-chỉ-email-chuẩn">Ví dụ 2: Regex kiểm tra Địa chỉ Email chuẩn<a href="https://2naq.github.io/shareme/blog/regex-bassic#v%C3%AD-d%E1%BB%A5-2-regex-ki%E1%BB%83m-tra-%C4%91%E1%BB%8Ba-ch%E1%BB%89-email-chu%E1%BA%A9n" class="hash-link" aria-label="Direct link to Ví dụ 2: Regex kiểm tra Địa chỉ Email chuẩn" title="Direct link to Ví dụ 2: Regex kiểm tra Địa chỉ Email chuẩn" translate="no">​</a></h3>
+<p>Đoạn Regex: <code>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$</code></p>
+<p>Phân tích:</p>
+<ol>
+<li class=""><code>^</code>: Bắt đầu.</li>
+<li class=""><code>[a-zA-Z0-9._%+-]+</code>: Tên tài khoản email (chứa chữ, số, dấu chấm, gạch dưới...), xuất hiện 1 hoặc nhiều lần.</li>
+<li class=""><code>@</code>: Ký tự <code>@</code> bắt buộc.</li>
+<li class=""><code>[a-zA-Z0-9.-]+</code>: Tên miền (Domain name - ví dụ <code>gmail</code>, <code>yahoo</code>, <code>shareme</code>).</li>
+<li class=""><code>\.</code>: Dấu chấm <code>.</code> phân cách tên miền (cần dấu <code>\</code> để thoát ký tự đặc biệt).</li>
+<li class=""><code>[a-zA-Z]{2,}</code>: Tên miền cao cấp (TLD - ví dụ <code>com</code>, <code>vn</code>, <code>io</code>), tối thiểu 2 chữ cái.</li>
+<li class=""><code>$</code>: Kết thúc chuỗi.</li>
+</ol>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="ví-dụ-3-regex-bắt-địa-chỉ-ip-ipv4">Ví dụ 3: Regex bắt địa chỉ IP (IPv4)<a href="https://2naq.github.io/shareme/blog/regex-bassic#v%C3%AD-d%E1%BB%A5-3-regex-b%E1%BA%AFt-%C4%91%E1%BB%8Ba-ch%E1%BB%89-ip-ipv4" class="hash-link" aria-label="Direct link to Ví dụ 3: Regex bắt địa chỉ IP (IPv4)" title="Direct link to Ví dụ 3: Regex bắt địa chỉ IP (IPv4)" translate="no">​</a></h3>
+<p>Đoạn Regex: <code>^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$</code></p>
+<p>Giải thích logic:</p>
+<ul>
+<li class="">Một octet của IP từ <code>0</code> đến <code>255</code> được chia làm 3 trường hợp:<!-- -->
+<ul>
+<li class=""><code>25[0-5]</code>: Từ 250 đến 255.</li>
+<li class=""><code>2[0-4][0-9]</code>: Từ 200 đến 249.</li>
+<li class=""><code>[01]?[0-9][0-9]?</code>: Từ 0 đến 199.</li>
+</ul>
+</li>
+<li class=""><code>\.{3}</code>: Lặp lại 3 octet đầu kèm dấu chấm.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id="4-công-cụ--website-luyện-tập-regex-tốt-nhất">4. Công cụ &amp; Website luyện tập Regex tốt nhất<a href="https://2naq.github.io/shareme/blog/regex-bassic#4-c%C3%B4ng-c%E1%BB%A5--website-luy%E1%BB%87n-t%E1%BA%ADp-regex-t%E1%BB%91t-nh%E1%BA%A5t" class="hash-link" aria-label="Direct link to 4. Công cụ &amp; Website luyện tập Regex tốt nhất" title="Direct link to 4. Công cụ &amp; Website luyện tập Regex tốt nhất" translate="no">​</a></h2>
+<p>Để học Regex nhanh nhất, bạn <strong>không nên học thuộc lòng</strong> mà hãy vừa học vừa thử nghiệm trực tiếp trên các công cụ trực quan:</p>
+<ol>
+<li class=""><strong><a href="https://regex101.com/" target="_blank" rel="noopener noreferrer" class="">Regex101.com</a></strong>: Trang web "gối đầu giường" của mọi lập trình viên. Có trình giải thích từng Token bằng tiếng Anh cực chi tiết và tính năng Debugger.</li>
+<li class=""><strong><a href="https://regexone.com/" target="_blank" rel="noopener noreferrer" class="">RegexOne.com</a></strong>: Trang web học Regex tương tác theo từng bài tập nhỏ từ dễ đến khó.</li>
+<li class=""><strong><a href="https://regexcrossword.com/" target="_blank" rel="noopener noreferrer" class="">Regex Crossword</a></strong>: Trò chơi giải đố Sudoku dựa trên các luật Regex, cực kỳ giải trí và rèn tư duy phản xạ.</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id="lời-kết">Lời kết<a href="https://2naq.github.io/shareme/blog/regex-bassic#l%E1%BB%9Di-k%E1%BA%BFt" class="hash-link" aria-label="Direct link to Lời kết" title="Direct link to Lời kết" translate="no">​</a></h2>
+<p>Regex không khó như bạn nghĩ, điều quan trọng là <strong>rèn luyện tư duy chia nhỏ vấn đề</strong>. Khi viết một đoạn Regex phức tạp trong dự án thực tế, hãy luôn nhớ:</p>
+<blockquote>
+<p><strong>Quy tắc vàng</strong>: Đừng quên thêm comment hoặc viết Unit Test giải thích đoạn Regex đó làm gì để đồng nghiệp (và chính bạn sau 6 tháng nữa) không phải "đau đầu" luận lại!</p>
+</blockquote>
+<p>Chúc bạn sớm làm chủ Regex và áp dụng hiệu quả vào công việc lập trình &amp; xử lý dữ liệu hàng ngày!</p>]]></content:encoded>
+            <category>Regex</category>
+            <category>Tips</category>
+            <category>Share</category>
+        </item>
         <item>
             <title><![CDATA[So sánh kiến trúc điều khiển tập trung (Centralized PLC) và phân tán (DCS)]]></title>
             <link>https://2naq.github.io/shareme/blog/kien-truc-dieu-khien-tap-trung-plc-vs-phan-tan-dcs</link>
@@ -1056,7 +1197,25 @@ M834 80h400000v40h-400000z"></path></svg></span></span></span><span class="vlist
 <li class="">Chạy thử lệnh kiểm tra build tĩnh để rà soát toàn bộ lỗi cú pháp hoặc liên kết hỏng:<!-- -->
 <div class="language-bash codeBlockContainer_ZGJx theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_kX1v"><pre tabindex="0" class="prism-code language-bash codeBlock_TAPP thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_AdAo"><div class="token-line" style="color:#393A34"><span class="token plain">npm run build</span><br></div></code></pre></div></div>
 </li>
-</ol>]]></content:encoded>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id="5-ẩn-bài-viết-blogs">5. Ẩn bài viết (blogs)<a href="https://2naq.github.io/shareme/blog/huong-dan-viet-blog-docusaurus#5-%E1%BA%A9n-b%C3%A0i-vi%E1%BA%BFt-blogs" class="hash-link" aria-label="Direct link to 5. Ẩn bài viết (blogs)" title="Direct link to 5. Ẩn bài viết (blogs)" translate="no">​</a></h2>
+<p>Sẽ có 3 cách ẩn bài viết tùy mục đích:</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="cách-1-đánh-dấu-làm-bản-nháp-draft-true--khuyên-dùng">Cách 1: Đánh dấu làm bản nháp (draft: true) — Khuyên dùng<a href="https://2naq.github.io/shareme/blog/huong-dan-viet-blog-docusaurus#c%C3%A1ch-1-%C4%91%C3%A1nh-d%E1%BA%A5u-l%C3%A0m-b%E1%BA%A3n-nh%C3%A1p-draft-true--khuy%C3%AAn-d%C3%B9ng" class="hash-link" aria-label="Direct link to Cách 1: Đánh dấu làm bản nháp (draft: true) — Khuyên dùng" title="Direct link to Cách 1: Đánh dấu làm bản nháp (draft: true) — Khuyên dùng" translate="no">​</a></h3>
+<p>Nếu bài viết chưa hoàn thiện và bạn không muốn hiển thị khi build trang web chính thức (Production):</p>
+<p>Thêm dòng draft: true vào phần Frontmatter (đầu tệp .md hoặc .mdx):</p>
+<div class="language-yaml codeBlockContainer_ZGJx theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_kX1v"><pre tabindex="0" class="prism-code language-yaml codeBlock_TAPP thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_AdAo"><div class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">---</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">title</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"Tiêu đề bài viết"</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">authors</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">admin</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">date</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token datetime number" style="color:#36acaa">2026-07-23</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">draft</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#36acaa">true</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">---</span><br></div></code></pre></div></div>
+<p>Kết quả:
+Khi chạy npm run build: Bài viết sẽ bị ẩn hoàn toàn và không được tạo trang HTML.
+Khi chạy dev (npm run start): Docusaurus có thể hiển thị cảnh báo bài viết là bản nháp để bạn chỉnh sửa tiện lợi.</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="cách-2-chế-độ-không-công-khai-unlisted-true">Cách 2: Chế độ Không công khai (unlisted: true)<a href="https://2naq.github.io/shareme/blog/huong-dan-viet-blog-docusaurus#c%C3%A1ch-2-ch%E1%BA%BF-%C4%91%E1%BB%99-kh%C3%B4ng-c%C3%B4ng-khai-unlisted-true" class="hash-link" aria-label="Direct link to Cách 2: Chế độ Không công khai (unlisted: true)" title="Direct link to Cách 2: Chế độ Không công khai (unlisted: true)" translate="no">​</a></h3>
+<p>Nếu bạn muốn bài viết không xuất hiện trong danh sách Blog, trang chủ hay RSS Feed, nhưng những ai có đường dẫn (URL) trực tiếp vẫn có thể xem được (tương tự chế độ "Không công khai" của YouTube):</p>
+<p>Thêm dòng unlisted: true vào phần Frontmatter:</p>
+<div class="language-yaml codeBlockContainer_ZGJx theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_kX1v"><pre tabindex="0" class="prism-code language-yaml codeBlock_TAPP thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_AdAo"><div class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">---</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">title</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"Tiêu đề bài viết nội bộ"</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">authors</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">admin</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">date</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token datetime number" style="color:#36acaa">2026-07-23</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">unlisted</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#36acaa">true</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">---</span><br></div></code></pre></div></div>
+<p>Kết quả: Bài viết sẽ bị ẩn khỏi danh sách danh mục blog, bài viết gần đây, trang phân trang... nhưng truy cập trực tiếp bằng đường dẫn URL thì vẫn hiển thị.</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id="cách-3-thêm-dấu-gạch-dưới-_-ở-đầu-tên-file-hoặc-thư-mục">Cách 3: Thêm dấu gạch dưới _ ở đầu tên file hoặc thư mục<a href="https://2naq.github.io/shareme/blog/huong-dan-viet-blog-docusaurus#c%C3%A1ch-3-th%C3%AAm-d%E1%BA%A5u-g%E1%BA%A1ch-d%C6%B0%E1%BB%9Bi-_-%E1%BB%9F-%C4%91%E1%BA%A7u-t%C3%AAn-file-ho%E1%BA%B7c-th%C6%B0-m%E1%BB%A5c" class="hash-link" aria-label="Direct link to Cách 3: Thêm dấu gạch dưới _ ở đầu tên file hoặc thư mục" title="Direct link to Cách 3: Thêm dấu gạch dưới _ ở đầu tên file hoặc thư mục" translate="no">​</a></h3>
+<p>Docusaurus mặc định bỏ qua tất cả các file hoặc folder bắt đầu bằng dấu gạch dưới _.</p>
+<p>Ví dụ: Đổi tên file từ bai-viet-cu.mdx thành _bai-viet-cu.mdx (hoặc gom các bài nháp vào thư mục apps/docs/blog/_drafts/).
+Kết quả: Docusaurus sẽ bỏ qua hoàn toàn và không tạo bất kỳ đường dẫn nào cho bài viết này.</p>]]></content:encoded>
             <category>Blog</category>
             <category>Share</category>
             <category>Tips</category>
