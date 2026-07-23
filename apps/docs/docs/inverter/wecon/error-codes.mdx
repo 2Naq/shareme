@@ -1,73 +1,86 @@
 ---
 id: error-codes-wecon
-title: Bảng mã lỗi biến tần Wecon và cách khắc phục
+title: Bảng Mã Lỗi Biến Tần WECON VM Và Hướng Dẫn Xử Lý Sự Cố (User Manual V2.0)
 sidebar_position: 3
-sidebar_label: Bảng mã lỗi & Khắc phục
-tags: [wecon, errors, troubleshooting]
+sidebar_label: Bảng mã lỗi & Khắc phục (ERR02-22)
+tags: [wecon, errors, troubleshooting, fault-codes]
 ---
 
-Biến tần **Wecon** (phổ biến nhất là dòng PI9000, PI500 Series) được sử dụng rộng rãi trong các hệ thống máy móc, băng tải và bơm quạt nhờ giá thành hợp lý và tính năng linh hoạt. Khi xảy ra sự cố trong quá trình vận hành, biến tần sẽ hiển thị mã lỗi dạng **Err.XX** trên bàn phím. Tài liệu này tổng hợp bảng mã lỗi chuẩn xác, nguyên nhân và hướng dẫn xử lý sự cố thực tế.
+Khi xảy ra sự cố trong quá trình vận hành, biến tần **WECON VM Series** sẽ ngắt ngõ ra để bảo vệ thiết bị và hiển thị mã lỗi dạng **ERRXX** trên bàn phím (đồng thời đèn `ALARM` nhấp nháy). 
 
----
-
-## 1. Bảng tra cứu nhanh mã lỗi biến tần Wecon
-
-| Mã lỗi | Tên lỗi hiển thị | Ý nghĩa và Nguyên nhân phổ biến |
-| :---: | --- | --- |
-| **Err.01** | Inverter unit protection | Lỗi bảo vệ khối công suất (ngắn mạch ngõ ra, quá nhiệt mô-đun IGBT, lỗi phần cứng lái dòng) |
-| **Err.02** | Overcurrent during acceleration | Quá dòng điện ngõ ra trong quá trình tăng tốc |
-| **Err.03** | Overcurrent during deceleration | Quá dòng điện ngõ ra trong quá trình giảm tốc |
-| **Err.04** | Overcurrent during constant speed | Quá dòng điện ngõ ra khi đang chạy ổn định ở tần số cài đặt |
-| **Err.05** | Overvoltage during acceleration | Quá áp Bus DC trong quá trình tăng tốc |
-| **Err.06** | Overvoltage during deceleration | Quá áp Bus DC trong quá trình giảm tốc (năng lượng tái sinh phản hồi lớn) |
-| **Err.07** | Overvoltage during constant speed | Quá áp Bus DC khi chạy ở tốc độ không đổi |
-| **Err.09** | Undervoltage fault | Thấp áp Bus DC (nguồn đầu vào yếu, mất pha đầu vào, hỏng cầu chỉnh lưu) |
-| **Err.10** | Inverter overload | Quá tải biến tần (tải nặng vượt quá dòng định mức của biến tần) |
-| **Err.11** | Motor overload | Quá tải động cơ (được tính toán bằng rơ-le nhiệt điện tử) |
-| **Err.13** | Output phase loss | Mất pha đầu ra (đứt cáp kết nối động cơ, tiếp điểm lỏng lẻo) |
-| **Err.14** | Power module overheat | Quá nhiệt mô-đun công suất (IGBT quá nhiệt do quạt hỏng hoặc tắc bụi) |
-| **Err.18** | Current detection fault | Lỗi mạch phát hiện dòng điện (hỏng cảm biến Hall hoặc bo điều khiển) |
-| **Err.23** | Parameter read/write error | Lỗi đọc/ghi tham số chip lưu trữ EEPROM |
+Tài liệu này tổng hợp chi tiết toàn bộ bảng mã lỗi chuẩn xác từ **Sổ tay chính thức V2.0 (20251203)**, phân tích nguyên nhân và các bước xử lý từng mã lỗi thực tế.
 
 ---
 
-## 2. Hướng dẫn chi tiết khắc phục sự cố
+## 1. Bảng tra cứu nhanh mã lỗi & Hướng dẫn khắc phục (ERR02 ~ ERR22)
 
-### Lỗi Bảo Vệ Khối Công Suất (Err.01)
-Đây là lỗi bảo vệ tức thời của phần cứng biến tần khi phát hiện dòng điện cực đại tăng vọt hoặc mô-đun công suất bị đe dọa cháy hỏng.
+| Mã lỗi | Tên lỗi chuẩn (English) | Nguyên nhân phổ biến gây ra lỗi | Hướng dẫn khắc phục thực tế |
+| :---: | --- | --- | --- |
+| **ERR02** | Overcurrent during acceleration | • Ngắn mạch ngõ ra hoặc rò điện tiếp địa dây động cơ<br/>• Thời gian tăng tốc [`F0.18`](./parameter-configuration.mdx#f018) quá ngắn<br/>• Biến tần chọn công suất nhỏ hơn công suất động cơ | • Kiểm tra cách điện cuộn dây motor và dây cáp ngõ ra U, V, W<br/>• Tăng thời gian tăng tốc `F0.18`<br/>• Lựa chọn model biến tần phù hợp với động cơ |
+| **ERR03** | Overcurrent during deceleration | • Ngắn mạch ngõ ra ngắt quãng<br/>• Thời gian giảm tốc [`F0.19`](./parameter-configuration.mdx#f019) quá ngắn | • Kiểm tra lại dây cáp ngõ ra động cơ<br/>• Tăng thời gian giảm tốc `F0.19` hoặc lắp thêm điện trở phanh |
+| **ERR04** | Overcurrent at constant speed | • Tải cơ khí bị kẹt đột ngột khi đang chạy ổn định<br/>• Biến tần chọn công suất quá nhỏ | • Giảm tải cơ khí, kiểm tra ổ bi và trục máy<br/>• Thay thế biến tần công suất lớn hơn |
+| **ERR05** | Overvoltage during acceleration | • Điện áp nguồn cấp đầu vào quá cao<br/>• Thời gian tăng tốc `F0.18` quá ngắn | • Điều chỉnh điện áp nguồn vào về dải định mức (220V/380V)<br/>• Tăng thời gian tăng tốc `F0.18` |
+| **ERR06** | Overvoltage during deceleration | • Điện áp nguồn đầu vào cao<br/>• Thời gian giảm tốc `F0.19` quá ngắn làm năng lượng phản hồi lớn<br/>• Chưa lắp bộ phanh / điện trở hãm (Braking Resistor) | • Tăng thời gian giảm tốc `F0.19`<br/>• Lắp đặt thêm Điện trở xả phanh hãm DC cho ứng dụng có quán tính lớn |
+| **ERR07** | Overvoltage at constant speed | • Điện áp lưới điện đầu vào tăng cao bất thường khi đang chạy | • Kiểm tra biến áp nguồn hoặc điều chỉnh lại điện áp lưới |
+| **ERR08** | Snubber resistor overload | • Điện áp nguồn đầu vào không nằm trong dải quy định | • Điều chỉnh lại điện áp nguồn ngõ vào |
+| **ERR09** | Low input voltage (Undervoltage) | • Điện áp nguồn ngõ vào quá thấp hoặc mất pha nguồn<br/>• Hỏng cầu chỉnh lưu hoặc mạch sụt áp Bus DC | • Kiểm tra nguồn cấp ngõ vào R, S, T<br/>• Liên hệ bộ phận hỗ trợ kỹ thuật nếu nguồn vào đủ mà biến tần vẫn báo ERR09 |
+| **ERR10** | VFD overload | • Quá tải biến tần (tải cơ khí quá nặng hoặc bị kẹt)<br/>• Chọn model biến tần nhỏ hơn tải | • Giảm tải cơ khí<br/>• Thay biến tần có dòng định mức lớn hơn |
+| **ERR11** | Motor overload | • Cài đặt tham số bảo vệ quá tải [`FA.01-FA.02`](./parameter-configuration.mdx#fa00) không đúng<br/>• Động cơ chạy quá tải lâu ngày | • Cài đặt lại tham số dòng điện định mức động cơ `F2.03`<br/>• Kiểm tra tải cơ khí động cơ |
+| **ERR12** | Input phase loss | • Mất 1 pha nguồn cấp ngõ vào AC<br/>• Hỏng bo điều khiển hoặc bo động lực | • Kiểm tra hệ thống cầu chì, Aptomat và dây nguồn đầu vào |
+| **ERR13** | Output phase loss | • Đứt 1 dây pha ngõ ra nối tới động cơ (`U, V, W`)<br/>• Cuộn dây bên trong động cơ bị hở mạch<br/>• Hỏng mô-đun công suất IGBT | • Kiểm tra lực siết ốc cầu đấu ngõ ra U, V, W<br/>• Đo điện trở 3 pha cuộn dây động cơ xem có bị đứt dây không |
+| **ERR14** | IGBT overheat | • Quạt tản nhiệt bị hỏng hoặc ngừng quay<br/>• Đường thông gió tản nhiệt bị bám bụi bẩn tắc nghẽn<br/>• Nhiệt độ môi trường tủ điện quá cao (> 40°C) | • Thay quạt tản nhiệt mới<br/>• Vệ sinh cánh tản nhiệt và khe thông gió<br/>• Gắn thêm quạt thông gió làm mát tủ điện |
+| **ERR15** | External alarm input | • Có tín hiệu báo lỗi ngoại vi tác động qua ngõ vào DI | • Kiểm tra thiết bị ngoại vi và xóa tín hiệu lỗi ngõ vào DI |
+| **ERR18** | Current detection failure | • Hỏng mạch cảm biến đo dòng điện (Current Hall sensor) | • Liên hệ trung tâm bảo hành hỗ trợ sửa chữa bo mạch |
+| **ERR21** | Parameter R/W failure | • Lỗi đọc/ghi bo mạch điều khiển trung tâm | • Tắt nguồn khởi động lại hoặc thay bo điều khiển |
+| **ERR22** | EEPROM failure | • Chip nhớ EEPROM trên bo mạch bị lỗi không lưu dữ liệu | • Đưa về cài đặt gốc `F0.20 = 1`, nếu không được cần thay chip EEPROM |
 
-*   **Nguyên nhân:**
-    1. Đầu ra của biến tần U-V-W bị ngắn mạch hoặc rò rỉ chạm đất.
-    2. Cáp động cơ quá dài gây dòng rò xung điện dung lớn.
-    3. Mô-đun IGBT bị hỏng hoàn toàn.
-    4. Cáp kết nối giữa bo điều khiển và bo công suất bị lỏng.
-*   **Hướng xử lý:**
-    *   *Bước 1:* Tách cáp động cơ khỏi đầu ra U-V-W của biến tần. Bật nguồn biến tần và thử ra lệnh chạy. Nếu vẫn báo lỗi **Err.01** ngay lập tức, bo công suất IGBT đã bị hỏng.
-    *   *Bước 2:* Dùng đồng hồ đo điện trở cách điện của cáp và động cơ để tìm điểm ngắn mạch.
-    *   *Bước 3:* Nếu cáp động cơ dài quá 50 mét, hãy lắp thêm cuộn kháng đầu ra (Output AC Reactor) để khử dòng điện dung ký sinh.
+---
 
-### Lỗi Quá Dòng (Err.02, Err.03, Err.04)
-*   **Điểm kiểm tra:**
-    *   Kiểm tra tải cơ khí xem có bị kẹt, khớp nối có bị bó cứng.
-    *   Thời gian tăng tốc (`F0.13`) hoặc giảm tốc (`F0.14`) quá nhanh.
-    *   Công suất biến tần bị nhỏ hơn so với công suất thực tế của động cơ.
-*   **Hướng xử lý:**
-    *   Tăng thời gian tăng/giảm tốc (`F0.13`, `F0.14`).
-    *   Sử dụng phương pháp điều khiển Vector nếu cần mô-men xoắn lớn ở tần số thấp, đồng thời thực hiện dò tham số tự động động cơ (Auto-tuning trong nhóm tham số `b0`).
-    *   Kiểm tra điện áp nguồn cấp đầu vào trong lúc khởi động động cơ tải nặng có bị sụt giảm quá mức hay không.
+## 2. Mã lỗi giám sát qua Truyền thông Modbus (Địa chỉ thanh ghi 8000H)
 
-### Lỗi Quá Áp Bus DC khi giảm tốc (Err.06)
-*   **Điểm kiểm tra:**
-    *   Thời gian dừng động cơ tải nặng, quán tính lớn quá nhanh.
-*   **Hướng xử lý:**
-    *   Tăng thời gian giảm tốc (`F0.14`).
-    *   Lắp đặt điện trở xả hãm. Đấu điện trở xả vào chân **(+)** và **PB** (đối với biến tần tích hợp sẵn bộ hãm - Braking Unit) hoặc qua bộ phanh động năng lắp ngoài (Braking Unit) đấu nối vào Bus DC **(+)** và **(-)**.
-    *   Kích hoạt chức năng tự động ngăn quá áp trong quá trình giảm tốc để biến tần tự động nới lỏng dốc giảm tốc khi áp DC Link tăng quá cao.
+Khi kết nối biến tần WECON VM với PLC hoặc HMI qua cổng truyền thông RS-485, bạn có thể đọc trực tiếp mã lỗi hiện hành bằng cách đọc thanh ghi **`8000H`**:
 
-### Lỗi Mất Pha Ngõ Ra (Err.13)
-*   **Điểm kiểm tra:**
-    *   Kết nối giữa ngõ ra U-V-W của biến tần và động cơ bị gián đoạn.
-*   **Hướng xử lý:**
-    *   Kiểm tra các cọc đấu dây cáp động cơ trên biến tần và hộp cực động cơ xem có tiếp xúc tốt không.
-    *   Kiểm tra các tiếp điểm của contactor hoặc cầu dao phụ (nếu có lắp giữa biến tần và động cơ) xem có bị cháy rỗ hay hở mạch 1 pha hay không.
-    *   Đo điện trở 3 cuộn dây động cơ từ đầu cáp nối biến tần để đảm bảo tính thông suốt và cân bằng điện trở.
+| Giá trị đọc về (Hex) | Mã lỗi tương ứng | Ý nghĩa sự cố |
+| :---: | :---: | :--- |
+| **`0000H`** | Không lỗi (Normal) | Hệ thống hoạt động bình thường |
+| **`0002H`** | **ERR02** | Quá dòng điện trong quá trình tăng tốc |
+| **`0003H`** | **ERR03** | Quá dòng điện trong quá trình giảm tốc |
+| **`0004H`** | **ERR04** | Quá dòng điện khi đang chạy tốc độ ổn định |
+| **`0005H`** | **ERR05** | Quá điện áp Bus DC khi tăng tốc |
+| **`0006H`** | **ERR06** | Quá điện áp Bus DC khi giảm tốc |
+| **`0007H`** | **ERR07** | Quá điện áp Bus DC khi chạy ổn định |
+| **`0009H`** | **ERR09** | Thấp điện áp Bus DC (Nguồn vào yếu) |
+| **`000AH`** | **ERR10** | Quá tải biến tần (VFD Overload) |
+| **`000BH`** | **ERR11** | Quá tải động cơ (Motor Overload) |
+| **`000DH`** | **ERR13** | Mất pha ngõ ra động cơ (Output Phase Loss) |
+| **`000EH`** | **ERR14** | Quá nhiệt mô-đun IGBT |
+| **`000FH`** | **ERR15** | Báo lỗi thiết bị ngoại vi qua ngõ vào DI |
+| **`0012H`** | **ERR18** | Lỗi mạch cảm biến dòng điện |
+| **`0015H`** | **ERR21** | Lỗi đọc/ghi tham số |
+
+---
+
+## 3. Quy trình 3 bước xử lý sự cố tại công trường
+
+```mermaid
+graph TD
+    A["Bước 1: Ngắt nguồn và kiểm tra an toàn"] --> B["Bước 2: Ghi nhận mã ERRxx trên màn hình"]
+    B --> C["Bước 3: Tra cứu nguyên nhân và xử lý theo bảng"]
+    C --> D{"Đã xử lý xong?"}
+    D -- Có --> E["Nhấn phím STOP/RESET hoặc gán chân DI để Xóa Lỗi"]
+    D -- Không --> F["Liên hệ trung tâm kỹ thuật bảo hành WECON"]
+```
+
+1. **Bước 1**: Khi biến tần báo lỗi, nhấn phím **`STOP/RESET`** trên bàn phím (hoặc kích hoạt chân DI có chức năng Reset `F5.00 = 6`) để cố gắng xóa trạng thái lỗi.
+2. **Bước 2**: Nếu lỗi không hết hoặc vừa bấm `RUN` lại tiếp tục bị báo lỗi, ngắt nguồn điện và dùng đồng hồ VOM kiểm tra nguội (đo cách điện dây động cơ, đo ngắn mạch cầu diode ngõ vào R-S-T và ngõ ra U-V-W).
+3. **Bước 3**: Kiểm tra lại thông số cài đặt thời gian tăng/giảm tốc (`F0.18`, `F0.19`) và thông số motor (`F2.01` ~ `F2.05`).
+
+---
+
+## 4. Tài liệu liên quan
+
+:::tip[CÁC TRANG LIÊN QUAN]
+* 📄 **[Sổ Tay Hướng Dẫn Vận Hành WECON VM (Manual.mdx)](./Manual.mdx)**
+* 📋 **[Bảng Tham Số Cài Đặt Chi Tiết F0 - FD (parameter-configuration.mdx)](./parameter-configuration.mdx)**
+* 📡 **[Truyền Thông Modbus RS-485 & Bản Đồ Thanh Ghi (registers-rs485.mdx)](./registers-rs485.mdx)**
+:::

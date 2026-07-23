@@ -1,144 +1,136 @@
 ---
-id: wecon-registers-rs485
-title: Bản đồ thanh ghi RS-485 Modbus RTU
-sidebar_position: 3
-sidebar_label: Thanh ghi Modbus RTU
-tags: [wecon, modbus, rs485]
+id: registers-rs485-wecon
+title: Bản Đồ Thanh Ghi & Hướng Dẫn Truyền Thông RS-485 Modbus RTU Biến Tần WECON VM
+sidebar_position: 4
+sidebar_label: Truyền thông Modbus RS-485
+tags: [wecon, modbus, rs485, registers, communication]
 ---
 
-Tài liệu chi tiết về bản đồ thanh ghi truyền thông Modbus RTU của biến tần **WECON VM**. Đây là tài liệu tra cứu chuyên sâu dành cho kỹ sư lập trình điều khiển (PLC, HMI, SCADA) khi kết nối và giám sát hệ thống qua giao tiếp 2 dây RS-485.
+Biến tần **WECON VM Series** tích hợp sẵn cổng truyền thông nối tiếp **RS-485** (hỗ trợ giao thức **Modbus RTU** chuẩn công nghiệp). Tính năng này cho phép điều khiển tập trung biến tần từ hệ thống PLC (Siemens, Mitsubishi, Omron, WECON...) hoặc màn hình HMI/máy tính SCADA để đọc/ghi lệnh vận hành, giám sát thông số thời gian thực và cài đặt tham số từ xa.
+
+Tài liệu này tổng hợp toàn bộ cấu hình cổng truyền thông, quy tắc chuyển đổi địa chỉ và bản đồ thanh ghi Modbus chuẩn từ **Sổ tay chính thức V2.0 (20251203)**.
 
 ---
 
-## 1. Cấu hình thông số truyền thông (Communication Parameters)
+## 1. Cấu hình phần cứng & Tham số truyền thông RS-485
 
-Trước khi bắt đầu truyền thông, bạn cần cài đặt các tham số thuộc **Nhóm FC** trên bàn phím biến tần để đồng bộ cấu hình với thiết bị điều khiển (Master):
+### 1.1 Sơ đồ đấu nối dây vật lý
 
-| Mã lệnh | Tên thông số / Chức năng | Dải cài đặt | Mặc định | Mô tả chi tiết |
-| --- | --- | --- | --- | --- |
-| **FC.00** | Địa chỉ Station (Slave Address) | `1` ~ `247` | 1 | Địa chỉ duy nhất của biến tần trong mạng |
-| **FC.01** | Tốc độ truyền (Baud Rate) | `0` ~ `5` | 1 | `0`: 4800 bps<br/>`1`: 9600 bps<br/>`2`: 19200 bps<br/>`3`: 38400 bps |
-| **FC.02** | Định dạng dữ liệu (Data Format) | `0` ~ `2` | 0 | `0`: 8-N-1 (Không kiểm tra chẵn lẻ, 1 stop bit)<br/>`1`: 8-O-1 (Kiểm tra lẻ Odd, 1 stop bit)<br/>`2`: 8-E-1 (Kiểm tra chẵn Even, 1 stop bit) |
-| **FC.03** | Thời gian trễ phản hồi (Response Delay) | `0` ~ `200` ms | 2 ms | Thời gian chờ từ khi nhận lệnh đến khi phản hồi |
-| **FC.04** | Thời gian giám sát lỗi (Timeout Detection) | `0.0` ~ `100.0` s | 0.0 s | `0.0`: Tắt chức năng bảo vệ ngắt kết nối mạng |
-| **FC.05** | Lựa chọn giao thức (Protocol Option) | `0` ~ `1` | 1 | `0`: Modbus ASCII<br/>`1`: Modbus RTU |
+* **Cầu đấu `S+` và `S-`**: Cầu đấu dạng vặn ốc tiện lợi ngay trên Terminal điều khiển. Nối `S+` tới chân A(+) và `S-` tới chân B(-) của Master.
+* **Cổng `RJ45`**: Chân 1 (Pin 1) tương ứng với tín hiệu `S+`, Chân 2 (Pin 2) tương ứng với `S-`.
 
-:::warning
-Sau khi thay đổi các thông số cấu hình truyền thông trên, bạn **phải ngắt nguồn cấp biến tần, đợi màn hình hiển thị tắt hoàn toàn và bật lại** thì các cấu hình mới bắt đầu có hiệu lực.
+```mermaid
+graph LR
+    subgraph "Thiết bị Master (PLC / HMI / SCADA)"
+        MA["Chân tín hiệu A (+)"]
+        MB["Chân tín hiệu B (-)"]
+        MGND["Chân GND chống nhiễu"]
+    end
+
+    subgraph "Biến tần WECON VM (Slave)"
+        TSPlus["Chân S+ (Hoặc Pin 1 RJ45)"]
+        TSMinus["Chân S- (Hoặc Pin 2 RJ45)"]
+        TGND["Chân GND điều khiển"]
+    end
+
+    MA === TSPlus
+    MB === TSMinus
+    MGND -.- TGND
+```
+
+### 1.2 Bảng cài đặt tham số truyền thông trên bàn phím (Nhóm FC)
+
+Trước khi kết nối mạng Modbus, cần cài đặt các tham số thuộc nhóm **FC** trên bàn phím biến tần:
+
+| Mã hàm | Tên thông số | Dải giá trị cài đặt chi tiết | Mặc định | Địa chỉ RAM |
+| :---: | --- | --- | :---: | :---: |
+| **[FC.00](./parameter-configuration.mdx#fc00)** | Modbus Station Address | `1` ~ `247` (Địa chỉ Trạm Slave duy nhất trong mạng) | 1 | 0C00H |
+| **[FC.01](./parameter-configuration.mdx#fc01)** | Communication Baud Rate | `0`: 1200 bps<br/>`1`: 2400 bps<br/>`2`: 4800 bps<br/>`3`: **9600 bps** (Phổ biến)<br/>`4`: 19200 bps<br/>`5`: 38400 bps | 3 | 0C01H |
+| **[FC.02](./parameter-configuration.mdx#fc02)** | Modbus Data Format | `0`: **(N,8,1)** Không Parity, 8 data bits, 1 stop bit<br/>`1`: (E,8,1) Parity chẵn (Even), 8 data bits, 1 stop bit<br/>`2`: (O,8,1) Parity lẻ (Odd), 8 data bits, 1 stop bit<br/>`3`: (N,8,2) Không Parity, 8 data bits, 2 stop bits | 0 | 0C02H |
+| **[FC.03](./parameter-configuration.mdx#fc03)** | Communication Reply Delay | `0` ~ `500 ms` (Thời gian trễ phản hồi tin nhắn) | 1 ms | 0C03H |
+| **[FC.04](./parameter-configuration.mdx#fc04)** | Timeout Alarm Delay | `0.1` ~ `100.0 s` (Thời gian ngắt kết nối trước khi báo lỗi) | 1.0 s | 0C04H |
+
+---
+
+## 2. Quy tắc chuyển đổi địa chỉ RAM và EEPROM
+
+Giao thức Modbus trên biến tần WECON VM sử dụng các mã lệnh chuẩn:
+* **`03H`**: Đọc một hoặc nhiều thanh ghi (Read Holding Registers).
+* **`06H`**: Ghi một thanh ghi đơn (Write Single Register).
+* **`10H`**: Ghi nhiều thanh ghi liên tiếp (Write Multiple Registers).
+
+###  Quy tắc phân biệt địa chỉ RAM và EEPROM:
+1. **Ghi vào bộ nhớ RAM (Địa chỉ dạng `0XXXH`)**:
+   * Giá trị chỉ lưu tạm thời. Khi tắt nguồn biến tần, giá trị sẽ mất và khôi phục lại giá trị cũ.
+   * *Ứng dụng*: Dùng cho lệnh ghi thay đổi tần số liên tục từ PLC để **tránh gây hỏng chip nhớ**.
+2. **Ghi vào bộ nhớ EEPROM (Địa chỉ dạng `FXXXH`)**:
+   * Đổi ký tự **`0`** đầu tiên của địa chỉ RAM thành ký tự **`F`**.
+   * Giá trị sẽ được lưu cố định vào bộ nhớ EEPROM (khởi động lại nguồn vẫn giữ nguyên).
+   * *Ví dụ*: Tham số thời gian tăng tốc `F0.18` có địa chỉ RAM là `0012H`. Nếu muốn lưu vĩnh viễn vào EEPROM, PLC phải ghi vào địa chỉ **`F012H`**.
+
+> [!WARNING]
+> Tuổi thọ ghi của chip nhớ EEPROM trên biến tần đạt khoảng **1 triệu lần**. Nếu hệ thống của bạn liên tục thay đổi giá trị tần số chạy theo tải (ví dụ thuật toán PID của PLC), bạn **bắt buộc phải ghi vào địa chỉ RAM (`1000H` hoặc `0XXXH`)** để bảo vệ phần cứng.
+
+---
+
+## 3. Bảng thanh ghi điều khiển & Giám sát hệ thống (Modbus Register Map)
+
+### 3.1 Thanh ghi lệnh điều khiển & Cài đặt tần số
+
+| Tên thanh ghi | Địa chỉ (Hex) | Hướng | Dải giá trị và Mô tả chi tiết | Đặc tính |
+| :--- | :---: | :---: | --- | :---: |
+| **Set Frequency** | **`1000H`** | R/W | Dải giá trị từ `-10000` đến `10000`, tương ứng với `-100.00%` ~ `100.00%` của tần số tối đa [`F0.10`](./parameter-configuration.mdx#f010) | RAM |
+| **Control Command** | **`2000H`** | Write | • `0001H`: Ra lệnh Chạy Thuận (FWD Running)<br/>• `0002H`: Ra lệnh Chạy Ngược (REV Running)<br/>• `0003H`: Chạy Nhấp Thuận (FWD JOG)<br/>• `0004H`: Chạy Nhấp Ngược (REV JOG)<br/>• `0005H`: Dừng tự do (Free Stop / Coast to Stop)<br/>• `0006H`: Dừng giảm tốc (Deceleration Stop)<br/>• `0007H`: Xóa báo lỗi (Error Reset) | Write Only |
+| **Running Status** | **`3000H`** | Read | • `0001H`: Biến tần đang chạy Thuận (FWD)<br/>• `0002H`: Biến tần đang chạy Ngược (REV)<br/>• `0003H`: Biến tần đã Dừng (Stopped) | Read Only |
+
+---
+
+### 3.2 Thanh ghi dữ liệu giám sát thời gian thực (Monitoring Registers)
+
+| Tên thông số giám sát | Địa chỉ (Hex) | Đơn vị & Tỷ lệ hiển thị | Hướng |
+| :--- | :---: | --- | :---: |
+| **Running Frequency** | **`1001H`** | Tần số đầu ra thực tế (Độ phân giải: 2 số thập phân, `5000` = 50.00 Hz) | Read Only |
+| **Set Frequency** | **`1002H`** | Tần số cài đặt hiện tại (Độ phân giải: 2 số thập phân) | Read Only |
+| **Bus Voltage** | **`1003H`** | Điện áp DC Bus thực tế (Độ phân giải: 1 số thập phân, `3105` = 310.5 V) | Read Only |
+| **Output Voltage** | **`1004H`** | Điện áp ngõ ra động cơ (Độ phân giải: 1 số thập phân) | Read Only |
+| **Output Current** | **`1005H`** | Dòng điện đầu ra thực tế (Độ phân giải: 2 số thập phân, `250` = 2.50 A) | Read Only |
+| **DI Input Status** | **`1008H`** | Trạng thái các ngõ vào số (Cộng dồn bit nhị phân: Bit 0 = DI1, Bit 1 = DI2, Bit 2 = DI3, Bit 3 = DI4) | Read Only |
+| **AI Input Voltage** | **`100AH`** | Điện áp ngõ vào Analog AI1 (Độ phân giải: 1 số thập phân) | Read Only |
+| **Potentiometer Voltage** | **`100CH`** | Điện áp chiết áp trên bàn phím (Độ phân giải: 1 số thập phân) | Read Only |
+| **IGBT Temperature** | **`100DH`** | Nhiệt độ khối công suất IGBT (Độ phân giải: 1 số thập phân, `450` = 45.0 °C) | Read Only |
+| **Motor RPM** | **`100FH`** | Tốc độ vòng quay thực tế của motor (Độ phân giải: 1 RPM) | Read Only |
+| **Inner PLC Stage** | **`1012H`** | Cấp bước PLC nội hàm hiện tại (`0` ~ `15`) | Read Only |
+
+---
+
+### 3.3 Thanh ghi nhật ký lỗi & Sự cố truyền thông
+
+| Tên thanh ghi | Địa chỉ (Hex) | Mã giá trị đọc về & Ý nghĩa | Hướng |
+| :--- | :---: | --- | :---: |
+| **Error Record Code** | **`8000H`** | • `0000H`: Không có lỗi<br/>• `0002H`: **ERR02** Quá dòng tăng tốc<br/>• `0003H`: **ERR03** Quá dòng giảm tốc<br/>• `0005H`: **ERR05** Quá áp Bus DC khi tăng tốc<br/>• `0006H`: **ERR06** Quá áp Bus DC khi giảm tốc<br/>• `0009H`: **ERR09** Thấp áp Bus DC<br/>• `000AH`: **ERR10** Quá tải biến tần<br/>• `000BH`: **ERR11** Quá tải động cơ<br/>• `000DH`: **ERR13** Mất pha ngõ ra<br/>• `000EH`: **ERR14** Quá nhiệt IGBT<br/>• `000FH`: **ERR15** Lỗi ngõ vào ngoài DI | Read Only |
+| **Comm Failure Record** | **`8001H`** | • `0000H`: Không có lỗi truyền thông<br/>• `0001H`: Sai mã Function Code<br/>• `0002H`: Lỗi truyền dẫn đường truyền<br/>• `0003H`: Sai mã kiểm tra CRC Check<br/>• `0004H`: Địa chỉ thanh ghi không hợp lệ (Invalid Address)<br/>• `0005H`: Dữ liệu gửi không hợp lệ (Invalid Data)<br/>• `0006H`: Cài đặt tham số không hợp lệ<br/>• `0007H`: Hệ thống bị khóa | Read Only |
+
+---
+
+## 4. Ví dụ lập trình khung truyền Modbus RTU thực tế
+
+### Ví dụ 1: Gửi lệnh Chạy Thuận (FWD Run)
+Master (PLC) gửi câu lệnh ghi một thanh ghi (`06H`) vào địa chỉ `2000H` với giá trị `0001H`:
+
+* **Frame gửi đi (Master $\rightarrow$ VFD)**: `01 06 20 00 00 01 43 CA` (Địa chỉ 1, Function 06, Register 2000H, Data 0001H, CRC16).
+* **Frame phản hồi (VFD $\rightarrow$ Master)**: `01 06 20 00 00 01 43 CA`.
+
+### Ví dụ 2: Gửi lệnh Dừng giảm tốc (Deceleration Stop)
+Master gửi câu lệnh ghi giá trị `0006H` vào địa chỉ `2000H`:
+
+* **Frame gửi đi**: `01 06 20 00 00 06 03 C8` (Địa chỉ 1, Function 06, Register 2000H, Data 0006H, CRC16).
+
+---
+
+## 5. Tài liệu liên quan
+
+:::tip[CÁC TRANG LIÊN QUAN]
+* 📄 **[Sổ Tay Hướng Dẫn Vận Hành WECON VM (Manual.mdx)](./Manual.mdx)**
+* 📋 **[Bảng Tham Số Cài Đặt Chi Tiết F0 - FD (parameter-configuration.mdx)](./parameter-configuration.mdx)**
+* ⚠️ **[Bảng Mã Lỗi & Cách Khắc Phục ERR02 - ERR22 (error-codes.mdx)](./error-codes.mdx)**
 :::
----
-
-## 2. Thanh ghi điều khiển và cài đặt (Control Registers)
-
-Các thanh ghi này hỗ trợ cả chức năng Đọc (Read) và Ghi (Write) để ra lệnh chạy và thiết lập tần số:
-
-### Địa chỉ thanh ghi chính:
-
-| Địa chỉ (Hex) | Chức năng | Hướng | Đơn vị / Dải giá trị | Giải thích chi tiết |
-| --- | --- | --- | --- | --- |
-| **1000H** | Cài đặt tần số chạy | R/W | `-10000` ~ `10000` | Tương đương `-100.00%` ~ `100.00%` tần số tối đa [F0.05](Manual.mdx#f005).<br/>Ví dụ: Nếu [F0.05](Manual.mdx#f005) = 50.00Hz, ghi `10000` tương đương chạy 50.00Hz. |
-| **2000H** | Gửi lệnh điều khiển | W | Mã lệnh điều khiển | Gửi lệnh chạy/dừng/reset lỗi động cơ. Xem bảng mã lệnh bên dưới. |
-
-### Bảng mã lệnh điều khiển tại địa chỉ 2000H (Control Commands):
-
-| Giá trị lệnh (Hex) | Tên lệnh | Chức năng thực hiện |
-| :---: | --- | --- |
-| **0001H** | FWD Run | Chạy thuận (Forward Run) |
-| **0002H** | REV Run | Chạy ngược (Reverse Run) |
-| **0003H** | FWD JOG | Chạy nhấp tiến (JOG Forward) |
-| **0004H** | REV JOG | Chạy nhấp lùi (JOG Reverse) |
-| **0005H** | Coast Stop | Dừng tự do động cơ (Free stop - Ngắt ngõ ra tức thì) |
-| **0006H** | Decelerate Stop | Dừng giảm tốc động cơ theo thời gian tăng/giảm tốc cài đặt |
-| **0007H** | Fault Reset | Reset trạng thái báo lỗi của biến tần (Error Reset) |
-
----
-
-## 3. Thanh ghi giám sát trạng thái (Monitoring Registers)
-
-Các thanh ghi này chỉ hỗ trợ chức năng **Đọc (Read-Only)** để giám sát thông số hoạt động thời gian thực của hệ thống động cơ:
-
-| Địa chỉ (Hex) | Chức năng giám sát | Độ phân giải | Đơn vị | Mô tả |
-| --- | --- | --- | --- | --- |
-| **3000H** | Trạng thái hoạt động | - | - | `0001H`: Đang chạy thuận (FWD)<br/>`0002H`: Đang chạy ngược (REV)<br/>`0003H`: Đã dừng (Stopped) |
-| **1001H** | Tần số ngõ ra thực tế | 0.01 | Hz | Tần số đầu ra cấp cho động cơ |
-| **1002H** | Tần số cài đặt hiện hành | 0.01 | Hz | Tần số mong muốn đang đặt |
-| **1003H** | Điện áp Bus DC | 0.1 | V | Điện áp trên giàn tụ DC Bus |
-| **1004H** | Điện áp ngõ ra động cơ | 1 | V | Điện áp AC hiệu dụng cấp cho động cơ |
-| **1005H** | Dòng điện ngõ ra thực tế | 0.01 | A | Dòng tải thực tế chạy qua động cơ |
-| **1006H** | Nhiệt độ khối IGBT | 0.1 | °C | Nhiệt độ cánh tản nhiệt/IGBT của biến tần |
-| **1007H** | Trạng thái các ngõ vào số DI | - | - | Trạng thái logic các chân DI1 ~ DI4 (đọc bit-mapped):<br/>`Bit 0`: DI1, `Bit 1`: DI2, `Bit 2`: DI3, `Bit 3`: DI4 |
-| **1008H** | Trạng thái ngõ ra Relay | - | - | Trạng thái relay đầu ra RA-RC (đọc bit-mapped):<br/>`Bit 0`: Relay kích hoạt |
-| **1009H** | Giá trị Analog đầu vào AI1 | 0.01 | V | Điện áp thực tế đo tại chân AI |
-| **100BH** | Tốc độ động cơ thực tế | 1 | RPM | Vòng/phút của trục động cơ |
-| **100CH** | Tổng thời gian chạy máy | 1 | giờ | Thời gian tích lũy biến tần đã chạy |
-
----
-
-## 4. Thanh ghi đọc mã lỗi (Fault Code Registers)
-
-Thanh ghi đọc mã sự cố đang xảy ra trên biến tần để hiển thị thông tin cảnh báo lên HMI/SCADA:
-
-*   **Địa chỉ đọc lỗi:** `8000H` (Hex)
-
-| Giá trị lỗi (Hex) | Mã lỗi trên Keypad | Nguyên nhân lỗi |
-| :---: | --- | --- |
-| **0000H** | No Fault | Trạng thái hoạt động bình thường, không có lỗi |
-| **0001H** | Err01 | Quá dòng trong lúc tăng tốc (Acceleration Overcurrent) |
-| **0002H** | Err02 | Quá dòng trong lúc giảm tốc (Deceleration Overcurrent) |
-| **0003H** | Err03 | Quá dòng khi chạy tốc độ ổn định (Constant Overcurrent) |
-| **0004H** | Err04 | Quá áp trong lúc tăng tốc (Acceleration Overvoltage) |
-| **0005H** | Err05 | Quá áp trong lúc giảm tốc (Deceleration Overvoltage) |
-| **0006H** | Err06 | Quá áp khi chạy tốc độ ổn định (Constant Overvoltage) |
-| **0007H** | Err07 | Lỗi sụt áp DC Bus (Undervoltage) |
-| **0008H** | Err08 | Lỗi quá tải biến tần (VFD Overload) |
-| **0009H** | Err09 | Lỗi quá tải động cơ (Motor Overload) |
-| **000AH** | Err10 | Lỗi mất pha đầu vào (Input Phase Loss) |
-| **000BH** | Err11 | Lỗi mất pha đầu ra động cơ (Output Phase Loss) |
-| **000CH** | Err12 | Lỗi quá nhiệt khối công suất IGBT (IGBT Overheat) |
-| **000DH** | Err13 | Cảnh báo lỗi ngoại vi tác động (External Fault) |
-| **000EH** | Err14 | Lỗi sự cố truyền thông Modbus (Communication Timeout) |
-
----
-
-## 5. Quy tắc chuyển đổi địa chỉ RAM và EEPROM của tham số
-
-Mỗi tham số cài đặt trên biến tần (Ví dụ: `F0.10` - Thời gian tăng tốc) đều có một địa chỉ Modbus tương ứng để đọc/ghi trực tiếp qua mạng truyền thông:
-
-### Cách xác định địa chỉ tham số:
-Địa chỉ Modbus được tạo nên từ **Nhóm tham số** (ví dụ: `F0` tương đương `00H`, `F5` tương đương `05H`) và **Số tham số** chuyển đổi sang hệ thập lục phân Hex.
-*   *Ví dụ:* `F0.10` (Thời gian tăng tốc 1) -> Nhóm `F0` tương đương `00H`, tham số thứ `10` tương đương `0AH` trong hệ Hex -> Địa chỉ RAM là **`000AH`**.
-
-### Quy tắc ghi vào RAM vs EEPROM:
-*   **Ghi vào RAM (Tạm thời):** Địa chỉ bắt đầu bằng số `0`. Ví dụ, ghi thời gian tăng tốc vào địa chỉ `000AH`. Giá trị này sẽ bị mất khi biến tần mất nguồn điện (khôi phục lại giá trị cũ).
-*   **Ghi vào EEPROM (Vĩnh viễn):** Địa chỉ bắt đầu bằng chữ `F`. Ví dụ, ghi thời gian tăng tốc lưu vĩnh viễn vào địa chỉ `F00AH`. Giá trị mới sẽ được giữ nguyên sau khi khởi động lại.
-
-:::warning
-Tuổi thọ của chip nhớ EEPROM chỉ giới hạn khoảng 100.000 ~ 1.000.000 lần ghi dữ liệu. Do đó, nếu hệ thống PLC/HMI liên tục tự động thay đổi giá trị của một thông số dựa trên tải chạy (ví dụ như thay đổi tần số liên tục), bạn **phải ghi vào địa chỉ RAM (hoặc ghi tần số vào địa chỉ 1000H)** để bảo vệ phần cứng biến tần. Tuyệt đối không ghi liên tục vào địa chỉ EEPROM.
-:::
----
-
-## 6. Ví dụ các khung truyền tin Modbus RTU thực tế
-
-Dưới đây là một số ví dụ khung truyền tin Hex thực tế với địa chỉ biến tần (Slave ID) mặc định là `01`:
-
-### 1. Cài đặt tần số chạy (Write Frequency to 1000H)
-Thiết lập tần số chạy bằng 100% tần số tối đa (tương ứng 50.00Hz khi [F0.05](Manual.mdx#f005) = 50.0Hz). Giá trị cần ghi là `10000` (Thập phân) = `2710H` (Hex).
-*   **Khung lệnh gửi (Master):** `01 06 10 00 27 10 97 36`
-*   **Khung phản hồi (Slave):** `01 06 10 00 27 10 97 36`
-
-### 2. Ra lệnh chạy Thuận (Write Run FWD to 2000H)
-Gửi lệnh bắt đầu khởi động chạy thuận cho động cơ. Giá trị cần ghi là `0001H`.
-*   **Khung lệnh gửi (Master):** `01 06 20 00 00 01 43 CA`
-*   **Khung phản hồi (Slave):** `01 06 20 00 00 01 43 CA`
-
-### 3. Đọc tần số thực tế ngõ ra (Read Output Frequency from 1001H)
-Đọc tần số đang xuất ra động cơ (1 thanh ghi tại địa chỉ `1001H`).
-*   **Khung lệnh gửi (Master):** `01 03 10 01 00 01 D1 0A`
-*   **Khung phản hồi (Slave):** `01 03 02 [Tần số thực tế Hex] [CRC]`
-    *   *Ví dụ:* Nếu động cơ đang chạy ở 40.00Hz, phản hồi là: `01 03 02 0F A0 B8 1F` (với `0FA0H` = `4000` -> 40.00Hz).
-
-### 4. Đọc điện áp Bus DC (Read DC Bus Voltage from 1003H)
-Đọc thông số điện áp trung gian một chiều trên Bus DC (1 thanh ghi tại địa chỉ `1003H`).
-*   **Khung lệnh gửi (Master):** `01 03 10 03 00 01 70 CA`
-*   **Khung phản hồi (Slave):** `01 03 02 [Điện áp Hex] [CRC]`
-    *   *Ví dụ:* Nếu điện áp tụ điện là 540.0V, phản hồi là: `01 03 02 15 18 53 B5` (với `1518H` = `5400` -> 540.0V).
