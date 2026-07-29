@@ -1,10 +1,13 @@
-import { useState } from 'react';
-import { toast } from 'sonner';
+import { useState } from "react";
+import { toast } from "sonner";
 
 export function useCopyToClipboard({ timeout = 2000 } = {}) {
   const [isCopied, setIsCopied] = useState(false);
 
-  const copyToClipboard = async (value, successMessage = "Đã sao chép vào clipboard!") => {
+  const copyToClipboard = async (
+    value,
+    successMessage = "Đã sao chép vào clipboard!",
+  ) => {
     if (typeof window === "undefined" || !navigator.clipboard?.writeText) {
       toast.error("Trình duyệt không hỗ trợ sao chép.");
       return;

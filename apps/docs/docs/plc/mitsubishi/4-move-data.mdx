@@ -3,15 +3,99 @@ id: mov-mitsubishi-fx3u
 title: Nhóm lệnh MOV
 sidebar_position: 4
 sidebar_label: Tập lệnh MOV
-tags: [plc, automation, cong-nghiep, mitsubishi, fx3u]
+tags: [mov, mitsubishi, fx3u]
 ---
 
 ### 1. Nhóm lệnh Chuyển tiếp Dữ liệu (Data Transfer)
 
 | Tên lệnh | Ý nghĩa | Cú pháp (Lệnh) | Ghi chú / Ví dụ ứng dụng |
 | :--- | :--- | :--- | :--- |
-| **MOV** | Chép dữ liệu (Move) | `-[MOV K10 D0]-` | Chép hằng số 10 vào thanh ghi D0 |
-| **DMOV** | Chép dữ liệu 32-bit (Double Move) | `-[DMOV D0 D2]-` | Chép dữ liệu 32-bit từ cụm D0-D1 sang D2-D3 |
-| **BMOV** | Chép một khối dữ liệu (Block Move)| `-[BMOV D0 D10 K5]-` | Chép 5 thanh ghi từ D0-D4 sang D10-D14 |
-| **FMOV** | Điền khối dữ liệu (Fill Move) | `-[FMOV K0 D0 K10]-` | Ghi hằng số 0 vào 10 thanh ghi từ D0~D9 (Reset Data) |
-| **XCH** | Hoán đổi dữ liệu (Exchange) | `-[XCH D0 D1]-` | Đổi chéo giá trị giữa thanh ghi D0 và D1 |
+| **MOV** | Sao chép dữ liệu 16-bit (Move) | `-[MOV K10 D0]-` | Chép hằng số 10 vào thanh ghi D0 |
+| **DMOV** | Sao chép dữ liệu 32-bit (Double Move) | `-[DMOV D0 D2]-` | Chép dữ liệu 32-bit từ cụm D0-D1 sang D2-D3 |
+| **BMOV** | Sao chép khối dữ liệu (Block Move) | `-[BMOV D0 D10 K5]-` | Chép 5 thanh ghi liên tiếp từ D0-D4 sang D10-D14 |
+| **FMOV** | Ghi đầy khối dữ liệu 16-bit (Fill Move) | `-[FMOV K0 D0 K10]-` | Ghi hằng số 0 vào 10 thanh ghi từ D0-D9 |
+| **DFMOV** | Ghi đầy khối dữ liệu 32-bit (Double Fill) | `-[DFMOV K100 D0 K5]-` | Ghi giá trị 100 vào 5 cụm thanh ghi 32-bit (10 thanh ghi D) |
+| **XCH** | Hoán đổi dữ liệu 16-bit (Exchange) | `-[XCH D0 D1]-` | Đổi chéo giá trị giữa thanh ghi D0 và D1 |
+| **DXCH** | Hoán đổi dữ liệu 32-bit (Double Exchange) | `-[DXCH D0 D2]-` | Đổi chéo cụm dữ liệu 32-bit D0-D1 với D2-D3 |
+| **CML** | Sao chép nghịch đảo bit (Complement) | `-[CML D0 D1]-` | Đảo trạng thái 0/1 của từng bit trong D0 rồi chép vào D1 |
+| **DCML** | Sao chép nghịch đảo 32-bit (Double Complement) | `-[DCML D0 D2]-` | Đảo trạng thái 0/1 của cụm 32-bit D0-D1 rồi chép vào D2-D3 |
+| **SMOV** | Sao chép dịch vị trí số (Shift Move) | `-[SMOV D0 K4 K2 D10 K3]-` | Trích xuất dịch các ký số BCD/thập phân từ nguồn sang đích |
+
+---
+
+## Chi tiết các tập lệnh truyền nhận
+
+### 1. Lệnh MOV và DMOV (Truyền đơn lẻ)
+
+Lệnh `MOV` dùng để chép dữ liệu từ một nguồn (Source) vào một đích (Destination). 
+
+*   **Độ rộng dữ liệu:** 
+    - `MOV` hoạt động trên thanh ghi đơn **16-bit** (phạm vi giá trị từ `-32,768` đến `32,767`).
+    - `DMOV` (Double Word Move) hoạt động trên cụm thanh ghi kép **32-bit** (phạm vi từ `-2,147,483,648` đến `2,147,483,647`).
+*   **Địa chỉ hóa 32-bit:** Trong dòng PLC FX3U, khi ní chỉ định thanh ghi `D0` làm nguồn trong lệnh 32-bit (`DMOV`), PLC sẽ tự động sử dụng cả `D0` (16 bit thấp) và `D1` (16 bit cao). Thiết bị đích cũng tương tự.
+
+**Ví dụ:**
+```text
+|--[ X0 ]--------------------------------------[ DMOV D0 D10 ]--|
+```
+- Khi `X0` = ON, giá trị 32-bit lưu trữ trong `D1` (cao) và `D0` (thấp) sẽ được sao chép hoàn toàn sang `D11` (cao) và `D10` (thấp).
+
+---
+
+### 2. Lệnh sao chép mảng BMOV và FMOV
+
+Khi làm việc với các khối dữ liệu hoặc mảng thông số (như công thức recipe, nhật ký lỗi), việc truyền từng thanh ghi đơn rất mất thời gian và tốn dung lượng chương trình.
+
+#### Lệnh BMOV (Block Move - Sao chép song song một khối)
+*   **Công dụng:** Sao chép một dãy thanh ghi liên tiếp sang một dãy đích khác.
+*   **Cú pháp:** `[BMOV S D n]`
+    - `S`: Địa chỉ thanh ghi bắt đầu nguồn.
+    - `D`: Địa chỉ thanh ghi bắt đầu đích.
+    - `n`: Số lượng thanh ghi cần sao chép (Hằng số K).
+*   **Ví dụ:** `[BMOV D100 D200 K5]`
+    - Chép lần lượt: `D100 -> D200`, `D101 -> D201`, `D102 -> D202`, `D103 -> D203`, `D104 -> D204`.
+
+#### Lệnh FMOV (Fill Move - Điền đồng loạt một giá trị)
+*   **Công dụng:** Ghi đè cùng một giá trị nguồn (hằng số hoặc thanh ghi đơn) vào một dãy thanh ghi đích.
+*   **Cú pháp:** `[FMOV S D n]`
+*   **Ví dụ:** `[FMOV K0 D0 K100]`
+    - Ghi đè số `0` vào 100 thanh ghi từ `D0` đến `D99`. Đây là phương pháp phổ biến nhất để khởi tạo lại dữ liệu (Reset Data) hoặc xóa các cảnh báo lỗi.
+
+---
+
+### 3. Phiên bản sườn xung kích hoạt (Suffix P)
+
+Mặc định, các lệnh như `MOV`, `DMOV`, `BMOV`, `FMOV` sẽ thực thi **liên tục trong mỗi chu kỳ quét (Scan Cycle)** nếu tín hiệu đầu vào duy trì trạng thái `ON`. Việc thực thi liên tiếp không cần thiết này làm tiêu tốn tài nguyên xử lý của PLC.
+
+Để khắc phục, ní nên thêm hậu tố **`P`** vào sau tên lệnh (ví dụ: `MOVP`, `DMOVP`, `BMOVP`, `FMOVP`). Lệnh chỉ thực thi **một lần duy nhất** tại thời điểm tín hiệu kích hoạt chuyển từ `OFF` sang `ON` (đâm sườn lên).
+
+```text
+|--[ X0 ]--------------------------------------[ MOVP K50 D10 ]--|
+```
+*   Khi `X0` chuyển từ `OFF` sang `ON`, hằng số `50` được chép vào `D10`.
+*   Ở các chu kỳ quét tiếp theo, mặc dù `X0` vẫn giữ `ON`, lệnh `MOVP` sẽ bỏ qua không xử lý.
+
+---
+
+### 4. Gom Bit thành Thanh ghi (Kỹ thuật KnX, KnY, KnM, KnS)
+
+Đây là một tính năng cực kỳ mạnh mẽ của PLC Mitsubishi, cho phép xử lý các tiếp điểm đầu vào/đầu ra vật lý (`X`, `Y`) hoặc các rơ-le phụ (`M`, `S`) dưới dạng các cụm byte/word dữ liệu số.
+
+*   **Cú pháp định nghĩa:** **`Kn[Thiết bị]`**
+    - `n`: Số lượng nhóm 4-bit (1 Nibble). `n` chạy từ `1` đến `8`.
+    - `K1` = 4 bits, `K2` = 8 bits (1 Byte), `K3` = 12 bits, `K4` = 16 bits (1 Word), `K8` = 32 bits (Double Word).
+    - `[Thiết bị]`: Điểm bắt đầu (vd: `X0`, `Y0`, `M10`).
+
+#### Ví dụ 1: Đọc tín hiệu nút gạt BCD hoặc Sensor song song vào thanh ghi
+```text
+|--[ M8000 ]-----------------------------------[ MOV K2X0 D0 ]--|
+```
+*   `K2X0` chỉ định cụm **8-bit** (K2 * 4) bắt đầu từ `X0` (từ `X0` đến `X7`).
+*   Lệnh sẽ đọc trạng thái ON/OFF của `X0 - X7`, chuyển đổi thành mã nhị phân 8-bit và chép vào phần thấp của thanh ghi `D0`.
+
+#### Ví dụ 2: Xuất trực tiếp trạng thái mã lỗi từ thanh ghi ra các đèn báo hiệu ngõ ra
+```text
+|--[ X1 ]------------------------------------[ MOVP D10 K4Y0 ]--|
+```
+*   `K4Y0` chỉ định cụm **16-bit** (K4 * 4) bắt đầu từ `Y0` (từ `Y0` đến `Y17` trong hệ bát phân).
+*   Khi `X1` ON, giá trị số nguyên trong `D10` sẽ được xuất ra dưới dạng nhị phân điều khiển trực tiếp 16 ngõ ra `Y0 - Y17`.

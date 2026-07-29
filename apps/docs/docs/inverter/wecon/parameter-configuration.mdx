@@ -1,0 +1,140 @@
+---
+id: parameter-configuration-wecon
+title: Bảng Mã Tham Số Cài Đặt Chi Tiết Biến Tần WECON VM (Function Codes F0 - FD)
+sidebar_position: 2
+sidebar_label: Bảng tham số cài đặt (F0 - FD)
+tags: [wecon, wecon-inverter, parameters, configuration, function-codes]
+---
+
+Tài liệu này tổng hợp toàn bộ bảng mã tham số chức năng (Function Codes) của dòng biến tần **WECON VM Series** dựa trên sổ tay hướng dẫn chính thức phiên bản **V2.0 (20251203)**. 
+
+Bảng bao gồm mã hàm chuẩn xác, tên thông số, dải giá trị cài đặt, giá trị mặc định nhà sản xuất, tính chất thay đổi và **địa chỉ RAM giao tiếp Modbus**.
+
+---
+
+## 1. Ký hiệu đặc tính thay đổi tham số (Properties)
+
+* **`○`**: Giá trị tham số có thể thay đổi được trong cả 2 trạng thái **Dừng (Stop)** hoặc **Đang chạy (Running)**.
+* **`●`**: Giá trị tham số chỉ có thể thay đổi khi biến tần **Dừng (Stop)**, không cho phép sửa khi đang chạy.
+* **`◎`**: Giá trị chỉ đọc (Read-only / Detection record), không cho phép người dùng chỉnh sửa.
+
+---
+
+## 2. Nhóm F0: Nhóm hàm chức năng cơ bản (Basic Function Group)
+
+> [!IMPORTANT]
+> **Chú ý quan trọng**: Ở phiên bản thủ tục WECON VM V2.0, thời gian tăng tốc 1 nằm ở **`F0.18`**, thời gian giảm tốc 1 nằm ở **`F0.19`**, và khôi phục cài đặt gốc là **`F0.20`**.
+
+| Mã hàm | Tên thông số / Chức năng | Dải giá trị cài đặt chi tiết | Mặc định | Tính chất | Địa chỉ RAM |
+| :---: | --- | --- | :---: | :---: | :---: |
+| <span id="f000">**F0.00**</span> | Industrial Marco (Macro ứng dụng ngành) | `0`: Mặc định (Default)<br/>`1~8`: Dự phòng<br/>`9`: Macro máy ép gạch (Tile press machine) | 0 | ● | 0000H |
+| <span id="f001">**F0.01**</span> | Start/Stop channel (Chọn nguồn lệnh chạy) | `0`: Bàn phím điều khiển (Keypad)<br/>`1`: Cầu đấu Terminal ngoài (DI Terminal)<br/>`2`: Truyền thông RS-485 | 0 | ● | 0001H |
+| <span id="f003">**F0.03**</span> | Main Frequency Source X (Nguồn đặt tần số chính X) | `0`: Cài bằng phím bấm `F0.08`<br/>`1`: Núm xoay chiết áp trên bàn phím<br/>`2`: Ngõ vào Analog AI1 (Chiết áp ngoài)<br/>`4`: Nút nhấn Tăng/Giảm ngoài (Terminal UP/DW)<br/>`6`: Đa cấp tốc độ (Multi-Stage Speed)<br/>`7`: Bộ PLC nội hàm (Inner Simple PLC)<br/>`8`: Điều khiển vòng kín PID<br/>`9`: Truyền thông RS-485 | 1 | ● | 0003H |
+| <span id="f004">**F0.04**</span> | Auxiliary Frequency Source Y (Nguồn tần số phụ Y) | Tương tự tùy chọn của [`F0.03`](#f003) | 0 | ● | 0004H |
+| <span id="f007">**F0.07**</span> | Combination Option of F0.03 & F0.04 | `0`: Chỉ dùng nguồn tần số chính X<br/>`1`: Kết quả phép tính X + Y<br/>`2`: Chuyển đổi giữa X và Y | 0 | ● | 0007H |
+| <span id="f008">**F0.08**</span> | Keypad Setting Frequency (Tần số cài bằng bàn phím) | `0.00 Hz` ~ [`F0.12`](#f012) (Tần số chạy tối đa) | 50.00 Hz | ○ | 0008H |
+| <span id="f009">**F0.09**</span> | Running Direction (Hướng quay mặc định) | `0`: Chạy thuận (FWD)<br/>`1`: Chạy ngược (REV)<br/>`2`: Cấm chạy ngược (REV Forbidden) | 0 | ○ | 0009H |
+| <span id="f010">**F0.10**</span> | Maximum Output Frequency (Tần số ngõ ra tối đa) | `0.00 Hz` ~ `320.00 Hz` | 50.00 Hz | ● | 000AH |
+| <span id="f011">**F0.11**</span> | Upper Limit Frequency Source (Nguồn giới hạn tần số trên) | `0`: Cài trực tiếp `F0.12`<br/>`1`: Ngõ vào Analog AI1<br/>`7`: Núm xoay trên bàn phím | 0 | ● | 000BH |
+| <span id="f012">**F0.12**</span> | Maximum Running Frequency (Giới hạn tần số trên) | [`F0.14`](#f014) ~ [`F0.10`](#f010) | 50.00 Hz | ○ | 000CH |
+| <span id="f014">**F0.14**</span> | Lower Limit Frequency (Giới hạn tần số dưới) | `0.00 Hz` ~ [`F0.12`](#f012) | 0.00 Hz | ○ | 000EH |
+| <span id="f015">**F0.15**</span> | Function of Frequency Lower Limit (Xử lý khi dưới giới hạn dưới) | `0`: Dừng động cơ (Stop)<br/>`1`: Tiếp tục chạy ở tần số giới hạn dưới<br/>`2`: Chạy ở tốc độ 0 | 1 | ○ | 000FH |
+| <span id="f016">**F0.16**</span> | Carrier Frequency (Tần số sóng mang Carrier) | `0.6 kHz` ~ `15.0 kHz` (Tùy thuộc theo Model) | Theo Model | ● | 0010H |
+| <span id="f018">**F0.18**</span> | **Acceleration Time 1 (Thời gian tăng tốc 1)** | `0.01 s` ~ `650.00 s` | Theo Model | ○ | 0012H |
+| <span id="f019">**F0.19**</span> | **Deceleration Time 1 (Thời gian giảm tốc 1)** | `0.01 s` ~ `650.00 s` | Theo Model | ○ | 0013H |
+| <span id="f020">**F0.20**</span> | **Default Setting Restoring (Khôi phục cài đặt gốc)** | `0`: Không thực hiện<br/>`1`: Khôi phục cài đặt gốc (Trừ nhóm motor F2)<br/>`2`: Xóa lịch sử tất cả các lỗi<br/>`3`: Khôi phục toàn bộ (Bao gồm nhóm motor F2) | 0 | ● | 0014H |
+| <span id="f021">**F0.21**</span> | Parameter Lock (Khóa bảo vệ tham số) | `0`: Mở khóa (Cho phép sửa)<br/>`1`: Khóa ghi (Chỉ cho xem) | 0 | ○ | 0015H |
+| <span id="f023">**F0.23**</span> | Unit of Acceleration & Deceleration Time | `0`: Đơn vị 1 giây<br/>`1`: Đơn vị 0.1 giây<br/>`2`: Đơn vị 0.01 giây | 2 | ● | 0017H |
+| <span id="f024">**F0.24**</span> | Acc/Dec Time Reference Frequency (Tần số chuẩn tăng/giảm tốc) | `0`: Chuẩn theo Tần số tối đa `F0.10`<br/>`1`: Chuẩn theo Tần số cài đặt `F0.08`<br/>`2`: Chuẩn 100Hz | 0 | ● | 0018H |
+
+---
+
+## 3. Nhóm F1: Khởi động, Dừng & Phanh DC (Start / Stop / DC Braking)
+
+| Mã hàm | Tên thông số / Chức năng | Dải giá trị cài đặt chi tiết | Mặc định | Tính chất | Địa chỉ RAM |
+| :---: | --- | --- | :---: | :---: | :---: |
+| <span id="f100">**F1.00**</span> | Start Option (Chế độ khởi động) | `0`: Chạy trực tiếp từ tần số khởi động<br/>`1`: Phanh DC trước rồi mới khởi động<br/>`2`: Dò tốc độ (Speed tracking) trước khi chạy | 0 | ● | 0100H |
+| <span id="f103">**F1.03**</span> | Starting Frequency (Tần số khởi động) | `0.00 Hz` ~ `60.00 Hz` | 0.50 Hz | ○ | 0103H |
+| <span id="f107">**F1.07**</span> | Acceleration & Deceleration Curve (Đường cong tăng/giảm tốc) | `0`: Đường thẳng (Straight Line)<br/>`1`: Đường cong chữ S (S Curve) | 0 | ● | 0107H |
+| <span id="f110">**F1.10**</span> | Stopping Option (Chế độ dừng động cơ) | `0`: Dừng giảm tốc (Deceleration stopping)<br/>`1`: Dừng tự do (Free stop) | 0 | ● | 010AH |
+| <span id="f111">**F1.11**</span> | DC Braking Beginning Frequency (Tần số bắt đầu phanh DC khi dừng) | `0.00 Hz` ~ `50.00 Hz` | 1.00 Hz | ○ | 010BH |
+| <span id="f112">**F1.12**</span> | DC Braking Delay (Thời gian chờ trước khi phanh DC) | `0.0 s` ~ `60.0 s` | 0.0 s | ○ | 010DH |
+| <span id="f113">**F1.13**</span> | DC Braking Current (Dòng điện phanh DC khi dừng) | `0.0%` ~ `150.0%` dòng định mức | 60.0% | ○ | 010CH |
+| <span id="f114">**F1.14**</span> | DC Braking Period (Thời gian duy trì phanh DC) | `0.0 s` ~ `60.0 s` | 0.0 s | ○ | 010EH |
+
+---
+
+## 4. Nhóm F2: Tham số Động cơ (Motor Parameters)
+
+| Mã hàm | Tên thông số / Chức năng | Dải giá trị cài đặt chi tiết | Mặc định | Tính chất | Địa chỉ RAM |
+| :---: | --- | --- | :---: | :---: | :---: |
+| <span id="f200">**F2.00**</span> | Type of Motor (Lựa chọn loại động cơ) | `0`: Động cơ 1 pha (Single Phase Motor)<br/>`1`: Động cơ 3 pha (Three Phase Motor) | 1 | ● | 0200H |
+| <span id="f201">**F2.01**</span> | Motor Rated Power (Công suất định mức động cơ) | `0.4 kW` ~ `1000.0 kW` | Theo Model | ● | 0201H |
+| <span id="f202">**F2.02**</span> | Motor Rated Voltage (Điện áp định mức động cơ) | `0 V` ~ `440 V` | Theo Model | ● | 0202H |
+| <span id="f203">**F2.03**</span> | Motor Rated Current (Dòng điện định mức động cơ) | `0.1 A` ~ `2000.0 A` | Theo Model | ● | 0203H |
+| <span id="f204">**F2.04**</span> | Motor Rated Frequency (Tần số định mức động cơ) | `0.01 Hz` ~ [`F0.10`](#f010) | Theo Model | ● | 0204H |
+| <span id="f205">**F2.05**</span> | Motor Rated RPM (Tốc độ quay định mức động cơ) | `0` ~ `65000 RPM` | Theo Model | ● | 0205H |
+| <span id="f211">**F2.11**</span> | Motor Auto Tuning (Tự động dò thông số motor) | `0`: Không tuning<br/>`1`: Dò tĩnh (Static Auto-tuning)<br/>`2`: Dò động (Dynamic Auto-tuning) | 0 | ● | 020BH |
+
+---
+
+## 5. Nhóm F4, F5 & F8: Mô-men, Cầu đấu ngõ vào & Thời gian tăng/giảm tốc mở rộng
+
+| Mã hàm | Tên thông số / Chức năng | Dải giá trị cài đặt chi tiết | Mặc định | Tính chất | Địa chỉ RAM |
+| :---: | --- | --- | :---: | :---: | :---: |
+| <span id="f401">**F4.01**</span> | Manual Torque Boost (Mức bù mô-men khởi động) | `0.1%` ~ `30.0%` (0 = Tự động bù áp) | Theo Model | ○ | 0401H |
+| <span id="f416">**F4.16**</span> | Auto Voltage Regular (Tự động ổn định điện áp AVR) | `0`: Tắt AVR<br/>`1`: Bật AVR tự động giữ áp ngõ ra | 1 | ● | 0410H |
+| <span id="f500">**F5.00**</span> | DI1 Function Option (Chức năng ngõ vào số DI1) | `0`: Không dùng<br/>`1`: Chạy thuận (FWD)<br/>`2`: Chạy ngược (REV)<br/>`3`: Điều khiển 3 dây<br/>`4`: Chạy nhấp thuận (FJOG)<br/>`5`: Chạy nhấp ngược (RJOG)<br/>`6`: Reset báo lỗi<br/>`12`: Chọn cấp tốc độ 1 | 1 | ● | 0500H |
+| <span id="f501">**F5.01**</span> | DI2 Function Option (Chức năng ngõ vào số DI2) | Giống các tùy chọn của chân DI1 | 2 | ● | 0501H |
+| <span id="f502">**F5.02**</span> | DI3 Function Option (Chức năng ngõ vào số DI3) | Giống các tùy chọn của chân DI1 | 9 | ● | 0502H |
+| <span id="f503">**F5.03**</span> | DI4 Function Option (Chức năng ngõ vào số DI4) | Giống các tùy chọn của chân DI1 | 12 | ● | 0503H |
+| <span id="f541">**F5.41**</span> | Analog Input Signal Selection (Chọn loại ngõ vào AI1) | `0`: Điện áp `0 ~ 10V`<br/>`1`: Dòng điện `0/4 ~ 20mA` | 0 | ● | 0529H |
+| <span id="f803">**F8.03**</span> | Acceleration Time 2 (Thời gian tăng tốc 2) | `0.01 s` ~ `650.00 s` | 10.00 s | ○ | 0803H |
+| <span id="f804">**F8.04**</span> | Deceleration Time 2 (Thời gian giảm tốc 2) | `0.01 s` ~ `650.00 s` | 10.00 s | ○ | 0804H |
+| <span id="f805">**F8.05**</span> | Acceleration Time 3 (Thời gian tăng tốc 3) | `0.01 s` ~ `650.00 s` | 10.00 s | ○ | 0805H |
+| <span id="f806">**F8.06**</span> | Deceleration Time 3 (Thời gian giảm tốc 3) | `0.01 s` ~ `650.00 s` | 10.00 s | ○ | 0806H |
+
+---
+
+## 6. Nhóm FA, FC & FD: Bảo vệ hệ thống, Truyền thông & Đa cấp tốc độ
+
+| Mã hàm | Tên thông số / Chức năng | Dải giá trị cài đặt chi tiết | Mặc định | Tính chất | Địa chỉ RAM |
+| :---: | --- | --- | :---: | :---: | :---: |
+| <span id="fa00">**FA.00**</span> | Motor Overload Protection Option (Bảo vệ quá tải motor) | `0`: Tắt bảo vệ<br/>`1`: Kích hoạt bảo vệ quá tải | 1 | ○ | 0A00H |
+| <span id="fa11">**FA.11**</span> | AC Input Phase Loss Protection (Bảo vệ mất pha đầu vào) | `0`: Tắt<br/>`1`: Bật bảo vệ mất pha đầu vào | 1 | ○ | 0A0BH |
+| <span id="fa12">**FA.12**</span> | AC Output Phase Loss Protection (Bảo vệ mất pha ngõ ra) | `0`: Tắt<br/>`1`: Bật bảo vệ mất pha ngõ ra | 1 | ○ | 0A0CH |
+| <span id="fc00">**FC.00**</span> | RS485 Communication Address (Địa chỉ Trạm Modbus) | `1` ~ `247` (Địa chỉ Slave trong mạng RS-485) | 1 | ○ | 0C00H |
+| <span id="fc01">**FC.01**</span> | Communication Baud Rate (Tốc độ truyền RS-485) | `0`: 1200 bps<br/>`1`: 2400 bps<br/>`2`: 4800 bps<br/>`3`: 9600 bps<br/>`4`: 19200 bps<br/>`5`: 38400 bps | 3 | ○ | 0C01H |
+| <span id="fc02">**FC.02**</span> | Modbus Data Format (Định dạng khung truyền tin) | `0`: (N,8,1) Không Parity, 8 data bits, 1 stop bit<br/>`1`: (E,8,1) Parity chẵn (Even), 8 data bits, 1 stop bit<br/>`2`: (O,8,1) Parity lẻ (Odd), 8 data bits, 1 stop bit<br/>`3`: (N,8,2) Không Parity, 8 data bits, 2 stop bits | 0 | ○ | 0C02H |
+| <span id="fd00">**FD.00**</span> | Multistage Speed 0 (Tần số cấp tốc độ 0) | `0.0%` ~ `100.0%` (Tỷ lệ so với Tần số tối đa `F0.10`) | 0.0% | ○ | 0D00H |
+| <span id="fd01">**FD.01**</span> | Multistage Speed 1 (Tần số cấp tốc độ 1) | `0.0%` ~ `100.0%` * F0.10 | 0.0% | ○ | 0D01H |
+| <span id="fd02">**FD.02**</span> | Multistage Speed 2 (Tần số cấp tốc độ 2) | `0.0%` ~ `100.0%` * F0.10 | 0.0% | ○ | 0D02H |
+| <span id="fd03">**FD.03**</span> | Multistage Speed 3 (Tần số cấp tốc độ 3) | `0.0%` ~ `100.0%` * F0.10 | 0.0% | ○ | 0D03H |
+
+---
+
+## 7. Nhóm C0: Nhóm thông số giám sát hoạt động (Monitoring Parameters)
+
+Các tham số thuộc nhóm **C0** là tham số chỉ đọc (Read-only), dùng để kiểm tra trực tiếp trạng thái thực tế trên bàn phím hoặc qua mạng truyền thông Modbus:
+
+| Mã hàm | Tên thông số giám sát | Đơn vị / Mô tả dải hiển thị | Địa chỉ Modbus RAM |
+| :---: | --- | --- | :---: |
+| **C0.00** | Running Frequency | Tần số ngõ ra thực tế (Độ phân giải: 0.01 Hz) | 1001H |
+| **C0.01** | Set Frequency | Tần số cài đặt hiện tại (Độ phân giải: 0.01 Hz) | 1002H |
+| **C0.02** | Output Current | Dòng điện đầu ra thực tế (Độ phân giải: 0.01 A) | 1005H |
+| **C0.03** | Output Voltage | Điện áp đầu ra động cơ (Độ phân giải: 0.1 V) | 1004H |
+| **C0.04** | Bus Voltage | Điện áp DC Bus thực tế (Độ phân giải: 0.1 V) | 1003H |
+| **C0.05** | Module Temperature | Nhiệt độ khối IGBT (Độ phân giải: 0.1 °C) | 100DH |
+| **C0.06** | DI Input Status | Trạng thái vật lý ngõ vào số DI1 ~ DI4 (Trọng số bit nhị phân) | 1008H |
+| **C0.08** | AI Input Voltage | Điện áp tín hiệu Analog ngõ vào AI1 (Độ phân giải: 0.1 V) | 100AH |
+| **C0.15** | Motor RPM | Tốc độ vòng quay động cơ (Độ phân giải: 1 RPM) | 100FH |
+
+---
+
+## 8. Tài liệu liên quan
+
+:::tip[CÁC TRANG LIÊN QUAN]
+* 📄 **[Sổ Tay Hướng Dẫn Vận Hành WECON VM (Manual.mdx)](./Manual.mdx)**
+* ⚠️ **[Bảng Mã Lỗi & Cách Khắc Phục ERR02 - ERR22 (error-codes.mdx)](./error-codes.mdx)**
+* 📡 **[Bản Đồ Thanh Ghi Truyền Thông RS-485 Modbus (registers-rs485.mdx)](./registers-rs485.mdx)**
+:::

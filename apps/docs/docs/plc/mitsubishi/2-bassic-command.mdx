@@ -3,7 +3,7 @@ id: cac-lenh-co-ban-plc-mitsubishi-fx3u
 title: Hướng dẫn các lệnh cơ bản trong PLC Mitsubishi FX3U
 sidebar_position: 2
 sidebar_label: Tập lệnh cơ bản FX3U
-tags: [plc, automation, cong-nghiep, mitsubishi, fx3u]
+tags: [mitsubishi, fx3u]
 ---
 
 ## Giới thiệu
@@ -33,3 +33,106 @@ Việc lập trình trên FX3U chủ yếu sử dụng ngôn ngữ Ladder (LAD).
 | **PLF** | Xung cạnh xuống (Pulse Falling) | `-[PLF M0]-` | ON 1 chu kỳ quét khi đầu vào từ ON -> OFF |
 
 ---
+
+### 2. Phân tích chi tiết nhóm lệnh Bit Logic
+
+#### Lệnh SET và RST (Chốt và Hủy chốt)
+Khác với lệnh `OUT` (ngõ ra chỉ ON khi tiếp điểm điều khiển dẫn điện), lệnh `SET` giữ ngõ ra luôn ở trạng thái ON ngay cả khi tín hiệu kích hoạt ban đầu đã tắt. Để ngắt trạng thái này, bắt buộc phải sử dụng lệnh `RST`.
+*   **SET:** Chỉ áp dụng cho các tiếp điểm đầu ra vật lý `Y`, cờ nội bộ `M`, trạng thái `S`.
+*   **RST:** Sử dụng để reset ngõ ra `Y`, `M`, `S`, và xóa giá trị đếm hiện tại của `Timer` hoặc `Counter` về `0`.
+
+#### Lệnh PLS và PLF (Xung cạnh sườn)
+Đây là các lệnh phát hiện trạng thái thay đổi tức thì của tín hiệu đầu vào:
+*   **PLS (Pulse):** Kích hoạt ngõ ra chỉ trong **1 chu kỳ quét (Scan Cycle)** duy nhất khi tín hiệu đầu vào chuyển từ `OFF -> ON` (Cạnh lên).
+*   **PLF (Pulse Falling):** Kích hoạt ngõ ra chỉ trong **1 chu kỳ quét** duy nhất khi tín hiệu đầu vào chuyển từ `ON -> OFF` (Cạnh xuống).
+
+---
+
+### 3. Nhóm lệnh Khối và Rẽ nhánh (Block Logic)
+
+Khi mạch điện Ladder trở nên phức tạp với nhiều tiếp điểm mắc song song nối tiếp đan xen, các lệnh nối tiếp đơn giản không thể giải quyết được. FX3U cung cấp các lệnh khối đặc biệt sau:
+
+#### Lệnh ANB (AND Block) và ORB (OR Block)
+*   **ANB:** Nối tiếp một khối mạch song song với một khối mạch song song khác.
+*   **ORB:** Mắc song song một khối mạch nối tiếp với một khối mạch nối tiếp khác.
+
+```text
+Sơ đồ Ladder minh họa ANB (Nối tiếp hai khối):
+──[ X0 ]────[ X1 ]───┬───[ X3 ]───[ X4 ]───┬───( Y0 )
+            │        │           │         │
+            └──[ X2 ]┘           └──[ X5 ]─┘
+            ├ Khối 1 ┤           ├ Khối 2 ┤
+
+Sơ đồ Ladder minh họa ORB (Song song hai khối):
+──┬──[ X0 ]────[ X1 ]──┬───( Y0 )
+  │                    │
+  └──[ X2 ]────[ X3 ]──┘
+  ├────── Khối 1 ──────┤
+  ├────── Khối 2 ──────┤
+```
+
+#### Lệnh Stack: MPS, MRD, MPP (Ngăn xếp rẽ nhánh)
+Nhóm lệnh này sử dụng bộ nhớ ngăn xếp tạm thời (Stack Memory) để lưu giữ kết quả logic tại điểm chia nhánh, cho phép thực thi nhiều nhánh đầu ra khác nhau từ cùng một điều kiện đầu vào.
+*   **MPS (Memory Push Store):** Lưu giữ trạng thái logic tại điểm chia nhánh vào ngăn xếp.
+*   **MRD (Memory Read):** Đọc trạng thái logic đã lưu giữ để rẽ nhánh phụ ở giữa.
+*   **MPP (Memory Pop):** Lấy trạng thái logic đã lưu ra ngoài cùng và xóa điểm lưu khỏi ngăn xếp để kết thúc rẽ nhánh.
+
+```text
+Sơ đồ rẽ nhánh sử dụng MPS/MRD/MPP:
+──[ X0 ]───┬──[ X1 ]───( Y0 )  <-- Lưu logic bằng lệnh MPS tại đây
+           ├──[ X2 ]───( Y1 )  <-- Đọc trạng thái lưu bằng lệnh MRD tại đây
+           └──[ X3 ]───( Y2 )  <-- Lấy trạng thái ra và kết thúc rẽ nhánh bằng MPP
+```
+
+---
+
+### 4. Lệnh Master Control (MC / MCR)
+
+Lệnh **MC (Master Control)** và **MCR (Master Control Reset)** dùng để bật hoặc tắt hoạt động của cả một vùng logic Ladder dựa trên tiếp điểm chính.
+*   Khi cờ kích hoạt MC ở trạng thái `ON`, tất cả các lệnh nằm giữa MC và MCR sẽ được thực thi bình thường.
+*   Khi cờ kích hoạt MC ở trạng thái `OFF`, vùng logic này bị bỏ qua (các ngõ ra cuộn dây thường `OUT` bị tắt, tuy nhiên các lệnh `SET` vẫn giữ nguyên trạng thái).
+
+```text
+Cấu trúc Master Control:
+──[ X0 ]────────[ MC N0 M100 ]  <-- Thiết lập vùng điều khiển chính N0, cờ M100
+│
+├─[ X1 ]───────( Y0 )        <-- Nhánh này chỉ chạy khi X0 = ON
+├─[ X2 ]───────( Y1 )
+│
+└────────────[ MCR N0 ]      <-- Kết thúc vùng điều khiển chính N0
+```
+:::tip[Ứng dụng thực tế]
+Master Control cực kỳ hữu ích để thiết kế chế độ **Auto/Manual** hoặc dừng khẩn cấp một phân khu máy mà không cần phải chèn tiếp điểm điều kiện vào từng dòng code đơn lẻ.
+:::
+
+---
+
+### 5. Bộ định thời (Timer) và Bộ đếm (Counter)
+
+#### [Bộ định thời (Timer - Ký hiệu T)](./3-counter-timer.mdx#timer-t)
+
+#### [Bộ đếm (Counter - Ký hiệu C)](./3-counter-timer.mdx#counter-c)
+
+
+---
+
+### 6. Nhóm lệnh Ứng dụng phổ biến (Applied Instructions)
+
+#### Lệnh di chuyển dữ liệu: MOV / DMOV
+Dùng để sao chép dữ liệu từ nguồn (hằng số K/H, thanh ghi D) sang thanh ghi đích.
+*   **MOV (16-bit):** Ví dụ `[MOV K15 D10]` -> Nạp giá trị thập phân 15 vào thanh ghi 16-bit D10.
+*   **DMOV (Double Move - 32-bit):** Ví dụ `[DMOV D0 D2]` -> Gộp 2 thanh ghi liên tiếp (D0-D1) truyền sang (D2-D3).
+
+#### Lệnh so sánh dạng tiếp điểm
+Dùng để so sánh giá trị trực tiếp trên đường truyền Ladder. Nhánh logic dẫn điện nếu phép so sánh đúng.
+
+*   `LD=` (Bằng), `LD>` (Lớn hơn), `LD<` (Nhỏ hơn)
+*   `LD>=` (Lớn hơn hoặc bằng), `LD<=` (Nhỏ hơn hoặc bằng), `LD<>` (Khác nhau)
+
+**Ví dụ:** `[<= D0 K100]` -> Dẫn điện nếu giá trị trong thanh ghi D0 nhỏ hơn hoặc bằng 100.
+
+#### Lệnh toán học cơ bản
+*   **ADD (Phép cộng):** `[ADD D0 D2 D4]` -> Kết quả của `D0 + D2` được lưu trữ vào thanh ghi `D4`.
+*   **SUB (Phép trừ):** `[SUB D0 D2 D4]` -> Kết quả của `D0 - D2` được lưu trữ vào thanh ghi `D4`.
+*   **MUL (Phép nhân):** `[MUL D0 D2 D4]` -> Kết quả của `D0 * D2` được lưu trữ vào thanh ghi 32-bit `D4-D5`.
+*   **DIV (Phép chia):** `[DIV D0 D2 D4]` -> Thương số lưu vào `D4`, phần dư lưu vào `D5`.

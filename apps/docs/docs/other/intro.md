@@ -2,6 +2,6 @@
 sidebar_position: 1
 ---
 
-# 📖 Giới thiệu Kho Tài liệu Temperature 
+# Kho Tài liệu
 
 Đang được cập nhật...

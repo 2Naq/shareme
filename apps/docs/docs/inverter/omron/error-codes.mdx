@@ -1,0 +1,146 @@
+---
+id: error-codes-omron
+title: Bảng mã lỗi biến tần Omron và cách khắc phục
+sidebar_position: 3
+sidebar_label: Bảng mã lỗi & Khắc phục
+tags: [omron, errors, troubleshooting]
+---
+
+Trong quá trình vận hành, biến tần OMRON (MX2, JX, RX Series) có thể gặp sự cố và hiển thị mã lỗi (Trip) trên màn hình LED. Tài liệu này tổng hợp chi tiết danh sách mã lỗi, nguyên nhân phổ biến và các bước kiểm tra, khắc phục thực tế dành cho kỹ sư cơ điện.
+
+---
+
+## 1. Bảng tra cứu nhanh mã lỗi hiển thị trên LED
+
+Mã lỗi trên biến tần Omron thường có dạng chữ **E** kèm theo hai chữ số (Ví dụ: `E01`, `E07`, `E12`...).
+
+| Mã lỗi | Tên lỗi hiển thị | Nguyên nhân chủ yếu |
+| :---: | --- | --- |
+| **E01** | Over-current (constant speed) | Quá dòng điện đầu ra khi đang chạy ở tốc độ ổn định |
+| **E02** | Over-current (deceleration) | Quá dòng điện đầu ra trong quá trình giảm tốc |
+| **E03** | Over-current (acceleration) | Quá dòng điện đầu ra trong quá trình tăng tốc |
+| **E04** | Over-current (stop/other) | Quá dòng điện đầu ra khi dừng hoặc trạng thái khác |
+| **E05** | Overload trip | Động cơ bị quá tải (tích lũy nhiệt đạt giới hạn bảo vệ [b012](#b012)) |
+| **E07** | Overvoltage protection | Quá điện áp trên Bus DC (năng lượng tái sinh phản hồi lớn) |
+| **E08** | EEPROM memory error | Lỗi chip lưu trữ bộ nhớ tham số trên bo mạch điều khiển |
+| **E09** | Undervoltage protection | Thấp áp Bus DC (nguồn cấp vào yếu, mất pha hoặc hỏng nạp điện) |
+| **E11** | CPU communication fault | Lỗi giao tiếp vi xử lý trung tâm của biến tần |
+| **E12** | External trip | Kích hoạt báo lỗi từ thiết bị ngoại vi (thông qua chân gán chức năng `EXT`) |
+| **E13** | USP (Unattended Start Protection) | Bảo vệ khởi động ngoài ý muốn (lệnh chạy đang ON khi bật nguồn) |
+| **E14** | Ground fault detection | Phát hiện dòng rò đất ở các pha đầu ra động cơ (U, V, W) khi khởi động |
+| **E15** | Input overvoltage | Điện áp nguồn cấp đầu vào vượt ngưỡng cho phép |
+| **E21** | Overheat (sink) | Khối nhôm tản nhiệt IGBT bị quá nhiệt (quạt hỏng hoặc bụi bám) |
+| **E22** | Option communication error | Lỗi giao tiếp của card mở rộng gắn thêm |
+| **E30** | Driver circuit fault (IGBT/STO) | Sự cố mạch kích công suất IGBT hoặc hở mạch an toàn STO (Safe Torque Off) |
+| **E35** | Motor thermistor trip | Động cơ quá nhiệt (tín hiệu nhiệt điện trở PTC đưa về chân số 5 kích hoạt) |
+| **E60** | ezSQ execution error | Lỗi logic/cú pháp trong chương trình lập trình nhúng ezSQ |
+
+---
+
+## 2. Giải thích chi tiết và hướng dẫn xử lý các lỗi thường gặp
+
+### Lỗi Quá Dòng (E01, E02, E03, E04)
+Hiện tượng dòng điện ngõ ra biến tần cấp cho động cơ vượt quá giới hạn chịu đựng cho phép của thiết bị.
+
+*   **Nguyên nhân:**
+    1. Cơ cấu chấp hành cơ khí bị kẹt hoặc tải tăng đột ngột.
+    2. Động cơ bị chập cuộn dây (ngắn mạch pha-pha hoặc pha-đất).
+    3. Thời gian tăng tốc (`F002`) hoặc giảm tốc (`F003`) quá nhanh.
+    4. Cáp kết nối từ biến tần đến động cơ bị xước vỏ gây chạm chập.
+    5. Khối công suất IGBT bên trong biến tần bị chập hỏng.
+*   **Hướng khắc phục:**
+    *   *Bước 1:* Tháo khớp nối trục cơ khí ra khỏi động cơ, vận hành không tải để kiểm tra xem lỗi có biến mất không.
+    *   *Bước 2:* Dùng đồng hồ Megomet đo điện trở cách điện của cuộn dây động cơ với vỏ đất ($> 10\text{ M}\Omega$ là đạt).
+    *   *Bước 3:* Tăng thời gian tăng tốc `F002` (với lỗi `E03`) hoặc tăng thời gian giảm tốc `F003` (với lỗi `E02`).
+    *   *Bước 4:* Kiểm tra cài đặt thông số tăng mô-men xoắn khởi động `A042`. Nếu cài quá cao cũng gây quá dòng khởi động.
+
+### Lỗi Quá Áp Bus DC (E07)
+Điện áp một chiều trên bộ tụ lọc DC Link vượt quá ngưỡng bảo vệ an toàn (Khoảng 400V với biến tần lớp 200V, và 800V với biến tần lớp 400V).
+
+*   **Nguyên nhân:**
+    1. Động cơ bị tải có quán tính lớn (như cánh quạt lớn, máy ly tâm, cẩu trục nâng hạ...) kéo quay nhanh hơn tần số phát của biến tần, biến động cơ thành máy phát điện trả ngược năng lượng về tụ lọc.
+    2. Thời gian giảm tốc `F003` đặt quá ngắn làm năng lượng dồn về tụ quá nhanh.
+*   **Hướng khắc phục:**
+    *   *Cách 1:* Nới rộng thời gian giảm tốc `F003` hoặc cài đặt chế độ dừng tự do (Free run stop) thay vì dừng giảm tốc theo dốc.
+    *   *Cách 2:* Kích hoạt chức năng chống quá điện áp khi giảm tốc (Regenerative avoidance - `b130` hoặc `b131` tùy dòng).
+    *   *Cách 3:* Lắp thêm **Điện trở xả (Braking Resistor)** vào chân **P+** và **RB** (đối với MX2 công suất dưới 22kW có tích hợp sẵn bộ phanh - Braking Unit) để tiêu hao năng lượng tái sinh dư thừa thành nhiệt năng.
+
+### Lỗi Thấp Áp (E09)
+Điện áp Bus DC sụt giảm xuống dưới mức tối thiểu hoạt động của biến tần.
+
+*   **Nguyên nhân:**
+    1. Nguồn điện lưới cấp vào bị mất pha, sụt áp đột ngột hoặc mất điện tạm thời.
+    2. Contactor nạp bên trong biến tần hỏng (không đóng tiếp điểm bypass điện trở nạp ban đầu).
+    3. Cầu chỉnh lưu ngõ vào bị hỏng mất một vài diode.
+*   **Hướng khắc phục:**
+    *   *Bước 1:* Dùng đồng hồ đo điện áp xoay chiều cấp vào chân R-S-T xem có ổn định và đủ áp định mức hay không.
+    *   *Bước 2:* Đo nguội cầu chỉnh lưu (xem phần hướng dẫn đo đạc ở mục 3).
+    *   *Bước 3:* Xem xét lắp thêm bộ ổn áp nguồn nếu điện lưới khu vực nhà xưởng quá yếu hoặc chập chờn.
+
+### Lỗi Ngoại Vi (E12 - External Trip)
+Biến tần nhận được tín hiệu dừng khẩn cấp từ các thiết bị giám sát bên ngoài.
+
+*   **Nguyên nhân:**
+    1. Một chân ngõ vào số được lập trình chức năng `12` (EXT - External Trip). Khi chân này bị ngắt kết nối hoặc đóng mạch (tùy cấu hình N.O/N.C), biến tần lập tức báo lỗi ngắt ngõ ra để bảo vệ an toàn.
+    2. Rơ-le nhiệt ngoài bảo vệ động cơ hoặc nút dừng khẩn cấp E-Stop đấu nối vào chân này đang bị tác động.
+*   **Hướng khắc phục:**
+    *   Kiểm tra sơ đồ đấu nối và trạng thái của tiếp điểm nối vào chân nhận tín hiệu `EXT`. Giải phóng sự cố thiết bị ngoại vi trước khi nhấn nút **RESET** trên bàn phím biến tần để xóa lỗi.
+
+### Lỗi Mạch Lập Trình ezSQ (E60)
+*   **Nguyên nhân:** Chương trình logic ezSQ tải vào biến tần bị lỗi tràn ngăn xếp, chia cho 0, hoặc vòng lặp vô hạn.
+*   **Hướng khắc phục:** Kết nối biến tần với máy tính qua phần mềm **CX-Drive**, kiểm tra lại mã lệnh lập trình logic, sửa lỗi cú pháp hoặc tạm tắt chức năng chạy chương trình ezSQ (`A101 = 00`).
+
+---
+
+## 3. Quy trình đo nguội phần cứng biến tần (Rectifier & IGBT Check)
+
+Khi biến tần liên tục báo lỗi quá dòng `E01`/`E04` ngay cả khi đã tháo rời cáp động cơ, hoặc báo lỗi thấp áp `E09` liên tục, cần tiến hành đo nguội để kiểm tra xem cầu chỉnh lưu hoặc nghịch lưu IGBT có bị chập cháy hay không.
+
+### Chuẩn bị:
+*   Ngắt nguồn điện cấp vào biến tần, **đợi tối nhất 10 phút** để các tụ điện xả hết điện tích tích lũy. Dùng đồng hồ thang DC đo chân **P+** và **N-** đảm bảo điện áp về dưới $10\text{ VDC}$ trước khi đo nguội.
+*   Chuyển đồng hồ vạn năng sang **Thang đo Diode**.
+
+```
+          [CẦU CHỈNH LƯU]                 [CẦU NGHỊCH LƯU IGBT]
+      R ---->|--+-->|---- U
+      S ---->|--|-->|---- V   <--- Đầu ra động cơ
+      T ---->|--|-->|---- W
+                |
+             [Bus + / P]
+                |
+             [Bus - / N]
+```
+
+### Bước 1: Kiểm tra cầu chỉnh lưu đầu vào (Rectifier)
+Mục tiêu là kiểm tra các diode chỉnh lưu nối từ chân nguồn xoay chiều **R, S, T** tới chân cực dương **P** và cực âm **N** của Bus DC.
+
+1.  **Đo với cực Dương (P):**
+    *   Đặt que **Đỏ** của đồng hồ vào chân **R**, que **Đen** vào chân **P**. Đồng hồ phải hiển thị điện áp rơi của diode (khoảng $0.4\text{V} - 0.6\text{V}$).
+    *   Làm tương tự với chân **S** và **T** (Đỏ vào S/T, Đen vào P). Cả 3 chân phải cho giá trị tương đồng.
+    *   Đảo ngược que đo (Đen vào R/S/T, Đỏ vào P): Đồng hồ phải báo quá dải/không thông mạch (hiển thị `OL` hoặc `1`).
+2.  **Đo với cực Âm (N):**
+    *   Đặt que **Đỏ** vào chân **N**, que **Đen** vào chân **R**. Đồng hồ phải hiển thị điện áp rơi ($0.4\text{V} - 0.6\text{V}$).
+    *   Làm tương tự cho chân **S** và **T** (Đỏ vào N, Đen vào S/T).
+    *   Đảo ngược que đo (Đen vào N, Đỏ vào R/S/T): Đồng hồ phải báo không thông mạch (`OL`).
+
+:::warning
+Nếu bất kỳ phép đo nào ở trên cho giá trị điện áp rơi gần bằng $0.0\text{V}$ (hoặc còi đồng hồ kêu bíp liên tục), diode của pha đó đã bị chập mạch và cần phải thay thế cầu chỉnh lưu.
+:::
+
+---
+
+### Bước 2: Kiểm tra cầu nghịch lưu đầu ra (IGBT)
+Mục tiêu là kiểm tra các transistor IGBT nghịch lưu nối từ chân cực dương **P** và cực âm **N** tới các pha đầu ra **U, V, W** cấp cho động cơ.
+
+1.  **Đo nửa cầu trên (nối với cực Dương P):**
+    *   Đặt que **Đỏ** vào chân ngõ ra **U**, que **Đen** vào chân **P**. Đồng hồ hiển thị điện áp rơi của diode ngược tích hợp trong IGBT (khoảng $0.3\text{V} - 0.5\text{V}$).
+    *   Làm tương tự với các chân ngõ ra **V** và **W** (Đỏ vào V/W, Đen vào P).
+    *   Đảo ngược que đo (Đen vào U/V/W, Đỏ vào P): Đồng hồ báo không thông mạch (`OL`).
+2.  **Đo nửa cầu dưới (nối với cực Âm N):**
+    *   Đặt que **Đỏ** vào chân **N**, que **Đen** vào chân ngõ ra **U**. Đồng hồ hiển thị điện áp rơi ($0.3\text{V} - 0.5\text{V}$).
+    *   Làm tương tự với các chân ngõ ra **V** và **W** (Đỏ vào N, Đen vào V/W).
+    *   Đảo ngược que đo (Đen vào N, Đỏ vào U/V/W): Đồng hồ báo không thông mạch (`OL`).
+
+:::danger
+Nếu đo giữa bất kỳ pha ngõ ra nào (U, V, W) với chân P hoặc chân N mà có kết quả điện áp rơi bằng $0\text{V}$ (chập mạch hoàn toàn), khối công suất IGBT đã bị phá hủy. Tránh bật nguồn điện trở lại vì có thể gây nổ biến tần hoặc phá hỏng mạch driver điều khiển.
+:::

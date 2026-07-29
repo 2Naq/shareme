@@ -1,6 +1,12 @@
-import React from 'react';
-import ToolLayout from '../../components/ToolLayout';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import React from "react";
+import ToolLayout from "../../components/ToolLayout";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 
 export default function HmiIntroPage() {
   return (
@@ -8,12 +14,15 @@ export default function HmiIntroPage() {
       <Card className="max-w-2xl bg-card">
         <CardHeader>
           <CardTitle className="text-3xl font-bold">HMI Tools</CardTitle>
-          <CardDescription className="text-lg">Công cụ dành cho màn hình HMI</CardDescription>
+          <CardDescription className="text-lg">
+            Công cụ dành cho màn hình HMI
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
             Chào mừng đến với danh mục công cụ cho màn hình HMI.
-            <br/><br/>
+            <br />
+            <br />
             Nội dung đang được cập nhật...
           </p>
         </CardContent>

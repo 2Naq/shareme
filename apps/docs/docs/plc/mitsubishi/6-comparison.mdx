@@ -1,17 +1,112 @@
 ---
 id: program-flow-mitsubishi-fx3u
-title: Nhóm lệnh điều khiển chương trình
-sidebar_position: 7
-sidebar_label: Tập lệnh điều khiển chương trình
-tags: [plc, automation, cong-nghiep, mitsubishi, fx3u]
+title: Nhóm lệnh So sánh và Điều khiển chương trình
+sidebar_position: 6
+sidebar_label: Tập lệnh So sánh & Điều khiển
+tags: [mitsubishi, fx3u]
 ---
 
-### 1. Nhóm lệnh Điều khiển chương trình (Program Flow)
+### 1. Nhóm lệnh So sánh và Điều khiển chương trình (Comparison & Program Flow)
 
 | Tên lệnh | Ý nghĩa | Cú pháp (Lệnh) | Ghi chú / Ví dụ ứng dụng |
 | :--- | :--- | :--- | :--- |
+| **LD= / LD\>** | So sánh tiếp điểm (Contact Compare)| `-[LD= D0 K10]-` | Kiểm tra điều kiện trực tiếp làm tiếp điểm dẫn điện |
+| **CMP** | So sánh giá trị (Compare) | `-[CMP D0 D2 M0]-` | So sánh D0 và D2, xuất kết quả ra 3 cờ M0, M1, M2 |
+| **ZCP** | So sánh vùng (Zone Compare) | `-[ZCP K10 K50 D0 M0]-`| Kiểm tra D0 nằm dưới, trong hay vượt vùng [10, 50] |
 | **CJ** | Nhảy có điều kiện (Conditional Jump)| `-[CJ P0]-` | Nhảy bỏ qua các dòng code để đến con trỏ P0 |
 | **CALL** | Gọi chương trình con (Call Subroutine)| `-[CALL P10]-` | Chuyển đến chạy chương trình con tại P10 |
 | **SRET** | Thoát chương trình con (Subroutine Return)| `-[SRET]-` | Kết thúc chương trình con, quay về Main |
-| **FEND** | Kết thúc chương trình chính (First End)| `-[FEND]-` | Đặt trước các chương trình con |
+| **FEND** | Kết thúc chương trình chính (First End)| `-[FEND]-` | Đặt ở cuối chương trình chính, trước các chương trình con |
 | **END** | Kết thúc toàn bộ chương trình | `-[END]-` | PLC tự động có lệnh này ở dòng cuối cùng |
+
+---
+
+## Chi tiết nhóm lệnh so sánh dữ liệu
+
+### 1. So sánh dạng tiếp điểm (Contact Compare)
+
+Trong PLC Mitsubishi, các lệnh so sánh dạng tiếp điểm hoạt động giống như một công tắc điều kiện mắc nối tiếp hoặc song song trên đường mạch Ladder.
+
+*   **Các phép so sánh hỗ trợ:** `=` (bằng), `>` (lớn hơn), `<` (nhỏ hơn), `<>` (khác), `>=` (lớn hơn hoặc bằng), `<=` (nhỏ hơn hoặc bằng).
+*   **Các kiểu kết nối tiếp điểm:**
+    - `LD[Phép so sánh]`: Bắt đầu một dòng mạch mới.
+    - `AND[Phép so sánh]`: Mắc nối tiếp điều kiện so sánh với mạch phía trước.
+    - `OR[Phép so sánh]`: Mắc song song điều kiện so sánh.
+*   **Độ rộng dữ liệu 32-bit:** Thêm tiền tố `D` phía trước phép so sánh (ví dụ: `LDD=`, `ANDD>`).
+
+**Ví dụ:**
+```text
+|--[ X0 ]----[ AND> D0 K100 ]--------------------------------( Y0 )--|
+```
+- Ngõ ra `Y0` chỉ ON khi tiếp điểm `X0` đóng **VÀ** giá trị trong thanh ghi `D0` lớn hơn `100`.
+
+---
+
+### 2. Lệnh so sánh khối CMP và ZCP
+
+Thay vì dùng tiếp điểm, lệnh so sánh khối giúp đưa ra trạng thái lớn hơn, bằng nhau hay nhỏ hơn để điều khiển các cờ rơ-le phụ.
+
+#### Lệnh CMP (Compare)
+*   **Cú pháp:** `[CMP S1 S2 D]`
+    - `S1`, `S2`: Hai nguồn dữ liệu cần so sánh.
+    - `D`: Địa chỉ rơ-le phụ đầu tiên trong cụm 3 rơ-le kết quả liên tiếp (`D`, `D+1`, `D+2`).
+*   **Nguyên lý hoạt động:** Nếu sử dụng `[CMP D0 D2 M0]`:
+    - Nếu `D0 > D2` -> `M0` = ON,  `M1` = OFF, `M2` = OFF.
+    - Nếu `D0 = D2` -> `M0` = OFF, `M1` = ON,  `M2` = OFF.
+    - Nếu `D0 < D2` -> `M0` = OFF, `M1` = OFF, `M2` = ON.
+
+#### Lệnh ZCP (Zone Compare - So sánh vùng)
+*   **Cú pháp:** `[ZCP S1 S2 S3 D]`
+    - `S1`: Giới hạn dưới (Low Limit).
+    - `S2`: Giới hạn trên (High Limit).
+    - `S3`: Dữ liệu cần kiểm tra.
+    - `D`: Địa chỉ rơ-le phụ đầu tiên trong cụm 3 rơ-le kết quả liên tiếp (`D`, `D+1`, `D+2`).
+*   **Nguyên lý hoạt động:** Nếu sử dụng `[ZCP K10 K50 D0 M0]`:
+    - Nếu `D0 < 10` (nhỏ hơn biên dưới) -> `M0` = ON.
+    - Nếu `10 <= D0 <= 50` (nằm trong vùng) -> `M1` = ON.
+    - Nếu `D0 > 50` (lớn hơn biên trên) -> `M2` = ON.
+
+---
+
+## Chi tiết nhóm lệnh điều khiển chương trình (Program Flow)
+
+Các lệnh điều khiển chương trình thay đổi trình tự quét tuần tự từ trên xuống dưới của CPU PLC để tối ưu hóa thời gian quét hoặc phân chia luồng xử lý.
+
+### 1. Lệnh nhảy CJ (Conditional Jump)
+*   **Cách hoạt động:** Khi điều kiện kích hoạt lệnh `CJ` có mức điện ON, CPU PLC sẽ nhảy ngay lập tức đến nhãn con trỏ `P` tương ứng và bỏ qua hoàn toàn các dòng lệnh trung gian.
+*   **Ứng dụng:** Bỏ qua các chương trình lỗi hoặc các công đoạn máy không hoạt động để tăng tốc độ xử lý của PLC.
+
+:::warning[Cảnh báo khi dùng lệnh nhảy CJ]
+Khi CPU thực hiện nhảy qua một đoạn chương trình:
+- Các ngõ ra `OUT` nằm trong đoạn chương trình bị nhảy qua sẽ **giữ nguyên trạng thái ON/OFF cuối cùng** của chúng trước thời điểm nhảy, chứ không bị tắt đi.
+- Nếu cần ngắt toàn bộ ngõ ra, ní phải dùng các tiếp điểm ngắt liên động hoặc dùng ngắt cuộn dây trước khi nhảy.
+:::
+
+---
+
+### 2. Cấu trúc chương trình con (CALL, SRET, FEND)
+
+Để giữ code gọn gàng, ta thường chia nhỏ dự án thành các chương trình con (Subroutine) xử lý riêng lẻ (như chương trình con xử lý lỗi, chương trình con đọc Analog).
+
+#### Quy tắc cấu trúc bắt buộc của PLC Mitsubishi:
+1.  **Chương trình chính (Main Program):** Viết từ dòng đầu tiên và kết thúc bắt đầu bằng lệnh **`FEND`** (First End).
+2.  **Các chương trình con (Subroutines):** Viết phía dưới lệnh `FEND` và bắt đầu bằng nhãn con trỏ (ví dụ `P10`).
+3.  Kết thúc mỗi chương trình con bắt buộc phải bằng lệnh **`SRET`** (Subroutine Return) để trả luồng quét quay lại chương trình chính.
+4.  Lệnh **`END`** luôn nằm ở dòng cuối cùng của toàn bộ file code.
+
+**Sơ đồ Ladder cấu trúc chuẩn:**
+```text
+|                                                               |
+|--[ X0 ]--------------------------------------------[ CALL P10 ]--|  <-- Gọi chương trình con P10
+|                                                               |
+|-----------------------------------------------------[ FEND ]--|  <-- Kết thúc chương trình chính
+|                                                               |
+P10                                                             |  <-- Con trỏ bắt đầu chương trình con
+|--[ X1 ]----------------------------------------------( Y0 )--|
+|                                                               |
+|-----------------------------------------------------[ SRET ]--|  <-- Quay lại dòng dưới CALL P10
+|                                                               |
+|------------------------------------------------------[ END ]--|  <-- Kết thúc toàn bộ chương trình
+```
+*   Nếu `X0` = ON, CPU sẽ tạm ngắt chương trình chính, chuyển xuống thực thi logic của `P10` (nhận trạng thái `X1` để điều khiển `Y0`), sau đó gặp `SRET` sẽ quay về tiếp tục chạy chương trình chính.
+*   Lệnh `FEND` đóng vai trò là "bức tường ngăn cách". Nếu không có `FEND`, CPU sẽ tiếp tục quét tuần tự tràn xuống dưới nhãn `P10` ngay cả khi không gọi lệnh `CALL`, dẫn đến lỗi biên dịch hệ thống hoặc vận hành sai logic.

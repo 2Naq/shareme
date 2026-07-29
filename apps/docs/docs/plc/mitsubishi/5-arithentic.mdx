@@ -1,9 +1,9 @@
 ---
 id: Arithmetic-mitsubishi-fx3u
 title: Nhóm lệnh toán học
-sidebar_position: 6
+sidebar_position: 5
 sidebar_label: Tập lệnh toán học
-tags: [plc, automation, cong-nghiep, mitsubishi, fx3u]
+tags: [arithmetic, mitsubishi, fx3u]
 ---
 
 
@@ -13,9 +13,91 @@ tags: [plc, automation, cong-nghiep, mitsubishi, fx3u]
 
 | Tên lệnh | Ý nghĩa | Cú pháp (Lệnh) | Ghi chú / Ví dụ ứng dụng |
 | :--- | :--- | :--- | :--- |
-| **ADD** | Phép Cộng | `-[ADD D0 K5 D10]-` | D0 + 5 = Lưu kết quả vào D10 |
-| **SUB** | Phép Trừ | `-[SUB D0 D1 D10]-` | D0 - D1 = Lưu kết quả vào D10 |
-| **MUL** | Phép Nhân | `-[MUL D0 K10 D10]-` | D0 * 10 = Lưu vào D10 (chiếm 2 thanh ghi D10, D11) |
-| **DIV** | Phép Chia | `-[DIV D0 D1 D10]-` | D0 / D1 = Thương ở D10, Số dư ở D11 |
-| **INC** | Tăng 1 đơn vị (Increment) | `-[INC D0]-` | Mỗi lần gọi, giá trị D0 tăng thêm 1 |
-| **DEC** | Giảm 1 đơn vị (Decrement) | `-[DEC D0]-` | Mỗi lần gọi, giá trị D0 giảm đi 1 |
+| **ADD** | Phép Cộng số nguyên | `-[ADD D0 K5 D10]-` | D0 + 5 = Lưu kết quả vào D10 |
+| **SUB** | Phép Trừ số nguyên | `-[SUB D0 D1 D10]-` | D0 - D1 = Lưu kết quả vào D10 |
+| **MUL** | Phép Nhân số nguyên | `-[MUL D0 K10 D10]-` | D0 * 10 = Lưu vào cụm D10-D11 (32-bit) |
+| **DIV** | Phép Chia số nguyên | `-[DIV D0 D1 D10]-` | D0 / D1 = Thương ở D10, Số dư ở D11 |
+| **INC** | Tăng 1 đơn vị | `-[INC D0]-` | Cộng thêm 1 vào D0 mỗi khi lệnh thực thi |
+| **DEC** | Giảm 1 đơn vị | `-[DEC D0]-` | Trừ đi 1 từ D0 mỗi khi lệnh thực thi |
+
+---
+
+## Chi tiết cơ chế tính toán số nguyên
+
+### 1. Phép nhân số nguyên (MUL, DMUL)
+
+Khi nhân hai số nguyên 16-bit, kết quả cực đại có thể vượt quá giới hạn của một thanh ghi đơn. Vì vậy, PLC Mitsubishi luôn tự động sử dụng **cụm thanh ghi kép (32-bit)** để lưu trữ kết quả đầu ra.
+
+*   **Cú pháp:** `[MUL S1 S2 D]`
+    - `S1`: Số nhân 1.
+    - `S2`: Số nhân 2.
+    - `D`: Địa chỉ thanh ghi bắt đầu lưu kết quả.
+*   **Cơ chế lưu trữ:** Nếu ní dùng `[MUL D0 D1 D10]`:
+    - Giá trị tích số sẽ được lưu trữ đồng thời ở cả `D10` (phần thấp) và `D11` (phần cao).
+    - Cảnh báo: Tránh ghi đè dữ liệu lên `D11` vì nó chứa phần cao của phép nhân.
+
+---
+
+### 2. Phép chia số nguyên (DIV, DDIV)
+
+Tương tự phép nhân, phép chia số nguyên cũng sử dụng cụm hai thanh ghi kề nhau để chứa cả kết quả nguyên và phần dư.
+
+*   **Cú pháp:** `[DIV S1 S2 D]`
+    - `S1`: Số bị chia.
+    - `S2`: Số chia.
+    - `D`: Địa chỉ thanh ghi lưu kết quả.
+*   **Cơ chế lưu trữ:** Nếu ní dùng `[DIV D0 D1 D10]`:
+    - `D10` chứa **Thương số (Quotient)**.
+    - `D11` chứa **Số dư (Remainder)**.
+    - Ví dụ: `17 / 5` -> `D10` = 3, `D11` = 2.
+
+---
+
+### 3. Cảnh báo sườn xung đối với lệnh INC và DEC
+
+Hai lệnh **`INC` (Increment)** và **`DEC` (Decrement)** dùng để cộng/trừ nhanh một đơn vị vào thanh ghi. 
+
+:::danger[CẢNH BÁO: TRÀN THANH GHI TRONG 1 CHU KỲ QUÉT]
+Nếu ní dùng lệnh `INC` dạng liên tục:
+```text
+|--[ X0 ]--------------------------------------------[ INC D0 ]--|
+```
+Khi `X0` = ON trong chỉ **1 giây**, và chu kỳ quét của PLC là **10ms**, lệnh `INC` sẽ được thực thi **100 lần**. Giá trị của `D0` sẽ tăng thêm 100 đơn vị chỉ trong nháy mắt. điều này thường gây sai lệch hoàn toàn logic kiểm soát số đếm.
+
+**Giải pháp:** Luôn sử dụng phiên bản sườn xung kích hoạt **`INCP`** hoặc **`DECP`**:
+```text
+|--[ X0 ]-------------------------------------------[ INCP D0 ]--|
+```
+Lúc này, `D0` chỉ tăng đúng 1 đơn vị duy nhất mỗi lần tiếp điểm `X0` được nhấn xuống (chuyển sườn lên).
+:::
+
+---
+
+## Tính toán Số Thực (Floating Point - Số có dấu phẩy)
+
+Thanh ghi thông thường lưu số nguyên. Khi cần tính toán các đại lượng vật lý thực tế như nhiệt độ, áp suất, độ ẩm từ các module Analog, ta phải sử dụng định dạng số thực 32-bit (chữ `E` trong hằng số hoặc định dạng dấu phẩy động).
+
+### 1. Chuyển đổi Số nguyên sang Số thực (Lệnh FLT, DFLT)
+Trước khi làm việc với các lệnh toán học số thực, ta phải chuyển đổi giá trị số nguyên ban đầu.
+*   **Cú pháp:** `[FLT S D]`
+*   **Ví dụ:** `[FLT D0 D10]`
+    - Chuyển số nguyên trong `D0` (ví dụ: `15`) thành số thực 32-bit lưu trong cặp `D10-D11` (giá trị lúc này là `15.0`).
+
+### 2. Các lệnh toán học số thực chuyên dụng
+Ní không thể cộng/trừ số thực bằng lệnh `ADD`/`SUB` thông thường, bắt buộc phải dùng các lệnh đặc biệt bắt đầu bằng chữ **`E`**:
+
+*   **`EADD` (Cộng số thực):** `[EADD D10 D20 D30]` -> Cộng số thực trong `D10-D11` với `D20-D21` lưu vào `D30-D31`.
+*   **`ESUB` (Trừ số thực):** `[ESUB D10 D20 D30]`
+*   **`EMUL` (Nhân số thực):** `[EMUL D10 D20 D30]`
+*   **`EDIV` (Chia số thực):** `[EDIV D10 D20 D30]`
+
+---
+
+## Các Cờ trạng thái tính toán đặc biệt (Flags)
+
+Sau khi thực hiện một phép tính, PLC FX3U tự động cập nhật trạng thái kết quả vào các rơ-le phụ hệ thống:
+
+*   **`M8020` (Cờ Zero - Zero Flag):** Tự động bật **ON** khi kết quả của phép toán bằng đúng **0**.
+*   **`M8021` (Cờ mượn - Borrow Flag):** Tự động bật **ON** khi kết quả phép trừ số nguyên vượt xuống dưới giới hạn âm cực đại (`< -32768` đối với 16-bit).
+*   **`M8022` (Cờ nhớ/Tràn - Carry Flag):** Tự động bật **ON** khi phép cộng hoặc nhân vượt quá giới hạn dương cực đại (`> 32767` đối với 16-bit hoặc chia cho 0).
+
