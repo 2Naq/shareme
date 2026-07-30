@@ -1,0 +1,1268 @@
+---
+slug: huong-dan-day-du-lenh-bash-git-bash
+title: "Hướng dẫn đầy đủ các lệnh Bash"
+authors: [anTng]
+tags: [bash, linux, git, tips, share]
+date: 2026-08-01
+image: https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=800&q=80
+---
+{/* lint disable */}
+Nếu ní đang dùng **Git Bash** trên Windows và tự hỏi: *"Các lệnh này có giống Linux không?"* — câu trả lời là **CÓ, gần như giống 100%**. Git Bash thực chất là một bản port của **GNU Bash** (Bourne Again Shell) chạy trên Windows thông qua bộ công cụ **MSYS2/MinGW**. Điều đó có nghĩa là hầu hết các lệnh ní học được trên **Ubuntu, CentOS, Debian**... đều có thể sử dụng trực tiếp trên Git Bash mà không cần chỉnh sửa gì.
+
+Bài viết này mình tổng hợp **tất cả các lệnh Bash phổ biến nhất**, chia theo từng nhóm chức năng, kèm giải thích chi tiết và ví dụ cụ thể để anh em dễ tra cứu và áp dụng ngay.
+
+{/* truncate */}
+
+---
+
+## Git Bash vs Linux Terminal — Giống và khác ở đâu?
+
+Trước khi đi vào chi tiết, mình muốn làm rõ mối quan hệ giữa Git Bash và Linux Terminal:
+
+| Đặc điểm | Git Bash (Windows) | Linux Terminal (Ubuntu) |
+|---|---|---|
+| Shell mặc định | Bash (GNU Bash) | Bash (hoặc Zsh, Fish...) |
+| Hệ thống file | `/c/Users/...` (mount ổ đĩa) | `/home/user/...` |
+| Phân biệt hoa/thường tên file | Không (do NTFS) | Có (do ext4) |
+| Package manager | Không có sẵn | `apt`, `yum`, `pacman`... |
+| Lệnh cơ bản (`ls`, `cd`, `grep`...) | ✅ Giống hệt | ✅ Giống hệt |
+| Quản lý process (`systemctl`, `service`) | ❌ Không hỗ trợ | ✅ Đầy đủ |
+| Quyền file (`chmod`, `chown`) | ⚠️ Hạn chế (do NTFS) | ✅ Đầy đủ |
+
+**Tóm lại:** Về các lệnh thao tác file, text, tìm kiếm, pipe, redirect — Git Bash hoạt động **giống hệt** Linux. Sự khác biệt chỉ nằm ở phần quản lý hệ thống (system services, package manager) do đó là chức năng của hệ điều hành, không phải của Bash.
+
+---
+
+## 1. Nhóm lệnh Di chuyển & Điều hướng (Navigation)
+
+Đây là nhóm lệnh ní sẽ dùng **nhiều nhất**, mỗi ngày, mọi lúc.
+
+### `pwd` — In ra đường dẫn thư mục hiện tại
+
+```bash
+pwd
+# Kết quả: /c/Users/dev01/Projects
+```
+
+> **Mẹo:** Trong Git Bash, ổ đĩa `C:\` được mount thành `/c/`, ổ `D:\` thành `/d/`,...
+
+### `cd` — Chuyển đổi thư mục (Change Directory)
+
+```bash
+# Di chuyển vào thư mục con
+cd my-project
+
+# Di chuyển lên thư mục cha
+cd ..
+
+# Di chuyển lên 2 cấp
+cd ../..
+
+# Về thư mục Home (~)
+cd ~
+# hoặc chỉ cần gõ
+cd
+
+# Di chuyển đến đường dẫn tuyệt đối
+cd /c/Users/dev01/Documents
+
+# Quay lại thư mục vừa rời đi (rất tiện!)
+cd -
+```
+
+> **Mẹo nâng cao:** Nhấn phím **Tab** để tự động hoàn thành tên thư mục. Nhấn **Tab 2 lần** để hiển thị danh sách gợi ý nếu có nhiều thư mục cùng bắt đầu bằng ký tự đã gõ.
+
+### `ls` — Liệt kê nội dung thư mục (List)
+
+```bash
+# Liệt kê cơ bản
+ls
+
+# Liệt kê chi tiết (quyền, kích thước, ngày sửa đổi)
+ls -l
+
+# Hiển thị cả file ẩn (bắt đầu bằng dấu chấm)
+ls -a
+
+# Kết hợp: chi tiết + file ẩn
+ls -la
+
+# Hiển thị kích thước file dạng dễ đọc (KB, MB, GB)
+ls -lh
+
+# Sắp xếp theo thời gian sửa đổi (mới nhất lên đầu)
+ls -lt
+
+# Sắp xếp theo kích thước (lớn nhất lên đầu)
+ls -lS
+
+# Liệt kê đệ quy (bao gồm cả thư mục con)
+ls -R
+
+# Chỉ liệt kê thư mục (không liệt kê file)
+ls -d */
+```
+
+**Giải thích cột output của `ls -l`:**
+
+```
+drwxr-xr-x  5  dev01  staff  160  Jul 30 10:00  my-folder
+-rw-r--r--  1  dev01  staff  2048 Jul 30 09:30  readme.md
+│└─┬──┘└┬─┘    └──┬─┘ └──┬─┘ └─┬┘
+│  │    │         │      │     └── Kích thước (bytes)
+│  │    │         │      └── Nhóm sở hữu
+│  │    │         └── Người sở hữu
+│  │    └── Quyền nhóm khác (other)
+│  └── Quyền nhóm (group) + Quyền chủ (owner)
+└── Loại: d = thư mục, - = file, l = symbolic link
+```
+
+---
+
+## 2. Nhóm lệnh Quản lý File & Thư mục
+
+### `mkdir` — Tạo thư mục mới (Make Directory)
+
+```bash
+# Tạo 1 thư mục
+mkdir my-project
+
+# Tạo thư mục lồng nhau (tạo cả thư mục cha nếu chưa tồn tại)
+mkdir -p projects/2026/august
+
+# Tạo nhiều thư mục cùng lúc
+mkdir src dist tests docs
+```
+
+### `touch` — Tạo file rỗng hoặc cập nhật timestamp
+
+```bash
+# Tạo file mới (rỗng)
+touch index.html
+
+# Tạo nhiều file cùng lúc
+touch style.css script.js README.md
+
+# Cập nhật timestamp của file đã tồn tại (không thay đổi nội dung)
+touch existing-file.txt
+```
+
+### `cp` — Sao chép file/thư mục (Copy)
+
+```bash
+# Sao chép file
+cp source.txt destination.txt
+
+# Sao chép file vào thư mục khác
+cp report.pdf /c/Users/dev01/Documents/
+
+# Sao chép thư mục (bắt buộc dùng -r: recursive)
+cp -r my-project/ my-project-backup/
+
+# Sao chép và giữ nguyên metadata (quyền, timestamp)
+cp -p original.conf backup.conf
+
+# Sao chép nhưng hỏi xác nhận trước khi ghi đè
+cp -i source.txt destination.txt
+
+# Sao chép và hiển thị tiến trình (verbose)
+cp -rv src/ dest/
+```
+
+### `mv` — Di chuyển hoặc đổi tên file/thư mục (Move)
+
+```bash
+# Đổi tên file
+mv old-name.txt new-name.txt
+
+# Đổi tên thư mục
+mv old-folder/ new-folder/
+
+# Di chuyển file vào thư mục khác
+mv report.pdf Documents/
+
+# Di chuyển nhiều file vào 1 thư mục
+mv *.jpg *.png images/
+
+# Di chuyển và hỏi xác nhận khi ghi đè
+mv -i source.txt destination.txt
+```
+
+### `rm` — Xóa file/thư mục (Remove)
+
+```bash
+# Xóa file
+rm unwanted-file.txt
+
+# Xóa nhiều file
+rm file1.txt file2.txt file3.txt
+
+# Xóa file theo pattern (wildcard)
+rm *.log
+rm *.tmp
+
+# Xóa thư mục rỗng
+rmdir empty-folder/
+
+# Xóa thư mục và toàn bộ nội dung bên trong (NGUY HIỂM!)
+rm -r my-folder/
+
+# Xóa mà không hỏi xác nhận (FORCE - CỰC KỲ NGUY HIỂM!)
+rm -rf my-folder/
+
+# Xóa nhưng hỏi xác nhận từng file (an toàn hơn)
+rm -ri my-folder/
+```
+
+:::danger[Cảnh báo quan trọng]
+**KHÔNG BAO GIỜ** chạy lệnh `rm -rf /` hoặc `rm -rf ~` — lệnh này sẽ xóa sạch toàn bộ hệ thống hoặc toàn bộ thư mục Home của ní mà **không thể khôi phục**. Luôn kiểm tra kỹ đường dẫn trước khi thực thi lệnh `rm -rf`.
+:::
+
+### `ln` — Tạo liên kết (Link)
+
+```bash
+# Tạo Hard Link (cùng trỏ đến 1 dữ liệu trên ổ đĩa)
+ln original.txt hardlink.txt
+
+# Tạo Symbolic Link (shortcut, trỏ đến đường dẫn file)
+ln -s /c/Users/dev01/projects/config.yml config-link.yml
+
+# Kiểm tra symbolic link
+ls -la config-link.yml
+# Kết quả: config-link.yml -> /c/Users/dev01/projects/config.yml
+```
+
+---
+
+## 3. Nhóm lệnh Xem & Xử lý Nội dung File
+
+### `cat` — Hiển thị toàn bộ nội dung file (Concatenate)
+
+```bash
+# Xem nội dung file
+cat readme.md
+
+# Xem nhiều file nối tiếp nhau
+cat header.txt body.txt footer.txt
+
+# Gộp nhiều file thành 1 file mới
+cat part1.sql part2.sql part3.sql > full-script.sql
+
+# Hiển thị kèm số dòng
+cat -n script.js
+
+# Hiển thị ký tự đặc biệt (tab = ^I, end-of-line = $)
+cat -A config.ini
+```
+
+### `less` & `more` — Xem file theo từng trang
+
+```bash
+# Xem file lớn theo từng trang (cuộn lên/xuống tự do)
+less large-log-file.log
+# Phím tắt trong less:
+#   Space hoặc f  = trang tiếp theo
+#   b              = trang trước
+#   /keyword       = tìm kiếm từ khóa
+#   n              = kết quả tìm kiếm tiếp theo
+#   q              = thoát
+
+# more: phiên bản đơn giản hơn (chỉ cuộn xuống)
+more large-log-file.log
+```
+
+### `head` & `tail` — Xem đầu/cuối file
+
+```bash
+# Xem 10 dòng đầu tiên (mặc định)
+head access.log
+
+# Xem 20 dòng đầu tiên
+head -n 20 access.log
+# hoặc viết tắt
+head -20 access.log
+
+# Xem 10 dòng cuối cùng
+tail error.log
+
+# Xem 50 dòng cuối cùng
+tail -n 50 error.log
+
+# Theo dõi file realtime (rất hữu ích khi xem log!)
+tail -f application.log
+# File có dòng mới ghi vào sẽ tự động hiển thị lên terminal
+
+# Theo dõi nhiều file cùng lúc
+tail -f app.log error.log
+```
+
+> **Mẹo thực chiến:** Lệnh `tail -f` là "vũ khí" debug hàng đầu. Khi chạy server hoặc ứng dụng, mở 1 terminal riêng chạy `tail -f` vào file log để theo dõi lỗi realtime.
+
+### `wc` — Đếm dòng, từ, ký tự (Word Count)
+
+```bash
+# Đếm dòng, từ, ký tự
+wc readme.md
+# Kết quả: 150  890  5230  readme.md
+#           │    │    │
+#           │    │    └── Số ký tự (bytes)
+#           │    └── Số từ
+#           └── Số dòng
+
+# Chỉ đếm số dòng
+wc -l code.js
+
+# Chỉ đếm số từ
+wc -w essay.txt
+
+# Đếm dòng của nhiều file
+wc -l src/*.jsx
+```
+
+### `sort` — Sắp xếp nội dung
+
+```bash
+# Sắp xếp theo thứ tự alphabet
+sort names.txt
+
+# Sắp xếp ngược (Z -> A)
+sort -r names.txt
+
+# Sắp xếp theo giá trị số
+sort -n numbers.txt
+
+# Sắp xếp theo cột thứ 2 (phân tách bằng dấu phẩy)
+sort -t',' -k2 data.csv
+
+# Sắp xếp và loại bỏ dòng trùng lặp
+sort -u duplicates.txt
+```
+
+### `uniq` — Loại bỏ dòng trùng lặp liên tiếp
+
+```bash
+# Loại bỏ dòng trùng (phải sort trước!)
+sort names.txt | uniq
+
+# Đếm số lần xuất hiện của mỗi dòng
+sort access.log | uniq -c
+
+# Chỉ hiển thị những dòng bị trùng
+sort names.txt | uniq -d
+
+# Chỉ hiển thị những dòng duy nhất (không trùng)
+sort names.txt | uniq -u
+```
+
+### `diff` — So sánh 2 file
+
+```bash
+# So sánh 2 file
+diff file1.txt file2.txt
+
+# So sánh hiển thị song song (side-by-side)
+diff -y file1.txt file2.txt
+
+# So sánh 2 thư mục
+diff -r dir1/ dir2/
+
+# Hiển thị dạng unified (giống git diff)
+diff -u old-version.js new-version.js
+```
+
+---
+
+## 4. Nhóm lệnh Tìm kiếm (Search)
+
+### `grep` — Tìm kiếm văn bản theo pattern (Global Regular Expression Print)
+
+`grep` là một trong những lệnh **mạnh mẽ nhất** trong Bash. Nắm vững `grep` sẽ giúp ní tiết kiệm hàng giờ đồng hồ.
+
+```bash
+# Tìm dòng chứa từ "error" trong file
+grep "error" application.log
+
+# Tìm không phân biệt hoa/thường
+grep -i "error" application.log
+
+# Tìm đệ quy trong thư mục (tìm trong tất cả file con)
+grep -r "TODO" src/
+
+# Tìm và hiển thị số dòng
+grep -n "function" script.js
+
+# Tìm ngược (hiển thị dòng KHÔNG chứa pattern)
+grep -v "debug" application.log
+
+# Đếm số dòng khớp
+grep -c "error" application.log
+
+# Chỉ hiển thị tên file chứa pattern
+grep -rl "deprecated" src/
+
+# Tìm với Regular Expression
+grep -E "error|warning|fatal" application.log
+
+# Hiển thị thêm context (3 dòng trước & sau dòng khớp)
+grep -C 3 "NullPointerException" error.log
+# Chỉ hiển thị 3 dòng SAU dòng khớp
+grep -A 3 "error" log.txt
+# Chỉ hiển thị 3 dòng TRƯỚC dòng khớp
+grep -B 3 "error" log.txt
+
+# Tìm chính xác cả từ (word boundary)
+grep -w "is" text.txt
+# Tìm "is" nhưng KHÔNG khớp "this", "island",...
+
+# Kết hợp nhiều option
+grep -rni --include="*.js" "useState" src/
+# -r: đệ quy
+# -n: hiện số dòng
+# -i: không phân biệt hoa/thường
+# --include: chỉ tìm trong file .js
+```
+
+### `find` — Tìm kiếm file/thư mục theo điều kiện
+
+```bash
+# Tìm file theo tên
+find . -name "config.yml"
+
+# Tìm không phân biệt hoa/thường
+find . -iname "readme*"
+
+# Tìm tất cả file .log
+find /var/log -name "*.log"
+
+# Tìm theo loại (f = file, d = directory)
+find . -type f -name "*.jsx"
+find . -type d -name "node_modules"
+
+# Tìm file được sửa đổi trong 7 ngày gần nhất
+find . -type f -mtime -7
+
+# Tìm file lớn hơn 100MB
+find . -type f -size +100M
+
+# Tìm file rỗng
+find . -type f -empty
+
+# Tìm và thực thi lệnh trên kết quả (xóa tất cả file .tmp)
+find . -name "*.tmp" -exec rm {} \;
+
+# Tìm và xóa thư mục node_modules (rất hữu ích!)
+find . -name "node_modules" -type d -exec rm -rf {} +
+
+# Tìm file theo quyền
+find . -type f -perm 777
+
+# Kết hợp nhiều điều kiện (AND)
+find . -type f -name "*.js" -size +10k -mtime -30
+
+# Kết hợp điều kiện OR
+find . -name "*.jpg" -o -name "*.png"
+
+# Loại trừ thư mục khi tìm
+find . -path "./node_modules" -prune -o -name "*.js" -print
+```
+
+### `which` & `whereis` — Tìm vị trí của chương trình
+
+```bash
+# Tìm đường dẫn đầy đủ của lệnh
+which node
+# Kết quả: /usr/bin/node
+
+which git
+# Kết quả: /usr/bin/git
+
+# Tìm file binary, source, man page
+whereis bash
+# Kết quả: bash: /usr/bin/bash /usr/share/man/man1/bash.1.gz
+```
+
+---
+
+## 5. Nhóm lệnh Redirect & Pipe (Chuyển hướng dữ liệu)
+
+Đây là **siêu năng lực** của Bash — khả năng nối các lệnh lại với nhau thành một pipeline xử lý dữ liệu mạnh mẽ.
+
+### Redirect Output (Chuyển hướng đầu ra)
+
+```bash
+# Ghi output vào file (GHI ĐÈ nếu file đã tồn tại)
+echo "Hello World" > greeting.txt
+ls -la > file-list.txt
+
+# Ghi output THÊM VÀO cuối file (APPEND, không ghi đè)
+echo "New log entry" >> app.log
+date >> timestamps.txt
+
+# Chuyển hướng LỖI (stderr) vào file
+npm run build 2> error.log
+
+# Chuyển hướng CẢ output lẫn lỗi vào cùng 1 file
+npm run build > build.log 2>&1
+# hoặc cú pháp rút gọn
+npm run build &> build.log
+
+# Chuyển hướng output vào file, lỗi vào file riêng
+npm run build > output.log 2> error.log
+
+# Loại bỏ output (gửi vào "hố đen" /dev/null)
+find / -name "*.conf" 2>/dev/null
+```
+
+### Pipe `|` (Ống dẫn dữ liệu)
+
+Pipe lấy **output của lệnh trước** làm **input cho lệnh sau**:
+
+```bash
+# Đếm số file .js trong thư mục src
+find src -name "*.js" | wc -l
+
+# Tìm 10 file lớn nhất trong thư mục hiện tại
+du -ah . | sort -rh | head -10
+
+# Tìm tất cả các process Node.js đang chạy
+ps aux | grep node
+
+# Liệt kê và lọc chỉ thư mục
+ls -la | grep "^d"
+
+# Đếm số lần mỗi IP truy cập (phân tích log)
+cat access.log | awk '{print $1}' | sort | uniq -c | sort -rn | head -20
+
+# Tìm tất cả TODO trong project, sắp xếp và lưu ra file
+grep -rn "TODO" src/ | sort > todo-list.txt
+
+# Kiểm tra port 3000 có đang được sử dụng không
+netstat -ano | grep ":3000"
+
+# Tìm file trùng lặp tên
+find . -type f | awk -F/ '{print $NF}' | sort | uniq -d
+```
+
+### Heredoc — Nhập nhiều dòng text
+
+```bash
+# Tạo file với nội dung nhiều dòng
+cat << EOF > config.json
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "My awesome app"
+}
+EOF
+
+# Sử dụng trong script
+cat << 'EOF'
+Xin chào!
+Đây là nội dung không bị thay thế biến $HOME
+EOF
+```
+
+---
+
+## 6. Nhóm lệnh Quyền & Sở hữu File (Permissions)
+
+:::info[Lưu ý với Git Bash]
+Trên Git Bash (Windows), các lệnh `chmod` và `chown` hoạt động **hạn chế** do hệ thống file NTFS không hỗ trợ đầy đủ mô hình quyền Unix. Tuy nhiên, kiến thức này **rất quan trọng** khi ní làm việc với server Linux (SSH vào VPS, deploy ứng dụng,...).
+:::
+
+### `chmod` — Thay đổi quyền file (Change Mode)
+
+Hệ thống quyền trong Linux chia thành 3 nhóm: **Owner (u)**, **Group (g)**, **Others (o)** — mỗi nhóm có 3 quyền: **Read (r=4)**, **Write (w=2)**, **Execute (x=1)**.
+
+```bash
+# Cú pháp số (Octal)
+chmod 755 script.sh    # rwxr-xr-x (Owner: full, Group+Others: đọc+chạy)
+chmod 644 config.yml   # rw-r--r-- (Owner: đọc+ghi, Group+Others: chỉ đọc)
+chmod 600 id_rsa       # rw------- (Chỉ Owner đọc+ghi, còn lại không có quyền)
+chmod 777 public.html  # rwxrwxrwx (TẤT CẢ đều full quyền - KHÔNG NÊN DÙNG!)
+
+# Cú pháp ký tự (Symbolic)
+chmod +x script.sh     # Thêm quyền chạy cho tất cả
+chmod u+x script.sh    # Thêm quyền chạy CHỈ cho owner
+chmod g-w file.txt     # Bỏ quyền ghi của group
+chmod o-rwx secret.key # Bỏ hết quyền của others
+
+# Áp dụng đệ quy cho thư mục
+chmod -R 755 public/
+```
+
+**Bảng tra cứu nhanh quyền:**
+
+| Số | Quyền | Ý nghĩa |
+|---|---|---|
+| `7` | `rwx` | Đọc + Ghi + Chạy |
+| `6` | `rw-` | Đọc + Ghi |
+| `5` | `r-x` | Đọc + Chạy |
+| `4` | `r--` | Chỉ đọc |
+| `0` | `---` | Không có quyền |
+
+### `chown` — Thay đổi chủ sở hữu (Change Owner)
+
+```bash
+# Đổi owner của file
+chown dev01 config.yml
+
+# Đổi owner và group
+chown dev01:staff config.yml
+
+# Áp dụng đệ quy
+chown -R www-data:www-data /var/www/html/
+```
+
+---
+
+## 7. Nhóm lệnh Biến môi trường & Cấu hình Shell
+
+### Biến môi trường (Environment Variables)
+
+```bash
+# Xem tất cả biến môi trường
+env
+# hoặc
+printenv
+
+# Xem giá trị 1 biến cụ thể
+echo $HOME
+echo $PATH
+echo $USER
+echo $SHELL
+
+# Tạo biến cục bộ (chỉ tồn tại trong session hiện tại)
+MY_NAME="An Nguyen"
+echo $MY_NAME
+
+# Tạo biến môi trường (tồn tại cho cả process con)
+export API_KEY="abc123xyz"
+export NODE_ENV="production"
+
+# Xóa biến
+unset MY_NAME
+
+# Thêm đường dẫn vào PATH
+export PATH="$PATH:/c/my-custom-tools"
+```
+
+### Cấu hình Shell (`.bashrc` / `.bash_profile`)
+
+```bash
+# Mở file cấu hình bash profile
+nano ~/.bashrc
+# hoặc
+code ~/.bashrc   # Mở bằng VS Code
+
+# Sau khi sửa, tải lại cấu hình
+source ~/.bashrc
+# hoặc viết tắt
+. ~/.bashrc
+```
+
+**Ví dụ nội dung `.bashrc` hữu ích:**
+
+```bash
+# Alias (lệnh tắt tùy chỉnh)
+alias ll="ls -la"
+alias gs="git status"
+alias gc="git commit -m"
+alias gp="git push"
+alias dev="npm run dev"
+alias cls="clear"
+alias ..="cd .."
+alias ...="cd ../.."
+
+# Custom Prompt (hiển thị nhánh Git trong terminal)
+parse_git_branch() {
+  git branch 2>/dev/null | grep '*' | sed 's/* //'
+}
+export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\W\[\033[33m\] \$(parse_git_branch)\[\033[m\]\$ "
+```
+
+### `alias` — Tạo lệnh tắt
+
+```bash
+# Xem tất cả alias hiện có
+alias
+
+# Tạo alias mới (chỉ tồn tại trong session hiện tại)
+alias serve="python3 -m http.server 8000"
+alias projects="cd /c/Users/dev01/Projects"
+
+# Xóa alias
+unalias serve
+```
+
+---
+
+## 8. Nhóm lệnh Nén & Giải nén (Archive)
+
+### `tar` — Đóng gói và nén file
+
+```bash
+# Tạo file nén .tar.gz (phổ biến nhất trên Linux)
+tar -czvf archive.tar.gz my-folder/
+# -c: create (tạo)
+# -z: gzip (nén bằng gzip)
+# -v: verbose (hiển thị tiến trình)
+# -f: file (chỉ định tên file output)
+
+# Giải nén file .tar.gz
+tar -xzvf archive.tar.gz
+# -x: extract (giải nén)
+
+# Giải nén vào thư mục cụ thể
+tar -xzvf archive.tar.gz -C /path/to/destination/
+
+# Xem nội dung file nén mà KHÔNG giải nén
+tar -tzvf archive.tar.gz
+
+# Tạo file nén .tar.bz2 (nén mạnh hơn gzip)
+tar -cjvf archive.tar.bz2 my-folder/
+
+# Giải nén .tar.bz2
+tar -xjvf archive.tar.bz2
+```
+
+### `zip` & `unzip`
+
+```bash
+# Nén file/thư mục thành .zip
+zip archive.zip file1.txt file2.txt
+zip -r archive.zip my-folder/
+
+# Giải nén
+unzip archive.zip
+
+# Giải nén vào thư mục cụ thể
+unzip archive.zip -d output-folder/
+
+# Xem nội dung file .zip
+unzip -l archive.zip
+```
+
+### `gzip` & `gunzip`
+
+```bash
+# Nén file (file gốc sẽ bị thay thế bằng file .gz)
+gzip large-file.log
+# Kết quả: large-file.log → large-file.log.gz
+
+# Giải nén
+gunzip large-file.log.gz
+
+# Nén nhưng giữ lại file gốc
+gzip -k large-file.log
+```
+
+---
+
+## 9. Nhóm lệnh Quản lý Tiến trình (Process)
+
+### `ps` — Xem tiến trình đang chạy (Process Status)
+
+```bash
+# Xem tiến trình của user hiện tại
+ps
+
+# Xem tất cả tiến trình trên hệ thống (chi tiết)
+ps aux
+
+# Tìm tiến trình cụ thể
+ps aux | grep "node"
+ps aux | grep "python"
+
+# Hiển thị theo dạng cây (thấy quan hệ cha-con)
+ps auxf
+```
+
+### `kill` — Dừng tiến trình
+
+```bash
+# Dừng tiến trình theo PID (Process ID)
+kill 12345
+
+# Buộc dừng tiến trình (SIGKILL - không thể bỏ qua)
+kill -9 12345
+
+# Dừng theo tên tiến trình
+killall node
+killall python3
+
+# Tìm và kill process đang dùng port 3000
+# Bước 1: Tìm PID
+lsof -i :3000
+# Bước 2: Kill PID tìm được
+kill -9 <PID>
+```
+
+### Chạy lệnh ở chế độ Background & Foreground
+
+```bash
+# Chạy lệnh ở background (thêm & ở cuối)
+npm run dev &
+
+# Xem danh sách job đang chạy background
+jobs
+
+# Đưa job từ background lên foreground
+fg %1
+
+# Tạm dừng job đang chạy (Ctrl + Z) rồi đưa xuống background
+bg %1
+
+# Chạy lệnh mà không bị dừng khi đóng terminal
+nohup npm run build &
+# Output sẽ được ghi vào file nohup.out
+```
+
+---
+
+## 10. Nhóm lệnh Mạng (Networking)
+
+### `curl` — Gửi HTTP request từ terminal
+
+```bash
+# GET request đơn giản
+curl https://api.github.com/users/2Naq
+
+# Lưu response vào file
+curl -o output.html https://example.com
+
+# Chỉ hiển thị HTTP header
+curl -I https://example.com
+
+# POST request với JSON data
+curl -X POST https://api.example.com/data \
+  -H "Content-Type: application/json" \
+  -d '{"name": "An", "role": "engineer"}'
+
+# Download file
+curl -O https://example.com/file.zip
+
+# Theo dõi redirect
+curl -L https://bit.ly/short-url
+
+# Hiển thị chi tiết (verbose) — debug API
+curl -v https://api.example.com/health
+```
+
+### `wget` — Download file
+
+```bash
+# Download file đơn giản
+wget https://example.com/installer.sh
+
+# Download và đổi tên file output
+wget -O my-file.zip https://example.com/file.zip
+
+# Download cả thư mục web (mirror)
+wget -m https://example.com/docs/
+
+# Tiếp tục download bị gián đoạn
+wget -c https://example.com/large-file.iso
+```
+
+### `ssh` — Kết nối đến máy chủ từ xa
+
+```bash
+# Kết nối cơ bản
+ssh user@192.168.1.100
+
+# Kết nối với port tùy chỉnh
+ssh -p 2222 user@server.com
+
+# Kết nối bằng key file
+ssh -i ~/.ssh/id_rsa user@server.com
+
+# Copy file từ local lên server (SCP)
+scp local-file.txt user@server:/remote/path/
+
+# Copy file từ server về local
+scp user@server:/remote/file.txt ./local-folder/
+
+# Copy thư mục đệ quy
+scp -r local-folder/ user@server:/remote/path/
+```
+
+### `ping` — Kiểm tra kết nối mạng
+
+```bash
+# Ping đến server (Ctrl+C để dừng)
+ping google.com
+
+# Ping giới hạn 5 lần
+ping -c 5 192.168.1.1
+```
+
+---
+
+## 11. Nhóm lệnh Xử lý Text nâng cao
+
+### `sed` — Stream Editor (Tìm và thay thế trong file)
+
+```bash
+# Thay thế chuỗi đầu tiên trên mỗi dòng
+sed 's/old/new/' file.txt
+
+# Thay thế TẤT CẢ xuất hiện trên mỗi dòng (global)
+sed 's/old/new/g' file.txt
+
+# Thay thế và GHI TRỰC TIẾP vào file (in-place)
+sed -i 's/localhost/production.server.com/g' config.yml
+
+# Xóa dòng thứ 5
+sed '5d' file.txt
+
+# Xóa dòng trống
+sed '/^$/d' file.txt
+
+# Xóa dòng chứa pattern
+sed '/DEBUG/d' app.log
+
+# Chèn text vào đầu mỗi dòng
+sed 's/^/PREFIX: /' file.txt
+
+# Chỉ hiển thị dòng 10 đến 20
+sed -n '10,20p' file.txt
+```
+
+### `awk` — Xử lý dữ liệu dạng cột
+
+```bash
+# In cột thứ nhất
+awk '{print $1}' data.txt
+
+# In cột 1 và 3
+awk '{print $1, $3}' data.txt
+
+# Phân tách bằng dấu phẩy (CSV)
+awk -F',' '{print $2}' data.csv
+
+# Lọc dòng theo điều kiện
+awk '$3 > 100 {print $1, $3}' sales.txt
+
+# Tính tổng cột thứ 2
+awk '{sum += $2} END {print "Total:", sum}' numbers.txt
+
+# Đếm số dòng
+awk 'END {print NR}' file.txt
+
+# In dòng dài hơn 80 ký tự
+awk 'length > 80' code.js
+
+# Format output dạng bảng
+awk -F',' '{printf "%-20s %-10s %s\n", $1, $2, $3}' data.csv
+```
+
+### `cut` — Cắt cột hoặc ký tự
+
+```bash
+# Cắt ký tự từ vị trí 1 đến 10
+cut -c1-10 file.txt
+
+# Cắt cột thứ 2 (phân tách bằng dấu phẩy)
+cut -d',' -f2 data.csv
+
+# Cắt nhiều cột
+cut -d':' -f1,3 /etc/passwd
+```
+
+### `tr` — Thay thế hoặc xóa ký tự (Translate)
+
+```bash
+# Chuyển chữ thường thành chữ HOA
+echo "hello world" | tr 'a-z' 'A-Z'
+# Kết quả: HELLO WORLD
+
+# Chuyển HOA thành thường
+echo "HELLO" | tr 'A-Z' 'a-z'
+
+# Xóa tất cả chữ số
+echo "abc123def456" | tr -d '0-9'
+# Kết quả: abcdef
+
+# Thay nhiều dấu cách liên tiếp bằng 1 dấu cách
+echo "too   many   spaces" | tr -s ' '
+# Kết quả: too many spaces
+
+# Thay thế ký tự xuống dòng thành dấu phẩy
+cat list.txt | tr '\n' ','
+```
+
+---
+
+## 12. Nhóm lệnh Hệ thống & Thông tin
+
+### Thông tin hệ thống
+
+```bash
+# Tên máy
+hostname
+
+# Thông tin hệ điều hành
+uname -a
+
+# Dung lượng ổ đĩa
+df -h
+
+# Dung lượng thư mục hiện tại
+du -sh .
+du -sh */          # Kích thước từng thư mục con
+du -ah . | sort -rh | head -20   # Top 20 file/folder lớn nhất
+
+# Bộ nhớ RAM (không khả dụng trên Git Bash)
+free -h
+
+# Thời gian hệ thống hoạt động
+uptime
+
+# Ngày giờ hiện tại
+date
+date +"%Y-%m-%d %H:%M:%S"    # Format tùy chỉnh
+date +"%d/%m/%Y"              # Ngày/Tháng/Năm
+```
+
+### `history` — Lịch sử lệnh đã gõ
+
+```bash
+# Xem toàn bộ lịch sử
+history
+
+# Xem 20 lệnh gần nhất
+history 20
+
+# Tìm lệnh trong lịch sử
+history | grep "docker"
+
+# Chạy lại lệnh theo số thứ tự
+!42
+
+# Chạy lại lệnh gần nhất
+!!
+
+# Chạy lại lệnh gần nhất bắt đầu bằng "git"
+!git
+
+# Xóa lịch sử
+history -c
+```
+
+> **Mẹo cực hay:** Nhấn **Ctrl + R** để tìm kiếm ngược (reverse search) trong lịch sử lệnh. Gõ vài ký tự và Bash sẽ tự tìm lệnh khớp gần nhất. Nhấn **Ctrl + R** nhiều lần để xem kết quả tiếp theo.
+
+---
+
+## 13. Nhóm lệnh thao tác nhanh & Phím tắt Terminal
+
+### Phím tắt hữu ích (hoạt động trong cả Git Bash và Linux)
+
+| Phím tắt | Chức năng |
+|---|---|
+| `Ctrl + C` | Hủy lệnh đang chạy |
+| `Ctrl + Z` | Tạm dừng lệnh (đưa vào background) |
+| `Ctrl + D` | Thoát terminal (logout) |
+| `Ctrl + L` | Xóa màn hình (giống lệnh `clear`) |
+| `Ctrl + A` | Di chuyển con trỏ về ĐẦU dòng |
+| `Ctrl + E` | Di chuyển con trỏ về CUỐI dòng |
+| `Ctrl + W` | Xóa 1 từ phía trước con trỏ |
+| `Ctrl + U` | Xóa từ con trỏ đến ĐẦU dòng |
+| `Ctrl + K` | Xóa từ con trỏ đến CUỐI dòng |
+| `Ctrl + R` | Tìm kiếm ngược trong lịch sử lệnh |
+| `Tab` | Tự động hoàn thành tên file/lệnh |
+| `Tab Tab` | Hiển thị tất cả gợi ý |
+| `↑ / ↓` | Duyệt lệnh đã gõ trước đó |
+
+### Toán tử điều kiện chạy lệnh
+
+```bash
+# Chạy lệnh B CHỈ KHI lệnh A thành công (&&)
+npm install && npm run build
+
+# Chạy lệnh B CHỈ KHI lệnh A thất bại (||)
+ping -c1 google.com || echo "Không có mạng!"
+
+# Chạy tuần tự bất kể thành công hay thất bại (;)
+echo "Bắt đầu"; npm run build; echo "Kết thúc"
+
+# Kết hợp: nếu build thành công thì deploy, nếu thất bại thì báo lỗi
+npm run build && npm run deploy || echo "Build thất bại!"
+```
+
+### Wildcard & Globbing (Ký tự đại diện)
+
+```bash
+# * : khớp với mọi chuỗi ký tự
+ls *.js           # Tất cả file .js
+rm temp_*         # Xóa file bắt đầu bằng "temp_"
+
+# ? : khớp với đúng 1 ký tự
+ls file?.txt      # file1.txt, fileA.txt nhưng KHÔNG khớp file12.txt
+
+# [] : khớp với 1 trong các ký tự liệt kê
+ls file[123].txt  # file1.txt, file2.txt, file3.txt
+ls file[a-z].txt  # filea.txt, fileb.txt,...
+
+# {} : mở rộng danh sách (Brace Expansion)
+touch file{1..5}.txt    # Tạo file1.txt, file2.txt,..., file5.txt
+mkdir -p project/{src,dist,tests,docs}
+cp config.yml{,.backup}  # Tạo bản backup: config.yml.backup
+```
+
+---
+
+## 14. Viết Bash Script cơ bản
+
+Khi cần thực hiện một chuỗi lệnh lặp đi lặp lại, hãy viết thành **Bash Script** (file `.sh`).
+
+### Cấu trúc cơ bản
+
+```bash
+#!/bin/bash
+# Dòng đầu tiên (Shebang) cho hệ thống biết chạy bằng Bash
+
+# Biến
+PROJECT_NAME="my-app"
+VERSION="1.0.0"
+echo "Deploying $PROJECT_NAME v$VERSION..."
+
+# Nhận input từ người dùng
+read -p "Ní có muốn tiếp tục? (y/n): " answer
+
+# Câu lệnh điều kiện IF
+if [ "$answer" = "y" ]; then
+    echo "Đang tiến hành..."
+elif [ "$answer" = "n" ]; then
+    echo "Đã hủy!"
+    exit 1
+else
+    echo "Lựa chọn không hợp lệ!"
+    exit 1
+fi
+
+# Vòng lặp FOR
+for file in *.log; do
+    echo "Đang xử lý: $file"
+    gzip "$file"
+done
+
+# Vòng lặp WHILE
+counter=1
+while [ $counter -le 5 ]; do
+    echo "Lần thứ $counter"
+    counter=$((counter + 1))
+done
+
+# Hàm (Function)
+greet() {
+    local name=$1
+    echo "Xin chào, $name! 👋"
+}
+greet "An"
+greet "Minh"
+```
+
+### Chạy Bash Script
+
+```bash
+# Cách 1: Cấp quyền chạy rồi thực thi
+chmod +x deploy.sh
+./deploy.sh
+
+# Cách 2: Chạy bằng bash trực tiếp (không cần chmod)
+bash deploy.sh
+
+# Cách 3: Source (chạy trong shell hiện tại, giữ biến)
+source deploy.sh
+```
+
+### Ví dụ Script thực tế: Backup dự án
+
+```bash
+#!/bin/bash
+# Script: backup-project.sh
+# Mô tả: Tự động nén và backup thư mục dự án
+
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+PROJECT_DIR="$1"
+BACKUP_DIR="$HOME/backups"
+
+# Kiểm tra tham số đầu vào
+if [ -z "$PROJECT_DIR" ]; then
+    echo "Sử dụng: ./backup-project.sh <đường-dẫn-thư-mục>"
+    exit 1
+fi
+
+# Kiểm tra thư mục tồn tại
+if [ ! -d "$PROJECT_DIR" ]; then
+    echo "Thư mục '$PROJECT_DIR' không tồn tại!"
+    exit 1
+fi
+
+# Tạo thư mục backup nếu chưa có
+mkdir -p "$BACKUP_DIR"
+
+# Lấy tên thư mục
+DIR_NAME=$(basename "$PROJECT_DIR")
+BACKUP_FILE="$BACKUP_DIR/${DIR_NAME}_${TIMESTAMP}.tar.gz"
+
+# Thực hiện backup
+echo "Đang backup '$PROJECT_DIR'..."
+tar -czvf "$BACKUP_FILE" \
+    --exclude="node_modules" \
+    --exclude=".git" \
+    --exclude="dist" \
+    --exclude="build" \
+    "$PROJECT_DIR"
+
+# Kiểm tra kết quả
+if [ $? -eq 0 ]; then
+    SIZE=$(du -h "$BACKUP_FILE" | cut -f1)
+    echo "Backup thành công!"
+    echo "File: $BACKUP_FILE"
+    echo "Kích thước: $SIZE"
+else
+    echo "Backup thất bại!"
+    exit 1
+fi
+```
+
+---
+
+## 15. Tổng hợp các lệnh hay dùng nhất (Cheat Sheet)
+
+| Lệnh | Chức năng | Ví dụ |
+|---|---|---|
+| `pwd` | Xem thư mục hiện tại | `pwd` |
+| `cd` | Chuyển thư mục | `cd ~/Projects` |
+| `ls -la` | Liệt kê chi tiết + file ẩn | `ls -la src/` |
+| `mkdir -p` | Tạo thư mục lồng nhau | `mkdir -p a/b/c` |
+| `touch` | Tạo file rỗng | `touch index.html` |
+| `cp -r` | Sao chép thư mục | `cp -r src/ backup/` |
+| `mv` | Di chuyển / đổi tên | `mv old.js new.js` |
+| `rm -rf` | Xóa thư mục (cẩn thận!) | `rm -rf dist/` |
+| `cat` | Xem nội dung file | `cat package.json` |
+| `grep -rn` | Tìm text trong file | `grep -rn "TODO" src/` |
+| `find` | Tìm file theo điều kiện | `find . -name "*.log"` |
+| `chmod +x` | Cấp quyền thực thi | `chmod +x deploy.sh` |
+| `tar -czvf` | Nén thư mục | `tar -czvf backup.tar.gz ./` |
+| `curl` | Gửi HTTP request | `curl https://api.example.com` |
+| `\|` | Nối output lệnh trước → lệnh sau | `cat log \| grep error` |
+| `>` / `>>` | Ghi đè / Ghi thêm vào file | `echo "hi" >> log.txt` |
+| `Ctrl+R` | Tìm lệnh trong lịch sử | — |
+| `Ctrl+C` | Hủy lệnh đang chạy | — |
+
+---
+
+## Lời kết
+
+Bash không chỉ là công cụ gõ lệnh — nó là **ngôn ngữ kịch bản** mạnh mẽ giúp ní tự động hóa mọi thứ. Từ việc đơn giản như tạo file, đến phức tạp như build, test, deploy ứng dụng — tất cả đều có thể script hóa bằng Bash.
+
+Mình khuyên anh em nên:
+1. **Bắt đầu từ nhỏ**: Học thuộc 10-15 lệnh cơ bản ở mục 1-3 trước.
+2. **Dùng hàng ngày**: Thay vì click chuột trên File Explorer, hãy tập thao tác bằng terminal.
+3. **Viết alias**: Bất cứ lệnh nào ní gõ quá 3 lần/ngày → tạo alias cho nó.
+4. **Viết script**: Bất cứ quy trình nào lặp lại 2 lần → viết thành `.sh` script.
+
+Hy vọng bài viết này sẽ trở thành **tài liệu tra cứu thường xuyên** cho anh em. Nếu có lệnh nào hay mà mình bỏ sót, comment bên dưới để mình bổ sung nhé!

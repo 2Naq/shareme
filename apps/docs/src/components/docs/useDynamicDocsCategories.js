@@ -38,13 +38,30 @@ export function useDynamicDocsCategories() {
       docs.forEach((doc) => {
         const cleanId = doc.id.replace(/^\//, "");
         const parts = cleanId.split("/");
-        if (parts[0] === "category") return;
+
+        if (parts[0] === "category" && parts[1]) {
+          const targetFolder = parts[1];
+          const existingKey = Object.keys(folderGroups).find(
+            (k) => k.toLowerCase() === targetFolder.toLowerCase()
+          );
+          const keyToUse = existingKey || targetFolder;
+          if (!folderGroups[keyToUse]) {
+            folderGroups[keyToUse] = [];
+          }
+          folderGroups[keyToUse].unshift(doc);
+          return;
+        }
+
         if (parts.length > 1 && parts[0].trim() !== "") {
           const folderKey = parts[0];
-          if (!folderGroups[folderKey]) {
-            folderGroups[folderKey] = [];
+          const existingKey = Object.keys(folderGroups).find(
+            (k) => k.toLowerCase() === folderKey.toLowerCase()
+          );
+          const keyToUse = existingKey || folderKey;
+          if (!folderGroups[keyToUse]) {
+            folderGroups[keyToUse] = [];
           }
-          folderGroups[folderKey].push(doc);
+          folderGroups[keyToUse].push(doc);
         } else {
           rootDocs.push(doc);
         }
@@ -59,15 +76,27 @@ export function useDynamicDocsCategories() {
 
         const autoDesc = `Tổng hợp các bài viết về ${cat.label.toLocaleLowerCase()} ${folderKey}`;
 
+        const categoryDoc = folderDocs.find((d) =>
+          d.id.replace(/^\//, "").startsWith("category/")
+        );
+        const articleDocs = folderDocs.filter(
+          (d) => !d.id.replace(/^\//, "").startsWith("category/")
+        );
+
+        const targetLink =
+          categoryDoc?.path ||
+          folderDocs[0]?.path ||
+          `/${cat.routeBasePath || cat.id}`;
+
         items.push({
           id: `${cat.id}-${folderKey}`,
           title: `${cat.label} ${formattedTitle}`,
           folderName: folderKey,
           description: autoDesc,
           tags: [cat.label, formattedTitle],
-          link: folderDocs[0]?.path || `/${cat.routeBasePath || cat.id}`,
+          link: targetLink,
           image: FOLDER_IMAGES[folderKey.toLowerCase()] || cat.image || null,
-          badge: `${folderDocs.length} bài viết`,
+          badge: `${articleDocs.length} bài viết`,
           badgeColor: "bg-primary/10 text-primary border-primary/20",
         });
       });

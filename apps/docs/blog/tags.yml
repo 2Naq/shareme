@@ -52,4 +52,13 @@ tips:
 regex:
   label: Regex
   permalink: /regex
+bash:
+  label: Bash
+  permalink: /bash
+linux:
+  label: Linux
+  permalink: /linux
+git:
+  label: Git
+  permalink: /git
 
