@@ -61,4 +61,16 @@ linux:
 git:
   label: Git
   permalink: /git
+voltage-drop:
+  label: Độ Sụt Áp
+  permalink: /voltage-drop
+hmi:
+  label: Giao Diện HMI
+  permalink: /hmi
+inverter:
+  label: Biến Tần
+  permalink: /inverter
+qr-code:
+  label: Mã QR Code
+  permalink: /qr-code
 

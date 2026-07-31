@@ -149,12 +149,12 @@ function BlogListPageContent(props) {
   const { metadata, items, sidebar } = props;
   const { siteConfig } = useDocusaurusContext();
   const authors = siteConfig.customFields?.authors || {};
-  const authorRaw = authors.anTng;
+  const authorRaw = authors.an;
   const PRIMARY_AUTHOR = authorRaw
     ? {
         ...authorRaw,
         imageURL: authorRaw.image_url || authorRaw.imageURL,
-        page: { permalink: "/blog/authors/an-nguyen" },
+        page: { permalink: "/blog/authors/an" },
       }
     : null;
 
@@ -321,6 +321,7 @@ function BlogListPageContent(props) {
             <CommandGroup heading="Danh mục bài viết">
               {allTags.map((tag) => (
                 <CommandItem
+                  className="justify-end-safe"
                   key={tag}
                   value={tag}
                   onSelect={() => {
@@ -331,7 +332,7 @@ function BlogListPageContent(props) {
                 >
                   <span>{tag === "Tất cả" ? "🏷️ Tất cả" : `# ${tag}`}</span>
                   {tagCounts[tag] !== undefined && (
-                    <span className="ml-auto text-xs text-muted-foreground">
+                    <span className="text-xs flex-1 text-end text-muted-foreground">
                       {tagCounts[tag]} bài viết
                     </span>
                   )}

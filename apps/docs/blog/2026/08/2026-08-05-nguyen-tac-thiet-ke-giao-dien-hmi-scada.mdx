@@ -1,0 +1,102 @@
+---
+slug: nguyen-tac-thiet-ke-giao-dien-hmi-scada-chuyen-nghiep
+title: "Top 7 nguyên tắc thiết kế giao diện HMI / SCADA tối ưu vận hành"
+authors: [an]
+tags: [hmi, scada, tu-dong-hoa, tips]
+date: 2026-08-05
+image: https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80
+---
+
+Trong lĩnh vực lập trình Tự Động Hóa, rất nhiều kỹ sư dành hàng tuần liền để viết logic PLC vô cùng tối ưu, nhưng lại xem nhẹ việc **thiết kế giao diện HMI / SCADA**. Kết quả là tạo ra những màn hình giao diện với màu sắc sặc sỡ "như cây thông Noel", bố cục lộn xộn, làm người vận hành nhà máy bị mỏi mắt, xao nhãng và dễ bỏ sót các cảnh báo sự cố nguy hiểm.
+
+Theo tiêu chuẩn **ISA-101 (High Performance HMI)**, một màn hình HMI xuất sắc phải giúp công nhân phát hiện sự cố trong vòng **5 giây** và đưa ra quyết định xử lý chính xác. Bài viết này mình sẽ tổng hợp **7 nguyên tắc vàng trong thiết kế giao diện HMI/SCADA** chuyên nghiệp.
+
+{/* truncate */}
+
+---
+
+## 1. Nguyên tắc phối màu High-Performance (Tông xám chủ đạo)
+
+Đây là thay đổi lớn nhất giữa giao diện truyền thống và giao diện hiện đại chuẩn ISA-101:
+
+* **Không dùng màu sắc sặc sỡ làm nền:** Tránh dùng nền màu đen đậm, xanh lam tươi hay đỏ rực.
+* **Sử dụng nền màu xám nhạt (Cool Gray / Neutral Light):** Màn hình xám nhạt giúp giảm mỏi mắt cho người vận hành khi phải nhìn liên tục 8-12 tiếng trong ca trực.
+* **Chỉ dùng màu nổi cho trạng thái bất thường & Cảnh báo:**
+  * **Xám / Trắng:** Thiết bị đang dừng hoặc trạng thái bình thường.
+  * **Xanh lá cây (Green):** Động cơ đang chạy ổn định.
+  * **Vàng (Yellow):** Cảnh báo mức thấp (Warning / Pre-alarm).
+  * **Đỏ (Red) nhấp nháy:** Báo động nguy hiểm (Alarm / Fault) cần xử lý ngay!
+
+> 💡 **Quy tắc cốt lõi:** Khi hệ thống hoạt động hoàn toàn bình thường, màn hình HMI phải trông rất "phẳng" và dịu mắt. Bất kỳ một đốm màu đỏ hay vàng nào xuất hiện cũng sẽ ngay lập tức thu hút sự chú ý của người vận hành!
+
+---
+
+## 2. Phân cấp màn hình theo cấu trúc hình kim tự tháp (Hierarchy)
+
+Đừng cố nhồi nhét tất cả đường ống, động cơ, cảm biến vào một màn hình duy nhất. Hãy chia hệ thống thành 4 cấp độ rõ ràng:
+
+1. **Level 1 - Overview Screen (Tổng quan toàn nhà máy):** Màn hình lớn nhất hiển thị KPI chính (Sản lượng, trạng thái chung, số cảnh báo đang kích hoạt). Không có nút điều khiển chi tiết ở level này.
+2. **Level 2 - Process Area Screen (Khu vực công nghệ):** Hiển thị chi tiết từng phân xưởng (ví dụ: Trạm trộn, Hệ thống xử lý nước, Khu đóng gói).
+3. **Level 3 - Component / Control Screen (Chi tiết thiết bị):** Màn hình Popup khi nhấp vào một bơm hoặc biến tần cụ thể để xem dòng điện, tần số, cài đặt thông số Run/Stop/Auto/Manual.
+4. **Level 4 - Diagnostic & Trend Screen (Chẩn đoán & Lịch sử):** Màn hình xem biểu đồ đồ thị Trend, nhật ký lỗi (Alarm History), cấu hình truyền thông PLC.
+
+---
+
+## 3. Hiển thị thông số dạng ngữ cảnh (Contextual Data instead of Raw Numbers)
+
+Một con số đơn độc như `Áp suất: 4.2 Bar` không mang lại nhiều giá trị nếu người vận hành không nhớ áp suất chuẩn là bao nhiêu.
+
+### Cách cải thiện tốt hơn:
+* Hiển thị kèm **Dải giá trị an toàn (Operating Range Bar)**:
+  * Ví dụ: Một thanh Bar đứng có vùng màu xanh (3.8 - 4.5 Bar), vùng cảnh báo vàng (4.5 - 5.0 Bar). Nhìn vào thanh Bar, người vận hành biết ngay áp suất 4.2 Bar đang nằm ở giữa vùng an toàn.
+* Thêm **Đồ thị Sparkline (Trend nhỏ)** bên cạnh con số để thấy được xu hướng tăng hay giảm của nhiệt độ/áp suất trong 15 phút qua.
+
+---
+
+## 4. Thiết kế điều khiển 2 bước (Two-Step Operation) để tránh ấn nhầm
+
+Đối với các lệnh điều khiển quan trọng (Dừng khẩn cấp toàn dây chuyền, Mở van hóa chất, Đổi chế độ Auto/Manual):
+
+* **Tuyệt đối không:** Cho phép kích hoạt ngay chỉ với 1 cú chạm (Single Tap) trên màn hình cảm ứng.
+* **Quy tắc 2 bước (Confirm Dialog):** 
+  * Bước 1: Nhấn vào nút lệnh $\implies$ Hiện cửa sổ xác nhận Pop-up *"Bạn có chắc chắn muốn DỪNG BƠM B-01?"*.
+  * Bước 2: Nhấn *"Xác nhận (YES)"* hoặc *"Hủy (NO)"*.
+
+Điều này ngăn chặn 100% rủi ro công nhân vô tình tì tay hoặc va chạm làm dừng hệ thống.
+
+---
+
+## 5. Quản lý hệ thống Báo động (Alarm Management) hiệu quả
+
+Một hệ thống HMI tồi tệ là khi có sự cố, còi báo động kêu liên tục và màn hình hiện ra hàng trăm dòng lỗi cùng lúc khiến người vận hành hoảng loạn.
+
+* **Phân loại cấp độ ưu tiên cảnh báo:**
+  * **Critical (Nghiêm trọng):** Cháy nổ, quá áp nguy hiểm $\implies$ Yêu cầu dừng máy khẩn cấp.
+  * **Warning (Cảnh báo):** Nhiệt độ cao nhẹ, mức bồn thấp $\implies$ Cần kiểm tra.
+  * **Information (Thông tin):** Chuyển chế độ ca làm việc.
+* **Hỗ trợ lọc & Xác nhận (Acknowledge):** Người vận hành phải ấn nút *"Acknowledge"* để tắt tiếng còi báo động, nhưng dòng lỗi trên màn hình chỉ mất đi khi sự cố đã được khắc phục hoàn toàn.
+
+---
+
+## 6. Thiết kế Responsive & Thích ứng kích thước màn hình
+
+Hiện nay HMI có nhiều kích thước từ 7 inch, 10 inch, 15 inch đến màn hình SCADA 32 inch hoặc máy tính bảng Tablet không dây đi công trường:
+
+* Sử dụng các Font chữ dễ đọc (Sans-serif như Inter, Arial, Roboto), kích thước chữ tối thiểu từ **12px - 14px**.
+* Nút bấm cảm ứng phải có kích thước tối thiểu **40x40 pixel** để ngón tay công nhân đeo găng bảo hộ vẫn có thể bấm chính xác.
+* Tránh đặt các nút bấm quá sát viền màn hình.
+
+---
+
+## 7. Đồng bộ biểu tượng (Symbols) và Thuật ngữ chuẩn hóa
+
+* Sử dụng bộ thư viện biểu tượng chuẩn ISO/IEC (bơm, van, quạt, máy nén).
+* Đồng bộ ký hiệu trên HMI với **Ký hiệu trên Bản vẽ thiết kế điện (Schematics)** và **Tem nhãn dán thực tế trên thiết bị (Tagname)**. Nếu trên bản vẽ ghi `P-101` thì trên HMI bắt buộc phải ghi `P-101`, không ghi thành `Bơm Nước 1`.
+
+---
+
+## Lời kết
+
+Một giao diện HMI / SCADA tốt không phải là giao diện "đẹp mắt rực rỡ", mà là giao diện **an toàn, tin cậy và hỗ trợ tối đa cho con người**.
+
+> 💡 **Kiến thức mở rộng:** Để tra cứu và trau dồi thêm về tư duy thiết kế trải nghiệm người dùng (UX) cũng như giao diện (UI) ứng dụng vào lập trình HMI/SCADA, ní có thể tham khảo thêm tại [UX Là Gì](https://uxlagi.com/).

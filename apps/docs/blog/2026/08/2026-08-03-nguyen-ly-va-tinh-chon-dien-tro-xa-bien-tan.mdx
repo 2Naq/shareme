@@ -1,0 +1,118 @@
+---
+slug: nguyen-ly-va-tinh-chon-dien-tro-xa-bien-tan
+title: "Nguyên lý hãm động năng và cách tính chọn điện trở xả cho biến tần"
+authors: [an]
+tags: [inverter, motor-control, tu-dong-hoa, tips]
+date: 2026-08-03
+image: https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80
+---
+
+Khi điều khiển động cơ bằng biến tần (Inverter/VFD), chắc hẳn ní đã từng gặp trường hợp: Khi biến tần phát lệnh dừng hoặc giảm tốc độ đột ngột, trên màn hình biến tần lập tức báo lỗi **`OU` / `OV` (Overvoltage - Quá áp DC Bus)** và ngắt ngõ ra làm máy dừng tự do.
+
+Để khắc phục triệt để hiện tượng này, giải pháp hàng đầu là sử dụng **Điện trở xả (Braking Resistor)** kết hợp với khối hãm động năng (Braking Unit). Bài viết này mình sẽ giải thích chi tiết nguyên lý hãm động năng và công thức tính chọn thông số $R$ ($\Omega$) và công suất $P$ (Watt) cho điện trở xả.
+
+{/* truncate */}
+
+---
+
+## 1. Tại sao biến tần bị báo lỗi quá áp (Overvoltage) khi giảm tốc?
+
+Động cơ điện không đồng bộ 3 pha có tính chất **thuận nghịch**:
+* Khi biến tần cấp tần số cao hơn tốc độ quay của rotor $\implies$ Động cơ hoạt động ở chế độ **Động cơ (Motor mode)**, tiêu thụ điện năng để sinh cơ năng.
+* Khi biến tần giảm tần số ngõ ra nhanh hơn tốc độ quán tính của tải $\implies$ Rotor quay nhanh hơn từ trường quay stator. Lúc này động cơ trở thành **Máy phát điện (Generator mode)**!
+
+Động năng từ tải quán tính sẽ phản hồi ngược về biến tần qua mạch cầu Diode nghịch lưu, làm điện áp trên tụ Bus DC tăng vọt (ví dụ từ 540VDC tăng lên > 750VDC với nguồn 380V). Để bảo vệ tụ điện và IGBT, biến tần sẽ lập tức báo lỗi **`OU` / `OV`** và ngắt điện.
+
+---
+
+## 2. Nguyên lý hoạt động của Điện trở xả (Dynamic Braking)
+
+Hệ thống hãm động năng gồm 2 thành phần chính:
+1. **Braking Chopper (IGBT Hãm):** Mạch giám sát điện áp Bus DC. Khi $U_{DC} > U_{threshold}$ (thường khoảng 670VDC - 700VDC), IGBT hãm sẽ dẫn.
+2. **Điện trở xả (Braking Resistor):** Tiêu tán lượng điện năng dư thừa bị dội về dưới dạng **nhiệt năng** ra môi trường.
+
+Khi điện áp Bus DC giảm xuống mức an toàn, IGBT hãm ngắt, điện trở dừng xả. Quá trình này lặp lại liên tục trong suốt thời gian giảm tốc (Ramp-down time).
+
+---
+
+## 3. Các ứng dụng BẮT BUỘC phải dùng điện trở xả
+
+* **Hệ thống nâng hạ, cẩu trục, thang máy (Cranes/Hoists):** Khi hạ tải trọng xuống, trọng lực kéo rotor quay nhanh hơn tần số biến tần $\implies$ Năng lượng phát ngược cực kỳ lớn và liên tục.
+* **Máy vắt ly tâm, máy quạt cánh lớn, máy nghiền:** Tải có **quán tính quay ($J$) rất lớn**.
+* **Máy cắt dây, máy dệt, máy bao bì:** Yêu cầu **thời gian dừng cực nhanh (Deceleration time < 1s)** để đảm bảo an toàn hoặc chu kỳ sản xuất.
+* **Hệ thống mâm quay, băng tải đổ dốc.**
+
+---
+
+## 4. Công thức tính chọn Điện trở xả
+
+Để chọn điện trở xả chuẩn xác, cần xác định 2 thông số: **Giá trị điện trở $R_{br}$ ($\Omega$)** và **Công suất điện trở $P_{br}$ (Watt)**.
+
+### a) Tính giá trị điện trở tối thiểu $R_{min}$ và điện trở chọn $R_{br}$
+
+Giá trị điện trở xả **không được nhỏ hơn $R_{min}$** do nhà sản xuất biến tần quy định (để tránh làm cháy IGBT hãm).
+
+Công thức tính giá trị điện trở theo momen hãm yêu cầu:
+
+```math
+R_{br} = \frac{U_{DC\_brake}^2}{P_{brake}}
+```
+
+* $U_{DC\_brake}$: Điện áp ngưỡng kích hoạt hãm (với lưới 380V, lấy $U_{DC\_brake} \approx 680 \sim 700\text{VDC}$).
+* $P_{brake}$: Công suất hãm đỉnh (Watt), thường lấy bằng công suất động cơ $P_{motor}$ nhân với hệ số momen hãm $T_b\%$ (thường lấy $100\% \sim 150\%$).
+
+### b) Tính công suất của điện trở xả $P_{br}$
+
+Công suất thực tế của điện trở xả phụ thuộc vào **chu kỳ làm việc (Duty Cycle - $\%ED$)**:
+
+```math
+P_{br} = P_{motor} \times \%ED
+```
+
+Trong đó **Duty Cycle ($\%ED$)** được tính bằng:
+
+```math
+\%ED = \frac{t_{brake}}{t_{cycle}} \times 100\%
+```
+
+* $t_{brake}$: Thời gian hãm trong 1 chu kỳ (giây).
+* $t_{cycle}$: Tổng thời gian của 1 chu kỳ làm việc (giây).
+
+**Bảng tra $\%ED$ tham khảo theo ứng dụng:**
+
+| Loại phụ tải / Ứng dụng | Duty Cycle ($\%ED$) | Công suất điện trở khuyến nghị ($P_{br}$) |
+|---|---|---|
+| Dừng khẩn cấp / Ít khi dừng | 5% - 10% | $P_{br} = (0.1 \sim 0.15) \times P_{motor}$ |
+| Băng tải, máy nén, máy công cụ | 10% - 20% | $P_{br} = (0.2 \sim 0.3) \times P_{motor}$ |
+| Máy ly tâm, máy giặt công nghiệp | 30% - 50% | $P_{br} = (0.4 \sim 0.5) \times P_{motor}$ |
+| Cẩu trục nâng hạ, thang máy | 50% - 100% | $P_{br} = (0.8 \sim 1.2) \times P_{motor}$ |
+
+---
+
+## 5. Ví dụ tính toán cụ thể
+
+**Bài toán:** Tính chọn điện trở xả cho biến tần **15 kW** (điện áp 380V) điều khiển động cơ máy vắt ly tâm.
+* Thời gian giảm tốc hãm dừng $t_{brake} = 10\text{ giây}$.
+* Mỗi chu kỳ vắt dài $t_{cycle} = 60\text{ giây}$.
+* Biến tần yêu cầu điện trở $R_{min} = 30 \ \Omega$.
+
+### Bước 1: Tính điện trở $R_{br}$
+Chọn giá trị điện trở khuyến nghị của hãng cho biến tần 15kW (ví dụ chọn $R_{br} = 40 \ \Omega > R_{min} = 30 \ \Omega$).
+
+### Bước 2: Tính chu kỳ hãm $\%ED$
+
+$$\%ED = \frac{10}{60} \times 100\% \approx 16.7\%$$
+
+### Bước 3: Tính công suất điện trở $P_{br}$
+
+$$P_{br} = 15000\text{ W} \times 16.7\% \approx 2505\text{ W} \approx 2.5\text{ kW}$$
+
+> **Kết quả:** Chọn bộ Điện trở xả nhôm (Aluminium Enclosure) hoặc điện trở sứ thanh có thông số **$40 \ \Omega \ - \ 2500\text{W}$** (hoặc ghép song song/nối tiếp các điện trở nhỏ hơn để đạt giá trị này).
+
+---
+
+## 6. Lưu ý an toàn khi lắp đặt điện trở xả
+
+1. **Nhiệt độ tỏa ra rất lớn:** Điện trở xả khi hoạt động có thể đạt nhiệt độ trên **150°C - 250°C**. Bắt buộc phải lắp ở vị trí thoáng khí ngoài vỏ tủ điện hoặc trên nóc tủ, cách xa các thiết bị nhựa, PLC, dây cáp điện.
+2. **Sử dụng Relay nhiệt bảo vệ quá nhiệt:** Luôn đấu nối tiếp một tiếp điểm rơ-le nhiệt (hoặc sensor nhiệt gắn trên điện trở) vào mạch dừng khẩn cấp (Emergency Stop) của biến tần để ngắt nguồn nguồn tổng nếu điện trở xả bị quá nhiệt kéo dài.
+3. **Tra cứu công cụ:** Ní có thể dùng [Công cụ tính toán điện trở](pathname:///shareme/tool/#/tool/resistor-calculator) để tra cứu quy đổi và tính toán vạch màu / thông số nhanh chóng.

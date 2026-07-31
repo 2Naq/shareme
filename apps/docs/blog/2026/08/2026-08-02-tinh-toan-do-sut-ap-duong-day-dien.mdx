@@ -1,0 +1,115 @@
+---
+slug: tinh-toan-do-sut-ap-duong-day-dien-ha-the
+title: "Tính toán độ sụt áp đường dây và chọn tiết diện dẫn"
+authors: [an]
+tags: [voltage-drop, dien-cong-nghiep, tu-dong-hoa, tips]
+date: 2026-08-02
+image: https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80
+---
+
+Trong thiết kế điện công nghiệp và hạ tầng nhà máy, việc tính toán chọn tiết diện cáp theo dòng điện cho phép là chưa đủ, đặc biệt khi kéo cáp ra tải xa (trên 100m) thì động cơ không khởi động nổi hoặc thiết bị điện tử chập chờn. 
+
+Nguyên nhân cốt lõi chính là **độ sụt áp (Voltage Drop)** trên đường dây. Khi dòng điện chạy qua điện trở và điện kháng của cáp điện trên khoảng cách dài, một phần điện áp bị tổn hao dưới dạng nhiệt. Bài viết này mình sẽ note lại công thức tính độ sụt áp chuẩn IEC kèm ví dụ thực tế và cách chọn lại tiết diện cáp an toàn nhất.
+
+{/* truncate */}
+
+---
+
+## 1. Độ sụt áp là gì và tại sao lại nguy hiểm?
+
+**Độ sụt áp ($\Delta U$)** là sự chênh lệch giữa điện áp ở đầu nguồn (tại tủ phân phối) và điện áp ở cuối nguồn (tại cực của thiết bị tiêu thụ).
+
+### Hậu quả của độ sụt áp vượt quá giới hạn:
+* **Đối với động cơ 3 pha:** Momen quay của động cơ tỉ lệ thuận với bình phương điện áp ($M \sim U^2$). Nếu điện áp sụt 10%, momen khởi động sụt tới 19%! Động cơ sẽ bị kẹt rotor, gầm lớn, dòng khởi động kéo dài và dẫn đến nhảy rơ-le nhiệt hoặc om dây cháy cuộn stator.
+* **Đối với PLC, HMI và Cảm biến:** Bộ nguồn 24VDC hoặc thiết bị điều khiển nhạy cảm bị tụt áp dưới mức hoạt động tối thiểu ($< 85\% U_n$), gây lỗi reset hệ thống liên tục.
+* **Đối với hệ thống chiếu sáng:** Đèn bị sụt quang thông (tối đi rõ rệt) hoặc bị nhấp nháy (flicker).
+
+---
+
+## 2. Giới hạn độ sụt áp cho phép theo tiêu chuẩn IEC 60364-5-52
+
+Theo tiêu chuẩn quốc tế **IEC 60364-5-52**, độ sụt áp từ trạm biến áp / tủ phân phối chính đến phụ tải tiêu thụ không được vượt quá các giá trị sau:
+
+| Mạng điện / Loại phụ tải | Độ sụt áp tối đa ($\Delta U\%$) |
+|---|---|
+| Mạch chiếu sáng (Lighting) | **3%** |
+| Mạch động cơ & thiết bị khác | **5%** |
+| Khi khởi động động cơ (chốc nhát) | **10% - 15%** |
+
+Ví dụ với lưới 3 pha 380V, độ sụt áp 5% tương ứng với sụt không quá **19V** (điện áp tại cực động cơ không dưới **361V**).
+
+---
+
+## 3. Công thức tính độ sụt áp chuẩn IEC
+
+### Công thức tổng quát cho mạng 3 pha:
+
+```math
+\Delta U = \sqrt{3} \cdot I \cdot L \cdot (R \cdot \cos\varphi + X \cdot \sin\varphi)
+```
+
+Hoặc tính theo phần trăm:
+
+```math
+\Delta U\% = \frac{\Delta U}{U_n} \cdot 100\%
+```
+
+### Ký hiệu & Ý nghĩa các đại lượng:
+* $\Delta U$: Độ sụt áp trên đường dây (Vôn - V).
+* $I$: Dòng điện tính toán chạy trên dây (Ampe - A).
+* $L$: Chiều dài đường dây một chiều từ nguồn tới tải (Km).
+* $R$: Điện trở điện một chiều/xoay chiều của ruột dẫn ở nhiệt độ làm việc ($\Omega/\text{km}$). Đối với dây đồng ở 70°C: $R \approx \frac{22.5}{S}$ (với $S$ là tiết diện mm²).
+* $X$: Điện kháng cảm ứng của dây dẫn ($\Omega/\text{km}$), thông thường cáp hạ thế lấy $X \approx 0.08 \sim 0.1 \ \Omega/\text{km}$.
+* $\cos\varphi$: Hệ số công suất của tải.
+
+---
+
+## 4. Mẹo tính nhanh độ sụt áp xấp xỉ tại hiện trường
+
+Đối với cáp đồng hạ thế ($S \le 120\text{ mm}^2$), có thể dùng công thức đơn giản hóa:
+
+```math
+\Delta U \approx \frac{K \cdot I \cdot L}{S}
+```
+
+* Đối với **mạng 3 pha 380V**: lấy hệ số $K \approx 0.036$ (với $L$ tính bằng mét).
+* Đối với **mạng 1 pha 220V**: lấy hệ số $K \approx 0.042$ (với $L$ tính bằng mét).
+
+---
+
+## 5. Ví dụ thực tế từ công trình
+
+**Bài toán:** Bạn cần cấp nguồn cho một trạm bơm nước thải trang bị động cơ 3 pha **22 kW** (dòng định mức $I = 44\text{ A}$, $\cos\varphi = 0.85$). Trạm bơm nằm cách tủ điện trung tâm một khoảng cách **250 mét**. Cáp đi ngầm trong hào cáp bằng cáp đồng XLPE/PVC.
+
+### Bước 1: Chọn tiết diện cáp theo dòng điện định mức
+* Với dòng $I = 44\text{ A}$, chọn mật độ dòng an toàn $J = 4.5\text{ A/mm}^2$:
+  $$S_{dòng} = \frac{44}{4.5} \approx 9.77\text{ mm}^2 \implies \text{Chọn cáp } 10\text{ mm}^2$$
+
+### Bước 2: Kiểm tra độ sụt áp với cáp 10 mm²
+Áp dụng công thức tính nhanh cho mạng 3 pha với $L = 250\text{ m}$, $S = 10\text{ mm}^2$:
+
+$$\Delta U \approx \frac{0.036 \cdot 44 \cdot 250}{10} = 39.6\text{ V}$$
+
+Phần trăm sụt áp:
+
+$$\Delta U\% = \frac{39.6}{380} \cdot 100\% \approx 10.42\%$$
+
+> **Kết quả:** Sụt áp tới **10.42%** (vượt xa mức cho phép 5%). Nếu giữ nguyên cáp 10 mm², động cơ bơm 22 kW khi mang tải sẽ bị tụt áp xuống còn 340V, chạy rất nóng và có thể sẽ bị nhảy CB liên tục!
+
+### Bước 3: Chọn lại tiết diện cáp theo độ sụt áp cho phép 5% ($\Delta U \le 19\text{ V}$)
+
+$$S_{mới} \ge \frac{0.036 \cdot 44 \cdot 250}{19} \approx 20.84\text{ mm}^2$$
+
+Tra quy cách cáp tiêu chuẩn (các cấp 16, 25, 35 mm²), ta chọn tiết diện cáp **25 mm²** (loại cáp Cu/XLPE/PVC 3x25+1x16 mm²).
+
+Tính lại độ sụt áp với cáp 25 mm²:
+
+$$\Delta U = \frac{0.036 \cdot 44 \cdot 250}{25} \approx 15.84\text{ V} \implies \Delta U\% = 4.16\% \ (\text{Đạt tiêu chuẩn } < 5\%)$$
+
+---
+
+## 6. Tham khảo
+
+1. **Khoảng cách trên 50m luôn phải tính sụt áp:** Đừng chỉ dựa vào bảng chọn dòng của nhà sản xuất cáp (chỉ áp dụng cho chiều dài ngắn).
+2. **Tính toán cả thời điểm khởi động:** Nếu động cơ khởi động trực tiếp (DOL), dòng khởi động gấp 6 lần. Với phụ tải rất xa, nên sử dụng **Biến tần (VFD)** hoặc **Bộ khởi động mềm (Soft Starter)** để triệt tiêu dòng đỉnh khởi động, giúp giảm sụt áp chốc nhát.
+3. **Sử dụng công cụ tính nhanh trực tuyến:** Ní có thể sử dụng trực tiếp công cụ **[Tính Độ Sụt Áp](pathname:///shareme/tool/#/tool/voltage-drop)** nằm trong bộ **ShareMe Tools** để tham khảo nhanh thông số cáp, độ sụt áp và tiết diện khuyến nghị ngay trên điện thoại khi đi công trình!

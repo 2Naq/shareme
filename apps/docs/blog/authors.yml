@@ -53,9 +53,21 @@ gemini:
 
 shortcuts:
   name: Clément Vannicatte
-  title: Software Engineer @ Algolia
+  title: Software Engineer @Algolia
   url: https://github.com/shortcuts
   image_url: https://github.com/shortcuts.png
   socials:
     x: sh0rtcts
     github: shortcuts
+
+an:
+  name: Automation Notes
+  isPro: true
+  title: Automation notes maintainer
+  url: https://2naq.github.io/shareme
+  image_url: https://2naq.github.io/shareme/favicon.svg
+  page:
+    # custom link author
+    permalink: "/an"
+  socials:
+    newsletter: https://2naq.github.io/shareme/
