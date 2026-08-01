@@ -15,7 +15,7 @@ import {
   Crc16Calculator,
   AsciiHexConverter,
 } from "./tabs";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const TABS = [
   { value: "base", label: "Hệ cơ số", icon: Binary, comp: NumberBaseConverter },
@@ -65,7 +65,6 @@ export default function DataConversionTool() {
               </TabsTrigger>
             ))}
           </TabsList>
-          <ScrollBar orientation="horizontal" />
         </ScrollArea>
 
         {TABS.map(({ value, comp: Comp }) => (

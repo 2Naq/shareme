@@ -40,6 +40,7 @@ Khi điện áp Bus DC giảm xuống mức an toàn, IGBT hãm ngắt, điện 
 * **Hệ thống nâng hạ, cẩu trục, thang máy (Cranes/Hoists):** Khi hạ tải trọng xuống, trọng lực kéo rotor quay nhanh hơn tần số biến tần $\implies$ Năng lượng phát ngược cực kỳ lớn và liên tục.
 * **Máy vắt ly tâm, máy quạt cánh lớn, máy nghiền:** Tải có **quán tính quay ($J$) rất lớn**.
 * **Máy cắt dây, máy dệt, máy bao bì:** Yêu cầu **thời gian dừng cực nhanh (Deceleration time < 1s)** để đảm bảo an toàn hoặc chu kỳ sản xuất.
+* **Máy dập, máy chấn, máy ép cơ khí (Pressing/Stamping Machines):** Chu kỳ dập nhả nhanh liên tục, bánh đà (flywheel) tích năng lượng lớn dội ngược về Bus DC mỗi khi ngắt hãm hoặc giảm tốc.
 * **Hệ thống mâm quay, băng tải đổ dốc.**
 
 ---
@@ -58,7 +59,7 @@ Công thức tính giá trị điện trở theo momen hãm yêu cầu:
 R_{br} = \frac{U_{DC\_brake}^2}{P_{brake}}
 ```
 
-* $U_{DC\_brake}$: Điện áp ngưỡng kích hoạt hãm (với lưới 380V, lấy $U_{DC\_brake} \approx 680 \sim 700\text{VDC}$).
+* $U_{DC\_brake}$: Điện áp ngưỡng kích hoạt hãm (với lưới 380V, lấy $U_{DC\_brake} \approx 680 \sim 700$ VDC).
 * $P_{brake}$: Công suất hãm đỉnh (Watt), thường lấy bằng công suất động cơ $P_{motor}$ nhân với hệ số momen hãm $T_b\%$ (thường lấy $100\% \sim 150\%$).
 
 ### b) Tính công suất của điện trở xả $P_{br}$
@@ -115,4 +116,18 @@ $$P_{br} = 15000\text{ W} \times 16.7\% \approx 2505\text{ W} \approx 2.5\text{ 
 
 1. **Nhiệt độ tỏa ra rất lớn:** Điện trở xả khi hoạt động có thể đạt nhiệt độ trên **150°C - 250°C**. Bắt buộc phải lắp ở vị trí thoáng khí ngoài vỏ tủ điện hoặc trên nóc tủ, cách xa các thiết bị nhựa, PLC, dây cáp điện.
 2. **Sử dụng Relay nhiệt bảo vệ quá nhiệt:** Luôn đấu nối tiếp một tiếp điểm rơ-le nhiệt (hoặc sensor nhiệt gắn trên điện trở) vào mạch dừng khẩn cấp (Emergency Stop) của biến tần để ngắt nguồn nguồn tổng nếu điện trở xả bị quá nhiệt kéo dài.
-3. **Tra cứu công cụ:** Ní có thể dùng [Công cụ tính toán điện trở](pathname:///shareme/tool/#/tool/resistor-calculator) để tra cứu quy đổi và tính toán vạch màu / thông số nhanh chóng.
+3. **Tra cứu công cụ:** Ní có thể dùng [Công cụ tính chọn Điện trở xả](pathname:///shareme/tool/#/tool/resistor-calculator) (chọn tab **"Điện Trở Xả (Biến tần)"**) để tính toán nhanh các thông số $R_{br}$, $\%ED$ và $P_{br}$ theo công thức trên.
+
+---
+
+## 7. Tài liệu tham khảo & Tiêu chuẩn kỹ thuật
+
+Các công thức và bảng thông số tra cứu trong bài viết được tổng hợp từ tài liệu hướng dẫn kỹ thuật chính thức của các hãng sản xuất biến tần phổ biến:
+
+* **[Mitsubishi Electric FREQROL Series](https://www.mitsubishielectric.com/fa/products/drv/inv/index.html)** (FR-A800 / FR-E800 / FR-F800 Manual): Hướng dẫn chọn điện trở xả mã FR-ABR / FR-BR, sơ đồ đấu nối chân `P/+` và `PR` và quy định bảo vệ quá nhiệt.
+* **[INVT Goodrive Series](https://www.invt.com)** (GD20 / GD200A Manual - Appendix C): Bảng tra cứu giá trị điện trở xả cho 100% momen hãm, điện trở tối thiểu $R_{min}$ và hướng dẫn đấu nối chân `PB` và `(+)`.
+* **[WECON AC Drives](http://www.we-con.com.cn/en/)** (VB / VNZ Series User Manual - Appendix A.3): Bảng tính chọn điện trở xả theo công suất kW và sơ đồ đấu nối cổng `PB` - `(+)`.
+* **[Schneider Electric Altivar Manual](https://www.se.com/ww/en/download/document/NHA87388/)** (Doc ID: NHA87388): Bảng thông số $R_{min}$, công suất và mã sản phẩm điện trở xả cho dòng Altivar ATV320 / ATV900.
+* **[ABB Drives Library](https://library.abb.com/)** (Technical Guide No. 8 - Doc ID: 3AFE64514482): Hướng dẫn chi tiết nguyên lý hãm điện động năng, thiết kế Brake Chopper và tính toán công suất xả.
+* **[Siemens Industry Online Support](https://support.industry.siemens.com/)** (SINAMICS G120 / PM240-2 Manual): Bảng tra $R_{min}$ theo Power Module, cấu hình tham số p0219 cho chu kỳ hãm.
+* **[IEC Webstore - IEC 61800-5-1](https://webstore.iec.ch)** (Adjustable speed electrical power drive systems): Tiêu chuẩn quốc tế quy định yêu cầu an toàn điện, an toàn nhiệt và bảo vệ quá nhiệt cho hệ thống biến tần có sử dụng điện trở xả.

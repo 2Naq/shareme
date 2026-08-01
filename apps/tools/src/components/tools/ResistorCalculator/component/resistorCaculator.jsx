@@ -12,11 +12,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import ResistorSVG from "./component/resistorSVG";
+import ResistorSVG from "./resistorSVG";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import MathRendererBlock from "@/components/MathRenderer";
-import { formatResistance, formatMultiplier } from "./utils";
+import { formatResistance, formatMultiplier } from "../utils";
 
 const COLOR_BANDS = [
   {

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { formatResistance } from "./utils";
+import { formatResistance } from "../utils";
 
 function superscript(n) {
   const map = {

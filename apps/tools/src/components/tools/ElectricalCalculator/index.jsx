@@ -6,7 +6,7 @@ import MotorCalculator from "./components/MotorCalculator";
 import ResidentialCalculator from "./components/ResidentialCalculator";
 import IndustrialCalculator from "./components/IndustrialCalculator";
 import SystemOverview from "./components/SystemOverview";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const TABS = [
   {
@@ -67,7 +67,6 @@ export default function ElectricalCalculator() {
               );
             })}
           </TabsList>
-          <ScrollBar orientation="horizontal" />
         </ScrollArea>
 
         {TABS.map((tab) => {

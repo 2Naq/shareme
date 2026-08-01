@@ -6,6 +6,11 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import {
@@ -25,8 +30,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import MathRendererBlock, { MathRenderInline } from "@/components/MathRenderer";
-import { Cog, ShieldCheck, Gauge, Zap } from "lucide-react";
-import { MOTOR_DATABASE, START_METHODS } from "../utils/constants";
+import { Cog, ShieldCheck, Gauge, Zap, CircleQuestionMark } from "lucide-react";
+import { START_METHODS } from "../utils/constants";
 import { calculateMotorParams } from "../utils/calculations";
 
 const VOLTAGE_OPTIONS = [
@@ -112,7 +117,12 @@ export default function MotorCalculator() {
               onValueChange={(v) => setVoltage(Number(v))}
             >
               <SelectTrigger>
-                <SelectValue />
+                <SelectValue>
+                  {voltage
+                    ? VOLTAGE_OPTIONS.find((opt) => opt.value === voltage)
+                        ?.label
+                    : "Chọn điện áp"}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {VOLTAGE_OPTIONS.map((opt) => (
@@ -169,9 +179,21 @@ export default function MotorCalculator() {
 
           {/* Motor gần nhất */}
           <div className="p-3 bg-muted/50 rounded-lg text-sm space-y-1">
-            <p className="font-medium text-foreground">
-              Motor tiêu chuẩn gần nhất:
-            </p>
+            <div className="flex gap-1 flex-row items-center">
+              <p className="font-medium text-foreground">
+                Motor tiêu chuẩn gần nhất:
+              </p>
+              <Tooltip>
+                <TooltipTrigger>
+                  <CircleQuestionMark className="size-4" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>
+                    Thông số được tham khảo từ các motor có mặt trên thị trường
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
             <p className="text-muted-foreground">
               {results.motorData.kW} kW ({results.motorData.hp} HP) <br /> I
               <sub>đm(catalog)</sub> = {results.motorData.I_dm}A,
@@ -217,8 +239,11 @@ export default function MotorCalculator() {
               <Label className="text-xs text-primary uppercase tracking-wider">
                 Công thức
               </Label>
-              <div className="mt-2 p-3 bg-background rounded border flex justify-center overflow-x-auto min-h-12 items-center bg-grid">
-                <MathRendererBlock formula={results.formula} />
+              <div className="mt-2 p-3 bg-background rounded border flex justify-center min-h-12 items-center bg-grid">
+                <MathRendererBlock
+                  className="overflow-x-auto sm:overflow-x-hidden"
+                  formula={results.formula}
+                />
               </div>
             </div>
 

@@ -32,7 +32,7 @@ export default function ResistorSVG({ bands, bandCount, onBandClick }) {
   return (
     <svg
       viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-      className="w-full max-w-[500px] mx-auto select-none"
+      className="w-full max-w-125 mx-auto select-none"
       style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.10))" }}
     >
       {/* Wires */}
