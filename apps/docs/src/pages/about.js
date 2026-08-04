@@ -12,17 +12,17 @@ import Separator from "../components/Separator";
 const infor = [
   {
     name: <Translate>Work / position</Translate>,
-    value: <Translate>Tập sự</Translate>,
+    value: <Translate>{myData.level}</Translate>,
     icon: CodeXml,
   },
   {
     name: <Translate>Location</Translate>,
-    value: <Translate>Viet Nam</Translate>,
+    value: <Translate>{myData.address}</Translate>,
     icon: MapPin,
   },
   {
     name: <Translate>Email</Translate>,
-    value: "annguyen@gmail.com",
+    value: myData.email,
     icon: Mail,
   },
 ];
@@ -64,7 +64,7 @@ export default function Aboutme() {
                   <VerifiedIcon className="size-[0.6em] text-blue-500" />
                 </h1>
                 <p className="text-sm text-gray-500 dark:text-gray-400 m-0">
-                  <Translate>Ní sợ à!</Translate>
+                  <Translate>{myData.title}</Translate>
                 </p>
               </div>
             </div>
