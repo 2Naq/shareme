@@ -1,13 +1,11 @@
-import React from "react";
-import Translate from "@docusaurus/Translate";
-import Layout from "@theme/Layout";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import { myData } from "../constants/my_data";
 import Link from "@docusaurus/Link";
 import VerifiedIcon from "@site/src/components/icons/verified.svg";
-import GithubIcon from "../components/icons/github";
+import GithubIcon from "@site/src/components/icons/github";
+import Separator from "@site/src/components/Separator";
 import { CodeXml, Mail, MapPin, MoveRight } from "lucide-react";
-import Separator from "../components/Separator";
+import { myData } from "@site/src/constants/my_data";
+import Translate from "@docusaurus/Translate";
+import { Marker, MarkerContent } from "@site/src/components/ui/marker";
 
 const infor = [
   {
@@ -27,23 +25,23 @@ const infor = [
   },
 ];
 
-export default function Aboutme() {
-  const { siteConfig } = useDocusaurusContext();
-
+function MainAbout() {
   return (
-    <Layout
-      title={`Portfolio - ${siteConfig.title}`}
-      noFooter
-      description="Personal portfolio and documentation site"
-    >
-      <main className="font-mono bg-background text-foreground min-h-screen">
-        {/* === SECTION 1: HERO (Hình đại diện + Tên) === */}
-
-        <div className="mx-auto md:max-w-3xl border-edge border-x">
-          <div className="h-20"></div>
+    <>
+      <main className="max-w-screen overflow-x-hidden px-2 font-mono bg-background text-foreground">
+        <div className="mx-auto md:max-w-3xl border-edge border-x min-h-screen">
+          <div className="aspect-2/1 border-x border-edge select-none sm:aspect-3/1 flex items-center justify-center flex-col text-black dark:text-white screen-line-before screen-line-after before:-top-px after:-bottom-px bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-size-[20px_20px] bg-center">
+            <div className="shimmer">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight bg-linear-to-b from-zinc-950 via-slate-900 to-zinc-700 dark:from-white dark:via-zinc-200 dark:to-zinc-500 bg-clip-text text-transparent drop-shadow-[0_4px_12px_rgba(0,0,0,0.25)] dark:drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+                Automation Notes
+              </h1>
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">
+              Practice - Challenge - Persevere
+            </p>
+          </div>
           <Separator />
-          <div className=" border-edge flex flex-row sm:flex-row">
-            {/* Box Trái: Avatar */}
+          <div className="border-edge flex flex-row sm:flex-row">
             <div className="shrink-0 border-r border-edge p-2">
               <div className="mx-0.5 my-0.75">
                 <img
@@ -54,13 +52,11 @@ export default function Aboutme() {
               </div>
             </div>
 
-            {/* Box Phải: Thông tin tên (có lưới chéo) */}
             <div className="w-full sm:w-2/3 flex flex-col flex-1">
               <Separator className="grow border-none before:hidden bg-separator" />
               <div className="border-t border-edge p-4">
                 <h1 className="text-3xl font-semibold flex items-center gap-2 mb-1">
                   {myData.user_name || "anTng"}
-                  {/* Tích xanh */}
                   <VerifiedIcon className="size-[0.6em] text-blue-500" />
                 </h1>
                 <p className="text-sm text-gray-500 dark:text-gray-400 m-0">
@@ -137,6 +133,8 @@ export default function Aboutme() {
           </div>
         </div>
       </main>
-    </Layout>
+    </>
   );
 }
+
+export default MainAbout;
