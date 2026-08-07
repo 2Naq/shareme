@@ -1,6 +1,8 @@
 export const myData = {
   user_name: "anTng",
+  fullName: "An Nguyễn",
   brand_name: "Automation Notes",
+  sub_brand: "Practice - Challenge - Persevere",
   link_github: "https://github.com/2Naq",
   avt: "https://github.com/2Naq.png",
   title: "Automation notes maintainer",

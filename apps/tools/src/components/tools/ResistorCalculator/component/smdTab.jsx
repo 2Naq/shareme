@@ -73,7 +73,7 @@ function SmdResistorSVG({ digits, digitCount }) {
   return (
     <svg
       viewBox={`0 0 ${w} ${h}`}
-      className="w-full max-w-[240px] mx-auto select-none"
+      className="w-full max-w-60 mx-auto select-none"
     >
       {/* Pads */}
       <rect

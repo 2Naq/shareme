@@ -19,6 +19,7 @@
     "prettier": "^3.9.5"
   },
   "dependencies": {
-    "classnames": "^2.5.1"
+    "classnames": "^2.5.1",
+    "motion": "^13.0.0"
   }
 }
