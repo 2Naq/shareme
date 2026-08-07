@@ -38,7 +38,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Do not intercept or cache tools requests in this SW (let the tools SW handle it)
-  if (event.request.url.includes('/shareme/tool/')) {
+  if (event.request.url.includes('/shareme/tools/')) {
     return;
   }
 

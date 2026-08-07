@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="400" height="240" style="background:#0f172a">
+  <defs>
+    <linearGradient id="tg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="tg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+    <linearGradient id="tg3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="tglow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="400" height="240" fill="url(#tg1)"/>
+
+  <!-- Grid pattern -->
+  <g opacity="0.06">
+    <line x1="0" y1="40" x2="400" y2="40" stroke="#94a3b8" stroke-width="0.5"/>
+    <line x1="0" y1="80" x2="400" y2="80" stroke="#94a3b8" stroke-width="0.5"/>
+    <line x1="0" y1="120" x2="400" y2="120" stroke="#94a3b8" stroke-width="0.5"/>
+    <line x1="0" y1="160" x2="400" y2="160" stroke="#94a3b8" stroke-width="0.5"/>
+    <line x1="0" y1="200" x2="400" y2="200" stroke="#94a3b8" stroke-width="0.5"/>
+    <line x1="80" y1="0" x2="80" y2="240" stroke="#94a3b8" stroke-width="0.5"/>
+    <line x1="160" y1="0" x2="160" y2="240" stroke="#94a3b8" stroke-width="0.5"/>
+    <line x1="240" y1="0" x2="240" y2="240" stroke="#94a3b8" stroke-width="0.5"/>
+    <line x1="320" y1="0" x2="320" y2="240" stroke="#94a3b8" stroke-width="0.5"/>
+  </g>
+
+  <!-- Decorative circles -->
+  <circle cx="60" cy="50" r="60" fill="#f97316" opacity="0.05"/>
+  <circle cx="350" cy="200" r="50" fill="#ef4444" opacity="0.05"/>
+
+  <!-- Wrench icon -->
+  <g transform="translate(45, 45)" filter="url(#tglow)">
+    <g transform="rotate(-45, 45, 65)">
+      <!-- Wrench handle -->
+      <rect x="35" y="50" width="20" height="80" rx="4" fill="#334155" stroke="#475569" stroke-width="1"/>
+      <rect x="39" y="55" width="12" height="35" rx="2" fill="#1e293b"/>
+      <!-- Wrench head -->
+      <path d="M30,35 Q30,15 45,10 Q60,15 60,35 L55,50 L35,50 Z" fill="url(#tg2)" stroke="#fb923c" stroke-width="0.5"/>
+      <path d="M40,30 Q40,22 45,18 Q50,22 50,30 L48,38 L42,38 Z" fill="#1e293b"/>
+    </g>
+  </g>
+
+  <!-- Gear icon -->
+  <g transform="translate(135, 30)" opacity="0.85" filter="url(#tglow)">
+    <circle cx="50" cy="50" r="28" fill="none" stroke="#f97316" stroke-width="2.5" opacity="0.7"/>
+    <circle cx="50" cy="50" r="12" fill="#1e293b" stroke="#fb923c" stroke-width="1.5"/>
+    <!-- Gear teeth -->
+    <rect x="46" y="18" width="8" height="12" rx="2" fill="#f97316" opacity="0.7"/>
+    <rect x="46" y="70" width="8" height="12" rx="2" fill="#f97316" opacity="0.7"/>
+    <rect x="18" y="46" width="12" height="8" rx="2" fill="#f97316" opacity="0.7"/>
+    <rect x="70" y="46" width="12" height="8" rx="2" fill="#f97316" opacity="0.7"/>
+    <!-- Diagonal teeth -->
+    <rect x="26" y="24" width="8" height="11" rx="2" fill="#f97316" opacity="0.5" transform="rotate(45, 30, 30)"/>
+    <rect x="66" y="24" width="8" height="11" rx="2" fill="#f97316" opacity="0.5" transform="rotate(-45, 70, 30)"/>
+    <rect x="26" y="66" width="8" height="11" rx="2" fill="#f97316" opacity="0.5" transform="rotate(-45, 30, 70)"/>
+    <rect x="66" y="66" width="8" height="11" rx="2" fill="#f97316" opacity="0.5" transform="rotate(45, 70, 70)"/>
+  </g>
+
+  <!-- Terminal/Console window -->
+  <g transform="translate(225, 35)" opacity="0.9">
+    <rect x="0" y="0" width="150" height="100" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <!-- Title bar -->
+    <rect x="0" y="0" width="150" height="20" rx="6" fill="#1e293b"/>
+    <rect x="0" y="10" width="150" height="10" fill="#1e293b"/>
+    <circle cx="12" cy="10" r="3" fill="#ef4444" opacity="0.8"/>
+    <circle cx="24" cy="10" r="3" fill="#fbbf24" opacity="0.8"/>
+    <circle cx="36" cy="10" r="3" fill="#22c55e" opacity="0.8"/>
+    <text x="82" y="13" text-anchor="middle" fill="#64748b" font-size="7" font-family="monospace">terminal</text>
+    <!-- Console content -->
+    <text x="10" y="36" fill="#22d3ee" font-size="8" font-family="monospace">$</text>
+    <text x="20" y="36" fill="#e2e8f0" font-size="8" font-family="monospace">npm run build</text>
+    <text x="10" y="48" fill="#34d399" font-size="7" font-family="monospace">✓ compiled successfully</text>
+    <text x="10" y="60" fill="#22d3ee" font-size="8" font-family="monospace">$</text>
+    <text x="20" y="60" fill="#e2e8f0" font-size="8" font-family="monospace">node tools/gen.js</text>
+    <text x="10" y="72" fill="#fbbf24" font-size="7" font-family="monospace">⚡ generating assets...</text>
+    <text x="10" y="84" fill="#34d399" font-size="7" font-family="monospace">✓ 12 files created</text>
+    <!-- Blinking cursor -->
+    <rect x="10" y="90" width="5" height="2" fill="#22d3ee" opacity="0.8"/>
+  </g>
+
+  <!-- Calculator/Converter mini -->
+  <g transform="translate(265, 145)" opacity="0.75">
+    <rect x="0" y="0" width="85" height="60" rx="5" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="42" y="13" text-anchor="middle" fill="#f97316" font-size="7" font-weight="bold" font-family="monospace">CONVERTER</text>
+    <line x1="5" y1="18" x2="80" y2="18" stroke="#334155" stroke-width="0.5"/>
+    <text x="10" y="30" fill="#94a3b8" font-size="7" font-family="monospace">Hz</text>
+    <rect x="25" y="23" width="35" height="11" rx="2" fill="#0f172a" stroke="#334155"/>
+    <text x="42" y="31" text-anchor="middle" fill="#22d3ee" font-size="7" font-family="monospace">50.0</text>
+    <text x="64" y="30" fill="#64748b" font-size="6" font-family="monospace">→</text>
+    <text x="72" y="30" fill="#34d399" font-size="7" font-family="monospace">↻</text>
+    <text x="10" y="45" fill="#94a3b8" font-size="7" font-family="monospace">RPM</text>
+    <rect x="25" y="38" width="35" height="11" rx="2" fill="#0f172a" stroke="#334155"/>
+    <text x="42" y="46" text-anchor="middle" fill="#fbbf24" font-size="7" font-family="monospace">1500</text>
+  </g>
+
+  <!-- Accent glow -->
+  <circle cx="200" cy="120" r="100" fill="url(#tg3)" opacity="0.12"/>
+
+  <!-- Title -->
+  <text x="200" y="215" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="bold" font-family="system-ui, sans-serif" letter-spacing="1">Share tools</text>
+  <text x="200" y="232" text-anchor="middle" fill="#E5E5EA" font-size="10" font-family="system-ui, sans-serif">Calculator • Converter • Generator</text>
+</svg>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="./favicon-96x96.png" />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <script>
+      (function() {
+        try {
+          const isToolPath = window.location.pathname.startsWith('/shareme/tool');
+          const manifestPath = isToolPath ? '/shareme/tool/manifest-tools.json' : '/manifest-tools.json';
+          const swPath = isToolPath ? '/shareme/tool/sw.js' : '/sw.js';
+          const swScope = isToolPath ? '/shareme/tool/' : '/';
+
+          const link = document.createElement('link');
+          link.rel = 'manifest';
+          link.id = 'pwa-manifest';
+          link.href = manifestPath;
+          document.head.appendChild(link);
+
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+              navigator.serviceWorker.register(swPath, { scope: swScope })
+                .then(function(reg) {
+                  console.log('Tools SW registered:', reg.scope);
+                })
+                .catch(function(err) {
+                  console.error('Tools SW registration failed:', err);
+                });
+            });
+          }
+        } catch(e) {
+          console.error('Failed PWA initialization', e);
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          window.deferredPrompt = e;
+          window.dispatchEvent(new CustomEvent('pwa-install-prompt-ready'));
+        });
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tools</title>
+    <script type="module" crossorigin src="./assets/index-uMPgRQ6T.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-wx6UNUWi.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
