@@ -1,10 +1,9 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import { useColorMode } from "@docusaurus/theme-common";
-import { Sun, Moon, BookOpen, Home } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import { myData } from "@site/src/constants/my_data";
 import GithubIcon from "@/components/icons/github";
-import { Button } from "@base-ui/react";
 import { cn } from "@/lib/utils";
 
 const tw = {

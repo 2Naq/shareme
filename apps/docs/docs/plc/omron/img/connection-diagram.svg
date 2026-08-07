@@ -1,0 +1,59 @@
+<svg width="900" height="380" viewBox="0 0 900 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="900" height="380" fill="#0F172A"/>
+<text fill="#F8FAFC" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="bold" letter-spacing="0em"><tspan x="137.021" y="34.2727">S&#x1a0; &#x110;&#x1ed2; K&#x1ebe;T N&#x1ed0;I M&#xc1;Y T&#xcd;NH V&#x1eda;I PLC OMRON (CP1E / CP1L / CP1H)</tspan></text>
+<path d="M270 70H70C64.4772 70 60 74.4772 60 80V210C60 215.523 64.4772 220 70 220H270C275.523 220 280 215.523 280 210V80C280 74.4772 275.523 70 270 70Z" fill="url(#paint0_linear_2_2)" stroke="#38BDF8" stroke-width="2"/>
+<path d="M261 85H79C76.7909 85 75 86.7909 75 89V191C75 193.209 76.7909 195 79 195H261C263.209 195 265 193.209 265 191V89C265 86.7909 263.209 85 261 85Z" fill="#0284C7" fill-opacity="0.1" stroke="#0284C7"/>
+<text fill="#38BDF8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" font-weight="bold" letter-spacing="0em"><tspan x="114.369" y="114.591">CX-Programmer</tspan></text>
+<path d="M241 130H99C96.7909 130 95 131.791 95 134V151C95 153.209 96.7909 155 99 155H241C243.209 155 245 153.209 245 151V134C245 131.791 243.209 130 241 130Z" fill="#1E293B" stroke="#475569"/>
+<text fill="#94A3B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="123.825" y="146.5">USB Direct Online</tspan></text>
+<path d="M110 174C112.209 174 114 172.209 114 170C114 167.791 112.209 166 110 166C107.791 166 106 167.791 106 170C106 172.209 107.791 174 110 174Z" fill="#22C55E"/>
+<text fill="#CBD5E1" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="122" y="172.5">Driver Connected</tspan></text>
+<path d="M40 220H300L310 235H30L40 220Z" fill="#334155" stroke="#475569"/>
+<path d="M188 223H152C150.895 223 150 223.895 150 225C150 226.105 150.895 227 152 227H188C189.105 227 190 226.105 190 225C190 223.895 189.105 223 188 223Z" fill="#94A3B8"/>
+<text fill="#CBD5E1" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="13" font-weight="bold" letter-spacing="0em"><tspan x="102.175" y="259.727">M&#xe1;y t&#xed;nh (PC/Laptop)</tspan></text>
+<path d="M292 145C372 145 372 145 452 145" stroke="#60A5FA" stroke-width="2" stroke-dasharray="8 6"/>
+<path d="M425 100H335C326.716 100 320 106.716 320 115C320 123.284 326.716 130 335 130H425C433.284 130 440 123.284 440 115C440 106.716 433.284 100 425 100Z" fill="#1E293B" stroke="#3B82F6" stroke-width="1.5"/>
+<text fill="#93C5FD" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" font-weight="bold" letter-spacing="0em"><tspan x="335.86" y="118.5">C&#xe1;p USB Type-B</tspan></text>
+<path d="M682 60H468C463.582 60 460 63.5817 460 68V252C460 256.418 463.582 260 468 260H682C686.418 260 690 256.418 690 252V68C690 63.5817 686.418 60 682 60Z" fill="url(#paint1_linear_2_2)" stroke="#64748B"/>
+<path d="M681.07 61H468.93C464.551 61 461 64.5817 461 69V88C461 92.4183 464.551 96 468.93 96H681.07C685.449 96 689 92.4183 689 88V69C689 64.5817 685.449 61 681.07 61Z" fill="#0F172A"/>
+<text fill="#EF4444" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" font-weight="bold" letter-spacing="0em"><tspan x="475" y="83.3182">OMRON</tspan></text>
+<text fill="#94A3B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="bold" letter-spacing="0em"><tspan x="583.781" y="83.8636">CP1E-N30DT-A</tspan></text>
+<path d="M671 105H479C476.791 105 475 106.791 475 109V131C475 133.209 476.791 135 479 135H671C673.209 135 675 133.209 675 131V109C675 106.791 673.209 105 671 105Z" fill="#020617"/>
+<path d="M495 125C497.761 125 500 122.761 500 120C500 117.239 497.761 115 495 115C492.239 115 490 117.239 490 120C490 122.761 492.239 125 495 125Z" fill="#22C55E"/>
+<text fill="#94A3B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="505" y="123.636">PWR</tspan></text>
+<path d="M540 125C542.761 125 545 122.761 545 120C545 117.239 542.761 115 540 115C537.239 115 535 117.239 535 120C535 122.761 537.239 125 540 125Z" fill="#22C55E"/>
+<text fill="#94A3B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="550" y="123.636">RUN</tspan></text>
+<path d="M585 125C587.761 125 590 122.761 590 120C590 117.239 587.761 115 585 115C582.239 115 580 117.239 580 120C580 122.761 582.239 125 585 125Z" fill="#334155"/>
+<text fill="#94A3B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="595" y="123.636">ERR</tspan></text>
+<path d="M630 125C632.761 125 635 122.761 635 120C635 117.239 632.761 115 630 115C627.239 115 625 117.239 625 120C625 122.761 627.239 125 630 125Z" fill="#EAB308"/>
+<text fill="#94A3B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="640" y="123.636">COMM</tspan></text>
+<path d="M512 150H478C476.343 150 475 151.343 475 153V177C475 178.657 476.343 180 478 180H512C513.657 180 515 178.657 515 177V153C515 151.343 513.657 150 512 150Z" fill="#0F172A" stroke="#3B82F6" stroke-width="2"/>
+<path d="M508 157H482V173H508V157Z" fill="#1E293B"/>
+<text fill="#38BDF8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="525" y="169.5">C&#x1ed5;ng USB B</tspan></text>
+<path d="M675 190H475V215H675V190Z" fill="#0F172A" stroke="#334155"/>
+<text fill="#64748B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="504.692" y="206.636">Input Terminals (0.00 - 0.11)</tspan></text>
+<path d="M675 220H475V245H675V220Z" fill="#0F172A" stroke="#334155"/>
+<text fill="#64748B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="487.969" y="236.636">Output Terminals (100.00 - 100.07)</tspan></text>
+<text fill="#CBD5E1" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="13" font-weight="bold" letter-spacing="0em"><tspan x="503.963" y="284.727">PLC Omron CP1 Series</tspan></text>
+<path d="M869 80H716C712.686 80 710 82.6863 710 86V224C710 227.314 712.686 230 716 230H869C872.314 230 875 227.314 875 224V86C875 82.6863 872.314 80 869 80Z" fill="#1E293B" stroke="#475569" stroke-width="1.5"/>
+<path d="M875 80H710V105H875V80Z" fill="#334155"/>
+<text fill="#F8FAFC" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" font-weight="bold" letter-spacing="0em"><tspan x="720" y="96.5">Device Manager</tspan></text>
+<text fill="#94A3B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="732" y="124.636"> Ports (COM &#38; LPT)</tspan></text>
+<text fill="#EAB308" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="722" y="124.636">&#x1f4c1;</tspan></text>
+<path d="M862 135H723C721.343 135 720 136.343 720 138V154C720 155.657 721.343 157 723 157H862C863.657 157 865 155.657 865 154V138C865 136.343 863.657 135 862 135Z" fill="#0284C7" fill-opacity="0.2"/>
+<text fill="#38BDF8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" font-weight="bold" letter-spacing="0em"><tspan x="725" y="149.636">&#x1f50c; OMRON USB PLC</tspan></text>
+<text fill="#22C55E" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="735" y="162.773">Driver: Ready</tspan></text>
+<text fill="#94A3B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="722" y="184.636">&#x1f4c1; Universal Serial Bus</tspan></text>
+<text fill="#64748B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="732" y="199.773">&#x2514;&#x2500; OMRON USB Device</tspan></text>
+<text fill="#94A3B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="753.194" y="249.5">Ki&#x1ec3;m tra Driver</tspan></text>
+<defs>
+<linearGradient id="paint0_linear_2_2" x1="60" y1="70" x2="199.633" y2="274.795" gradientUnits="userSpaceOnUse">
+<stop stop-color="#1E293B"/>
+<stop offset="1" stop-color="#0F172A"/>
+</linearGradient>
+<linearGradient id="paint1_linear_2_2" x1="460" y1="60" x2="658.062" y2="287.772" gradientUnits="userSpaceOnUse">
+<stop stop-color="#334155"/>
+<stop offset="1" stop-color="#1E293B"/>
+</linearGradient>
+</defs>
+</svg>

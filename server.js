@@ -24,12 +24,12 @@ const IP = getLocalIpAddress();
 // Vite App Proxy (có bao gồm WebSocket HMR)
 app.use(
   createProxyMiddleware({
-    pathFilter: "/shareme/tool",
+    pathFilter: "/shareme/tools",
     target: "http://127.0.0.1:5173",
     changeOrigin: true,
     ws: true,
     logLevel: "silent",
-  }),
+  })
 );
 
 // Docusaurus App Proxy (chứa cả WebSocket HMR)
@@ -39,7 +39,7 @@ app.use(
     changeOrigin: true,
     ws: true,
     logLevel: "silent",
-  }),
+  })
 );
 
 app.listen(PORT, "0.0.0.0", () => {

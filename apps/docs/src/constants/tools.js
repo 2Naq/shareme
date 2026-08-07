@@ -5,12 +5,12 @@ export const toolsData = [
       {
         id: "analog-scaling",
         label: "Analog Scaling 4-20mA",
-        path: "/tool/analog-scaling",
+        path: "/tools/analog-scaling",
       },
       {
         id: "rs485-hex",
         label: "RS485 Hex (D8120)",
-        path: "/tool/rs485-hex",
+        path: "/tools/rs485-hex",
       },
     ],
   },
@@ -20,7 +20,7 @@ export const toolsData = [
       {
         id: "inverter-intro",
         label: "Đang update...",
-        path: "/tool/inverter-intro",
+        path: "/tools/inverter-intro",
       },
     ],
   },
@@ -30,7 +30,7 @@ export const toolsData = [
       {
         id: "hmi-intro",
         label: "Đang update...",
-        path: "/tool/hmi-intro",
+        path: "/tools/hmi-intro",
       },
     ],
   },

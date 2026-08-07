@@ -21,7 +21,7 @@ function App() {
         }
       >
         <Routes>
-          <Route path="/" element={<Navigate to="/tool" replace />} />
+          <Route path="/" element={<Navigate to="/tools" replace />} />
           {routeConfig.map((route, index) => (
             <Route key={index} path={route.path} element={route.element} />
           ))}

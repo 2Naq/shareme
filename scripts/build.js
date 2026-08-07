@@ -11,7 +11,7 @@ execSync('npm run build -w apps/tools', { stdio: 'inherit' });
 console.log('--- Copy kết quả Vite vào thư mục Build của Docusaurus ---');
 const viteDistPath = path.join(__dirname, '../apps/tools/dist');
 const docusaurusBuildPath = path.join(__dirname, '../apps/docs/build');
-const targetPath = path.join(docusaurusBuildPath, 'tool');
+const targetPath = path.join(docusaurusBuildPath, 'tools');
 
 // Hàm copy thư mục
 function copyDirectory(src, dest) {

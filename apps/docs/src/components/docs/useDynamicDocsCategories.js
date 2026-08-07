@@ -90,7 +90,7 @@ export function useDynamicDocsCategories() {
 
         items.push({
           id: `${cat.id}-${folderKey}`,
-          title: `${cat.label} ${formattedTitle}`,
+          title: `${formattedTitle}`,
           folderName: folderKey,
           description: autoDesc,
           tags: [cat.label, formattedTitle],
