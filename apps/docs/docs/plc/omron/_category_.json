@@ -1,0 +1,8 @@
+{
+  "label": "Omron",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Tổng hợp các lệnh lập trình trong Omron"
+  }
+}

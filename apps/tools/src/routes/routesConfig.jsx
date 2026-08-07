@@ -13,30 +13,32 @@ import {
   Scan,
 } from "lucide-react";
 
-const ToolPage = React.lazy(() => import("@/pages/tool/index"));
+const ToolPage = React.lazy(() => import("@/pages/tools/index"));
 const AnalogScalingPage = React.lazy(
-  () => import("@/pages/tool/analog-scaling"),
+  () => import("@/pages/tools/analog-scaling")
 );
-const Rs485HexPage = React.lazy(() => import("@/pages/tool/rs485-hex"));
-const HmiIntroPage = React.lazy(() => import("@/pages/tool/hmi-intro"));
+const Rs485HexPage = React.lazy(() => import("@/pages/tools/rs485-hex"));
+const HmiIntroPage = React.lazy(() => import("@/pages/tools/hmi-intro"));
 const InverterIntroPage = React.lazy(
-  () => import("@/pages/tool/inverter-intro"),
+  () => import("@/pages/tools/inverter-intro")
 );
-const SelectScrollable = React.lazy(() => import("@/pages/tool/test"));
+const SelectScrollable = React.lazy(() => import("@/pages/tools/test"));
 const ElectricalCalculatorPage = React.lazy(
-  () => import("@/pages/tool/electrical-calculator"),
+  () => import("@/pages/tools/electrical-calculator")
 );
-const VoltageDropPage = React.lazy(() => import("@/pages/tool/voltage-drop"));
+const VoltageDropPage = React.lazy(() => import("@/pages/tools/voltage-drop"));
 const ResistorCalculatorPage = React.lazy(
-  () => import("@/pages/tool/resistor-calculator"),
+  () => import("@/pages/tools/resistor-calculator")
 );
-const CableCuttingPage = React.lazy(() => import("@/pages/tool/cable-cutting"));
+const CableCuttingPage = React.lazy(
+  () => import("@/pages/tools/cable-cutting")
+);
 const DataConversionPage = React.lazy(
-  () => import("@/pages/tool/data-conversion"),
+  () => import("@/pages/tools/data-conversion")
 );
-const QrCodePage = React.lazy(() => import("@/pages/tool/qr-code"));
+const QrCodePage = React.lazy(() => import("@/pages/tools/qr-code"));
 const QrCodeScannerPage = React.lazy(
-  () => import("@/pages/tool/qr-code-scanner"),
+  () => import("@/pages/tools/qr-code-scanner")
 );
 
 // Định nghĩa các nhóm công cụ
@@ -66,7 +68,7 @@ export const groups = [
 // Cấu hình các route của ứng dụng
 export const routeConfig = [
   {
-    path: "/tool",
+    path: "/tools",
     label: "Tổng quan",
     element: <ToolPage />,
     showInSidebar: true,
@@ -74,7 +76,7 @@ export const routeConfig = [
     group: "system",
   },
   {
-    path: "/tool/qr-code",
+    path: "/tools/qr-code",
     label: "Tạo Mã QR Code",
     element: <QrCodePage />,
     showInSidebar: true,
@@ -82,7 +84,7 @@ export const routeConfig = [
     group: "qr",
   },
   {
-    path: "/tool/qr-code-scanner",
+    path: "/tools/qr-code-scanner",
     label: "Quét Mã QR Code",
     element: <QrCodeScannerPage />,
     showInSidebar: true,
@@ -90,7 +92,7 @@ export const routeConfig = [
     group: "qr",
   },
   {
-    path: "/tool/rs485-hex",
+    path: "/tools/rs485-hex",
     label: "Phân tích RS485 HEX",
     element: <Rs485HexPage />,
     showInSidebar: true,
@@ -98,7 +100,7 @@ export const routeConfig = [
     group: "data",
   },
   {
-    path: "/tool/data-conversion",
+    path: "/tools/data-conversion",
     label: "Chuyển Đổi Dữ Liệu",
     element: <DataConversionPage />,
     showInSidebar: true,
@@ -106,7 +108,7 @@ export const routeConfig = [
     group: "data",
   },
   {
-    path: "/tool/analog-scaling",
+    path: "/tools/analog-scaling",
     label: "Chuyển đổi Analog",
     element: <AnalogScalingPage />,
     showInSidebar: true,
@@ -114,7 +116,7 @@ export const routeConfig = [
     group: "calculation",
   },
   {
-    path: "/tool/electrical-calculator",
+    path: "/tools/electrical-calculator",
     label: "Tính Toán Thông số Điện",
     element: <ElectricalCalculatorPage />,
     showInSidebar: true,
@@ -122,7 +124,7 @@ export const routeConfig = [
     group: "calculation",
   },
   {
-    path: "/tool/voltage-drop",
+    path: "/tools/voltage-drop",
     label: "Tính Độ Sụt Áp",
     element: <VoltageDropPage />,
     showInSidebar: true,
@@ -130,7 +132,7 @@ export const routeConfig = [
     group: "calculation",
   },
   {
-    path: "/tool/resistor-calculator",
+    path: "/tools/resistor-calculator",
     label: "Tính Toán Điện Trở",
     element: <ResistorCalculatorPage />,
     showInSidebar: true,
@@ -138,7 +140,7 @@ export const routeConfig = [
     group: "calculation",
   },
   {
-    path: "/tool/cable-cutting",
+    path: "/tools/cable-cutting",
     label: "Tính Toán Cắt Máng",
     element: <CableCuttingPage />,
     showInSidebar: false,
@@ -146,7 +148,7 @@ export const routeConfig = [
     group: "calculation",
   },
   {
-    path: "/tool/hmi-intro",
+    path: "/tools/hmi-intro",
     label: "Giới thiệu HMI",
     element: <HmiIntroPage />,
     showInSidebar: false,
@@ -154,7 +156,7 @@ export const routeConfig = [
     group: "intro",
   },
   {
-    path: "/tool/inverter-intro",
+    path: "/tools/inverter-intro",
     label: "Giới thiệu Inverter",
     element: <InverterIntroPage />,
     showInSidebar: false,
@@ -162,7 +164,7 @@ export const routeConfig = [
     group: "intro",
   },
   {
-    path: "/tool/test",
+    path: "/tools/test",
     label: "Test",
     element: <SelectScrollable />,
     showInSidebar: false,

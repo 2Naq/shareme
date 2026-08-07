@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 
 export default function DocCard({ item }) {
   return (
-    <Card className="group flex flex-col justify-between overflow-hidden pt-0">
+    <Card className="group flex flex-col overflow-hidden pt-0">
       <div className="relative h-44 w-full overflow-hidden bg-muted/30 flex items-center justify-center">
         {item.image ? (
           <>
@@ -28,7 +28,7 @@ export default function DocCard({ item }) {
                 item.folderName === "wecon" &&
                   "dark:bg-black/60 bg-black/60 object-contain px-3",
                 item.folderName === "mitsubishi" && " object-contain px-3 pt-2",
-                item.folderName === "omron" && " object-contain px-3",
+                item.folderName === "omron" && " object-contain px-3"
               )}
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-80" />
@@ -50,21 +50,21 @@ export default function DocCard({ item }) {
         )}
 
         {/* Folder Name Badge */}
-        <Badge
+        {/* <Badge
           variant={item.image ? "secondary" : "outline"}
           className="absolute bottom-3 left-3 gap-1 px-2.5 py-1 text-xs"
         >
           <FolderGit2 className="w-3.5 h-3.5" />
           <span>{item.folderName}</span>
-        </Badge>
+        </Badge> */}
       </div>
 
       {/* Card Header & Description */}
-      <CardHeader className="p-5 pb-3">
+      <CardHeader className="p-5 pb-3 flex-1">
         <CardTitle className="text-lg font-bold transition-colors line-clamp-1 m-0">
           {item.title}
         </CardTitle>
-        <CardDescription className="line-clamp-3 text-xs sm:text-sm leading-relaxed m-0 mt-1">
+        <CardDescription className="line-clamp-2 text-xs sm:text-sm leading-relaxed m-0 mt-1">
           {item.description}
         </CardDescription>
       </CardHeader>

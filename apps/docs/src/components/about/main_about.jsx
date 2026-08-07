@@ -2,30 +2,30 @@ import Link from "@docusaurus/Link";
 import VerifiedIcon from "@site/src/components/icons/verified.svg";
 import GithubIcon from "@site/src/components/icons/github";
 import Separator from "@site/src/components/Separator";
-import { ArrowUpRight, CodeXml, Mail, MapPin, MoveRight } from "lucide-react";
+import { ArrowUpRight, Pickaxe, Mail, MapPin, FolderKanban } from "lucide-react";
 import { myData } from "@site/src/constants/my_data";
-import Translate from "@docusaurus/Translate";
 import { cn } from "@/lib/utils";
+import CardProjectAbout from "./card_project_about";
 
 const infor = [
   {
-    name: <Translate>Role</Translate>,
-    value: <Translate>{myData.level}</Translate>,
-    icon: CodeXml,
+    name: "Work / position",
+    value: myData.work_at,
+    icon: Pickaxe,
   },
   {
-    name: <Translate>Location</Translate>,
-    value: <Translate>{myData.address}</Translate>,
+    name: "Location",
+    value: myData.address,
     icon: MapPin,
   },
   {
-    name: <Translate>Email</Translate>,
+    name: "Email",
     value: myData.email,
     icon: Mail,
     link: `mailto:${myData.email}`,
   },
   {
-    name: <Translate>GitHub</Translate>,
+    name: "GitHub",
     value: "@2Naq",
     icon: GithubIcon,
     link: myData.link_github,
@@ -77,7 +77,7 @@ function MainAbout() {
                   <VerifiedIcon className="size-[0.6em] text-blue-500" />
                 </h1>
                 <p className="text-sm text-gray-500 dark:text-gray-400 m-0">
-                  <Translate>{myData.title}</Translate>
+                  {myData.title}
                 </p>
               </div>
             </div>
@@ -108,7 +108,7 @@ function MainAbout() {
                           : undefined
                       }
                       className={cn(
-                        "flex items-center gap-3.5 p-4 border-edge text-inherit no-underline",
+                        "flex items-start gap-3.5 p-4 border-edge text-inherit no-underline",
                         item.link &&
                           "group hover:bg-muted/30 transition-colors cursor-pointer",
                         isEven && "sm:border-r",
@@ -123,7 +123,7 @@ function MainAbout() {
                         <span className="text-[11px] font-semibold tracking-wider text-muted-foreground uppercase">
                           {item.name}
                         </span>
-                        <span className="text-sm font-semibold text-foreground truncate">
+                        <span className="text-sm font-semibold text-foreground  line-clamp-2">
                           {item.value}
                         </span>
                       </div>
@@ -139,30 +139,20 @@ function MainAbout() {
 
           <Separator />
 
-          {/* === SECTION 3: SOCIAL LINKS (Dạng bảng Grid) === */}
-          {/* <div className="max-w-3xl mx-auto  grid grid-cols-1 sm:grid-cols-2">
-            <a
-              href={myData.link_github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center p-4 hover:bg-gray-50 dark:hover:bg-[#141416] transition-colors group no-underline"
-            >
-              <div className="w-10 h-10 shrink-0 flex items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-xl text-foreground mr-4 shadow-sm">
-                <GithubIcon className="size-5" />
+          {/* === SECTION 3: PROJECTS === */}
+          <div className="p-2 sm:p-4">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="flex size-7 shrink-0 items-center justify-center rounded-md border border-input/30 bg-muted/40 text-foreground/80">
+                <FolderKanban className="size-3.5" />
               </div>
-              <div className="grow">
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100 m-0 text-base">
-                  GitHub
-                </h3>
-                <p className="text-xs text-gray-500 dark:text-gray-400 m-0">
-                  @2Naq
-                </p>
-              </div>
-              <MoveRight className="size-4 text-foreground/50" />
-            </a>
+              <h2 className="text-sm font-bold tracking-wide uppercase text-muted-foreground m-0">
+                Projects
+              </h2>
+            </div>
+            <CardProjectAbout />
           </div>
 
-          <Separator /> */}
+          <Separator />
 
           {/* === SECTION 4: NÚT VÀO DOCS === */}
           <div className="max-w-3xl mx-auto p-6">
@@ -170,7 +160,7 @@ function MainAbout() {
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-black font-semibold hover:opacity-90 transition-opacity no-underline w-full sm:w-auto"
               to="/docs"
             >
-              <Translate>Xem tài liệu</Translate>
+              Xem tài liệu
               <svg
                 className="w-4 h-4"
                 fill="none"

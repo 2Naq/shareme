@@ -333,7 +333,7 @@ const config = {
           //   position: "right",
           // },
           {
-            href: "pathname:///shareme/tool/",
+            href: "pathname:///shareme/tools/",
             label: "Tool",
             position: "right",
             target: "_self",

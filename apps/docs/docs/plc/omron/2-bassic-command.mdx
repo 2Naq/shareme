@@ -1,0 +1,130 @@
+---
+id: cac-lenh-co-ban-plc-omron
+title: Hướng dẫn các lệnh cơ bản trong PLC Omron (CX-Programmer)
+sidebar_position: 2
+sidebar_label: Tập lệnh cơ bản Omron
+tags: [omron, cp1e, cp1l, cp1h, cx-programmer]
+---
+
+## Giới thiệu
+
+Bài viết này cung cấp hướng dẫn chi tiết về các tập lệnh lập trình cơ bản trên dòng PLC Omron (như **CP1E**, **CP1L**, **CP1H**, **CJ1M**, **CJ2M**...) sử dụng phần mềm **CX-Programmer**. Việc nắm vững các lệnh ngõ vào/ra (Bit Logic), Bộ định thời (Timer), Bộ đếm (Counter)...
+
+---
+
+## 1. Nhóm lệnh tiếp điểm và cuộn dây cơ bản (Basic Bit Logic)
+
+| Tên lệnh    | Ý nghĩa                              | Ký hiệu Ladder | Ghi chú & Địa chỉ ví dụ                                   |
+| :---------- | :----------------------------------- | :------------- | :-------------------------------------------------------- |
+| **LD**      | Tiếp điểm thường mở (Load)           | `--[ ]--`      | Khởi đầu 1 nhánh logic (`0.00`, `CIO 0.00`)               |
+| **LD NOT**  | Tiếp điểm thường đóng (Load Inverse) | `--[/]--`      | Khởi đầu 1 nhánh logic đảo (`0.01`)                       |
+| **OUT**     | Cuộn dây ngõ ra (Out)                | `--()--`       | Xuất tín hiệu ngõ ra vật lý/cờ nội bộ (`100.00`, `W0.00`) |
+| **OUT NOT** | Cuộn dây ngõ ra đảo (Out Not)        | `--( / )--`    | Ngõ ra bằng 1 khi logic trước đó bằng 0                   |
+| **AND**     | Mắc nối tiếp thường mở               | `--[]--[]--`   | Nối tiếp thêm tiếp điểm NO                                |
+| **AND NOT** | Mắc nối tiếp thường đóng             | `--[]--[/]--`  | Nối tiếp thêm tiếp điểm NC                                |
+| **OR**      | Mắc song song thường mở              | `'--[ ]--'`    | Rẽ nhánh song song với tiếp điểm NO                       |
+| **OR NOT**  | Mắc song song thường đóng            | `'--[/]--'`    | Rẽ nhánh song song với tiếp điểm NC                       |
+
+---
+
+## 2. Nhóm lệnh Chốt trạng thái (SET, RSET, KEEP)
+
+### Lệnh SET và RSET
+
+Khác với cuộn dây `OUT` (chỉ ON khi mạch dẫn điện), lệnh `SET` giữ ngõ ra luôn ON ngay cả khi tín hiệu kích hoạt đã ngắt. Để tắt ngõ ra này, bắt buộc phải kích hoạt lệnh `RSET`.
+
+- **SET:** `-[SET 100.00]-` -> Bật bit `100.00` lên 1 (ON).
+- **RSET:** `-[RSET 100.00]-` -> Đưa bit `100.00` về 0 (OFF).
+
+### Lệnh KEEP (Chốt 2 đầu vào S/R)
+
+Lệnh **KEEP(011)** là lệnh chốt đặc biệt của Omron tích hợp cả chức năng SET và RESET trên cùng 1 khối:
+
+```text
+Sơ đồ Ladder lệnh KEEP:
+──[ Set Input  0.00 ]──────[ KEEP 100.00 ]  <-- Ngõ vào Set (S)
+──[ Reset Input 0.01 ]─────┘                <-- Ngõ vào Reset (R - Ưu tiên Reset)
+```
+
+---
+
+## 3. Lệnh xung cạnh lên và cạnh xuống (DIFU / DIFD)
+
+- **DIFU (Differentiate Up):** Tạo ra 1 xung ON duy nhất trong **1 chu kỳ quét (Scan Cycle)** khi tín hiệu ngõ vào chuyển từ `OFF -> ON` (Cạnh lên).
+  - Cú pháp: `-[DIFU W0.00]-`
+- **DIFD (Differentiate Down):** Tạo ra 1 xung ON duy nhất trong **1 chu kỳ quét** khi tín hiệu ngõ vào chuyển từ `ON -> OFF` (Cạnh xuống).
+  - Cú pháp: `-[DIFD W0.01]-`
+
+:::tip[Mẹo phím tắt trong CX-Programmer]
+Ní có thể thêm tiền tố `@` trước tên lệnh để biến lệnh đó thành dạng kích hoạt cạnh lên. Ví dụ: `@MOV #10 D0` sẽ chỉ chuyển dữ liệu 1 lần duy nhất khi tiếp điểm vừa chuyển từ OFF sang ON.
+:::
+
+---
+
+## 4. Bộ định thời (Timer) và Bộ đếm (Counter)
+
+### Lệnh TIM (Timer đếm lùi 0.1s - BCD)
+
+Lệnh `TIM` dùng để trì hoãn thời gian với đơn vị đếm là **0.1 giây**.
+
+```text
+Cú pháp lệnh TIM:
+──[ Input 0.00 ]─────[ TIM 000 #50 ]
+```
+
+- **Tham số 1 (Timer Number):** Số hiệu Timer (Từ `T000` đến `T4095` tùy dòng PLC).
+- **Tham số 2 (Set Value - SV):** Giá trị cài đặt hằng số BCD (thêm ký tự `#`). Ví dụ `#50` = 5.0 giây, `#100` = 10.0 giây.
+- **Tiếp điểm Timer:** Sử dụng `T000` làm tiếp điểm thường mở `--[ T000 ]--` trong các dòng mạch tiếp theo.
+
+### Lệnh CNT (Counter đếm lùi BCD)
+
+Lệnh `CNT` dùng để đếm số lần tác động ngõ vào.
+
+```text
+Cú pháp lệnh CNT:
+──[ Pulse Input 0.00 ]─────[ CNT 000 #10 ]  <-- Ngõ vào đếm (CP)
+──[ Reset Input 0.01 ]─────┘                <-- Ngõ vào Reset đếm (R)
+```
+
+- **Tham số 1 (Counter Number):** Số hiệu Counter (Ví dụ `C000`).
+- **Tham số 2 (Set Value - SV):** Giá trị đếm cài đặt (Ví dụ `#10` = đếm 10 lần).
+- Khi ngõ vào `0.00` chuyển từ OFF -> ON, giá trị đếm giảm đi 1. Khi đếm về 0, tiếp điểm `C000` đóng lại.
+
+---
+
+## 5. Lệnh nạp và di chuyển dữ liệu (MOV / MOVL)
+
+### Lệnh MOV (Move Data 16-bit)
+
+Sao chép giá trị 16-bit từ nguồn (Source) sang thanh ghi đích (Destination).
+
+```text
+Cú pháp: [MOV S D]
+Ví dụ: [MOV #100 D0]    -> Nạp giá trị BCD/HEX 100 vào thanh ghi D0.
+Ví dụ: [MOV &50 D10]   -> Nạp giá trị thập phân (Decimal) 50 vào thanh ghi D10.
+```
+
+### Lệnh MOVL (Move Data 32-bit)
+
+Sao chép giá trị 32-bit (2 thanh ghi liên tiếp) từ nguồn sang đích.
+
+```text
+Ví dụ: [MOVL &100000 D100]  -> Nạp giá trị 100000 vào cặp thanh ghi D100-D101.
+```
+
+---
+
+## 6. Lệnh kết thúc chương trình END(001)
+
+Mọi chương trình PLC Omron **bắt buộc** phải có lệnh `END(001)` ở dòng cuối cùng của rắc ranh (Rung) cuối. Nếu thiếu lệnh `END(001)`, PLC sẽ báo lỗi Fatal Error (`ERR` LED nháy) và ngắt vận hành.
+
+```text
+Dòng cuối chương trình Ladder Omron:
+─────────────────────────────[ END ]
+```
+
+---
+
+## Tổng kết
+
+Nắm vững bộ lệnh cơ bản `LD`, `OUT`, `SET/RSET`, `TIM`, `CNT`, `MOV` và `END` là nền tảng để ní xây dựng bất kỳ bài toán tự động hóa nào trên PLC Omron.
