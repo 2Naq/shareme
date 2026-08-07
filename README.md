@@ -6,7 +6,7 @@
   Automation notes
 </h1>
 <p align="center">
-  Tài liệu ghi chép cá nhân trong quá trình học tập và làm việc. Không phải tài liệu chính thức từ hãng, chỉ dùng cho mục đích tham khảo.
+  Tài liệu ghi chép cá nhân trong quá trình học tập và làm việc. Không phải tài liệu chính thức từ hãng, vui lòng chỉ dùng cho mục đích tham khảo.
 </p>
 
 <div align="center">
