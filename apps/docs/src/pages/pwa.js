@@ -289,7 +289,7 @@ export default function PwaHub() {
               </div>
 
               <a
-                href="/shareme/tool/"
+                href="/shareme/tools/"
                 className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-6 py-3.5 text-center font-semibold text-white no-underline shadow-lg shadow-emerald-500/10 transition-all duration-200 hover:bg-emerald-500 hover:shadow-emerald-500/20 active:scale-95"
               >
                 Mở Tools và Cài đặt

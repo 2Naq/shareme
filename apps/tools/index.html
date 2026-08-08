@@ -9,10 +9,10 @@
     <script>
       (function() {
         try {
-          const isToolPath = window.location.pathname.startsWith('/shareme/tool');
-          const manifestPath = isToolPath ? '/shareme/tool/manifest-tools.json' : '/manifest-tools.json';
-          const swPath = isToolPath ? '/shareme/tool/sw.js' : '/sw.js';
-          const swScope = isToolPath ? '/shareme/tool/' : '/';
+          const isToolPath = window.location.pathname.startsWith('/shareme/tools');
+          const manifestPath = isToolPath ? '/shareme/tools/manifest-tools.json' : '/manifest-tools.json';
+          const swPath = isToolPath ? '/shareme/tools/sw.js' : '/sw.js';
+          const swScope = isToolPath ? '/shareme/tools/' : '/';
 
           const link = document.createElement('link');
           link.rel = 'manifest';
