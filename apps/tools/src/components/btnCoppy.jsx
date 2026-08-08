@@ -9,7 +9,7 @@ export default function CopyBtn({ value, className = "" }) {
     <Button
       variant="ghost"
       size="icon"
-      className={`h-7 w-7 shrink-0 text-muted-foreground hover:text-foreground ${className}`}
+      className={`text-muted-foreground hover:text-foreground h-7 w-7 shrink-0 ${className}`}
       onClick={() => copyToClipboard(value)}
       title="Sao chép"
     >

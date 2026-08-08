@@ -58,7 +58,7 @@ export default function AuthorCard({ author, count, variant = "default" }) {
                 {link ? (
                   <Link
                     to={link}
-                    className="text-inherit hover:text-primary no-underline transition-colors"
+                    className="hover:text-primary text-inherit no-underline transition-colors"
                   >
                     {name}
                   </Link>
@@ -82,7 +82,7 @@ export default function AuthorCard({ author, count, variant = "default" }) {
 
             {/* Description (variant large) */}
             {variant === "large" && description && (
-              <p className="text-sm text-muted-foreground text-center m-0 mt-1 max-w-md">
+              <p className="text-muted-foreground m-0 mt-1 max-w-md text-center text-sm">
                 {description}
               </p>
             )}
@@ -117,13 +117,13 @@ function AuthorAvt({
   if (isShowPro && isPro) {
     return (
       <div
-        className="rounded-full p-[2.5px] flex items-center justify-center transition-all duration-300 _hover:scale-105 z-10"
+        className="_hover:scale-105 z-10 flex items-center justify-center rounded-full p-[2.5px] transition-all duration-300"
         style={{
           background:
             "conic-gradient(from -45deg, #ea4335 0deg 90deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc04 270deg 360deg)",
         }}
       >
-        <div className="rounded-full bg-card p-0.5 flex items-center justify-center">
+        <div className="bg-card flex items-center justify-center rounded-full p-0.5">
           {avatarEl}
         </div>
       </div>

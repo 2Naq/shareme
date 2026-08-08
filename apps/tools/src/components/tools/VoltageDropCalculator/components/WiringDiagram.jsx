@@ -132,9 +132,9 @@ export default function WiringDiagram({
 
   return (
     <Card className="border-border bg-card overflow-hidden">
-      <CardHeader className="pb-3 border-b">
+      <CardHeader className="border-b pb-3">
         <div className="flex items-center gap-2">
-          <Cpu className="w-5 h-5 text-primary" />
+          <Cpu className="text-primary h-5 w-5" />
           <CardTitle className="text-lg">
             Sơ đồ mô phỏng hệ thống điện
           </CardTitle>
@@ -146,39 +146,39 @@ export default function WiringDiagram({
 
       <CardContent className="p-4 sm:p-8" ref={containerRef}>
         {/* Main layout container (Horizontal on Desktop, Vertical on Mobile) */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4 relative max-w-5xl mx-auto">
+        <div className="relative mx-auto flex max-w-5xl flex-col items-center justify-between gap-6 md:flex-row md:gap-4">
           {/* ==================== TRẠM NGUỒN ==================== */}
-          <div className="fade-cascade w-full md:w-64 p-5 rounded-2xl border-2 border-primary/20 bg-background/50 flex flex-col items-center justify-center text-center shadow-xs relative overflow-hidden min-h-[140px]">
+          <div className="fade-cascade border-primary/20 bg-background/50 relative flex min-h-[140px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border-2 p-5 text-center shadow-xs md:w-64">
             <div className="absolute top-0 right-0 p-2 opacity-5">
-              <Zap className="w-16 h-16 text-primary" />
+              <Zap className="text-primary h-16 w-16" />
             </div>
-            <span className="text-[10px] tracking-wider uppercase font-bold text-muted-foreground/60 mb-2">
+            <span className="text-muted-foreground/60 mb-2 text-[10px] font-bold tracking-wider uppercase">
               TRẠM / NGUỒN PHÁT
             </span>
-            <div className="text-3xl font-extrabold text-primary tracking-tight">
+            <div className="text-primary text-3xl font-extrabold tracking-tight">
               {voltage} <span className="text-lg font-medium">V</span>
             </div>
-            <div className="mt-2 text-xs font-semibold text-muted-foreground">
+            <div className="text-muted-foreground mt-2 text-xs font-semibold">
               Công suất: {(totalPower / 1000).toFixed(2)} kW
             </div>
           </div>
 
           {/* ==================== WIRING / CONDUCTION ZONE (DESKTOP) ==================== */}
-          <div className="hidden md:flex flex-1 flex-col items-center justify-center px-4 relative z-10 w-full">
+          <div className="relative z-10 hidden w-full flex-1 flex-col items-center justify-center px-4 md:flex">
             {/* Conductors container */}
-            <div className="w-full flex flex-col gap-5 py-4">
+            <div className="flex w-full flex-col gap-5 py-4">
               {Array.from({ length: conductorCount }).map((_, idx) => (
                 <div
                   key={`h-wire-${idx}`}
-                  className="relative w-full h-8 flex items-center"
+                  className="relative flex h-8 w-full items-center"
                 >
                   {/* Label for wire */}
-                  <span className="absolute left-0 -top-4 text-[9px] font-bold text-muted-foreground/60">
+                  <span className="text-muted-foreground/60 absolute -top-4 left-0 text-[9px] font-bold">
                     Pha {labels[idx]}
                   </span>
 
                   {/* SVG Wire Line */}
-                  <svg className="w-full h-4 overflow-visible">
+                  <svg className="h-4 w-full overflow-visible">
                     {/* Background copper/wire lane */}
                     <line
                       x1="0"
@@ -187,7 +187,7 @@ export default function WiringDiagram({
                       y2="8"
                       stroke="currentColor"
                       strokeWidth="2.5"
-                      className="opacity-15 text-muted-foreground"
+                      className="text-muted-foreground opacity-15"
                     />
                     {/* Glowing active wire line overlay */}
                     <line
@@ -216,12 +216,12 @@ export default function WiringDiagram({
             </div>
 
             {/* Spec / Dim tag (Beige engineering paper style callout) */}
-            <div className="fade-cascade flex flex-col items-center gap-1 bg-[#f4efeb] dark:bg-muted/40 border border-[#e5dfd9] dark:border-border p-3 rounded-xl shadow-xs text-center max-w-[280px]">
-              <span className="text-[10px] font-bold text-[#44403c] dark:text-muted-foreground/80 tracking-wide uppercase">
+            <div className="fade-cascade dark:bg-muted/40 dark:border-border flex max-w-[280px] flex-col items-center gap-1 rounded-xl border border-[#e5dfd9] bg-[#f4efeb] p-3 text-center shadow-xs">
+              <span className="dark:text-muted-foreground/80 text-[10px] font-bold tracking-wide text-[#44403c] uppercase">
                 Cáp {wireMaterial === "Cu" ? "Đồng (Cu)" : "Nhôm (Al)"}{" "}
                 {activeWireSize} mm²
               </span>
-              <span className="text-[10px] font-medium text-muted-foreground">
+              <span className="text-muted-foreground text-[10px] font-medium">
                 Chiều dài L = {length}m | R ={" "}
                 {((activeRho * Number(length)) / activeWireSize).toFixed(4)} Ω
               </span>
@@ -229,30 +229,30 @@ export default function WiringDiagram({
           </div>
 
           {/* ==================== WIRING / CONDUCTION ZONE (MOBILE) ==================== */}
-          <div className="flex md:hidden flex-col items-center py-2 w-full">
+          <div className="flex w-full flex-col items-center py-2 md:hidden">
             {/* Spec tag */}
-            <div className="fade-cascade flex flex-col items-center bg-[#f4efeb] dark:bg-muted/40 border border-[#e5dfd9] dark:border-border p-2 rounded-xl text-center w-full max-w-[250px] mb-4">
-              <span className="text-[9px] font-bold text-[#44403c] dark:text-muted-foreground/80 tracking-wide uppercase">
+            <div className="fade-cascade dark:bg-muted/40 dark:border-border mb-4 flex w-full max-w-[250px] flex-col items-center rounded-xl border border-[#e5dfd9] bg-[#f4efeb] p-2 text-center">
+              <span className="dark:text-muted-foreground/80 text-[9px] font-bold tracking-wide text-[#44403c] uppercase">
                 Cáp {wireMaterial === "Cu" ? "Đồng (Cu)" : "Nhôm (Al)"}{" "}
                 {activeWireSize} mm²
               </span>
-              <span className="text-[9px] font-medium text-muted-foreground">
+              <span className="text-muted-foreground text-[9px] font-medium">
                 L = {length}m | R ={" "}
                 {((activeRho * Number(length)) / activeWireSize).toFixed(3)} Ω
               </span>
             </div>
 
             {/* Vertical wires (SVG) */}
-            <div className="flex gap-8 justify-center h-40">
+            <div className="flex h-40 justify-center gap-8">
               {Array.from({ length: conductorCount }).map((_, idx) => (
                 <div
                   key={`v-wire-${idx}`}
-                  className="relative w-4 h-full flex flex-col items-center"
+                  className="relative flex h-full w-4 flex-col items-center"
                 >
-                  <span className="text-[8px] font-bold text-muted-foreground/60 mb-1">
+                  <span className="text-muted-foreground/60 mb-1 text-[8px] font-bold">
                     {labels[idx]}
                   </span>
-                  <svg className="w-2 h-full overflow-visible">
+                  <svg className="h-full w-2 overflow-visible">
                     <line
                       x1="4"
                       y1="0"
@@ -260,7 +260,7 @@ export default function WiringDiagram({
                       y2="100%"
                       stroke="currentColor"
                       strokeWidth="2.5"
-                      className="opacity-15 text-muted-foreground"
+                      className="text-muted-foreground opacity-15"
                     />
                     <line
                       x1="4"
@@ -288,10 +288,10 @@ export default function WiringDiagram({
 
           {/* ==================== PHỤ TẢI TERMINAL ==================== */}
           <div
-            className="fade-cascade w-full md:w-64 p-5 rounded-2xl border-2 bg-background/50 flex flex-col items-center justify-center text-center shadow-xs relative overflow-hidden min-h-[140px]"
+            className="fade-cascade bg-background/50 relative flex min-h-[140px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border-2 p-5 text-center shadow-xs md:w-64"
             style={{ borderColor: `${statusColor}30` }}
           >
-            <span className="text-[10px] tracking-wider uppercase font-bold text-muted-foreground/60 mb-2">
+            <span className="text-muted-foreground/60 mb-2 text-[10px] font-bold tracking-wider uppercase">
               PHỤ TẢI TIÊU THỤ
             </span>
             <div
@@ -300,16 +300,16 @@ export default function WiringDiagram({
             >
               {uEnd.toFixed(1)} <span className="text-lg font-medium">V</span>
             </div>
-            <div className="mt-2 text-xs font-semibold text-muted-foreground">
+            <div className="text-muted-foreground mt-2 text-xs font-semibold">
               Công suất tải: {(loadPower / 1000).toFixed(2)} kW
             </div>
           </div>
         </div>
 
         {/* ==================== BOTTOM METRICS SUMMARY (Responsive grid) ==================== */}
-        <div className="mt-8 pt-6 border-t grid grid-cols-2 md:grid-cols-4 gap-4 text-center max-w-5xl mx-auto">
-          <div className="fade-cascade p-3 rounded-xl bg-muted/20 border">
-            <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">
+        <div className="mx-auto mt-8 grid max-w-5xl grid-cols-2 gap-4 border-t pt-6 text-center md:grid-cols-4">
+          <div className="fade-cascade bg-muted/20 rounded-xl border p-3">
+            <div className="text-muted-foreground mb-1 text-[10px] font-bold uppercase">
               Sụt Áp Trên Dây
             </div>
             <div
@@ -318,43 +318,43 @@ export default function WiringDiagram({
             >
               −{deltaU.toFixed(2)} V
             </div>
-            <div className="text-[10px] font-semibold text-muted-foreground mt-0.5">
+            <div className="text-muted-foreground mt-0.5 text-[10px] font-semibold">
               ({deltaU_percent.toFixed(2)}%)
             </div>
           </div>
 
-          <div className="fade-cascade p-3 rounded-xl bg-muted/20 border">
-            <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">
+          <div className="fade-cascade bg-muted/20 rounded-xl border p-3">
+            <div className="text-muted-foreground mb-1 text-[10px] font-bold uppercase">
               Hao Tổn Công Suất
             </div>
-            <div className="text-lg font-extrabold text-destructive">
+            <div className="text-destructive text-lg font-extrabold">
               {deltaP > 1000
                 ? `${(deltaP / 1000).toFixed(2)} kW`
                 : `${deltaP.toFixed(0)} W`}
             </div>
-            <div className="text-[10px] font-semibold text-muted-foreground mt-0.5">
+            <div className="text-muted-foreground mt-0.5 text-[10px] font-semibold">
               Hiệu suất: {efficiency.toFixed(1)}%
             </div>
           </div>
 
-          <div className="fade-cascade p-3 rounded-xl bg-muted/20 border">
-            <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">
+          <div className="fade-cascade bg-muted/20 rounded-xl border p-3">
+            <div className="text-muted-foreground mb-1 text-[10px] font-bold uppercase">
               Dòng Điện Tải
             </div>
-            <div className="text-lg font-extrabold text-foreground">
+            <div className="text-foreground text-lg font-extrabold">
               {loadCurrent.toFixed(1)} A
             </div>
-            <div className="text-[10px] font-semibold text-muted-foreground mt-0.5">
+            <div className="text-muted-foreground mt-0.5 text-[10px] font-semibold">
               Định mức
             </div>
           </div>
 
           <div
-            className={`fade-cascade p-3 rounded-xl border flex flex-col justify-center items-center ${statusBg}`}
+            className={`fade-cascade flex flex-col items-center justify-center rounded-xl border p-3 ${statusBg}`}
           >
-            <div className="flex items-center gap-1 mb-1">
-              <ShieldAlert className="w-3.5 h-3.5" />
-              <span className="text-[10px] uppercase font-bold tracking-wide">
+            <div className="mb-1 flex items-center gap-1">
+              <ShieldAlert className="h-3.5 w-3.5" />
+              <span className="text-[10px] font-bold tracking-wide uppercase">
                 Trạng Thái
               </span>
             </div>

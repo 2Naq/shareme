@@ -129,11 +129,11 @@ export default function IndustrialCalculator() {
     <div className="space-y-8">
       {/* ===== PHẦN 1: TÍNH TOÁN CƠ BẢN ===== */}
       <div>
-        <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
-          <Zap className="w-5 h-5 text-primary" />
+        <h2 className="text-foreground mb-4 flex items-center gap-2 text-xl font-semibold">
+          <Zap className="text-primary h-5 w-5" />
           Tính Toán Thông Số Cơ Bản
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <Card className="md:col-span-2">
             <CardHeader>
               <CardTitle>Thông số hệ thống</CardTitle>
@@ -142,7 +142,7 @@ export default function IndustrialCalculator() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+              <div className="mb-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label>Hệ thống điện</Label>
                   <Select
@@ -182,7 +182,7 @@ export default function IndustrialCalculator() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 {calcTarget !== "U" && (
                   <div className="space-y-2">
                     <Label>Điện áp (V)</Label>
@@ -241,18 +241,18 @@ export default function IndustrialCalculator() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label className="text-xs text-primary uppercase tracking-wider">
+                  <Label className="text-primary text-xs tracking-wider uppercase">
                     Công thức áp dụng
                   </Label>
-                  <div className="mt-2 p-2 bg-background rounded border flex justify-center overflow-x-auto min-h-15 items-center bg-grid">
+                  <div className="bg-background bg-grid mt-2 flex min-h-15 items-center justify-center overflow-x-auto rounded border p-2">
                     <MathRendererBlock formula={basicResult.formula} />
                   </div>
                 </div>
                 <div>
-                  <Label className="text-xs text-primary uppercase tracking-wider">
+                  <Label className="text-primary text-xs tracking-wider uppercase">
                     {TARGET_OPTIONS.find((o) => o.value === calcTarget)?.label}
                   </Label>
-                  <div className="mt-1 font-mono text-4xl font-black text-primary">
+                  <div className="text-primary mt-1 font-mono text-4xl font-black">
                     {calcTarget === "I" && (
                       <>
                         {basicResult.resultI}{" "}
@@ -284,29 +284,29 @@ export default function IndustrialCalculator() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex justify-between items-center pb-2 border-b">
+                <div className="flex items-center justify-between border-b pb-2">
                   <span className="text-muted-foreground">CB / Aptomat:</span>
-                  <Badge variant="default" className="text-sm px-3 py-1">
+                  <Badge variant="default" className="px-3 py-1 text-sm">
                     {basicResult.cbSuggested} A
                   </Badge>
                 </div>
-                <div className="flex justify-between items-center pb-2 border-b">
+                <div className="flex items-center justify-between border-b pb-2">
                   <span className="text-muted-foreground">
                     Tiết diện dây dẫn:
                   </span>
                   <Badge
                     variant="outline"
-                    className="text-sm px-3 py-1 bg-background"
+                    className="bg-background px-3 py-1 text-sm"
                   >
                     {basicResult.wireSuggested} mm²
                   </Badge>
                 </div>
-                <p className="text-xs text-muted-foreground mt-2">
+                <p className="text-muted-foreground mt-2 text-xs">
                   * <strong>Lưu ý</strong>: Tiết diện dây và định mức CB tính
                   toán ở mức cơ bản (~125% In). Thực tế cần đối chiếu với điều
                   kiện môi trường và phương pháp lắp đặt.
                 </p>
-                <p className="text-xs text-muted-foreground mt-2">
+                <p className="text-muted-foreground mt-2 text-xs">
                   * <strong>Mẹo tính nhanh tại hiện trường </strong>: <br />-
                   Đối với lưới điện 3 pha 380V tiêu chuẩn, ní có thể lấy công
                   suất định mức (kW) x2 = i<sub>đm</sub> (A) xấp xỉ. <br />- Ví
@@ -322,8 +322,8 @@ export default function IndustrialCalculator() {
 
       {/* ===== PHẦN 2: BẢNG PHỤ TẢI CÔNG NGHIỆP ===== */}
       <div>
-        <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
-          <Factory className="w-5 h-5 text-primary" />
+        <h2 className="text-foreground mb-4 flex items-center gap-2 text-xl font-semibold">
+          <Factory className="text-primary h-5 w-5" />
           Bảng Tổng Hợp Phụ Tải Công Nghiệp
         </h2>
 
@@ -337,7 +337,7 @@ export default function IndustrialCalculator() {
                 </CardDescription>
               </div>
               <Button onClick={addLoad} size="sm" className="gap-1">
-                <Plus className="w-4 h-4" />
+                <Plus className="h-4 w-4" />
                 Thêm tải
               </Button>
             </div>
@@ -408,7 +408,7 @@ export default function IndustrialCalculator() {
                                 Number(e.target.value),
                               )
                             }
-                            className="h-8 text-sm text-right w-20"
+                            className="h-8 w-20 text-right text-sm"
                           />
                         </TableCell>
                         <TableCell>
@@ -418,7 +418,7 @@ export default function IndustrialCalculator() {
                             onChange={(e) =>
                               updateLoad(load.id, "qty", Number(e.target.value))
                             }
-                            className="h-8 text-sm text-right w-16"
+                            className="h-8 w-16 text-right text-sm"
                             min={1}
                           />
                         </TableCell>
@@ -433,7 +433,7 @@ export default function IndustrialCalculator() {
                                 Number(e.target.value),
                               )
                             }
-                            className="h-8 text-sm text-right w-16"
+                            className="h-8 w-16 text-right text-sm"
                             step="0.01"
                           />
                         </TableCell>
@@ -448,24 +448,24 @@ export default function IndustrialCalculator() {
                                 Number(e.target.value),
                               )
                             }
-                            className="h-8 text-sm text-right w-16"
+                            className="h-8 w-16 text-right text-sm"
                             step="0.1"
                           />
                         </TableCell>
                         <TableCell className="text-right font-mono">
                           {totalP.toFixed(1)}
                         </TableCell>
-                        <TableCell className="text-right font-mono font-semibold text-primary">
+                        <TableCell className="text-primary text-right font-mono font-semibold">
                           {demandP.toFixed(1)}
                         </TableCell>
                         <TableCell>
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8 text-destructive"
+                            className="text-destructive h-8 w-8"
                             onClick={() => removeLoad(load.id)}
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="h-4 w-4" />
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -478,13 +478,13 @@ export default function IndustrialCalculator() {
         </Card>
 
         {/* Kết quả tổng hợp */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card className="bg-primary/5 border-primary/20">
             <CardContent className="pt-6">
-              <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+              <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                 Tổng P đặt
               </Label>
-              <div className="mt-1 font-mono text-2xl font-black text-foreground">
+              <div className="text-foreground mt-1 font-mono text-2xl font-black">
                 {industrialResult.totalP.toFixed(1)}{" "}
                 <span className="text-sm">kW</span>
               </div>
@@ -492,10 +492,10 @@ export default function IndustrialCalculator() {
           </Card>
           <Card className="bg-primary/5 border-primary/20">
             <CardContent className="pt-6">
-              <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+              <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                 P tính toán
               </Label>
-              <div className="mt-1 font-mono text-2xl font-black text-primary">
+              <div className="text-primary mt-1 font-mono text-2xl font-black">
                 {industrialResult.totalDemandP.toFixed(1)}{" "}
                 <span className="text-sm">kW</span>
               </div>
@@ -503,7 +503,7 @@ export default function IndustrialCalculator() {
           </Card>
           <Card className="bg-primary/5 border-primary/20">
             <CardContent className="pt-6">
-              <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+              <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                 Dòng tính toán (380V)
               </Label>
               <div className="mt-1 font-mono text-2xl font-black text-orange-500">
@@ -514,10 +514,10 @@ export default function IndustrialCalculator() {
           </Card>
           <Card className="bg-primary/5 border-primary/20">
             <CardContent className="pt-6">
-              <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+              <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                 MBA Gợi Ý
               </Label>
-              <div className="mt-1 font-mono text-2xl font-black text-foreground">
+              <div className="text-foreground mt-1 font-mono text-2xl font-black">
                 {industrialResult.suggestedTransformer}{" "}
                 <span className="text-sm">kVA</span>
               </div>
@@ -526,23 +526,23 @@ export default function IndustrialCalculator() {
         </div>
 
         {/* CB & dây tổng */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
           <Card>
-            <CardContent className="pt-6 flex justify-between items-center">
+            <CardContent className="flex items-center justify-between pt-6">
               <span className="text-muted-foreground">CB Tổng</span>
-              <Badge variant="default" className="text-sm px-3 py-1">
+              <Badge variant="default" className="px-3 py-1 text-sm">
                 {industrialResult.mainCB} A
               </Badge>
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="pt-6 flex justify-between items-center">
+            <CardContent className="flex items-center justify-between pt-6">
               <span className="text-muted-foreground">
                 Dây trục chính (Cu/PVC)
               </span>
               <Badge
                 variant="outline"
-                className="text-sm px-3 py-1 bg-background"
+                className="bg-background px-3 py-1 text-sm"
               >
                 {industrialResult.mainWire.size} mm²
               </Badge>

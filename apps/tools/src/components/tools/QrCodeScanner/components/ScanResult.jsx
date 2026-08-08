@@ -100,25 +100,25 @@ export default function ScanResult({ result, onReset }) {
       case "url":
         return (
           <div className="space-y-4">
-            <div className="p-4 bg-primary/5 rounded-lg border border-primary/10 select-all font-medium text-primary text-center break-all">
+            <div className="bg-primary/5 border-primary/10 text-primary rounded-lg border p-4 text-center font-medium break-all select-all">
               <a
                 href={result}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline flex items-center justify-center"
+                className="flex items-center justify-center hover:underline"
               >
                 {result}
               </a>
             </div>
-            <div className="flex gap-3 justify-center">
+            <div className="flex justify-center gap-3">
               <button
                 onClick={() => handleCopy(result, "url")}
-                className="px-4 py-2 border hover:bg-muted text-foreground text-sm font-medium rounded-lg shadow-xs transition-all flex items-center gap-2 cursor-pointer"
+                className="hover:bg-muted text-foreground flex cursor-pointer items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium shadow-xs transition-all"
               >
                 {copiedKey === "url" ? (
-                  <Check className="w-4 h-4 text-green-500" />
+                  <Check className="h-4 w-4 text-green-500" />
                 ) : (
-                  <Copy className="w-4 h-4" />
+                  <Copy className="h-4 w-4" />
                 )}
                 Sao chép liên kết
               </button>
@@ -126,9 +126,9 @@ export default function ScanResult({ result, onReset }) {
                 href={result}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-primary hover:bg-primary/95 text-primary-foreground text-sm font-medium rounded-lg shadow-sm transition-all flex items-center gap-2 cursor-pointer"
+                className="bg-primary hover:bg-primary/95 text-primary-foreground flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium shadow-sm transition-all"
               >
-                <ExternalLink className="w-4 h-4" />
+                <ExternalLink className="h-4 w-4" />
                 Mở liên kết
               </a>
             </div>
@@ -139,23 +139,23 @@ export default function ScanResult({ result, onReset }) {
         const wifi = parseWifi(result);
         return (
           <div className="space-y-4">
-            <div className="rounded-lg border divide-y overflow-hidden bg-muted/10">
+            <div className="bg-muted/10 divide-y overflow-hidden rounded-lg border">
               <div className="grid grid-cols-3 p-3 text-sm">
                 <span className="text-muted-foreground font-medium">
                   Tên mạng (SSID)
                 </span>
-                <span className="col-span-2 text-foreground font-semibold flex items-center justify-between">
+                <span className="text-foreground col-span-2 flex items-center justify-between font-semibold">
                   <span>{wifi.ssid || "(Trống)"}</span>
                   {wifi.ssid && (
                     <button
                       onClick={() => handleCopy(wifi.ssid, "ssid")}
-                      className="p-1 hover:bg-muted rounded text-muted-foreground transition-all cursor-pointer"
+                      className="hover:bg-muted text-muted-foreground cursor-pointer rounded p-1 transition-all"
                       title="Copy SSID"
                     >
                       {copiedKey === "ssid" ? (
-                        <Check className="w-3.5 h-3.5 text-green-500" />
+                        <Check className="h-3.5 w-3.5 text-green-500" />
                       ) : (
-                        <Copy className="w-3.5 h-3.5" />
+                        <Copy className="h-3.5 w-3.5" />
                       )}
                     </button>
                   )}
@@ -166,7 +166,7 @@ export default function ScanResult({ result, onReset }) {
                 <span className="text-muted-foreground font-medium">
                   Mật khẩu
                 </span>
-                <span className="col-span-2 text-foreground font-semibold flex items-center justify-between">
+                <span className="text-foreground col-span-2 flex items-center justify-between font-semibold">
                   <span className="font-mono">
                     {wifi.password
                       ? showPassword
@@ -179,24 +179,24 @@ export default function ScanResult({ result, onReset }) {
                       <>
                         <button
                           onClick={() => setShowPassword(!showPassword)}
-                          className="p-1 hover:bg-muted rounded text-muted-foreground transition-all cursor-pointer"
+                          className="hover:bg-muted text-muted-foreground cursor-pointer rounded p-1 transition-all"
                           title={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
                         >
                           {showPassword ? (
-                            <EyeOff className="w-3.5 h-3.5" />
+                            <EyeOff className="h-3.5 w-3.5" />
                           ) : (
-                            <Eye className="w-3.5 h-3.5" />
+                            <Eye className="h-3.5 w-3.5" />
                           )}
                         </button>
                         <button
                           onClick={() => handleCopy(wifi.password, "pass")}
-                          className="p-1 hover:bg-muted rounded text-muted-foreground transition-all cursor-pointer"
+                          className="hover:bg-muted text-muted-foreground cursor-pointer rounded p-1 transition-all"
                           title="Copy Password"
                         >
                           {copiedKey === "pass" ? (
-                            <Check className="w-3.5 h-3.5 text-green-500" />
+                            <Check className="h-3.5 w-3.5 text-green-500" />
                           ) : (
-                            <Copy className="w-3.5 h-3.5" />
+                            <Copy className="h-3.5 w-3.5" />
                           )}
                         </button>
                       </>
@@ -209,7 +209,7 @@ export default function ScanResult({ result, onReset }) {
                 <span className="text-muted-foreground font-medium">
                   Bảo mật
                 </span>
-                <span className="col-span-2 text-foreground font-medium uppercase">
+                <span className="text-foreground col-span-2 font-medium uppercase">
                   {wifi.encryption}
                 </span>
               </div>
@@ -218,14 +218,14 @@ export default function ScanResult({ result, onReset }) {
                 <span className="text-muted-foreground font-medium">
                   Mạng ẩn
                 </span>
-                <span className="col-span-2 text-foreground font-medium flex items-center gap-1.5">
+                <span className="text-foreground col-span-2 flex items-center gap-1.5 font-medium">
                   {wifi.hidden ? (
                     <>
-                      <Lock className="w-4 h-4 text-amber-500" /> Có (Ẩn)
+                      <Lock className="h-4 w-4 text-amber-500" /> Có (Ẩn)
                     </>
                   ) : (
                     <>
-                      <Unlock className="w-4 h-4 text-green-500" /> Không
+                      <Unlock className="h-4 w-4 text-green-500" /> Không
                     </>
                   )}
                 </span>
@@ -235,12 +235,12 @@ export default function ScanResult({ result, onReset }) {
             <div className="flex justify-center">
               <button
                 onClick={() => handleCopy(result, "all")}
-                className="px-4 py-2 border hover:bg-muted text-foreground text-sm font-medium rounded-lg shadow-xs transition-all flex items-center gap-2 cursor-pointer"
+                className="hover:bg-muted text-foreground flex cursor-pointer items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium shadow-xs transition-all"
               >
                 {copiedKey === "all" ? (
-                  <Check className="w-4 h-4 text-green-500" />
+                  <Check className="h-4 w-4 text-green-500" />
                 ) : (
-                  <Copy className="w-4 h-4" />
+                  <Copy className="h-4 w-4" />
                 )}
                 Sao chép chuỗi Wi-Fi gốc
               </button>
@@ -252,12 +252,12 @@ export default function ScanResult({ result, onReset }) {
         const emailData = parseEmail(result);
         return (
           <div className="space-y-4">
-            <div className="rounded-lg border divide-y overflow-hidden bg-muted/10">
+            <div className="bg-muted/10 divide-y overflow-hidden rounded-lg border">
               <div className="grid grid-cols-3 p-3 text-sm">
                 <span className="text-muted-foreground font-medium">
                   Gửi đến
                 </span>
-                <span className="col-span-2 text-foreground font-semibold truncate select-all">
+                <span className="text-foreground col-span-2 truncate font-semibold select-all">
                   {emailData.email}
                 </span>
               </div>
@@ -266,7 +266,7 @@ export default function ScanResult({ result, onReset }) {
                   <span className="text-muted-foreground font-medium">
                     Tiêu đề
                   </span>
-                  <span className="col-span-2 text-foreground font-medium">
+                  <span className="text-foreground col-span-2 font-medium">
                     {emailData.subject}
                   </span>
                 </div>
@@ -276,29 +276,29 @@ export default function ScanResult({ result, onReset }) {
                   <span className="text-muted-foreground font-medium">
                     Nội dung
                   </span>
-                  <span className="col-span-2 text-foreground text-xs whitespace-pre-wrap">
+                  <span className="text-foreground col-span-2 text-xs whitespace-pre-wrap">
                     {emailData.body}
                   </span>
                 </div>
               )}
             </div>
-            <div className="flex gap-3 justify-center">
+            <div className="flex justify-center gap-3">
               <button
                 onClick={() => handleCopy(emailData.email, "email")}
-                className="px-4 py-2 border hover:bg-muted text-foreground text-sm font-medium rounded-lg shadow-xs transition-all flex items-center gap-2 cursor-pointer"
+                className="hover:bg-muted text-foreground flex cursor-pointer items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium shadow-xs transition-all"
               >
                 {copiedKey === "email" ? (
-                  <Check className="w-4 h-4 text-green-500" />
+                  <Check className="h-4 w-4 text-green-500" />
                 ) : (
-                  <Copy className="w-4 h-4" />
+                  <Copy className="h-4 w-4" />
                 )}
                 Copy Địa chỉ Email
               </button>
               <a
                 href={result}
-                className="px-4 py-2 bg-primary hover:bg-primary/95 text-primary-foreground text-sm font-medium rounded-lg shadow-sm transition-all flex items-center gap-2 cursor-pointer"
+                className="bg-primary hover:bg-primary/95 text-primary-foreground flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium shadow-sm transition-all"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="h-4 w-4" />
                 Soạn Email ngay
               </a>
             </div>
@@ -309,26 +309,26 @@ export default function ScanResult({ result, onReset }) {
         const phoneNum = parsePhone(result);
         return (
           <div className="space-y-4 text-center">
-            <div className="p-4 bg-muted/20 rounded-lg border font-mono text-xl text-foreground font-bold select-all tracking-wider">
+            <div className="bg-muted/20 text-foreground rounded-lg border p-4 font-mono text-xl font-bold tracking-wider select-all">
               {phoneNum}
             </div>
-            <div className="flex gap-3 justify-center">
+            <div className="flex justify-center gap-3">
               <button
                 onClick={() => handleCopy(phoneNum, "phone")}
-                className="px-4 py-2 border hover:bg-muted text-foreground text-sm font-medium rounded-lg shadow-xs transition-all flex items-center gap-2 cursor-pointer"
+                className="hover:bg-muted text-foreground flex cursor-pointer items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium shadow-xs transition-all"
               >
                 {copiedKey === "phone" ? (
-                  <Check className="w-4 h-4 text-green-500" />
+                  <Check className="h-4 w-4 text-green-500" />
                 ) : (
-                  <Copy className="w-4 h-4" />
+                  <Copy className="h-4 w-4" />
                 )}
                 Sao chép số
               </button>
               <a
                 href={`tel:${phoneNum}`}
-                className="px-4 py-2 bg-primary hover:bg-primary/95 text-primary-foreground text-sm font-medium rounded-lg shadow-sm transition-all flex items-center gap-2 cursor-pointer"
+                className="bg-primary hover:bg-primary/95 text-primary-foreground flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium shadow-sm transition-all"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="h-4 w-4" />
                 Gọi điện
               </a>
             </div>
@@ -343,16 +343,16 @@ export default function ScanResult({ result, onReset }) {
               <textarea
                 readOnly
                 value={result}
-                className="w-full min-h-35 p-3 text-sm font-mono border rounded-lg bg-muted/40 text-foreground resize-none focus:outline-none focus:ring-1 focus:ring-primary/30"
+                className="bg-muted/40 text-foreground focus:ring-primary/30 min-h-35 w-full resize-none rounded-lg border p-3 font-mono text-sm focus:ring-1 focus:outline-none"
               />
               <button
                 onClick={() => handleCopy(result, "text")}
-                className="absolute bottom-3 right-3 px-3 py-1.5 bg-background border hover:bg-muted text-foreground text-xs font-semibold rounded-md shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                className="bg-background hover:bg-muted text-foreground absolute right-3 bottom-3 flex cursor-pointer items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-semibold shadow-xs transition-all"
               >
                 {copiedKey === "text" ? (
-                  <Check className="w-3.5 h-3.5 text-green-500" />
+                  <Check className="h-3.5 w-3.5 text-green-500" />
                 ) : (
-                  <Copy className="w-3.5 h-3.5" />
+                  <Copy className="h-3.5 w-3.5" />
                 )}
                 Sao chép
               </button>
@@ -398,19 +398,19 @@ export default function ScanResult({ result, onReset }) {
   };
 
   return (
-    <Card className="border shadow-lg bg-card border-primary/20">
-      <CardHeader className="pb-3 border-b border-muted/50">
+    <Card className="bg-card border-primary/20 border shadow-lg">
+      <CardHeader className="border-muted/50 border-b pb-3">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-muted/50 rounded-lg shrink-0">
+          <div className="bg-muted/50 shrink-0 rounded-lg p-2">
             {getHeaderIcon()}
           </div>
           <div>
-            <CardTitle className="text-lg font-bold text-foreground">
+            <CardTitle className="text-foreground text-lg font-bold">
               Kết Quả Giải Mã
             </CardTitle>
             <CardDescription className="text-xs">
               Định dạng:{" "}
-              <span className="font-semibold text-primary">
+              <span className="text-primary font-semibold">
                 {getResultLabel()}
               </span>
             </CardDescription>
@@ -420,12 +420,12 @@ export default function ScanResult({ result, onReset }) {
 
       <CardContent className="pt-6">{renderDetails()}</CardContent>
 
-      <CardFooter className="flex justify-between border-t border-muted/50 pt-4 mt-2">
+      <CardFooter className="border-muted/50 mt-2 flex justify-between border-t pt-4">
         <button
           onClick={onReset}
-          className="px-4 py-2 border hover:bg-muted text-foreground text-sm font-semibold rounded-lg shadow-xs transition-all flex items-center gap-2 cursor-pointer"
+          className="hover:bg-muted text-foreground flex cursor-pointer items-center gap-2 rounded-lg border px-4 py-2 text-sm font-semibold shadow-xs transition-all"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="h-4 w-4" />
           Quét mã khác
         </button>
       </CardFooter>

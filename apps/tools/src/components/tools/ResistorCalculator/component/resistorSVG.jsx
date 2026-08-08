@@ -32,7 +32,7 @@ export default function ResistorSVG({ bands, bandCount, onBandClick }) {
   return (
     <svg
       viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-      className="w-full max-w-125 mx-auto select-none"
+      className="mx-auto w-full max-w-125 select-none"
       style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.10))" }}
     >
       {/* Wires */}
@@ -130,14 +130,14 @@ export default function ResistorSVG({ bands, bandCount, onBandClick }) {
               fill="transparent"
               stroke="transparent"
               strokeWidth="2"
-              className="transition-all duration-200 hover:stroke-primary/50"
+              className="hover:stroke-primary/50 transition-all duration-200"
             />
             {/* Label below */}
             <text
               x={pos.x + bandW / 2}
               y={bodyY + bodyH + 16}
               textAnchor="middle"
-              className="fill-muted-foreground text-[9px] font-medium pointer-events-none"
+              className="fill-muted-foreground pointer-events-none text-[9px] font-medium"
             >
               {pos.label}
             </text>
@@ -145,7 +145,7 @@ export default function ResistorSVG({ bands, bandCount, onBandClick }) {
               x={pos.x + bandW / 2}
               y={bodyY + bodyH + 26}
               textAnchor="middle"
-              className="fill-muted-foreground/60 text-[7px] pointer-events-none"
+              className="fill-muted-foreground/60 pointer-events-none text-[7px]"
             >
               {pos.sub}
             </text>

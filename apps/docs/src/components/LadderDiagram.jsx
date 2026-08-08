@@ -641,38 +641,38 @@ export default function LadderDiagram({ data, title, description }) {
   }, [evaluatedTree, measuredTree, centerY, totalWidth]);
 
   return (
-    <div className="my-6 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900/60 shadow-md overflow-hidden transition-all duration-300">
+    <div className="my-6 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-md transition-all duration-300 dark:border-slate-800 dark:bg-slate-900/60">
       {/* Header */}
-      <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-slate-50/50 dark:bg-slate-950/20">
+      <div className="flex flex-col justify-between gap-3 border-b border-slate-100 bg-slate-50/50 px-5 py-4 md:flex-row md:items-center dark:border-slate-800 dark:bg-slate-950/20">
         <div>
-          <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+          <h3 className="flex items-center gap-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
             <Zap
               className={clsx(
-                "w-5 h-5 transition-transform duration-500",
+                "h-5 w-5 transition-transform duration-500",
                 outputCoilActive
-                  ? "text-amber-500 scale-110 animate-pulse"
+                  ? "scale-110 animate-pulse text-amber-500"
                   : "text-slate-400",
               )}
             />
             {circuit.title}
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
+          <p className="mt-1 max-w-2xl text-xs leading-relaxed text-slate-500 dark:text-slate-400">
             {circuit.description}
           </p>
         </div>
 
         {/* Demo Selector (only if not loaded with explicit props) */}
         {!data && (
-          <div className="flex gap-1 bg-slate-200/50 dark:bg-slate-800 p-1 rounded-lg self-start md:self-auto">
+          <div className="flex gap-1 self-start rounded-lg bg-slate-200/50 p-1 md:self-auto dark:bg-slate-800">
             {Object.keys(DEMO_CIRCUITS).map((key) => (
               <button
                 key={key}
                 onClick={() => setSelectedDemo(key)}
                 className={clsx(
-                  "px-3 py-1 text-xs font-medium rounded-md transition-all",
+                  "rounded-md px-3 py-1 text-xs font-medium transition-all",
                   selectedDemo === key
-                    ? "bg-white dark:bg-slate-700 shadow-sm text-slate-800 dark:text-white"
-                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200",
+                    ? "bg-white text-slate-800 shadow-sm dark:bg-slate-700 dark:text-white"
+                    : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200",
                 )}
               >
                 {key === "anb"
@@ -687,14 +687,14 @@ export default function LadderDiagram({ data, title, description }) {
       </div>
 
       {/* Main Diagram Area */}
-      <div className="p-6 flex flex-col lg:flex-row gap-6 items-stretch justify-between bg-slate-50/30 dark:bg-slate-950/5">
+      <div className="flex flex-col items-stretch justify-between gap-6 bg-slate-50/30 p-6 lg:flex-row dark:bg-slate-950/5">
         {/* Interactive SVG Wrapper */}
-        <div className="flex-1 min-w-0 bg-slate-50 dark:bg-slate-950 rounded-lg p-4 border border-slate-100 dark:border-slate-800 flex items-center justify-center relative overflow-x-auto">
+        <div className="relative flex min-w-0 flex-1 items-center justify-center overflow-x-auto rounded-lg border border-slate-100 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
           <svg
             width={totalWidth}
             height={totalHeight}
             viewBox={`0 0 ${totalWidth} ${totalHeight}`}
-            className="select-none mx-auto"
+            className="mx-auto select-none"
           >
             {/* Definitions for Glow Filters */}
             <defs>
@@ -778,7 +778,7 @@ export default function LadderDiagram({ data, title, description }) {
                   key={`contact-${idx}`}
                   onClick={() => toggleContact(contact.label)}
                   onMouseEnter={() => setSelectedContact(contact)}
-                  className="cursor-pointer group"
+                  className="group cursor-pointer"
                 >
                   {/* Invisible broad click target rectangle */}
                   <rect
@@ -833,7 +833,7 @@ export default function LadderDiagram({ data, title, description }) {
                       x={contact.cx}
                       y={contact.cy + 4}
                       textAnchor="middle"
-                      className="fill-slate-800 dark:fill-slate-100 font-bold text-[10px]"
+                      className="fill-slate-800 text-[10px] font-bold dark:fill-slate-100"
                     >
                       P
                     </text>
@@ -845,7 +845,7 @@ export default function LadderDiagram({ data, title, description }) {
                       x={contact.cx}
                       y={contact.cy + 4}
                       textAnchor="middle"
-                      className="fill-slate-800 dark:fill-slate-100 font-bold text-[10px]"
+                      className="fill-slate-800 text-[10px] font-bold dark:fill-slate-100"
                     >
                       F
                     </text>
@@ -857,9 +857,9 @@ export default function LadderDiagram({ data, title, description }) {
                     y={contact.cy - 20}
                     textAnchor="middle"
                     className={clsx(
-                      "font-semibold text-xs transition-colors duration-300",
+                      "text-xs font-semibold transition-colors duration-300",
                       isForced
-                        ? "fill-emerald-600 dark:fill-emerald-400 font-bold"
+                        ? "fill-emerald-600 font-bold dark:fill-emerald-400"
                         : "fill-slate-700 dark:fill-slate-300",
                     )}
                   >
@@ -886,7 +886,7 @@ export default function LadderDiagram({ data, title, description }) {
                     stroke="#10B981"
                     strokeWidth={1.5}
                     strokeDasharray="2,2"
-                    className="opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                    className="pointer-events-none opacity-0 transition-opacity group-hover:opacity-100"
                   />
                 </g>
               );
@@ -946,7 +946,7 @@ export default function LadderDiagram({ data, title, description }) {
                     y={coil.cy - 20}
                     textAnchor="middle"
                     className={clsx(
-                      "font-bold text-xs transition-colors duration-300",
+                      "text-xs font-bold transition-colors duration-300",
                       active
                         ? "fill-emerald-500 dark:fill-emerald-400"
                         : "fill-slate-600 dark:fill-slate-400",
@@ -983,7 +983,7 @@ export default function LadderDiagram({ data, title, description }) {
                     y={block.cy - 2}
                     textAnchor="middle"
                     className={clsx(
-                      "font-bold text-xs",
+                      "text-xs font-bold",
                       active
                         ? "fill-emerald-500 dark:fill-emerald-400"
                         : "fill-slate-800 dark:fill-slate-200",
@@ -997,7 +997,7 @@ export default function LadderDiagram({ data, title, description }) {
                     x={block.cx}
                     y={block.cy + 11}
                     textAnchor="middle"
-                    className="fill-slate-500 dark:fill-slate-400 font-mono text-[9px]"
+                    className="fill-slate-500 font-mono text-[9px] dark:fill-slate-400"
                   >
                     {block.inputs.join("  ")}
                   </text>
@@ -1011,7 +1011,7 @@ export default function LadderDiagram({ data, title, description }) {
                 key={`text-${idx}`}
                 x={text.x}
                 y={text.y}
-                className="fill-slate-400 dark:fill-slate-500 font-mono text-[10px]"
+                className="fill-slate-400 font-mono text-[10px] dark:fill-slate-500"
               >
                 {text.text}
               </text>
@@ -1020,11 +1020,11 @@ export default function LadderDiagram({ data, title, description }) {
         </div>
 
         {/* Side Panel: Controller & Inspector */}
-        <div className="w-full lg:w-64 flex flex-col gap-4">
+        <div className="flex w-full flex-col gap-4 lg:w-64">
           {/* Controls Box */}
-          <div className="border border-slate-200 dark:border-slate-800 rounded-lg p-4 bg-white dark:bg-slate-900 shadow-sm flex flex-col gap-3">
-            <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <RefreshCw className="w-4 h-4 text-emerald-500" />
+          <div className="flex flex-col gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <h4 className="flex items-center gap-1.5 text-sm font-semibold text-slate-800 dark:text-slate-200">
+              <RefreshCw className="h-4 w-4 text-emerald-500" />
               Bảng Điều Khiển
             </h4>
 
@@ -1033,21 +1033,21 @@ export default function LadderDiagram({ data, title, description }) {
               các phím gạt nhanh bên dưới:
             </p>
 
-            <div className="flex flex-col gap-2 max-h-35 overflow-y-auto pr-1">
+            <div className="flex max-h-35 flex-col gap-2 overflow-y-auto pr-1">
               {uniqueLabels.map((label) => (
                 <div
                   key={label}
                   onClick={() => toggleContact(label)}
-                  className="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer transition-colors"
+                  className="flex cursor-pointer items-center justify-between rounded border border-slate-100 bg-slate-50 p-2 transition-colors hover:bg-slate-100 dark:border-slate-800/80 dark:bg-slate-950 dark:hover:bg-slate-800/50"
                 >
-                  <span className="text-xs font-bold font-mono text-slate-700 dark:text-slate-300">
+                  <span className="font-mono text-xs font-bold text-slate-700 dark:text-slate-300">
                     Tiếp điểm {label}
                   </span>
                   <button className="focus:outline-none">
                     {contactStates[label] ? (
-                      <ToggleRight className="w-6 h-6 text-emerald-500" />
+                      <ToggleRight className="h-6 w-6 text-emerald-500" />
                     ) : (
-                      <ToggleLeft className="w-6 h-6 text-slate-400" />
+                      <ToggleLeft className="h-6 w-6 text-slate-400" />
                     )}
                   </button>
                 </div>
@@ -1062,32 +1062,32 @@ export default function LadderDiagram({ data, title, description }) {
                 });
                 setContactStates(initial);
               }}
-              className="mt-1 w-full flex items-center justify-center gap-2 px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700/80 transition-colors"
+              className="mt-1 flex w-full items-center justify-center gap-2 rounded-md border border-slate-200 bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700/80"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <RotateCcw className="h-3.5 w-3.5" />
               Reset Tiếp Điểm
             </button>
           </div>
 
           {/* Inspector Box */}
-          <div className="flex-1 border border-slate-200 dark:border-slate-800 rounded-lg p-4 bg-white dark:bg-slate-900 shadow-sm flex flex-col gap-2">
-            <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <Info className="w-4 h-4 text-sky-500" />
+          <div className="flex flex-1 flex-col gap-2 rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <h4 className="flex items-center gap-1.5 text-sm font-semibold text-slate-800 dark:text-slate-200">
+              <Info className="h-4 w-4 text-sky-500" />
               Chi Tiết Tiếp Điểm
             </h4>
 
             {selectedContact ? (
-              <div className="flex flex-col gap-2 animate-fadeIn">
+              <div className="animate-fadeIn flex flex-col gap-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-base font-bold font-mono text-slate-800 dark:text-slate-100">
+                  <span className="font-mono text-base font-bold text-slate-800 dark:text-slate-100">
                     {selectedContact.label}
                   </span>
                   <span
                     className={clsx(
-                      "text-[10px] font-semibold px-2 py-0.5 rounded-full",
+                      "rounded-full px-2 py-0.5 text-[10px] font-semibold",
                       selectedContact.active
-                        ? "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400"
-                        : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400",
+                        ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-400"
+                        : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400",
                     )}
                   >
                     {selectedContact.active
@@ -1109,14 +1109,14 @@ export default function LadderDiagram({ data, title, description }) {
                   </div>
                 )}
 
-                <div className="text-xs text-slate-600 dark:text-slate-300 mt-1 bg-slate-50 dark:bg-slate-950 p-2 rounded border border-slate-100 dark:border-slate-800/80 leading-relaxed font-sans">
+                <div className="mt-1 rounded border border-slate-100 bg-slate-50 p-2 font-sans text-xs leading-relaxed text-slate-600 dark:border-slate-800/80 dark:bg-slate-950 dark:text-slate-300">
                   {selectedContact.description ||
                     "Không có chú giải cụ thể cho tiếp điểm này."}
                 </div>
               </div>
             ) : (
-              <div className="flex-1 flex flex-col items-center justify-center text-center p-4">
-                <HelpCircle className="w-8 h-8 text-slate-300 dark:text-slate-700 mb-2" />
+              <div className="flex flex-1 flex-col items-center justify-center p-4 text-center">
+                <HelpCircle className="mb-2 h-8 w-8 text-slate-300 dark:text-slate-700" />
                 <p className="text-xs text-slate-400 dark:text-slate-500">
                   Rê chuột vào tiếp điểm hoặc cuộn dây để xem mô tả chi tiết tại
                   đây.
@@ -1128,21 +1128,21 @@ export default function LadderDiagram({ data, title, description }) {
       </div>
 
       {/* Footer Legend */}
-      <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-950/10 flex flex-wrap gap-x-5 gap-y-2 justify-center text-[10px] text-slate-500 dark:text-slate-400 font-medium">
+      <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-slate-100 bg-slate-50/30 px-5 py-3 text-[10px] font-medium text-slate-500 dark:border-slate-800 dark:bg-slate-950/10 dark:text-slate-400">
         <div className="flex items-center gap-1.5">
-          <div className="w-4 h-1 bg-[#10B981] rounded"></div>
+          <div className="h-1 w-4 rounded bg-[#10B981]"></div>
           <span>Dây dẫn có điện (ON)</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-4 h-1 bg-[#94A3B8] rounded"></div>
+          <div className="h-1 w-4 rounded bg-[#94A3B8]"></div>
           <span>Dây dẫn không có điện (OFF)</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-2.5 h-4 border-l-2 border-r-2 border-emerald-500"></div>
+          <div className="h-4 w-2.5 border-r-2 border-l-2 border-emerald-500"></div>
           <span>Tiếp điểm NO đóng / NC mở</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
+          <div className="h-3 w-3 rounded-full bg-emerald-500"></div>
           <span>Cuộn dây ngõ ra có điện</span>
         </div>
       </div>

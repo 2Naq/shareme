@@ -157,12 +157,12 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
 
   if (hasPermission === false) {
     return (
-      <div className="flex flex-col items-center justify-center p-8 text-center border-2 border-dashed border-destructive/30 rounded-xl bg-destructive/5 space-y-4">
-        <AlertTriangle className="w-12 h-12 text-destructive animate-pulse" />
-        <h3 className="font-semibold text-lg text-foreground">
+      <div className="border-destructive/30 bg-destructive/5 flex flex-col items-center justify-center space-y-4 rounded-xl border-2 border-dashed p-8 text-center">
+        <AlertTriangle className="text-destructive h-12 w-12 animate-pulse" />
+        <h3 className="text-foreground text-lg font-semibold">
           Không có quyền truy cập Camera
         </h3>
-        <p className="text-sm text-muted-foreground max-w-md">
+        <p className="text-muted-foreground max-w-md text-sm">
           Trình duyệt đã chặn quyền truy cập máy ảnh. Vui lòng cấp quyền truy
           cập camera trong cài đặt trang web của trình duyệt và tải lại trang.
         </p>
@@ -177,7 +177,7 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
         <div className="flex items-center gap-2">
           <label
             htmlFor="camera-select"
-            className="text-sm font-medium shrink-0 text-foreground"
+            className="text-foreground shrink-0 text-sm font-medium"
           >
             Chọn Camera:
           </label>
@@ -185,7 +185,7 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
             id="camera-select"
             value={selectedCameraId}
             onChange={handleCameraChange}
-            className="w-full px-3 py-1.5 text-sm rounded-md border border-input bg-background text-foreground ring-offset-background focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="border-input bg-background text-foreground ring-offset-background focus:ring-primary w-full rounded-md border px-3 py-1.5 text-sm focus:ring-2 focus:ring-offset-2 focus:outline-none"
           >
             {cameras.map((camera) => (
               <option key={camera.id} value={camera.id}>
@@ -197,29 +197,29 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
       )}
 
       {/* Vùng quét */}
-      <div className="relative w-full aspect-square max-w-100 mx-auto overflow-hidden rounded-xl border bg-black shadow-inner flex items-center justify-center">
+      <div className="relative mx-auto flex aspect-square w-full max-w-100 items-center justify-center overflow-hidden rounded-xl border bg-black shadow-inner">
         {/* DOM element cho html5-qrcode */}
-        <div id={containerId} className="w-full h-full object-cover"></div>
+        <div id={containerId} className="h-full w-full object-cover"></div>
 
         {/* Trạng thái chưa bật Camera */}
         {!isScanning && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-muted/90 space-y-4 text-muted-foreground z-10">
-            <Camera className="w-16 h-16 opacity-40 animate-bounce" />
+          <div className="bg-muted/90 text-muted-foreground absolute inset-0 z-10 flex flex-col items-center justify-center space-y-4 p-4 text-center">
+            <Camera className="h-16 w-16 animate-bounce opacity-40" />
             <div>
-              <p className="font-medium text-foreground">Camera đang tắt</p>
-              <p className="text-xs max-w-xs mt-1">
+              <p className="text-foreground font-medium">Camera đang tắt</p>
+              <p className="mt-1 max-w-xs text-xs">
                 Nhấp nút phía dưới để khởi động camera và bắt đầu quét mã QR.
               </p>
             </div>
             <button
               onClick={() => startScanning()}
               disabled={isLoading || !selectedCameraId}
-              className="px-4 py-2 bg-primary hover:bg-primary/95 text-primary-foreground font-medium rounded-lg text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-primary hover:bg-primary/95 text-primary-foreground flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium shadow-md transition-all disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isLoading ? (
-                <RefreshCw className="w-4 h-4 animate-spin" />
+                <RefreshCw className="h-4 w-4 animate-spin" />
               ) : (
-                <Camera className="w-4 h-4" />
+                <Camera className="h-4 w-4" />
               )}
               Bật Camera
             </button>
@@ -228,17 +228,17 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
 
         {/* Khung quét Laser Beam chuyển động khi đang quét */}
         {isScanning && (
-          <div className="absolute inset-0 pointer-events-none z-10 flex items-center justify-center">
+          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
             {/* Bo góc vùng quét */}
-            <div className="w-[70%] h-[70%] border-2 border-primary/50 relative rounded-lg">
+            <div className="border-primary/50 relative h-[70%] w-[70%] rounded-lg border-2">
               {/* 4 Góc màu đậm hơn */}
-              <div className="absolute -top-0.5 -left-0.5 w-6 h-6 border-t-4 border-l-4 border-primary rounded-tl-lg"></div>
-              <div className="absolute -top-0.5 -right-0.5 w-6 h-6 border-t-4 border-r-4 border-primary rounded-tr-lg"></div>
-              <div className="absolute -bottom-0.5 -left-0.5 w-6 h-6 border-b-4 border-l-4 border-primary rounded-bl-lg"></div>
-              <div className="absolute -bottom-0.5 -right-0.5 w-6 h-6 border-b-4 border-r-4 border-primary rounded-br-lg"></div>
+              <div className="border-primary absolute -top-0.5 -left-0.5 h-6 w-6 rounded-tl-lg border-t-4 border-l-4"></div>
+              <div className="border-primary absolute -top-0.5 -right-0.5 h-6 w-6 rounded-tr-lg border-t-4 border-r-4"></div>
+              <div className="border-primary absolute -bottom-0.5 -left-0.5 h-6 w-6 rounded-bl-lg border-b-4 border-l-4"></div>
+              <div className="border-primary absolute -right-0.5 -bottom-0.5 h-6 w-6 rounded-br-lg border-r-4 border-b-4"></div>
 
               {/* Dòng laser đỏ quét dọc */}
-              <div className="absolute left-0 w-full h-0.75 bg-red-500 shadow-[0_0_8px_#ef4444] animate-[scan_2s_ease-in-out_infinite]"></div>
+              <div className="absolute left-0 h-0.75 w-full animate-[scan_2s_ease-in-out_infinite] bg-red-500 shadow-[0_0_8px_#ef4444]"></div>
             </div>
           </div>
         )}
@@ -250,9 +250,9 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
           <button
             onClick={stopScanning}
             disabled={isLoading}
-            className="px-4 py-2 bg-destructive hover:bg-destructive/90 text-destructive-foreground font-medium rounded-lg text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+            className="bg-destructive hover:bg-destructive/90 text-destructive-foreground flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium shadow-md transition-all disabled:opacity-50"
           >
-            <CameraOff className="w-4 h-4" />
+            <CameraOff className="h-4 w-4" />
             Tắt Camera
           </button>
         </div>

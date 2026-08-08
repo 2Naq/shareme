@@ -195,8 +195,8 @@ export default function WiringDiagram({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl flex items-center gap-2">
-          <LineChart className="w-5 h-5 text-primary" />
+        <CardTitle className="flex items-center gap-2 text-xl">
+          <LineChart className="text-primary h-5 w-5" />
           Sơ đồ đơn tuyến sụt áp đường dây
         </CardTitle>
         <CardDescription>
@@ -205,7 +205,7 @@ export default function WiringDiagram({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="w-full overflow-x-auto rounded-xl bg-[hsl(var(--muted)/0.15)] border p-2">
+        <div className="w-full overflow-x-auto rounded-xl border bg-[hsl(var(--muted)/0.15)] p-2">
           <svg
             ref={svgRef}
             viewBox={`0 0 820 ${diagramHeight}`}

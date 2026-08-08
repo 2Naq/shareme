@@ -42,9 +42,9 @@ export function ShareToolsLogo({
     <div className={`flex items-center gap-2.5 ${className}`}>
       {/* Icon Mark */}
       <div
-        className={`${s.icon} shrink-0 relative flex items-center justify-center`}
+        className={`${s.icon} relative flex shrink-0 items-center justify-center`}
       >
-        <SvgTool className="text-blue-600 dark:text-blue-400 size-full drop-shadow-sm " />
+        <SvgTool className="size-full text-blue-600 drop-shadow-sm dark:text-blue-400" />
       </div>
 
       {/* Wordmark */}
@@ -53,12 +53,12 @@ export function ShareToolsLogo({
           <Marker role="status">
             <MarkerContent className="shimmer">
               <span
-                className={`${s.text} font-extrabold tracking-tight leading-tight`}
+                className={`${s.text} leading-tight font-extrabold tracking-tight`}
               >
                 <span className="bg-linear-to-r from-blue-700 via-blue-500 to-blue-400 bg-clip-text text-transparent dark:from-blue-400 dark:via-blue-300 dark:to-sky-300">
                   Share
                 </span>
-                <span className="text-foreground/80 font-semibold ml-0.5">
+                <span className="text-foreground/80 ml-0.5 font-semibold">
                   Tools
                 </span>
               </span>
@@ -66,7 +66,7 @@ export function ShareToolsLogo({
           </Marker>
 
           <span
-            className={`${s.tagline} text-muted-foreground font-medium tracking-wider uppercase mt-0.5 truncate`}
+            className={`${s.tagline} text-muted-foreground mt-0.5 truncate font-medium tracking-wider uppercase`}
             title="Practice - Challenge - Persevere"
           >
             Practice - Challenge - Persevere

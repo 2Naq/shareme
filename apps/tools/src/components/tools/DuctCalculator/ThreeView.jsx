@@ -205,14 +205,14 @@ export default function ThreeView({ buildScene, deps = [], height = 360 }) {
 
   return (
     <div
-      className="rounded-md border border-border overflow-hidden bg-[#10151a] relative"
+      className="border-border relative overflow-hidden rounded-md border bg-[#10151a]"
       style={{ cursor: "grab" }}
     >
       <div
         ref={containerRef}
         style={{ height: `${height}px`, touchAction: "none" }}
       />
-      <div className="absolute bottom-2 right-3 font-mono text-[10px] text-muted-foreground bg-black/60 px-2 py-0.5 rounded pointer-events-none">
+      <div className="text-muted-foreground pointer-events-none absolute right-3 bottom-2 rounded bg-black/60 px-2 py-0.5 font-mono text-[10px]">
         Kéo để xoay · lăn chuột để zoom
       </div>
     </div>

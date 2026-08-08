@@ -159,7 +159,7 @@ function ColorPickerContent({
               : "Chọn dung sai"}
         </DialogTitle>
       </DialogHeader>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 max-h-[60vh] overflow-y-auto pr-1 p-1">
+      <div className="grid max-h-[60vh] grid-cols-2 gap-2 overflow-y-auto p-1 pr-1 sm:grid-cols-3 md:grid-cols-4">
         {colors.map((color, idx) => (
           <button
             key={color.nameEn}
@@ -167,10 +167,10 @@ function ColorPickerContent({
               onSelect(idx);
               onClose();
             }}
-            className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer            hover:bg-accent/80 ${selectedIndex === idx ? "ring-2 ring-primary bg-accent" : "bg-transparent"}`}
+            className={`hover:bg-accent/80 flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs font-medium transition-all ${selectedIndex === idx ? "ring-primary bg-accent ring-2" : "bg-transparent"}`}
           >
             <span
-              className="size-5 rounded-md border border-border/60 shrink-0 shadow-sm"
+              className="border-border/60 size-5 shrink-0 rounded-md border shadow-sm"
               style={{
                 backgroundColor:
                   color.hex === "transparent" ? "transparent" : color.hex,
@@ -312,37 +312,33 @@ export default function ResistorCaculator() {
   return (
     <div className="flex flex-col gap-6">
       {/* Band count selector */}
-      <div className="flex items-center gap-3 flex-wrap">
+      <div className="flex flex-wrap items-center gap-3">
         <Label className="text-sm font-medium">Loại điện trở:</Label>
         <div className="flex gap-2">
           <button
             onClick={() => setBandCount(4)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer
-              ${
-                bandCount === 4
-                  ? "bg-primary text-primary-foreground shadow-md"
-                  : "bg-muted text-muted-foreground hover:bg-accent"
-              }
-            `}
+            className={`cursor-pointer rounded-lg px-4 py-2 text-sm font-medium transition-all ${
+              bandCount === 4
+                ? "bg-primary text-primary-foreground shadow-md"
+                : "bg-muted text-muted-foreground hover:bg-accent"
+            } `}
           >
             4 Vòng Màu
           </button>
           <button
             onClick={() => setBandCount(5)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer
-              ${
-                bandCount === 5
-                  ? "bg-primary text-primary-foreground shadow-md"
-                  : "bg-muted text-muted-foreground hover:bg-accent"
-              }
-            `}
+            className={`cursor-pointer rounded-lg px-4 py-2 text-sm font-medium transition-all ${
+              bandCount === 5
+                ? "bg-primary text-primary-foreground shadow-md"
+                : "bg-muted text-muted-foreground hover:bg-accent"
+            } `}
           >
             5 Vòng Màu
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
         {/* Interactive Resistor SVG */}
         <Card className="sm:col-span-2">
           <CardHeader>
@@ -364,7 +360,7 @@ export default function ResistorCaculator() {
                 open={pickerOpen !== null}
                 onOpenChange={(open) => !open && setPickerOpen(null)}
               >
-                <DialogContent className="w-[95vw] sm:max-w-lg md:max-w-2xl rounded-xl p-4 gap-2">
+                <DialogContent className="w-[95vw] gap-2 rounded-xl p-4 sm:max-w-lg md:max-w-2xl">
                   {pickerOpen !== null && (
                     <ColorPickerContent
                       colors={getColorsForBand(pickerOpen.bandIndex)}
@@ -383,47 +379,47 @@ export default function ResistorCaculator() {
         {/* Result */}
         <Card className="bg-primary/5 border-primary/20">
           <CardContent className="pt-6">
-            <div className="flex flex-col sm:flex-row gap-4 sm:items-center justify-between">
+            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
               <div>
-                <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+                <p className="text-muted-foreground mb-1 text-xs tracking-wider uppercase">
                   Giá trị điện trở
                 </p>
-                <p className="text-4xl font-black font-mono text-primary transition-all duration-300">
+                <p className="text-primary font-mono text-4xl font-black transition-all duration-300">
                   {formatResistance(resistance)}
                 </p>
               </div>
               <div className="text-left sm:text-right">
-                <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+                <p className="text-muted-foreground mb-1 text-xs tracking-wider uppercase">
                   Dung sai
                 </p>
                 <Badge
                   variant="outline"
-                  className="text-lg px-4 py-1 font-mono"
+                  className="px-4 py-1 font-mono text-lg"
                 >
                   {toleranceStr}
                 </Badge>
               </div>
             </div>
-            <div className="mt-4 p-3 bg-background rounded-lg border bg-grid">
-              <p className="text-xs text-muted-foreground mb-1 ">Công thức</p>
+            <div className="bg-background bg-grid mt-4 rounded-lg border p-3">
+              <p className="text-muted-foreground mb-1 text-xs">Công thức</p>
               {/* <p className="font-mono text-sm text-foreground">{formula}</p> */}
               <MathRendererBlock formula={formula} />
             </div>
 
             {/* Current band selection summary */}
-            <div className="mt-4 flex items-center gap-2 flex-wrap">
+            <div className="mt-4 flex flex-wrap items-center gap-2">
               {bands.map((_, i) => {
                 const color = getBandColor(i);
                 return (
                   <div key={i} className="flex items-center gap-1.5">
                     <span
-                      className="size-4 rounded border border-border/60 shadow-sm"
+                      className="border-border/60 size-4 rounded border shadow-sm"
                       style={{
                         backgroundColor:
                           color.hex === "transparent" ? "#E5E7EB" : color.hex,
                       }}
                     />
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-muted-foreground text-xs">
                       {color.name}
                     </span>
                     {i < bands.length - 1 && (
@@ -447,12 +443,12 @@ export default function ResistorCaculator() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b">
-                <th className="text-left py-2 px-2 font-semibold">Màu sắc</th>
-                <th className="text-center py-2 px-2 font-semibold">Chữ số</th>
-                <th className="text-center py-2 px-2 font-semibold">
+                <th className="px-2 py-2 text-left font-semibold">Màu sắc</th>
+                <th className="px-2 py-2 text-center font-semibold">Chữ số</th>
+                <th className="px-2 py-2 text-center font-semibold">
                   Hệ số nhân
                 </th>
-                <th className="text-center py-2 px-2 font-semibold">
+                <th className="px-2 py-2 text-center font-semibold">
                   Dung sai
                 </th>
               </tr>
@@ -461,12 +457,12 @@ export default function ResistorCaculator() {
               {COLOR_BANDS.map((color) => (
                 <tr
                   key={color.nameEn}
-                  className="border-b border-border/50 hover:bg-accent/50 transition-colors"
+                  className="border-border/50 hover:bg-accent/50 border-b transition-colors"
                 >
-                  <td className="py-2 px-2">
+                  <td className="px-2 py-2">
                     <div className="flex items-center gap-2">
                       <span
-                        className="size-5 rounded border border-border/60 shadow-sm shrink-0"
+                        className="border-border/60 size-5 shrink-0 rounded border shadow-sm"
                         style={{
                           backgroundColor:
                             color.hex === "transparent" ? "#E5E7EB" : color.hex,
@@ -481,15 +477,15 @@ export default function ResistorCaculator() {
                       <span className="font-medium">{color.name}</span>
                     </div>
                   </td>
-                  <td className="text-center py-2 px-2 font-mono">
+                  <td className="px-2 py-2 text-center font-mono">
                     {color.digit !== null ? color.digit : "–"}
                   </td>
-                  <td className="text-center py-2 px-2 font-mono text-xs">
+                  <td className="px-2 py-2 text-center font-mono text-xs">
                     {color.multiplier !== null
                       ? formatMultiplier(color.multiplier)
                       : "–"}
                   </td>
-                  <td className="text-center py-2 px-2 font-mono text-xs">
+                  <td className="px-2 py-2 text-center font-mono text-xs">
                     {color.tolerance || "–"}
                   </td>
                 </tr>

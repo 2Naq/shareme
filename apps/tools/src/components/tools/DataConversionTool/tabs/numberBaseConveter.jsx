@@ -51,7 +51,7 @@ export default function NumberBaseConverter() {
     : "0".repeat(16);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       {/* Input */}
       <Card>
         <CardHeader>
@@ -113,15 +113,15 @@ export default function NumberBaseConverter() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex gap-1 flex-wrap">
+            <div className="flex flex-wrap gap-1">
               {binPadded16.split("").map((bit, i) => (
                 <div key={i} className="flex flex-col items-center gap-0.5">
-                  <span className="text-[9px] text-muted-foreground">
+                  <span className="text-muted-foreground text-[9px]">
                     {15 - i}
                   </span>
                   <Badge
                     variant={bit === "1" ? "default" : "outline"}
-                    className="font-mono text-xs w-7 h-7 flex items-center justify-center p-0 rounded-md"
+                    className="flex h-7 w-7 items-center justify-center rounded-md p-0 font-mono text-xs"
                   >
                     {bit}
                   </Badge>

@@ -94,10 +94,10 @@ export default function VoltageDropCalculator() {
   }, [calculations.deltaU_percent]);
 
   return (
-    <div className="mx-auto space-y-6 max-w-7xl">
+    <div className="mx-auto max-w-7xl space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2 flex items-center gap-2">
-          <Zap className="text-primary w-8 h-8" />
+        <h1 className="text-foreground mb-2 flex items-center gap-2 text-3xl font-bold">
+          <Zap className="text-primary h-8 w-8" />
           Tính Độ Sụt Áp & Hao Hụt Đường Dây
         </h1>
         <p className="text-muted-foreground">
@@ -106,7 +106,7 @@ export default function VoltageDropCalculator() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         <ConfigForm
           systemType={systemType}
           onSystemTypeChange={handleSystemTypeChange}
@@ -141,7 +141,7 @@ export default function VoltageDropCalculator() {
           setReactanceVal={setReactanceVal}
         />
 
-        <div className="lg:col-span-5 space-y-6">
+        <div className="space-y-6 lg:col-span-5">
           <ResultCard
             calculations={calculations}
             statusEvaluation={statusEvaluation}

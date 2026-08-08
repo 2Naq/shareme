@@ -291,10 +291,10 @@ export default function QrCodeGenerator() {
   };
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto pb-12">
+    <div className="mx-auto max-w-5xl space-y-6 pb-12">
       <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2 flex items-center gap-2">
-          <QrCode className="w-8 h-8 text-primary" />
+        <h1 className="text-foreground mb-2 flex items-center gap-2 text-3xl font-bold">
+          <QrCode className="text-primary h-8 w-8" />
           Tạo Mã QR Code
         </h1>
         <p className="text-muted-foreground">
@@ -303,9 +303,9 @@ export default function QrCodeGenerator() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12">
         {/* Cột Trái: Bảng Điều Khiển Cấu HÌnh */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="space-y-6 lg:col-span-7">
           {/* Section 1: Nhập nội dung */}
           <QrContentInput
             contentType={contentType}
@@ -333,17 +333,17 @@ export default function QrCodeGenerator() {
 
           {/* Section 2: Tùy chỉnh Style, Màu, Logo */}
           <Tabs defaultValue="style" className="w-full">
-            <TabsList className="grid grid-cols-3 w-full">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="style" className="gap-1.5 text-xs sm:text-sm">
-                <Paintbrush className="w-4 h-4" />
+                <Paintbrush className="h-4 w-4" />
                 Kiểu Dáng
               </TabsTrigger>
               <TabsTrigger value="color" className="gap-1.5 text-xs sm:text-sm">
-                <Palette className="w-4 h-4" />
+                <Palette className="h-4 w-4" />
                 Màu Sắc
               </TabsTrigger>
               <TabsTrigger value="logo" className="gap-1.5 text-xs sm:text-sm">
-                <ImageIcon className="w-4 h-4" />
+                <ImageIcon className="h-4 w-4" />
                 Logo
               </TabsTrigger>
             </TabsList>

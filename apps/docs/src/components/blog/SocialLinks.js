@@ -81,7 +81,7 @@ export default function SocialLinks({ socials }) {
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="no-underline inline-flex items-center gap-1 px-1.5 py-0.5"
+                className="inline-flex items-center gap-1 px-1.5 py-0.5 no-underline"
                 title={label}
               >
                 {IconComponent ? (

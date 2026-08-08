@@ -21,23 +21,23 @@ export default function ToolPage() {
       title="Công cụ tự động hóa"
       description="Tổng hợp các tiện ích tính toán và chuyển đổi hỗ trợ cho kỹ sư tự động hóa."
     >
-      <div className="flex flex-col gap-8 py-6 max-w-6xl mx-auto">
-        <div className="text-left mb-2 space-y-4">
-          <h1 className="text-4xl tracking-tight lg:text-5xl font-bold text-foreground">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 py-6">
+        <div className="mb-2 space-y-4 text-left">
+          <h1 className="text-foreground text-4xl font-bold tracking-tight lg:text-5xl">
             Tổng hợp 1 số công cụ{" "}
             <AboutHighlight
               text="Tự động héo"
-              className="italic font-semibold"
+              className="font-semibold italic"
             />
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed">
+          <p className="text-muted-foreground max-w-3xl text-xl leading-relaxed">
             Bộ công cụ, tiện ích. Được thiết kế tối giản, với giao diện trực
             quan giúp xử lý & tính toán nhanh 1 vài tác vụ.
           </p>
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 auto-rows-55 gap-4">
+        <div className="grid auto-rows-55 grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {tools.map((tool, index) => {
             const Icon = tool.icon;
 
@@ -50,46 +50,46 @@ export default function ToolPage() {
                 key={tool.path}
                 to={tool.path}
                 className={cn(
-                  "group relative overflow-hidden rounded-3xl transition-all duration-300 hover:shadow-xl hover:-translate-y-1 block border bg-card text-card-foreground",
+                  "group bg-card text-card-foreground relative block overflow-hidden rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
                   isFeatured
-                    ? "md:col-span-2 md:row-span-2 bg-primary/5 border-primary/20"
+                    ? "bg-primary/5 border-primary/20 md:col-span-2 md:row-span-2"
                     : "",
                   isWide
-                    ? "md:col-span-2 lg:col-span-2 bg-secondary/30"
+                    ? "bg-secondary/30 md:col-span-2 lg:col-span-2"
                     : "lg:col-span-1",
                 )}
               >
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-linear-to-t from-foreground/5 to-transparent pointer-events-none" />
+                <div className="from-foreground/5 pointer-events-none absolute inset-0 bg-linear-to-t to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
 
                 <Card
                   className={cn(
-                    "h-full border-0 bg-transparent shadow-none flex flex-col p-6 sm:p-8",
+                    "flex h-full flex-col border-0 bg-transparent p-6 shadow-none sm:p-8",
                     !isFeatured && "justify-between",
                   )}
                 >
-                  <div className="flex justify-between items-start">
+                  <div className="flex items-start justify-between">
                     <div
                       className={cn(
-                        "rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3",
+                        "flex items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3",
                         isFeatured
-                          ? "w-16 h-16 bg-primary text-primary-foreground shadow-lg shadow-primary/20 "
-                          : "w-12 h-12 bg-muted text-muted-foreground",
+                          ? "bg-primary text-primary-foreground shadow-primary/20 h-16 w-16 shadow-lg"
+                          : "bg-muted text-muted-foreground h-12 w-12",
                       )}
                     >
                       {Icon && (
-                        <Icon className={isFeatured ? "w-8 h-8" : "w-6 h-6"} />
+                        <Icon className={isFeatured ? "h-8 w-8" : "h-6 w-6"} />
                       )}
                     </div>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-primary" />
+                    <ArrowRight className="text-muted-foreground group-hover:text-primary h-5 w-5 -translate-x-4 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
                   </div>
 
                   <div className="mt-4">
                     <CardTitle
                       className={cn(
-                        "mb-2 tracking-tight text-xl",
+                        "mb-2 text-xl tracking-tight",
                         isFeatured
                           ? "sm:text-3xl sm:font-bold"
-                          : " font-semibold",
+                          : "font-semibold",
                       )}
                     >
                       {tool.label}
@@ -98,7 +98,7 @@ export default function ToolPage() {
                       className={cn(
                         "line-clamp-2",
                         isFeatured
-                          ? "sm:text-base mt-2 sm:line-clamp-8"
+                          ? "mt-2 sm:line-clamp-8 sm:text-base"
                           : "text-sm",
                       )}
                     >

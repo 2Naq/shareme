@@ -14,9 +14,9 @@ function App() {
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Suspense
         fallback={
-          <div className="flex flex-col items-center justify-center w-screen h-screen bg-background gap-2">
+          <div className="bg-background flex h-screen w-screen flex-col items-center justify-center gap-2">
             <SvgLoading />
-            <span className="font-medium text-primary">Loading...</span>
+            <span className="text-primary font-medium">Loading...</span>
           </div>
         }
       >

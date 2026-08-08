@@ -76,7 +76,7 @@ export default function DataConverter() {
   const wordSwapped = isValidHex ? doWordSwap(hexNum32) : null;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       <Card>
         <CardHeader>
           <CardTitle className="text-base">
@@ -87,8 +87,8 @@ export default function DataConverter() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex gap-3 items-center flex-wrap">
-            <div className="space-y-1 flex-1 min-w-[120px]">
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="min-w-[120px] flex-1 space-y-1">
               <Label className="text-xs">Kích cỡ (bit)</Label>
               <Select value={wordSize} onValueChange={setWordSize}>
                 <SelectTrigger className="w-full">
@@ -103,7 +103,7 @@ export default function DataConverter() {
             </div>
             <div className="space-y-1">
               <Label className="text-xs">Có dấu (Signed)</Label>
-              <div className="flex gap-2 mt-1">
+              <div className="mt-1 flex gap-2">
                 <Button
                   size="sm"
                   variant={!isSigned ? "default" : "outline"}
@@ -169,8 +169,8 @@ export default function DataConverter() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-base flex items-center gap-2">
-              <RefreshCw className="w-4 h-4 text-primary" />
+            <CardTitle className="flex items-center gap-2 text-base">
+              <RefreshCw className="text-primary h-4 w-4" />
               Byte Swap & Word Swap
             </CardTitle>
           </CardHeader>
@@ -203,7 +203,7 @@ export default function DataConverter() {
                 />
               </>
             ) : (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Nhập giá trị HEX hợp lệ.
               </p>
             )}

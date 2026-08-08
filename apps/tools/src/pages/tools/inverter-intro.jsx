@@ -11,7 +11,7 @@ import {
 export default function InverterIntroPage() {
   return (
     <ToolLayout title="Inverter Tools" description="Công cụ cho biến tần">
-      <Card className="max-w-2xl bg-card">
+      <Card className="bg-card max-w-2xl">
         <CardHeader>
           <CardTitle className="text-3xl font-bold">Inverter Tools</CardTitle>
           <CardDescription className="text-lg">

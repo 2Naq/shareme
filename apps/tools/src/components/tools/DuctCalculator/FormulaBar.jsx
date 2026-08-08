@@ -7,7 +7,7 @@ import React from "react";
 export default function FormulaBar({ html, children }) {
   if (children) {
     return (
-      <div className="font-mono text-xs sm:text-sm text-cyan-400 bg-[#0d1418] border border-border rounded-md px-3 py-2.5 overflow-x-auto whitespace-nowrap flex items-center gap-2 [&_b]:text-amber-400">
+      <div className="border-border flex items-center gap-2 overflow-x-auto rounded-md border bg-[#0d1418] px-3 py-2.5 font-mono text-xs whitespace-nowrap text-cyan-400 sm:text-sm [&_b]:text-amber-400">
         {children}
       </div>
     );
@@ -15,7 +15,7 @@ export default function FormulaBar({ html, children }) {
 
   return (
     <div
-      className="font-mono text-xs sm:text-sm text-cyan-400 bg-[#0d1418] border border-border rounded-md px-3 py-2.5 overflow-x-auto whitespace-nowrap [&_b]:text-amber-400"
+      className="border-border overflow-x-auto rounded-md border bg-[#0d1418] px-3 py-2.5 font-mono text-xs whitespace-nowrap text-cyan-400 sm:text-sm [&_b]:text-amber-400"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

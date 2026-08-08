@@ -23,23 +23,23 @@ export default function QrPreviewCard({
   handleDownload,
 }) {
   return (
-    <div className="lg:col-span-5 lg:sticky lg:top-8 space-y-6">
-      <Card className="shadow overflow-hidden bg-card">
-        <div className="p-4 bg-muted/40 border-b flex justify-between items-center">
-          <span className="font-semibold text-sm">Xem Trước Mã QR</span>
-          <span className="text-[10px] bg-green-500/20 text-green-500 px-2 py-0.5 rounded-full font-medium">
+    <div className="space-y-6 lg:sticky lg:top-8 lg:col-span-5">
+      <Card className="bg-card overflow-hidden shadow">
+        <div className="bg-muted/40 flex items-center justify-between border-b p-4">
+          <span className="text-sm font-semibold">Xem Trước Mã QR</span>
+          <span className="rounded-full bg-green-500/20 px-2 py-0.5 text-[10px] font-medium text-green-500">
             Real-time
           </span>
         </div>
 
-        <CardContent className="p-6 flex flex-col items-center justify-center space-y-6">
+        <CardContent className="flex flex-col items-center justify-center space-y-6 p-6">
           {/* QR Code Container */}
-          <div className="p-4 bg-white dark:bg-zinc-900 rounded-xl shadow-lg border border-muted/50 transition-all flex items-center justify-center min-h-75 min-w-75">
-            <div ref={qrRef} className="w-70 h-70" />
+          <div className="border-muted/50 flex min-h-75 min-w-75 items-center justify-center rounded-xl border bg-white p-4 shadow-lg transition-all dark:bg-zinc-900">
+            <div ref={qrRef} className="h-70 w-70" />
           </div>
 
           {/* Form Tải Về */}
-          <div className="w-full space-y-4 pt-3 border-t">
+          <div className="w-full space-y-4 border-t pt-3">
             {/* Tên file */}
             <div className="space-y-1.5">
               <Label htmlFor="file-name" className="text-xs">
@@ -97,9 +97,9 @@ export default function QrPreviewCard({
             <div className="grid grid-cols-1 gap-2 pt-2">
               <Button
                 onClick={handleDownload}
-                className="w-full gap-2 h-10 font-medium"
+                className="h-10 w-full gap-2 font-medium"
               >
-                <Download className="w-4 h-4" />
+                <Download className="h-4 w-4" />
                 Tải Mã QR Về Máy
               </Button>
             </div>
@@ -108,7 +108,7 @@ export default function QrPreviewCard({
       </Card>
 
       {/* Tips quét mã an toàn */}
-      <div className="p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/20 text-xs text-yellow-600 dark:text-yellow-400 space-y-1">
+      <div className="space-y-1 rounded-lg border border-yellow-500/20 bg-yellow-500/10 p-4 text-xs text-yellow-600 dark:text-yellow-400">
         <p className="font-bold">⚠️ Mẹo Quét QR An Toàn:</p>
         <p>
           1. Nếu chèn Logo lớn, vui lòng chọn dải màu có độ tương phản cao với

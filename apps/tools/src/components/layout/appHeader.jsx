@@ -7,32 +7,32 @@ import { BookMarked, Home } from "lucide-react";
 
 export function AppHeader() {
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-background px-4">
+    <header className="bg-background flex h-16 shrink-0 items-center justify-between gap-2 border-b px-4">
       <div></div>
       <div className="flex items-center gap-2">
         <SidebarTrigger className="-ml-1" />
         <Separator
           orientation="vertical"
-          className="mr-2 h-6 hidden sm:block"
+          className="mr-2 hidden h-6 sm:block"
         />
         <Link
           to="/"
-          className="font-bold text-lg text-primary no-underline hover:text-primary/80"
+          className="text-primary hover:text-primary/80 text-lg font-bold no-underline"
         >
-          <span className="sm:flex hidden"> Về trang chủ</span>
-          <Home className="sm:hidden block size-5"></Home>
+          <span className="hidden sm:flex"> Về trang chủ</span>
+          <Home className="block size-5 sm:hidden"></Home>
         </Link>
       </div>
-      <div className="flex-1 flex sm:justify-end">
+      <div className="flex flex-1 sm:justify-end">
         {" "}
         <CommandMenu />
       </div>
-      <div className="sm:flex hidden items-center">
+      <div className="hidden items-center sm:flex">
         <a
           href="/shareme/"
-          className="font-medium hover:text-primary transition-colors no-underline"
+          className="hover:text-primary font-medium no-underline transition-colors"
         >
-          <div className="flex items-center gap-1 hover:bg-accent px-2 py-1 rounded-md">
+          <div className="hover:bg-accent flex items-center gap-1 rounded-md px-2 py-1">
             <BookMarked className="size-4" />
             <span>Docs</span>
           </div>

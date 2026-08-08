@@ -103,7 +103,7 @@ export function AppSidebar() {
 
           return (
             <SidebarGroup key={group.id} className="py-2">
-              <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground/75 tracking-wider px-3">
+              <SidebarGroupLabel className="text-muted-foreground/75 px-3 text-xs font-semibold tracking-wider">
                 {group.label}
               </SidebarGroupLabel>
               <SidebarGroupContent>
@@ -140,7 +140,7 @@ export function AppSidebar() {
         })}
       </SidebarContent>
 
-      <SidebarFooter className="p-2 border-t border-border/40">
+      <SidebarFooter className="border-border/40 border-t p-2">
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
@@ -157,19 +157,19 @@ export function AppSidebar() {
                         src="./web-app-manifest-192x192.png"
                         alt="ShareMe"
                       />
-                      <AvatarFallback className="rounded-lg bg-primary text-primary-foreground font-bold text-xs">
+                      <AvatarFallback className="bg-primary text-primary-foreground rounded-lg text-xs font-bold">
                         AN
                       </AvatarFallback>
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-semibold text-foreground">
+                      <span className="text-foreground truncate font-semibold">
                         {configData.appName}
                       </span>
-                      <span className="truncate text-[11px] text-muted-foreground font-mono">
+                      <span className="text-muted-foreground truncate font-mono text-[11px]">
                         {configData.appVersion}
                       </span>
                     </div>
-                    <ChevronsUpDown className="ml-auto size-4 text-muted-foreground" />
+                    <ChevronsUpDown className="text-muted-foreground ml-auto size-4" />
                   </SidebarMenuButton>
                 }
               />
@@ -188,15 +188,15 @@ export function AppSidebar() {
                           src={configData.appIcon}
                           alt="Automation Notes"
                         />
-                        <AvatarFallback className="rounded-lg bg-primary text-primary-foreground font-bold">
+                        <AvatarFallback className="bg-primary text-primary-foreground rounded-lg font-bold">
                           AN
                         </AvatarFallback>
                       </Avatar>
                       <div className="grid flex-1 text-left text-sm leading-tight">
-                        <span className="truncate font-semibold text-foreground">
+                        <span className="text-foreground truncate font-semibold">
                           {configData.appName}
                         </span>
-                        <span className="truncate text-xs text-muted-foreground">
+                        <span className="text-muted-foreground truncate text-xs">
                           {configData.appDescription}
                         </span>
                       </div>
@@ -212,7 +212,7 @@ export function AppSidebar() {
                     <DropdownMenuGroup>
                       <DropdownMenuItem
                         onClick={handleInstall}
-                        className="cursor-pointer font-medium text-emerald-500 focus:text-emerald-500 focus:bg-emerald-500/10 rounded-lg py-2"
+                        className="cursor-pointer rounded-lg py-2 font-medium text-emerald-500 focus:bg-emerald-500/10 focus:text-emerald-500"
                       >
                         <Download className="mr-2 h-4 w-4" />
                         <span>Cài đặt PWA Tools</span>
@@ -227,7 +227,7 @@ export function AppSidebar() {
                     <DropdownMenuGroup>
                       <DropdownMenuItem
                         disabled
-                        className="text-emerald-500/80 text-xs py-1.5"
+                        className="py-1.5 text-xs text-emerald-500/80"
                       >
                         <ShieldCheck className="mr-2 h-4 w-4 text-emerald-500" />
                         <span>Đã cài đặt PWA Tools</span>
@@ -243,11 +243,11 @@ export function AppSidebar() {
                     render={
                       <a
                         href="/shareme/"
-                        className="cursor-pointer flex items-center w-full no-underline py-2 rounded-lg text-foreground"
+                        className="text-foreground flex w-full cursor-pointer items-center rounded-lg py-2 no-underline"
                       >
-                        <BookOpen className="mr-2 h-4 w-4 text-muted-foreground" />
+                        <BookOpen className="text-muted-foreground mr-2 h-4 w-4" />
                         <span>Tài liệu & Blog</span>
-                        <ExternalLink className="ml-auto h-3.5 w-3.5 text-muted-foreground/60" />
+                        <ExternalLink className="text-muted-foreground/60 ml-auto h-3.5 w-3.5" />
                       </a>
                     }
                   ></DropdownMenuItem>
@@ -255,11 +255,11 @@ export function AppSidebar() {
                     render={
                       <a
                         href="/shareme/pwa"
-                        className="cursor-pointer flex items-center w-full no-underline py-2 rounded-lg text-foreground"
+                        className="text-foreground flex w-full cursor-pointer items-center rounded-lg py-2 no-underline"
                       >
                         <Sparkles className="mr-2 h-4 w-4 text-indigo-400" />
                         <span>Ứng dụng PWA</span>
-                        <Download className="ml-auto h-3.5 w-3.5 text-muted-foreground/60" />
+                        <Download className="text-muted-foreground/60 ml-auto h-3.5 w-3.5" />
                       </a>
                     }
                   ></DropdownMenuItem>
@@ -269,7 +269,7 @@ export function AppSidebar() {
 
                 {/* Theme Toggle row */}
                 <div className="flex items-center justify-between px-2 py-1 sm:hidden">
-                  <span className="text-xs font-medium text-muted-foreground">
+                  <span className="text-muted-foreground text-xs font-medium">
                     Chế độ (Dark/Light)
                   </span>
                   <ThemeToggle />

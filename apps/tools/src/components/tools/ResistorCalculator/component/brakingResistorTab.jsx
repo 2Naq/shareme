@@ -242,13 +242,13 @@ export default function BrakingResistorTab() {
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+      <div className="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
         {/* ============== LEFT: INPUTS ============== */}
-        <div className="lg:col-span-5 flex flex-col gap-4">
+        <div className="flex flex-col gap-4 lg:col-span-5">
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Info className="size-5 text-primary" />
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Info className="text-primary size-5" />
                 Thông số đầu vào
               </CardTitle>
               <CardDescription>
@@ -364,7 +364,7 @@ export default function BrakingResistorTab() {
                     }
                   }}
                 />
-                <p className="text-xs text-muted-foreground">
+                <p className="text-muted-foreground text-xs">
                   Thường lấy 100% ~ 150%. Tải nặng ta có thể lên 200%.
                 </p>
               </div>
@@ -413,30 +413,30 @@ export default function BrakingResistorTab() {
         </div>
 
         {/* ============== RIGHT: RESULTS ============== */}
-        <div className="lg:col-span-7 flex flex-col gap-4">
+        <div className="flex flex-col gap-4 lg:col-span-7">
           {/* Summary result card */}
           <Card className="bg-primary/5 border-primary/20">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg">Kết quả tính toán</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {/* R_br */}
-                <div className="rounded-xl bg-background border p-4 text-center">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+                <div className="bg-background rounded-xl border p-4 text-center">
+                  <p className="text-muted-foreground mb-1 text-xs tracking-wider uppercase">
                     Điện trở xả R<sub>br</sub>
                   </p>
-                  <p className="text-2xl font-black font-mono text-primary">
+                  <p className="text-primary font-mono text-2xl font-black">
                     {hasValidResults ? formatOhm(results.rBr) : "—"}
                   </p>
                 </div>
 
                 {/* %ED */}
-                <div className="rounded-xl bg-background border p-4 text-center">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+                <div className="bg-background rounded-xl border p-4 text-center">
+                  <p className="text-muted-foreground mb-1 text-xs tracking-wider uppercase">
                     Duty Cycle %ED
                   </p>
-                  <p className="text-2xl font-black font-mono text-primary">
+                  <p className="text-primary font-mono text-2xl font-black">
                     {!results.divByZero
                       ? `${results.edPercent.toFixed(1)}%`
                       : "—"}
@@ -444,11 +444,11 @@ export default function BrakingResistorTab() {
                 </div>
 
                 {/* P_br */}
-                <div className="rounded-xl bg-background border p-4 text-center">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+                <div className="bg-background rounded-xl border p-4 text-center">
+                  <p className="text-muted-foreground mb-1 text-xs tracking-wider uppercase">
                     Công suất P<sub>br</sub>
                   </p>
-                  <p className="text-2xl font-black font-mono text-primary">
+                  <p className="text-primary font-mono text-2xl font-black">
                     {hasValidResults ? formatPower(results.pBr) : "—"}
                   </p>
                 </div>
@@ -515,8 +515,8 @@ export default function BrakingResistorTab() {
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               {/* Step 1: R_br */}
-              <div className="rounded-lg border bg-muted/30 p-4">
-                <p className="text-sm font-semibold text-foreground mb-2">
+              <div className="bg-muted/30 rounded-lg border p-4">
+                <p className="text-foreground mb-2 text-sm font-semibold">
                   Bước 1: Tính giá trị điện trở R<sub>br</sub>
                 </p>
                 <div className="overflow-x-auto">
@@ -525,8 +525,8 @@ export default function BrakingResistorTab() {
               </div>
 
               {/* Step 2: %ED */}
-              <div className="rounded-lg border bg-muted/30 p-4">
-                <p className="text-sm font-semibold text-foreground mb-2">
+              <div className="bg-muted/30 rounded-lg border p-4">
+                <p className="text-foreground mb-2 text-sm font-semibold">
                   Bước 2: Tính chu kỳ hãm %ED
                 </p>
                 <div className="overflow-x-auto">
@@ -535,8 +535,8 @@ export default function BrakingResistorTab() {
               </div>
 
               {/* Step 3: P_br */}
-              <div className="rounded-lg border bg-muted/30 p-4">
-                <p className="text-sm font-semibold text-foreground mb-2">
+              <div className="bg-muted/30 rounded-lg border p-4">
+                <p className="text-foreground mb-2 text-sm font-semibold">
                   Bước 3: Tính công suất điện trở P<sub>br</sub>
                 </p>
                 <div className="overflow-x-auto">
@@ -557,13 +557,13 @@ export default function BrakingResistorTab() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left py-2 px-2 font-semibold">
+                    <th className="px-2 py-2 text-left font-semibold">
                       Loại phụ tải / Ứng dụng
                     </th>
-                    <th className="text-center py-2 px-2 font-semibold">
+                    <th className="px-2 py-2 text-center font-semibold">
                       Duty Cycle (%ED)
                     </th>
-                    <th className="text-center py-2 px-2 font-semibold">
+                    <th className="px-2 py-2 text-center font-semibold">
                       Công suất khuyến nghị
                     </th>
                   </tr>
@@ -572,13 +572,13 @@ export default function BrakingResistorTab() {
                   {DUTY_CYCLE_REF.map((row) => (
                     <tr
                       key={row.app}
-                      className="border-b border-border/50 hover:bg-accent/50 transition-colors"
+                      className="border-border/50 hover:bg-accent/50 border-b transition-colors"
                     >
-                      <td className="py-2 px-2">{row.app}</td>
-                      <td className="text-center py-2 px-2 font-mono text-xs">
+                      <td className="px-2 py-2">{row.app}</td>
+                      <td className="px-2 py-2 text-center font-mono text-xs">
                         {row.ed}
                       </td>
-                      <td className="text-center py-2 px-2 font-mono text-xs">
+                      <td className="px-2 py-2 text-center font-mono text-xs">
                         {row.power}
                       </td>
                     </tr>
@@ -593,8 +593,8 @@ export default function BrakingResistorTab() {
         {/* Technical references & Industry standards */}
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <BookOpen className="size-5 text-primary" />
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <BookOpen className="text-primary size-5" />
               Các nguồn tham khảo, tiêu chuẩn kỹ thuật
             </CardTitle>
             <CardDescription>
@@ -627,13 +627,13 @@ function AccordionBorders() {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-start gap-2 p-2 -mx-2 no-underline! hover:bg-muted/50 rounded-md transition-colors"
+              className="hover:bg-muted/50 -mx-2 flex items-start gap-2 rounded-md p-2 no-underline! transition-colors"
             >
-              <ShieldCheck className="size-4 text-primary shrink-0 mt-0.5" />
-              <div className="flex-1 min-w-0 ">
+              <ShieldCheck className="text-primary mt-0.5 size-4 shrink-0" />
+              <div className="min-w-0 flex-1">
                 <p className="m-0!">{item.desc}</p>
                 {item.docId && (
-                  <span className="text-[10px] font-mono text-muted-foreground/70">
+                  <span className="text-muted-foreground/70 font-mono text-[10px]">
                     {item.docId}
                   </span>
                 )}

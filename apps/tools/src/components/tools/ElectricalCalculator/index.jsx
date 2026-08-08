@@ -41,7 +41,7 @@ export default function ElectricalCalculator() {
   return (
     <div className="mx-auto space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2">
+        <h1 className="text-foreground mb-2 text-3xl font-bold">
           Tính Toán Thông Số Điện
         </h1>
         <p className="text-muted-foreground">
@@ -51,7 +51,7 @@ export default function ElectricalCalculator() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <ScrollArea>
-          <TabsList className="flex h-10! gap-1 bg-muted/50 p-1">
+          <TabsList className="bg-muted/50 flex h-10! gap-1 p-1">
             {TABS.map((tab) => {
               const Icon = tab.icon;
               return (
@@ -60,7 +60,7 @@ export default function ElectricalCalculator() {
                   value={tab.id}
                   className="h-full p-1.5"
                 >
-                  <Icon className="w-4 h-4 shrink-0" />
+                  <Icon className="h-4 w-4 shrink-0" />
                   <span className="inline">{tab.label}</span>
                   {/* <span className="sm:hidden">{tab.label.split(" ")[0]}</span> */}
                 </TabsTrigger>

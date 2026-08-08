@@ -26,7 +26,7 @@ export default function BlogAuthorsListPage({ authors, sidebar }) {
         <div className="container mx-auto max-w-5xl px-4 py-8">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-foreground mb-1">Tác giả</h1>
+            <h1 className="text-foreground mb-1 text-3xl font-bold">Tác giả</h1>
             <p className="text-muted-foreground text-sm">
               Những người đóng góp nội dung cho blog{" "}
               <AboutHighlight text="shareme"></AboutHighlight>
@@ -36,7 +36,7 @@ export default function BlogAuthorsListPage({ authors, sidebar }) {
           <Separator className="mb-8" />
 
           {/* Authors Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {authors.map((author) => (
               <AuthorCard
                 key={author.key}

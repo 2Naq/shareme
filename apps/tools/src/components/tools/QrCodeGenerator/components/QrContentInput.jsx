@@ -54,19 +54,19 @@ export default function QrContentInput({
 }) {
   return (
     <Card className="shadow-sm">
-      <CardContent className="p-5 space-y-4">
-        <div className="flex items-center justify-between border-b pb-3 mb-2">
-          <span className="font-bold text-base flex items-center gap-2">
-            <FileText className="w-4 h-4 text-primary" />
+      <CardContent className="space-y-4 p-5">
+        <div className="mb-2 flex items-center justify-between border-b pb-3">
+          <span className="flex items-center gap-2 text-base font-bold">
+            <FileText className="text-primary h-4 w-4" />
             1. Nhập Nội Dung Mã QR
           </span>
           <Button
             variant="ghost"
             size="sm"
             onClick={handleResetAll}
-            className="h-8 gap-1.5 text-xs text-muted-foreground"
+            className="text-muted-foreground h-8 gap-1.5 text-xs"
           >
-            <RotateCcw className="w-3.5 h-3.5" />
+            <RotateCcw className="h-3.5 w-3.5" />
             Reset Tất Cả
           </Button>
         </div>
@@ -82,13 +82,13 @@ export default function QrContentInput({
                 type="button"
                 onClick={() => setContentType(type.id)}
                 className={cn(
-                  "flex flex-col items-center justify-center p-2 rounded-lg border text-center transition-all gap-1.5",
+                  "flex flex-col items-center justify-center gap-1.5 rounded-lg border p-2 text-center transition-all",
                   active
                     ? "border-primary bg-primary/10 text-primary font-medium"
                     : "border-border hover:bg-muted text-muted-foreground",
                 )}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className="h-4 w-4" />
                 <span className="text-[10px] sm:text-xs">{type.label}</span>
               </button>
             );
@@ -133,7 +133,7 @@ export default function QrContentInput({
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 items-center">
+              <div className="grid grid-cols-2 items-center gap-4">
                 <div className="space-y-1.5">
                   <Label>Bảo mật:</Label>
                   <Select

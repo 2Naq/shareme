@@ -11,10 +11,10 @@ export default function FormulaCard({ calculations }) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="p-3 bg-background rounded-lg border flex justify-center items-center overflow-x-auto min-h-17.5 bg-grid">
+        <div className="bg-background bg-grid flex min-h-17.5 items-center justify-center overflow-x-auto rounded-lg border p-3">
           <MathRendererBlock formula={calculations.latexFormula} />
         </div>
-        <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
+        <p className="text-muted-foreground mt-2 text-[11px] leading-relaxed">
           {MathRenderInline(
             String.raw`Trong đó:
             <br /> $\rho$ là điện trở suất dây dẫn ($\Omega \cdot mm^2/m$) 

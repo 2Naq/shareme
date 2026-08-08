@@ -27,11 +27,11 @@ export default function Home() {
 
         {/* Tự do custom nội dung bên dưới mà không bị gò bó bởi Layout mặc định */}
         <div className="custom-layout-wrapper bg-white">
-          <main className=" container flex flex-col justify-center items-center min-h-[calc(100vh-60px)] text-center">
-            <h1 className="text-6xl text-primary">
+          <main className="container flex min-h-[calc(100vh-60px)] flex-col items-center justify-center text-center">
+            <h1 className="text-primary text-6xl">
               Welcom to {myData.brand_name}
             </h1>
-            <p className="text-xl text-muted-foreground mt-2">
+            <p className="text-muted-foreground mt-2 text-xl">
               Practice - Challenge - Persevere
             </p>
 
@@ -43,10 +43,10 @@ export default function Home() {
               />
             </div>
             <Link
-              className="inline-flex items-center justify-center gap-2 pr-4 pl-6 py-3 rounded-lg bg-black text-white font-semibold hover:opacity-90 transition-opacity no-underline w-full sm:w-auto mt-4"
+              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-black py-3 pr-4 pl-6 font-semibold text-white no-underline transition-opacity hover:opacity-90 sm:w-auto"
               to="/docs"
             >
-              <span className="leading-none mb-0.5">Get started</span>
+              <span className="mb-0.5 leading-none">Get started</span>
               <ArrowRight className="size-5" />
             </Link>
           </main>

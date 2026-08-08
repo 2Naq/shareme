@@ -12,11 +12,11 @@ export default function Svg2DView({
 }) {
   return (
     <div
-      className={`rounded-md border border-border overflow-hidden bg-[#0d1418] ${className}`}
+      className={`border-border overflow-hidden rounded-md border bg-[#0d1418] ${className}`}
     >
       <svg
         viewBox={viewBox}
-        className="block w-full h-auto"
+        className="block h-auto w-full"
         dangerouslySetInnerHTML={{ __html: svgContent }}
       />
     </div>

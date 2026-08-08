@@ -18,8 +18,8 @@ function HeaderAbout() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-background/80 border-b border-edge">
-      <div className="mx-auto md:max-w-3xl flex items-center justify-between px-4 py-3 font-mono">
+    <header className="bg-background/80 border-edge sticky top-0 z-50 w-full border-b backdrop-blur-md">
+      <div className="mx-auto flex items-center justify-between px-4 py-3 font-mono md:max-w-3xl">
         <div className="flex-1"></div>
         <div className="flex items-center gap-1">
           {/* Blog Button */}
@@ -42,7 +42,7 @@ function HeaderAbout() {
           <button
             onClick={toggleTheme}
             type="button"
-            className="p-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-muted transition-colors cursor-pointer border-none bg-transparent flex items-center justify-center"
+            className="text-foreground/80 hover:text-foreground hover:bg-muted flex cursor-pointer items-center justify-center rounded-md border-none bg-transparent p-2 transition-colors"
             title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
             aria-label="Toggle Theme"
           >

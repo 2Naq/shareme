@@ -36,7 +36,7 @@ function ViewAllAuthorsLink() {
         <Link
           to={authorsListPath}
 
-          className="no-underline text-muted-foreground hover:text-foreground"
+          className="text-muted-foreground hover:text-foreground no-underline"
         >
           ← Xem tất cả tác giả
         </Link>
@@ -50,11 +50,11 @@ function Content({ author, items, listMetadata }) {
     <Layout>
       <div className="container mx-auto max-w-6xl px-4 py-8">
         {/* Author Header */}
-        <div className="max-w-md mx-auto mb-6">
+        <div className="mx-auto mb-6 max-w-md">
           <AuthorCard author={author} variant="large" />
         </div>
 
-        <div className="flex justify-center mb-6">
+        <div className="mb-6 flex justify-center">
           <ViewAllAuthorsLink />
         </div>
 
@@ -62,15 +62,15 @@ function Content({ author, items, listMetadata }) {
 
         {/* Bài viết */}
         {items.length === 0 ? (
-          <p className="text-center text-muted-foreground py-12">
+          <p className="text-muted-foreground py-12 text-center">
             Tác giả này chưa có bài viết nào.
           </p>
         ) : (
           <>
-            <h2 className="text-xl font-bold text-foreground mb-6">
+            <h2 className="text-foreground mb-6 text-xl font-bold">
               Bài viết ({items.length})
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               <BlogPostItems items={items} />
             </div>
             <div className="mt-8">

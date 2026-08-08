@@ -91,7 +91,7 @@ export default function Rs485HexCalculator() {
   return (
     <div className="mx-auto space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2">
+        <h1 className="text-foreground mb-2 text-3xl font-bold">
           Tính Mã Hex Cấu Hình RS485
         </h1>
         <p className="text-muted-foreground">
@@ -100,7 +100,7 @@ export default function Rs485HexCalculator() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
         <Card className="sm:col-span-2">
           <CardHeader>
             <CardTitle>Thông số truyền thông</CardTitle>
@@ -109,7 +109,7 @@ export default function Rs485HexCalculator() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {/* BIT 0 */}
               <div className="space-y-2">
                 <Label>Độ dài dữ liệu (Bit 0)</Label>
@@ -225,24 +225,24 @@ export default function Rs485HexCalculator() {
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
-              <Label className="text-xs text-primary uppercase tracking-wider">
+              <Label className="text-primary text-xs tracking-wider uppercase">
                 Chuỗi nhị phân 16-bit
               </Label>
-              <div className="mt-1 font-mono text-lg font-bold tracking-widest text-foreground">
+              <div className="text-foreground mt-1 font-mono text-lg font-bold tracking-widest">
                 {binaryFormatted}
               </div>
             </div>
 
             <div>
-              <Label className="text-xs text-primary uppercase tracking-wider">
+              <Label className="text-primary text-xs tracking-wider uppercase">
                 Mã Hex
               </Label>
-              <div className="mt-1 font-mono text-3xl font-black text-primary">
+              <div className="text-primary mt-1 font-mono text-3xl font-black">
                 {hexCode}
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 shrink-0 text-muted-foreground hover:text-foreground"
+                  className="text-muted-foreground hover:text-foreground h-8 w-8 shrink-0"
                   onClick={() => copyToClipboard(hexCode)}
                   title="Sao chép lệnh"
                 >
@@ -256,17 +256,17 @@ export default function Rs485HexCalculator() {
             </div>
 
             <div>
-              <Label className="text-xs text-primary uppercase tracking-wider">
+              <Label className="text-primary text-xs tracking-wider uppercase">
                 Ví dụ
               </Label>
-              <div className="w-full border mt-1 p-3 bg-secondary rounded-lg flex items-center justify-between gap-2">
-                <span className="font-mono text-base text-secondary-foreground truncate">
+              <div className="bg-secondary mt-1 flex w-full items-center justify-between gap-2 rounded-lg border p-3">
+                <span className="text-secondary-foreground truncate font-mono text-base">
                   {ladderCommand}
                 </span>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 shrink-0 text-muted-foreground hover:text-foreground"
+                  className="text-muted-foreground hover:text-foreground h-8 w-8 shrink-0"
                   onClick={() => copyToClipboard(ladderCommand)}
                   title="Sao chép lệnh"
                 >
@@ -293,7 +293,7 @@ export default function Rs485HexCalculator() {
                 {Array.from({ length: 16 }, (_, i) => (
                   <TableHead
                     key={i}
-                    className="text-center px-1 font-semibold text-muted-foreground"
+                    className="text-muted-foreground px-1 text-center font-semibold"
                   >
                     {15 - i}
                   </TableHead>
@@ -305,11 +305,11 @@ export default function Rs485HexCalculator() {
                 {binaryString.split("").map((bit, i) => (
                   <TableCell
                     key={i}
-                    className="text-center px-1 py-3 border-r last:border-r-0"
+                    className="border-r px-1 py-3 text-center last:border-r-0"
                   >
                     <Badge
                       variant={bit === "1" ? "default" : "outline"}
-                      className="font-mono text-sm w-6 justify-center"
+                      className="w-6 justify-center font-mono text-sm"
                     >
                       {bit}
                     </Badge>

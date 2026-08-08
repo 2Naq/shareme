@@ -11,11 +11,11 @@ export default function ResultRow({
   if (!value && value !== 0) return null;
   const display = String(value);
   return (
-    <div className="flex items-center justify-between gap-2 py-2 border-b last:border-b-0">
-      <span className="text-xs text-muted-foreground">{label}</span>
+    <div className="flex items-center justify-between gap-2 border-b py-2 last:border-b-0">
+      <span className="text-muted-foreground text-xs">{label}</span>
       <div className="flex items-center gap-1">
         {badge ? (
-          <Badge variant="outline" className="font-mono text-xs px-2">
+          <Badge variant="outline" className="px-2 font-mono text-xs">
             {display}
           </Badge>
         ) : (

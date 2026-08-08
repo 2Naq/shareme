@@ -25,10 +25,10 @@ const BtnInstall = ({
     <button
       onClick={handleInstallClick}
       disabled={canInstall}
-      className={`w-full py-3.5 px-6 rounded-2xl font-bold transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20 ${
+      className={`flex w-full items-center justify-center gap-2 rounded-2xl px-6 py-3.5 font-bold shadow-lg shadow-blue-500/20 transition-all duration-200 ${
         canInstall
-          ? "bg-blue-600 hover:bg-blue-500 text-white cursor-pointer active:scale-95 border-none"
-          : "bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700/50"
+          ? "cursor-pointer border-none bg-blue-600 text-white hover:bg-blue-500 active:scale-95"
+          : "cursor-not-allowed border border-slate-700/50 bg-slate-800 text-slate-500"
       }`}
     >
       {children}
@@ -99,22 +99,22 @@ export default function PwaHub() {
         <title>Cài đặt ứng dụng PWA | ShareMe</title>
       </Head>
 
-      <main className="min-h-screen bg-slate-950 text-slate-100 py-16 px-4 relative overflow-hidden font-sans">
+      <main className="relative min-h-screen overflow-hidden bg-slate-950 px-4 py-16 font-sans text-slate-100">
         {/* Glow Effects */}
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-500/10 rounded-full blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none" />
+        <div className="pointer-events-none absolute top-[-10%] left-[-10%] h-[50%] w-[50%] rounded-full bg-blue-500/10 blur-[150px]" />
+        <div className="pointer-events-none absolute right-[-10%] bottom-[-10%] h-[50%] w-[50%] rounded-full bg-emerald-500/10 blur-[150px]" />
 
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="relative z-10 mx-auto max-w-6xl">
           {/* Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
+          <div className="mb-16 text-center">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-xs font-semibold tracking-wider text-blue-400 uppercase">
               <Sparkles className="size-3.5" />
               Progressive Web App
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 pb-4 bg-linear-to-r from-blue-400 via-indigo-200 to-emerald-400 bg-clip-text text-transparent">
+            <h1 className="mb-4 bg-linear-to-r from-blue-400 via-indigo-200 to-emerald-400 bg-clip-text pb-4 text-4xl font-extrabold tracking-tight text-transparent md:text-6xl">
               Cài Đặt Ứng Dụng ShareMe PWA
             </h1>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-lg text-slate-400">
               Cài đặt ShareMe trực tiếp lên màn hình điện thoại hoặc máy tính
               của bạn. Dễ dàng truy cập ngoại tuyến, tốc độ mượt mà và khởi chạy
               nhanh chóng chỉ với 1 chạm.
@@ -122,15 +122,15 @@ export default function PwaHub() {
           </div>
 
           {/* Current Manifest Indicator Alert */}
-          <div className="mb-10 p-4 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md flex items-center justify-between gap-4 max-w-3xl mx-auto">
+          <div className="mx-auto mb-10 flex max-w-3xl items-center justify-between gap-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-4 backdrop-blur-md">
             <div className="flex items-center gap-3">
-              <div className="size-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
                 <Info className="size-5" />
               </div>
               <div>
                 <div className="text-sm font-medium text-slate-200">
                   Trình duyệt đang cấu hình manifest cho:{" "}
-                  <span className="text-blue-400 font-semibold uppercase">
+                  <span className="font-semibold text-blue-400 uppercase">
                     {currentMode === "all"
                       ? "Bản Chung (Docs & Tools)"
                       : "Bản Docs (Tài liệu)"}
@@ -145,42 +145,42 @@ export default function PwaHub() {
           </div>
 
           {/* 3 cards grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          <div className="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
             {/* Card 1: PWA Chung */}
             <div
-              className={`relative rounded-3xl p-6 transition-all duration-300 flex flex-col h-full bg-slate-900/40 border backdrop-blur-md ${
+              className={`relative flex h-full flex-col rounded-3xl border bg-slate-900/40 p-6 backdrop-blur-md transition-all duration-300 ${
                 currentMode === "all"
-                  ? "border-indigo-500 ring-2 ring-indigo-500/20 shadow-[0_0_50px_-12px_rgba(99,102,241,0.3)] scale-[1.02]"
+                  ? "scale-[1.02] border-indigo-500 shadow-[0_0_50px_-12px_rgba(99,102,241,0.3)] ring-2 ring-indigo-500/20"
                   : "border-slate-800 hover:border-slate-700"
               }`}
             >
               {currentMode === "all" && (
-                <div className="absolute top-0 right-6 -translate-y-1/2 px-3 py-1 rounded-full bg-indigo-600 text-white text-[10px] font-bold uppercase tracking-wider shadow-lg">
+                <div className="absolute top-0 right-6 -translate-y-1/2 rounded-full bg-indigo-600 px-3 py-1 text-[10px] font-bold tracking-wider text-white uppercase shadow-lg">
                   Kích Hoạt Sẵn Sàng
                 </div>
               )}
-              <div className="size-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6 shadow-inner">
+              <div className="mb-6 flex size-14 items-center justify-center rounded-2xl border border-indigo-500/20 bg-indigo-500/10 text-indigo-400 shadow-inner">
                 <Package className="size-7" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
+              <h3 className="mb-2 text-2xl font-bold text-white">
                 ShareMe (Chung)
               </h3>
-              <p className="text-sm text-slate-400 mb-6 grow">
+              <p className="mb-6 grow text-sm text-slate-400">
                 Giải pháp tổng hợp đầy đủ nhất. Bao gồm toàn bộ tài liệu kỹ
                 thuật số tự động hóa (PLC, Inverter) và tất cả công cụ (Vite
                 tools) tính toán kỹ thuật trong một ứng dụng duy nhất.
               </p>
-              <div className="space-y-3 mb-8">
+              <div className="mb-8 space-y-3">
                 <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <Check className="size-4 text-emerald-400 shrink-0" />
+                  <Check className="size-4 shrink-0 text-emerald-400" />
                   <span>Tra cứu tài liệu PLC, Biến tần...</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <Check className="size-4 text-emerald-400 shrink-0" />
+                  <Check className="size-4 shrink-0 text-emerald-400" />
                   <span>Đầy đủ công cụ tính toán điện, analog...</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <Check className="size-4 text-emerald-400 shrink-0" />
+                  <Check className="size-4 shrink-0 text-emerald-400" />
                   <span>Tốc độ tải nhanh, hỗ trợ lưu offline</span>
                 </div>
               </div>
@@ -195,7 +195,7 @@ export default function PwaHub() {
               ) : (
                 <button
                   onClick={() => handleSwitchMode("all")}
-                  className="w-full py-3.5 px-6 rounded-2xl font-semibold border border-indigo-500/30 text-indigo-400 hover:bg-indigo-500/10 hover:border-indigo-500 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
+                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-indigo-500/30 px-6 py-3.5 font-semibold text-indigo-400 transition-all duration-200 hover:border-indigo-500 hover:bg-indigo-500/10"
                 >
                   Kích hoạt cài đặt
                   <ArrowRight className="size-4" />
@@ -205,39 +205,39 @@ export default function PwaHub() {
 
             {/* Card 2: PWA Docs */}
             <div
-              className={`relative rounded-3xl p-6 transition-all duration-300 flex flex-col h-full bg-slate-900/40 border backdrop-blur-md ${
+              className={`relative flex h-full flex-col rounded-3xl border bg-slate-900/40 p-6 backdrop-blur-md transition-all duration-300 ${
                 currentMode === "docs"
-                  ? "border-blue-500 ring-2 ring-blue-500/20 shadow-[0_0_50px_-12px_rgba(59,130,246,0.3)] scale-[1.02]"
+                  ? "scale-[1.02] border-blue-500 shadow-[0_0_50px_-12px_rgba(59,130,246,0.3)] ring-2 ring-blue-500/20"
                   : "border-slate-800 hover:border-slate-700"
               }`}
             >
               {currentMode === "docs" && (
-                <div className="absolute top-0 right-6 -translate-y-1/2 px-3 py-1 rounded-full bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider shadow-lg">
+                <div className="absolute top-0 right-6 -translate-y-1/2 rounded-full bg-blue-600 px-3 py-1 text-[10px] font-bold tracking-wider text-white uppercase shadow-lg">
                   Kích Hoạt Sẵn Sàng
                 </div>
               )}
-              <div className="size-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-6 shadow-inner">
+              <div className="mb-6 flex size-14 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10 text-blue-400 shadow-inner">
                 <BookOpen className="size-7" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
+              <h3 className="mb-2 text-2xl font-bold text-white">
                 ShareMe Docs
               </h3>
-              <p className="text-sm text-slate-400 mb-6 grow">
+              <p className="mb-6 grow text-sm text-slate-400">
                 Phiên bản tối ưu chuyên đọc tài liệu kỹ thuật. Phù hợp cho ní
                 muốn tập trung tra cứu tài liệu, bảng mã lỗi và chia sẻ kinh
                 nghiệm kỹ thuật.
               </p>
-              <div className="space-y-3 mb-8">
+              <div className="mb-8 space-y-3">
                 <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <Check className="size-4 text-emerald-400 shrink-0" />
+                  <Check className="size-4 shrink-0 text-emerald-400" />
                   <span>Tra cứu tài liệu PLC Omron, Mitsubishi...</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <Check className="size-4 text-emerald-400 shrink-0" />
+                  <Check className="size-4 shrink-0 text-emerald-400" />
                   <span>Xem tài liệu mã lỗi biến tần</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <Check className="size-4 text-emerald-400 shrink-0" />
+                  <Check className="size-4 shrink-0 text-emerald-400" />
                   <span>Giao diện đọc sách, blog</span>
                 </div>
               </div>
@@ -252,7 +252,7 @@ export default function PwaHub() {
               ) : (
                 <button
                   onClick={() => handleSwitchMode("docs")}
-                  className="w-full py-3.5 px-6 rounded-2xl font-semibold border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 hover:border-blue-500 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
+                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-blue-500/30 px-6 py-3.5 font-semibold text-blue-400 transition-all duration-200 hover:border-blue-500 hover:bg-blue-500/10"
                 >
                   Kích hoạt cài đặt
                   <ArrowRight className="size-4" />
@@ -261,36 +261,36 @@ export default function PwaHub() {
             </div>
 
             {/* Card 3: PWA Tools */}
-            <div className="relative rounded-3xl p-6 transition-all duration-300 flex flex-col h-full bg-slate-900/40 border border-slate-800 hover:border-slate-700 backdrop-blur-md">
-              <div className="size-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6 shadow-inner">
+            <div className="relative flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900/40 p-6 backdrop-blur-md transition-all duration-300 hover:border-slate-700">
+              <div className="mb-6 flex size-14 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-inner">
                 <Cpu className="size-7" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
+              <h3 className="mb-2 text-2xl font-bold text-white">
                 ShareMe Tools
               </h3>
-              <p className="text-sm text-slate-400 mb-6 grow">
+              <p className="mb-6 grow text-sm text-slate-400">
                 Ứng dụng công cụ tính toán kỹ thuật tự động hóa chuyên biệt.
                 Siêu nhẹ và siêu nhanh, phù hợp cài đặt độc lập để lập trình
                 viên sử dụng nhanh trên tủ điện hoặc hiện trường.
               </p>
-              <div className="space-y-3 mb-8">
+              <div className="mb-8 space-y-3">
                 <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <Check className="size-4 text-emerald-400 shrink-0" />
+                  <Check className="size-4 shrink-0 text-emerald-400" />
                   <span>Tính toán chuyển đổi Analog Scaling cực nhanh</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <Check className="size-4 text-emerald-400 shrink-0" />
+                  <Check className="size-4 shrink-0 text-emerald-400" />
                   <span>Phân tích mã HEX Modbus RTU RS485</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <Check className="size-4 text-emerald-400 shrink-0" />
+                  <Check className="size-4 shrink-0 text-emerald-400" />
                   <span>Tạo và Quét mã QR, tính thông số điện</span>
                 </div>
               </div>
 
               <a
                 href="/shareme/tool/"
-                className="w-full py-3.5 px-6 rounded-2xl font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20 active:scale-95 text-center no-underline"
+                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-6 py-3.5 text-center font-semibold text-white no-underline shadow-lg shadow-emerald-500/10 transition-all duration-200 hover:bg-emerald-500 hover:shadow-emerald-500/20 active:scale-95"
               >
                 Mở Tools và Cài đặt
                 <ExternalLink className="size-4" />
@@ -299,19 +299,19 @@ export default function PwaHub() {
           </div>
 
           {/* Installation steps for different devices */}
-          <div className="p-8 rounded-3xl bg-slate-900/40 border border-slate-800 backdrop-blur-md">
-            <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/40 p-8 backdrop-blur-md">
+            <h2 className="mb-8 flex items-center gap-3 text-2xl font-bold text-white">
               <Smartphone className="size-6 text-emerald-400" />
               Hướng dẫn cài đặt trên các thiết bị
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               <div>
-                <h4 className="font-semibold text-slate-200 text-base mb-3 flex items-center gap-2">
+                <h4 className="mb-3 flex items-center gap-2 text-base font-semibold text-slate-200">
                   <Monitor className="size-4.5 text-blue-400" />
                   Máy tính (Chrome, Edge, Brave...)
                 </h4>
-                <ol className="list-decimal list-inside text-slate-400 text-sm space-y-2.5">
+                <ol className="list-inside list-decimal space-y-2.5 text-sm text-slate-400">
                   <li>
                     Nhấn nút{" "}
                     <strong className="text-slate-200">
@@ -326,7 +326,7 @@ export default function PwaHub() {
                   </li>
                   <li>
                     Nếu không, hãy tìm biểu tượng cài đặt{" "}
-                    <span className="text-slate-200 font-bold border border-slate-700 px-1.5 py-0.5 rounded bg-slate-800 text-xs">
+                    <span className="rounded border border-slate-700 bg-slate-800 px-1.5 py-0.5 text-xs font-bold text-slate-200">
                       ⊕
                     </span>{" "}
                     hoặc dấu 3 chấm dọc ở góc trên bên phải trình duyệt, chọn{" "}
@@ -339,11 +339,11 @@ export default function PwaHub() {
               </div>
 
               <div>
-                <h4 className="font-semibold text-slate-200 text-base mb-3 flex items-center gap-2">
+                <h4 className="mb-3 flex items-center gap-2 text-base font-semibold text-slate-200">
                   <Smartphone className="size-4.5 text-blue-400" />
                   Điện thoại (iOS / Safari & Android / Chrome)
                 </h4>
-                <ul className="text-slate-400 text-sm space-y-2.5">
+                <ul className="space-y-2.5 text-sm text-slate-400">
                   <li>
                     <strong className="text-slate-200">Android:</strong> Nhấp
                     vào nút{" "}

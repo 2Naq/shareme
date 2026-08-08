@@ -11,7 +11,7 @@ import {
 export default function HmiIntroPage() {
   return (
     <ToolLayout title="HMI Tools" description="Công cụ cho HMI">
-      <Card className="max-w-2xl bg-card">
+      <Card className="bg-card max-w-2xl">
         <CardHeader>
           <CardTitle className="text-3xl font-bold">HMI Tools</CardTitle>
           <CardDescription className="text-lg">

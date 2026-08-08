@@ -61,12 +61,12 @@ export default function ResidentialCalculator() {
   const activeAppliances = processedAppliances.filter((a) => a.qty > 0);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
       {/* Danh sách thiết bị */}
       <Card className="lg:col-span-7">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Home className="w-5 h-5 text-primary" />
+            <Home className="text-primary h-5 w-5" />
             Thiết Bị Trong Nhà
           </CardTitle>
           <CardDescription>
@@ -76,14 +76,14 @@ export default function ResidentialCalculator() {
         <CardContent className="space-y-3">
           {processedAppliances.map((appliance) => (
             <div key={appliance.id}>
-              <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/20 hover:bg-muted/40 transition-colors">
-                <div className="flex items-center gap-3 min-w-0">
-                  <span className="text-xl shrink-0">{appliance.icon}</span>
+              <div className="bg-muted/20 hover:bg-muted/40 flex items-center justify-between rounded-lg border p-3 transition-colors">
+                <div className="flex min-w-0 items-center gap-3">
+                  <span className="shrink-0 text-xl">{appliance.icon}</span>
                   <div className="min-w-0">
-                    <p className="text-sm font-medium truncate">
+                    <p className="truncate text-sm font-medium">
                       {appliance.name}
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-muted-foreground text-xs">
                       {appliance.id === "ac" && appliance.qty > 0
                         ? `${appliance.acSuggestion?.label || "—"}`
                         : `${appliance.watts}W — cosφ ${appliance.cosPhi}`}
@@ -91,7 +91,7 @@ export default function ResidentialCalculator() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex shrink-0 items-center gap-2">
                   <Button
                     variant="outline"
                     size="icon"
@@ -99,9 +99,9 @@ export default function ResidentialCalculator() {
                     onClick={() => updateQty(appliance.id, -1)}
                     disabled={appliance.qty <= 0}
                   >
-                    <Minus className="w-3 h-3" />
+                    <Minus className="h-3 w-3" />
                   </Button>
-                  <span className="w-8 text-center font-mono font-bold text-sm">
+                  <span className="w-8 text-center font-mono text-sm font-bold">
                     {appliance.qty}
                   </span>
                   <Button
@@ -110,16 +110,16 @@ export default function ResidentialCalculator() {
                     className="h-8 w-8"
                     onClick={() => updateQty(appliance.id, 1)}
                   >
-                    <Plus className="w-3 h-3" />
+                    <Plus className="h-3 w-3" />
                   </Button>
                 </div>
               </div>
 
               {/* Chọn diện tích phòng cho máy lạnh */}
               {appliance.id === "ac" && appliance.qty > 0 && (
-                <div className="ml-10 mt-2 p-3 rounded-lg border border-cyan-500/30 bg-cyan-500/5 space-y-3">
+                <div className="mt-2 ml-10 space-y-3 rounded-lg border border-cyan-500/30 bg-cyan-500/5 p-3">
                   <div className="flex items-center gap-2 text-sm font-medium text-cyan-600 dark:text-cyan-400">
-                    <Snowflake className="w-4 h-4" />
+                    <Snowflake className="h-4 w-4" />
                     Cấu hình máy lạnh
                   </div>
                   <div className="space-y-2">
@@ -137,24 +137,24 @@ export default function ResidentialCalculator() {
                       step={1}
                       className="w-full"
                     />
-                    <div className="flex justify-between text-xs text-muted-foreground">
+                    <div className="text-muted-foreground flex justify-between text-xs">
                       <span>5 m²</span>
                       <span>80 m²</span>
                     </div>
                   </div>
                   {appliance.acSuggestion && (
                     <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div className="p-2 rounded bg-background border">
+                      <div className="bg-background rounded border p-2">
                         <span className="text-muted-foreground">BTU:</span>{" "}
                         <strong>
                           {appliance.acSuggestion.btu.toLocaleString()}
                         </strong>
                       </div>
-                      <div className="p-2 rounded bg-background border">
+                      <div className="bg-background rounded border p-2">
                         <span className="text-muted-foreground">HP:</span>{" "}
                         <strong>{appliance.acSuggestion.hp}</strong>
                       </div>
-                      <div className="p-2 rounded bg-background border col-span-2">
+                      <div className="bg-background col-span-2 rounded border p-2">
                         <span className="text-muted-foreground">
                           Công suất điện:
                         </span>{" "}
@@ -168,7 +168,7 @@ export default function ResidentialCalculator() {
           ))}
 
           {/* Hệ số đồng thời */}
-          <div className="pt-4 border-t space-y-2">
+          <div className="space-y-2 border-t pt-4">
             <Label className="text-sm">
               Hệ số đồng thời (Demand Factor):{" "}
               <strong>{(demandFactor * 100).toFixed(0)}%</strong>
@@ -183,7 +183,7 @@ export default function ResidentialCalculator() {
               max={100}
               step={5}
             />
-            <p className="text-xs text-muted-foreground">
+            <p className="text-muted-foreground text-xs">
               Hệ số phần trăm thiết bị hoạt động đồng thời. Mặc định 70% là hợp
               lý cho hộ gia đình.
             </p>
@@ -192,7 +192,7 @@ export default function ResidentialCalculator() {
       </Card>
 
       {/* Kết quả */}
-      <div className="lg:col-span-5 space-y-6">
+      <div className="space-y-6 lg:col-span-5">
         {/* Tổng hợp */}
         <Card className="bg-primary/5 border-primary/20">
           <CardHeader>
@@ -200,28 +200,28 @@ export default function ResidentialCalculator() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
-              <div className="p-3 rounded-lg bg-background border">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+              <div className="bg-background rounded-lg border p-3">
+                <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                   Tổng P (tải)
                 </Label>
-                <div className="mt-1 font-mono text-2xl font-black text-foreground">
+                <div className="text-foreground mt-1 font-mono text-2xl font-black">
                   {(results.totalWatts / 1000).toFixed(2)}{" "}
                   <span className="text-sm">kW</span>
                 </div>
               </div>
-              <div className="p-3 rounded-lg bg-background border">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+              <div className="bg-background rounded-lg border p-3">
+                <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                   P tính toán (×{(demandFactor * 100).toFixed(0)}%)
                 </Label>
-                <div className="mt-1 font-mono text-2xl font-black text-primary">
+                <div className="text-primary mt-1 font-mono text-2xl font-black">
                   {(results.demandWatts / 1000).toFixed(2)}{" "}
                   <span className="text-sm">kW</span>
                 </div>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <div className="p-3 rounded-lg bg-background border">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+              <div className="bg-background rounded-lg border p-3">
+                <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                   Tổng dòng I
                 </Label>
                 <div className="mt-1 font-mono text-2xl font-black text-orange-500">
@@ -229,11 +229,11 @@ export default function ResidentialCalculator() {
                   <span className="text-sm">A</span>
                 </div>
               </div>
-              <div className="p-3 rounded-lg bg-background border">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+              <div className="bg-background rounded-lg border p-3">
+                <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                   cosφ trung bình
                 </Label>
-                <div className="mt-1 font-mono text-2xl font-black text-foreground">
+                <div className="text-foreground mt-1 font-mono text-2xl font-black">
                   {results.weightedPF.toFixed(2)}
                 </div>
               </div>
@@ -247,19 +247,19 @@ export default function ResidentialCalculator() {
             <CardTitle>Đề Xuất CB Tổng & Dây</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <div className="flex justify-between items-center p-3 rounded-lg border bg-muted/30">
-              <span className="text-sm text-muted-foreground">CB Tổng</span>
-              <Badge variant="default" className="text-sm px-3 py-1">
+            <div className="bg-muted/30 flex items-center justify-between rounded-lg border p-3">
+              <span className="text-muted-foreground text-sm">CB Tổng</span>
+              <Badge variant="default" className="px-3 py-1 text-sm">
                 {results.mainCB} A
               </Badge>
             </div>
-            <div className="flex justify-between items-center p-3 rounded-lg border bg-muted/30">
-              <span className="text-sm text-muted-foreground">
+            <div className="bg-muted/30 flex items-center justify-between rounded-lg border p-3">
+              <span className="text-muted-foreground text-sm">
                 Dây trục chính (Cu/PVC)
               </span>
               <Badge
                 variant="outline"
-                className="text-sm px-3 py-1 bg-background"
+                className="bg-background px-3 py-1 text-sm"
               >
                 {results.mainWire.size} mm²
               </Badge>
@@ -312,7 +312,7 @@ export default function ResidentialCalculator() {
                         <TableCell className="text-right">
                           <Badge
                             variant="outline"
-                            className="text-xs bg-background"
+                            className="bg-background text-xs"
                           >
                             {branch.wire.size} mm²
                           </Badge>
@@ -369,8 +369,8 @@ export default function ResidentialCalculator() {
 
         {activeAppliances.length === 0 && (
           <Card>
-            <CardContent className="py-12 text-center text-muted-foreground">
-              <Home className="w-12 h-12 mx-auto mb-3 opacity-30" />
+            <CardContent className="text-muted-foreground py-12 text-center">
+              <Home className="mx-auto mb-3 h-12 w-12 opacity-30" />
               <p>Chọn thiết bị ở bên trái để bắt đầu tính toán</p>
             </CardContent>
           </Card>

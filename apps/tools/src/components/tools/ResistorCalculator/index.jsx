@@ -8,7 +8,7 @@ export default function ResistorCalculator() {
   return (
     <div className="mx-auto flex flex-col gap-6">
       <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2">
+        <h1 className="text-foreground mb-2 text-3xl font-bold">
           Tính Toán Điện Trở
         </h1>
         <p className="text-muted-foreground">
@@ -19,7 +19,7 @@ export default function ResistorCalculator() {
 
       <Tabs defaultValue="braking">
         <ScrollArea>
-          <TabsList className="flex overflow-y-hidden no-scrollbar group-data-horizontal/tabs:h-12 sm:w-auto">
+          <TabsList className="no-scrollbar flex overflow-y-hidden group-data-horizontal/tabs:h-12 sm:w-auto">
             <TabsTrigger value="braking">Điện Trở Xả (Biến tần)</TabsTrigger>
             <TabsTrigger value="color-band">Thang Màu (4-5 vòng)</TabsTrigger>
             <TabsTrigger value="smd">Điện Trở dán SMD</TabsTrigger>

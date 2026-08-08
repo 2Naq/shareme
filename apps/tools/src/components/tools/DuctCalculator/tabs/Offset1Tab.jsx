@@ -90,15 +90,15 @@ export default function Offset1Tab() {
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-[280px_1fr]">
       {/* Panel bên trái */}
-      <div className="space-y-5 bg-card border border-border rounded-lg p-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-card-foreground flex items-center gap-2">
-          <span className="w-1.5 h-1.5 bg-red-400 rotate-45 inline-block" />
+      <div className="bg-card border-border space-y-5 rounded-lg border p-4">
+        <h3 className="text-card-foreground flex items-center gap-2 text-sm font-semibold tracking-wider uppercase">
+          <span className="inline-block h-1.5 w-1.5 rotate-45 bg-red-400" />
           Thông số
         </h3>
         <div className="space-y-2">
-          <Label className="text-xs text-muted-foreground flex justify-between">
+          <Label className="text-muted-foreground flex justify-between text-xs">
             Chiều cao lệch tầng — A
             <span className="font-mono text-red-400">{fmt(A)} mm</span>
           </Label>
@@ -113,7 +113,7 @@ export default function Offset1Tab() {
           />
         </div>
         <div className="space-y-2">
-          <Label className="text-xs text-muted-foreground flex justify-between">
+          <Label className="text-muted-foreground flex justify-between text-xs">
             Góc nghiêng đường chéo — β
             <span className="font-mono text-red-400">{fmt(beta)}°</span>
           </Label>
@@ -125,7 +125,7 @@ export default function Offset1Tab() {
             onValueChange={(v) => setBeta(Array.isArray(v) ? v[0] : v)}
           />
         </div>
-        <p className="text-xs text-muted-foreground border-t border-dashed border-border pt-3">
+        <p className="text-muted-foreground border-border border-t border-dashed pt-3 text-xs">
           Dùng khi cần nâng/hạ cao độ máng bằng một đoạn chéo duy nhất (1 khúc
           gấp). Góc càng nhỏ, đường chéo càng dài nhưng độ dốc càng thấp.
         </p>
@@ -136,19 +136,19 @@ export default function Offset1Tab() {
         <div className="flex gap-1.5">
           <button
             onClick={() => setView("2d")}
-            className={`px-3 py-1.5 rounded text-xs font-mono border transition-colors ${view === "2d" ? "border-red-400 text-red-400 bg-red-400/10" : "border-border text-muted-foreground hover:text-foreground"}`}
+            className={`rounded border px-3 py-1.5 font-mono text-xs transition-colors ${view === "2d" ? "border-red-400 bg-red-400/10 text-red-400" : "border-border text-muted-foreground hover:text-foreground"}`}
           >
             2D mặt cắt
           </button>
           <button
             onClick={() => setView("flat")}
-            className={`px-3 py-1.5 rounded text-xs font-mono border transition-colors ${view === "flat" ? "border-red-400 text-red-400 bg-red-400/10" : "border-border text-muted-foreground hover:text-foreground"}`}
+            className={`rounded border px-3 py-1.5 font-mono text-xs transition-colors ${view === "flat" ? "border-red-400 bg-red-400/10 text-red-400" : "border-border text-muted-foreground hover:text-foreground"}`}
           >
             ✂ Trải tấm
           </button>
           <button
             onClick={() => setView("3d")}
-            className={`px-3 py-1.5 rounded text-xs font-mono border transition-colors ${view === "3d" ? "border-red-400 text-red-400 bg-red-400/10" : "border-border text-muted-foreground hover:text-foreground"}`}
+            className={`rounded border px-3 py-1.5 font-mono text-xs transition-colors ${view === "3d" ? "border-red-400 bg-red-400/10 text-red-400" : "border-border text-muted-foreground hover:text-foreground"}`}
           >
             3D mô phỏng
           </button>
@@ -165,14 +165,14 @@ export default function Offset1Tab() {
           />
         )}
 
-        <div className="flex gap-4 flex-wrap text-[11px] text-muted-foreground px-0.5">
+        <div className="text-muted-foreground flex flex-wrap gap-4 px-0.5 text-[11px]">
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-4 h-0.5 bg-gray-400 inline-block" />
+            <span className="inline-block h-0.5 w-4 bg-gray-400" />
             Đoạn máng giữ nguyên
           </span>
           <span className="inline-flex items-center gap-1.5">
             <span
-              className="w-4 h-0.5 inline-block"
+              className="inline-block h-0.5 w-4"
               style={{
                 background:
                   "repeating-linear-gradient(90deg,#ff7a6b 0 5px,transparent 5px 9px)",

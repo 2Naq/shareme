@@ -48,8 +48,8 @@ export default function DocsShowcase() {
 
   return (
     <Layout title={`${siteConfig.title}`} description="Automation notes">
-      <main className="min-h-screen py-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto space-y-10">
+      <main className="min-h-screen px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl space-y-10">
           <DocsHeader
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}

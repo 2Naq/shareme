@@ -52,7 +52,7 @@ export default function FloatRegisterConverter() {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       <Card>
         <CardHeader>
           <CardTitle className="text-base">
@@ -146,38 +146,38 @@ export default function FloatRegisterConverter() {
           {result ? (
             <>
               <div>
-                <span className="text-xs text-muted-foreground uppercase tracking-wider block mb-1">
+                <span className="text-muted-foreground mb-1 block text-xs tracking-wider uppercase">
                   Giá trị Float
                 </span>
-                <div className="font-mono text-3xl font-black text-primary">
+                <div className="text-primary font-mono text-3xl font-black">
                   {result.float.toPrecision(7)}
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3 pt-3 border-t">
-                <div className="p-3 rounded-lg bg-background border text-center">
-                  <div className="text-[10px] text-muted-foreground mb-1">
+              <div className="grid grid-cols-2 gap-3 border-t pt-3">
+                <div className="bg-background rounded-lg border p-3 text-center">
+                  <div className="text-muted-foreground mb-1 text-[10px]">
                     Register 1 (High Word)
                   </div>
-                  <div className="font-mono font-bold text-lg">
+                  <div className="font-mono text-lg font-bold">
                     0x{result.hiHex}
                   </div>
-                  <div className="font-mono text-xs text-muted-foreground">
+                  <div className="text-muted-foreground font-mono text-xs">
                     {result.hi}
                   </div>
                 </div>
-                <div className="p-3 rounded-lg bg-background border text-center">
-                  <div className="text-[10px] text-muted-foreground mb-1">
+                <div className="bg-background rounded-lg border p-3 text-center">
+                  <div className="text-muted-foreground mb-1 text-[10px]">
                     Register 2 (Low Word)
                   </div>
-                  <div className="font-mono font-bold text-lg">
+                  <div className="font-mono text-lg font-bold">
                     0x{result.loHex}
                   </div>
-                  <div className="font-mono text-xs text-muted-foreground">
+                  <div className="text-muted-foreground font-mono text-xs">
                     {result.lo}
                   </div>
                 </div>
               </div>
-              <div className="text-xs text-muted-foreground pt-2 border-t space-y-1">
+              <div className="text-muted-foreground space-y-1 border-t pt-2 text-xs">
                 <div>
                   IEEE 754 Bytes:{" "}
                   <span className="font-mono">
@@ -188,7 +188,7 @@ export default function FloatRegisterConverter() {
               </div>
             </>
           ) : (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Nhập giá trị hợp lệ để xem kết quả.
             </p>
           )}

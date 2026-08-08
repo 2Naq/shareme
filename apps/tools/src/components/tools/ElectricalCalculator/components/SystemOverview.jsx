@@ -163,9 +163,9 @@ export default function SystemOverview() {
   return (
     <div className="space-y-6">
       {/* Config nhanh */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
         <Card>
-          <CardContent className="pt-6 space-y-2">
+          <CardContent className="space-y-2 pt-6">
             <Label className="text-xs">Điện áp nguồn (V)</Label>
             <Input
               type="number"
@@ -175,7 +175,7 @@ export default function SystemOverview() {
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="pt-6 space-y-2">
+          <CardContent className="space-y-2 pt-6">
             <Label className="text-xs">Chiều dài dây (m)</Label>
             <Input
               type="number"
@@ -185,7 +185,7 @@ export default function SystemOverview() {
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="pt-6 space-y-2">
+          <CardContent className="space-y-2 pt-6">
             <Label className="text-xs">Vật liệu dây</Label>
             <Select value={wireMaterial} onValueChange={setWireMaterial}>
               <SelectTrigger>
@@ -199,7 +199,7 @@ export default function SystemOverview() {
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="pt-6 space-y-2">
+          <CardContent className="space-y-2 pt-6">
             <Label className="text-xs">Thêm thiết bị</Label>
             <Select value="" onValueChange={addItem}>
               <SelectTrigger>
@@ -227,7 +227,7 @@ export default function SystemOverview() {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="flex items-center gap-2">
-                <Layers className="w-5 h-5 text-primary" />
+                <Layers className="text-primary h-5 w-5" />
                 Danh Sách Thiết Bị Hệ Thống
               </CardTitle>
               <CardDescription>
@@ -239,14 +239,14 @@ export default function SystemOverview() {
               size="sm"
               className="gap-1"
             >
-              <Plus className="w-4 h-4" /> Thêm
+              <Plus className="h-4 w-4" /> Thêm
             </Button>
           </div>
         </CardHeader>
         <CardContent>
           {items.length === 0 ? (
-            <div className="py-12 text-center text-muted-foreground">
-              <Layers className="w-12 h-12 mx-auto mb-3 opacity-30" />
+            <div className="text-muted-foreground py-12 text-center">
+              <Layers className="mx-auto mb-3 h-12 w-12 opacity-30" />
               <p>Chưa có thiết bị nào. Thêm thiết bị ở trên để bắt đầu.</p>
             </div>
           ) : (
@@ -288,7 +288,7 @@ export default function SystemOverview() {
                                 Number(e.target.value),
                               )
                             }
-                            className="h-8 text-sm text-right w-20"
+                            className="h-8 w-20 text-right text-sm"
                           />
                         </TableCell>
                         <TableCell>
@@ -298,7 +298,7 @@ export default function SystemOverview() {
                             onChange={(e) =>
                               updateItem(item.id, "qty", Number(e.target.value))
                             }
-                            className="h-8 text-sm text-right w-16"
+                            className="h-8 w-16 text-right text-sm"
                             min={1}
                           />
                         </TableCell>
@@ -313,7 +313,7 @@ export default function SystemOverview() {
                                 Number(e.target.value),
                               )
                             }
-                            className="h-8 text-sm text-right w-16"
+                            className="h-8 w-16 text-right text-sm"
                             step="0.01"
                           />
                         </TableCell>
@@ -324,10 +324,10 @@ export default function SystemOverview() {
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8 text-destructive"
+                            className="text-destructive h-8 w-8"
                             onClick={() => removeItem(item.id)}
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="h-4 w-4" />
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -343,13 +343,13 @@ export default function SystemOverview() {
       {/* Kết quả tổng hợp */}
       {items.length > 0 && (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             <Card className="bg-primary/5 border-primary/20">
               <CardContent className="pt-6">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+                <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                   Tổng công suất
                 </Label>
-                <div className="mt-1 font-mono text-2xl font-black text-foreground">
+                <div className="text-foreground mt-1 font-mono text-2xl font-black">
                   {(results.totalWatts / 1000).toFixed(2)}{" "}
                   <span className="text-sm">kW</span>
                 </div>
@@ -357,7 +357,7 @@ export default function SystemOverview() {
             </Card>
             <Card className="bg-primary/5 border-primary/20">
               <CardContent className="pt-6">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+                <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                   Tổng dòng điện
                 </Label>
                 <div className="mt-1 font-mono text-2xl font-black text-orange-500">
@@ -367,26 +367,26 @@ export default function SystemOverview() {
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="pt-6 flex flex-col">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+              <CardContent className="flex flex-col pt-6">
+                <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                   CB Tổng
                 </Label>
                 <div className="mt-2">
-                  <Badge variant="default" className="text-sm px-3 py-1">
+                  <Badge variant="default" className="px-3 py-1 text-sm">
                     {results.mainCB} A
                   </Badge>
                 </div>
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="pt-6 flex flex-col">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+              <CardContent className="flex flex-col pt-6">
+                <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                   Dây trục chính
                 </Label>
                 <div className="mt-2">
                   <Badge
                     variant="outline"
-                    className="text-sm px-3 py-1 bg-background"
+                    className="bg-background px-3 py-1 text-sm"
                   >
                     {results.mainWire.size} mm²
                   </Badge>
@@ -400,7 +400,7 @@ export default function SystemOverview() {
             <Card className={`border ${voltageDropResult.status.color}`}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Cable className="w-5 h-5" />
+                  <Cable className="h-5 w-5" />
                   Phân Tích Sụt Áp Đường Dây
                 </CardTitle>
                 <CardDescription>
@@ -409,33 +409,33 @@ export default function SystemOverview() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  <div className="p-3 rounded-lg bg-background border">
-                    <Label className="text-xs text-muted-foreground">
+                <div className="mb-4 grid grid-cols-2 gap-4 md:grid-cols-4">
+                  <div className="bg-background rounded-lg border p-3">
+                    <Label className="text-muted-foreground text-xs">
                       Sụt áp (ΔU)
                     </Label>
                     <div className="font-mono text-xl font-bold">
                       {voltageDropResult.deltaU.toFixed(2)} V
                     </div>
                   </div>
-                  <div className="p-3 rounded-lg bg-background border">
-                    <Label className="text-xs text-muted-foreground">
+                  <div className="bg-background rounded-lg border p-3">
+                    <Label className="text-muted-foreground text-xs">
                       Tỷ lệ sụt áp
                     </Label>
                     <div className="font-mono text-xl font-bold">
                       {voltageDropResult.deltaU_percent.toFixed(2)}%
                     </div>
                   </div>
-                  <div className="p-3 rounded-lg bg-background border">
-                    <Label className="text-xs text-muted-foreground">
+                  <div className="bg-background rounded-lg border p-3">
+                    <Label className="text-muted-foreground text-xs">
                       Điện áp cuối dây
                     </Label>
                     <div className="font-mono text-xl font-bold">
                       {voltageDropResult.uEnd.toFixed(1)} V
                     </div>
                   </div>
-                  <div className="p-3 rounded-lg bg-background border">
-                    <Label className="text-xs text-muted-foreground">
+                  <div className="bg-background rounded-lg border p-3">
+                    <Label className="text-muted-foreground text-xs">
                       Hiệu suất truyền tải
                     </Label>
                     <div className="font-mono text-xl font-bold">
@@ -446,20 +446,20 @@ export default function SystemOverview() {
 
                 {/* Status */}
                 <div
-                  className={`p-3 rounded-lg border flex items-start gap-3 ${voltageDropResult.status.color}`}
+                  className={`flex items-start gap-3 rounded-lg border p-3 ${voltageDropResult.status.color}`}
                 >
                   {voltageDropResult.deltaU_percent <= 3 ? (
-                    <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" />
                   ) : voltageDropResult.deltaU_percent <= 5 ? (
-                    <Info className="w-5 h-5 shrink-0 mt-0.5" />
+                    <Info className="mt-0.5 h-5 w-5 shrink-0" />
                   ) : (
-                    <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
+                    <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" />
                   )}
                   <div>
-                    <p className="font-semibold text-sm">
+                    <p className="text-sm font-semibold">
                       {voltageDropResult.status.label}
                     </p>
-                    <p className="text-xs mt-1 opacity-80">
+                    <p className="mt-1 text-xs opacity-80">
                       {voltageDropResult.status.desc}
                     </p>
                   </div>
@@ -467,7 +467,7 @@ export default function SystemOverview() {
 
                 {/* Gợi ý nâng cấp dây nếu sụt áp lớn */}
                 {voltageDropResult.recommendedWireSize && (
-                  <div className="mt-4 p-3 rounded-lg border border-green-500/30 bg-green-500/5">
+                  <div className="mt-4 rounded-lg border border-green-500/30 bg-green-500/5 p-3">
                     <p className="text-sm font-medium text-green-600 dark:text-green-400">
                       💡 Gợi ý: Nâng tiết diện dây lên{" "}
                       <strong>

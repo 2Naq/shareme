@@ -60,8 +60,8 @@ export default function ConfigForm({
   return (
     <Card className="lg:col-span-7">
       <CardHeader>
-        <CardTitle className="text-xl flex items-center gap-2">
-          <Settings2 className="w-5 h-5 text-primary" />
+        <CardTitle className="flex items-center gap-2 text-xl">
+          <Settings2 className="text-primary h-5 w-5" />
           Thông số cấu hình
         </CardTitle>
         <CardDescription>
@@ -70,7 +70,7 @@ export default function ConfigForm({
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Hệ thống nguồn & Điện áp */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label>Hệ thống điện</Label>
             <Select value={systemType} onValueChange={onSystemTypeChange}>
@@ -100,11 +100,11 @@ export default function ConfigForm({
         </div>
 
         {/* Vật liệu cáp & Nhiệt độ */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-xl bg-muted/30 border">
-          <div className="space-y-2 flex flex-col justify-between">
+        <div className="bg-muted/30 grid grid-cols-1 gap-4 rounded-xl border p-4 sm:grid-cols-3">
+          <div className="flex flex-col justify-between space-y-2">
             <Label>Vật liệu cáp</Label>
             <Select value={wireMaterial} onValueChange={setWireMaterial}>
-              <SelectTrigger className="w-full m-0">
+              <SelectTrigger className="m-0 w-full">
                 <SelectValue placeholder="Vật liệu" />
               </SelectTrigger>
               <SelectContent>
@@ -117,14 +117,14 @@ export default function ConfigForm({
             </Select>
           </div>
 
-          <div className="space-y-2 flex flex-col justify-between">
+          <div className="flex flex-col justify-between space-y-2">
             <Label>Nhiệt độ làm việc</Label>
             <Select
               value={tempOption}
               onValueChange={setTempOption}
               disabled={wireMaterial === "custom"}
             >
-              <SelectTrigger className="w-full m-0">
+              <SelectTrigger className="m-0 w-full">
                 <SelectValue placeholder="Nhiệt độ" />
               </SelectTrigger>
               <SelectContent>
@@ -134,7 +134,7 @@ export default function ConfigForm({
             </Select>
           </div>
 
-          <div className="space-y-2 flex flex-col justify-between">
+          <div className="flex flex-col justify-between space-y-2">
             <Label>Điện trở suất ρ (Ω·mm²/m)</Label>
             <Input
               type="number"
@@ -147,9 +147,9 @@ export default function ConfigForm({
         </div>
 
         {/* Tiết diện & Chiều dài cáp */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <Label>Tiết diện dây S (mm²)</Label>
               <Button
                 variant={"outline"}
@@ -209,15 +209,15 @@ export default function ConfigForm({
         </div>
 
         {/* Thông số phụ tải */}
-        <div className="border rounded-xl p-4 space-y-4 bg-muted/20">
+        <div className="bg-muted/20 space-y-4 rounded-xl border p-4">
           <div className="flex items-center justify-between border-b pb-2">
-            <Label className="font-semibold text-sm">Thông số phụ tải</Label>
-            <div className="flex items-center gap-2 bg-muted p-1 rounded-md text-xs">
+            <Label className="text-sm font-semibold">Thông số phụ tải</Label>
+            <div className="bg-muted flex items-center gap-2 rounded-md p-1 text-xs">
               <button
                 type="button"
-                className={`px-3 py-1 rounded transition-colors ${
+                className={`rounded px-3 py-1 transition-colors ${
                   inputMode === "I"
-                    ? "bg-background shadow-xs font-semibold animate-none"
+                    ? "bg-background animate-none font-semibold shadow-xs"
                     : "text-muted-foreground"
                 }`}
                 onClick={() => setInputMode("I")}
@@ -226,9 +226,9 @@ export default function ConfigForm({
               </button>
               <button
                 type="button"
-                className={`px-3 py-1 rounded transition-colors ${
+                className={`rounded px-3 py-1 transition-colors ${
                   inputMode === "P"
-                    ? "bg-background shadow-xs font-semibold animate-none"
+                    ? "bg-background animate-none font-semibold shadow-xs"
                     : "text-muted-foreground"
                 }`}
                 onClick={() => setInputMode("P")}
@@ -238,7 +238,7 @@ export default function ConfigForm({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {inputMode === "I" ? (
               <div className="space-y-2">
                 <Label>Dòng điện tải I (Ampe)</Label>
@@ -299,7 +299,7 @@ export default function ConfigForm({
             />
             <label
               htmlFor="reactance"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+              className="cursor-pointer text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
               <span className="flex items-center gap-1">
                 Bao gồm cảm kháng đường dây {MathRenderInline("$X_L$")}
@@ -308,9 +308,9 @@ export default function ConfigForm({
           </div>
 
           {includeReactance && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-3 rounded-lg bg-yellow-500/5 border border-yellow-500/10">
+            <div className="grid grid-cols-1 gap-4 rounded-lg border border-yellow-500/10 bg-yellow-500/5 p-3 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label className="text-xs text-muted-foreground">
+                <Label className="text-muted-foreground text-xs">
                   Điện kháng đơn vị (x) (Ω/m)
                 </Label>
                 <Input
@@ -321,7 +321,7 @@ export default function ConfigForm({
                   placeholder="Mặc định: 0.00008"
                 />
               </div>
-              <div className="text-xs text-muted-foreground flex items-center">
+              <div className="text-muted-foreground flex items-center text-xs">
                 Cảm kháng mặc định thông thường của cáp là 0.08 Ω/km (0.00008
                 Ω/m). Thường chỉ ảnh hưởng rõ rệt khi cáp lớn và chiều dài rất
                 xa.

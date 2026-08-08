@@ -10,7 +10,7 @@ export default function NavbarWrapper(props) {
   const location = useLocation();
 
   const shouldHide = HIDE_NAVBAR_PATHS.some((path) =>
-    location.pathname.includes(path)
+    location.pathname.includes(path),
   );
 
   if (shouldHide) {
@@ -23,4 +23,3 @@ export default function NavbarWrapper(props) {
     </>
   );
 }
-

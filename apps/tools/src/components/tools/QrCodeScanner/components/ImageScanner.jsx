@@ -129,7 +129,7 @@ export default function ImageScanner({ onScanSuccess, isActive }) {
           onDragLeave={handleDrag}
           onDrop={handleDrop}
           onClick={triggerFileInput}
-          className={`flex flex-col items-center justify-center p-8 text-center border-2 border-dashed rounded-xl cursor-pointer transition-all min-h-65 ${
+          className={`flex min-h-65 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-8 text-center transition-all ${
             dragActive
               ? "border-primary bg-primary/5 scale-[0.99]"
               : "border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/50"
@@ -142,48 +142,48 @@ export default function ImageScanner({ onScanSuccess, isActive }) {
             onChange={handleFileChange}
             className="hidden"
           />
-          <Upload className="w-12 h-12 text-muted-foreground/60 mb-4 animate-pulse" />
-          <h3 className="font-semibold text-base text-foreground mb-1">
+          <Upload className="text-muted-foreground/60 mb-4 h-12 w-12 animate-pulse" />
+          <h3 className="text-foreground mb-1 text-base font-semibold">
             Kéo thả ảnh vào đây
           </h3>
-          <p className="text-sm text-muted-foreground max-w-xs mb-3">
+          <p className="text-muted-foreground mb-3 max-w-xs text-sm">
             Hoặc nhấp vào đây để chọn tệp tin hình ảnh mã QR từ máy tính của bạn
           </p>
-          <span className="px-3 py-1 bg-secondary text-secondary-foreground text-xs rounded-full font-medium">
+          <span className="bg-secondary text-secondary-foreground rounded-full px-3 py-1 text-xs font-medium">
             Hỗ trợ PNG, JPG, JPEG, WEBP
           </span>
         </div>
       ) : (
         /* Giao diện Xem trước & Quét ảnh */
-        <div className="relative border rounded-xl overflow-hidden bg-muted/30 flex flex-col items-center p-4">
+        <div className="bg-muted/30 relative flex flex-col items-center overflow-hidden rounded-xl border p-4">
           <button
             onClick={handleClear}
             disabled={isScanning}
-            className="absolute top-3 right-3 p-1.5 rounded-full bg-background/80 text-foreground hover:bg-background border shadow transition-all cursor-pointer disabled:opacity-50"
+            className="bg-background/80 text-foreground hover:bg-background absolute top-3 right-3 cursor-pointer rounded-full border p-1.5 shadow transition-all disabled:opacity-50"
             title="Chọn ảnh khác"
           >
-            <X className="w-4 h-4" />
+            <X className="h-4 w-4" />
           </button>
 
-          <div className="relative max-w-xs w-full aspect-square bg-black/5 dark:bg-black/40 rounded-lg overflow-hidden flex items-center justify-center border shadow-inner">
+          <div className="relative flex aspect-square w-full max-w-xs items-center justify-center overflow-hidden rounded-lg border bg-black/5 shadow-inner dark:bg-black/40">
             <img
               src={imagePreview}
               alt="QR Code Preview"
-              className="max-w-full max-h-full object-contain"
+              className="max-h-full max-w-full object-contain"
             />
             {isScanning && (
-              <div className="absolute inset-0 bg-black/60 backdrop-blur-xs flex flex-col items-center justify-center text-white space-y-2">
-                <RefreshCw className="w-8 h-8 animate-spin text-primary" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center space-y-2 bg-black/60 text-white backdrop-blur-xs">
+                <RefreshCw className="text-primary h-8 w-8 animate-spin" />
                 <span className="text-sm font-medium">Đang quét mã QR...</span>
               </div>
             )}
           </div>
 
           <div className="mt-4 text-center">
-            <p className="text-sm font-medium text-foreground truncate max-w-70">
+            <p className="text-foreground max-w-70 truncate text-sm font-medium">
               {selectedFile?.name}
             </p>
-            <p className="text-xs text-muted-foreground mt-0.5">
+            <p className="text-muted-foreground mt-0.5 text-xs">
               {(selectedFile?.size / 1024).toFixed(1)} KB
             </p>
           </div>
@@ -192,15 +192,15 @@ export default function ImageScanner({ onScanSuccess, isActive }) {
             <div className="mt-4 flex gap-3">
               <button
                 onClick={handleClear}
-                className="px-4 py-2 border hover:bg-background text-foreground text-sm font-medium rounded-lg shadow-xs transition-all cursor-pointer"
+                className="hover:bg-background text-foreground cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium shadow-xs transition-all"
               >
                 Chọn ảnh khác
               </button>
               <button
                 onClick={() => processFile(selectedFile)}
-                className="px-4 py-2 bg-primary hover:bg-primary/95 text-primary-foreground text-sm font-medium rounded-lg shadow-sm transition-all flex items-center gap-2 cursor-pointer"
+                className="bg-primary hover:bg-primary/95 text-primary-foreground flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium shadow-sm transition-all"
               >
-                <RefreshCw className="w-4 h-4" />
+                <RefreshCw className="h-4 w-4" />
                 Quét lại
               </button>
             </div>

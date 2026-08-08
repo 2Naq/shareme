@@ -68,26 +68,26 @@ function ProjectCard({ project }) {
     <Link
       to={toUrl}
       className={cn(
-        "group flex flex-col sm:flex-row gap-0 sm:gap-5",
-        "rounded-xl border border-edge overflow-hidden",
+        "group flex flex-col gap-0 sm:flex-row sm:gap-5",
+        "border-edge overflow-hidden rounded-xl border",
         "bg-card/30 hover:bg-muted/40 transition-all duration-300",
-        "no-underline text-inherit",
-        "hover:shadow-lg hover:shadow-primary/5",
-        "hover:border-primary/30"
+        "text-inherit no-underline",
+        "hover:shadow-primary/5 hover:shadow-lg",
+        "hover:border-primary/30",
       )}
     >
       {/* Image */}
-      <div className="relative w-full sm:w-52 h-44 sm:h-auto shrink-0 overflow-hidden bg-muted/20">
+      <div className="bg-muted/20 relative h-44 w-full shrink-0 overflow-hidden sm:h-auto sm:w-52">
         <img
           src={imageUrl}
           alt={project.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+          className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
         {/* Status badge on image */}
         <span
           className={cn(
-            "absolute top-2.5 right-2.5 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border",
-            statusColors[project.status] || statusColors.Active
+            "absolute top-2.5 right-2.5 rounded-full border px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase",
+            statusColors[project.status] || statusColors.Active,
           )}
         >
           {project.status}
@@ -95,17 +95,17 @@ function ProjectCard({ project }) {
       </div>
 
       {/* Content */}
-      <div className="flex flex-col flex-1 p-4 sm:py-4 sm:pr-4 sm:pl-0 min-w-0">
+      <div className="flex min-w-0 flex-1 flex-col p-4 sm:py-4 sm:pr-4 sm:pl-0">
         {/* Title row */}
         <div className="flex items-start justify-between gap-2">
-          <h3 className="text-base sm:text-lg font-bold text-foreground m-0 line-clamp-1 group-hover:text-primary transition-colors">
+          <h3 className="text-foreground group-hover:text-primary m-0 line-clamp-1 text-base font-bold transition-colors sm:text-lg">
             {project.title}
           </h3>
-          <ArrowUpRight className="size-4 shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+          <ArrowUpRight className="text-muted-foreground size-4 shrink-0 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
         </div>
 
         {/* Meta info */}
-        <div className="flex items-center gap-3 mt-1.5 text-[11px] text-muted-foreground">
+        <div className="text-muted-foreground mt-1.5 flex items-center gap-3 text-[11px]">
           <span className="inline-flex items-center gap-1">
             <Calendar className="size-3" />
             {project.date}
@@ -117,16 +117,16 @@ function ProjectCard({ project }) {
         </div>
 
         {/* Description */}
-        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mt-2 m-0 line-clamp-2 sm:line-clamp-3">
+        <p className="text-muted-foreground m-0 mt-2 line-clamp-2 text-xs leading-relaxed sm:line-clamp-3 sm:text-sm">
           {project.description}
         </p>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mt-auto pt-3">
+        <div className="mt-auto flex flex-wrap gap-1.5 pt-3">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-muted/60 text-muted-foreground border border-input/30"
+              className="bg-muted/60 text-muted-foreground border-input/30 rounded-md border px-2 py-0.5 text-[10px] font-medium"
             >
               {tag}
             </span>

@@ -19,12 +19,12 @@ export default function AboutHighlight({ text, className, color = "green" }) {
   return (
     <span
       className={cn(
-        "relative px-1.5 py-0.5 mx-1 inline before:absolute before:inset-0 before:block before:-skew-y-2 before:rounded",
+        "relative mx-1 inline px-1.5 py-0.5 before:absolute before:inset-0 before:block before:-skew-y-2 before:rounded",
         bgClass,
         className,
       )}
     >
-      <span className="relative z-10 text-white font-medium">{text}</span>
+      <span className="relative z-10 font-medium text-white">{text}</span>
     </span>
   );
 }

@@ -73,7 +73,7 @@ function SmdResistorSVG({ digits, digitCount }) {
   return (
     <svg
       viewBox={`0 0 ${w} ${h}`}
-      className="w-full max-w-60 mx-auto select-none"
+      className="mx-auto w-full max-w-60 select-none"
     >
       {/* Pads */}
       <rect
@@ -191,7 +191,7 @@ function Smd3DigitTab() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="grid gap-2 sm:grid-cols-3 grid-cols-1">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
         <Card className="sm:col-span-2">
           <CardHeader>
             <CardTitle className="text-lg">Cách tính giá trị</CardTitle>
@@ -204,7 +204,7 @@ function Smd3DigitTab() {
             <SmdResistorSVG digits={digits} digitCount={3} />
 
             {/* Digit Inputs */}
-            <div className="flex items-center justify-center gap-3 mt-6">
+            <div className="mt-6 flex items-center justify-center gap-3">
               {digits.map((d, i) => (
                 <div key={i} className="flex flex-col items-center gap-1">
                   <input
@@ -216,9 +216,9 @@ function Smd3DigitTab() {
                     onChange={(e) => handleChange(i, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(i, e)}
                     onFocus={(e) => e.target.select()}
-                    className="size-14 text-center text-2xl font-mono font-bold rounded-xl border-2 border-border bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                    className="border-border bg-background text-foreground focus:border-primary focus:ring-primary/20 size-14 rounded-xl border-2 text-center font-mono text-2xl font-bold transition-all outline-none focus:ring-2"
                   />
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-muted-foreground text-xs">
                     {i < 2 ? `Chữ số ${i + 1}` : "Hệ số nhân"}
                   </span>
                 </div>
@@ -230,17 +230,17 @@ function Smd3DigitTab() {
         {/* Result */}
         <Card className="bg-primary/5 border-primary/20">
           <CardContent className="pt-6">
-            <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+            <p className="text-muted-foreground mb-1 text-xs tracking-wider uppercase">
               Giá trị điện trở
             </p>
-            <p className="text-4xl font-black font-mono text-primary transition-all duration-300">
+            <p className="text-primary font-mono text-4xl font-black transition-all duration-300">
               {formatResistance(resistance)}
             </p>
-            <div className="mt-3 p-3 bg-background rounded-lg border">
-              <p className="text-xs text-muted-foreground mb-1">Phép tính</p>
-              <p className="font-mono text-sm text-foreground">{formula}</p>
+            <div className="bg-background mt-3 rounded-lg border p-3">
+              <p className="text-muted-foreground mb-1 text-xs">Phép tính</p>
+              <p className="text-foreground font-mono text-sm">{formula}</p>
             </div>
-            <p className="text-xs text-muted-foreground mt-3">
+            <p className="text-muted-foreground mt-3 text-xs">
               * Điện trở SMD 3 số thường có sai số mặc định ±5%
             </p>
           </CardContent>
@@ -256,9 +256,9 @@ function Smd3DigitTab() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b">
-                <th className="text-left py-2 px-3 font-semibold">Mã số</th>
-                <th className="text-left py-2 px-3 font-semibold">Tính toán</th>
-                <th className="text-right py-2 px-3 font-semibold">Giá trị</th>
+                <th className="px-3 py-2 text-left font-semibold">Mã số</th>
+                <th className="px-3 py-2 text-left font-semibold">Tính toán</th>
+                <th className="px-3 py-2 text-right font-semibold">Giá trị</th>
               </tr>
             </thead>
             <tbody>
@@ -270,21 +270,21 @@ function Smd3DigitTab() {
                 return (
                   <tr
                     key={item.code}
-                    className="border-b border-border/50 hover:bg-accent/50 transition-colors cursor-pointer"
+                    className="border-border/50 hover:bg-accent/50 cursor-pointer border-b transition-colors"
                     onClick={() => {
                       setDigits(item.code.split(""));
                     }}
                   >
-                    <td className="py-2 px-3 font-mono font-bold text-lg">
+                    <td className="px-3 py-2 font-mono text-lg font-bold">
                       {item.code}
                     </td>
-                    <td className="py-2 px-3 font-mono text-lg text-muted-foreground ">
+                    <td className="text-muted-foreground px-3 py-2 font-mono text-lg">
                       {sig} × 10{superscript(d3)}
                     </td>
-                    <td className="py-2 px-3 text-right">
+                    <td className="px-3 py-2 text-right">
                       <Badge
                         variant="outline"
-                        className="font-mono text-sm rounded-sm"
+                        className="rounded-sm font-mono text-sm"
                       >
                         {item.value}
                       </Badge>
@@ -372,7 +372,7 @@ function Smd4DigitTab() {
         <CardContent>
           <SmdResistorSVG digits={digits} digitCount={4} />
 
-          <div className="flex items-center justify-center gap-3 mt-6">
+          <div className="mt-6 flex items-center justify-center gap-3">
             {digits.map((d, i) => (
               <div key={i} className="flex flex-col items-center gap-1">
                 <input
@@ -384,9 +384,9 @@ function Smd4DigitTab() {
                   onChange={(e) => handleChange(i, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(i, e)}
                   onFocus={(e) => e.target.select()}
-                  className="size-14 text-center text-2xl font-mono font-bold rounded-xl border-2 border-border bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  className="border-border bg-background text-foreground focus:border-primary focus:ring-primary/20 size-14 rounded-xl border-2 text-center font-mono text-2xl font-bold transition-all outline-none focus:ring-2"
                 />
-                <span className="text-[10px] text-muted-foreground">
+                <span className="text-muted-foreground text-[10px]">
                   {i < 3 ? `Chữ số ${i + 1}` : "Hệ số nhân"}
                 </span>
               </div>
@@ -398,15 +398,15 @@ function Smd4DigitTab() {
       {/* Result */}
       <Card className="bg-primary/5 border-primary/20">
         <CardContent className="pt-6">
-          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+          <p className="text-muted-foreground mb-1 text-xs tracking-wider uppercase">
             Giá trị điện trở
           </p>
-          <p className="text-4xl font-black font-mono text-primary transition-all duration-300">
+          <p className="text-primary font-mono text-4xl font-black transition-all duration-300">
             {formatResistance(resistance)}
           </p>
-          <div className="mt-3 p-3 bg-background rounded-lg border">
-            <p className="text-xs text-muted-foreground mb-1">Phép tính</p>
-            <p className="font-mono text-sm text-foreground">{formula}</p>
+          <div className="bg-background mt-3 rounded-lg border p-3">
+            <p className="text-muted-foreground mb-1 text-xs">Phép tính</p>
+            <p className="text-foreground font-mono text-sm">{formula}</p>
           </div>
           <div className="mt-3 flex flex-wrap gap-2">
             <Badge variant="secondary" className="text-xs">
@@ -428,9 +428,9 @@ function Smd4DigitTab() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b">
-                <th className="text-left py-2 px-3 font-semibold">Mã số</th>
-                <th className="text-left py-2 px-3 font-semibold">Tính toán</th>
-                <th className="text-right py-2 px-3 font-semibold">Giá trị</th>
+                <th className="px-3 py-2 text-left font-semibold">Mã số</th>
+                <th className="px-3 py-2 text-left font-semibold">Tính toán</th>
+                <th className="px-3 py-2 text-right font-semibold">Giá trị</th>
               </tr>
             </thead>
             <tbody>
@@ -443,18 +443,18 @@ function Smd4DigitTab() {
                 return (
                   <tr
                     key={item.code}
-                    className="border-b border-border/50 hover:bg-accent/50 transition-colors cursor-pointer"
+                    className="border-border/50 hover:bg-accent/50 cursor-pointer border-b transition-colors"
                     onClick={() => {
                       setDigits(item.code.split(""));
                     }}
                   >
-                    <td className="py-2 px-3 font-mono font-bold text-lg">
+                    <td className="px-3 py-2 font-mono text-lg font-bold">
                       {item.code}
                     </td>
-                    <td className="py-2 px-3 font-mono text-muted-foreground text-xs">
+                    <td className="text-muted-foreground px-3 py-2 font-mono text-xs">
                       {sig} × 10{superscript(d4)}
                     </td>
-                    <td className="py-2 px-3 text-right">
+                    <td className="px-3 py-2 text-right">
                       <Badge variant="outline" className="font-mono">
                         {item.value}
                       </Badge>
@@ -475,16 +475,16 @@ function Smd4DigitTab() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
             {smdSizes.map((s) => (
               <div
                 key={s.code}
-                className="flex flex-col items-center gap-1 p-3 rounded-lg bg-muted/50 border border-border/50"
+                className="bg-muted/50 border-border/50 flex flex-col items-center gap-1 rounded-lg border p-3"
               >
-                <span className="font-mono font-bold text-foreground">
+                <span className="text-foreground font-mono font-bold">
                   {s.code}
                 </span>
-                <span className="text-xs text-muted-foreground">{s.size}</span>
+                <span className="text-muted-foreground text-xs">{s.size}</span>
               </div>
             ))}
           </div>
@@ -503,8 +503,8 @@ export default function SmdTab() {
     <div className="flex flex-col gap-6">
       <Card>
         <CardContent className="pt-6">
-          <div className="flex flex-col gap-1 mb-4">
-            <p className="text-sm text-muted-foreground">
+          <div className="mb-4 flex flex-col gap-1">
+            <p className="text-muted-foreground text-sm">
               Điện trở SMD (Surface Mount Device) sử dụng mã số in trên thân
               linh kiện. Chọn loại mã số bên dưới để tính giá trị.
             </p>

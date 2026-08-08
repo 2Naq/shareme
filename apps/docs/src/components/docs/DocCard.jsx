@@ -17,24 +17,24 @@ import { cn } from "@/lib/utils";
 export default function DocCard({ item }) {
   return (
     <Card className="group flex flex-col overflow-hidden pt-0">
-      <div className="relative h-44 w-full overflow-hidden bg-muted/30 flex items-center justify-center">
+      <div className="bg-muted/30 relative flex h-44 w-full items-center justify-center overflow-hidden">
         {item.image ? (
           <>
             <img
               src={item.image}
               alt={item.title}
               className={cn(
-                "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out dark:bg-white",
+                "h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 dark:bg-white",
                 item.folderName === "wecon" &&
-                  "dark:bg-black/60 bg-black/60 object-contain px-3",
-                item.folderName === "mitsubishi" && " object-contain px-3 pt-2",
-                item.folderName === "omron" && " object-contain px-3"
+                  "bg-black/60 object-contain px-3 dark:bg-black/60",
+                item.folderName === "mitsubishi" && "object-contain px-3 pt-2",
+                item.folderName === "omron" && "object-contain px-3",
               )}
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-80" />
           </>
         ) : (
-          <div className="flex items-center justify-center w-full h-full p-4">
+          <div className="flex h-full w-full items-center justify-center p-4">
             <NotFileIcon className="opacity-80" />
           </div>
         )}
@@ -43,7 +43,7 @@ export default function DocCard({ item }) {
         {item.badge && (
           <Badge
             variant={item.image ? "secondary" : "outline"}
-            className="absolute top-3 right-3 border border-input/30"
+            className="border-input/30 absolute top-3 right-3 border"
           >
             {item.badge}
           </Badge>
@@ -60,11 +60,11 @@ export default function DocCard({ item }) {
       </div>
 
       {/* Card Header & Description */}
-      <CardHeader className="p-5 pb-3 flex-1">
-        <CardTitle className="text-lg font-bold transition-colors line-clamp-1 m-0">
+      <CardHeader className="flex-1 p-5 pb-3">
+        <CardTitle className="m-0 line-clamp-1 text-lg font-bold transition-colors">
           {item.title}
         </CardTitle>
-        <CardDescription className="line-clamp-2 text-xs sm:text-sm leading-relaxed m-0 mt-1">
+        <CardDescription className="m-0 mt-1 line-clamp-2 text-xs leading-relaxed sm:text-sm">
           {item.description}
         </CardDescription>
       </CardHeader>
@@ -76,7 +76,7 @@ export default function DocCard({ item }) {
             <Badge
               key={idx}
               variant="outline"
-              className=" font-normal flex items-center"
+              className="flex items-center font-normal"
             >
               {tag}
             </Badge>
@@ -85,7 +85,7 @@ export default function DocCard({ item }) {
       </CardContent>
 
       {/* Card Footer with Link */}
-      <CardFooter className="flex items-center px-5 pb-5 pt-2 border-none bg-transparent">
+      <CardFooter className="flex items-center border-none bg-transparent px-5 pt-2 pb-5">
         <Button
           nativeButton={false}
           variant="secondary"

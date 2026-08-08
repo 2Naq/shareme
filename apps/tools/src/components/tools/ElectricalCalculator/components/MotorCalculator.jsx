@@ -69,12 +69,12 @@ export default function MotorCalculator() {
   }, [effectiveKW, voltage, cosPhi, eta, startMethod, selectedStart]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
       {/* INPUT */}
       <Card className="lg:col-span-5">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Cog className="w-5 h-5 text-primary" />
+            <Cog className="text-primary h-5 w-5" />
             Thông số Motor
           </CardTitle>
           <CardDescription>
@@ -178,9 +178,9 @@ export default function MotorCalculator() {
           </div>
 
           {/* Motor gần nhất */}
-          <div className="p-3 bg-muted/50 rounded-lg text-sm space-y-1">
-            <div className="flex gap-1 flex-row items-center">
-              <p className="font-medium text-foreground">
+          <div className="bg-muted/50 space-y-1 rounded-lg p-3 text-sm">
+            <div className="flex flex-row items-center gap-1">
+              <p className="text-foreground font-medium">
                 Motor tiêu chuẩn gần nhất:
               </p>
               <Tooltip>
@@ -202,8 +202,8 @@ export default function MotorCalculator() {
               <br />η = {results.motorData.eta}
             </p>
           </div>
-          <div className="p-3 bg-muted/50 rounded-lg text-sm space-y-1">
-            <p className="font-medium text-foreground">
+          <div className="bg-muted/50 space-y-1 rounded-lg p-3 text-sm">
+            <p className="text-foreground font-medium">
               {powerUnit === "kW"
                 ? "Công thức quy đổi kW -> HP:"
                 : "Công thức quy đổi HP -> kW:"}
@@ -224,22 +224,22 @@ export default function MotorCalculator() {
       </Card>
 
       {/* OUTPUT */}
-      <div className="lg:col-span-7 space-y-6">
+      <div className="space-y-6 lg:col-span-7">
         {/* Kết quả chính */}
         <Card className="bg-primary/5 border-primary/20">
           <CardHeader>
             <CardTitle className="text-primary flex items-center gap-2">
-              <Zap className="w-5 h-5" />
+              <Zap className="h-5 w-5" />
               Kết Quả Tính Toán
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Công thức */}
             <div>
-              <Label className="text-xs text-primary uppercase tracking-wider">
+              <Label className="text-primary text-xs tracking-wider uppercase">
                 Công thức
               </Label>
-              <div className="mt-2 p-3 bg-background rounded border flex justify-center min-h-12 items-center bg-grid">
+              <div className="bg-background bg-grid mt-2 flex min-h-12 items-center justify-center rounded border p-3">
                 <MathRendererBlock
                   className="overflow-x-auto sm:overflow-x-hidden"
                   formula={results.formula}
@@ -249,25 +249,25 @@ export default function MotorCalculator() {
 
             {/* Dòng định mức */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="p-3 rounded-lg bg-background border">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wider">
+              <div className="bg-background rounded-lg border p-3">
+                <Label className="text-muted-foreground text-xs tracking-wider uppercase">
                   Dòng định mức
                   <MathRenderInline text={`$I_{đm}$`} />
                 </Label>
-                <div className="mt-1 font-mono text-3xl font-black text-primary">
+                <div className="text-primary mt-1 font-mono text-3xl font-black">
                   {results.I_dm.toFixed(2)}{" "}
                   <span className="text-lg font-semibold">A</span>
                 </div>
               </div>
-              <div className="p-3 rounded-lg bg-background border">
-                <div className="text-xs text-muted-foreground uppercase tracking-wider">
+              <div className="bg-background rounded-lg border p-3">
+                <div className="text-muted-foreground text-xs tracking-wider uppercase">
                   Dòng khởi động <MathRenderInline text={`$I_{kđ}$`} />
                 </div>
                 <div className="mt-1 font-mono text-3xl font-black text-orange-500">
                   {results.I_start.toFixed(1)}{" "}
                   <span className="text-lg font-semibold">A</span>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-muted-foreground mt-1 text-xs">
                   DOL: {results.I_start_DOL.toFixed(1)}A (×
                   {results.startMultiplier})
                 </p>
@@ -280,34 +280,34 @@ export default function MotorCalculator() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-green-500" />
+              <ShieldCheck className="h-5 w-5 text-green-500" />
               Đề Xuất Thiết Bị Bảo Vệ
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="flex justify-between items-center p-3 rounded-lg border bg-muted/30">
-                <span className="text-sm text-muted-foreground">CB / MCCB</span>
-                <Badge variant="default" className="text-sm px-3 py-1">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div className="bg-muted/30 flex items-center justify-between rounded-lg border p-3">
+                <span className="text-muted-foreground text-sm">CB / MCCB</span>
+                <Badge variant="default" className="px-3 py-1 text-sm">
                   {results.suggestedCB} A
                 </Badge>
               </div>
-              <div className="flex justify-between items-center p-3 rounded-lg border bg-muted/30">
-                <span className="text-sm text-muted-foreground">
+              <div className="bg-muted/30 flex items-center justify-between rounded-lg border p-3">
+                <span className="text-muted-foreground text-sm">
                   Cáp Cu/PVC
                 </span>
                 <Badge
                   variant="outline"
-                  className="text-sm px-3 py-1 bg-background"
+                  className="bg-background px-3 py-1 text-sm"
                 >
                   {results.suggestedWire.size} mm²
                 </Badge>
               </div>
-              <div className="flex justify-between items-center p-3 rounded-lg border bg-muted/30">
-                <span className="text-sm text-muted-foreground">
+              <div className="bg-muted/30 flex items-center justify-between rounded-lg border p-3">
+                <span className="text-muted-foreground text-sm">
                   Relay nhiệt
                 </span>
-                <Badge variant="secondary" className="text-sm px-3 py-1">
+                <Badge variant="secondary" className="px-3 py-1 text-sm">
                   {results.suggestedRelay.range} A
                 </Badge>
               </div>
@@ -319,7 +319,7 @@ export default function MotorCalculator() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Gauge className="w-5 h-5 text-blue-500" />
+              <Gauge className="h-5 w-5 text-blue-500" />
               Gợi Ý Biến Tần (VFD)
             </CardTitle>
             <CardDescription>
@@ -374,7 +374,7 @@ export default function MotorCalculator() {
                   <TableRow>
                     <TableCell
                       colSpan={2}
-                      className="pt-4 pb-2 text-xs text-muted-foreground font-semibold uppercase tracking-wider"
+                      className="text-muted-foreground pt-4 pb-2 text-xs font-semibold tracking-wider uppercase"
                     >
                       Thông Số Bảo Vệ
                     </TableCell>
@@ -422,7 +422,7 @@ export default function MotorCalculator() {
                 </TableBody>
               </Table>
             </div>
-            <p className="text-xs text-muted-foreground mt-3">
+            <p className="text-muted-foreground mt-3 text-xs">
               * Các thông số trên là giá trị tham khảo mặc định. Thực tế cần
               điều chỉnh theo hướng dẫn của nhà sản xuất biến tần và đặc tính
               tải cụ thể.

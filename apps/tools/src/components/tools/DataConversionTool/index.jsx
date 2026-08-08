@@ -45,8 +45,8 @@ export default function DataConversionTool() {
   return (
     <div className="mx-auto space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2 flex items-center gap-2">
-          <Binary className="text-primary w-8 h-8" />
+        <h1 className="text-foreground mb-2 flex items-center gap-2 text-3xl font-bold">
+          <Binary className="text-primary h-8 w-8" />
           Công Cụ Chuyển Đổi Dữ Liệu
         </h1>
         <p className="text-muted-foreground">
@@ -57,10 +57,10 @@ export default function DataConversionTool() {
 
       <Tabs defaultValue="base">
         <ScrollArea>
-          <TabsList className="flex h-auto gap-1 mb-2">
+          <TabsList className="mb-2 flex h-auto gap-1">
             {TABS.map(({ value, label, icon: Icon }) => (
               <TabsTrigger key={value} value={value} className="gap-1.5">
-                <Icon className="w-3.5 h-3.5" />
+                <Icon className="h-3.5 w-3.5" />
                 {label}
               </TabsTrigger>
             ))}

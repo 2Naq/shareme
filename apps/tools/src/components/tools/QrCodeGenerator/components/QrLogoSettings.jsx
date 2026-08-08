@@ -19,12 +19,12 @@ export default function QrLogoSettings({
 }) {
   return (
     <Card>
-      <CardContent className="p-5 space-y-5">
+      <CardContent className="space-y-5 p-5">
         <div className="space-y-2">
           <Label className="text-sm font-semibold">
             Tải ảnh lên (Logo/Image):
           </Label>
-          <div className="flex gap-3 items-center">
+          <div className="flex items-center gap-3">
             <div className="relative">
               <input
                 type="file"
@@ -36,10 +36,10 @@ export default function QrLogoSettings({
               <Button
                 nativeButton={false}
                 variant="outline"
-                className="cursor-pointer gap-2 flex flex-col items-center justify-center h-fit! p-2 shadow"
+                className="flex h-fit! cursor-pointer flex-col items-center justify-center gap-2 p-2 shadow"
                 render={
                   <Label htmlFor="logo-upload">
-                    <Upload className="w-4 h-4" />
+                    <Upload className="h-4 w-4" />
                     Chọn Ảnh Từ Máy
                   </Label>
                 }
@@ -51,26 +51,26 @@ export default function QrLogoSettings({
               </Button>
             )}
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-muted-foreground text-xs">
             Hỗ trợ file PNG, JPG có nền trong suốt để hiển thị tốt nhất. Dung
             lượng tối đa 2MB.
           </p>
         </div>
 
         {logoFile && (
-          <div className="space-y-4 pt-3 border-t">
+          <div className="space-y-4 border-t pt-3">
             {/* Trực quan hóa xem trước logo */}
-            <div className="flex items-center gap-3 bg-muted/30 p-2.5 rounded-lg border">
+            <div className="bg-muted/30 flex items-center gap-3 rounded-lg border p-2.5">
               <img
                 src={logoFile}
                 alt="Logo Preview"
-                className="w-12 h-12 rounded object-contain bg-white border"
+                className="h-12 w-12 rounded border bg-white object-contain"
               />
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold truncate">
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-xs font-semibold">
                   Đã nạp hình ảnh logo
                 </p>
-                <p className="text-[10px] text-muted-foreground">
+                <p className="text-muted-foreground text-[10px]">
                   Sẵn sàng kết xuất trên QR
                 </p>
               </div>
@@ -124,7 +124,7 @@ export default function QrLogoSettings({
                 checked={excavateLogo}
                 onCheckedChange={setExcavateLogo}
               />
-              <Label htmlFor="excavate-logo" className="text-xs cursor-pointer">
+              <Label htmlFor="excavate-logo" className="cursor-pointer text-xs">
                 Xóa các điểm ảnh đè dưới Logo (Nên bật để hiển thị rõ)
               </Label>
             </div>

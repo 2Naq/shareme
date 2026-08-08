@@ -47,8 +47,8 @@ export default function Crc16Calculator() {
       : "";
 
   return (
-    <div className="grid grid-row-1 gap-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="grid-row-1 grid gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle className="text-base">CRC16 Modbus Calculator</CardTitle>
@@ -89,12 +89,12 @@ export default function Crc16Calculator() {
               />
             </div>
 
-            <div className="text-xs text-muted-foreground">
+            <div className="text-muted-foreground text-xs">
               Đã parse:{" "}
               <span className="font-mono font-semibold">{bytes.length}</span>{" "}
               bytes
               {bytes.length > 0 && (
-                <span className="ml-2 font-mono text-foreground">
+                <span className="text-foreground ml-2 font-mono">
                   [{bytes.map((b) => toHex(b, 2)).join(" ")}]
                 </span>
               )}
@@ -112,13 +112,13 @@ export default function Crc16Calculator() {
             {crc !== null ? (
               <>
                 <div>
-                  <span className="text-xs text-muted-foreground uppercase tracking-wider block mb-1">
+                  <span className="text-muted-foreground mb-1 block text-xs tracking-wider uppercase">
                     CRC Value
                   </span>
-                  <div className="font-mono text-4xl font-black text-primary">
+                  <div className="text-primary font-mono text-4xl font-black">
                     0x{toHex(crc, 4)}
                   </div>
-                  <div className="font-mono text-sm text-muted-foreground mt-1">
+                  <div className="text-muted-foreground mt-1 font-mono text-sm">
                     Decimal: {crc}
                   </div>
                 </div>
@@ -130,12 +130,12 @@ export default function Crc16Calculator() {
                   label="CRC High Byte (gửi sau)"
                   value={`0x${toHex(crcHi, 2)} (${crcHi})`}
                 />
-                <div className="space-y-1 pt-2 border-t">
-                  <span className="text-xs text-muted-foreground uppercase tracking-wider block">
+                <div className="space-y-1 border-t pt-2">
+                  <span className="text-muted-foreground block text-xs tracking-wider uppercase">
                     Full Frame (kèm CRC)
                   </span>
-                  <div className="flex items-center justify-between gap-2 p-2 bg-background rounded-lg border">
-                    <span className="font-mono text-sm text-foreground break-all">
+                  <div className="bg-background flex items-center justify-between gap-2 rounded-lg border p-2">
+                    <span className="text-foreground font-mono text-sm break-all">
                       {fullFrame}
                     </span>
                     <CopyBtn value={fullFrame} />
@@ -143,7 +143,7 @@ export default function Crc16Calculator() {
                 </div>
               </>
             ) : (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Nhập dữ liệu hợp lệ để xem kết quả.
               </p>
             )}

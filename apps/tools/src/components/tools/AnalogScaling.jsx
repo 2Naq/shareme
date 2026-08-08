@@ -7,7 +7,7 @@ import MathRendererBlock from "../MathRenderer";
 
 const AnalogInput = ({ className, label, value, onChange }) => {
   return (
-    <div className={cn("space-y-2 flex-1", className)}>
+    <div className={cn("flex-1 space-y-2", className)}>
       <Label>{label}</Label>
       <Input
         type="number"
@@ -38,13 +38,13 @@ export default function AnalogScaling() {
   };
 
   return (
-    <Card className=" mx-auto bg-card ">
+    <Card className="bg-card mx-auto">
       <CardContent className="space-y-6">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div className="sm:col-span-2 space-y-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="space-y-4 sm:col-span-2">
             {/* Raw Input */}
             <div>
-              <h3 className="text-lg font-bold mb-3">Thông số đầu vào (mA)</h3>
+              <h3 className="mb-3 text-lg font-bold">Thông số đầu vào (mA)</h3>
               <div className="flex gap-4">
                 <AnalogInput
                   label="Min (mA):"
@@ -58,7 +58,7 @@ export default function AnalogScaling() {
                 />
               </div>
               {!isValidRaw && (
-                <p className="text-sm text-destructive mt-2">
+                <p className="text-destructive mt-2 text-sm">
                   {" "}
                   {"Ní ơi! Min < Max"}{" "}
                 </p>
@@ -67,7 +67,7 @@ export default function AnalogScaling() {
 
             {/* Engineering Value */}
             <div>
-              <h3 className="text-lg font-bold mb-3">
+              <h3 className="mb-3 text-lg font-bold">
                 Dải giá trị thực tế (Engineering)
               </h3>
               <div className="flex gap-4">
@@ -75,7 +75,7 @@ export default function AnalogScaling() {
                 <AnalogInput label="Max:" value={engMax} onChange={setEngMax} />
               </div>
               {!isValidEng && (
-                <p className="text-sm text-destructive mt-2">
+                <p className="text-destructive mt-2 text-sm">
                   {" "}
                   {"Ní ơi! Min < Max"}{" "}
                 </p>
@@ -84,7 +84,7 @@ export default function AnalogScaling() {
 
             {/* Current Input */}
             <div>
-              <h3 className="text-lg font-bold mb-3">Giá trị hiện tại (mA)</h3>
+              <h3 className="mb-3 text-lg font-bold">Giá trị hiện tại (mA)</h3>
               <Input
                 type="number"
                 value={inputValue}
@@ -93,13 +93,13 @@ export default function AnalogScaling() {
             </div>
           </div>
           {/* Result */}
-          <div className="p-4 bg-white/10 border bg-grid rounded-lg flex flex-col items-center justify-center">
+          <div className="bg-grid flex flex-col items-center justify-center rounded-lg border bg-white/10 p-4">
             <MathRendererBlock
               formula={`\\frac{(${inputValue} - ${rawMin}) \\times (${engMax} - ${engMin})}{${rawMax} - ${rawMin}} + ${engMin}`}
             />
             <div>
               <strong className="text-primary">Kết quả: </strong>
-              <span className="text-xl font-bold text-primary">
+              <span className="text-primary text-xl font-bold">
                 {calculateResult()}
               </span>
             </div>

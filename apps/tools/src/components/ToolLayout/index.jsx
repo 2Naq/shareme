@@ -7,10 +7,10 @@ export default function ToolLayout({ children }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <div className="flex w-full flex-col h-screen overflow-hidden">
+      <div className="flex h-screen w-full flex-col overflow-hidden">
         <AppHeader />
-        <main className="flex-1 overflow-auto bg-muted/20 scrollbar-gutter-stable">
-          <div className="p-4 md:p-8 max-w-5xl mx-auto h-full">
+        <main className="bg-muted/20 flex-1 scrollbar-gutter-stable overflow-auto">
+          <div className="mx-auto h-full max-w-5xl p-4 md:p-8">
             {children}
             <div className="h-10 bg-transparent" />
           </div>

@@ -73,11 +73,11 @@ function PopularPosts({ items }) {
                 to={permalink}
                 className="group/popular flex flex-col gap-1 no-underline"
               >
-                <span className="text-sm font-medium text-foreground group-hover/popular:text-primary transition-colors line-clamp-2">
+                <span className="text-foreground group-hover/popular:text-primary line-clamp-2 text-sm font-medium transition-colors">
                   {title}
                 </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-muted-foreground text-xs">
                     {dateObj.toLocaleDateString("vi-VN")}
                   </span>
                 </div>
@@ -118,14 +118,14 @@ function TagCloud({ allTags, selectedTag, onSelectTag }) {
 // ─── Blog Horizontal Filter Bar ─────────────────────────────
 function TagFilterBar({ allTags, selectedTag, onSelectTag, hiddenTagsCount }) {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex items-center gap-2">
       <>
         {allTags.map((tag) => (
           <button
             key={tag}
             onClick={() => onSelectTag(tag)}
             className={clsx(
-              "shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold border border-solid transition-all duration-200 cursor-pointer",
+              "shrink-0 cursor-pointer rounded-full border border-solid px-4 py-1.5 text-xs font-semibold transition-all duration-200",
               selectedTag === tag
                 ? "bg-primary text-primary-foreground border-primary"
                 : "bg-card text-muted-foreground border-border hover:bg-accent hover:text-accent-foreground",
@@ -136,7 +136,7 @@ function TagFilterBar({ allTags, selectedTag, onSelectTag, hiddenTagsCount }) {
         ))}
 
         {hiddenTagsCount > 0 && (
-          <div className="shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold border border-foreground/30 bg-muted select-none">
+          <div className="border-foreground/30 bg-muted shrink-0 rounded-full border px-4 py-1.5 text-xs font-semibold select-none">
             <span>+{hiddenTagsCount}</span>
           </div>
         )}
@@ -252,19 +252,19 @@ function BlogListPageContent(props) {
       <div className="container mx-auto max-w-7xl px-4 py-8">
         {/* ── Header ────────────────────────────────── */}
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-foreground mb-1">Blog</h1>
+          <h1 className="text-foreground mb-1 text-3xl font-bold">Blog</h1>
         </div>
 
         {/* ── Tag Filter Bar & Search Input (cuộn ngang và tìm kiếm bài viết) ── */}
-        <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between mb-6 w-full min-w-0">
+        <div className="mb-6 flex w-full min-w-0 flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           {/* Cụm bộ lọc tag bên trái */}
-          <div className="flex gap-2 items-center w-full flex-1 overflow-x-hidden">
+          <div className="flex w-full flex-1 items-center gap-2 overflow-x-hidden">
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
                 size="icon"
                 onClick={() => setOpenDialog(true)}
-                className="shrink-0 size-8"
+                className="size-8 shrink-0"
                 title="Xem tất cả danh mục"
               >
                 <Menu className="size-4" />
@@ -285,7 +285,7 @@ function BlogListPageContent(props) {
           </div>
 
           {/* Ô tìm kiếm bài viết bên phải */}
-          <InputGroup className="w-full md:max-w-xs h-8 shrink-0">
+          <InputGroup className="h-8 w-full shrink-0 md:max-w-xs">
             <InputGroupAddon align="inline-start">
               <SearchIcon className="size-4 opacity-50" />
             </InputGroupAddon>
@@ -332,7 +332,7 @@ function BlogListPageContent(props) {
                 >
                   <span>{tag === "Tất cả" ? "🏷️ Tất cả" : `# ${tag}`}</span>
                   {tagCounts[tag] !== undefined && (
-                    <span className="text-xs flex-1 text-end text-muted-foreground">
+                    <span className="text-muted-foreground flex-1 text-end text-xs">
                       {tagCounts[tag]} bài viết
                     </span>
                   )}
@@ -343,10 +343,10 @@ function BlogListPageContent(props) {
         </CommandDialog>
 
         {/* ── Layout 2 cột ──────────────────────────── */}
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col gap-8 lg:flex-row">
           {/* Cột trái: Grid bài viết */}
-          <main className="flex-1 min-w-0">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <main className="min-w-0 flex-1">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               <BlogPostItems items={filteredItems} />
             </div>
             {/* Pagination — chỉ khi không đang lọc */}
@@ -358,7 +358,7 @@ function BlogListPageContent(props) {
           </main>
 
           {/* Cột phải: Sidebar */}
-          <aside className="w-full lg:w-72 xl:w-80 shrink-0 flex flex-col gap-6 lg:sticky lg:top-[calc(var(--ifm-navbar-height)+2rem)] lg:self-start">
+          <aside className="flex w-full shrink-0 flex-col gap-6 lg:sticky lg:top-[calc(var(--ifm-navbar-height)+2rem)] lg:w-72 lg:self-start xl:w-80">
             <AuthorCard author={PRIMARY_AUTHOR} />
             <PopularPosts items={items} />
             <TagCloud

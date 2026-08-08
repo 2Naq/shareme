@@ -42,7 +42,7 @@ export function useDynamicDocsCategories() {
         if (parts[0] === "category" && parts[1]) {
           const targetFolder = parts[1];
           const existingKey = Object.keys(folderGroups).find(
-            (k) => k.toLowerCase() === targetFolder.toLowerCase()
+            (k) => k.toLowerCase() === targetFolder.toLowerCase(),
           );
           const keyToUse = existingKey || targetFolder;
           if (!folderGroups[keyToUse]) {
@@ -55,7 +55,7 @@ export function useDynamicDocsCategories() {
         if (parts.length > 1 && parts[0].trim() !== "") {
           const folderKey = parts[0];
           const existingKey = Object.keys(folderGroups).find(
-            (k) => k.toLowerCase() === folderKey.toLowerCase()
+            (k) => k.toLowerCase() === folderKey.toLowerCase(),
           );
           const keyToUse = existingKey || folderKey;
           if (!folderGroups[keyToUse]) {
@@ -77,10 +77,10 @@ export function useDynamicDocsCategories() {
         const autoDesc = `Tổng hợp các bài viết về ${cat.label.toLocaleLowerCase()} ${folderKey}`;
 
         const categoryDoc = folderDocs.find((d) =>
-          d.id.replace(/^\//, "").startsWith("category/")
+          d.id.replace(/^\//, "").startsWith("category/"),
         );
         const articleDocs = folderDocs.filter(
-          (d) => !d.id.replace(/^\//, "").startsWith("category/")
+          (d) => !d.id.replace(/^\//, "").startsWith("category/"),
         );
 
         const targetLink =

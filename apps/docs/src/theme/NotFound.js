@@ -13,9 +13,9 @@ export default function NotFound() {
         message: "Page Not Found",
       })}
     >
-      <main className="bg-white container flex flex-col justify-center items-center min-h-[60vh] text-center my-4">
-        <h1 className="text-6xl text-primary">404</h1>
-        <p className="text-xl text-muted-foreground mt-2">
+      <main className="container my-4 flex min-h-[60vh] flex-col items-center justify-center bg-white text-center">
+        <h1 className="text-primary text-6xl">404</h1>
+        <p className="text-muted-foreground mt-2 text-xl">
           Ôi không! Ní đi lạc rồi?
         </p>
 
@@ -28,11 +28,11 @@ export default function NotFound() {
         </div>
 
         <Link
-          className="inline-flex items-center justify-center gap-2 pl-4 pr-6 py-3 rounded-lg bg-black text-white font-semibold hover:opacity-90 transition-opacity no-underline w-full sm:w-auto mt-4"
+          className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-black py-3 pr-6 pl-4 font-semibold text-white no-underline transition-opacity hover:opacity-90 sm:w-auto"
           to="/"
         >
-          <ArrowLeft className="w-5 h-5" />
-          <span className="leading-none mb-0.5">Quay lại</span>
+          <ArrowLeft className="h-5 w-5" />
+          <span className="mb-0.5 leading-none">Quay lại</span>
         </Link>
       </main>
     </Layout>

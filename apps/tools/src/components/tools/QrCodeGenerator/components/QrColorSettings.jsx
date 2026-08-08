@@ -41,10 +41,10 @@ export default function QrColorSettings({
 }) {
   return (
     <Card>
-      <CardContent className="p-5 space-y-6">
+      <CardContent className="space-y-6 p-5">
         {/* Màu các chấm (Dots) */}
         <div className="space-y-3">
-          <Label className="text-sm font-bold block">
+          <Label className="block text-sm font-bold">
             1. Màu họa tiết (Dots Color):
           </Label>
           <RadioGroup
@@ -72,55 +72,55 @@ export default function QrColorSettings({
                 type="color"
                 value={dotsColor}
                 onChange={(e) => setDotsColor(e.target.value)}
-                className="w-12 h-10 p-0 border cursor-pointer rounded"
+                className="h-10 w-12 cursor-pointer rounded border p-0"
               />
               <Input
                 type="text"
                 value={dotsColor}
                 onChange={(e) => setDotsColor(e.target.value)}
-                className="w-32 h-10"
+                className="h-10 w-32"
               />
             </div>
           ) : (
-            <div className="space-y-3 pt-1 border-l-2 pl-3 border-muted">
+            <div className="border-muted space-y-3 border-l-2 pt-1 pl-3">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <Label className="text-xs">Màu bắt đầu:</Label>
-                  <div className="flex gap-2 items-center">
+                  <div className="flex items-center gap-2">
                     <Input
                       type="color"
                       value={dotsGradColor1}
                       onChange={(e) => setDotsGradColor1(e.target.value)}
-                      className="w-8 h-8 p-0 cursor-pointer rounded"
+                      className="h-8 w-8 cursor-pointer rounded p-0"
                     />
                     <Input
                       type="text"
                       value={dotsGradColor1}
                       onChange={(e) => setDotsGradColor1(e.target.value)}
-                      className="h-8 text-xs w-24"
+                      className="h-8 w-24 text-xs"
                     />
                   </div>
                 </div>
                 <div className="space-y-1">
                   <Label className="text-xs">Màu kết thúc:</Label>
-                  <div className="flex gap-2 items-center">
+                  <div className="flex items-center gap-2">
                     <Input
                       type="color"
                       value={dotsGradColor2}
                       onChange={(e) => setDotsGradColor2(e.target.value)}
-                      className="w-8 h-8 p-0 cursor-pointer rounded"
+                      className="h-8 w-8 cursor-pointer rounded p-0"
                     />
                     <Input
                       type="text"
                       value={dotsGradColor2}
                       onChange={(e) => setDotsGradColor2(e.target.value)}
-                      className="h-8 text-xs w-24"
+                      className="h-8 w-24 text-xs"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 items-center">
+              <div className="grid grid-cols-2 items-center gap-3">
                 <div className="space-y-1">
                   <Label className="text-xs">Loại Gradient:</Label>
                   <Select value={dotsGradType} onValueChange={setDotsGradType}>
@@ -159,7 +159,7 @@ export default function QrColorSettings({
         </div>
 
         {/* Họa tiết Viền Mắt (Corners Square Color) */}
-        <div className="space-y-3 pt-3 border-t">
+        <div className="space-y-3 border-t pt-3">
           <div className="flex items-center justify-between">
             <Label className="text-sm font-bold">
               2. Màu viền mắt (Corners Square Color):
@@ -172,32 +172,32 @@ export default function QrColorSettings({
               />
               <Label
                 htmlFor="custom-corners"
-                className="text-xs cursor-pointer"
+                className="cursor-pointer text-xs"
               >
                 Tùy biến màu riêng
               </Label>
             </div>
           </div>
           {customCornersColor && (
-            <div className="flex items-center gap-3 pt-1 pl-3 border-l-2 border-muted">
+            <div className="border-muted flex items-center gap-3 border-l-2 pt-1 pl-3">
               <Input
                 type="color"
                 value={cornersColor}
                 onChange={(e) => setCornersColor(e.target.value)}
-                className="w-10 h-8 p-0 cursor-pointer rounded"
+                className="h-8 w-10 cursor-pointer rounded p-0"
               />
               <Input
                 type="text"
                 value={cornersColor}
                 onChange={(e) => setCornersColor(e.target.value)}
-                className="h-8 text-xs w-28"
+                className="h-8 w-28 text-xs"
               />
             </div>
           )}
         </div>
 
         {/* Nhân Mắt (Corners Dot Color) */}
-        <div className="space-y-3 pt-3 border-t">
+        <div className="space-y-3 border-t pt-3">
           <div className="flex items-center justify-between">
             <Label className="text-sm font-bold">
               3. Màu nhân mắt (Corners Dot Color):
@@ -210,32 +210,32 @@ export default function QrColorSettings({
               />
               <Label
                 htmlFor="custom-corners-dot"
-                className="text-xs cursor-pointer"
+                className="cursor-pointer text-xs"
               >
                 Tùy biến màu riêng
               </Label>
             </div>
           </div>
           {customCornersDotColor && (
-            <div className="flex items-center gap-3 pt-1 pl-3 border-l-2 border-muted">
+            <div className="border-muted flex items-center gap-3 border-l-2 pt-1 pl-3">
               <Input
                 type="color"
                 value={cornersDotColor}
                 onChange={(e) => setCornersDotColor(e.target.value)}
-                className="w-10 h-8 p-0 cursor-pointer rounded"
+                className="h-8 w-10 cursor-pointer rounded p-0"
               />
               <Input
                 type="text"
                 value={cornersDotColor}
                 onChange={(e) => setCornersDotColor(e.target.value)}
-                className="h-8 text-xs w-28"
+                className="h-8 w-28 text-xs"
               />
             </div>
           )}
         </div>
 
         {/* Màu nền QR (Background Options) */}
-        <div className="space-y-3 pt-3 border-t">
+        <div className="space-y-3 border-t pt-3">
           <div className="flex items-center justify-between">
             <Label className="text-sm font-bold">
               4. Màu nền (Background Color):
@@ -248,25 +248,25 @@ export default function QrColorSettings({
               />
               <Label
                 htmlFor="transparent-bg"
-                className="text-xs cursor-pointer"
+                className="cursor-pointer text-xs"
               >
                 Nền trong suốt
               </Label>
             </div>
           </div>
           {!isBgTransparent && (
-            <div className="flex items-center gap-3 pt-1 pl-3 border-l-2 border-muted">
+            <div className="border-muted flex items-center gap-3 border-l-2 pt-1 pl-3">
               <Input
                 type="color"
                 value={bgColor}
                 onChange={(e) => setBgColor(e.target.value)}
-                className="w-10 h-8 p-0 cursor-pointer rounded"
+                className="h-8 w-10 cursor-pointer rounded p-0"
               />
               <Input
                 type="text"
                 value={bgColor}
                 onChange={(e) => setBgColor(e.target.value)}
-                className="h-8 text-xs w-28"
+                className="h-8 w-28 text-xs"
               />
             </div>
           )}

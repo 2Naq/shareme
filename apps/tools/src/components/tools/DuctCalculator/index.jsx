@@ -9,7 +9,7 @@ export default function DuctCalculator() {
   return (
     <div className="mx-auto flex flex-col gap-6">
       <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2">
+        <h1 className="text-foreground mb-2 text-3xl font-bold">
           Tính Toán & Mô Phỏng Cắt Máng Điện (Bản demo)
         </h1>
         <p className="text-muted-foreground max-w-4xl">
@@ -19,7 +19,7 @@ export default function DuctCalculator() {
       </div>
 
       <Tabs defaultValue="offset1">
-        <TabsList className="w-full group-data-horizontal/tabs:h-12 sm:w-fit flex-wrap">
+        <TabsList className="w-full flex-wrap group-data-horizontal/tabs:h-12 sm:w-fit">
           <TabsTrigger value="offset1">Lệch tầng 1 khúc</TabsTrigger>
           {/* <TabsTrigger value="offset2">Lệch tầng 2 khúc</TabsTrigger>
           <TabsTrigger value="elbow">Co ngang</TabsTrigger>
@@ -44,7 +44,7 @@ export default function DuctCalculator() {
         </TabsContent>
       </Tabs>
 
-      <footer className="text-xs text-muted-foreground text-center pt-2 border-t border-border">
+      <footer className="text-muted-foreground border-border border-t pt-2 text-center text-xs">
         Công cụ tham khảo kỹ thuật - luôn kiểm tra lại số đo trên vật liệu thực
         tế trước khi cắt.
       </footer>

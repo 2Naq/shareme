@@ -19,7 +19,7 @@ export default function QrDesignSettings({
 }) {
   return (
     <Card>
-      <CardContent className="p-5 space-y-4">
+      <CardContent className="space-y-4 p-5">
         {/* Kiểu của các chấm (Dots Options) */}
         <div className="space-y-2">
           <Label className="text-sm font-semibold">

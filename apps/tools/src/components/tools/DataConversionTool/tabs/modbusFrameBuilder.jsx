@@ -96,7 +96,7 @@ export default function ModbusFrameBuilder() {
   const frameBytes = frame.split(" ");
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Modbus RTU Frame Builder</CardTitle>
@@ -173,17 +173,17 @@ export default function ModbusFrameBuilder() {
           <CardTitle className="text-primary text-base">RTU Frame</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="p-3 bg-background rounded-lg border font-mono text-sm break-all flex items-start justify-between gap-2">
+          <div className="bg-background flex items-start justify-between gap-2 rounded-lg border p-3 font-mono text-sm break-all">
             <span>{frame}</span>
             <CopyBtn value={frame} className="shrink-0" />
           </div>
 
           {!frame.startsWith("Lỗi") && (
             <div className="space-y-2">
-              <span className="text-xs text-muted-foreground uppercase font-semibold tracking-wider">
+              <span className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
                 Phân tích khung
               </span>
-              <div className="flex gap-1 flex-wrap">
+              <div className="flex flex-wrap gap-1">
                 {frameBytes.map((byte, i) => {
                   let label = "";
                   if (i === 0) label = "ID";
@@ -196,7 +196,7 @@ export default function ModbusFrameBuilder() {
 
                   return (
                     <div key={i} className="flex flex-col items-center gap-0.5">
-                      <span className="text-[9px] text-muted-foreground leading-none">
+                      <span className="text-muted-foreground text-[9px] leading-none">
                         {label}
                       </span>
                       <Badge
@@ -207,7 +207,7 @@ export default function ModbusFrameBuilder() {
                               ? "secondary"
                               : "outline"
                         }
-                        className="font-mono text-xs px-1.5 py-0.5 rounded"
+                        className="rounded px-1.5 py-0.5 font-mono text-xs"
                       >
                         {byte}
                       </Badge>

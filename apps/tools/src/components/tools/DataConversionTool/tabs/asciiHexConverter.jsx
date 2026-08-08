@@ -40,7 +40,7 @@ export default function AsciiHexConverter() {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       <Card>
         <CardHeader>
           <CardTitle className="text-base">ASCII ↔ HEX Converter</CardTitle>
@@ -58,7 +58,7 @@ export default function AsciiHexConverter() {
             />
           </div>
           <div className="flex items-center justify-center">
-            <ArrowLeftRight className="w-5 h-5 text-muted-foreground" />
+            <ArrowLeftRight className="text-muted-foreground h-5 w-5" />
           </div>
           <div className="space-y-2">
             <Label>HEX Bytes</Label>
@@ -101,16 +101,16 @@ export default function AsciiHexConverter() {
             ].map(([ch, code]) => (
               <div
                 key={code}
-                className="flex items-center justify-between gap-1 p-1.5 rounded bg-muted/40 border"
+                className="bg-muted/40 flex items-center justify-between gap-1 rounded border p-1.5"
               >
                 <span className="font-bold">{ch}</span>
-                <span className="font-mono text-muted-foreground">
+                <span className="text-muted-foreground font-mono">
                   {toHex(code, 2)}
                 </span>
               </div>
             ))}
           </div>
-          <div className="mt-3 text-xs text-muted-foreground">
+          <div className="text-muted-foreground mt-3 text-xs">
             Kết quả hiện tại: {ascii.length} ký tự /{" "}
             {hex.split(/\s+/).filter(Boolean).length} bytes
           </div>

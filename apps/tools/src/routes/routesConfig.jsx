@@ -15,30 +15,30 @@ import {
 
 const ToolPage = React.lazy(() => import("@/pages/tools/index"));
 const AnalogScalingPage = React.lazy(
-  () => import("@/pages/tools/analog-scaling")
+  () => import("@/pages/tools/analog-scaling"),
 );
 const Rs485HexPage = React.lazy(() => import("@/pages/tools/rs485-hex"));
 const HmiIntroPage = React.lazy(() => import("@/pages/tools/hmi-intro"));
 const InverterIntroPage = React.lazy(
-  () => import("@/pages/tools/inverter-intro")
+  () => import("@/pages/tools/inverter-intro"),
 );
 const SelectScrollable = React.lazy(() => import("@/pages/tools/test"));
 const ElectricalCalculatorPage = React.lazy(
-  () => import("@/pages/tools/electrical-calculator")
+  () => import("@/pages/tools/electrical-calculator"),
 );
 const VoltageDropPage = React.lazy(() => import("@/pages/tools/voltage-drop"));
 const ResistorCalculatorPage = React.lazy(
-  () => import("@/pages/tools/resistor-calculator")
+  () => import("@/pages/tools/resistor-calculator"),
 );
 const CableCuttingPage = React.lazy(
-  () => import("@/pages/tools/cable-cutting")
+  () => import("@/pages/tools/cable-cutting"),
 );
 const DataConversionPage = React.lazy(
-  () => import("@/pages/tools/data-conversion")
+  () => import("@/pages/tools/data-conversion"),
 );
 const QrCodePage = React.lazy(() => import("@/pages/tools/qr-code"));
 const QrCodeScannerPage = React.lazy(
-  () => import("@/pages/tools/qr-code-scanner")
+  () => import("@/pages/tools/qr-code-scanner"),
 );
 
 // Định nghĩa các nhóm công cụ

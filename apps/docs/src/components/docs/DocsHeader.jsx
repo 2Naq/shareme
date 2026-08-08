@@ -16,14 +16,14 @@ export default function DocsHeader({
   setActiveTab,
 }) {
   return (
-    <div className="text-center space-y-4 max-w-3xl mx-auto">
-      <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+    <div className="mx-auto max-w-3xl space-y-4 text-center">
+      <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
         Danh sách tài liệu
       </h1>
 
       {/* SEARCH & FILTER BAR */}
-      <div className="pt-4 space-y-4">
-        <InputGroup className="w-full h-12 shadow rounded-2xl">
+      <div className="space-y-4 pt-4">
+        <InputGroup className="h-12 w-full rounded-2xl shadow">
           <InputGroupAddon align="inline-start">
             <SearchIcon className="size-4 opacity-50" />
           </InputGroupAddon>
@@ -47,11 +47,11 @@ export default function DocsHeader({
         </InputGroup>
 
         {/* FILTER TABS */}
-        <div className="flex flex-wrap justify-center items-center gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-2">
           <Button
             onClick={() => setActiveTab("all")}
             variant={activeTab === "all" ? "default" : "outline"}
-            className="px-4 py-2 rounded-xl transition-all"
+            className="rounded-xl px-4 py-2 transition-all"
           >
             Tất cả
           </Button>
@@ -60,7 +60,7 @@ export default function DocsHeader({
               key={cat.id}
               variant={activeTab === cat.id ? "default" : "outline"}
               onClick={() => setActiveTab(cat.id)}
-              className="px-4 py-2 rounded-xl transition-all"
+              className="rounded-xl px-4 py-2 transition-all"
             >
               {cat.label}
             </Button>

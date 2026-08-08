@@ -4,7 +4,7 @@ export default function AboutHighlight({ text, className }) {
   return (
     <span
       className={cn(
-        "relative px-1 py-2 mx-2 inline-block before:absolute before:-inset-1 before:block before:-skew-y-2 before:bg-green-500",
+        "relative mx-2 inline-block px-1 py-2 before:absolute before:-inset-1 before:block before:-skew-y-2 before:bg-green-500",
         className,
       )}
     >
