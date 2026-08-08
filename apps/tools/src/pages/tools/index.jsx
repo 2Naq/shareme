@@ -11,8 +11,8 @@ export default function ToolPage() {
   // Bỏ qua trang Home và các trang test/ẩn
   const tools = routeConfig.filter(
     (route) =>
-      route.path !== "/tool" &&
-      route.path !== "/tool/test" &&
+      route.path !== "/tools" &&
+      route.path !== "/tools/test" &&
       route.showInSidebar,
   );
 
@@ -102,9 +102,9 @@ export default function ToolPage() {
                           : "text-sm",
                       )}
                     >
-                      {tool.path === "/tool/analog-scaling"
+                      {tool.path === "/tools/analog-scaling"
                         ? "Tính toán nhanh chóng và chính xác việc quy đổi tín hiệu Analog 4-20mA về dải giá trị thực tế (Engineering Value) cho PLC."
-                        : tool.path === "/tool/rs485-hex"
+                        : tool.path === "/tools/rs485-hex"
                           ? "Tiện ích tra cứu nhanh và phân tích mã HEX, cấu trúc bit mapping truyền thông chuẩn RS485."
                           : "Công cụ tiện ích hỗ trợ nhanh chóng cho các dự án tự động hóa của ní."}
                     </CardDescription>
