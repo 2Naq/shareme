@@ -233,23 +233,20 @@ function BarcodeCameraTab({ onScanSuccess }) {
                 </div>
 
                 {/* ── Laser quét ngang trái → phải → trái ── */}
-                <style>{`
-                  @keyframes barcode-scan {
-                    0%   { transform: translateX(0); }
-                    50%  { transform: translateX(calc(100% - 3px)); }
-                    100% { transform: translateX(0); }
-                  }
-                `}</style>
-                <div
-                  className="absolute top-0 bottom-0 w-[3px] overflow-visible"
-                  style={{ animation: "barcode-scan 1.6s ease-in-out infinite" }}
-                >
-                  {/* Dải laser chính */}
-                  <div className="h-full w-full bg-red-500" style={{ boxShadow: "0 0 10px 2px #ef4444, 0 0 28px 5px rgba(239,68,68,0.35)" }} />
-                  {/* Phản chiếu bên phải laser */}
-                  <div className="absolute top-0 left-full h-full w-6" style={{
-                    background: "linear-gradient(to right, rgba(239,68,68,0.25), transparent)",
-                  }} />
+                {/* Container tương đối chứa laser ngang */}
+                <div className="pointer-events-none absolute inset-0 overflow-hidden rounded">
+                  <div className="scan-laser-barcode">
+                    {/* Dải laser chính */}
+                    <div
+                      className="h-full w-full bg-red-500"
+                      style={{ boxShadow: "0 0 10px 2px #ef4444, 0 0 28px 5px rgba(239,68,68,0.35)" }}
+                    />
+                    {/* Phản chiếu bên phải laser */}
+                    <div
+                      className="absolute top-0 left-full h-full w-6"
+                      style={{ background: "linear-gradient(to right, rgba(239,68,68,0.22), transparent)" }}
+                    />
+                  </div>
                 </div>
 
               </div>

@@ -265,23 +265,20 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
                 <div className="absolute inset-0 rounded-lg border border-primary/25" />
 
                 {/* ── Laser scan lên xuống ─────────────────── */}
-                <style>{`
-                  @keyframes qr-scan {
-                    0%   { transform: translateY(0); }
-                    50%  { transform: translateY(calc(100% - 3px)); }
-                    100% { transform: translateY(0); }
-                  }
-                `}</style>
-                <div
-                  className="absolute left-0 right-0 h-[3px] overflow-visible"
-                  style={{ animation: "qr-scan 2s ease-in-out infinite" }}
-                >
-                  {/* Dải laser chính */}
-                  <div className="h-full w-full bg-red-500" style={{ boxShadow: "0 0 10px 2px #ef4444, 0 0 30px 6px rgba(239,68,68,0.35)" }} />
-                  {/* Phản chiếu phía dưới laser */}
-                  <div className="h-6 w-full" style={{
-                    background: "linear-gradient(to bottom, rgba(239,68,68,0.25), transparent)",
-                  }} />
+                {/* Container tương đối chứa laser */}
+                <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-lg">
+                  <div className="scan-laser-qr">
+                    {/* Dải laser chính */}
+                    <div
+                      className="h-full w-full bg-red-500"
+                      style={{ boxShadow: "0 0 10px 2px #ef4444, 0 0 30px 6px rgba(239,68,68,0.35)" }}
+                    />
+                    {/* Phản chiếu gó */}
+                    <div
+                      className="h-6 w-full"
+                      style={{ background: "linear-gradient(to bottom, rgba(239,68,68,0.22), transparent)" }}
+                    />
+                  </div>
                 </div>
 
               </div>
