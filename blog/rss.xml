@@ -1747,7 +1747,7 @@ M834 80h400000v40h-400000z"></path></svg></span></span></span><span class="vlist
 <h4 class="anchor anchorTargetStickyNavbar_SAay" id="tạo-liên-kết-đến-trang-công-cụ-tool-của-dự-án">Tạo liên kết đến trang công cụ (Tool của dự án)<a href="https://2naq.github.io/shareme/blog/huong-dan-viet-blog-docusaurus#t%E1%BA%A1o-li%C3%AAn-k%E1%BA%BFt-%C4%91%E1%BA%BFn-trang-c%C3%B4ng-c%E1%BB%A5-tool-c%E1%BB%A7a-d%E1%BB%B1-%C3%A1n" class="hash-link" aria-label="Direct link to Tạo liên kết đến trang công cụ (Tool của dự án)" title="Direct link to Tạo liên kết đến trang công cụ (Tool của dự án)" translate="no">​</a></h4>
 <p>Nếu muốn dẫn link từ blog sang trang Tool tiện ích nằm trong monorepo, hãy sử dụng tiền tố <code>pathname:///</code> để tránh Docusaurus hiểu lầm là link ảo của Single Page App.</p>
 <ul>
-<li class="">Cú pháp: <code>[Bộ công cụ Data Converter](pathname:///shareme/tool/)</code></li>
+<li class="">Cú pháp: <code>[Bộ công cụ Data Converter](pathname:///shareme/tools/)</code></li>
 </ul>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_SAay" id="4-kiểm-tra-trước-khi-xuất-bản">4. Kiểm tra trước khi xuất bản<a href="https://2naq.github.io/shareme/blog/huong-dan-viet-blog-docusaurus#4-ki%E1%BB%83m-tra-tr%C6%B0%E1%BB%9Bc-khi-xu%E1%BA%A5t-b%E1%BA%A3n" class="hash-link" aria-label="Direct link to 4. Kiểm tra trước khi xuất bản" title="Direct link to 4. Kiểm tra trước khi xuất bản" translate="no">​</a></h2>
