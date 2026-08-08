@@ -1,0 +1,258 @@
+---
+id: RKC-RD-Modbus-RS485
+title: Truyền Thông RS-485 Modbus RTU Đồng Hồ Nhiệt RKC (Bảng Thanh Ghi Modbus Register Map)
+sidebar_position: 2
+sidebar_label: RS-485 Modbus RKC
+tags: [RS485, Modbus RTU, RKC, Register Map, Temperature Controller, RD400]
+---
+
+import React from "react";
+
+# Hướng Dẫn Truyền Thông RS-485 Modbus RTU & Bảng Thanh Ghi (Register Map) Đồng Hồ Nhiệt RKC
+
+Trong các hệ thống tự động hóa công nghiệp, việc kết nối đồng hồ điều khiển nhiệt độ **RKC (RD Series: RD100, RD400, RD500, RD700, RD900 & RB/REX Series)** với PLC, màn hình HMI hay máy tính SCADA qua chuẩn giao tiếp **RS-485 Modbus RTU** là giải pháp phổ biến giúp giám sát và điều khiển tập trung.
+
+Bài viết này cung cấp hướng dẫn chi tiết về cấu hình phần cứng, nguyên lý đấu nối bus RS-485, bảng tra cứu địa chỉ thanh ghi Modbus (Register Map / Register Code) đầy đủ và ví dụ khung truyền thông thực tế.
+
+---
+
+## 1. Tổng Quan Về Chuẩn Truyền Thông RS-485 Modbus RTU
+
+### 1.1. Thông Số Truyền Thông Tiêu Chuẩn
+
+Đồng hồ nhiệt RKC hỗ trợ 2 chuẩn giao thức truyền thông nối tiếp chính qua cổng RS-485:
+
+1. **Giao thức RKC ANSI Communication** (Giao thức riêng biệt của RKC).
+2. **Giao thức Modbus RTU** (Chuẩn công nghiệp phổ biến nhất).
+
+Để truyền thông với PLC (Siemens, Mitsubishi, Omron, Delta, Schneider...) hoặc HMI/SCADA, cần chuyển giao thức trong cài đặt đồng hồ sang **Modbus RTU**.
+
+| Thông số kỹ thuật | Dải lựa chọn / Cấu hình khuyến nghị | Tham số trên phím bấm |
+| :--- | :--- | :---: |
+| **Chuẩn vật lý (Physical Layer)** | RS-485 (Bán song công - Half Duplex, 2 dây) | — |
+| **Giao thức (Protocol)** | Modbus RTU | `F50` (Chọn `1`) |
+| **Tốc độ truyền (Baud Rate)** | 2400 / 4800 / **9600** / 19200 bps | `F50` |
+| **Định dạng dữ liệu (Data Bit)** | **8 Bit** | `F50` |
+| **Kiểm tra lỗi Parity** | **None** / Even / Odd | `F50` |
+| **Bit dừng (Stop Bit)** | **1 Bit** hoặc 2 Bit | `F50` |
+| **Địa chỉ Slave (Station Address)** | $1 \sim 99$ (Mỗi thiết bị trên bus phải có địa chỉ duy nhất) | `F50` |
+
+:::tip Lưu ý chuyển đổi giao thức
+Mặc định nhà máy một số dòng đồng hồ RKC có thể cài đặt giao thức `RKC ANSI`. Trước khi lập trình Modbus, bạn **bắt buộc** phải truy cập menu **Engineering Mode (`F50`)** để đổi giao thức sang `Modbus-RTU` (Mã cấu hình `1`).
+:::
+
+---
+
+## 2. Sơ Đồ Đấu Nối Chuẩn Bus RS-485 (Multidrop Topology)
+
+### 2.1. Sơ Đồ Kết Nối Chân Chống Nhiễu
+
+Truyền thông RS-485 sử dụng tín hiệu vi sai 2 dây $A (+)$ và $B (-)$. Đối với dòng đồng hồ RKC RD400 (24 chân):
+
+- **Chân 14**: Tín hiệu $A (+)$ hay còn gọi là `T/R(A)` hoặc `D+`.
+- **Chân 15**: Tín hiệu $B (-)$ hay còn gọi là `T/R(B)` hoặc `D-`.
+- **Chân 13**: Chân mát tín hiệu `SG` (Signal Ground / Shield Line).
+
+```
+   PLC / HMI Master                  RKC Slave 1 (ID: 1)              RKC Slave 2 (ID: 2)              RKC Slave N (ID: N)
+  +------------------+              +-------------------+            +-------------------+            +-------------------+
+  |  RS-485 Port     |              |  RKC RD400        |            |  RKC RD400        |            |  RKC RD400        |
+  |  Terminal A (+)  |------------->|  Chân 14: A (+)   |----------->|  Chân 14: A (+)   |----------->|  Chân 14: A (+)   |---+
+  |                  |              |                   |            |                   |            |                   |   | [120 Ohm]
+  |  Terminal B (-)  |------------->|  Chân 15: B (-)   |----------->|  Chân 15: B (-)   |----------->|  Chân 15: B (-)   |---+
+  |                  |              |                   |            |                   |            |                   |
+  |  Shield / SG     |=============>|  Chân 13: SG      |===========>|  Chân 13: SG      |===========>|  Chân 13: SG      |
+  +------------------+              +-------------------+            +-------------------+            +-------------------+
+```
+
+### 2.2. Quy Tắc Kỹ Thuật Đấu Nối Cần Tuân Thủ
+
+1. **Topolgy nối tiếp (Daisy-chain)**: Kết nối dây từ thiết bị này sang thiết bị tiếp theo. Không đấu nối dạng hình sao (Star Topology) hoặc nhánh rẽ dài (T-branch) để tránh phản xạ tín hiệu trên đường truyền.
+2. **Điện trở cuối đường dây (Termination Resistor)**: Đấu nối 1 điện trở $120\text{ }\Omega - 1/4\text{W}$ song song giữa chân $A$ (14) và $B$ (15) **chỉ tại thiết bị đầu tiên và thiết bị cuối cùng** trên bus truyền thông.
+3. **Cáp chống nhiễu**: Sử dụng cáp xoắn đôi có lớp lưới bọc chống nhiễu (Twisted Pair Shielded Cable). Lớp lưới chống nhiễu đấu nối vào chân `SG` (chân 13) và nối đất 1 đầu duy nhất tại tủ điện.
+
+---
+
+## 3. Bảng Tra Cứu Thanh Ghi Modbus (Modbus Register Map)
+
+Đồng hồ RKC sử dụng bảng thanh ghi **Holding Registers (4X)**. Các mã lệnh Modbus chuẩn được hỗ trợ:
+
+- **Function Code `03H`**: Đọc một hoặc nhiều thanh ghi (Read Holding Registers).
+- **Function Code `06H`**: Ghi một thanh ghi đơn (Write Single Register).
+- **Function Code `10H` (16 Decimal)**: Ghi nhiều thanh ghi liên tiếp (Write Multiple Registers).
+
+:::info Quy tắc dữ liệu & Dấu chấm động
+- Dữ liệu số đo nhiệt độ ($PV$, $SV$, $EV$) trong thanh ghi Modbus được lưu dưới dạng số nguyên 16-bit có dấu (Signed 16-bit Integer).
+- Khi cài đặt độ phân giải số thập phân $0.1^\circ\text{C}$ (mã `F01` = `1`), giá trị đọc về từ thanh ghi bằng **Giá trị thực $\times 10$**. _(Ví dụ: Nhiệt độ thực $150.5^\circ\text{C}$ sẽ lưu trong thanh ghi là $1505$)_.
+:::
+
+### 3.1. Nhóm Thanh Ghi Đọc Giá Trị Giám Sát & Trạng Thái (Monitor Registers - Read Only)
+
+| Địa chỉ Hex | Địa chỉ Dec | Mã Modbus PLC | Tên Ký Hiệu | Tên Thuật Ngữ Tiếng Việt | Thuộc Tính | Dải Giá Trị & Giải Thích Kỹ Thuật |
+| :---: | :---: | :---: | :---: | :--- | :---: | :--- |
+| **`0000H`** | `0` | `40001` | **`PV`** | **Nhiệt độ đo thực tế** | **RO** | Giá trị cảm biến đo hiện tại (Đơn vị $1^\circ\text{C}$ hoặc $0.1^\circ\text{C}$). |
+| **`0001H`** | `1` | `40002` | **`SV`** | **Nhiệt độ cài đặt hiện tại** | **RO** | Giá trị cài đặt $SV$ đang chạy thực tế. |
+| **`0002H`** | `2` | `40003` | **`MV1`** | **Công suất ngõ ra Gia nhiệt** | **RO** | Phần trăm công suất điều khiển gia nhiệt $0.0 \sim 100.0\%$ (Giá trị $0 \sim 1000$). |
+| **`0003H`** | `3` | `40004` | **`MV2`** | **Công suất ngõ ra Làm lạnh** | **RO** | Phần trăm công suất điều khiển làm lạnh $0.0 \sim 100.0\%$ (Giá trị $0 \sim 1000$). |
+| **`0004H`** | `4` | `40005` | **`CT1`** | **Dòng điện tải biến dòng 1** | **RO** | Dòng điện tải đo qua CT1: $0.0 \sim 50.0\text{ A}$ (Giá trị $0 \sim 500$). |
+| **`0005H`** | `5` | `40006` | **`CT2`** | **Dòng điện tải biến dòng 2** | **RO** | Dòng điện tải đo qua CT2: $0.0 \sim 50.0\text{ A}$ (Giá trị $0 \sim 500$). |
+| **`0008H`** | `8` | `40009` | **`OUT_STAT`** | **Bitmask trạng thái Ngõ ra** | **RO** | **Mặt nạ Bit trạng thái xuất ngõ ra**:<br/>• Bit 0: OUT1 (1 = ON, 0 = OFF)<br/>• Bit 1: OUT2<br/>• Bit 2: DO1 \| Bit 3: DO2<br/>• Bit 4: DO3 \| Bit 5: DO4 |
+| **`0009H`** | `9` | `40010` | **`ALM_STAT`** | **Bitmask trạng thái Báo lỗi** | **RO** | **Mặt nạ Bit báo sự cố hệ thống**:<br/>• Bit 0: Đứt cảm biến (Sensor Burnout)<br/>• Bit 1: Báo đứt dây đốt HBA1<br/>• Bit 2: Báo đứt dây đốt HBA2<br/>• Bit 3: Báo hở vòng lặp PID (LBA) |
+
+---
+
+### 3.2. Nhóm Thanh Ghi Cài Đặt Nhiệt Độ Mục Tiêu (Set Value Registers - Read / Write)
+
+| Địa chỉ Hex | Địa chỉ Dec | Mã Modbus PLC | Tên Ký Hiệu | Tên Thuật Ngữ Tiếng Việt | Thuộc Tính | Dải Giá Trị & Giải Thích Kỹ Thuật |
+| :---: | :---: | :---: | :---: | :--- | :---: | :--- |
+| **`0006H`** | `6` | `40007` | **`SV1`** | **Cài đặt nhiệt độ vùng 1** | **R/W** | Nhiệt độ cài đặt mục tiêu vùng 1 (Trong giới hạn $SV\text{ Low} \sim SV\text{ High}$). |
+| **`0007H`** | `7` | `40008` | **`SV2`** | **Cài đặt nhiệt độ vùng 2** | **R/W** | Nhiệt độ cài đặt mục tiêu vùng 2. |
+| **`003EH`** | `62` | `40063` | **`SV3`** | **Cài đặt nhiệt độ vùng 3** | **R/W** | Nhiệt độ cài đặt mục tiêu vùng 3. |
+| **`003FH`** | `63` | `40064` | **`SV4`** | **Cài đặt nhiệt độ vùng 4** | **R/W** | Nhiệt độ cài đặt mục tiêu vùng 4. |
+| **`0040H`** | `64` | `40065` | **`SV_SEL`** | **Chọn vùng nhiệt độ SV** | **R/W** | Chọn vùng nhiệt độ làm việc: `1` = SV1, `2` = SV2, `3` = SV3, `4` = SV4. |
+
+---
+
+### 3.3. Nhóm Thanh Ghi Ngưỡng Cảnh Báo Event & Đứt Điện Trở HBA (Alarm Registers - Read / Write)
+
+| Địa chỉ Hex | Địa chỉ Dec | Mã Modbus PLC | Tên Ký Hiệu | Tên Thuật Ngữ Tiếng Việt | Thuộc Tính | Dải Giá Trị & Giải Thích Kỹ Thuật |
+| :---: | :---: | :---: | :---: | :--- | :---: | :--- |
+| **`000AH`** | `10` | `40011` | **`EV1`** | **Ngưỡng cài đặt Event 1** | **R/W** | Giá trị cài đặt cảnh báo 1 (Độ lệch hoặc nhiệt độ tuyệt đối). |
+| **`000BH`** | `11` | `40012` | **`EV2`** | **Ngưỡng cài đặt Event 2** | **R/W** | Giá trị cài đặt cảnh báo 2. |
+| **`000CH`** | `12` | `40013` | **`EV3`** | **Ngưỡng cài đặt Event 3** | **R/W** | Giá trị cài đặt cảnh báo 3. |
+| **`000DH`** | `13` | `40014` | **`EV4`** | **Ngưỡng cài đặt Event 4** | **R/W** | Giá trị cài đặt cảnh báo 4. |
+| **`000EH`** | `14` | `40015` | **`HBA1`** | **Ngưỡng cảnh báo đứt mayso 1** | **R/W** | Cài đặt dòng điện phát hiện đứt mayso CT1: $0.0 \sim 100.0\text{ A}$ ($0.0$: Tắt HBA). |
+| **`000FH`** | `15` | `40016` | **`HBA2`** | **Ngưỡng cảnh báo đứt mayso 2** | **R/W** | Cài đặt dòng điện phát hiện đứt mayso CT2: $0.0 \sim 100.0\text{ A}$ ($0.0$: Tắt HBA). |
+
+---
+
+### 3.4. Nhóm Thanh Ghi Cấu Hình Bộ Điều Khiển PID & Bộ Lọc (PID Parameters - Read / Write)
+
+| Địa chỉ Hex | Địa chỉ Dec | Mã Modbus PLC | Tên Ký Hiệu | Tên Thuật Ngữ Tiếng Việt | Thuộc Tính | Dải Giá Trị & Giải Thích Kỹ Thuật |
+| :---: | :---: | :---: | :---: | :--- | :---: | :--- |
+| **`0010H`** | `16` | `40017` | **`P`** | **Dải tỷ lệ Proportional** | **R/W** | Dải tỷ lệ $P$: $0 \sim \text{Max Range}$ ($0$: Điều khiển ON/OFF). |
+| **`0011H`** | `17` | `40018` | **`I`** | **Thời gian tích phân Integral** | **R/W** | Thời gian tích phân $I$: $0 \sim 3600\text{ s}$ ($0$: Tắt tích phân). |
+| **`0012H`** | `18` | `40019` | **`D`** | **Thời gian vi phân Derivative** | **R/W** | Thời gian vi phân $D$: $0 \sim 3600\text{ s}$ ($0$: Tắt vi phân). |
+| **`0013H`** | `19` | `40020` | **`ARW`** | **Anti-Reset Windup** | **R/W** | Giới hạn chống bão hòa tích phân: $1 \sim 100\%$ dải tỷ lệ $P$. |
+| **`0014H`** | `20` | `40021` | **`DB`** | **Deadband / Overlap** | **R/W** | Dải chết hoặc phủ giữa Heating & Cooling: $-10.0 \sim +10.0^\circ\text{C}$. |
+| **`0015H`** | `21` | `40022` | **`T1`** | **Chu kỳ xung ngõ ra Gia nhiệt** | **R/W** | Chu kỳ ngõ ra `OUT1`: $1 \sim 100\text{ s}$. |
+| **`0016H`** | `22` | `40023` | **`T2`** | **Chu kỳ xung ngõ ra Làm lạnh** | **R/W** | Chu kỳ ngõ ra `OUT2`: $1 \sim 100\text{ s}$. |
+| **`0017H`** | `23` | `40024` | **`AT`** | **Kích hoạt tự dò PID (Auto-Tuning)** | **R/W** | `0`: Tắt Auto-Tuning.<br/>`1`: Kích hoạt tự động tính toán thông số PID. |
+| **`0018H`** | `24` | `40025` | **`ST`** | **Tính năng Self-Tuning** | **R/W** | `0`: Tắt Self-Tuning.<br/>`1`: Bật tự tối ưu PID liên tục. |
+| **`0019H`** | `25` | `40026` | **`LBA`** | **Thời gian cảnh báo hở mạch PID** | **R/W** | Thời gian phát hiện lỗi đứt vòng lặp $LBA$: $0 \sim 7200\text{ s}$. |
+| **`001AH`** | `26` | `40027` | **`pb`** | **PV Sensor Bias (Offset)** | **R/W** | Hiệu chỉnh sai số đo cảm biến nhiệt: $-1999 \sim +9999^\circ\text{C}$. |
+| **`001BH`** | `27` | `40028` | **`FIL`** | **Bộ lọc số đầu vào PV** | **R/W** | Hằng số thời gian bộ lọc số tín hiệu $PV$: $0 \sim 100\text{ s}$. |
+
+---
+
+### 3.5. Nhóm Thanh Ghi Lệnh Điều Khiển Trạng Thái (Control Command Registers - Read / Write)
+
+| Địa chỉ Hex | Địa chỉ Dec | Mã Modbus PLC | Tên Ký Hiệu | Tên Thuật Ngữ Tiếng Việt | Thuộc Tính | Dải Giá Trị & Giải Thích Kỹ Thuật |
+| :---: | :---: | :---: | :---: | :--- | :---: | :--- |
+| **`0020H`** | `32` | `40033` | **`RUN/STOP`** | **Chế độ Chạy / Dừng** | **R/W** | `0`: **RUN** (Cho phép điều khiển ngõ ra).<br/>`1`: **STOP** (Ngắt toàn bộ ngõ ra). |
+| **`0021H`** | `33` | `40034` | **`AUTO/MAN`** | **Chế độ Tự động / Thủ công** | **R/W** | `0`: **AUTO** (Điều khiển PID tự động).<br/>`1`: **MANUAL** (Chỉnh tay công suất ngõ ra MV). |
+| **`0022H`** | `34` | `40035` | **`MAN_MV`** | **Công suất ngõ ra Manual %** | **R/W** | Cài đặt % ngõ ra thủ công khi ở MANUAL mode: $0.0 \sim 100.0\%$ (Giá trị $0 \sim 1000$). |
+| **`0023H`** | `35` | `40036` | **`ALM_RST`** | **Xóa trạng thái cảnh báo** | **R/W** | Ghi `1` để xóa trạng thái chốt cảnh báo (Alarm Reset). |
+
+---
+
+## 4. Phân Phích Khung Truyền Modbus RTU Thực Tế
+
+### 4.1. Ví Dụ 1: Đọc Nhiệt Độ Thực Tế ($PV$) Từ Đồng Hồ Slave ID = 1 (Function Code 03H)
+
+Giả sử cần đọc thanh ghi `PV` (Địa chỉ Hex `0000H`) từ đồng hồ nhiệt có địa chỉ Modbus là `1`:
+
+**Khung Yêu Cầu (Master Request):**
+
+```text
+[Address] [Func] [Start Addr High] [Start Addr Low] [Count High] [Count Low] [CRC Low] [CRC High]
+  01        03         00               00             00           01         84        0A
+```
+
+**Khung Phản Hồi (Slave Response):**
+
+```text
+[Address] [Func] [Byte Count] [Data High] [Data Low] [CRC Low] [CRC High]
+  01        03        02          05          E8         B8        FA
+```
+
+- Dữ liệu nhận về: `05E8H` (Thập phân = 1500).
+- Nếu cài đặt dải số thập phân $0.1^\circ\text{C}$, giá trị nhiệt độ đo thực tế $PV = 150.0^\circ\text{C}$.
+
+---
+
+### 4.2. Ví Dụ 2: Ghi Nhiệt Độ Cài Đặt Mục Tiêu $SV1 = 200.0^\circ\text{C}$ (Function Code 06H)
+
+Muốn cài đặt giá trị nhiệt độ mục tiêu $SV1 = 200.0^\circ\text{C}$ (Giá trị số nguyên ghi vào Modbus = $2000 = \text{07D0H}$) vào thanh ghi `0006H` của đồng hồ Slave ID = 1:
+
+**Khung Yêu Cầu (Master Request):**
+
+```text
+[Address] [Func] [Register High] [Register Low] [Data High] [Data Low] [CRC Low] [CRC High]
+  01        06         00              06           07          D0         6B        0D
+```
+
+**Khung Phản Hồi Xạc Nhận (Slave Response):**
+
+```text
+[Address] [Func] [Register High] [Register Low] [Data High] [Data Low] [CRC Low] [CRC High]
+  01        06         00              06           07          D0         6B        0D
+```
+
+---
+
+## 5. Ví Dụ Lập Trình Đọc/Ghi Modbus RS-485 Bằng Python
+
+Dưới đây là đoạn mã Python minh họa sử dụng thư viện `pymodbus` hoặc `minimalmodbus` để đọc nhiệt độ thực tế $PV$ và cài đặt nhiệt độ $SV1$ qua bộ chuyển đổi USB-to-RS485:
+
+```python
+import minimalmodbus
+
+# Khởi tạo thiết bị kết nối cổng COM qua RS-485
+# Thay 'COM3' (Windows) hoặc '/dev/ttyUSB0' (Linux) theo cấu hình thực tế
+controller = minimalmodbus.Instrument(port='COM3', slaveaddress=1)
+
+# Cấu hình thông số truyền thông RS-485
+controller.serial.baudrate = 9600      # Tốc độ Baud Rate 9600 bps
+controller.serial.bytesize = 8         # 8 Data Bits
+controller.serial.parity   = 'N'       # Parity None
+controller.serial.stopbits = 1         # 1 Stop Bit
+controller.serial.timeout  = 0.5       # Timeout 500ms
+controller.mode = minimalmodbus.MODE_RTU
+
+try:
+    # 1. Đọc giá trị nhiệt độ thực tế PV (Thanh ghi 0x0000 = 0 Decimal)
+    # number_of_decimals=1 để tự động chia 10 lấy số thập phân (Ví dụ 1500 -> 150.0 °C)
+    pv_temperature = controller.read_register(registeraddress=0, number_of_decimals=1, functioncode=3)
+    print(f"Nhiệt độ đo thực tế (PV): {pv_temperature} °C")
+
+    # 2. Đọc giá trị nhiệt độ cài đặt SV1 (Thanh ghi 0x0006 = 6 Decimal)
+    sv_temperature = controller.read_register(registeraddress=6, number_of_decimals=1, functioncode=3)
+    print(f"Nhiệt độ cài đặt mục tiêu (SV1): {sv_temperature} °C")
+
+    # 3. Ghi giá trị SV1 mới = 180.0 °C vào thanh ghi 0x0006
+    new_sv = 180.0
+    controller.write_register(registeraddress=6, value=new_sv, number_of_decimals=1, functioncode=6)
+    print(f"Đã cập nhật cài đặt SV1 thành công: {new_sv} °C")
+
+except Exception as e:
+    print(f"Lỗi giao tiếp truyền thông RS-485 Modbus: {e}")
+```
+
+---
+
+## 6. Xử Lý Sự Cố Truyền Thông Thường Gặp (Troubleshooting)
+
+| Sự cố / Mã lỗi Modbus | Nguyên nhân | Biện pháp kiểm tra & Xử lý |
+| :--- | :--- | :--- |
+| **Timeout (Không phản hồi)** | • Sai dây $A/B$ ($D+/D-$).<br/>• Chưa đổi `F50` sang Modbus-RTU.<br/>• Sai địa chỉ Slave ID hoặc Baud rate. | • Đảo ngược thử 2 dây chân **14** và **15**.<br/>• Vào menu đồng hồ kiểm tra tham số `F50` (Protocol = Modbus-RTU, Baud = 9600).<br/>• Kiểm tra địa chỉ Station ID trùng khớp với mã gửi trong PLC/HMI. |
+| **Lỗi CRC Error** | • Nhiễu điện từ trường từ biến tần hoặc tải công suất.<br/>• Đường dây truyền thông quá dài không có điện trở $120\text{ }\Omega$. | • Đấu nối điện trở cuối $120\text{ }\Omega$ ở 2 đầu tuyến bus.<br/>• Sử dụng cáp xoắn đôi chống nhiễu và nối đất chân `SG` (chân 13). |
+| **Illegal Data Address (`02H`)** | Gửi yêu cầu đọc/ghi tới địa chỉ thanh ghi nằm ngoài dải hỗ trợ của đồng hồ. | Tra cứu đúng địa chỉ Hex / Dec trong bảng Register Map ở Mục 3. |
+| **Giá trị đọc gấp 10 lần thực tế** | Chưa xử lý dải số thập phân ở phần mềm Master. | Khi tham số `F01` chọn số thập phân, cần chia giá trị đọc về cho 10 ở PLC/HMI. |
+
+---
+
+## 7. Tài Liệu Tham Khảo Chính Thức (References)
+
+- **RKC Instrument Communication Manual**: Document Code `IMR02C16-E` (Modbus Communication Instruction Manual)
+- **RKC RD Series Parameter Overview**: Document Code `IMR02C44-C1`
