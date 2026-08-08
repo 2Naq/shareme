@@ -49,10 +49,20 @@ const statusColors = {
 
 function ProjectCard({ project }) {
   const imageUrl = useBaseUrl(project.image);
-  const rawLink = useBaseUrl(project.link);
-  const toUrl = project.link.startsWith("/docs")
-    ? project.link
-    : `pathname:${rawLink}`;
+
+  const isExternal = /^https?:\/\//.test(project.link);
+  const isDocs = project.link.startsWith("/docs");
+
+  let toUrl;
+  if (isExternal || isDocs) {
+    toUrl = project.link;
+  } else {
+    // Docusaurus bypass router SPA
+    const normalizedPath = project.link.startsWith("/")
+      ? project.link
+      : `/${project.link}`;
+    toUrl = useBaseUrl(`pathname://${normalizedPath}`);
+  }
 
   return (
     <Link
