@@ -226,20 +226,67 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
           </div>
         )}
 
-        {/* Khung quét Laser Beam chuyển động khi đang quét */}
+        {/* Khung quét nâng cao khi đang quét */}
         {isScanning && (
-          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
-            {/* Bo góc vùng quét */}
-            <div className="border-primary/50 relative h-[70%] w-[70%] rounded-lg border-2">
-              {/* 4 Góc màu đậm hơn */}
-              <div className="border-primary absolute -top-0.5 -left-0.5 h-6 w-6 rounded-tl-lg border-t-4 border-l-4"></div>
-              <div className="border-primary absolute -top-0.5 -right-0.5 h-6 w-6 rounded-tr-lg border-t-4 border-r-4"></div>
-              <div className="border-primary absolute -bottom-0.5 -left-0.5 h-6 w-6 rounded-bl-lg border-b-4 border-l-4"></div>
-              <div className="border-primary absolute -right-0.5 -bottom-0.5 h-6 w-6 rounded-br-lg border-r-4 border-b-4"></div>
+          <div className="pointer-events-none absolute inset-0 z-10">
 
-              {/* Dòng laser đỏ quét dọc */}
-              <div className="absolute left-0 h-0.75 w-full animate-[scan_2s_ease-in-out_infinite] bg-red-500 shadow-[0_0_8px_#ef4444]"></div>
+            {/* Vignette tối 4 góc */}
+            <div className="absolute inset-0 rounded-xl"
+              style={{ background: "radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.55) 100%)" }}
+            />
+
+            {/* Khung và laser căn giữa */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative h-[68%] w-[68%]">
+
+                {/* ── Góc bo có pulse glow ─────────────────── */}
+                {/* Top-left */}
+                <div className="absolute -top-0.5 -left-0.5 h-7 w-7">
+                  <div className="absolute inset-0 rounded-tl-lg border-t-[3px] border-l-[3px] border-primary" />
+                  <div className="absolute inset-0 rounded-tl-lg border-t-[3px] border-l-[3px] border-primary/40 animate-ping" />
+                </div>
+                {/* Top-right */}
+                <div className="absolute -top-0.5 -right-0.5 h-7 w-7">
+                  <div className="absolute inset-0 rounded-tr-lg border-t-[3px] border-r-[3px] border-primary" />
+                  <div className="absolute inset-0 rounded-tr-lg border-t-[3px] border-r-[3px] border-primary/40 animate-ping" />
+                </div>
+                {/* Bottom-left */}
+                <div className="absolute -bottom-0.5 -left-0.5 h-7 w-7">
+                  <div className="absolute inset-0 rounded-bl-lg border-b-[3px] border-l-[3px] border-primary" />
+                  <div className="absolute inset-0 rounded-bl-lg border-b-[3px] border-l-[3px] border-primary/40 animate-ping" />
+                </div>
+                {/* Bottom-right */}
+                <div className="absolute -right-0.5 -bottom-0.5 h-7 w-7">
+                  <div className="absolute inset-0 rounded-br-lg border-b-[3px] border-r-[3px] border-primary" />
+                  <div className="absolute inset-0 rounded-br-lg border-b-[3px] border-r-[3px] border-primary/40 animate-ping" />
+                </div>
+
+                {/* Viền mờ */}
+                <div className="absolute inset-0 rounded-lg border border-primary/25" />
+
+                {/* ── Laser scan lên xuống ─────────────────── */}
+                <style>{`
+                  @keyframes qr-scan {
+                    0%   { transform: translateY(0); }
+                    50%  { transform: translateY(calc(100% - 3px)); }
+                    100% { transform: translateY(0); }
+                  }
+                `}</style>
+                <div
+                  className="absolute left-0 right-0 h-[3px] overflow-visible"
+                  style={{ animation: "qr-scan 2s ease-in-out infinite" }}
+                >
+                  {/* Dải laser chính */}
+                  <div className="h-full w-full bg-red-500" style={{ boxShadow: "0 0 10px 2px #ef4444, 0 0 30px 6px rgba(239,68,68,0.35)" }} />
+                  {/* Phản chiếu phía dưới laser */}
+                  <div className="h-6 w-full" style={{
+                    background: "linear-gradient(to bottom, rgba(239,68,68,0.25), transparent)",
+                  }} />
+                </div>
+
+              </div>
             </div>
+
           </div>
         )}
       </div>
