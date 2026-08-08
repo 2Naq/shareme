@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { QrCode, Camera, Upload } from "lucide-react";
+import { ScanLine, QrCode, Barcode } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -8,40 +8,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { toast } from "sonner";
 
 // Import sub-components
-import CameraScanner from "./components/CameraScanner";
-import ImageScanner from "./components/ImageScanner";
+import QrScanner from "./components/QrScanner";
+import BarcodeScanner from "./components/BarcodeScanner";
 import ScanResult from "./components/ScanResult";
 
 export default function QrCodeScanner() {
-  const [activeTab, setActiveTab] = useState("camera");
+  const [activeTab, setActiveTab] = useState("qr");
   const [scanResult, setScanResult] = useState(null);
 
-  // Xử lý khi quét thành công
   const handleScanSuccess = (decodedText) => {
-    // Phát âm thanh beep ngắn (tùy chọn, tạo trải nghiệm chuyên nghiệp)
-    try {
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
-      oscillator.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-      oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // A5 note
-      gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-      oscillator.start();
-      oscillator.stop(audioCtx.currentTime + 0.1);
-    } catch (e) {
-      console.warn("AudioContext không được hỗ trợ hoặc bị chặn:", e);
-    }
-
     setScanResult(decodedText);
-    toast.success("Đã quét thành công mã QR!");
   };
 
-  // Reset để quét mã mới
   const handleReset = () => {
     setScanResult(null);
   };
@@ -50,79 +30,79 @@ export default function QrCodeScanner() {
     <div className="mx-auto max-w-4xl space-y-6 pb-12">
       <div>
         <h1 className="text-foreground mb-2 flex items-center gap-2 text-3xl font-bold">
-          <QrCode className="text-primary h-8 w-8" />
-          Đọc Mã QR Code
+          <ScanLine className="text-primary h-8 w-8" />
+          Đọc Mã QR & Barcode
         </h1>
         <p className="text-muted-foreground">
-          Giải mã nội dung QR Code nhanh chóng và bảo mật. Hỗ trợ quét trực tiếp
-          qua camera thiết bị hoặc tải ảnh lên từ máy tính.
+          Giải mã nội dung QR Code và mã vạch nhanh chóng, bảo mật — toàn bộ
+          xử lý trực tiếp trên trình duyệt, không gửi dữ liệu lên máy chủ.
         </p>
       </div>
 
       <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12">
-        {/* Vùng hiển thị Scanner */}
-        <div className="w-full lg:col-span-7">
-          {scanResult ? (
-            <ScanResult result={scanResult} onReset={handleReset} />
-          ) : (
-            <Card className="bg-card border shadow-md">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold">
-                  Chọn phương thức quét
-                </CardTitle>
-                <CardDescription>
-                  Sử dụng camera của thiết bị hoặc tải lên hình ảnh có chứa mã
-                  QR.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Tabs
-                  value={activeTab}
-                  onValueChange={setActiveTab}
-                  className="w-full"
-                >
-                  <TabsList className="mb-6 grid w-full grid-cols-2">
-                    <TabsTrigger value="camera" className="gap-2">
-                      <Camera className="h-4 w-4" />
-                      Quét bằng Camera
-                    </TabsTrigger>
-                    <TabsTrigger value="upload" className="gap-2">
-                      <Upload className="h-4 w-4" />
-                      Tải ảnh lên
-                    </TabsTrigger>
-                  </TabsList>
+        {/* ── Cột trái: Scanner ───────────────────────────── */}
+        <div className="flex w-full flex-col gap-4 lg:col-span-7">
+          <Card className="bg-card border shadow-md">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg font-semibold">
+                Chọn loại mã cần quét
+              </CardTitle>
+              <CardDescription>
+                Quét QR Code hoặc mã vạch (Barcode) bằng camera hoặc tải ảnh
+                lên từ máy tính.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Tabs
+                value={activeTab}
+                onValueChange={(v) => {
+                  setActiveTab(v);
+                  setScanResult(null);
+                }}
+                className="w-full"
+              >
+                <TabsList className="mb-6 grid w-full grid-cols-2">
+                  <TabsTrigger value="qr" className="gap-2">
+                    <QrCode className="h-4 w-4" />
+                    QR Code
+                  </TabsTrigger>
+                  <TabsTrigger value="barcode" className="gap-2">
+                    <Barcode className="h-4 w-4" />
+                    Barcode
+                  </TabsTrigger>
+                </TabsList>
 
-                  <TabsContent
-                    value="camera"
-                    className="mt-0 focus-visible:outline-none"
-                  >
-                    <CameraScanner
-                      onScanSuccess={handleScanSuccess}
-                      isActive={activeTab === "camera" && !scanResult}
-                    />
-                  </TabsContent>
+                <TabsContent value="qr" className="mt-0 focus-visible:outline-none">
+                  <QrScanner
+                    onScanSuccess={handleScanSuccess}
+                    isActive={activeTab === "qr"}
+                  />
+                </TabsContent>
 
-                  <TabsContent
-                    value="upload"
-                    className="mt-0 focus-visible:outline-none"
-                  >
-                    <ImageScanner
-                      onScanSuccess={handleScanSuccess}
-                      isActive={activeTab === "upload" && !scanResult}
-                    />
-                  </TabsContent>
-                </Tabs>
-              </CardContent>
-            </Card>
+                <TabsContent value="barcode" className="mt-0 focus-visible:outline-none">
+                  <BarcodeScanner
+                    onScanSuccess={handleScanSuccess}
+                    isActive={activeTab === "barcode"}
+                  />
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+
+          {/* ── Kết quả inline ── */}
+          {scanResult && (
+            <div className="animate-in slide-in-from-top-2 fade-in duration-300">
+              <ScanResult result={scanResult} onReset={handleReset} />
+            </div>
           )}
         </div>
 
-        {/* Hướng dẫn sử dụng & Mẹo */}
+        {/* ── Cột phải: Hướng dẫn & mẹo ────────────────── */}
         <div className="space-y-6 lg:col-span-5">
           <Card className="bg-card border shadow-sm">
             <CardHeader>
               <CardTitle className="text-md flex items-center gap-2 font-semibold">
-                Mẹo Quét QR Code
+                Mẹo Quét QR Code & Barcode
               </CardTitle>
             </CardHeader>
             <CardContent className="text-muted-foreground space-y-4 text-sm">
@@ -131,8 +111,8 @@ export default function QrCodeScanner() {
                   1
                 </div>
                 <p>
-                  <strong>Đủ ánh sáng:</strong> Hãy đảm bảo môi trường xung
-                  quanh đủ sáng và camera không bị che khuất khi quét trực tiếp.
+                  <strong>Đủ ánh sáng:</strong> Đảm bảo môi trường xung quanh
+                  đủ sáng và camera không bị che khuất khi quét trực tiếp.
                 </p>
               </div>
               <div className="flex gap-3">
@@ -141,8 +121,7 @@ export default function QrCodeScanner() {
                 </div>
                 <p>
                   <strong>Độ nét và góc chụp:</strong> Giữ camera vuông góc và
-                  cách mã QR khoảng 10 - 20cm để lấy nét tốt nhất. Tránh rung
-                  tay.
+                  cách mã QR khoảng 10–20cm để lấy nét tốt nhất. Tránh rung tay.
                 </p>
               </div>
               <div className="flex gap-3">
@@ -150,9 +129,8 @@ export default function QrCodeScanner() {
                   3
                 </div>
                 <p>
-                  <strong>Độ phân giải ảnh tải lên:</strong> Khi tải ảnh lên,
-                  hãy chọn các bức ảnh rõ nét, không bị mờ hay méo mó để thuật
-                  toán giải mã chính xác hơn.
+                  <strong>Ảnh tải lên:</strong> Chọn ảnh rõ nét, không bị mờ
+                  hay méo để thuật toán giải mã chính xác hơn.
                 </p>
               </div>
               <div className="flex gap-3">
@@ -160,9 +138,9 @@ export default function QrCodeScanner() {
                   4
                 </div>
                 <p>
-                  <strong>An toàn & Bảo mật:</strong> Toàn bộ quá trình quét và
-                  đọc mã QR đều diễn ra trực tiếp trên trình duyệt của bạn
-                  (Client-side), dữ liệu không bao giờ được gửi lên máy chủ.
+                  <strong>An toàn & Bảo mật:</strong> Toàn bộ quá trình quét
+                  diễn ra trực tiếp trên trình duyệt (Client-side), dữ liệu
+                  không bao giờ được gửi lên máy chủ.
                 </p>
               </div>
             </CardContent>

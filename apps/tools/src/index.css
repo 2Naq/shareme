@@ -230,3 +230,35 @@ body[style*="overflow: hidden"] main {
     linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
+
+/* ── Scanner Animations ────────────────────────────────────── */
+
+/* QR Code: laser quét lên ↕ xuống */
+@keyframes qr-scan {
+  0%   { top: 0; }
+  50%  { top: calc(100% - 3px); }
+  100% { top: 0; }
+}
+
+/* Barcode: laser quét trái ↔ phải */
+@keyframes barcode-scan {
+  0%   { left: 0; }
+  50%  { left: calc(100% - 3px); }
+  100% { left: 0; }
+}
+
+.scan-laser-qr {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  animation: qr-scan 4.5s ease-in-out infinite;
+}
+
+.scan-laser-barcode {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  animation: barcode-scan 4.8s ease-in-out infinite;
+}

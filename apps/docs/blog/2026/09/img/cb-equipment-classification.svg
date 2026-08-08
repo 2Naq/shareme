@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 220" width="100%" height="100%">
+  <defs>
+    <linearGradient id="classBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    
+    <linearGradient id="mcbCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f2942"/>
+    </linearGradient>
+    <linearGradient id="mccbCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="rccbCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#2d1b0f"/>
+    </linearGradient>
+    <linearGradient id="rcboCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#064e3b"/>
+    </linearGradient>
+    <linearGradient id="acbCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .class-header { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; font-weight: 800; fill: #ffffff; letter-spacing: 0.5px; }
+    .type-title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 900; }
+    .type-sub { font-family: system-ui, -apple-system, sans-serif; font-size: 10.5px; font-weight: 600; fill: #94a3b8; }
+    .type-spec { font-family: system-ui, -apple-system, sans-serif; font-size: 11.5px; fill: #cbd5e1; }
+    .highlight-bold { font-weight: 700; fill: #f8fafc; }
+  </style>
+
+  <!-- Container -->
+  <rect width="840" height="220" rx="14" fill="url(#classBg)" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="420" y="26" text-anchor="middle" class="class-header">PHÂN LOẠI CÁC THIẾT BỊ ĐÓNG CẮT BẢO VỆ ĐIỆN PHỔ BIẾN HẠ THẾ</text>
+
+  <!-- 5 Cards Layout -->
+
+  <!-- Card 1: MCB -->
+  <g transform="translate(20, 45)">
+    <rect width="150" height="155" rx="10" fill="url(#mcbCard)" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect x="10" y="10" width="130" height="28" rx="6" fill="#3b82f6" fill-opacity="0.2"/>
+    <text x="75" y="30" text-anchor="middle" class="type-title" fill="#60a5fa">MCB</text>
+    <text x="75" y="52" text-anchor="middle" class="type-sub">Aptomat Tép</text>
+    <g transform="translate(12, 70)">
+      <text x="0" y="12" class="type-spec">• In: <tspan class="highlight-bold">0.5A ÷ 125A</tspan></text>
+      <text x="0" y="30" class="type-spec">• Icn: <tspan class="highlight-bold">4.5kA ÷ 15kA</tspan></text>
+      <text x="0" y="48" class="type-spec">• Bảo vệ quá tải +</text>
+      <text x="0" y="64" class="type-spec">  ngắn mạch nhánh</text>
+    </g>
+  </g>
+
+  <!-- Card 2: MCCB -->
+  <g transform="translate(182, 45)">
+    <rect width="150" height="155" rx="10" fill="url(#mccbCard)" stroke="#8b5cf6" stroke-width="1.5"/>
+    <rect x="10" y="10" width="130" height="28" rx="6" fill="#8b5cf6" fill-opacity="0.2"/>
+    <text x="75" y="30" text-anchor="middle" class="type-title" fill="#a78bfa">MCCB</text>
+    <text x="75" y="52" text-anchor="middle" class="type-sub">Aptomat Khối</text>
+    <g transform="translate(12, 70)">
+      <text x="0" y="12" class="type-spec">• In: <tspan class="highlight-bold">15A ÷ 1600A</tspan></text>
+      <text x="0" y="30" class="type-spec">• Icu: <tspan class="highlight-bold">18kA ÷ 150kA</tspan></text>
+      <text x="0" y="48" class="type-spec">• CB Tổng DB/MCC,</text>
+      <text x="0" y="64" class="type-spec">  chỉnh Ir linh hoạt</text>
+    </g>
+  </g>
+
+  <!-- Card 3: RCCB -->
+  <g transform="translate(344, 45)">
+    <rect width="150" height="155" rx="10" fill="url(#rccbCard)" stroke="#f59e0b" stroke-width="1.5"/>
+    <rect x="10" y="10" width="130" height="28" rx="6" fill="#f59e0b" fill-opacity="0.2"/>
+    <text x="75" y="30" text-anchor="middle" class="type-title" fill="#fbbf24">RCCB</text>
+    <text x="75" y="52" text-anchor="middle" class="type-sub">Chống Rò Thuần</text>
+    <g transform="translate(12, 70)">
+      <text x="0" y="12" class="type-spec">• In: <tspan class="highlight-bold">16A ÷ 100A</tspan></text>
+      <text x="0" y="30" class="type-spec">• IΔn: <tspan class="highlight-bold">30mA/300mA</tspan></text>
+      <text x="0" y="48" class="type-spec" fill="#f59e0b" font-weight="700">• CHỈ CHỐNG RÒ</text>
+      <text x="0" y="64" class="type-spec">  người &amp; chống giật</text>
+    </g>
+  </g>
+
+  <!-- Card 4: RCBO -->
+  <g transform="translate(506, 45)">
+    <rect width="150" height="155" rx="10" fill="url(#rcboCard)" stroke="#10b981" stroke-width="1.5"/>
+    <rect x="10" y="10" width="130" height="28" rx="6" fill="#10b981" fill-opacity="0.2"/>
+    <text x="75" y="30" text-anchor="middle" class="type-title" fill="#34d399">RCBO</text>
+    <text x="75" y="52" text-anchor="middle" class="type-sub">Aptomat 3-Trong-1</text>
+    <g transform="translate(12, 70)">
+      <text x="0" y="12" class="type-spec">• In: <tspan class="highlight-bold">6A ÷ 63A</tspan></text>
+      <text x="0" y="30" class="type-spec">• Icn: <tspan class="highlight-bold">6kA ÷ 10kA</tspan></text>
+      <text x="0" y="48" class="type-spec" fill="#34d399" font-weight="700">• Quá Tải + Short</text>
+      <text x="0" y="64" class="type-spec">  + Chống Dòng Rò</text>
+    </g>
+  </g>
+
+  <!-- Card 5: ACB -->
+  <g transform="translate(668, 45)">
+    <rect width="150" height="155" rx="10" fill="url(#acbCard)" stroke="#6366f1" stroke-width="1.5"/>
+    <rect x="10" y="10" width="130" height="28" rx="6" fill="#6366f1" fill-opacity="0.2"/>
+    <text x="75" y="30" text-anchor="middle" class="type-title" fill="#818cf8">ACB</text>
+    <text x="75" y="52" text-anchor="middle" class="type-sub">Máy Cắt Không Khí</text>
+    <g transform="translate(12, 70)">
+      <text x="0" y="12" class="type-spec">• In: <tspan class="highlight-bold">630A ÷ 6300A</tspan></text>
+      <text x="0" y="30" class="type-spec">• Icu: <tspan class="highlight-bold">50kA ÷ 120kA</tspan></text>
+      <text x="0" y="48" class="type-spec">• CB Tổng Hạ Thế</text>
+      <text x="0" y="64" class="type-spec">  MSB Trạm Biến Áp</text>
+    </g>
+  </g>
+</svg>

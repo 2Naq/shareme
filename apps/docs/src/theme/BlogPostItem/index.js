@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import { useBlogPost } from "@docusaurus/plugin-content-blog/client";
 import BlogPostItemContainer from "@theme/BlogPostItem/Container";
 import BlogPostItemHeader from "@theme/BlogPostItem/Header";
@@ -47,12 +48,23 @@ const AuthorAvatar = React.memo(({ author }) => {
   );
 });
 
+function getThumbnailUrl(assetsImage, frontMatterImage) {
+  let img = assetsImage || frontMatterImage;
+  if (!img) return null;
+  if (typeof img === "object" && img.default) {
+    img = img.default;
+  }
+  if (typeof img !== "string") return null;
+  return img;
+}
+
 export default function BlogPostItem({ children, className }) {
   const { metadata, isBlogPostPage } = useBlogPost();
-  const { frontMatter, title, readingTime, date, authors, tags, permalink } =
+  const { frontMatter, title, readingTime, date, authors, tags, permalink, assets } =
     metadata;
 
-  const thumbnail = frontMatter.image;
+  const rawThumbnail = getThumbnailUrl(assets?.image, frontMatter?.image);
+  const thumbnail = useBaseUrl(rawThumbnail);
   const dateObject = new Date(date);
 
   // 1. Nếu đang xem CHI TIẾT bài viết, giữ nguyên giao diện đọc mặc định của Docusaurus

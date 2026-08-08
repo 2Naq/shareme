@@ -1,5 +1,5 @@
 // oxlint-disable react-hooks/exhaustive-deps
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import {
   Card,
   CardContent,
@@ -8,7 +8,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Zap, ShieldAlert, Cpu } from "lucide-react";
-import { animate, stagger } from "animejs";
+import { useWiringAnimation } from "../hooks/useWiringAnimation";
 
 export default function WiringDiagram({
   voltage,
@@ -20,7 +20,6 @@ export default function WiringDiagram({
   calculations,
 }) {
   const containerRef = useRef(null);
-  const animRef = useRef(null);
 
   const {
     totalPower,
@@ -57,78 +56,8 @@ export default function WiringDiagram({
         ? "bg-amber-500/10 border-amber-500/35 text-amber-500"
         : "bg-emerald-500/10 border-emerald-500/35 text-emerald-500";
 
-  // Re-run animations whenever calculations or layout changes
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    // Clean up previous animations
-    if (animRef.current) {
-      animRef.current.forEach((a) => a.revert());
-    }
-
-    const anims = [];
-
-    // 1. Electron flow animation (moving particles along paths)
-    if (loadCurrent > 0) {
-      // Horizontal particles
-      const hParticles = containerRef.current.querySelectorAll(".h-particle");
-      if (hParticles.length > 0) {
-        const hAnim = animate(hParticles, {
-          translateX: [0, 240],
-          duration: Math.max(1200, 3000 - loadCurrent * 60),
-          loop: true,
-          delay: stagger(250),
-          ease: "linear",
-        });
-        anims.push(hAnim);
-      }
-
-      // Vertical particles (mobile)
-      const vParticles = containerRef.current.querySelectorAll(".v-particle");
-      if (vParticles.length > 0) {
-        const vAnim = animate(vParticles, {
-          translateY: [0, 160],
-          duration: Math.max(1200, 3000 - loadCurrent * 60),
-          loop: true,
-          delay: stagger(250),
-          ease: "linear",
-        });
-        anims.push(vAnim);
-      }
-    }
-
-    // 2. Pulse active values & glowing lines
-    const glowAnim = animate(
-      containerRef.current.querySelectorAll(".pulse-glow"),
-      {
-        opacity: [0.3, 0.75],
-        duration: 1500,
-        direction: "alternate",
-        loop: true,
-        ease: "inOutSine",
-      },
-    );
-    anims.push(glowAnim);
-
-    // 3. Entry cascade stagger
-    const fadeAnim = animate(
-      containerRef.current.querySelectorAll(".fade-cascade"),
-      {
-        opacity: [0, 1],
-        translateY: [8, 0],
-        duration: 600,
-        delay: stagger(80),
-        ease: "outCubic",
-      },
-    );
-    anims.push(fadeAnim);
-
-    animRef.current = anims;
-
-    return () => {
-      anims.forEach((a) => a.revert());
-    };
-  }, [loadCurrent, systemType]);
+  // Run animation logic via custom hook
+  useWiringAnimation(containerRef, { loadCurrent, systemType });
 
   return (
     <Card className="border-border bg-card overflow-hidden">
@@ -148,7 +77,7 @@ export default function WiringDiagram({
         {/* Main layout container (Horizontal on Desktop, Vertical on Mobile) */}
         <div className="relative mx-auto flex max-w-5xl flex-col items-center justify-between gap-6 md:flex-row md:gap-4">
           {/* ==================== TRẠM NGUỒN ==================== */}
-          <div className="fade-cascade border-primary/20 bg-background/50 relative flex min-h-[140px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border-2 p-5 text-center shadow-xs md:w-64">
+          <div className="fade-cascade border-primary/20 bg-background/50 relative flex min-h-35 w-full flex-col items-center justify-center overflow-hidden rounded-2xl border-2 p-5 text-center shadow-xs md:w-64">
             <div className="absolute top-0 right-0 p-2 opacity-5">
               <Zap className="text-primary h-16 w-16" />
             </div>
@@ -156,7 +85,7 @@ export default function WiringDiagram({
               TRẠM / NGUỒN PHÁT
             </span>
             <div className="text-primary text-3xl font-extrabold tracking-tight">
-              {voltage} <span className="text-lg font-medium">V</span>
+              {voltage} <span className="text-lg font-bold">V</span>
             </div>
             <div className="text-muted-foreground mt-2 text-xs font-semibold">
               Công suất: {(totalPower / 1000).toFixed(2)} kW
@@ -167,56 +96,126 @@ export default function WiringDiagram({
           <div className="relative z-10 hidden w-full flex-1 flex-col items-center justify-center px-4 md:flex">
             {/* Conductors container */}
             <div className="flex w-full flex-col gap-5 py-4">
-              {Array.from({ length: conductorCount }).map((_, idx) => (
-                <div
-                  key={`h-wire-${idx}`}
-                  className="relative flex h-8 w-full items-center"
-                >
-                  {/* Label for wire */}
-                  <span className="text-muted-foreground/60 absolute -top-4 left-0 text-[9px] font-bold">
-                    Pha {labels[idx]}
-                  </span>
+              {Array.from({ length: conductorCount }).map((_, idx) => {
+                const label = labels[idx];
+                const isReverse = label === "N" || label === "−";
+                const wireTitle = isThreePhase
+                  ? `Pha ${label}`
+                  : isDC
+                    ? `Cực ${label}`
+                    : label === "L"
+                      ? "Pha L (Dây nóng)"
+                      : "Pha N (Dây trung tính)";
+                const particleColor = isReverse ? "#3b82f6" : statusColor;
 
-                  {/* SVG Wire Line */}
-                  <svg className="h-4 w-full overflow-visible">
-                    {/* Background copper/wire lane */}
-                    <line
-                      x1="0"
-                      y1="8"
-                      x2="100%"
-                      y2="8"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      className="text-muted-foreground opacity-15"
-                    />
-                    {/* Glowing active wire line overlay */}
-                    <line
-                      x1="0"
-                      y1="8"
-                      x2="100%"
-                      y2="8"
-                      stroke={statusColor}
-                      strokeWidth="1.5"
-                      className="pulse-glow opacity-50"
-                    />
+                return (
+                  <div
+                    key={`h-wire-${idx}`}
+                    className="relative flex h-8 w-full items-center"
+                  >
+                    {/* Label for wire */}
+                    <div className="absolute -top-4 left-0 right-0 flex items-center justify-between text-[9px] font-bold">
+                      <span className="text-muted-foreground/70">
+                        {wireTitle}
+                      </span>
+                      {/* <span className="text-muted-foreground/50 font-medium">
+                        {dirText} {isReverse ? "←" : "→"}
+                      </span> */}
+                    </div>
 
-                    {/* Electron moving particles */}
-                    {loadCurrent > 0 && (
-                      <circle
-                        className="h-particle"
-                        cx="0"
-                        cy="8"
-                        r="3"
-                        fill="hsl(var(--primary))"
+                    {/* SVG Wire Line */}
+                    <svg className="h-wire-svg h-4 w-full overflow-visible">
+                      <defs>
+                        <filter
+                          id={`glow-h-${idx}`}
+                          x="-50%"
+                          y="-50%"
+                          width="200%"
+                          height="200%"
+                        >
+                          <feGaussianBlur stdDeviation="2" result="blur" />
+                          <feMerge>
+                            <feMergeNode in="blur" />
+                            <feMergeNode in="SourceGraphic" />
+                          </feMerge>
+                        </filter>
+                      </defs>
+
+                      {/* Background copper/wire lane */}
+                      <line
+                        x1="0"
+                        y1="8"
+                        x2="100%"
+                        y2="8"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        className="text-muted-foreground opacity-15"
                       />
-                    )}
-                  </svg>
-                </div>
-              ))}
+                      {/* Glowing active wire line overlay */}
+                      <line
+                        x1="0"
+                        y1="8"
+                        x2="100%"
+                        y2="8"
+                        stroke={isReverse ? "#3b82f6" : statusColor}
+                        strokeWidth="1.5"
+                        className="pulse-glow opacity-40"
+                      />
+
+                      {/* Animated dash stream overlay */}
+                      <line
+                        x1="0"
+                        y1="8"
+                        x2="100%"
+                        y2="8"
+                        stroke={isReverse ? "#60a5fa" : statusColor}
+                        strokeWidth="1.5"
+                        strokeDasharray="6 8"
+                        className={
+                          isReverse
+                            ? "h-dash-reverse opacity-70"
+                            : "h-dash-forward opacity-70"
+                        }
+                      />
+
+                      {/* Electron moving particles (3 luminous particles per wire) */}
+                      {loadCurrent > 0 && (
+                        <>
+                          <circle
+                            className={`h-particle ${isReverse ? "h-particle-reverse" : "h-particle-forward"}`}
+                            cx="0"
+                            cy="8"
+                            r={isReverse ? "3" : "3.5"}
+                            fill={particleColor}
+                            filter={`url(#glow-h-${idx})`}
+                          />
+                          <circle
+                            className={`h-particle ${isReverse ? "h-particle-reverse" : "h-particle-forward"}`}
+                            cx="0"
+                            cy="8"
+                            r={isReverse ? "3" : "3.5"}
+                            fill={particleColor}
+                            filter={`url(#glow-h-${idx})`}
+                          />
+                          <circle
+                            className={`h-particle ${isReverse ? "h-particle-reverse" : "h-particle-forward"}`}
+                            cx="0"
+                            cy="8"
+                            r={isReverse ? "3" : "3.5"}
+                            fill={particleColor}
+                            filter={`url(#glow-h-${idx})`}
+                          />
+                        </>
+                      )}
+                    </svg>
+                  </div>
+                );
+              })}
             </div>
 
             {/* Spec / Dim tag (Beige engineering paper style callout) */}
-            <div className="fade-cascade dark:bg-muted/40 dark:border-border flex max-w-[280px] flex-col items-center gap-1 rounded-xl border border-[#e5dfd9] bg-[#f4efeb] p-3 text-center shadow-xs">
+            <div className="fade-cascade dark:bg-muted/40 dark:border-border flex max-w-70 flex-col items-center gap-1 rounded-xl border border-[#e5dfd9] bg-[#f4efeb] p-3 text-center shadow-xs">
               <span className="dark:text-muted-foreground/80 text-[10px] font-bold tracking-wide text-[#44403c] uppercase">
                 Cáp {wireMaterial === "Cu" ? "Đồng (Cu)" : "Nhôm (Al)"}{" "}
                 {activeWireSize} mm²
@@ -231,7 +230,7 @@ export default function WiringDiagram({
           {/* ==================== WIRING / CONDUCTION ZONE (MOBILE) ==================== */}
           <div className="flex w-full flex-col items-center py-2 md:hidden">
             {/* Spec tag */}
-            <div className="fade-cascade dark:bg-muted/40 dark:border-border mb-4 flex w-full max-w-[250px] flex-col items-center rounded-xl border border-[#e5dfd9] bg-[#f4efeb] p-2 text-center">
+            <div className="fade-cascade dark:bg-muted/40 dark:border-border mb-4 flex w-full max-w-62.5 flex-col items-center rounded-xl border border-[#e5dfd9] bg-[#f4efeb] p-2 text-center">
               <span className="dark:text-muted-foreground/80 text-[9px] font-bold tracking-wide text-[#44403c] uppercase">
                 Cáp {wireMaterial === "Cu" ? "Đồng (Cu)" : "Nhôm (Al)"}{" "}
                 {activeWireSize} mm²
@@ -244,51 +243,88 @@ export default function WiringDiagram({
 
             {/* Vertical wires (SVG) */}
             <div className="flex h-40 justify-center gap-8">
-              {Array.from({ length: conductorCount }).map((_, idx) => (
-                <div
-                  key={`v-wire-${idx}`}
-                  className="relative flex h-full w-4 flex-col items-center"
-                >
-                  <span className="text-muted-foreground/60 mb-1 text-[8px] font-bold">
-                    {labels[idx]}
-                  </span>
-                  <svg className="h-full w-2 overflow-visible">
-                    <line
-                      x1="4"
-                      y1="0"
-                      x2="4"
-                      y2="100%"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      className="text-muted-foreground opacity-15"
-                    />
-                    <line
-                      x1="4"
-                      y1="0"
-                      x2="4"
-                      y2="100%"
-                      stroke={statusColor}
-                      strokeWidth="1.5"
-                      className="pulse-glow opacity-50"
-                    />
-                    {loadCurrent > 0 && (
-                      <circle
-                        className="v-particle"
-                        cx="4"
-                        cy="0"
-                        r="3"
-                        fill="hsl(var(--primary))"
+              {Array.from({ length: conductorCount }).map((_, idx) => {
+                const label = labels[idx];
+                const isReverse = label === "N" || label === "−";
+                const particleColor = isReverse ? "#3b82f6" : statusColor;
+
+                return (
+                  <div
+                    key={`v-wire-${idx}`}
+                    className="relative flex h-full w-8 flex-col items-center"
+                  >
+                    <span className="text-muted-foreground/60 mb-1 text-[8px] font-bold flex flex-col items-center">
+                      <span>{label}</span>
+                      <span>{isReverse ? "↑" : "↓"}</span>
+                    </span>
+                    <svg className="v-wire-svg h-full w-2 overflow-visible">
+                      <line
+                        x1="4"
+                        y1="0"
+                        x2="4"
+                        y2="100%"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        className="text-muted-foreground opacity-15"
                       />
-                    )}
-                  </svg>
-                </div>
-              ))}
+                      <line
+                        x1="4"
+                        y1="0"
+                        x2="4"
+                        y2="100%"
+                        stroke={isReverse ? "#3b82f6" : statusColor}
+                        strokeWidth="1.5"
+                        className="pulse-glow opacity-50"
+                      />
+                      <line
+                        x1="4"
+                        y1="0"
+                        x2="4"
+                        y2="100%"
+                        stroke={isReverse ? "#60a5fa" : statusColor}
+                        strokeWidth="1.5"
+                        strokeDasharray="6 8"
+                        className={
+                          isReverse
+                            ? "v-dash-reverse opacity-70"
+                            : "v-dash-forward opacity-70"
+                        }
+                      />
+                      {loadCurrent > 0 && (
+                        <>
+                          <circle
+                            className={`v-particle ${isReverse ? "v-particle-reverse" : "v-particle-forward"}`}
+                            cx="4"
+                            cy="0"
+                            r="3.5"
+                            fill={particleColor}
+                          />
+                          <circle
+                            className={`v-particle ${isReverse ? "v-particle-reverse" : "v-particle-forward"}`}
+                            cx="4"
+                            cy="0"
+                            r="3.5"
+                            fill={particleColor}
+                          />
+                          <circle
+                            className={`v-particle ${isReverse ? "v-particle-reverse" : "v-particle-forward"}`}
+                            cx="4"
+                            cy="0"
+                            r="3.5"
+                            fill={particleColor}
+                          />
+                        </>
+                      )}
+                    </svg>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
           {/* ==================== PHỤ TẢI TERMINAL ==================== */}
           <div
-            className="fade-cascade bg-background/50 relative flex min-h-[140px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border-2 p-5 text-center shadow-xs md:w-64"
+            className="fade-cascade bg-background/50 relative flex min-h-35 w-full flex-col items-center justify-center overflow-hidden rounded-2xl border-2 p-5 text-center shadow-xs md:w-64"
             style={{ borderColor: `${statusColor}30` }}
           >
             <span className="text-muted-foreground/60 mb-2 text-[10px] font-bold tracking-wider uppercase">
@@ -298,7 +334,7 @@ export default function WiringDiagram({
               className="text-3xl font-extrabold tracking-tight"
               style={{ color: statusColor }}
             >
-              {uEnd.toFixed(1)} <span className="text-lg font-medium">V</span>
+              {uEnd.toFixed(1)} <span className="text-lg font-bold">V</span>
             </div>
             <div className="text-muted-foreground mt-2 text-xs font-semibold">
               Công suất tải: {(loadPower / 1000).toFixed(2)} kW
