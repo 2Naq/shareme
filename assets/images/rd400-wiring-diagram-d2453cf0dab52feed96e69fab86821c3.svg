@@ -1,0 +1,305 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="100%" height="100%" style="background-color: #0f172a; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    
+    <linearGradient id="terminalBlockGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="50%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    
+    <linearGradient id="terminalPinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <marker id="arrowPower" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arrowOUT" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowDO" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrowPV" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#a78bfa"/>
+    </marker>
+
+    <marker id="arrowComm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2dd4bf"/>
+    </marker>
+    <marker id="arrowDI" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fb7185"/>
+    </marker>
+    <marker id="arrowDORight" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrowCT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#facc15"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1000" height="700" fill="url(#bgGrad)" rx="16"/>
+
+  <!-- Title Header -->
+  <text x="500" y="38" text-anchor="middle" fill="#f8fafc" font-size="20" font-weight="700" letter-spacing="0.5">
+    SƠ ĐỒ ĐẤU NỐI CHÂN TERMINAL - RKC RD400 / RD SERIES
+  </text>
+  <text x="500" y="58" text-anchor="middle" fill="#94a3b8" font-size="13">
+    Áp dụng cho các dòng đồng hồ nhiệt độ RKC RD100, RD400, RD500, RD700, RD900
+  </text>
+
+  <!-- Outer Frame of Terminal Block -->
+  <rect x="400" y="75" width="200" height="595" rx="8" fill="url(#terminalBlockGrad)" stroke="#64748b" stroke-width="2.5"/>
+  <rect x="408" y="83" width="184" height="579" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Divider Line in Terminal Block -->
+  <line x1="500" y1="83" x2="500" y2="662" stroke="#334155" stroke-width="2" stroke-dasharray="4 2"/>
+
+  <!-- LEFT TERMINALS (1 to 12) -->
+  <g transform="translate(415, 90)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">1</text>
+  </g>
+  <g transform="translate(415, 136)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">2</text>
+  </g>
+
+  <g transform="translate(415, 182)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">3</text>
+  </g>
+  <g transform="translate(415, 228)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">4</text>
+  </g>
+
+  <g transform="translate(415, 274)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#0ea5e9" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">5</text>
+  </g>
+  <g transform="translate(415, 320)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#0ea5e9" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">6</text>
+  </g>
+
+  <g transform="translate(415, 366)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#34d399" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">7</text>
+  </g>
+  <g transform="translate(415, 412)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#34d399" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">8</text>
+  </g>
+  <g transform="translate(415, 458)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#34d399" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">9</text>
+  </g>
+
+  <g transform="translate(415, 504)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#a78bfa" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">10</text>
+  </g>
+  <g transform="translate(415, 550)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#a78bfa" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">11</text>
+  </g>
+  <g transform="translate(415, 596)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#a78bfa" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">12</text>
+  </g>
+
+  <!-- RIGHT TERMINALS (13 to 24) -->
+  <g transform="translate(510, 90)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#2dd4bf" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">13</text>
+  </g>
+  <g transform="translate(510, 136)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#2dd4bf" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">14</text>
+  </g>
+  <g transform="translate(510, 182)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#2dd4bf" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">15</text>
+  </g>
+
+  <g transform="translate(510, 228)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#fb7185" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">16</text>
+  </g>
+  <g transform="translate(510, 274)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#fb7185" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">17</text>
+  </g>
+  <g transform="translate(510, 320)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#fb7185" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">18</text>
+  </g>
+
+  <g transform="translate(510, 366)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#34d399" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">19</text>
+  </g>
+  <g transform="translate(510, 412)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#34d399" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">20</text>
+  </g>
+  <g transform="translate(510, 458)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#34d399" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">21</text>
+  </g>
+
+  <g transform="translate(510, 504)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#facc15" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">22</text>
+  </g>
+  <g transform="translate(510, 550)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#facc15" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">23</text>
+  </g>
+  <g transform="translate(510, 596)">
+    <rect x="0" y="0" width="75" height="38" rx="5" fill="url(#terminalPinGrad)" stroke="#475569"/>
+    <circle cx="37.5" cy="19" r="14" fill="#1e293b" stroke="#facc15" stroke-width="2"/>
+    <text x="37.5" y="24" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="bold">24</text>
+  </g>
+
+  <!-- LEFT ANNOTATIONS & BRACKETS -->
+  <!-- Power -->
+  <path d="M 410 109 L 385 109 L 385 136 L 360 136 L 385 136 L 385 155 L 410 155" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <line x1="360" y1="132" x2="310" y2="132" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrowPower)"/>
+  
+  <g transform="translate(35, 92)">
+    <rect x="0" y="0" width="265" height="76" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="12" y="24" fill="#f59e0b" font-size="15" font-weight="bold">Nguồn Cấp (Power Supply)</text>
+    <text x="12" y="44" fill="#cbd5e1" font-size="13">AC 100 ~ 240V (50/60 Hz)</text>
+    <text x="12" y="62" fill="#94a3b8" font-size="12">Tùy chọn: AC 24V hoặc DC 24V</text>
+  </g>
+
+  <!-- OUT2 -->
+  <path d="M 410 201 L 385 201 L 385 224 L 360 224 L 385 224 L 385 247 L 410 247" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+  <line x1="360" y1="224" x2="310" y2="224" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowOUT)"/>
+
+  <g transform="translate(35, 184)">
+    <rect x="0" y="0" width="265" height="80" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="12" y="22" fill="#38bdf8" font-size="14" font-weight="bold">Ngõ Ra Điều Khiển 2 (OUT2)</text>
+    <text x="12" y="42" fill="#cbd5e1" font-size="12">Rơ le (1) / Xung áp (SSR) / 4-20mA</text>
+    <text x="12" y="58" fill="#cbd5e1" font-size="12">Điện áp 0-10V / Triac / Open Collector</text>
+    <text x="12" y="73" fill="#64748b" font-size="11">[Xem chi tiết Mục P. 3-9]</text>
+  </g>
+
+  <!-- OUT1 -->
+  <path d="M 410 293 L 385 293 L 385 316 L 360 316 L 385 316 L 385 339 L 410 339" fill="none" stroke="#0ea5e9" stroke-width="2.5"/>
+  <line x1="360" y1="316" x2="310" y2="316" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrowOUT)"/>
+
+  <g transform="translate(35, 276)">
+    <rect x="0" y="0" width="265" height="80" rx="8" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5"/>
+    <text x="12" y="22" fill="#38bdf8" font-size="14" font-weight="bold">Ngõ Ra Điều Khiển 1 (OUT1)</text>
+    <text x="12" y="42" fill="#cbd5e1" font-size="12">Rơ le (1) / Xung áp (SSR) / 4-20mA</text>
+    <text x="12" y="58" fill="#cbd5e1" font-size="12">Điện áp 0-10V / Triac / Open Collector</text>
+    <text x="12" y="73" fill="#64748b" font-size="11">[Xem chi tiết Mục P. 3-9]</text>
+  </g>
+
+  <!-- DO1 & DO2 -->
+  <path d="M 410 385 L 385 385 L 385 431 L 360 431 L 385 431 L 385 477 L 410 477" fill="none" stroke="#34d399" stroke-width="2.5"/>
+  <line x1="360" y1="431" x2="310" y2="431" stroke="#34d399" stroke-width="2" marker-end="url(#arrowDO)"/>
+
+  <g transform="translate(35, 386)">
+    <rect x="0" y="0" width="265" height="82" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+    <text x="12" y="22" fill="#34d399" font-size="14" font-weight="bold">Ngõ Ra Số DO1 &amp; DO2 *</text>
+    <text x="12" y="42" fill="#cbd5e1" font-size="12">Chân 8: COM (Chung)</text>
+    <text x="12" y="58" fill="#cbd5e1" font-size="12">Chân 7: DO2 | Chân 9: DO1 (Rơ le 2)</text>
+    <text x="12" y="74" fill="#94a3b8" font-size="11">* Tùy chọn (Option) - Cảnh báo Event</text>
+  </g>
+
+  <!-- PV Sensor Input -->
+  <path d="M 410 523 L 385 523 L 385 569 L 360 569 L 385 569 L 385 615 L 410 615" fill="none" stroke="#a78bfa" stroke-width="2.5"/>
+  <line x1="360" y1="569" x2="310" y2="569" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrowPV)"/>
+
+  <g transform="translate(35, 510)">
+    <rect x="0" y="0" width="265" height="110" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+    <text x="12" y="22" fill="#c084fc" font-size="14" font-weight="bold">Ngõ Vào Đo Lường PV (Sensor)</text>
+    <text x="12" y="42" fill="#cbd5e1" font-size="12">TC (Can nhiệt): K, J, R, S, B, E, N, T...</text>
+    <text x="12" y="58" fill="#cbd5e1" font-size="12">RTD (Nhiệt điện trở): Pt100, JPt100</text>
+    <text x="12" y="74" fill="#cbd5e1" font-size="12">Điện áp / Dòng điện: mV, V, 4-20mA</text>
+    <text x="12" y="94" fill="#64748b" font-size="11">[Chân 10: +, Chân 11: -, Chân 12: B/Shield]</text>
+  </g>
+
+  <!-- RIGHT ANNOTATIONS & BRACKETS -->
+  <!-- RS-485 -->
+  <path d="M 590 109 L 615 109 L 615 155 L 640 155 L 615 155 L 615 201 L 590 201" fill="none" stroke="#2dd4bf" stroke-width="2.5"/>
+  <line x1="640" y1="155" x2="690" y2="155" stroke="#2dd4bf" stroke-width="2" marker-end="url(#arrowComm)"/>
+
+  <g transform="translate(695, 114)">
+    <rect x="0" y="0" width="270" height="82" rx="8" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.5"/>
+    <text x="12" y="22" fill="#2dd4bf" font-size="14" font-weight="bold">Truyền Thông RS-485 *</text>
+    <text x="12" y="42" fill="#cbd5e1" font-size="12">Chân 13: SG (Tiếp địa vỏ/Chống nhiễu)</text>
+    <text x="12" y="58" fill="#cbd5e1" font-size="12">Chân 14: T/R(A) | Chân 15: T/R(B)</text>
+    <text x="12" y="74" fill="#94a3b8" font-size="11">Giao thức: RKC Communication / Modbus-RTU</text>
+  </g>
+
+  <!-- DI1 & DI2 -->
+  <path d="M 590 247 L 615 247 L 615 293 L 640 293 L 615 293 L 615 339 L 590 339" fill="none" stroke="#fb7185" stroke-width="2.5"/>
+  <line x1="640" y1="293" x2="690" y2="293" stroke="#fb7185" stroke-width="2" marker-end="url(#arrowDI)"/>
+
+  <g transform="translate(695, 252)">
+    <rect x="0" y="0" width="270" height="82" rx="8" fill="#1e293b" stroke="#fb7185" stroke-width="1.5"/>
+    <text x="12" y="22" fill="#fb7185" font-size="14" font-weight="bold">Ngõ Vào Số DI1 &amp; DI2 *</text>
+    <text x="12" y="42" fill="#cbd5e1" font-size="12">Chân 16: COM (Chung)</text>
+    <text x="12" y="58" fill="#cbd5e1" font-size="12">Chân 17: DI1 | Chân 18: DI2</text>
+    <text x="12" y="74" fill="#94a3b8" font-size="11">Dạng tiếp điểm khô (Dry Contact / No-voltage)</text>
+  </g>
+
+  <!-- DO3 & DO4 -->
+  <path d="M 590 385 L 615 385 L 615 431 L 640 431 L 615 431 L 615 477 L 590 477" fill="none" stroke="#34d399" stroke-width="2.5"/>
+  <line x1="640" y1="431" x2="690" y2="431" stroke="#34d399" stroke-width="2" marker-end="url(#arrowDORight)"/>
+
+  <g transform="translate(695, 390)">
+    <rect x="0" y="0" width="270" height="82" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+    <text x="12" y="22" fill="#34d399" font-size="14" font-weight="bold">Ngõ Ra Số DO3 &amp; DO4 *</text>
+    <text x="12" y="42" fill="#cbd5e1" font-size="12">Chân 20: COM (Chung)</text>
+    <text x="12" y="58" fill="#cbd5e1" font-size="12">Chân 19: DO4 | Chân 21: DO3</text>
+    <text x="12" y="74" fill="#94a3b8" font-size="11">Rơ le tiếp điểm (Relay Contact Output 2)</text>
+  </g>
+
+  <!-- CT1 & CT2 -->
+  <path d="M 590 523 L 615 523 L 615 569 L 640 569 L 615 569 L 615 615 L 590 615" fill="none" stroke="#facc15" stroke-width="2.5"/>
+  <line x1="640" y1="569" x2="690" y2="569" stroke="#facc15" stroke-width="2" marker-end="url(#arrowCT)"/>
+
+  <g transform="translate(695, 528)">
+    <rect x="0" y="0" width="270" height="92" rx="8" fill="#1e293b" stroke="#facc15" stroke-width="1.5"/>
+    <text x="12" y="22" fill="#facc15" font-size="14" font-weight="bold">Ngõ Vào Biến Dòng CT1 &amp; CT2 *</text>
+    <text x="12" y="42" fill="#cbd5e1" font-size="12">Chân 22: COM (Chung)</text>
+    <text x="12" y="58" fill="#cbd5e1" font-size="12">Chân 23: CT1 | Chân 24: CT2</text>
+    <text x="12" y="74" fill="#94a3b8" font-size="11">Đo dòng tải &amp; cảnh báo đứt dây đốt HBA</text>
+    <text x="12" y="87" fill="#64748b" font-size="10">CTL-6-P-N (0-30A) / CTL-12-S56-10L-N (0-50A)</text>
+  </g>
+</svg>
