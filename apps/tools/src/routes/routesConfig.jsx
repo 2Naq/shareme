@@ -76,7 +76,7 @@ export const routeConfig = [
     group: "system",
   },
   {
-    path: "/tools/qr-code",
+    path: "/tools/qr-generator",
     label: "Tạo Mã QR Code",
     element: <QrCodePage />,
     showInSidebar: true,
@@ -84,7 +84,7 @@ export const routeConfig = [
     group: "qr",
   },
   {
-    path: "/tools/qr-code-scanner",
+    path: "/tools/qr-scanner",
     label: "Quét Mã QR Code",
     element: <QrCodeScannerPage />,
     showInSidebar: true,
