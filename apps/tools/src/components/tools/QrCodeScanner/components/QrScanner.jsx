@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { Camera, Upload} from "lucide-react";
+import { Camera, Upload } from "lucide-react";
 import { toast } from "sonner";
 import CameraScanner from "./CameraScanner";
 import ImageScanner from "./ImageScanner";
@@ -10,7 +10,9 @@ export default function QrScanner({ onScanSuccess, isActive }) {
   const handleSuccess = useCallback(
     (decoded) => {
       try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const audioCtx = new (
+          window.AudioContext || window.webkitAudioContext
+        )();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.connect(gain);

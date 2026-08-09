@@ -147,7 +147,7 @@ export default function ImageScanner({ onScanSuccess, isActive }) {
             Kéo thả ảnh vào đây
           </h3>
           <p className="text-muted-foreground mb-3 max-w-xs text-sm">
-            Hoặc nhấp vào đây để chọn tệp tin hình ảnh mã QR từ máy tính của bạn
+            Hoặc nhấp vào đây để chọn tệp tin hình ảnh mã QR từ máy của bạn
           </p>
           <span className="bg-secondary text-secondary-foreground rounded-full px-3 py-1 text-xs font-medium">
             Hỗ trợ PNG, JPG, JPEG, WEBP

@@ -17,6 +17,9 @@ import ScanResult from "./components/ScanResult";
 export default function QrCodeScanner() {
   const [activeTab, setActiveTab] = useState("qr");
   const [scanResult, setScanResult] = useState(null);
+  // Key dùng để force remount scanner component khi reset,
+  // đảm bảo html5-qrcode có DOM container sạch để hoạt động lại.
+  const [scanKey, setScanKey] = useState(0);
 
   const handleScanSuccess = (decodedText) => {
     setScanResult(decodedText);
@@ -24,6 +27,7 @@ export default function QrCodeScanner() {
 
   const handleReset = () => {
     setScanResult(null);
+    setScanKey((k) => k + 1);
   };
 
   return (
@@ -34,8 +38,8 @@ export default function QrCodeScanner() {
           Đọc Mã QR & Barcode
         </h1>
         <p className="text-muted-foreground">
-          Giải mã nội dung QR Code và mã vạch nhanh chóng, bảo mật — toàn bộ
-          xử lý trực tiếp trên trình duyệt, không gửi dữ liệu lên máy chủ.
+          Giải mã nội dung QR Code và mã vạch nhanh chóng, bảo mật — toàn bộ xử
+          lý trực tiếp trên trình duyệt.
         </p>
       </div>
 
@@ -48,8 +52,8 @@ export default function QrCodeScanner() {
                 Chọn loại mã cần quét
               </CardTitle>
               <CardDescription>
-                Quét QR Code hoặc mã vạch (Barcode) bằng camera hoặc tải ảnh
-                lên từ máy tính.
+                Quét QR Code hoặc mã vạch (Barcode) bằng camera hoặc tải ảnh lên
+                từ máy tính.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -72,15 +76,23 @@ export default function QrCodeScanner() {
                   </TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="qr" className="mt-0 focus-visible:outline-none">
+                <TabsContent
+                  value="qr"
+                  className="mt-0 focus-visible:outline-none"
+                >
                   <QrScanner
+                    key={`qr-${scanKey}`}
                     onScanSuccess={handleScanSuccess}
                     isActive={activeTab === "qr"}
                   />
                 </TabsContent>
 
-                <TabsContent value="barcode" className="mt-0 focus-visible:outline-none">
+                <TabsContent
+                  value="barcode"
+                  className="mt-0 focus-visible:outline-none"
+                >
                   <BarcodeScanner
+                    key={`barcode-${scanKey}`}
                     onScanSuccess={handleScanSuccess}
                     isActive={activeTab === "barcode"}
                   />
@@ -111,8 +123,8 @@ export default function QrCodeScanner() {
                   1
                 </div>
                 <p>
-                  <strong>Đủ ánh sáng:</strong> Đảm bảo môi trường xung quanh
-                  đủ sáng và camera không bị che khuất khi quét trực tiếp.
+                  <strong>Đủ ánh sáng:</strong> Đảm bảo môi trường xung quanh đủ
+                  sáng và camera không bị che khuất khi quét trực tiếp.
                 </p>
               </div>
               <div className="flex gap-3">
@@ -121,7 +133,7 @@ export default function QrCodeScanner() {
                 </div>
                 <p>
                   <strong>Độ nét và góc chụp:</strong> Giữ camera vuông góc và
-                  cách mã QR khoảng 10–20cm để lấy nét tốt nhất. Tránh rung tay.
+                  cách mã QR khoảng 10–20cm để lấy nét tốt nhất.
                 </p>
               </div>
               <div className="flex gap-3">
@@ -129,18 +141,8 @@ export default function QrCodeScanner() {
                   3
                 </div>
                 <p>
-                  <strong>Ảnh tải lên:</strong> Chọn ảnh rõ nét, không bị mờ
-                  hay méo để thuật toán giải mã chính xác hơn.
-                </p>
-              </div>
-              <div className="flex gap-3">
-                <div className="bg-primary/10 text-primary flex h-6 w-6 shrink-0 items-center justify-center rounded-full font-medium">
-                  4
-                </div>
-                <p>
-                  <strong>An toàn & Bảo mật:</strong> Toàn bộ quá trình quét
-                  diễn ra trực tiếp trên trình duyệt (Client-side), dữ liệu
-                  không bao giờ được gửi lên máy chủ.
+                  <strong>Ảnh tải lên:</strong> Chọn ảnh rõ nét, không bị mờ hay
+                  méo để thuật toán giải mã chính xác hơn.
                 </p>
               </div>
             </CardContent>

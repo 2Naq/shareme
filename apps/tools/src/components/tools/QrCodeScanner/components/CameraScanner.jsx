@@ -56,6 +56,8 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
       if (scannerRef.current.isScanning) {
         await scannerRef.current.stop();
       }
+      scannerRef.current.clear();
+      scannerRef.current = null;
       setIsScanning(false);
       toast.info("Đã tắt camera.");
     } catch (err) {
@@ -135,13 +137,17 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
 
     return () => {
       // Cleanup khi unmount
-      if (scannerRef.current && scannerRef.current.isScanning) {
-        scannerRef.current
-          .stop()
-          .then(() => {
-            scannerRef.current = null;
-          })
-          .catch((err) => console.error("Lỗi dừng camera khi unmount:", err));
+      if (scannerRef.current) {
+        const scanner = scannerRef.current;
+        scannerRef.current = null;
+        (async () => {
+          try {
+            if (scanner.isScanning) await scanner.stop();
+            scanner.clear();
+          } catch (err) {
+            console.error("Lỗi dừng camera khi unmount:", err);
+          }
+        })();
       }
     };
   }, [isActive, isScanning, stopScanning]);
@@ -204,7 +210,7 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
         {/* Trạng thái chưa bật Camera */}
         {!isScanning && (
           <div className="bg-muted/90 text-muted-foreground absolute inset-0 z-10 flex flex-col items-center justify-center space-y-4 p-4 text-center">
-            <Camera className="h-16 w-16 animate-bounce opacity-40" />
+            <Camera className="h-16 w-16 animate-pulse opacity-40" />
             <div>
               <p className="text-foreground font-medium">Camera đang tắt</p>
               <p className="mt-1 max-w-xs text-xs">
@@ -229,40 +235,42 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
         {/* Khung quét nâng cao khi đang quét */}
         {isScanning && (
           <div className="pointer-events-none absolute inset-0 z-10">
-
             {/* Vignette tối 4 góc */}
-            <div className="absolute inset-0 rounded-xl"
-              style={{ background: "radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.55) 100%)" }}
+            <div
+              className="absolute inset-0 rounded-xl"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.55) 100%)",
+              }}
             />
 
             {/* Khung và laser căn giữa */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="relative h-[68%] w-[68%]">
-
                 {/* ── Góc bo có pulse glow ─────────────────── */}
                 {/* Top-left */}
                 <div className="absolute -top-0.5 -left-0.5 h-7 w-7">
-                  <div className="absolute inset-0 rounded-tl-lg border-t-[3px] border-l-[3px] border-primary" />
-                  <div className="absolute inset-0 rounded-tl-lg border-t-[3px] border-l-[3px] border-primary/40 animate-ping" />
+                  <div className="border-primary absolute inset-0 rounded-tl-lg border-t-[3px] border-l-[3px]" />
+                  <div className="border-primary/40 absolute inset-0 animate-ping rounded-tl-lg border-t-[3px] border-l-[3px]" />
                 </div>
                 {/* Top-right */}
                 <div className="absolute -top-0.5 -right-0.5 h-7 w-7">
-                  <div className="absolute inset-0 rounded-tr-lg border-t-[3px] border-r-[3px] border-primary" />
-                  <div className="absolute inset-0 rounded-tr-lg border-t-[3px] border-r-[3px] border-primary/40 animate-ping" />
+                  <div className="border-primary absolute inset-0 rounded-tr-lg border-t-[3px] border-r-[3px]" />
+                  <div className="border-primary/40 absolute inset-0 animate-ping rounded-tr-lg border-t-[3px] border-r-[3px]" />
                 </div>
                 {/* Bottom-left */}
                 <div className="absolute -bottom-0.5 -left-0.5 h-7 w-7">
-                  <div className="absolute inset-0 rounded-bl-lg border-b-[3px] border-l-[3px] border-primary" />
-                  <div className="absolute inset-0 rounded-bl-lg border-b-[3px] border-l-[3px] border-primary/40 animate-ping" />
+                  <div className="border-primary absolute inset-0 rounded-bl-lg border-b-[3px] border-l-[3px]" />
+                  <div className="border-primary/40 absolute inset-0 animate-ping rounded-bl-lg border-b-[3px] border-l-[3px]" />
                 </div>
                 {/* Bottom-right */}
                 <div className="absolute -right-0.5 -bottom-0.5 h-7 w-7">
-                  <div className="absolute inset-0 rounded-br-lg border-b-[3px] border-r-[3px] border-primary" />
-                  <div className="absolute inset-0 rounded-br-lg border-b-[3px] border-r-[3px] border-primary/40 animate-ping" />
+                  <div className="border-primary absolute inset-0 rounded-br-lg border-r-[3px] border-b-[3px]" />
+                  <div className="border-primary/40 absolute inset-0 animate-ping rounded-br-lg border-r-[3px] border-b-[3px]" />
                 </div>
 
                 {/* Viền mờ */}
-                <div className="absolute inset-0 rounded-lg border border-primary/25" />
+                <div className="border-primary/25 absolute inset-0 rounded-lg border" />
 
                 {/* ── Laser scan lên xuống ─────────────────── */}
                 {/* Container tương đối chứa laser */}
@@ -271,19 +279,23 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
                     {/* Dải laser chính */}
                     <div
                       className="h-full w-full bg-red-500"
-                      style={{ boxShadow: "0 0 10px 2px #ef4444, 0 0 30px 6px rgba(239,68,68,0.35)" }}
+                      style={{
+                        boxShadow:
+                          "0 0 10px 2px #ef4444, 0 0 30px 6px rgba(239,68,68,0.35)",
+                      }}
                     />
                     {/* Phản chiếu gó */}
                     <div
                       className="h-6 w-full"
-                      style={{ background: "linear-gradient(to bottom, rgba(239,68,68,0.22), transparent)" }}
+                      style={{
+                        background:
+                          "linear-gradient(to bottom, rgba(239,68,68,0.22), transparent)",
+                      }}
                     />
                   </div>
                 </div>
-
               </div>
             </div>
-
           </div>
         )}
       </div>
@@ -294,7 +306,7 @@ export default function CameraScanner({ onScanSuccess, isActive }) {
           <button
             onClick={stopScanning}
             disabled={isLoading}
-            className="bg-destructive hover:bg-destructive/90 text-destructive-foreground flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium shadow-md transition-all disabled:opacity-50"
+            className="bg-destructive hover:bg-destructive/90 flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white shadow-md transition-all disabled:opacity-50"
           >
             <CameraOff className="h-4 w-4" />
             Tắt Camera

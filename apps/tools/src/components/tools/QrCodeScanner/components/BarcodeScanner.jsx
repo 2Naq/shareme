@@ -1,6 +1,14 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from "html5-qrcode";
-import { Barcode, Camera, CameraOff, RefreshCw, AlertTriangle, Upload, X } from "lucide-react";
+import {
+  Barcode,
+  Camera,
+  CameraOff,
+  RefreshCw,
+  AlertTriangle,
+  Upload,
+  X,
+} from "lucide-react";
 import { toast } from "sonner";
 
 // Các định dạng barcode 1D được hỗ trợ (loại trừ QR để phân biệt rõ)
@@ -151,7 +159,10 @@ function BarcodeCameraTab({ onScanSuccess }) {
       {/* Chọn Camera */}
       {cameras.length > 1 && (
         <div className="flex items-center gap-2">
-          <label htmlFor="barcode-camera-select" className="text-foreground shrink-0 text-sm font-medium">
+          <label
+            htmlFor="barcode-camera-select"
+            className="text-foreground shrink-0 text-sm font-medium"
+          >
             Chọn Camera:
           </label>
           <select
@@ -169,14 +180,15 @@ function BarcodeCameraTab({ onScanSuccess }) {
         </div>
       )}
 
-      {/* Vùng quét — rộng, thấp (phù hợp barcode ngang) */}
-      <div className="relative mx-auto flex w-full items-center justify-center overflow-hidden rounded-xl border bg-black shadow-inner" style={{ aspectRatio: "16/9", maxHeight: "260px" }}>
+      <div
+        className="relative mx-auto flex w-full items-center justify-center overflow-hidden rounded-xl border bg-black shadow-inner"
+        style={{ aspectRatio: "16/9", maxHeight: "260px" }}
+      >
         <div id={containerId} className="h-full w-full" />
 
-        {/* Overlay khi camera tắt */}
         {!isScanning && (
           <div className="bg-muted/90 text-muted-foreground absolute inset-0 z-10 flex flex-col items-center justify-center space-y-4 p-4 text-center">
-            <Barcode className="h-16 w-16 animate-bounce opacity-40" />
+            <Barcode className="h-16 w-16 animate-pulse opacity-40" />
             <div>
               <p className="text-foreground font-medium">Camera đang tắt</p>
               <p className="mt-1 max-w-xs text-xs">
@@ -198,38 +210,39 @@ function BarcodeCameraTab({ onScanSuccess }) {
           </div>
         )}
 
-        {/* Overlay nâng cao khi đang quét Barcode */}
         {isScanning && (
           <div className="pointer-events-none absolute inset-0 z-10">
-
             {/* Vignette tối 4 góc */}
-            <div className="absolute inset-0 rounded-xl"
-              style={{ background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)" }}
+            <div
+              className="absolute inset-0 rounded-xl"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)",
+              }}
             />
 
             {/* Khung barcode nằm ngang — căn giữa */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="relative h-[30%] w-[88%]">
-
                 {/* Viền mờ */}
                 <div className="absolute inset-0 rounded border border-yellow-400/30" />
 
                 {/* Góc vàng pulse */}
                 <div className="absolute -top-0.5 -left-0.5 h-5 w-5">
                   <div className="absolute inset-0 rounded-tl border-t-[3px] border-l-[3px] border-yellow-400" />
-                  <div className="absolute inset-0 rounded-tl border-t-[3px] border-l-[3px] border-yellow-400/50 animate-ping" />
+                  <div className="absolute inset-0 animate-ping rounded-tl border-t-[3px] border-l-[3px] border-yellow-400/50" />
                 </div>
                 <div className="absolute -top-0.5 -right-0.5 h-5 w-5">
                   <div className="absolute inset-0 rounded-tr border-t-[3px] border-r-[3px] border-yellow-400" />
-                  <div className="absolute inset-0 rounded-tr border-t-[3px] border-r-[3px] border-yellow-400/50 animate-ping" />
+                  <div className="absolute inset-0 animate-ping rounded-tr border-t-[3px] border-r-[3px] border-yellow-400/50" />
                 </div>
                 <div className="absolute -bottom-0.5 -left-0.5 h-5 w-5">
                   <div className="absolute inset-0 rounded-bl border-b-[3px] border-l-[3px] border-yellow-400" />
-                  <div className="absolute inset-0 rounded-bl border-b-[3px] border-l-[3px] border-yellow-400/50 animate-ping" />
+                  <div className="absolute inset-0 animate-ping rounded-bl border-b-[3px] border-l-[3px] border-yellow-400/50" />
                 </div>
                 <div className="absolute -right-0.5 -bottom-0.5 h-5 w-5">
-                  <div className="absolute inset-0 rounded-br border-b-[3px] border-r-[3px] border-yellow-400" />
-                  <div className="absolute inset-0 rounded-br border-b-[3px] border-r-[3px] border-yellow-400/50 animate-ping" />
+                  <div className="absolute inset-0 rounded-br border-r-[3px] border-b-[3px] border-yellow-400" />
+                  <div className="absolute inset-0 animate-ping rounded-br border-r-[3px] border-b-[3px] border-yellow-400/50" />
                 </div>
 
                 {/* ── Laser quét ngang trái → phải → trái ── */}
@@ -239,19 +252,23 @@ function BarcodeCameraTab({ onScanSuccess }) {
                     {/* Dải laser chính */}
                     <div
                       className="h-full w-full bg-red-500"
-                      style={{ boxShadow: "0 0 10px 2px #ef4444, 0 0 28px 5px rgba(239,68,68,0.35)" }}
+                      style={{
+                        boxShadow:
+                          "0 0 10px 2px #ef4444, 0 0 28px 5px rgba(239,68,68,0.35)",
+                      }}
                     />
                     {/* Phản chiếu bên phải laser */}
                     <div
                       className="absolute top-0 left-full h-full w-6"
-                      style={{ background: "linear-gradient(to right, rgba(239,68,68,0.22), transparent)" }}
+                      style={{
+                        background:
+                          "linear-gradient(to right, rgba(239,68,68,0.22), transparent)",
+                      }}
                     />
                   </div>
                 </div>
-
               </div>
             </div>
-
           </div>
         )}
       </div>
@@ -262,7 +279,7 @@ function BarcodeCameraTab({ onScanSuccess }) {
           <button
             onClick={stopScanning}
             disabled={isLoading}
-            className="bg-destructive hover:bg-destructive/90 text-destructive-foreground flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium shadow-md transition-all disabled:opacity-50"
+            className="bg-destructive hover:bg-destructive/90 flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white shadow-md transition-all disabled:opacity-50"
           >
             <CameraOff className="h-4 w-4" />
             Tắt Camera
@@ -303,7 +320,9 @@ function BarcodeImageTab({ onScanSuccess }) {
 
   const processFile = (file) => {
     if (!file.type.startsWith("image/")) {
-      toast.error("Vui lòng tải lên một tệp tin hình ảnh (.png, .jpg, .jpeg, .webp).");
+      toast.error(
+        "Vui lòng tải lên một tệp tin hình ảnh (.png, .jpg, .jpeg, .webp).",
+      );
       return;
     }
 
@@ -329,7 +348,9 @@ function BarcodeImageTab({ onScanSuccess }) {
             setIsScanning(false);
           })
           .catch(() => {
-            toast.error("Không tìm thấy mã vạch nào trong hình ảnh này. Hãy thử ảnh rõ nét hơn.");
+            toast.error(
+              "Không tìm thấy mã vạch nào trong hình ảnh này. Hãy thử ảnh rõ nét hơn.",
+            );
             setIsScanning(false);
           });
       } catch {
@@ -375,7 +396,7 @@ function BarcodeImageTab({ onScanSuccess }) {
             Kéo thả ảnh mã vạch vào đây
           </h3>
           <p className="text-muted-foreground mb-3 max-w-xs text-sm">
-            Hoặc nhấp vào đây để chọn hình ảnh chứa mã vạch từ máy tính của bạn
+            Hoặc nhấp vào đây để chọn hình ảnh chứa mã vạch từ máy của bạn
           </p>
           <span className="bg-secondary text-secondary-foreground rounded-full px-3 py-1 text-xs font-medium">
             Hỗ trợ PNG, JPG, JPEG, WEBP
@@ -392,18 +413,29 @@ function BarcodeImageTab({ onScanSuccess }) {
             <X className="h-4 w-4" />
           </button>
 
-          <div className="relative flex w-full max-w-xs items-center justify-center overflow-hidden rounded-lg border bg-black/5 shadow-inner dark:bg-black/40" style={{ minHeight: "140px" }}>
-            <img src={imagePreview} alt="Barcode Preview" className="max-h-52 max-w-full object-contain" />
+          <div
+            className="relative flex w-full max-w-xs items-center justify-center overflow-hidden rounded-lg border bg-black/5 shadow-inner dark:bg-black/40"
+            style={{ minHeight: "140px" }}
+          >
+            <img
+              src={imagePreview}
+              alt="Barcode Preview"
+              className="max-h-52 max-w-full object-contain"
+            />
             {isScanning && (
               <div className="absolute inset-0 flex flex-col items-center justify-center space-y-2 bg-black/60 text-white backdrop-blur-xs">
-                <RefreshCw className="text-yellow-400 h-8 w-8 animate-spin" />
-                <span className="text-sm font-medium">Đang quét mã vạch...</span>
+                <RefreshCw className="h-8 w-8 animate-spin text-yellow-400" />
+                <span className="text-sm font-medium">
+                  Đang quét mã vạch...
+                </span>
               </div>
             )}
           </div>
 
           <div className="mt-4 text-center">
-            <p className="text-foreground max-w-70 truncate text-sm font-medium">{selectedFile?.name}</p>
+            <p className="text-foreground max-w-70 truncate text-sm font-medium">
+              {selectedFile?.name}
+            </p>
             <p className="text-muted-foreground mt-0.5 text-xs">
               {(selectedFile?.size / 1024).toFixed(1)} KB
             </p>
@@ -440,7 +472,9 @@ export default function BarcodeScanner({ onScanSuccess, isActive }) {
   const handleSuccess = useCallback(
     (decoded) => {
       try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const audioCtx = new (
+          window.AudioContext || window.webkitAudioContext
+        )();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.connect(gain);
@@ -494,10 +528,23 @@ export default function BarcodeScanner({ onScanSuccess, isActive }) {
       )}
 
       {/* Các định dạng được hỗ trợ */}
-      <div className="text-muted-foreground rounded-lg border p-3 text-xs">
+      <div className="text-muted-foreground p-3 text-xs">
         <p className="mb-1 font-semibold">Định dạng mã vạch được hỗ trợ:</p>
         <div className="flex flex-wrap gap-1">
-          {["EAN-13", "EAN-8", "UPC-A", "UPC-E", "Code 128", "Code 39", "Code 93", "ITF", "Codabar", "Data Matrix", "PDF 417", "Aztec"].map((f) => (
+          {[
+            "EAN-13",
+            "EAN-8",
+            "UPC-A",
+            "UPC-E",
+            "Code 128",
+            "Code 39",
+            "Code 93",
+            "ITF",
+            "Codabar",
+            "Data Matrix",
+            "PDF 417",
+            "Aztec",
+          ].map((f) => (
             <span key={f} className="bg-muted rounded px-1.5 py-0.5 font-mono">
               {f}
             </span>

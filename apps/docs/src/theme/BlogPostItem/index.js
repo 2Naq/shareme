@@ -60,8 +60,16 @@ function getThumbnailUrl(assetsImage, frontMatterImage) {
 
 export default function BlogPostItem({ children, className }) {
   const { metadata, isBlogPostPage } = useBlogPost();
-  const { frontMatter, title, readingTime, date, authors, tags, permalink, assets } =
-    metadata;
+  const {
+    frontMatter,
+    title,
+    readingTime,
+    date,
+    authors,
+    tags,
+    permalink,
+    assets,
+  } = metadata;
 
   const rawThumbnail = getThumbnailUrl(assets?.image, frontMatter?.image);
   const thumbnail = useBaseUrl(rawThumbnail);

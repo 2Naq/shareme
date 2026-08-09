@@ -114,7 +114,7 @@ export default function WiringDiagram({
                     className="relative flex h-8 w-full items-center"
                   >
                     {/* Label for wire */}
-                    <div className="absolute -top-4 left-0 right-0 flex items-center justify-between text-[9px] font-bold">
+                    <div className="absolute -top-4 right-0 left-0 flex items-center justify-between text-[9px] font-bold">
                       <span className="text-muted-foreground/70">
                         {wireTitle}
                       </span>
@@ -253,7 +253,7 @@ export default function WiringDiagram({
                     key={`v-wire-${idx}`}
                     className="relative flex h-full w-8 flex-col items-center"
                   >
-                    <span className="text-muted-foreground/60 mb-1 text-[8px] font-bold flex flex-col items-center">
+                    <span className="text-muted-foreground/60 mb-1 flex flex-col items-center text-[8px] font-bold">
                       <span>{label}</span>
                       <span>{isReverse ? "↑" : "↓"}</span>
                     </span>

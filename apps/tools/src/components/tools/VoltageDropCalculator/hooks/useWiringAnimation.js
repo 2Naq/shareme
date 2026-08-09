@@ -77,8 +77,9 @@ export function useWiringAnimation(containerRef, { loadCurrent, systemType }) {
       const duration = Math.max(1000, 2600 - loadCurrent * 50);
 
       // Horizontal forward particles (Source -> Load)
-      const hForward =
-        containerRef.current.querySelectorAll(".h-particle-forward");
+      const hForward = containerRef.current.querySelectorAll(
+        ".h-particle-forward",
+      );
       if (hForward.length > 0) {
         hForward.forEach((el, idx) => {
           const wireIndexParticle = idx % 3;
@@ -102,8 +103,9 @@ export function useWiringAnimation(containerRef, { loadCurrent, systemType }) {
       }
 
       // Horizontal reverse particles (Load -> Source)
-      const hReverse =
-        containerRef.current.querySelectorAll(".h-particle-reverse");
+      const hReverse = containerRef.current.querySelectorAll(
+        ".h-particle-reverse",
+      );
       if (hReverse.length > 0) {
         hReverse.forEach((el, idx) => {
           const wireIndexParticle = idx % 3;
@@ -127,8 +129,9 @@ export function useWiringAnimation(containerRef, { loadCurrent, systemType }) {
       }
 
       // Vertical forward particles (mobile) (Source -> Load)
-      const vForward =
-        containerRef.current.querySelectorAll(".v-particle-forward");
+      const vForward = containerRef.current.querySelectorAll(
+        ".v-particle-forward",
+      );
       if (vForward.length > 0) {
         vForward.forEach((el, idx) => {
           const wireIndexParticle = idx % 3;
@@ -152,8 +155,9 @@ export function useWiringAnimation(containerRef, { loadCurrent, systemType }) {
       }
 
       // Vertical reverse particles (mobile) (Load -> Source)
-      const vReverse =
-        containerRef.current.querySelectorAll(".v-particle-reverse");
+      const vReverse = containerRef.current.querySelectorAll(
+        ".v-particle-reverse",
+      );
       if (vReverse.length > 0) {
         vReverse.forEach((el, idx) => {
           const wireIndexParticle = idx % 3;
