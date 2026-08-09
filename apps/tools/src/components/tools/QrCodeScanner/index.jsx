@@ -8,6 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 // Import sub-components
 import QrScanner from "./components/QrScanner";
@@ -20,12 +27,15 @@ export default function QrCodeScanner() {
   // Key dùng để force remount scanner component khi reset,
   // đảm bảo html5-qrcode có DOM container sạch để hoạt động lại.
   const [scanKey, setScanKey] = useState(0);
+  // Giữ trạng thái inner tab (camera/image) ở cha để không bị reset khi remount
+  const [qrInnerTab, setQrInnerTab] = useState("camera");
+  const [barcodeInnerTab, setBarcodeInnerTab] = useState("camera");
 
   const handleScanSuccess = (decodedText) => {
     setScanResult(decodedText);
   };
 
-  const handleReset = () => {
+  const handleCloseDialog = () => {
     setScanResult(null);
     setScanKey((k) => k + 1);
   };
@@ -84,6 +94,8 @@ export default function QrCodeScanner() {
                     key={`qr-${scanKey}`}
                     onScanSuccess={handleScanSuccess}
                     isActive={activeTab === "qr"}
+                    innerTab={qrInnerTab}
+                    onInnerTabChange={setQrInnerTab}
                   />
                 </TabsContent>
 
@@ -95,18 +107,13 @@ export default function QrCodeScanner() {
                     key={`barcode-${scanKey}`}
                     onScanSuccess={handleScanSuccess}
                     isActive={activeTab === "barcode"}
+                    innerTab={barcodeInnerTab}
+                    onInnerTabChange={setBarcodeInnerTab}
                   />
                 </TabsContent>
               </Tabs>
             </CardContent>
           </Card>
-
-          {/* ── Kết quả inline ── */}
-          {scanResult && (
-            <div className="animate-in slide-in-from-top-2 fade-in duration-300">
-              <ScanResult result={scanResult} onReset={handleReset} />
-            </div>
-          )}
         </div>
 
         {/* ── Cột phải: Hướng dẫn & mẹo ────────────────── */}
@@ -149,6 +156,26 @@ export default function QrCodeScanner() {
           </Card>
         </div>
       </div>
+
+      {/* ── Dialog hiển thị kết quả quét ── */}
+      <Dialog
+        open={!!scanResult}
+        onOpenChange={(open) => {
+          if (!open) handleCloseDialog();
+        }}
+      >
+        <DialogContent className="sm:max-w-lg" showCloseButton={false}>
+          <DialogHeader>
+            <DialogTitle>Kết Quả</DialogTitle>
+            <DialogDescription className="sr-only">
+              Đóng popup để tiếp tục quét mã khác.
+            </DialogDescription>
+          </DialogHeader>
+          {scanResult && (
+            <ScanResult result={scanResult} onReset={handleCloseDialog} />
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

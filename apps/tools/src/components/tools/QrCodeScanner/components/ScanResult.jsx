@@ -13,14 +13,6 @@ import {
   Eye,
   EyeOff,
 } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { toast } from "sonner";
 
 export default function ScanResult({ result, onReset }) {
@@ -364,7 +356,7 @@ export default function ScanResult({ result, onReset }) {
 
   // Trả về Header Icon
   const getHeaderIcon = () => {
-    const size = "w-6 h-6";
+    const size = "w-5 h-5";
     switch (resultType) {
       case "url":
         return <ExternalLink className={`${size} text-blue-500`} />;
@@ -398,37 +390,29 @@ export default function ScanResult({ result, onReset }) {
   };
 
   return (
-    <Card className="bg-card border-primary/20 border shadow-lg">
-      <CardHeader className="border-muted/50 border-b pb-3">
-        <div className="flex items-center gap-3">
-          <div className="bg-muted/50 shrink-0 rounded-lg p-2">
-            {getHeaderIcon()}
-          </div>
-          <div>
-            <CardTitle className="text-foreground text-lg font-bold">
-              Kết Quả Giải Mã
-            </CardTitle>
-            <CardDescription className="text-xs">
-              Định dạng:{" "}
-              <span className="text-primary font-semibold">
-                {getResultLabel()}
-              </span>
-            </CardDescription>
-          </div>
-        </div>
-      </CardHeader>
+    <div className="space-y-4">
+      {/* Badge định dạng */}
+      <div className="flex items-center gap-2">
+        {getHeaderIcon()}
+        <span className="text-muted-foreground text-sm">
+          Định dạng:{" "}
+          <span className="text-primary font-semibold">{getResultLabel()}</span>
+        </span>
+      </div>
 
-      <CardContent className="pt-6">{renderDetails()}</CardContent>
+      {/* Nội dung kết quả */}
+      {renderDetails()}
 
-      <CardFooter className="border-muted/50 mt-2 flex justify-between border-t pt-4">
+      {/* Nút đóng */}
+      <div className="flex justify-end pt-2">
         <button
           onClick={onReset}
           className="hover:bg-muted text-foreground flex cursor-pointer items-center gap-2 rounded-lg border px-4 py-2 text-sm font-semibold shadow-xs transition-all"
         >
           <X className="h-4 w-4" />
-          Xóa kết quả
+          Đóng & tiếp tục
         </button>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 }

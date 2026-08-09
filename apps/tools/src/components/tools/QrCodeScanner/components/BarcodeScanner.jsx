@@ -465,8 +465,7 @@ function BarcodeImageTab({ onScanSuccess }) {
 }
 
 // ── Export chính ────────────────────────────────────────────
-export default function BarcodeScanner({ onScanSuccess, isActive }) {
-  const [innerTab, setInnerTab] = useState("camera");
+export default function BarcodeScanner({ onScanSuccess, isActive, innerTab, onInnerTabChange }) {
 
   // Bọc callback với toast phân biệt barcode
   const handleSuccess = useCallback(
@@ -498,7 +497,7 @@ export default function BarcodeScanner({ onScanSuccess, isActive }) {
       {/* Mini-tabs: camera vs upload */}
       <div className="flex gap-2">
         <button
-          onClick={() => setInnerTab("camera")}
+          onClick={() => onInnerTabChange("camera")}
           className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
             innerTab === "camera"
               ? "bg-primary text-primary-foreground shadow"
@@ -509,7 +508,7 @@ export default function BarcodeScanner({ onScanSuccess, isActive }) {
           Camera
         </button>
         <button
-          onClick={() => setInnerTab("image")}
+          onClick={() => onInnerTabChange("image")}
           className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
             innerTab === "image"
               ? "bg-primary text-primary-foreground shadow"

@@ -1,11 +1,10 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import { Camera, Upload } from "lucide-react";
 import { toast } from "sonner";
 import CameraScanner from "./CameraScanner";
 import ImageScanner from "./ImageScanner";
 
-export default function QrScanner({ onScanSuccess, isActive }) {
-  const [innerTab, setInnerTab] = useState("camera");
+export default function QrScanner({ onScanSuccess, isActive, innerTab, onInnerTabChange }) {
 
   const handleSuccess = useCallback(
     (decoded) => {
@@ -36,7 +35,7 @@ export default function QrScanner({ onScanSuccess, isActive }) {
       {/* Mini-tabs: camera vs upload */}
       <div className="flex gap-2">
         <button
-          onClick={() => setInnerTab("camera")}
+          onClick={() => onInnerTabChange("camera")}
           className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
             innerTab === "camera"
               ? "bg-primary text-primary-foreground shadow"
@@ -47,7 +46,7 @@ export default function QrScanner({ onScanSuccess, isActive }) {
           Camera
         </button>
         <button
-          onClick={() => setInnerTab("image")}
+          onClick={() => onInnerTabChange("image")}
           className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
             innerTab === "image"
               ? "bg-primary text-primary-foreground shadow"
