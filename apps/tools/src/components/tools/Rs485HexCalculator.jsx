@@ -320,6 +320,130 @@ export default function Rs485HexCalculator() {
           </Table>
         </CardContent>
       </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Bảng Tra Cứu Chi Tiết Các Bit (D8120)</CardTitle>
+          <CardDescription>
+            Mô tả định nghĩa trạng thái 0 (OFF) và 1 (ON) cho từng nhóm Bit cấu hình.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="overflow-x-auto">
+          <Table className="border">
+            <TableHeader className="bg-muted/50">
+              <TableRow>
+                <TableHead rowSpan={2} className="w-[100px] border-r font-bold text-foreground">
+                  Bit No.
+                </TableHead>
+                <TableHead rowSpan={2} className="w-[180px] border-r font-bold text-foreground">
+                  Name
+                </TableHead>
+                <TableHead colSpan={2} className="text-center font-bold text-foreground border-b">
+                  Description
+                </TableHead>
+              </TableRow>
+              <TableRow>
+                <TableHead className="text-center w-[220px] border-r font-semibold">
+                  0 (Bit = OFF)
+                </TableHead>
+                <TableHead className="text-center w-[220px] font-semibold">
+                  1 (Bit = ON)
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-mono font-bold border-r">B0</TableCell>
+                <TableCell className="font-medium border-r">Data length</TableCell>
+                <TableCell className="text-center border-r">7 bit</TableCell>
+                <TableCell className="text-center">8 bit</TableCell>
+              </TableRow>
+
+              <TableRow>
+                <TableCell className="font-mono font-bold border-r">
+                  B1<br />B2
+                </TableCell>
+                <TableCell className="font-medium border-r">Parity</TableCell>
+                <TableCell colSpan={2} className="bg-muted/5">
+                  <div className="font-mono text-xs space-y-1">
+                    <div className="font-semibold text-muted-foreground">b2 b1</div>
+                    <div>(0, 0) : None</div>
+                    <div>(0, 1) : Odd (Lẻ)</div>
+                    <div>(1, 1) : Even (Chẵn)</div>
+                  </div>
+                </TableCell>
+              </TableRow>
+
+              <TableRow>
+                <TableCell className="font-mono font-bold border-r">B3</TableCell>
+                <TableCell className="font-medium border-r">Stop bit</TableCell>
+                <TableCell className="text-center border-r">1 bit</TableCell>
+                <TableCell className="text-center">2 bit</TableCell>
+              </TableRow>
+
+              <TableRow>
+                <TableCell className="font-mono font-bold border-r">
+                  B4<br />B5<br />B6<br />B7
+                </TableCell>
+                <TableCell className="font-medium border-r">Baud Rate (bps)</TableCell>
+                <TableCell colSpan={2} className="bg-muted/5">
+                  <div className="font-mono text-xs space-y-1">
+                    <div className="font-semibold text-muted-foreground mb-1">b7 b6 b5 b4</div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
+                      <div>&#123;0, 0, 1, 1&#125;: 300</div>
+                      <div>&#123;0, 1, 1, 1&#125;: 4800</div>
+                      <div>&#123;0, 1, 0, 0&#125;: 600</div>
+                      <div>&#123;1, 0, 0, 0&#125;: 9600</div>
+                      <div>&#123;0, 1, 0, 1&#125;: 1200</div>
+                      <div>&#123;1, 0, 0, 1&#125;: 19200</div>
+                    </div>
+                  </div>
+                </TableCell>
+              </TableRow>
+
+              <TableRow>
+                <TableCell className="font-mono font-bold border-r">B8</TableCell>
+                <TableCell className="font-medium border-r">Header</TableCell>
+                <TableCell className="text-center border-r">None</TableCell>
+                <TableCell className="text-center">Yes (D8124)</TableCell>
+              </TableRow>
+
+              <TableRow>
+                <TableCell className="font-mono font-bold border-r">B9</TableCell>
+                <TableCell className="font-medium border-r">Terminator</TableCell>
+                <TableCell className="text-center border-r">None</TableCell>
+                <TableCell className="text-center">Yes (D8125)</TableCell>
+              </TableRow>
+
+              <TableRow>
+                <TableCell className="font-mono font-bold border-r">
+                  B10<br />B11
+                </TableCell>
+                <TableCell className="font-medium border-r">Do not use</TableCell>
+                <TableCell colSpan={2} className="text-center text-muted-foreground italic">
+                  Reserved (Không sử dụng)
+                </TableCell>
+              </TableRow>
+
+              <TableRow>
+                <TableCell className="font-mono font-bold border-r">
+                  B12<br />B13<br />B14<br />B15
+                </TableCell>
+                <TableCell className="font-medium border-r">Communication protocol</TableCell>
+                <TableCell colSpan={2} className="bg-muted/5">
+                  <div className="font-mono text-xs space-y-1">
+                    <div className="font-semibold text-muted-foreground mb-1">b15 b14 b13 b12</div>
+                    <div>&#123;0, 0, 0, 0&#125;: MITSUBISHI FX2N protocol (from machine)</div>
+                    <div>&#123;0, 1, 0, 0&#125;: MODBUS Slave (from machine)</div>
+                    <div>&#123;1, 0, 0, 0&#125;: MODBUS RTU (Master, IVRD, IVWR instruction)</div>
+                    <div>&#123;1, 1, 0, 0&#125;: Free communication (RS instruction, with CCD check)</div>
+                  </div>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </div>
   );
 }
