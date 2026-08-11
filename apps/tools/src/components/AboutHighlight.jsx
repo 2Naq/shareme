@@ -10,7 +10,7 @@ export default function AboutHighlight({ text, className }) {
         className,
       )}
     >
-      <span className="shimmer relative pr-px text-white">{text}</span>
+      <span className="shimmer relative pr-1 text-white">{text}</span>
     </span>
   );
 }

@@ -251,7 +251,7 @@ export function AppSidebar() {
                       </a>
                     }
                   ></DropdownMenuItem>
-                  <DropdownMenuItem
+                  {/* <DropdownMenuItem
                     render={
                       <a
                         href="/shareme/pwa"
@@ -262,7 +262,7 @@ export function AppSidebar() {
                         <Download className="text-muted-foreground/60 ml-auto h-3.5 w-3.5" />
                       </a>
                     }
-                  ></DropdownMenuItem>
+                  ></DropdownMenuItem> */}
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator className="my-1.5 sm:hidden" />
