@@ -490,13 +490,13 @@ export default function FX3UTab() {
               <TableRow>
                 <TableHead
                   rowSpan={2}
-                  className="text-foreground w-[100px] border-r font-bold"
+                  className="text-foreground w-25er-r font-bold"
                 >
                   Bit No.
                 </TableHead>
                 <TableHead
                   rowSpan={2}
-                  className="text-foreground w-[180px] border-r font-bold"
+                  className="text-foreground w-45er-r font-bold"
                 >
                   Name
                 </TableHead>
@@ -508,10 +508,10 @@ export default function FX3UTab() {
                 </TableHead>
               </TableRow>
               <TableRow>
-                <TableHead className="w-[220px] border-r text-center font-semibold">
+                <TableHead className="w-55 border-r text-center font-semibold">
                   0 (Bit = OFF)
                 </TableHead>
-                <TableHead className="w-[220px] text-center font-semibold">
+                <TableHead className="w-55 text-center font-semibold">
                   1 (Bit = ON)
                 </TableHead>
               </TableRow>
