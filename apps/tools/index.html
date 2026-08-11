@@ -25,6 +25,8 @@
               navigator.serviceWorker.register(swPath, { scope: swScope })
                 .then(function(reg) {
                   console.log('Tools SW registered:', reg.scope);
+                  window.__swRegistration = reg;
+                  window.dispatchEvent(new CustomEvent('sw-registered', { detail: reg }));
                 })
                 .catch(function(err) {
                   console.error('Tools SW registration failed:', err);

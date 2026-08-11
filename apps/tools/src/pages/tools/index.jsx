@@ -19,7 +19,7 @@ export default function ToolPage() {
   return (
     <ToolLayout
       title="Công cụ tự động hóa"
-      description="Tổng hợp các tiện ích tính toán và chuyển đổi hỗ trợ cho kỹ sư tự động hóa."
+      description="Tổng hợp các tiện ích tính toán và chuyển đổi hỗ trợ một vài tác vụ."
     >
       <div className="mx-auto flex max-w-6xl flex-col gap-8 py-6">
         <div className="mb-2 space-y-4 text-left">

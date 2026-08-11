@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import { ThemeProvider } from "./components/theme-provider.jsx";
 import { Toaster } from "./components/ui/sonner.jsx";
 import { TooltipProvider } from "./components/ui/tooltip";
+import PwaUpdateNotification from "./components/PwaUpdateNotification.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -14,6 +15,8 @@ createRoot(document.getElementById("root")).render(
         <App />
       </TooltipProvider>
       <Toaster position="top-center" richColors />
+      <PwaUpdateNotification />
     </ThemeProvider>
   </StrictMode>,
 );
+
