@@ -25,6 +25,8 @@
               navigator.serviceWorker.register(swPath, { scope: swScope })
                 .then(function(reg) {
                   console.log('Tools SW registered:', reg.scope);
+                  window.__swRegistration = reg;
+                  window.dispatchEvent(new CustomEvent('sw-registered', { detail: reg }));
                 })
                 .catch(function(err) {
                   console.error('Tools SW registration failed:', err);
@@ -44,8 +46,8 @@
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>tools</title>
-    <script type="module" crossorigin src="./assets/index-D_NqRchr.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-C_9mbshX.css">
+    <script type="module" crossorigin src="./assets/index-gVEmWbkT.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BMvQT7ES.css">
   </head>
   <body>
     <div id="root"></div>

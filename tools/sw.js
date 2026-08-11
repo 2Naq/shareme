@@ -10,13 +10,17 @@ const ASSETS_TO_CACHE = [
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then((cache) => {
-        return cache.addAll(ASSETS_TO_CACHE);
-      })
-      .then(() => self.skipWaiting()),
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ASSETS_TO_CACHE);
+    }),
   );
+});
+
+// Listen for SKIP_WAITING message from the client (user clicked "Update now")
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });
 
 self.addEventListener("activate", (event) => {
