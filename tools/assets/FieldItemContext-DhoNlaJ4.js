@@ -1,0 +1,1 @@
+import{Rr as e,Vr as t}from"./index-W9nSEXAc.js";var n=t(e(),1),r=n.createContext({disabled:!1});function i(){return n.useContext(r)}export{i as t};
