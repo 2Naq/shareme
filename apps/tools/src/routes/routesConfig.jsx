@@ -11,6 +11,7 @@ import {
   Binary,
   QrCode,
   Scan,
+  Gauge,
 } from "lucide-react";
 
 const ToolPage = React.lazy(() => import("@/pages/tools/index"));
@@ -39,6 +40,9 @@ const DataConversionPage = React.lazy(
 const QrCodePage = React.lazy(() => import("@/pages/tools/qr-code"));
 const QrCodeScannerPage = React.lazy(
   () => import("@/pages/tools/qr-code-scanner"),
+);
+const PidSimulatorPage = React.lazy(
+  () => import("@/pages/tools/pid-simulator"),
 );
 
 // Định nghĩa các nhóm công cụ
@@ -137,6 +141,14 @@ export const routeConfig = [
     element: <ResistorCalculatorPage />,
     showInSidebar: true,
     icon: CircuitBoard,
+    group: "calculation",
+  },
+  {
+    path: "/tools/pid-simulator",
+    label: "Mô Phỏng PID",
+    element: <PidSimulatorPage />,
+    showInSidebar: true,
+    icon: Gauge,
     group: "calculation",
   },
   {
