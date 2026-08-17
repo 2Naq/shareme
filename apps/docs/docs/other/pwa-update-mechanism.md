@@ -26,7 +26,7 @@ Thông thường, khi một Progressive Web App (PWA) có phiên bản mới, Se
 
 Kiến trúc cập nhật PWA gồm 4 thành phần kết nối với nhau:
 
-```
+```text
 ┌─────────────────┐       ┌──────────────────────┐
 │  index.html     │ ────> │ window.__swRegister  │
 └─────────────────┘       └──────────┬───────────┘
@@ -78,22 +78,22 @@ Hook quản lý toàn bộ logic kiểm tra và cập nhật SW với các giá 
 sequenceDiagram
     autonumber
     actor User as Người dùng
-    participant App as React App (PwaUpdateNotification)
+    participant App as React App
     participant Hook as useServiceWorkerUpdate
-    participant SW as Service Worker (sw.js)
+    participant SW as Service Worker
 
     Note over SW: Có phiên bản code mới được deploy
-    SW->>Hook: Trạng thái SW chuyển sang 'installed' (waiting)
+    SW->>Hook: Trạng thái SW chuyển sang installed (waiting)
     Hook->>App: Cập nhật state hasUpdate = true
     App->>User: Hiển thị Dialog thông báo có bản cập nhật
 
     alt Người dùng bấm "Cập nhật ngay"
         User->>App: Click nút "Cập nhật ngay"
         App->>Hook: Gọi hàm applyUpdate()
-        Hook->>Hook: Bắt đầu chạy Progress animation (0% -> 95%)
+        Hook->>Hook: Bắt đầu chạy Progress animation
         Hook->>SW: postMessage({ type: 'SKIP_WAITING' })
         Note over SW: Kích hoạt self.skipWaiting()
-        SW-->>Hook: Phát sự kiện 'controllerchange'
+        SW-->>Hook: Phát sự kiện controllerchange
         Hook->>Hook: Set Progress = 100%
         Hook->>App: window.location.reload()
         Note over User: Trang web tải lại với phiên bản mới nhất!
