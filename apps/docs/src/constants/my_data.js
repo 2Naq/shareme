@@ -9,6 +9,6 @@ export const myData = {
   title_page: "anTng - Automation Notes",
   email: "annguyen.bluedot@gmail.com",
   level: "Tập sự",
-  work_at: "Maintenance Technician at T.A Company",
+  work_at: "Automation Notes | Maintenance Technician at T.A Company",
   address: "Viet Nam",
 };

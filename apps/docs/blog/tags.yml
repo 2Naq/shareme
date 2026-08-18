@@ -73,4 +73,19 @@ inverter:
 qr-code:
   label: Mã QR Code
   permalink: /qr-code
+pwa:
+  label: PWA
+  permalink: /pwa
+react:
+  label: React
+  permalink: /react
+service-worker:
+  label: Service Worker
+  permalink: /service-worker
+frontend:
+  label: Frontend
+  permalink: /frontend
+devops:
+  label: DevOps
+  permalink: /devops
 

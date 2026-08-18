@@ -1,14 +1,15 @@
 ---
-sidebar_position: 2
-title: Cơ Chế Cập Nhật PWA (Progressive Web App)
-description: Hướng dẫn chi tiết về cơ chế phát hiện và cập nhật Service Worker tự chủ người dùng (User-driven PWA Update) trong ứng dụng ShareMe.
+slug: upgrade-pwa-user-driven
+title: "User-driven PWA Update"
+authors: [an]
+tags: [pwa, react, service-worker, frontend, devops]
+date: 2026-08-19
+image: https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80
 ---
 
-# Cơ Chế Cập Nhật PWA (Progressive Web App)
+Bài viết giải thích chi tiết kiến trúc, vòng đời Service Worker và cách triển khai tính năng **Cập nhật PWA chủ động theo thao tác người dùng (User-driven PWA Update)** trong ứng dụng **ShareMe Tools**, giúp tránh hiện tượng reload trang đột ngột làm gián đoạn trải nghiệm của người dùng.
 
-Tài liệu này giải thích chi tiết kiến trúc, vòng đời và cách triển khai tính năng **Cập nhật PWA chủ động theo thao tác người dùng (User-driven PWA Update)** trong ứng dụng **ShareMe Tools**.
-
----
+{/* truncate */}
 
 ## 1. Tổng Quan Kiến Trúc
 
@@ -127,3 +128,35 @@ Khi ở chế độ `forceShow`:
 4. Chỉnh sửa một nội dung nhỏ trong `apps/tools/public/sw.js` (ví dụ đổi `CACHE_NAME = "shareme-tools-cache-v2"`).
 5. Lưu file, trình duyệt sẽ tải bản SW mới về và hiển thị dòng trạng thái **waiting to activate**.
 6. Lúc này `PwaUpdateNotification` trên giao diện sẽ tự động xuất hiện.
+
+---
+
+## 5. Quy Trình Phát Hành Bản Cập Nhật (Release Workflow trên GitHub Pages)
+
+Khi muốn phát hành một phiên bản cập nhật PWA mới cho người dùng cuối trên **GitHub Pages**, bạn thực hiện quy trình chuẩn hóa theo các bước sau:
+
+### 5.1. Bước 1: Tăng Phiên Bản Cache Service Worker (`sw.js`)
+Trình duyệt chỉ nhận biết có bản Service Worker mới khi tệp `sw.js` có sự thay đổi nội dung trên server.
+- Mở tệp `apps/tools/public/sw.js` (và `apps/docs/static/sw.js` nếu có).
+- Cập nhật hằng số `CACHE_NAME` sang phiên bản mới:
+  ```javascript
+  // Đổi tên cache để trigger trình duyệt nhận diện SW mới:
+  const CACHE_NAME = "shareme-tools-cache-v1.1.0";
+  ```
+
+### 5.2. Bước 2: Commit & Push Code Lên Nhánh `main`
+Đưa toàn bộ các thay đổi ứng dụng và tệp `sw.js` đã tăng version lên repository GitHub:
+```bash
+git add .
+git commit -m "feat: release update v1.1.0 and bump SW cache version"
+git push origin main
+```
+
+### 5.3. Bước 3: Tiến Trình Tự Động Build & Deploy (GitHub Actions)
+- GitHub Workflow (`.github/workflows/deploy.yml`) sẽ tự động được kích hoạt khi phát hiện commit mới trên nhánh `main`.
+- Tiến trình tự động chạy `npm run build` -> Đưa mã nguồn đã đóng gói vào `./apps/docs/build` -> Xuất bản lên **GitHub Pages**.
+
+### 5.4. Trải Nghiệm Tự Động Của Người Dùng
+1. Khi người dùng mở lại PWA ShareMe, trình duyệt tự động kiểm tra `sw.js` trên server và tải bản Service Worker mới ở chế độ chạy ngầm (`waiting to activate`).
+2. Hộp thoại **PwaUpdateNotification** tự động xuất hiện trên màn hình thông báo: *"Đã có bản cập nhật mới!"*.
+3. Người dùng bấm **"Cập nhật ngay"**, thanh tiến trình chạy từ **0% -> 100%**, kích hoạt Service Worker mới và tự động reload trang với đầy đủ tính năng mới nhất.

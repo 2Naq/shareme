@@ -9,12 +9,15 @@ const HIDE_NAVBAR_PATHS = ["/about", "/pwa"];
 export default function NavbarWrapper(props) {
   const location = useLocation();
 
-  const shouldHide = HIDE_NAVBAR_PATHS.some((path) =>
-    location.pathname.includes(path),
-  );
+  // Kiểm tra khớp đường dẫn chính xác, tránh khớp nhầm các bài viết tài liệu có chứa từ khóa (như /other/pwa-update-mechanism)
+  const shouldHide = HIDE_NAVBAR_PATHS.some((path) => {
+    const currentPath = location.pathname.replace(/\/$/, "");
+    return currentPath === path || currentPath.endsWith(path);
+  });
 
   if (shouldHide) {
-    return null;
+    // Trả về thẻ div.navbar ẩn thay vì null để Docusaurus useTOCHighlight không bị lỗi clientHeight
+    return <div className="navbar hidden" style={{ display: "none" }} />;
   }
 
   return (

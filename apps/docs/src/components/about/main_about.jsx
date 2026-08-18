@@ -15,7 +15,7 @@ import CardProjectAbout from "./card_project_about";
 
 const infor = [
   {
-    name: "Work / position",
+    name: "Work",
     value: myData.work_at,
     icon: Pickaxe,
   },
