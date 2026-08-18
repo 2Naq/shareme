@@ -6,9 +6,9 @@ sidebar_label: Hướng dẫn sử dụng WECON VM
 tags: [wecon, wecon-inverter, wecon-manual, vm-series]
 ---
 
-Biến tần **WECON VM Series AC Drive** (Phiên bản tài liệu chuẩn **V2.0**) là dòng biến tần đa năng cao cấp của hãng WECON, hỗ trợ công suất từ `0.4 kW` đến `1000.0 kW` (Nguồn vào 1 pha 220V / 3 pha 380V). Điểm đặc biệt nổi bật của dòng WECON VM là khả năng vận hành linh hoạt cho cả **Động cơ 3 pha** và **Động cơ 1 pha** (Single-Phase AC Motor), tích hợp sẵn bộ điều khiển Vector, phanh DC, truyền thông Modbus RTU và bộ PLC nội hàm 16 cấp tốc độ.
+Biến tần **WECON VM Series AC Drive** (Phiên bản tài liệu chuẩn **V2.0**) là dòng biến tần đa năng của hãng WECON, hỗ trợ vận hành cho cả **Động cơ 3 pha** và **Động cơ 1 pha** (Single-Phase AC Motor), tích hợp điều khiển V/F, Vector hở vòng (Sensorless Vector Control), phanh DC, truyền thông Modbus RTU và bộ PLC đơn giản 16 cấp tốc độ.
 
-Tài liệu này tổng hợp toàn bộ cấu trúc kỹ thuật, sơ đồ đấu nối, bàn phím điều khiển và phương pháp cài đặt chi tiết từ tài liệu chính hãng mới nhất của WECON.
+Tài liệu này tổng hợp cấu trúc kỹ thuật, sơ đồ đấu nối, bàn phím điều khiển và các bước cài đặt tham số từ tài liệu chính thức WECON VM V2.0 User Manual.
 
 ---
 
@@ -21,10 +21,10 @@ Tài liệu này tổng hợp toàn bộ cấu trúc kỹ thuật, sơ đồ đ�
 | **Điện áp ngõ vào** | 1 Phase 220V ±15% (dòng 2S) hoặc 3 Phase 380V ±15% (dòng 4T) |
 | **Tần số ngõ vào** | 50 Hz / 60 Hz (Dải cho phép: 47 Hz ~ 63 Hz) |
 | **Điện áp ngõ ra** | 0 ~ Điện áp ngõ vào định mức |
-| **Tần số ngõ ra** | `0.00 Hz` ~ `320.00 Hz` (Độ phân giải cài đặt: 0.01 Hz) |
-| **Loại động cơ hỗ trợ** | Động cơ không đồng bộ 3 pha và **Động cơ 1 pha** |
-| **Chế độ điều khiển** | Điều khiển V/F (V/F Control) và Điều khiển Vector vòng hở (Sensorless Vector Control) |
-| **Khả năng chịu quá tải** | `150%` dòng định mức trong 60 giây, `180%` dòng định mức trong 3 giây |
+| **Tần số ngõ ra** | `0.00 Hz` ~ `1000.00 Hz` (Độ phân giải cài đặt: 0.01 Hz) |
+| **Loại động cơ hỗ trợ** | Động cơ không đồng bộ 3 pha và Động cơ không đồng bộ 1 pha |
+| **Chế độ điều khiển** | Điều khiển V/F (V/F Control) và Điều khiển Vector hở vòng (Sensorless Vector Control) |
+| **Khả năng chịu quá tải** | `120%` dòng định mức trong 1 phút (60s); `150%` dòng định mức trong 10 giây (10s) |
 | **Tần số sóng mang (Carrier)** | `0.6 kHz` ~ `15.0 kHz` (Tự động điều chỉnh theo nhiệt độ IGBT) |
 | **Cổng truyền thông** | Tích hợp sẵn RS-485 (Hỗ trợ chuẩn Modbus RTU, 1200 ~ 38400 bps) |
 | **Tiêu chuẩn bảo vệ** | IP20, Làm mát bằng quạt gió cưỡng bức |
@@ -40,33 +40,14 @@ Tài liệu này tổng hợp toàn bộ cấu trúc kỹ thuật, sơ đồ đ�
 * **`Earth / PE`**: Chân tiếp địa bảo vệ an toàn chống rò điện.
 
 ### 2.2 Cầu đấu điều khiển tín hiệu (Control Terminals)
+<div className='flex flex-row gap-1 itemcen justify-center'>
+  <DocImage src={require('./img/terminal-connection.png')} width="80%" caption="Sơ đồ đấu nối biến tần công suất > 4kw" />
+  <DocImage src={require('./img/terminal-connection-2kw.png')} width="80%" caption="Sơ đồ đấu nối biến tần công suất < 2.2kw" />
+</div>
 
-```mermaid
-graph TD
-    subgraph "Khối Nguồn & Analog Input/Output"
-        T10["+10V (Nguồn 10V/20mA)"]
-        TAI["AI1 (Vào Analog 0-10V/4-20mA)"]
-        TAO["AO1 (Ra Analog 0-10V)"]
-        TGND["GND (Chân chung Analog)"]
-    end
-
-    subgraph "Khối Ngõ Vào Số Digital Inputs"
-        T24["+24V (Nguồn 24V/150mA)"]
-        TDI1["DI1 (Ngõ vào số 1 - Mặc định FWD)"]
-        TDI2["DI2 (Ngõ vào số 2 - Mặc định REV)"]
-        TDI3["DI3 (Ngõ vào số 3 - Mặc định Reset)"]
-        TDI4["DI4 (Ngõ vào số 4 - Tùy chọn)"]
-        TCOM["COM (Chân chung Digital GND)"]
-    end
-
-    subgraph "Khối Relay & Truyền Thông RS485"
-        TRA["RA (Relay NO - Thường mở)"]
-        TRB["RB (Relay NC - Thường đóng)"]
-        TRC["RC (Relay COM - Chân chung)"]
-        TRSPlus["S+ (RS-485 Positive A+)"]
-        TRSMinus["S- (RS-485 Negative B-)"]
-    end
-```
+:::info[Tip]
+* **Lưu ý**: Để ý các chân terminal bên phải của loại công suất > 4kw
+:::
 
 | Tên chân | Chức năng chi tiết | Mô tả kỹ thuật |
 | :--- | :--- | :--- |
@@ -83,6 +64,8 @@ graph TD
 ## 3. Bàn phím điều khiển & Thao tác vận hành (Keypad Operation)
 
 ### 3.1 Cấu trúc màn hình LED và Đèn báo hiệu
+
+<DocImage src={require('./img/keypad-diagram.png')} width="200px" caption="Sơ đồ bàn phím điều khiển WECON VM (v2)" />
 
 * **Đèn `RUN`**: Sáng khi biến tần đang chạy động cơ; Tắt khi biến tần dừng.
 * **Đèn `REMOTE`**: Tắt khi điều khiển bằng Bàn phím; Sáng khi chạy bằng Terminal ngoài; Nhấp nháy khi chạy qua Truyền thông RS-485.
@@ -107,36 +90,35 @@ graph TD
 ### Ví dụ 1: Chạy bằng Công tắc ngoài & Chiết áp ngoài (Chế độ Terminal)
 
 #### 1. Sơ đồ đấu nối dây vật lý (Wiring Diagram)
-
-```mermaid
-graph LR
-    subgraph "Chiết áp ngoài 10k Ohm"
-        VR1[Chân 3: +10V]
-        VR2[Chân 2: Chạy chiết áp AI1]
-        VR3[Chân 1: GND]
-    end
-
-    subgraph "Terminal Biến Tần WECON VM"
-        T10[Chân +10V]
-        TAI[Chân AI1]
-        TGND[Chân GND]
-        TDI1[Chân DI1]
-        TDI2[Chân DI2]
-        TCOM[Chân COM]
-    end
-
-    VR1 --- T10
-    VR2 --- TAI
-    VR3 --- TGND
-
-    SW1[Nút/Công tắc Chạy Thuận] --- TDI1
-    SW2[Nút/Công tắc Chạy Ngược] --- TDI2
-    SW1 & SW2 --- TCOM
-```
+<DocImage src={require("./img/terminal-connection.png")} width="80%" caption="Sơ đồ đấu nối dây vật lý WECON VM (v2)" />
 
 #### 2. Bảng cài đặt thông số chi tiết từ A - Z khi đưa biến tần mới vào vận hành
 
-Bảng dưới đây liệt kê toàn bộ các mã tham số cần cấu hình, kèm theo **chi tiết các mã tùy chọn giá trị bên trong từng mã hàm** và mục đích sử dụng thực tế:
+:::warning[LƯU Ý QUAN TRỌNG TRƯỚC KHI CÀI ĐẶT: KHÔI PHỤC CÀI ĐẶT GỐC (RESET FACTORY - F0.20)]
+
+Trước khi thực hiện cấu hình các thông số mới cho biến tần, khuyến nghị đưa biến tần về trạng thái cài đặt mặc định của nhà sản xuất bằng mã hàm **[F0.20](./parameter-configuration.mdx#f020)**:
+* **`F0.20 = 1`**: Khôi phục cài đặt gốc mặc định *(giữ nguyên thông số động cơ nhóm F2)*.
+* **`F0.20 = 3`**: Khôi phục toàn bộ cài đặt gốc nhà sản xuất *(bao gồm xóa và đặt lại nhóm thông số động cơ F2)*.
+*(Sau khi bấm ENT để lưu, mã `F0.20` sẽ tự động quay về `0`)*.
+
+---
+
+#### ⚠️ Hướng dẫn xử lý các lỗi thường gặp khi KHÔNG THỂ khôi phục cài đặt gốc (`F0.20`):
+
+1. **Lỗi bị khóa bởi Mật khẩu bảo vệ (`FP.00 != 0`)**:
+   * **Hiện tượng:** Biến tần từ chối thay đổi giá trị `F0.20` hoặc báo không có quyền cài đặt.
+   * **Cách xử lý:** Truy cập mã tham số **`FP.00`** và nhập đúng mật khẩu người dùng (đặt `FP.00 = 00000` để xóa mật khẩu hoàn toàn). Trong trường hợp quên mật khẩu, cần nhập mã mở khóa Master Password từ nhà sản xuất.
+2. **Lỗi biến tần đang chạy (RUN) hoặc chưa chuyển về nguồn điều khiển Bàn phím (PU Mode / Keypad)**:
+   * **Hiện tượng:** Biến tần không cho phép Reset nhà sản xuất khi đang nhận lệnh chạy ngoài từ Terminal/RS485 hoặc khi cuộn dây đang kích hoạt (đèn `RUN` đang sáng).
+   * **Cách xử lý:** 
+     - Nhấn phím **`STOP / RESET`** trên bàn phím để biến tần dừng hoàn toàn (đảm bảo đèn `RUN` tắt hẳn).
+     - Nếu biến tần đang nhận lệnh từ công tắc ngoài, cần tạm thời đặt lại nguồn lệnh chạy về bàn phím bằng cách chọn **`F0.01 = 0`**, sau đó mới tiến hành thao tác cài **`F0.20 = 1`** hoặc **`3`**.
+
+---
+
+**Sau khi khôi phục nhà sản xuất (`F0.20`) thành công**, hãy tiến hành cài đặt lần lượt các thông số theo thứ tự từ trên xuống dưới trong bảng bên dưới:
+:::
+
 <div className='text-[11px] sm:text-base'>
     
     | Nhóm tham số | Mã hàm | Tên thông số / Chức năng | Các giá trị tùy chọn bên trong Mã hàm (Internal Options & Meaning) | Giá trị chọn | Giải thích tác dụng & Mục đích cấu hình |
@@ -150,10 +132,10 @@ Bảng dưới đây liệt kê toàn bộ các mã tham số cần cấu hình,
     | **2. Cấu hình Cầu đấu Ngõ vào** | **[F5.00](./parameter-configuration.mdx#f500)** | DI1 Function Option | `0`: Không dùng<br/>`1`: Chạy Thuận (FWD Running)<br/>`2`: Chạy Ngược (REV Running)<br/>`3`: Điều khiển 3 dây<br/>`4`: Chạy nhấp Thuận (FJOG)<br/>`6`: Reset lỗi biến tần<br/>`12`: Chọn cấp tốc độ 1 | **`1`** | Gán chân DI1 làm lệnh Chạy Thuận (nối DI1 với COM thì biến tần chạy Thuận). |
     | | **[F5.01](./parameter-configuration.mdx#f501)** | DI2 Function Option | Các tùy chọn mã hàm tương tự chân DI1 | **`2`** | Gán chân DI2 làm lệnh Chạy Ngược (nối DI2 với COM thì biến tần chạy Ngược). |
     | | **[F5.41](./parameter-configuration.mdx#f541)** | AI Input Signal Selection | `0`: Điện áp `0 ~ 10 VDC`<br/>`1`: Dòng điện `0/4 ~ 20 mA` | **`0`** | Đặt cổng AI1 nhận tín hiệu dạng điện áp `0 ~ 10V` tương thích chiết áp xoay 3 chân. |
-    | **3. Thông số Động cơ (Motor Params)** | **[F2.00](./parameter-configuration.mdx#f200)** | Type of Motor | `0`: Động cơ 1 pha (Single Phase Motor)<br/>`1`: Động cơ 3 pha (Three Phase Motor) | **`1`** | Chọn đúng loại động cơ 3 pha (chọn = `0` nếu dùng động cơ 1 pha). |
-    | | **[F2.01](./parameter-configuration.mdx#f201)** | Motor Rated Power | Dải cài: `0.4 kW` ~ `1000.0 kW` (Công suất motor) | **`1.5 kW`** | Nhập công suất định mức động cơ ghi trên tem nhãn (kW). |
-    | | **[F2.02](./parameter-configuration.mdx#f202)** | Motor Rated Voltage | Dải cài: `0 V` ~ `440 V` (Điện áp motor) | **`220V / 380V`** | Nhập điện áp định mức động cơ ghi trên tem nhãn (Volt). |
-    | | **[F2.03](./parameter-configuration.mdx#f203)** | Motor Rated Current | Dải cài: `0.1 A` ~ `2000.0 A` (Dòng điện motor) | **`6.2 A`** | Nhập dòng điện định mức động cơ ghi trên tem nhãn (Ampe) – Căn cứ bảo vệ rơ-le nhiệt. |
+    | **3. Thông số Động cơ (Motor Params)** | **[F2.00](./parameter-configuration.mdx#f200)** | Type of Motor | `0`: Động cơ KĐB 3 pha <br/>`1`: Động cơ đồng bộ nam châm vĩnh cửu (PMSM)<br/>`2`: Động cơ KĐB 1 pha (Single Phase Motor) | **`0`** | Chọn loại động cơ tương ứng (`0` = 3 pha thông thường, `1` = 3 pha biến tần, `2` = 1 pha). |
+    | | **[F2.01](./parameter-configuration.mdx#f201)** | Motor Rated Power | Dải cài đặt mã hàm `F2.01`: `0.4 kW` ~ `1000.0 kW` | **`1.5 kW`** | Nhập công suất định mức động cơ ghi trên nhãn (kW). |
+    | | **[F2.02](./parameter-configuration.mdx#f202)** | Motor Rated Voltage | Dải cài đặt: `0 V` ~ `440 V` (Điện áp motor) | **`220V / 380V`** | Nhập điện áp định mức động cơ ghi trên nhãn (Volt). |
+    | | **[F2.03](./parameter-configuration.mdx#f203)** | Motor Rated Current | Dải cài đặt: `0.1 A` ~ `2000.0 A` (Dòng điện motor) | **`6.2 A`** | Nhập dòng điện định mức động cơ ghi trên nhãn (Ampe). |
     | | **[F2.04](./parameter-configuration.mdx#f204)** | Motor Rated Frequency | Dải cài: `0.01 Hz` ~ [`F0.10`](./parameter-configuration.mdx#f010) (Tần số motor) | **`50.00 Hz`** | Nhập tần số định mức động cơ ghi trên tem nhãn (Hz). |
     | | **[F2.05](./parameter-configuration.mdx#f205)** | Motor Rated RPM | Dải cài: `0` ~ `65000 RPM` (Tốc độ vòng quay) | **`1430 RPM`** | Nhập tốc độ vòng quay định mức của motor (Vòng/phút) để màn hình hiển thị đúng RPM. |
     | **4. Tham số Bảo vệ & Ổn định** | **[F4.01](./parameter-configuration.mdx#f401)** | Manual Torque Boost | `0.1%` ~ `30.0%` (0 = Tự động bù áp) | **`4.0 %`** | Bù áp ở tần số thấp giúp khởi động kéo tải nặng không bị khựng. |
@@ -171,12 +153,12 @@ Bảng dưới đây liệt kê toàn bộ các mã tham số cần cấu hình,
 
 ### Ví dụ 2: Cấu hình điều khiển Động cơ 1 pha (Single-Phase Motor)
 
-Dòng WECON VM được tối ưu hóa đặc biệt cho động cơ 1 pha (bơm nước dân dụng, quạt hút...).
+Biến tần WECON VM hỗ trợ điều khiển động cơ 1 pha bằng cách cài đặt tham số loại động cơ trong nhóm F2.
 
 :::important[Các bước cài đặt động cơ 1 pha:]
-1. Đấu nối 2 dây nguồn động cơ 1 pha vào 2 trong 3 chân ngõ ra `U, V, W` của biến tần.
-2. Cài đặt mã tham số **[F2.00 = 0](./parameter-configuration.mdx#f200)** để chuyển sang chế độ Động cơ 1 pha (Single Phase Motor).
-3. Nhập đầy đủ thông số motor: Công suất **[F2.01](./parameter-configuration.mdx#f201)** (kW), điện áp **[F2.02](./parameter-configuration.mdx#f202)** (V), dòng điện **[F2.03](./parameter-configuration.mdx#f203)** (A), tần số **[F2.04](./parameter-configuration.mdx#f204)** (Hz) và vòng quay **[F2.05](./parameter-configuration.mdx#f205)** (RPM) chuẩn theo tem motor.
+1. Đấu nối 2 dây nguồn động cơ 1 pha vào các chân ngõ ra `U, V, W` của biến tần theo hướng dẫn kỹ thuật.
+2. Cài đặt mã tham số **[F2.00 = 2](./parameter-configuration.mdx#f200)** để chọn chế độ Động cơ 1 pha (Single Phase Motor).
+3. Nhập đầy đủ thông số động cơ từ tem nhãn: Công suất **[F2.01](./parameter-configuration.mdx#f201)** (kW), điện áp **[F2.02](./parameter-configuration.mdx#f202)** (V), dòng điện **[F2.03](./parameter-configuration.mdx#f203)** (A), tần số **[F2.04](./parameter-configuration.mdx#f204)** (Hz) và tốc độ quay **[F2.05](./parameter-configuration.mdx#f205)** (RPM).
 :::
 
 ---
@@ -184,10 +166,12 @@ Dòng WECON VM được tối ưu hóa đặc biệt cho động cơ 1 pha (bơm
 ## 5. Tài liệu liên quan trong hệ thống
 
 :::tip[CHUYỂN ĐẾN CÁC TRANG TRA CỨU CHI TIẾT]
-* 📋 **[Bảng Tham Số Cài Đặt Chi Tiết F0 - FD (parameter-configuration.mdx)](./parameter-configuration.mdx)**  
+* **[Bảng Tham Số Cài Đặt Chi Tiết F0 - FD (parameter-configuration.mdx)](./parameter-configuration.mdx)**  
   *Tra cứu toàn bộ danh mục mã hàm, giá trị mặc định, dải cài đặt và địa chỉ RAM.*
-* ⚠️ **[Bảng Mã Lỗi & Hướng Dẫn Xử Lý Sự Cố (error-codes.mdx)](./error-codes.mdx)**  
+* **[Bảng Mã Lỗi & Hướng Dẫn Xử Lý Sự Cố (error-codes.mdx)](./error-codes.mdx)**  
   *Tra cứu danh sách mã lỗi ERR02 ~ ERR22, nguyên nhân và các bước khắc phục.*
-* 📡 **[Truyền Thông Modbus RS-485 & Bản Đồ Thanh Ghi (registers-rs485.mdx)](./registers-rs485.mdx)**  
+* **[Truyền Thông Modbus RS-485 & Bản Đồ Thanh Ghi (registers-rs485.mdx)](./registers-rs485.mdx)**  
   *Hướng dẫn lập trình kết nối PLC/HMI qua Modbus RTU, bảng địa chỉ 1000H, 2000H, 3000H.*
+* **[Tài liệu tham khảo từ hãng](https://wecon.by/wp-content/uploads/2025/04/WECON-VM-V2.0.pdf)**  
+  *Xem và tải về tệp PDF WECON VM V2.0 User Manual trực tiếp từ nhà sản xuất.*
 :::

@@ -68,7 +68,7 @@ Bảng bao gồm mã hàm chuẩn xác, tên thông số, dải giá trị cài 
 
 | Mã hàm | Tên thông số / Chức năng | Dải giá trị cài đặt chi tiết | Mặc định | Tính chất | Địa chỉ RAM |
 | :---: | --- | --- | :---: | :---: | :---: |
-| <span id="f200">**F2.00**</span> | Type of Motor (Lựa chọn loại động cơ) | `0`: Động cơ 1 pha (Single Phase Motor)<br/>`1`: Động cơ 3 pha (Three Phase Motor) | 1 | ● | 0200H |
+| <span id="f200">**F2.00**</span> | Type of Motor (Lựa chọn loại động cơ) | `0`: Động cơ 3 pha KĐB (Common 3-Phase)<br/>`1`: Động cơ 3 pha nam châm vĩnh cửu (Permanent Magnet Motor)<br/>`2`: Động cơ 1 pha (Single Phase Motor) | 0 | ● | 0200H |
 | <span id="f201">**F2.01**</span> | Motor Rated Power (Công suất định mức động cơ) | `0.4 kW` ~ `1000.0 kW` | Theo Model | ● | 0201H |
 | <span id="f202">**F2.02**</span> | Motor Rated Voltage (Điện áp định mức động cơ) | `0 V` ~ `440 V` | Theo Model | ● | 0202H |
 | <span id="f203">**F2.03**</span> | Motor Rated Current (Dòng điện định mức động cơ) | `0.1 A` ~ `2000.0 A` | Theo Model | ● | 0203H |
