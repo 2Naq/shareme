@@ -108,6 +108,7 @@ const dynamicPlugins = categorys.map((category) => [
     path: category.path,
     routeBasePath: category.routeBasePath,
     sidebarPath: "./sidebars.js",
+    editUrl: "https://github.com/2naq/shareme/tree/main/apps/docs/",
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
   },
@@ -188,6 +189,7 @@ const config = {
         docs: false,
         blog: {
           showReadingTime: true,
+          editUrl: "https://github.com/2naq/shareme/tree/main/apps/docs/",
           feedOptions: {
             type: ["rss", "atom"],
             xslt: true,
@@ -232,6 +234,29 @@ const config = {
             },
           };
         },
+        async postBuild({ outDir }) {
+          // Tự động cập nhật hằng số CACHE_NAME trong build/sw.js theo thời gian build (Timestamp)
+          try {
+            const swPath = path.join(outDir, "sw.js");
+            if (fs.existsSync(swPath)) {
+              let swContent = fs.readFileSync(swPath, "utf-8");
+              const buildVersion = `shareme-docs-cache-${Date.now()}`;
+              swContent = swContent.replace(
+                /const CACHE_NAME = ["'][^"']+["'];/,
+                `const CACHE_NAME = "${buildVersion}";`,
+              );
+              fs.writeFileSync(swPath, swContent, "utf-8");
+              console.log(
+                `[PWA Auto-Update] Injected CACHE_NAME: "${buildVersion}" into build/sw.js`,
+              );
+            }
+          } catch (e) {
+            console.error(
+              "[PWA Auto-Update] Failed to update CACHE_NAME in build/sw.js:",
+              e,
+            );
+          }
+        },
         injectHtmlTags() {
           return {
             headTags: [
@@ -269,6 +294,22 @@ const config = {
                         navigator.serviceWorker.register('/shareme/sw.js', { scope: '/shareme/' })
                           .then(function(reg) {
                             console.log('Docs SW registered:', reg.scope);
+
+                            // Tự động kiểm tra bản mới khi người dùng quay lại tab (visibilitychange)
+                            document.addEventListener('visibilitychange', function() {
+                              if (document.visibilityState === 'visible') {
+                                reg.update();
+                              }
+                            });
+
+                            // Tự động reload lại trang khi Service Worker mới chiếm quyền kích hoạt
+                            let refreshing = false;
+                            navigator.serviceWorker.addEventListener('controllerchange', function() {
+                              if (!refreshing) {
+                                refreshing = true;
+                                window.location.reload();
+                              }
+                            });
                           })
                           .catch(function(err) {
                             console.error('Docs SW registration failed:', err);
