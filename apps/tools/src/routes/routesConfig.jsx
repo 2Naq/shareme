@@ -12,6 +12,7 @@ import {
   QrCode,
   Scan,
   Gauge,
+  Cpu,
 } from "lucide-react";
 
 const ToolPage = React.lazy(() => import("@/pages/tools/index"));
@@ -43,6 +44,9 @@ const QrCodeScannerPage = React.lazy(
 );
 const PidSimulatorPage = React.lazy(
   () => import("@/pages/tools/pid-simulator"),
+);
+const BitWordDevicesFxPage = React.lazy(
+  () => import("@/pages/tools/bit-word-devices-fx"),
 );
 
 // Định nghĩa các nhóm công cụ
@@ -96,8 +100,16 @@ export const routeConfig = [
     group: "qr",
   },
   {
+    path: "/tools/bit-word-devices-fx",
+    label: "Tra Cứu Special Devices FX",
+    element: <BitWordDevicesFxPage />,
+    showInSidebar: true,
+    icon: Cpu,
+    group: "data",
+  },
+  {
     path: "/tools/rs485-hex",
-    label: "Phân tích RS485 HEX",
+    label: "Phân tích RS485 HEX FX",
     element: <Rs485HexPage />,
     showInSidebar: true,
     icon: Hash,
