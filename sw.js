@@ -1,4 +1,4 @@
-const CACHE_NAME = "shareme-docs-cache-v1";
+const CACHE_NAME = "shareme-docs-cache-1787353655996";
 const ASSETS_TO_CACHE = [
   "/shareme/",
   "/shareme/index.html",
@@ -28,6 +28,7 @@ self.addEventListener("activate", (event) => {
         return Promise.all(
           cacheNames.map((cache) => {
             if (cache !== CACHE_NAME) {
+              console.log("[Docs SW] Deleting old cache:", cache);
               return caches.delete(cache);
             }
           }),
@@ -51,56 +52,54 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        // Fetch new version in background to update the cache (Stale-While-Revalidate)
-        fetch(event.request)
-          .then((networkResponse) => {
-            if (networkResponse.status === 200) {
-              caches
-                .open(CACHE_NAME)
-                .then((cache) => cache.put(event.request, networkResponse));
-            }
-          })
-          .catch(() => {});
-        return cachedResponse;
-      }
+  const isHtmlRequest =
+    event.request.mode === "navigate" ||
+    (event.request.headers.get("accept") &&
+      event.request.headers.get("accept").includes("text/html"));
 
-      return fetch(event.request)
+  // 1. Network-First Strategy for HTML Navigation pages (Docs, Blog, Homepage)
+  // Ensures online users ALWAYS receive fresh HTML & new posts immediately without manual reload.
+  if (isHtmlRequest) {
+    event.respondWith(
+      fetch(event.request)
         .then((networkResponse) => {
-          if (!networkResponse || networkResponse.status !== 200) {
-            return networkResponse;
-          }
-
-          // Cache static assets dynamically
-          const responseToCache = networkResponse.clone();
-          const url = new URL(event.request.url);
-          // Only cache document files, JS, CSS, and images
-          const shouldCache =
-            url.pathname.match(
-              /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|json)$/,
-            ) ||
-            url.search.includes("utm_source=pwa") ||
-            event.request.headers.get("accept").includes("text/html");
-
-          if (shouldCache) {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
             caches.open(CACHE_NAME).then((cache) => {
               cache.put(event.request, responseToCache);
             });
           }
-
           return networkResponse;
         })
         .catch(() => {
-          // Offline fallback for HTML pages
-          if (
-            event.request.headers.get("accept") &&
-            event.request.headers.get("accept").includes("text/html")
-          ) {
+          // Offline fallback
+          return caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) {
+              return cachedResponse;
+            }
             return caches.match("/shareme/");
+          });
+        }),
+    );
+    return;
+  }
+
+  // 2. Stale-While-Revalidate Strategy for Static Assets (JS, CSS, Images, Fonts)
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      const fetchPromise = fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
           }
-        });
+          return networkResponse;
+        })
+        .catch(() => {});
+
+      return cachedResponse || fetchPromise;
     }),
   );
 });
