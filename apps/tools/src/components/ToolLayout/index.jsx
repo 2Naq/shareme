@@ -2,6 +2,7 @@ import React from "react";
 import { SidebarProvider } from "../ui/sidebar";
 import { AppSidebar } from "../layout/appSidebar";
 import { AppHeader } from "../layout/appHeader";
+import { FeedbackBubble } from "../FeedbackBubble";
 
 export default function ToolLayout({ children }) {
   return (
@@ -16,6 +17,9 @@ export default function ToolLayout({ children }) {
           </div>
         </main>
       </div>
+
+      {/* Floating GitHub Feedback & Contribution Bubble */}
+      <FeedbackBubble />
     </SidebarProvider>
   );
 }
