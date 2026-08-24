@@ -30,8 +30,8 @@ import {
   Download,
   ExternalLink,
   ShieldCheck,
-  BookOpen,
-  Sparkles,
+  RotateCw,
+  NotebookPen,
 } from "lucide-react";
 
 const configData = {
@@ -85,6 +85,10 @@ export function AppSidebar() {
       setDeferredPrompt(null);
       window.deferredPrompt = null;
     }
+  };
+
+  const handleCheckUpdate = () => {
+    window.dispatchEvent(new CustomEvent("pwa-manual-update-check"));
   };
 
   return (
@@ -205,7 +209,6 @@ export function AppSidebar() {
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator className="my-1.5" />
-
                 {/* PWA Action */}
                 {deferredPrompt && !isInstalled && (
                   <>
@@ -218,7 +221,6 @@ export function AppSidebar() {
                         <span>Cài đặt PWA Tools</span>
                       </DropdownMenuItem>
                     </DropdownMenuGroup>
-                    <DropdownMenuSeparator className="my-1.5" />
                   </>
                 )}
 
@@ -233,9 +235,19 @@ export function AppSidebar() {
                         <span>Đã cài đặt PWA Tools</span>
                       </DropdownMenuItem>
                     </DropdownMenuGroup>
-                    <DropdownMenuSeparator className="my-1.5" />
                   </>
                 )}
+                <DropdownMenuGroup>
+                  <DropdownMenuItem
+                    onClick={handleCheckUpdate}
+                    className="cursor-pointer rounded-lg py-2 font-medium text-blue-500 focus:bg-blue-500/10 focus:text-blue-500"
+                  >
+                    <RotateCw className="mr-2 h-4 w-4" />
+                    <span>Kiểm tra cập nhật</span>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+
+                <DropdownMenuSeparator className="my-1.5" />
 
                 {/* External links */}
                 <DropdownMenuGroup>
@@ -245,8 +257,8 @@ export function AppSidebar() {
                         href="/shareme/"
                         className="text-foreground flex w-full cursor-pointer items-center rounded-lg py-2 no-underline"
                       >
-                        <BookOpen className="text-muted-foreground mr-2 h-4 w-4" />
-                        <span>Tài liệu & Blog</span>
+                        <NotebookPen className="text-muted-foreground mr-2 h-4 w-4" />
+                        <span>Take note & Blog</span>
                         <ExternalLink className="text-muted-foreground/60 ml-auto h-3.5 w-3.5" />
                       </a>
                     }

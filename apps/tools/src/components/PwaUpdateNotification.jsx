@@ -18,8 +18,14 @@ import { RefreshCw } from "lucide-react";
 import SvgLoading from "./loading";
 
 export default function PwaUpdateNotification({ forceShow = false }) {
-  const { hasUpdate, isUpdating, updateProgress, applyUpdate, dismissUpdate } =
-    useServiceWorkerUpdate();
+  const {
+    hasUpdate,
+    updateType,
+    isUpdating,
+    updateProgress,
+    applyUpdate,
+    dismissUpdate,
+  } = useServiceWorkerUpdate();
 
   const [testUpdating, setTestUpdating] = React.useState(false);
   const [testProgress, setTestProgress] = React.useState(0);
@@ -61,6 +67,8 @@ export default function PwaUpdateNotification({ forceShow = false }) {
 
   if (!activeHasUpdate) return null;
 
+  const isMajor = updateType === "auto";
+
   return (
     <Dialog open={activeHasUpdate} modal>
       <DialogContent
@@ -70,21 +78,18 @@ export default function PwaUpdateNotification({ forceShow = false }) {
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
         <DialogHeader className="items-center text-center">
-          {/* GIF illustration */}
+          {/* GIF / Animated SVG illustration */}
           <div className="bg-muted/30 mx-auto flex min-h-50 w-full items-center justify-center overflow-hidden rounded-lg dark:bg-white">
-            {/* <img
-              src="./Update-img.gif"
-              alt="Update available"
-              className="h-auto w-full object-cover"
-              draggable={false}
-            /> */}
             <SvgLoading />
           </div>
 
-          <DialogTitle className="text-lg">Có bản cập nhật mới!</DialogTitle>
-          <DialogDescription className="text-balance">
-            Phiên bản mới với các cải tiến và sửa lỗi đã sẵn sàng. Cập nhật ngay
-            để trải nghiệm tốt nhất.
+          <DialogTitle className="text-lg font-semibold">
+            {isMajor ? "Có bản cập nhật mới!" : "Làm mới & Cập nhật ứng dụng"}
+          </DialogTitle>
+          <DialogDescription className="text-xs text-balance sm:text-sm">
+            {isMajor
+              ? "Phiên bản mới với các tính năng và sửa lỗi đã sẵn sàng. Cập nhật ngay để trải nghiệm tốt nhất."
+              : "Hệ thống sẽ làm sạch bộ nhớ đệm và nạp lại toàn bộ tài nguyên mới nhất từ máy chủ."}
           </DialogDescription>
         </DialogHeader>
 
@@ -96,21 +101,21 @@ export default function PwaUpdateNotification({ forceShow = false }) {
               value={activeProgress}
               className="w-full max-w-sm"
             >
-              <ProgressLabel className="text-muted-foreground animate-pulse">
-                Đang cập nhật...
+              <ProgressLabel className="text-muted-foreground animate-pulse text-xs">
+                Đang dọn dẹp và cập nhật tài nguyên mới...
               </ProgressLabel>
-              <ProgressValue />
+              <ProgressValue className="text-xs" />
             </Progress>
           </div>
         )}
 
         {/* Action buttons — hidden during update */}
         {!activeIsUpdating && (
-          <DialogFooter className="flex-row gap-2 sm:justify-center">
+          <DialogFooter className="mt-2 flex-row gap-2 border-t-0 bg-transparent sm:justify-center">
             <Button
               variant="outline"
               onClick={handleDismiss}
-              className="flex-1"
+              className="dark:border-input/30 flex-1 border"
             >
               Để sau
             </Button>

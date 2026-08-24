@@ -1,30 +1,35 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
 /**
- * Custom hook to detect and manage PWA Service Worker updates.
+ * Custom hook to detect and manage PWA Service Worker updates (Major & Minor/Cache).
  *
  * Returns:
- *  - hasUpdate: boolean — true when a new SW version is waiting
+ *  - hasUpdate: boolean — true when a new SW version is waiting or manual update triggered
+ *  - updateType: "auto" | "manual" — update trigger mode
  *  - isUpdating: boolean — true during the update process
- *  - updateProgress: number (0-100) — simulated progress percentage
- *  - applyUpdate: () => void — triggers the SW update + page reload
- *  - dismissUpdate: () => void — hides the notification temporarily
+ *  - updateProgress: number (0-100) — progress percentage
+ *  - applyUpdate: () => Promise<void> — clears caches, activates new SW, reloads page
+ *  - dismissUpdate: () => void — hides notification dialog
  */
 export function useServiceWorkerUpdate() {
   const [hasUpdate, setHasUpdate] = useState(false);
+  const [updateType, setUpdateType] = useState("auto"); // "auto" (major) | "manual" (minor/cache)
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateProgress, setUpdateProgress] = useState(0);
   const [dismissed, setDismissed] = useState(false);
   const waitingSwRef = useRef(null);
+  const registrationRef = useRef(null);
 
   useEffect(() => {
-    // Bail out if SW is not supported
-    if (!("serviceWorker" in navigator)) return;
+    if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
 
     function handleRegistration(registration) {
+      registrationRef.current = registration;
+
       // Case 1: A new SW is already waiting (e.g. from a previous page load)
       if (registration.waiting) {
         waitingSwRef.current = registration.waiting;
+        setUpdateType("auto");
         setHasUpdate(true);
         return;
       }
@@ -48,6 +53,7 @@ export function useServiceWorkerUpdate() {
         if (sw.state === "installed" && navigator.serviceWorker.controller) {
           // New SW installed and waiting — there's an update available
           waitingSwRef.current = sw;
+          setUpdateType("auto");
           setHasUpdate(true);
         }
       });
@@ -64,41 +70,63 @@ export function useServiceWorkerUpdate() {
     }
     window.addEventListener("sw-registered", onSwRegistered);
 
+    // Listen for manual update trigger (e.g. from Sidebar button)
+    function onManualCheck() {
+      setDismissed(false);
+      setUpdateType("manual");
+      setHasUpdate(true);
+
+      // Trigger background check on SW registration if available
+      if (registrationRef.current) {
+        registrationRef.current.update().catch(() => {});
+      }
+    }
+    window.addEventListener("pwa-manual-update-check", onManualCheck);
+
     return () => {
       window.removeEventListener("sw-registered", onSwRegistered);
+      window.removeEventListener("pwa-manual-update-check", onManualCheck);
     };
   }, []);
 
-  const applyUpdate = useCallback(() => {
-    const waitingSw = waitingSwRef.current;
-    if (!waitingSw) return;
-
+  const applyUpdate = useCallback(async () => {
     setIsUpdating(true);
     setUpdateProgress(0);
 
-    // Simulate progress animation while waiting for SW to activate
+    // 1. Simulate smooth progress animation
     let progress = 0;
     const interval = setInterval(() => {
-      progress += Math.random() * 12 + 3; // increment 3-15% each tick
-      if (progress >= 95) {
-        progress = 95; // hold at 95% until reload
+      progress += Math.random() * 15 + 10;
+      if (progress >= 90) {
+        progress = 90;
         clearInterval(interval);
       }
-      setUpdateProgress(Math.min(Math.round(progress), 95));
-    }, 150);
+      setUpdateProgress(Math.min(Math.round(progress), 90));
+    }, 120);
 
-    // Listen for the new SW to take control
-    navigator.serviceWorker.addEventListener("controllerchange", () => {
-      clearInterval(interval);
-      setUpdateProgress(100);
-      // Small delay to show 100% before reload
-      setTimeout(() => {
-        window.location.reload();
-      }, 400);
-    });
+    try {
+      // 2. Clear CacheStorage to purge old JS/CSS/asset bundles
+      if ("caches" in window) {
+        const cacheKeys = await window.caches.keys();
+        await Promise.all(cacheKeys.map((key) => window.caches.delete(key)));
+      }
 
-    // Tell the waiting SW to activate
-    waitingSw.postMessage({ type: "SKIP_WAITING" });
+      // 3. If there is a waiting Service Worker, tell it to skip waiting
+      const waitingSw = waitingSwRef.current;
+      if (waitingSw) {
+        waitingSw.postMessage({ type: "SKIP_WAITING" });
+      }
+    } catch (err) {
+      console.error("Error clearing caches during update:", err);
+    }
+
+    // 4. Complete progress to 100% and reload
+    clearInterval(interval);
+    setUpdateProgress(100);
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 450);
   }, []);
 
   const dismissUpdate = useCallback(() => {
@@ -107,6 +135,7 @@ export function useServiceWorkerUpdate() {
 
   return {
     hasUpdate: hasUpdate && !dismissed,
+    updateType,
     isUpdating,
     updateProgress,
     applyUpdate,

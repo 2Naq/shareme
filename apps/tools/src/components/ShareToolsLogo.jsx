@@ -1,6 +1,7 @@
 import React from "react";
 import SvgTool from "./svg_Tool";
 import { Marker, MarkerContent } from "./ui/marker";
+import { cn } from "@/lib/utils";
 
 /**
  * ShareTools Logo Component
@@ -66,7 +67,10 @@ export function ShareToolsLogo({
           </Marker>
 
           <span
-            className={`${s.tagline} text-muted-foreground mt-0.5 truncate font-medium tracking-wider uppercase`}
+            className={cn(
+              s.tagline,
+              "text-muted-foreground mt-0.5 truncate font-medium tracking-wider uppercase",
+            )}
             title="Practice - Challenge - Persevere"
           >
             Practice - Challenge - Persevere
