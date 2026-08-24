@@ -6,6 +6,7 @@ import { DeviceTable } from "./components/DeviceTable";
 import { DeviceGrid } from "./components/DeviceGrid";
 import { DevicePagination } from "./components/DevicePagination";
 import { DeviceDetailModal } from "./components/DeviceDetailModal";
+import { DeviceDisclaimer } from "./components/DeviceDisclaimer";
 
 export default function FxSpecialDevices() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -45,10 +46,21 @@ export default function FxSpecialDevices() {
         const matchesName = device.name.toLowerCase().includes(query);
         const matchesSummary = device.summary.toLowerCase().includes(query);
         const matchesDesc = device.description.toLowerCase().includes(query);
-        const matchesModels = device.applicableModels.toLowerCase().includes(query);
-        const matchesTags = device.tags?.some((t) => t.toLowerCase().includes(query));
+        const matchesModels = device.applicableModels
+          .toLowerCase()
+          .includes(query);
+        const matchesTags = device.tags?.some((t) =>
+          t.toLowerCase().includes(query),
+        );
 
-        return matchesId || matchesName || matchesSummary || matchesDesc || matchesModels || matchesTags;
+        return (
+          matchesId ||
+          matchesName ||
+          matchesSummary ||
+          matchesDesc ||
+          matchesModels ||
+          matchesTags
+        );
       }
 
       return true;
@@ -66,16 +78,17 @@ export default function FxSpecialDevices() {
     const start = (currentPage - 1) * pageSize;
     return filteredDevices.slice(start, start + pageSize);
   }, [filteredDevices, currentPage, pageSize]);
-
   return (
     <div className="space-y-6">
       {/* Header Description */}
       <div className="space-y-1">
-        <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+        <h2 className="text-foreground text-xl font-bold tracking-tight sm:text-2xl">
           Tra Cứu Special Bit & Word Devices PLC Mitsubishi FX Series
         </h2>
-        <p className="text-sm text-muted-foreground">
-          Tra cứu nhanh các rơ-le phụ đặc biệt (Bit M8000+) và thanh ghi đặc biệt (Word D8000+) trên các dòng PLC FX0N, FX1S, FX1N, FX2N, FX3G, FX3U, FX3UC...
+        <p className="text-muted-foreground text-sm">
+          Tra cứu nhanh các rơ-le phụ đặc biệt (Bit M8000+) và thanh ghi đặc
+          biệt (Word D8000+) trên các dòng PLC FX0N, FX1S, FX1N, FX2N, FX3G,
+          FX3U, FX3UC...
         </p>
       </div>
 
@@ -99,9 +112,15 @@ export default function FxSpecialDevices() {
 
       {/* Main Content Display (Table or Cards Grid) */}
       {viewMode === "table" ? (
-        <DeviceTable devices={paginatedDevices} onSelectDevice={setSelectedDevice} />
+        <DeviceTable
+          devices={paginatedDevices}
+          onSelectDevice={setSelectedDevice}
+        />
       ) : (
-        <DeviceGrid devices={paginatedDevices} onSelectDevice={setSelectedDevice} />
+        <DeviceGrid
+          devices={paginatedDevices}
+          onSelectDevice={setSelectedDevice}
+        />
       )}
 
       {/* Pagination Controls */}
@@ -119,6 +138,9 @@ export default function FxSpecialDevices() {
         isOpen={Boolean(selectedDevice)}
         onClose={() => setSelectedDevice(null)}
       />
+
+      {/* Notes */}
+      {filteredDevices.length > 0 && <DeviceDisclaimer />}
     </div>
   );
 }

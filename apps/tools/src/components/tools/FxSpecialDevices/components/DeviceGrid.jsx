@@ -28,6 +28,10 @@ export function DeviceGrid({ devices, onSelectDevice }) {
         <p className="text-muted-foreground text-sm font-medium">
           Không tìm thấy thiết bị nào phù hợp với bộ lọc.
         </p>
+        <p className="text-muted-foreground/70 mt-1 text-xs">
+          Hãy thử tìm kiếm với từ khóa khác hoặc bấm nút "Đặt lại" để xem toàn
+          bộ danh sách.
+        </p>
       </div>
     );
   }

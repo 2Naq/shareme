@@ -105,10 +105,10 @@ export function DeviceSearchFilter({
             <Search className="text-muted-foreground absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
             <Input
               type="text"
-              placeholder="Tìm kiếm M8000, D8120, RS485, Clock..."
+              placeholder="Tìm kiếm devices..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="focus-visible:ring-primary h-9 rounded-xl pr-9 pl-10 text-xs sm:h-10 sm:text-sm"
+              className="focus-visible:ring-primary/20 h-9 rounded-xl pr-9 pl-10 text-xs sm:h-10 sm:text-sm"
             />
             {searchQuery && (
               <button
