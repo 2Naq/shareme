@@ -9,6 +9,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
+import { MathRenderInline } from "@/components/MathRenderer";
 
 /**
  * Panel cấu hình đối tượng điều khiển FOPDT & mô phỏng.
@@ -84,7 +85,10 @@ export default function ProcessConfigPanel({ config, onChange }) {
       <CardHeader className="pb-4">
         <CardTitle className="text-base">Đối tượng & Mô phỏng</CardTitle>
         <CardDescription>
-          Mô hình FOPDT: G(s) = K / (τs + 1) × e⁻ᵀᵈˢ
+          {/* Mô hình FOPDT: G(s) = K / (τs + 1) × e⁻ᵀᵈˢ */}
+          <MathRenderInline
+            text={String.raw`Mô hình FOPDT: $G(s) = \frac{K}{τs + 1} \times e^{-Tds}$`}
+          />
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">

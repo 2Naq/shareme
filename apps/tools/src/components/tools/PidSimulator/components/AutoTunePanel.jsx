@@ -44,7 +44,6 @@ export default function AutoTunePanel({
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2 text-base">
-          <Wand2 className="h-4 w-4" />
           Auto-Tune (Ziegler-Nichols)
         </CardTitle>
         <CardDescription>

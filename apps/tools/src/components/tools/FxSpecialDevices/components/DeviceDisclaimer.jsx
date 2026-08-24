@@ -33,9 +33,9 @@ export function DeviceDisclaimer() {
               </div>
               <p className="text-muted-foreground mt-1.5 text-[11px] leading-relaxed">
                 Các dòng cũ (FX0N, FX1S, FX1N, FX2N) có thể không hỗ trợ một số
-                thanh ghi cao tốc, mở rộng hay truyền thông so với FX3G,
-                FX3U/FX3UC. Luôn đối chiếu cột{" "}
-                <strong className="text-foreground font-medium">
+                thanh ghi, mở rộng hay truyền thông so với FX3G, FX3U/FX3UC.
+                Luôn đối chiếu cột{" "}
+                <strong className="text-foreground font-semibold">
                   Dòng PLC hỗ trợ
                 </strong>
                 .
@@ -49,13 +49,14 @@ export function DeviceDisclaimer() {
               </div>
               <p className="text-muted-foreground mt-1.5 text-[11px] leading-relaxed">
                 Không ghi đè (lệnh OUT/MOV) vào các cờ{" "}
-                <strong className="text-foreground font-medium">
+                <strong className="text-foreground font-semibold">
                   Chỉ đọc (R)
                 </strong>{" "}
                 (như M8000, M8002, M8013...) để tránh xung đột hệ thống. Chỉ can
                 thiệp các thiết bị có quyền{" "}
-                <strong className="text-foreground font-medium">R/W</strong>{" "}
-                hoặc <strong className="text-foreground font-medium">W</strong>.
+                <strong className="text-foreground font-semibold">R/W</strong>{" "}
+                hoặc{" "}
+                <strong className="text-foreground font-semibold">W</strong>.
               </p>
             </div>
 
@@ -67,7 +68,7 @@ export function DeviceDisclaimer() {
               <p className="text-muted-foreground mt-1.5 text-[11px] leading-relaxed">
                 Dữ liệu trên công cụ mang tính tra cứu nhanh. Luôn kiểm tra lại
                 với tài liệu kỹ thuật chính hãng (
-                <span className="text-foreground font-medium italic">
+                <span className="text-foreground font-semibold italic">
                   Mitsubishi FX Programming Manual
                 </span>
                 ) và mô phỏng trước khi nạp vào máy thực tế.
