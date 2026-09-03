@@ -48,6 +48,9 @@ const PidSimulatorPage = React.lazy(
 const BitWordDevicesFxPage = React.lazy(
   () => import("@/pages/tools/bit-word-devices-fx"),
 );
+const InverterFaultsPage = React.lazy(
+  () => import("@/pages/tools/inverter-faults"),
+);
 
 // Định nghĩa các nhóm công cụ
 export const groups = [
@@ -105,6 +108,14 @@ export const routeConfig = [
     element: <BitWordDevicesFxPage />,
     showInSidebar: true,
     icon: Cpu,
+    group: "data",
+  },
+  {
+    path: "/tools/inverter-faults",
+    label: "Tra Cứu Lỗi & Modbus Biến Tần",
+    element: <InverterFaultsPage />,
+    showInSidebar: true,
+    icon: Activity,
     group: "data",
   },
   {

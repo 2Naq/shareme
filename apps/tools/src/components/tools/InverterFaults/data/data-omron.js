@@ -1,0 +1,670 @@
+export const OMRON_FAULTS = [
+  {
+    id: "OMRON_E01",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E01",
+    name: "Overcurrent event during constant speed",
+    hexCode: "01H",
+    decCode: 1,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Dòng điện ngõ ra vượt ngưỡng định mức khi đang quay ở tốc độ ổn định",
+      "Tải cơ khí bị kẹt cứng bất ngờ hoặc tăng tải đột ngột",
+      "Cáp nối động cơ bị chạm chập hoặc trầy xước"
+    ],
+    solutions: [
+      "Kiểm tra tải máy móc xem có bị kẹt đá, dị vật cản trở",
+      "Đo kiểm tra cách điện cuộn dây động cơ bằng đồng hồ Megger",
+      "Kiểm tra khối công suất IGBT"
+    ],
+    expertTips: "Trên Omron MX2, nếu tháo cáp motor ra mà bật chạy biến tần vẫn báo E01 ngay lập tức thì bo mạch công suất IGBT đã hỏng.",
+    relatedRegisters: ["0012H", "0011H"]
+  },
+  {
+    id: "OMRON_E02",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E02",
+    name: "Overcurrent event during deceleration",
+    hexCode: "02H",
+    decCode: 2,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Thời gian giảm tốc F003 / b085 quá nhanh khiến dòng hãm tăng đột biến",
+      "Quán tính cơ khí của tải quá lớn"
+    ],
+    solutions: [
+      "Tăng thời gian giảm tốc F003 dài hơn",
+      "Lắp thêm điện trở xả hãm động năng vào chân B1 và B2 (hoặc P+ và RB)"
+    ],
+    expertTips: "Cài đặt đường cong hãm chữ S trong tham số A098 = 01 để làm dịu lực hãm cơ khí.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E03",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E03",
+    name: "Overcurrent event during acceleration",
+    hexCode: "03H",
+    decCode: 3,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Thời gian tăng tốc F002 quá ngắn",
+      "Bù áp mô-men khởi động A042/A043 đặt quá cao",
+      "Động cơ bị bó trục lúc đề-pa"
+    ],
+    solutions: [
+      "Tăng thời gian tăng tốc F002 dài hơn",
+      "Giảm thông số bù mô-men Torque Boost (A042)",
+      "Quay thử trục động cơ bằng tay"
+    ],
+    expertTips: "Nếu dùng chế độ Vector không cảm biến (A044 = 03), hãy thực hiện tính năng Auto-tuning (H001 = 01) trước.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E04",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E04",
+    name: "Overcurrent event during other conditions",
+    hexCode: "04H",
+    decCode: 4,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Quá dòng ngõ ra khi động cơ đang dừng hoặc trong các trạng thái vận hành khác",
+      "Nhiễu điện từ cực mạnh tác động lên mạch cảm biến dòng"
+    ],
+    solutions: [
+      "Kiểm tra tiếp địa PE của biến tần và động cơ",
+      "Đo kiểm tra khối công suất IGBT"
+    ],
+    expertTips: "Đảm bảo cáp động cơ không đi chung máng với cáp tín hiệu điều khiển nhạy cảm.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E05",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E05",
+    name: "Motor overload protection (Electronic thermal)",
+    hexCode: "05H",
+    decCode: 5,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Rơ-le nhiệt điện tử tích hợp bảo vệ motor tác động do quá tải kéo dài",
+      "Cài sai dòng định mức động cơ trong tham số b012"
+    ],
+    solutions: [
+      "Kiểm tra dòng định mức ghi trên nhãn động cơ và cài chính xác vào b012",
+      "Giảm tải cơ khí hoặc tăng tỷ số truyền hộp số",
+      "Lắp quạt làm mát độc lập cho động cơ nếu chạy tần số thấp kéo dài"
+    ],
+    expertTips: "Có thể theo dõi mức tích nhiệt bảo vệ motor qua thông số giám sát d015 trên màn hình.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E06",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3RX"],
+    code: "E06",
+    name: "Braking resistor overload protection",
+    hexCode: "06H",
+    decCode: 6,
+    category: "overvoltage",
+    categoryLabel: "Quá áp & Xả hãm",
+    severity: "error",
+    causes: [
+      "Tần suất xả phanh hãm động năng quá dày đặc vượt quá công suất chịu đựng của điện trở",
+      "Thời gian giảm tốc quá ngắn trong ứng dụng lặp lại liên tục"
+    ],
+    solutions: [
+      "Tăng thời gian giảm tốc F003",
+      "Cài đặt hệ số tải sử dụng phanh b090 phù hợp",
+      "Nâng cấp điện trở xả có công suất Watt lớn hơn"
+    ],
+    expertTips: "Tránh cài đặt b090 vượt quá 10% nếu điện trở xả không có quạt làm mát cưỡng bức.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E07",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E07",
+    name: "Overvoltage protection",
+    hexCode: "07H",
+    decCode: 7,
+    category: "overvoltage",
+    categoryLabel: "Quá áp & Xả hãm",
+    severity: "error",
+    causes: [
+      "Điện áp Bus DC vượt ngưỡng cho phép (trên 400V hệ 200V hoặc trên 800V hệ 400V)",
+      "Quán tính tải đẩy ngược điện năng về biến tần khi hãm",
+      "Nguồn điện lưới đầu vào quá cao"
+    ],
+    solutions: [
+      "Tăng thời gian giảm tốc F003",
+      "Lắp điện trở xả vào chân B1 và B2",
+      "Bật tính năng tự động tránh quá áp tái sinh b130 = 01"
+    ],
+    expertTips: "Kích hoạt b130 = 01 giúp biến tần tự động nới dài thời gian hãm nếu phát hiện áp Bus DC sắp chạm ngưỡng Trip E07.",
+    relatedRegisters: ["0012H", "0017H"]
+  },
+  {
+    id: "OMRON_E08",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E08",
+    name: "EEPROM memory error",
+    hexCode: "08H",
+    decCode: 8,
+    category: "hardware",
+    categoryLabel: "Phần cứng & CPU/Bộ nhớ",
+    severity: "error",
+    causes: [
+      "Lỗi chip nhớ EEPROM lưu trữ dữ liệu thông số biến tần",
+      "Nhiễu điện từ lúc lưu tham số hoặc mất điện đột ngột khi đang ghi bộ nhớ"
+    ],
+    solutions: [
+      "Thực hiện khởi tạo lại thông số mặc định nhà sản xuất (Initialize: b084 = 02, b180 = 01)",
+      "Nếu khởi động lại vẫn báo E08, cần thay bo mạch điều khiển"
+    ],
+    expertTips: "Khi ghi tần số qua mạng Modbus, hãy ghi vào thanh ghi RAM thay vì ghi vào bộ nhớ EEPROM để tránh chai chip nhớ.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E09",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E09",
+    name: "Undervoltage protection",
+    hexCode: "09H",
+    decCode: 9,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Điện áp nguồn xoay chiều ngõ vào bị sụt giảm nghiêm trọng",
+      "Khởi động từ tổng bị hở mạch tiếp điểm",
+      "Tụ điện lọc nguồn DC bị khô suy hao dung lượng"
+    ],
+    solutions: [
+      "Đo kiểm tra điện áp nguồn cấp 3 pha ngõ vào (R, S, T)",
+      "Kiểm tra aptomat và khởi động từ nguồn chính",
+      "Bật chức năng tự khởi động lại sau sụt nguồn b001 = 01"
+    ],
+    expertTips: "Đọc thanh ghi 0017H để xem điện áp Bus DC chính xác tại thời điểm xảy ra sự cố sụt nguồn.",
+    relatedRegisters: ["0012H", "0017H"]
+  },
+  {
+    id: "OMRON_E10",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E10",
+    name: "Current detector error",
+    hexCode: "0AH",
+    decCode: 10,
+    category: "hardware",
+    categoryLabel: "Phần cứng & CPU/Bộ nhớ",
+    severity: "error",
+    causes: [
+      "Sự cố cảm biến dòng biến dòng (CT / Hall Sensor) ngõ ra biến tần",
+      "Nhiễu điện từ cực mạnh hoặc đứt cáp cảm biến dòng bên trong"
+    ],
+    solutions: [
+      "Tắt nguồn đợi 5 phút rồi bật lại",
+      "Nếu lỗi vẫn xuất hiện thì bo mạch cảm biến dòng đã hỏng cần gửi bảo hành"
+    ],
+    expertTips: "Kiểm tra kỹ tiếp địa nối đất PE của tủ điện.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E11",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E11",
+    name: "CPU communication error",
+    hexCode: "0BH",
+    decCode: 11,
+    category: "hardware",
+    categoryLabel: "Phần cứng & CPU/Bộ nhớ",
+    severity: "error",
+    causes: [
+      "Lỗi giao tiếp nội bộ giữa vi xử lý CPU chính và CPU phụ trên bo điều khiển",
+      "Nhiễu xung cao tần xâm nhập vào bo mạch"
+    ],
+    solutions: [
+      "Tắt nguồn khởi động lại",
+      "Nếu vẫn báo lỗi, cần thay thế bo điều khiển CPU"
+    ],
+    expertTips: "Lắp cuộn lọc nhiễu Noise Filter ở ngõ vào nguồn cấp biến tần.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E12",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E12",
+    name: "External trip event (EXT)",
+    hexCode: "0CH",
+    decCode: 12,
+    category: "warning",
+    categoryLabel: "Cảnh báo vận hành (Không dừng)",
+    severity: "error",
+    causes: [
+      "Chân ngõ vào số được cài chức năng EXT (mã 12) bị kích hoạt từ thiết bị an toàn bên ngoài (nút Dừng khẩn E-Stop, rơ-le nhiệt ngoài...)"
+    ],
+    solutions: [
+      "Kiểm tra mạch nút nhấn Dừng khẩn cấp E-Stop bên ngoài",
+      "Kiểm tra chân ngõ vào thông minh (C001 đến C007) xem chân nào đang được gán mã 12 (EXT)"
+    ],
+    expertTips: "Đây là cơ chế khóa an toàn liên động chủ động được kích hoạt bởi thiết bị ngoại vi, không phải lỗi phần cứng biến tần.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E13",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E13",
+    name: "USP (Unattended Start Protection)",
+    hexCode: "0DH",
+    decCode: 13,
+    category: "warning",
+    categoryLabel: "Cảnh báo vận hành (Không dừng)",
+    severity: "error",
+    causes: [
+      "Chức năng chống tự khởi động ngoài ý muốn tác động khi công tắc lệnh chạy ngoài STF/STR vẫn đang bật ON tại thời điểm cấp điện nguồn"
+    ],
+    solutions: [
+      "Tắt công tắc lệnh chạy ngoài (ngắt OFF ngõ vào chạy), sau đó nhấn nút RESET để xóa cảnh báo"
+    ],
+    expertTips: "Tính năng bảo vệ an toàn cực kỳ quan trọng giúp máy không tự ý quay khi vừa có điện trở lại sau cúp điện.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E14",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E14",
+    name: "Ground fault protection",
+    hexCode: "0EH",
+    decCode: 14,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Phát hiện rò điện hoặc chập mạch từ ngõ ra biến tần U, V, W xuống đất",
+      "Cuộn dây động cơ bị trầy vỏ hoặc ngấm nước ẩm"
+    ],
+    solutions: [
+      "Ngắt điện ngay lập tức, dùng Megomet đo cách điện cuộn dây motor",
+      "Kiểm tra đường ống máng cáp kéo dài từ biến tần đến motor"
+    ],
+    expertTips: "Tuyệt đối không cố xóa lỗi và khởi động lại liên tục khi đang bị E14 vì dòng chập đất sẽ phá hủy các cảm biến dòng và cầu IGBT.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E15",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E15",
+    name: "Input overvoltage protection",
+    hexCode: "0FH",
+    decCode: 15,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Điện áp nguồn điện xoay chiều AC ngõ vào vượt quá mức an toàn cho phép kéo dài trên 100 giây"
+    ],
+    solutions: [
+      "Đo kiểm tra điện áp lưới điện 3 pha đầu vào",
+      "Lắp biến áp hạ áp hoặc ổn áp nếu điện áp xưởng quá cao"
+    ],
+    expertTips: "Thường gặp vào ban đêm khi phụ tải xưởng giảm mạnh làm điện áp lưới dâng cao.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E21",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E21",
+    name: "Inverter heatsink overheat",
+    hexCode: "15H",
+    decCode: 21,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Cánh nhôm tản nhiệt biến tần bị quá nhiệt (> 95°C)",
+      "Bụi bẩn bám nghẹt khe gió tản nhiệt",
+      "Quạt làm mát biến tần bị chết hoặc ngừng quay"
+    ],
+    solutions: [
+      "Vệ sinh thổi bụi cánh tản nhiệt định kỳ",
+      "Kiểm tra và thay mới quạt tản nhiệt biến tần",
+      "Kiểm tra nhiệt độ môi trường bên trong tủ điện"
+    ],
+    expertTips: "Tham số b092 điều khiển chế độ vận hành quạt (00 = Luôn quay khi bật nguồn, 01 = Chỉ quay khi biến tần chạy).",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E30",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2"],
+    code: "E30",
+    name: "Driver circuit error / STO open",
+    hexCode: "1EH",
+    decCode: 30,
+    category: "hardware",
+    categoryLabel: "Phần cứng & CPU/Bộ nhớ",
+    severity: "error",
+    causes: [
+      "Sự cố mạch kích IGBT hoặc hở mạch ngõ vào an toàn phần cứng STO (Safe Torque Off)"
+    ],
+    solutions: [
+      "Kiểm tra cầu nối chân GS1, GS2 với chân an toàn PLC",
+      "Kiểm tra mạch relay an toàn Safety Relay bên ngoài"
+    ],
+    expertTips: "Nếu không dùng chức năng an toàn STO, phải cắm chặt giắc jump kết nối sẵn của Omron.",
+    relatedRegisters: ["0012H"]
+  },
+  {
+    id: "OMRON_E41",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    code: "E41",
+    name: "Modbus communication timeout error",
+    hexCode: "29H",
+    decCode: 41,
+    category: "comm",
+    categoryLabel: "Truyền thông & Ngoại vi",
+    severity: "error",
+    causes: [
+      "Mất kết nối truyền thông RS-485 Modbus giữa Master và biến tần quá thời gian cài trong C077"
+    ],
+    solutions: [
+      "Kiểm tra dây cáp mạng RS485 và tiếp địa chống nhiễu",
+      "Cài đặt thời gian timeout C077 phù hợp (mặc định 0.00s = Không giám sát timeout)"
+    ],
+    expertTips: "Cài đặt C077 = 00 trong quá trình commissioning để biến tần không trip ngắt khi dừng PLC.",
+    relatedRegisters: ["0012H"]
+  }
+];
+
+export const OMRON_REGISTERS = [
+  // COILS (0xxxx / Bit - Chuẩn Manual SYSDRIVE 3G3MX2)
+  {
+    id: "OMRON_COIL_0001",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 1,
+    addressHex0Based: "0001H",
+    type: "coil",
+    typeLabel: "Cuộn Coil (1-bit)",
+    rw: "R/W",
+    name: "RUN Command (Lệnh Chạy/Dừng)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Kích hoạt lệnh Chạy hoặc Dừng biến tần qua Modbus (Hiệu lực khi cài đặt A002/A202 = 03)",
+    bitDetails: [
+      { bit: "1 (ON)", name: "RUN", desc: "Biến tần bắt đầu chạy động cơ" },
+      { bit: "0 (OFF)", name: "STOP", desc: "Biến tần giảm tốc dừng động cơ" }
+    ],
+    example: "Ghi Function 05: [Station] 05 00 01 FF 00 [CRC] (Chạy động cơ)"
+  },
+  {
+    id: "OMRON_COIL_0002",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 2,
+    addressHex0Based: "0002H",
+    type: "coil",
+    typeLabel: "Cuộn Coil (1-bit)",
+    rw: "R/W",
+    name: "Rotation Direction Command (Chiều quay)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Cài đặt chiều quay động cơ (Hiệu lực khi A002/A202 = 03)",
+    bitDetails: [
+      { bit: "0 (OFF)", name: "Forward (Thuận)", desc: "Quay thuận kim đồng hồ" },
+      { bit: "1 (ON)", name: "Reverse (Ngược)", desc: "Quay ngược kim đồng hồ" }
+    ],
+    example: "Ghi Function 05: [Station] 05 00 02 FF 00 [CRC] (Đổi chiều quay ngược)"
+  },
+  {
+    id: "OMRON_COIL_0003",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 3,
+    addressHex0Based: "0003H",
+    type: "coil",
+    typeLabel: "Cuộn Coil (1-bit)",
+    rw: "W",
+    name: "External Trip (EXT)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Kích hoạt lệnh ngắt sự cố ngoại vi từ xa qua mạng Modbus",
+    bitDetails: [
+      { bit: "1 (ON)", name: "TRIP", desc: "Kích hoạt ngắt khẩn cấp biến tần báo lỗi E12" }
+    ],
+    example: "Ghi Function 05 địa chỉ 0003H = FF00H."
+  },
+  {
+    id: "OMRON_COIL_0004",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 4,
+    addressHex0Based: "0004H",
+    type: "coil",
+    typeLabel: "Cuộn Coil (1-bit)",
+    rw: "W",
+    name: "Trip Reset (RS - Xóa lỗi sự cố)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Lệnh Reset xóa lỗi Trip biến tần từ xa",
+    bitDetails: [
+      { bit: "1 (ON)", name: "RESET", desc: "Ghi 1 rồi ghi 0 để kích hoạt sườn Reset" }
+    ],
+    example: "Ghi Function 05 địa chỉ 0004H = FF00H, sau đó ghi 0000H."
+  },
+  {
+    id: "OMRON_COIL_0010",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 16,
+    addressHex0Based: "0010H",
+    type: "coil",
+    typeLabel: "Cuộn Coil (1-bit)",
+    rw: "R",
+    name: "AL (Alarm Output / Trip Status)",
+    category: "status",
+    categoryLabel: "Trạng thái vận hành",
+    description: "Trạng thái cờ báo biến tần đang bị Trip sự cố",
+    bitDetails: [
+      { bit: "1 (ON)", name: "ALARM", desc: "Biến tần đang bị lỗi ngắt ngõ ra" },
+      { bit: "0 (OFF)", name: "NORMAL", desc: "Biến tần hoạt động bình thường" }
+    ],
+    example: "Đọc Function 01 địa chỉ 0010H để kiểm tra cờ lỗi."
+  },
+
+  // HOLDING REGISTERS (4xxxx / 16-bit)
+  {
+    id: "OMRON_REG_0001",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 40002,
+    addressHex0Based: "0001H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "Frequency Reference Setting",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Cài đặt tần số mục tiêu qua mạng Modbus (Đơn vị: 0.01 Hz). Cần cài A001 = 03.",
+    bitDetails: [],
+    example: "Ghi Function 06 địa chỉ 0001H giá trị 5000 để đặt 50.00 Hz."
+  },
+  {
+    id: "OMRON_REG_0011",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 40018,
+    addressHex0Based: "0011H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "d080 Trip Counter (Tổng số lần xảy ra sự cố)",
+    category: "fault",
+    categoryLabel: "Giám sát & Lịch sử mã lỗi",
+    description: "Đếm số lần biến tần đã từng bị Trip kể từ khi xuất xưởng",
+    bitDetails: [],
+    example: "Đọc Function 03: [Station] 03 00 11 00 01 [CRC]."
+  },
+  {
+    id: "OMRON_REG_0012",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 40019,
+    addressHex0Based: "0012H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "d081 Current Trip Factor (Mã lỗi sự cố hiện tại)",
+    category: "fault",
+    categoryLabel: "Giám sát & Lịch sử mã lỗi",
+    description: "Mã số thập phân phản ánh chính xác lỗi đang Trip (1=E01, 2=E02, 3=E03, 5=E05, 7=E07, 9=E09, 14=E14, 21=E21, 30=E30...)",
+    bitDetails: [
+      { bit: "1", name: "E01", desc: "Quá dòng khi chạy ổn định" },
+      { bit: "2", name: "E02", desc: "Quá dòng khi giảm tốc" },
+      { bit: "3", name: "E03", desc: "Quá dòng khi tăng tốc" },
+      { bit: "5", name: "E05", desc: "Quá tải motor" },
+      { bit: "7", name: "E07", desc: "Quá áp Bus DC" },
+      { bit: "9", name: "E09", desc: "Sụt áp nguồn Bus DC" },
+      { bit: "14", name: "E14", desc: "Chạm đất ngõ ra" }
+    ],
+    example: "Đọc thanh ghi 0012H để lấy mã lỗi hiển thị lên HMI."
+  },
+  {
+    id: "OMRON_REG_0013",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 40020,
+    addressHex0Based: "0013H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Frequency Monitor at Current Trip",
+    category: "fault",
+    categoryLabel: "Giám sát & Lịch sử mã lỗi",
+    description: "Tần số thực tế của biến tần ngay tại thời điểm bị ngắt sự cố (0.01 Hz)",
+    bitDetails: [],
+    example: "Đọc để phân tích nguyên nhân lỗi (Snapshot data)."
+  },
+  {
+    id: "OMRON_REG_0015",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 40022,
+    addressHex0Based: "0015H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Output Current at Current Trip",
+    category: "fault",
+    categoryLabel: "Giám sát & Lịch sử mã lỗi",
+    description: "Dòng điện thực tế của motor ngay tại thời điểm bị ngắt sự cố (0.1 A)",
+    bitDetails: [],
+    example: "Giá trị 85 tương ứng 8.5 A lúc bị ngắt lỗi."
+  },
+  {
+    id: "OMRON_REG_0017",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 40024,
+    addressHex0Based: "0017H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "DC Bus Voltage at Current Trip",
+    category: "fault",
+    categoryLabel: "Giám sát & Lịch sử mã lỗi",
+    description: "Điện áp một chiều Bus DC ngay tại thời điểm bị ngắt sự cố (0.1 V)",
+    bitDetails: [],
+    example: "Giúp xác định chính xác biến tần bị quá áp E07 hay sụt áp E09."
+  },
+  {
+    id: "OMRON_REG_1001",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 44098,
+    addressHex0Based: "1001H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "d001 Output Frequency Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz)",
+    bitDetails: [],
+    example: "Đọc Function 03: [Station] 03 10 01 00 01 [CRC]."
+  },
+  {
+    id: "OMRON_REG_1002",
+    brand: "omron",
+    brandLabel: "Omron Industrial",
+    models: ["3G3MX2", "3G3JX", "3G3RX"],
+    addressDec1Based: 44099,
+    addressHex0Based: "1002H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "d002 Output Current Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Dòng điện ngõ ra thực tế của động cơ (Đơn vị: 0.1 A)",
+    bitDetails: [],
+    example: "Đọc Function 03: [Station] 03 10 02 00 01 [CRC]."
+  }
+];

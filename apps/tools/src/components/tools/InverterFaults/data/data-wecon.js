@@ -1,0 +1,553 @@
+export const WECON_FAULTS = [
+  {
+    id: "WECON_ERR01",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err01",
+    name: "Inverter unit protection (IGBT Hardware Protection)",
+    hexCode: "01H",
+    decCode: 1,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Ngắn mạch tức thời ngõ ra hoặc khối công suất IGBT bị chập",
+      "Mạch kích driver điều khiển IGBT bị lỗi",
+      "Dây dẫn ngõ ra động cơ chạm chập với đất hoặc giữa các pha"
+    ],
+    solutions: [
+      "Tháo rời 3 dây motor ra khỏi biến tần, bật nguồn kiểm tra xem còn báo lỗi không",
+      "Đo nguội cầu nghịch lưu IGBT",
+      "Kiểm tra cách điện cuộn dây motor"
+    ],
+    expertTips: "Nếu tháo cáp motor ra mà bật nguồn biến tần vẫn lập tức báo Err01 thì khối công suất IGBT hoặc mạch driver bên trong đã bị phá hủy.",
+    relatedRegisters: ["210BH", "2100H"]
+  },
+  {
+    id: "WECON_ERR02",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err02",
+    name: "Acceleration overcurrent",
+    hexCode: "02H",
+    decCode: 2,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Thời gian tăng tốc P0-17 quá ngắn so với quán tính cơ khí",
+      "Bù mô-men khởi động P0-15 đặt quá lớn",
+      "Động cơ bị kẹt tải nặng cơ khí lúc khởi động",
+      "Công suất biến tần chọn quá nhỏ so với tải"
+    ],
+    solutions: [
+      "Tăng thời gian tăng tốc P0-17",
+      "Giảm thông số bù áp mô-men P0-15",
+      "Kiểm tra khớp nối cơ khí của động cơ xem có bị kẹt",
+      "Thực hiện dò thông số motor tự động Auto-Tuning (P0-16)"
+    ],
+    expertTips: "Trên dòng biến tần Wecon VM, nếu cài đặt điều khiển Vector (P0-00 = 0), bắt buộc phải ngắt tải và thực hiện dò thông số motor Auto-Tuning (P0-16) để biến tần nhận dạng đúng điện trở và điện cảm stato.",
+    relatedRegisters: ["210BH", "2100H"]
+  },
+  {
+    id: "WECON_ERR03",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err03",
+    name: "Deceleration overcurrent",
+    hexCode: "03H",
+    decCode: 3,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Thời gian giảm tốc P0-18 quá ngắn",
+      "Tải có mô-men quán tính lớn dội dòng điện ngược",
+      "Chưa lắp điện trở xả hãm động năng"
+    ],
+    solutions: [
+      "Kéo dài thời gian giảm tốc P0-18",
+      "Lắp thêm điện trở xả hãm động năng vào cọc đấu P+ và PB",
+      "Kích hoạt tính năng chống quá dòng khi giảm tốc trong nhóm tham số P3"
+    ],
+    expertTips: "Có thể cài đặt đường cong chữ S (S-curve) để làm mềm lực hãm cơ khí lúc bắt đầu và kết thúc giảm tốc.",
+    relatedRegisters: ["210BH"]
+  },
+  {
+    id: "WECON_ERR04",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err04",
+    name: "Constant speed overcurrent",
+    hexCode: "04H",
+    decCode: 4,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Tải máy bị quá tải hoặc kẹt rác đột ngột khi đang chạy ổn định",
+      "Cáp động cơ bị chạm chập hoặc lỏng ốc siết cầu cực",
+      "Biến tần bị quá nhiệt làm sai lệch mạch đo dòng"
+    ],
+    solutions: [
+      "Kiểm tra tải cơ khí làm việc",
+      "Đo kiểm tra cách điện cuộn dây motor",
+      "Cân nhắc nâng công suất biến tần lên một cấp nếu máy thường xuyên phải nghiền/cắt tải nặng đột ngột"
+    ],
+    expertTips: "Kiểm tra dòng điện thực tế qua thanh ghi 2102H (0.1 A) xem có thường xuyên chạm ngưỡng dòng định mức.",
+    relatedRegisters: ["210BH", "2102H"]
+  },
+  {
+    id: "WECON_ERR05",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err05",
+    name: "Acceleration overvoltage",
+    hexCode: "05H",
+    decCode: 5,
+    category: "overvoltage",
+    categoryLabel: "Quá áp & Xả hãm",
+    severity: "error",
+    causes: [
+      "Điện áp nguồn lưới đầu vào quá cao",
+      "Tải có lực thế năng kéo motor quay nhanh hơn tần số phát lúc đang tăng tốc"
+    ],
+    solutions: [
+      "Đo kiểm tra điện áp lưới điện 3 pha đầu vào",
+      "Kéo dài thời gian tăng tốc P0-17",
+      "Lắp điện trở xả phanh hãm động năng"
+    ],
+    expertTips: "Thường gặp ở tải quạt hút lớn khi có luồng gió tự nhiên thổi cánh quạt quay trước khi khởi động.",
+    relatedRegisters: ["210BH", "2104H"]
+  },
+  {
+    id: "WECON_ERR06",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err06",
+    name: "Deceleration overvoltage",
+    hexCode: "06H",
+    decCode: 6,
+    category: "overvoltage",
+    categoryLabel: "Quá áp & Xả hãm",
+    severity: "error",
+    causes: [
+      "Thời gian giảm tốc quá nhanh khiến điện áp Bus DC dâng cao quá mức bảo vệ",
+      "Chưa lắp điện trở xả hãm hoặc điện trở xả bị đứt"
+    ],
+    solutions: [
+      "Tăng thời gian giảm tốc P0-18",
+      "Lắp điện trở xả hãm vào chân P+ và PB",
+      "Bật tính năng tự động hạn chế quá áp khi giảm tốc"
+    ],
+    expertTips: "Kiểm tra thanh ghi 2104H để đọc điện áp Bus DC lúc bình thường và lúc giảm tốc.",
+    relatedRegisters: ["210BH", "2104H"]
+  },
+  {
+    id: "WECON_ERR07",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err07",
+    name: "Constant speed overvoltage",
+    hexCode: "07H",
+    decCode: 7,
+    category: "overvoltage",
+    categoryLabel: "Quá áp & Xả hãm",
+    severity: "error",
+    causes: [
+      "Điện áp lưới điện ngõ vào dâng cao bất thường khi đang chạy",
+      "Ngoại lực bên ngoài kéo trục động cơ quay nhanh hơn tốc độ đồng bộ"
+    ],
+    solutions: [
+      "Đo kiểm tra điện áp lưới điện ngõ vào R, S, T",
+      "Lắp bộ xả hãm hoặc bộ trả năng lượng tái sinh về lưới"
+    ],
+    expertTips: "Nếu dùng trong các ứng dụng máy dệt, máy cuộn xả cáp, việc lắp bộ hãm xả liên tục là cần thiết.",
+    relatedRegisters: ["210BH", "2104H"]
+  },
+  {
+    id: "WECON_ERR09",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err09",
+    name: "Undervoltage (Sụt áp Bus DC)",
+    hexCode: "09H",
+    decCode: 9,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Điện áp nguồn điện xoay chiều ngõ vào bị sụt áp mạnh",
+      "Mất nguồn tức thời",
+      "Hỏng tụ lọc Bus DC hoặc hỏng mạch khởi động mềm nạp tụ"
+    ],
+    solutions: [
+      "Đo kiểm tra điện áp lưới điện ngõ vào R, S, T lúc khởi động tải",
+      "Kiểm tra các mối nối tiếp xúc của khởi động từ chính"
+    ],
+    expertTips: "Thường xuyên xảy ra ở các nhà xưởng điện yếu vào các khung giờ cao điểm khi các máy lớn khác khởi động.",
+    relatedRegisters: ["210BH", "2104H"]
+  },
+  {
+    id: "WECON_ERR10",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err10",
+    name: "AC Drive overload",
+    hexCode: "0AH",
+    decCode: 10,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Dòng tải ngõ ra vượt ngưỡng cho phép của biến tần liên tục trong thời gian dài",
+      "Motor bị bó cứng hoặc công suất biến tần chọn quá nhỏ"
+    ],
+    solutions: [
+      "Giảm tải cơ khí tác động lên động cơ",
+      "Tăng thời gian tăng/giảm tốc",
+      "Nâng cấp biến tần lên công suất lớn hơn"
+    ],
+    expertTips: "Err10 là quá tải biến tần, khác với Err11 là quá tải cuộn dây động cơ.",
+    relatedRegisters: ["210BH", "2102H"]
+  },
+  {
+    id: "WECON_ERR11",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err11",
+    name: "Motor overload protection",
+    hexCode: "0BH",
+    decCode: 11,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Rơ-le bảo vệ motor tác động do quá tải kéo dài",
+      "Cài đặt sai dòng định mức động cơ trong tham số P1-03",
+      "Motor chạy tốc độ thấp kéo dài làm quạt đuôi không giải nhiệt kịp"
+    ],
+    solutions: [
+      "Kiểm tra dòng định mức ghi trên tem động cơ và nhập đúng vào P1-03",
+      "Giảm tải cơ khí hoặc tăng quạt gió làm mát độc lập cho động cơ"
+    ],
+    expertTips: "Nếu motor kéo nhiều quạt hoặc tải nặng, kiểm tra độ êm của các ổ bi cơ khí.",
+    relatedRegisters: ["210BH", "2102H"]
+  },
+  {
+    id: "WECON_ERR12",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err12",
+    name: "Input phase loss",
+    hexCode: "0CH",
+    decCode: 12,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Mất 1 trong 3 pha nguồn cấp ngõ vào R, S, T",
+      "Lỏng ốc siết cầu đấu đầu vào hoặc đứt cầu chì"
+    ],
+    solutions: [
+      "Đo điện áp 3 pha ngõ vào R-S, S-T, T-R",
+      "Kiểm tra aptomat và khởi động từ cấp nguồn"
+    ],
+    expertTips: "Đảm bảo các đầu cos dây nguồn được ép chặt và siết lực đúng tiêu chuẩn.",
+    relatedRegisters: ["210BH"]
+  },
+  {
+    id: "WECON_ERR13",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err13",
+    name: "Output phase loss",
+    hexCode: "0DH",
+    decCode: 13,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Đứt 1 pha cáp nối từ ngõ ra biến tần U, V, W đến động cơ",
+      "Cuộn dây động cơ bị đứt ngậm một pha"
+    ],
+    solutions: [
+      "Đo thông mạch từng sợi cáp từ biến tần tới hộp cực motor",
+      "Đo cân bằng điện trở 3 cuộn dây motor (U-V, V-W, W-U)"
+    ],
+    expertTips: "Kiểm tra công tắc phụ hoặc khởi động từ ngõ ra nếu có lắp đặt giữa biến tần và motor.",
+    relatedRegisters: ["210BH"]
+  },
+  {
+    id: "WECON_ERR14",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err14",
+    name: "Inverter heatsink module overheat",
+    hexCode: "0EH",
+    decCode: 14,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Cánh nhôm tản nhiệt biến tần quá nóng (> 90°C)",
+      "Quạt làm mát bị chết hoặc kẹt bụi rác",
+      "Nhiệt độ trong tủ điện quá cao hoặc nghẽn đường gió đối lưu"
+    ],
+    solutions: [
+      "Vệ sinh sạch sẽ bụi bám khe tản nhiệt biến tần",
+      "Thay thế quạt làm mát mới",
+      "Lắp quạt hút thông gió giải nhiệt cho tủ điện"
+    ],
+    expertTips: "Cần giữ khoảng cách tối thiểu 10cm phía trên và phía dưới biến tần khi gắn trong tủ điện để luồng khí đối lưu thông suốt.",
+    relatedRegisters: ["210BH"]
+  },
+  {
+    id: "WECON_ERR15",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err15",
+    name: "External equipment fault",
+    hexCode: "0FH",
+    decCode: 15,
+    category: "warning",
+    categoryLabel: "Cảnh báo vận hành (Không dừng)",
+    severity: "error",
+    causes: [
+      "Chân ngõ vào đa chức năng được cài chức năng báo lỗi ngoài (External fault) bị kích hoạt từ rơ-le nhiệt ngoài hoặc nút dừng khẩn cấp"
+    ],
+    solutions: [
+      "Kiểm tra thiết bị ngoại vi đấu nối vào chân ngõ vào DI",
+      "Giải phóng trạng thái lỗi ngoại vi rồi reset biến tần"
+    ],
+    expertTips: "Đây là cơ chế khóa bảo vệ liên động an toàn theo tiêu chuẩn máy móc công nghiệp.",
+    relatedRegisters: ["210BH"]
+  },
+  {
+    id: "WECON_ERR16",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err16",
+    name: "RS-485 Communication fault",
+    hexCode: "10H",
+    decCode: 16,
+    category: "comm",
+    categoryLabel: "Truyền thông & Ngoại vi",
+    severity: "error",
+    causes: [
+      "Lỗi giao tiếp truyền thông Modbus RTU giữa PLC/HMI và biến tần quá thời gian timeout",
+      "Sai Baudrate, Parity hoặc cáp 485 bị đứt chập"
+    ],
+    solutions: [
+      "Kiểm tra cài đặt thông số nhóm P5 (Baudrate P5-01, Parity P5-02, Station P5-00)",
+      "Cài đặt P5-04 = 0 để tắt chế độ ngắt khi thử nghiệm",
+      "Kiểm tra đấu đúng chân 485+ và 485-"
+    ],
+    expertTips: "Cổng RS-485 của biến tần Wecon VM hỗ trợ chuẩn Modbus RTU tiêu chuẩn quốc tế, tốc độ lên đến 115200 bps.",
+    relatedRegisters: ["210BH"]
+  },
+  {
+    id: "WECON_ERR23",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    code: "Err23",
+    name: "Output short to ground (Chạm đất ngõ ra)",
+    hexCode: "17H",
+    decCode: 23,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Ngắn mạch chạm đất ở ngõ ra phía động cơ hoặc cáp motor bị xước xát chạm vào vỏ tủ",
+      "Động cơ bị ngấm nước, ẩm ướt cách điện kém"
+    ],
+    solutions: [
+      "Ngắt nguồn ngay lập tức, dùng Megomet đo cách điện các pha U, V, W xuống đất",
+      "Kiểm tra đường cáp chạy trong máng kim loại"
+    ],
+    expertTips: "Tuyệt đối không reset và bật chạy lại liên tục để tránh phá hủy khối công suất IGBT.",
+    relatedRegisters: ["210BH"]
+  }
+];
+
+export const WECON_REGISTERS = [
+  {
+    id: "WECON_REG_2000",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    addressDec1Based: 8193,
+    addressHex0Based: "2000H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "Control Command Word (Từ lệnh điều khiển)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Ghi lệnh điều khiển vận hành cho biến tần Wecon qua Modbus RTU (Địa chỉ Dec 8192 / Hex 2000H)",
+    bitDetails: [
+      { bit: "0001H (1)", name: "RUN FWD", desc: "Lệnh chạy thuận" },
+      { bit: "0002H (2)", name: "RUN REV", desc: "Lệnh chạy ngược" },
+      { bit: "0005H (5)", name: "STOP", desc: "Lệnh dừng giảm tốc" },
+      { bit: "0006H (6)", name: "FREE STOP", desc: "Lệnh dừng tự do" },
+      { bit: "0007H (7)", name: "FAULT RESET", desc: "Lệnh xóa lỗi sự cố" }
+    ],
+    example: "Ghi Function 06: [Station] 06 20 00 00 01 [CRC] (Phát lệnh chạy thuận)."
+  },
+  {
+    id: "WECON_REG_2001",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    addressDec1Based: 8194,
+    addressHex0Based: "2001H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "Frequency Setting (Cài đặt tần số)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Cài đặt tần số ngõ ra mục tiêu (Đơn vị: 0.01 Hz). Cần chọn nguồn tần số truyền thông.",
+    bitDetails: [],
+    example: "Ghi Function 06 địa chỉ 2001H giá trị 5000 tương ứng 50.00 Hz."
+  },
+  {
+    id: "WECON_REG_2100",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    addressDec1Based: 8449,
+    addressHex0Based: "2100H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Inverter Status Word (Trạng thái biến tần)",
+    category: "status",
+    categoryLabel: "Trạng thái vận hành",
+    description: "Thanh ghi đọc trạng thái vận hành và cảnh báo lỗi biến tần Wecon (Địa chỉ Dec 8448 / Hex 2100H)",
+    bitDetails: [
+      { bit: "Bit 0", name: "RUN", desc: "1 = Biến tần đang chạy; 0 = Đang dừng" },
+      { bit: "Bit 1", name: "DIR", desc: "1 = Chiều quay ngược; 0 = Chiều quay thuận" },
+      { bit: "Bit 2", name: "READY", desc: "1 = Biến tần sẵn sàng nhận lệnh chạy" },
+      { bit: "Bit 3", name: "FAULT", desc: "1 = Biến tần đang bị sự cố Trip (CÓ LỖI)" }
+    ],
+    example: "Đọc Function 03 địa chỉ 2100H, kiểm tra Bit 3 để biết biến tần có lỗi."
+  },
+  {
+    id: "WECON_REG_2101",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    addressDec1Based: 8450,
+    addressHex0Based: "2101H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Running Frequency Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz)",
+    bitDetails: [],
+    example: "Đọc về 5000 tương ứng 50.00 Hz."
+  },
+  {
+    id: "WECON_REG_2102",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    addressDec1Based: 8451,
+    addressHex0Based: "2102H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Output Current Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Dòng điện ngõ ra thực tế của động cơ (Đơn vị: 0.1 A)",
+    bitDetails: [],
+    example: "Đọc về 42 tương ứng 4.2 A."
+  },
+  {
+    id: "WECON_REG_2103",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    addressDec1Based: 8452,
+    addressHex0Based: "2103H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Output Voltage Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Điện áp xoay chiều ngõ ra cấp cho động cơ (Đơn vị: 1 V)",
+    bitDetails: [],
+    example: "Đọc về 220 tương ứng 220V AC."
+  },
+  {
+    id: "WECON_REG_2104",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    addressDec1Based: 8453,
+    addressHex0Based: "2104H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "DC Bus Voltage Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Điện áp một chiều trên bộ tụ lọc Bus DC (Đơn vị: 1 V)",
+    bitDetails: [],
+    example: "Đọc về 310 tương ứng 310V DC, đọc 540 tương ứng 540V DC."
+  },
+  {
+    id: "WECON_REG_210B",
+    brand: "wecon",
+    brandLabel: "Wecon Technology",
+    models: ["VM Series", "VB Series", "VNZ Series"],
+    addressDec1Based: 8460,
+    addressHex0Based: "210BH",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Current Fault Code Monitor",
+    category: "fault",
+    categoryLabel: "Giám sát & Lịch sử mã lỗi",
+    description: "Mã lỗi sự cố hiện tại của biến tần Wecon dạng số thập phân (1=Err01, 2=Err02, 3=Err03, 4=Err04, 5=Err05, 6=Err06, 7=Err07, 9=Err09, 10=Err10, 11=Err11, 12=Err12, 13=Err13, 14=Err14, 16=Err16, 23=Err23)",
+    bitDetails: [
+      { bit: "1", name: "Err01", desc: "Bảo vệ khối công suất IGBT" },
+      { bit: "2", name: "Err02", desc: "Quá dòng khi tăng tốc" },
+      { bit: "3", name: "Err03", desc: "Quá dòng khi giảm tốc" },
+      { bit: "4", name: "Err04", desc: "Quá dòng khi chạy ổn định" },
+      { bit: "5", name: "Err05", desc: "Quá áp khi tăng tốc" },
+      { bit: "6", name: "Err06", desc: "Quá áp khi giảm tốc" },
+      { bit: "7", name: "Err07", desc: "Quá áp khi chạy ổn định" },
+      { bit: "9", name: "Err09", desc: "Sụt áp nguồn Bus DC" },
+      { bit: "10", name: "Err10", desc: "Quá tải biến tần" },
+      { bit: "11", name: "Err11", desc: "Quá tải motor" },
+      { bit: "12", name: "Err12", desc: "Mất pha đầu vào" },
+      { bit: "13", name: "Err13", desc: "Mất pha đầu ra" },
+      { bit: "14", name: "Err14", desc: "Quá nhiệt module IGBT" },
+      { bit: "16", name: "Err16", desc: "Lỗi truyền thông RS-485" },
+      { bit: "23", name: "Err23", desc: "Ngắn mạch chạm đất ngõ ra" }
+    ],
+    example: "Khi Bit 3 của thanh ghi 2100H = 1, đọc thanh ghi 210BH để lấy mã lỗi."
+  }
+];
