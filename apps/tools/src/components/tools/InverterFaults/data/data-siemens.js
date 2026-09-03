@@ -1,0 +1,473 @@
+export const SIEMENS_FAULTS = [
+  {
+    id: "SIEMENS_F1",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120", "SINAMICS G120C"],
+    code: "F1",
+    name: "Overcurrent (Quá dòng ngõ ra)",
+    hexCode: "01H",
+    decCode: 1,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Công suất động cơ không tương thích với công suất biến tần",
+      "Dây dẫn động cơ quá dài gây dòng nạp điện dung lớn hoặc bị chạm chập",
+      "Thời gian tăng tốc P1120 quá ngắn",
+      "Bù điện áp khởi động P1310 đặt quá cao",
+      "Kẹt cơ khí, động cơ bị bó cứng trục",
+      "Khối công suất IGBT bị chập hỏng"
+    ],
+    solutions: [
+      "Kiểm tra công suất động cơ có nằm trong dải công suất cho phép của biến tần",
+      "Tăng thời gian tăng tốc P1120",
+      "Giảm giá trị tham số tăng mô-men khởi động P1310",
+      "Thực hiện đo cách điện cuộn dây motor bằng đồng hồ Megger",
+      "Nếu dây motor dài trên 50m, cần lắp thêm cuộn kháng ngõ ra Output Reactor"
+    ],
+    expertTips: "Trên dòng SINAMICS V20, tháo 3 dây ngõ ra motor (U, V, W). Cho biến tần chạy không tải ở 10Hz, nếu vẫn báo F1 ngay lập tức thì khối công suất IGBT hoặc mạch cảm biến dòng bên trong đã bị phá hủy.",
+    relatedRegisters: ["40110", "40027", "40095"]
+  },
+  {
+    id: "SIEMENS_F2",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120", "SINAMICS G120C"],
+    code: "F2",
+    name: "Overvoltage (Quá điện áp DC link)",
+    hexCode: "02H",
+    decCode: 2,
+    category: "overvoltage",
+    categoryLabel: "Quá áp & Xả hãm",
+    severity: "error",
+    causes: [
+      "Điện áp nguồn lưới cung cấp quá cao",
+      "Động cơ hoạt động ở chế độ máy phát điện (tải kéo động cơ) khi giảm tốc",
+      "Thời gian giảm tốc P1121 quá ngắn so với quán tính tải",
+      "Bộ hãm phanh hoặc điện trở xả chưa được lắp đặt hoặc bị đứt"
+    ],
+    solutions: [
+      "Kiểm tra điện áp nguồn cấp 3 pha ngõ vào",
+      "Tăng thời gian giảm tốc P1121",
+      "Kích hoạt tính năng bộ điều khiển điện áp cực đại Vdc_max (P1240 = 1)",
+      "Lắp thêm mô-đun phanh hãm (Braking Module) và điện trở xả vào chân DC+ và R"
+    ],
+    expertTips: "Cài đặt P1240 = 1 cho phép biến tần tự động nới lỏng thời gian hãm nếu phát hiện điện áp Bus DC dâng cao sắp chạm ngưỡng Trip F2.",
+    relatedRegisters: ["40110", "40026", "40095"]
+  },
+  {
+    id: "SIEMENS_F3",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120", "SINAMICS G120C"],
+    code: "F3",
+    name: "Undervoltage (Thấp áp nguồn DC link)",
+    hexCode: "03H",
+    decCode: 3,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Nguồn điện lưới đầu vào bị sụt áp nghiêm trọng hoặc mất pha",
+      "Mất điện lưới chớp nhoáng (ngắn hạn)",
+      "Mạch nạp tụ khởi động mềm bên trong biến tần bị hỏng"
+    ],
+    solutions: [
+      "Đo kiểm tra điện áp nguồn cấp ngõ vào L1, L2, L3",
+      "Kiểm tra khởi động từ và các mối nối tiếp xúc dây nguồn",
+      "Bật chức năng tự động khởi động lại sau khi có điện trở lại (P1210)"
+    ],
+    expertTips: "Đọc thanh ghi 40026 (r0026) để giám sát điện áp Bus DC thực tế qua Modbus RTU.",
+    relatedRegisters: ["40110", "40026"]
+  },
+  {
+    id: "SIEMENS_F4",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120", "SINAMICS G120C"],
+    code: "F4",
+    name: "Inverter overtemperature (Quá nhiệt biến tần)",
+    hexCode: "04H",
+    decCode: 4,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Quạt làm mát biến tần bị chết, kẹt bụi bẩn hoặc quay yếu",
+      "Cánh nhôm tản nhiệt heatsink bị bụi bẩn bịt kín khe thông gió",
+      "Nhiệt độ môi trường bên trong tủ điện quá cao (> 50°C)"
+    ],
+    solutions: [
+      "Vệ sinh sạch bụi bẩn bám trên khe cánh tản nhiệt biến tần",
+      "Kiểm tra quạt làm mát biến tần (có thể cưỡng bức quạt luôn quay bằng P0295 = 0)",
+      "Lắp thêm quạt thông gió làm mát tủ điện"
+    ],
+    expertTips: "Tham số P0295 dùng để quản lý quạt: mặc định quạt tự ngắt sau khi biến tần dừng để tiết kiệm điện, đặt bằng 0 để quạt quay liên tục khi bật nguồn.",
+    relatedRegisters: ["40110"]
+  },
+  {
+    id: "SIEMENS_F5",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    code: "F5",
+    name: "Inverter I2t overload (Quá tải biến tần I2t)",
+    hexCode: "05H",
+    decCode: 5,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Biến tần bị quá tải liên tục trong thời gian dài",
+      "Chu kỳ làm việc quá dày đặc, khởi động dừng liên tục",
+      "Công suất động cơ lớn hơn công suất định mức của biến tần"
+    ],
+    solutions: [
+      "Giảm bớt tải cơ khí tác động lên trục động cơ",
+      "Kéo dài thời gian tăng/giảm tốc",
+      "Nâng công suất biến tần lên một cấp"
+    ],
+    expertTips: "Lỗi F5 là cơ chế tự bảo vệ quá nhiệt mạch công suất bán dẫn của biến tần.",
+    relatedRegisters: ["40110", "40027"]
+  },
+  {
+    id: "SIEMENS_F11",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    code: "F11",
+    name: "Motor overtemperature (Quá nhiệt động cơ I2t)",
+    hexCode: "0BH",
+    decCode: 11,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Động cơ bị quá tải liên tục trong thời gian dài",
+      "Động cơ chạy ở dải tần số thấp (< 20Hz) kéo dài khiến quạt đuôi không làm mát kịp",
+      "Cài đặt sai thông số dòng định mức động cơ P0305"
+    ],
+    solutions: [
+      "Kiểm tra và cài đặt chính xác dòng định mức motor theo tem nhãn vào P0305",
+      "Lắp quạt cưỡng bức độc lập cho động cơ nếu thường xuyên chạy tốc độ thấp",
+      "Giảm chu kỳ mang tải nặng"
+    ],
+    expertTips: "Cài đặt tham số P0625 xác định nhiệt độ môi trường xung quanh động cơ để mô hình tính nhiệt I2t hoạt động chính xác.",
+    relatedRegisters: ["40110", "40027"]
+  },
+  {
+    id: "SIEMENS_F20",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    code: "F20",
+    name: "DC ripple too high (Độ nhấp nhô DC quá lớn / Mất pha đầu vào)",
+    hexCode: "14H",
+    decCode: 20,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Mất 1 trong 3 pha nguồn điện xoay chiều đầu vào (L1, L2, L3)",
+      "Điện áp giữa các pha đầu vào bị lệch pha quá lớn (> 3%)",
+      "Tải biến động giật cục với biên độ lớn"
+    ],
+    solutions: [
+      "Đo điện áp 3 pha đầu vào kiểm tra xem có pha nào bị sụt hoặc mất",
+      "Kiểm tra aptomat tổng và dây nguồn cấp vào chân L1, L2, L3",
+      "Lắp cuộn kháng đầu vào Line Reactor để san phẳng dòng nạp"
+    ],
+    expertTips: "Nếu nguồn 3 pha cân bằng mà biến tần vẫn báo F20 khi mang tải nhẹ thì bộ tụ lọc DC Link đã bị khô dung lượng.",
+    relatedRegisters: ["40110", "40026"]
+  },
+  {
+    id: "SIEMENS_F41",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    code: "F41",
+    name: "Motor data identification failure (Lỗi Auto-tuning)",
+    hexCode: "29H",
+    decCode: 41,
+    category: "hardware",
+    categoryLabel: "Phần cứng & CPU/Bộ nhớ",
+    severity: "error",
+    causes: [
+      "Dò thông số động cơ tự động (Motor ID) thất bại",
+      "Cài đặt sai thông số nameplate động cơ (Công suất P0307, Dòng điện P0305, Tần số P0310)",
+      "Chưa đấu nối motor vào biến tần lúc thực hiện Auto-tuning"
+    ],
+    solutions: [
+      "Kiểm tra và nhập chính xác các thông số động cơ ghi trên tem",
+      "Đảm bảo cáp nối motor đã được siết chặt tiếp xúc tốt",
+      "Thực hiện lại quá trình nhận dạng tham số motor qua P1900 = 2"
+    ],
+    expertTips: "Động cơ cần ở trạng thái nguội khi thực hiện Auto-tuning để đo chính xác điện trở cuộn dây stato.",
+    relatedRegisters: ["40110"]
+  },
+  {
+    id: "SIEMENS_F51",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    code: "F51",
+    name: "Parameter EEPROM fault (Lỗi chip nhớ EEPROM)",
+    hexCode: "33H",
+    decCode: 51,
+    category: "hardware",
+    categoryLabel: "Phần cứng & CPU/Bộ nhớ",
+    severity: "error",
+    causes: [
+      "Lỗi đọc/ghi bộ nhớ lưu trữ tham số EEPROM",
+      "Mất nguồn điện trong lúc biến tần đang lưu dữ liệu cấu hình",
+      "Ghi liên tục giá trị qua mạng truyền thông vào bộ nhớ EEPROM làm chai hỏng chip nhớ"
+    ],
+    solutions: [
+      "Thực hiện Factory Reset khôi phục cài đặt gốc (P0010 = 30, P0970 = 1)",
+      "Nếu bật lại nguồn vẫn báo F51 thì chip nhớ trên bo điều khiển đã hỏng"
+    ],
+    expertTips: "KHI LẬP TRÌNH MODBUS/USS: Luôn ghi tần số vào thanh ghi RAM thay vì ghi vào EEPROM để bảo vệ tuổi thọ biến tần.",
+    relatedRegisters: ["40110"]
+  },
+  {
+    id: "SIEMENS_F72",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20"],
+    code: "F72",
+    name: "USS / Modbus communication timeout (Mất truyền thông RS485)",
+    hexCode: "48H",
+    decCode: 72,
+    category: "comm",
+    categoryLabel: "Truyền thông & Ngoại vi",
+    severity: "error",
+    causes: [
+      "Mất tín hiệu truyền thông RS-485 Modbus RTU giữa PLC và biến tần quá thời gian timeout cài đặt trong P2014",
+      "Đứt cáp RS485 hoặc đấu nhầm cực P+ và N- (Chân 68 và 69 trên V20)",
+      "Nhiễu điện từ cao tần làm hỏng khung truyền Modbus"
+    ],
+    solutions: [
+      "Kiểm tra dây cáp mạng RS485 (chân 68 là P+, chân 69 là N-)",
+      "Kiểm tra gạt công tắc điện trở đầu cuối 120Ω ở hai đầu mạng",
+      "Cài đặt thời gian timeout P2014 = 0 trong quá trình chạy thử để biến tần không ngắt lỗi"
+    ],
+    expertTips: "Chân 68 (RS485 P+) và chân 69 (RS485 N-) trên cầu đấu biến tần Siemens V20 phải dùng cáp xoắn đôi chống nhiễu có bọc kim nối mass một đầu.",
+    relatedRegisters: ["40110", "40100"]
+  },
+  {
+    id: "SIEMENS_F80",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    code: "F80",
+    name: "AI lost input signal (Mất tín hiệu Analog ngõ vào)",
+    hexCode: "50H",
+    decCode: 80,
+    category: "comm",
+    categoryLabel: "Truyền thông & Ngoại vi",
+    severity: "error",
+    causes: [
+      "Tín hiệu dòng điện 4-20mA ngõ vào AI1 hoặc AI2 bị sụt xuống dưới 2mA (đứt dây cảm biến)",
+      "Cài đặt chế độ giám sát đứt dây analog trong tham số P0756"
+    ],
+    solutions: [
+      "Kiểm tra dây cáp tín hiệu analog từ cảm biến hoặc PLC về chân AI",
+      "Đo dòng điện thực tế ngõ vào xem có đủ 4-20mA",
+      "Kiểm tra vị trí công tắc gạt chọn dòng/áp (V/I) trên thân biến tần"
+    ],
+    expertTips: "Nếu dùng tín hiệu 0-10V thì gạt switch về V, nếu dùng 4-20mA thì gạt switch về I và cấu hình P0756 = 2.",
+    relatedRegisters: ["40110"]
+  },
+  {
+    id: "SIEMENS_F85",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    code: "F85",
+    name: "External fault (Lỗi thiết bị ngoại vi tác động)",
+    hexCode: "55H",
+    decCode: 85,
+    category: "warning",
+    categoryLabel: "Cảnh báo vận hành (Không dừng)",
+    severity: "error",
+    causes: [
+      "Ngõ vào số được lập trình chức năng báo lỗi ngoài (External fault) bị kích hoạt từ rơ-le nhiệt ngoài hoặc nút dừng khẩn cấp E-Stop"
+    ],
+    solutions: [
+      "Kiểm tra thiết bị an toàn ngoại vi đấu vào chân DI",
+      "Giải phóng lỗi an toàn bên ngoài rồi nhấn nút Fn trên bàn phím để xóa lỗi"
+    ],
+    expertTips: "Tham số P2106 dùng để gán tín hiệu báo lỗi ngoài từ các chân ngõ vào số DI.",
+    relatedRegisters: ["40110"]
+  },
+  {
+    id: "SIEMENS_ALARM_A501",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    code: "A501",
+    name: "Current limit alarm (Cảnh báo chạm giới hạn dòng điện)",
+    hexCode: "-",
+    decCode: "-",
+    category: "warning",
+    categoryLabel: "Cảnh báo vận hành (Không dừng)",
+    severity: "warning",
+    causes: [
+      "Dòng điện ngõ ra chạm ngưỡng giới hạn dòng cực đại (Current limit)",
+      "Động cơ bị quá tải hoặc thời gian tăng tốc quá nhanh"
+    ],
+    solutions: [
+      "Giảm tải cơ khí tác động lên động cơ",
+      "Tăng thời gian tăng tốc P1120",
+      "Biến tần không dừng xuất áp mà tự động ghì tốc độ để bảo vệ"
+    ],
+    expertTips: "Cảnh báo A501 không ngắt biến tần mà kích hoạt tính năng chống trượt Stall Prevention.",
+    relatedRegisters: ["40110"]
+  }
+];
+
+export const SIEMENS_REGISTERS = [
+  {
+    id: "SIEMENS_REG_40100",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    addressDec1Based: 40100,
+    addressHex0Based: "0063H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "STW (Control Word 1 - Từ lệnh điều khiển)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Từ lệnh điều khiển vận hành chuẩn PROFIdrive / Modbus RTU cho biến tần Siemens",
+    bitDetails: [
+      { bit: "Bit 0 (047EH / 047FH)", name: "ON / OFF1", desc: "1 = Chạy động cơ; 0 = Dừng theo thời gian giảm tốc P1121" },
+      { bit: "Bit 1", name: "OFF2", desc: "0 = Dừng tự do ngay lập tức (Coast to stop)" },
+      { bit: "Bit 2", name: "OFF3", desc: "0 = Dừng khẩn cấp theo thời gian dốc hãm P1135" },
+      { bit: "Bit 3", name: "ENABLE OPERATION", desc: "1 = Cho phép xuất xung nghịch lưu IGBT" },
+      { bit: "Bit 7", name: "FAULT ACKNOWLEDGE", desc: "Sườn dương (0 -> 1) để xóa lỗi (Fault Reset)" },
+      { bit: "Bit 10", name: "CONTROL BY PLC", desc: "1 = Bắt buộc bật ON để biến tần chấp nhận lệnh từ PLC" },
+      { bit: "Bit 11", name: "REVERSE", desc: "1 = Đảo chiều quay động cơ (Chạy ngược)" }
+    ],
+    example: "Lệnh chạy thuận: Ghi 047EH (chuẩn bị), sau đó ghi 047FH (bật chạy). Lệnh dừng: ghi 047EH. Xóa lỗi: ghi 04FEH."
+  },
+  {
+    id: "SIEMENS_REG_40101",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    addressDec1Based: 40101,
+    addressHex0Based: "0064H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "HSW (Main Setpoint - Tần số cài đặt)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Cài đặt tốc độ/tần số mục tiêu chuẩn hóa: 16384 (4000H) = 100% tần số tham chiếu P2000 (mặc định 50Hz)",
+    bitDetails: [],
+    example: "Ghi 16384 tương ứng chạy 50.00 Hz; Ghi 8192 tương ứng 25.00 Hz; Ghi 0 để chạy 0 Hz."
+  },
+  {
+    id: "SIEMENS_REG_40110",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    addressDec1Based: 40110,
+    addressHex0Based: "006DH",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "ZSW1 (Status Word 1 - Từ trạng thái)",
+    category: "status",
+    categoryLabel: "Trạng thái vận hành",
+    description: "Thanh ghi trạng thái hoạt động và cờ báo lỗi biến tần Siemens theo chuẩn PROFIdrive",
+    bitDetails: [
+      { bit: "Bit 0", name: "RTR (Ready to Switch ON)", desc: "1 = Biến tần sẵn sàng bật nguồn" },
+      { bit: "Bit 1", name: "RDY (Ready to Operate)", desc: "1 = Biến tần sẵn sàng nhận lệnh chạy" },
+      { bit: "Bit 2", name: "RUN (Operation Enabled)", desc: "1 = Biến tần đang phát xung chạy động cơ" },
+      { bit: "Bit 3", name: "FAULT (Fault Present)", desc: "1 = Biến tần đang bị sự cố dừng khẩn cấp (CÓ LỖI)" },
+      { bit: "Bit 7", name: "ALARM (Alarm Present)", desc: "1 = Đang có cảnh báo vận hành" },
+      { bit: "Bit 8", name: "SPEED OK", desc: "1 = Tốc độ thực tế đã đạt giá trị cài đặt" },
+      { bit: "Bit 14", name: "ACTUAL DIR", desc: "0 = Đang quay thuận; 1 = Đang quay ngược" }
+    ],
+    example: "Đọc Function 03 địa chỉ 40110, kiểm tra nếu (Data & 0x0008) != 0 thì biến tần đang báo lỗi Trip."
+  },
+  {
+    id: "SIEMENS_REG_40111",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    addressDec1Based: 40111,
+    addressHex0Based: "006EH",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "HIW (Actual Frequency - Tần số thực tế)",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Tần số thực tế ngõ ra của biến tần (Giá trị 16384 = 100% P2000)",
+    bitDetails: [],
+    example: "Đọc về giá trị 16384 tương ứng biến tần đang chạy đủ 50.00 Hz."
+  },
+  {
+    id: "SIEMENS_REG_40026",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    addressDec1Based: 40026,
+    addressHex0Based: "0019H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "r0026 (Actual DC Link Voltage - Điện áp Bus DC)",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Điện áp một chiều trên bộ tụ lọc DC Link (Đơn vị: 1 V)",
+    bitDetails: [],
+    example: "Hệ 220V đọc về khoảng ~310V, hệ 380V đọc về khoảng ~540V."
+  },
+  {
+    id: "SIEMENS_REG_40027",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    addressDec1Based: 40027,
+    addressHex0Based: "001AH",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "r0027 (Actual Motor Current - Dòng điện thực tế)",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Dòng điện hiệu dụng ngõ ra cấp cho động cơ (Đơn vị: 0.1 A)",
+    bitDetails: [],
+    example: "Đọc về giá trị 45 tương ứng 4.5 A."
+  },
+  {
+    id: "SIEMENS_REG_40095",
+    brand: "siemens",
+    brandLabel: "Siemens",
+    models: ["SINAMICS V20", "SINAMICS G120"],
+    addressDec1Based: 40095,
+    addressHex0Based: "005EH",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "r0947[0] (Current Fault Code - Mã lỗi hiện tại)",
+    category: "fault",
+    categoryLabel: "Giám sát & Lịch sử mã lỗi",
+    description: "Mã số lỗi sự cố hiện tại của biến tần Siemens (1 = F1, 2 = F2, 3 = F3, 4 = F4, 11 = F11, 72 = F72...)",
+    bitDetails: [
+      { bit: "1", name: "F1", desc: "Quá dòng ngõ ra" },
+      { bit: "2", name: "F2", desc: "Quá điện áp DC link" },
+      { bit: "3", name: "F3", desc: "Thấp điện áp DC link" },
+      { bit: "4", name: "F4", desc: "Quá nhiệt biến tần" },
+      { bit: "11", name: "F11", desc: "Quá nhiệt motor I2t" },
+      { bit: "72", name: "F72", desc: "Mất truyền thông Modbus RTU" }
+    ],
+    example: "Khi Bit 3 của 40110 = 1, đọc thanh ghi 40095 để biết mã lỗi số mấy và hiển thị lên HMI."
+  }
+];

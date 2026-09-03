@@ -1,0 +1,422 @@
+export const KAMAN_FAULTS = [
+  {
+    id: "KAMAN_E_OUT",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600", "KM20"],
+    code: "E.OUT",
+    name: "IGBT Hardware Protection (Bảo vệ khối công suất IGBT)",
+    hexCode: "01H",
+    decCode: 1,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Ngắn mạch ngõ ra tức thời giữa các pha motor hoặc chạm đất",
+      "Khối công suất IGBT hoặc IC kích driver bên trong bị chập hỏng",
+      "Thời gian tăng tốc quá nhanh so với tải cực nặng"
+    ],
+    solutions: [
+      "Tháo rời 3 dây ngõ ra motor U, V, W khỏi biến tần",
+      "Bật nguồn phát lệnh chạy không tải, nếu vẫn báo E.OUT thì khối công suất IGBT đã hỏng cần thay thế",
+      "Kiểm tra cách điện cuộn dây motor bằng đồng hồ Megger"
+    ],
+    expertTips: "Lỗi E.OUT là cấp bảo vệ phần cứng tức thời của IGBT (dưới vài micro giây) để ngăn ngừa nổ module.",
+    relatedRegisters: ["2100H", "210BH"]
+  },
+  {
+    id: "KAMAN_E_OC1",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600", "KM20"],
+    code: "E.OC1",
+    name: "Acceleration overcurrent (Quá dòng khi tăng tốc)",
+    hexCode: "02H",
+    decCode: 2,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Thời gian tăng tốc quá ngắn",
+      "Động cơ bị kẹt tải hoặc tải quá nặng lúc khởi động",
+      "Bù mô-men khởi động đặt quá cao"
+    ],
+    solutions: [
+      "Tăng thời gian tăng tốc",
+      "Giảm thông số bù mô-men Torque Boost",
+      "Kiểm tra khớp nối cơ khí của động cơ"
+    ],
+    expertTips: "Tra cứu thêm lịch sử các thông số lúc bị lỗi trong PC.13 ~ PC.15 trên biến tần Kaman.",
+    relatedRegisters: ["2100H", "2102H", "210BH"]
+  },
+  {
+    id: "KAMAN_E_OC2",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600", "KM20"],
+    code: "E.OC2",
+    name: "Deceleration overcurrent (Quá dòng khi giảm tốc)",
+    hexCode: "03H",
+    decCode: 3,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Thời gian giảm tốc quá ngắn làm dòng hãm dâng cao",
+      "Chưa lắp điện trở xả hãm động năng"
+    ],
+    solutions: [
+      "Tăng thời gian giảm tốc",
+      "Lắp thêm điện trở xả hãm động năng"
+    ],
+    expertTips: "Kéo dài thời gian dừng hãm giúp giảm lực ghì cơ khí lên hộp số.",
+    relatedRegisters: ["2100H", "2102H", "210BH"]
+  },
+  {
+    id: "KAMAN_E_OC3",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600", "KM20"],
+    code: "E.OC3",
+    name: "Constant speed overcurrent (Quá dòng khi chạy ổn định)",
+    hexCode: "04H",
+    decCode: 4,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Tải cơ khí bị quá tải hoặc tăng đột ngột khi đang quay tốc độ ổn định",
+      "Dây dẫn động cơ bị chạm chập ngắt quãng do rung lắc"
+    ],
+    solutions: [
+      "Kiểm tra tải cơ khí làm việc",
+      "Cân nhắc nâng công suất biến tần lên một cấp"
+    ],
+    expertTips: "Theo dõi dòng điện thực tế qua thanh ghi 2102H (0.1A).",
+    relatedRegisters: ["2100H", "2102H", "210BH"]
+  },
+  {
+    id: "KAMAN_E_OV1",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600", "KM20"],
+    code: "E.OV1",
+    name: "Acceleration overvoltage (Quá áp khi tăng tốc)",
+    hexCode: "05H",
+    decCode: 5,
+    category: "overvoltage",
+    categoryLabel: "Quá áp & Xả hãm",
+    severity: "error",
+    causes: [
+      "Điện áp nguồn lưới đầu vào quá cao",
+      "Tải quán tính kéo motor quay vượt tốc lúc đề-pa"
+    ],
+    solutions: [
+      "Đo kiểm tra điện áp lưới điện 3 pha đầu vào",
+      "Kéo dài thời gian tăng tốc"
+    ],
+    expertTips: "Thường gặp ở ứng dụng quạt gió hút có luồng gió tự nhiên thổi.",
+    relatedRegisters: ["2100H", "2104H", "210BH"]
+  },
+  {
+    id: "KAMAN_E_OV2",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600", "KM20"],
+    code: "E.OV2",
+    name: "Deceleration overvoltage (Quá áp khi giảm tốc)",
+    hexCode: "06H",
+    decCode: 6,
+    category: "overvoltage",
+    categoryLabel: "Quá áp & Xả hãm",
+    severity: "error",
+    causes: [
+      "Thời gian giảm tốc quá nhanh làm điện áp Bus DC dâng cao vượt ngưỡng bảo vệ",
+      "Chưa lắp điện trở xả hãm"
+    ],
+    solutions: [
+      "Tăng thời gian giảm tốc",
+      "Lắp thêm điện trở xả vào chân P+ và PB"
+    ],
+    expertTips: "Đọc điện áp Bus DC qua thanh ghi 2104H (1V) để kiểm tra mức áp đỉnh lúc dừng.",
+    relatedRegisters: ["2100H", "2104H", "210BH"]
+  },
+  {
+    id: "KAMAN_E_LU",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600", "KM20"],
+    code: "E.LU",
+    name: "Low voltage (Thấp áp nguồn Bus DC)",
+    hexCode: "07H",
+    decCode: 7,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Điện áp nguồn xoay chiều ngõ vào bị sụt áp dưới ngưỡng tối thiểu",
+      "Mất pha nguồn điện xoay chiều đầu vào R, S, T"
+    ],
+    solutions: [
+      "Đo điện áp 3 pha nguồn cấp đầu vào",
+      "Kiểm tra các tiếp điểm khởi động từ tổng"
+    ],
+    expertTips: "Hệ 220V bình thường khoảng ~310V, hệ 380V khoảng ~540V DC.",
+    relatedRegisters: ["2100H", "2104H", "210BH"]
+  },
+  {
+    id: "KAMAN_E_OL1",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600", "KM20"],
+    code: "E.OL1",
+    name: "Motor overload (Quá tải động cơ)",
+    hexCode: "08H",
+    decCode: 8,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Động cơ bị quá tải liên tục trong thời gian dài",
+      "Cài đặt sai dòng định mức động cơ"
+    ],
+    solutions: [
+      "Kiểm tra tải cơ khí làm việc",
+      "Cài đặt lại dòng định mức motor theo đúng tem máy"
+    ],
+    expertTips: "Lắp quạt làm mát độc lập cho động cơ nếu chạy tần số thấp thường xuyên.",
+    relatedRegisters: ["2100H", "2102H", "210BH"]
+  },
+  {
+    id: "KAMAN_E_SPI",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600"],
+    code: "E.SPI",
+    name: "Input phase loss (Mất pha đầu vào)",
+    hexCode: "09H",
+    decCode: 9,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Mất 1 trong 3 pha nguồn cấp ngõ vào R, S, T",
+      "Lỏng ốc siết cầu cực ngõ vào"
+    ],
+    solutions: [
+      "Đo điện áp 3 pha nguồn cấp đầu vào",
+      "Siết chặt các ốc vít cầu đấu nguồn"
+    ],
+    expertTips: "Kiểm tra cầu chì và aptomat nguồn tổng.",
+    relatedRegisters: ["2100H", "210BH"]
+  },
+  {
+    id: "KAMAN_E_SPO",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600"],
+    code: "E.SPO",
+    name: "Output phase loss (Mất pha đầu ra)",
+    hexCode: "0AH",
+    decCode: 10,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Đứt 1 pha cáp nối từ ngõ ra biến tần U, V, W ra motor",
+      "Cuộn dây động cơ bị đứt ngậm"
+    ],
+    solutions: [
+      "Đo thông mạch từng sợi cáp từ biến tần tới hộp đấu dây motor",
+      "Đo cân bằng điện trở 3 cuộn dây motor"
+    ],
+    expertTips: "Tắt chức năng phát hiện mất pha ngõ ra khi chạy thử không tải.",
+    relatedRegisters: ["2100H", "210BH"]
+  },
+  {
+    id: "KAMAN_E_ERH",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600"],
+    code: "E.ERH",
+    name: "Ground fault (Chạm đất ngõ ra)",
+    hexCode: "0BH",
+    decCode: 11,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Phát hiện dòng ngắn mạch rò rỉ chạm đất ở ngõ ra phía motor",
+      "Động cơ bị ngấm nước ẩm ướt"
+    ],
+    solutions: [
+      "Dùng Megger đo cách điện từng pha U, V, W xuống đất",
+      "Kiểm tra đường cáp chạy trong máng kim loại"
+    ],
+    expertTips: "Tuyệt đối không xóa lỗi và bấm chạy lại nhiều lần khi bị chạm đất.",
+    relatedRegisters: ["2100H", "210BH"]
+  },
+  {
+    id: "KAMAN_E_CE",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600"],
+    code: "E.CE",
+    name: "Communication error (Lỗi truyền thông RS485)",
+    hexCode: "0CH",
+    decCode: 12,
+    category: "comm",
+    categoryLabel: "Truyền thông & Ngoại vi",
+    severity: "error",
+    causes: [
+      "Mất kết nối truyền thông Modbus RTU giữa PLC và biến tần quá thời gian timeout",
+      "Đứt cáp RS485 hoặc đấu nhầm cực 485+ và 485-"
+    ],
+    solutions: [
+      "Kiểm tra dây cáp mạng RS485",
+      "Kiểm tra cấu hình Baudrate, Parity và Station Address"
+    ],
+    expertTips: "Sử dụng cáp xoắn đôi chống nhiễu có bọc kim.",
+    relatedRegisters: ["2100H", "2000H", "210BH"]
+  }
+];
+
+export const KAMAN_REGISTERS = [
+  {
+    id: "KAMAN_REG_2000",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600"],
+    addressDec1Based: 8193,
+    addressHex0Based: "2000H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "Control Command Word (Từ lệnh điều khiển chạy)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Thanh ghi điều khiển lệnh chạy/dừng/reset cho biến tần Kaman qua Modbus RTU (Địa chỉ Hex 2000H / Dec 8192)",
+    bitDetails: [
+      { bit: "0001H (1)", name: "RUN FWD", desc: "Lệnh chạy thuận" },
+      { bit: "0002H (2)", name: "RUN REV", desc: "Lệnh chạy ngược" },
+      { bit: "0005H (5)", name: "STOP", desc: "Lệnh dừng giảm tốc" },
+      { bit: "0007H (7)", name: "FAULT RESET", desc: "Lệnh xóa lỗi sự cố (Trip Reset)" }
+    ],
+    example: "Ghi Function 06 địa chỉ 2000H giá trị 1 (Chạy thuận), giá trị 2 (Chạy ngược), giá trị 5 (Dừng), giá trị 7 (Xóa lỗi)."
+  },
+  {
+    id: "KAMAN_REG_2001",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600"],
+    addressDec1Based: 8194,
+    addressHex0Based: "2001H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "Frequency Setting (Cài đặt tần số)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Cài đặt tần số ngõ ra mục tiêu qua Modbus (Đơn vị: 0.01 Hz)",
+    bitDetails: [],
+    example: "Ghi Function 06 địa chỉ 2001H giá trị 5000 để đặt 50.00 Hz."
+  },
+  {
+    id: "KAMAN_REG_2100",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600"],
+    addressDec1Based: 8449,
+    addressHex0Based: "2100H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Inverter Status Word (Từ trạng thái vận hành)",
+    category: "status",
+    categoryLabel: "Trạng thái vận hành",
+    description: "Thanh ghi đọc trạng thái vận hành và cờ báo lỗi biến tần Kaman",
+    bitDetails: [
+      { bit: "Bit 0", name: "RUN", desc: "1 = Biến tần đang chạy; 0 = Đang dừng" },
+      { bit: "Bit 1", name: "REV", desc: "1 = Đang quay ngược; 0 = Đang quay thuận" },
+      { bit: "Bit 2", name: "READY", desc: "1 = Biến tần sẵn sàng nhận lệnh" },
+      { bit: "Bit 3", name: "FAULT", desc: "1 = Biến tần đang bị sự cố Trip (CÓ LỖI)" }
+    ],
+    example: "Đọc Function 03 địa chỉ 2100H, kiểm tra Bit 3 để biết biến tần có đang bị lỗi."
+  },
+  {
+    id: "KAMAN_REG_2101",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600"],
+    addressDec1Based: 8450,
+    addressHex0Based: "2101H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Output Frequency Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz)",
+    bitDetails: [],
+    example: "Đọc về 5000 tương ứng 50.00 Hz."
+  },
+  {
+    id: "KAMAN_REG_2102",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600"],
+    addressDec1Based: 8451,
+    addressHex0Based: "2102H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Output Current Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Dòng điện ngõ ra thực tế cấp cho động cơ (Đơn vị: 0.1 A)",
+    bitDetails: [],
+    example: "Đọc về 38 tương ứng 3.8 A."
+  },
+  {
+    id: "KAMAN_REG_2104",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600"],
+    addressDec1Based: 8453,
+    addressHex0Based: "2104H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "DC Bus Voltage Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Điện áp một chiều trên bộ tụ lọc Bus DC (Đơn vị: 1 V)",
+    bitDetails: [],
+    example: "Hệ 380V đọc về khoảng 540V DC."
+  },
+  {
+    id: "KAMAN_REG_210B",
+    brand: "kaman",
+    brandLabel: "Kaman Automation",
+    models: ["KM300", "KM500", "KM600"],
+    addressDec1Based: 8460,
+    addressHex0Based: "210BH",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Current Fault Code Monitor (Mã lỗi hiện tại)",
+    category: "fault",
+    categoryLabel: "Giám sát & Lịch sử mã lỗi",
+    description: "Mã số lỗi sự cố hiện tại của biến tần Kaman (1 = E.OUT, 2 = E.OC1, 3 = E.OC2, 4 = E.OC3, 5 = E.OV1, 6 = E.OV2, 7 = E.LU, 8 = E.OL1, 9 = E.SPI, 10 = E.SPO, 11 = E.ERH, 12 = E.CE...)",
+    bitDetails: [
+      { bit: "1", name: "E.OUT", desc: "Bảo vệ phần cứng IGBT" },
+      { bit: "2", name: "E.OC1", desc: "Quá dòng khi tăng tốc" },
+      { bit: "3", name: "E.OC2", desc: "Quá dòng khi giảm tốc" },
+      { bit: "5", name: "E.OV1", desc: "Quá áp khi tăng tốc" },
+      { bit: "7", name: "E.LU", desc: "Thấp áp Bus DC" },
+      { bit: "8", name: "E.OL1", desc: "Quá tải động cơ" },
+      { bit: "12", name: "E.CE", desc: "Mất truyền thông Modbus" }
+    ],
+    example: "Đọc thanh ghi 210BH để lấy mã lỗi hiển thị lên HMI."
+  }
+];

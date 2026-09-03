@@ -1,0 +1,438 @@
+export const ABB_FAULTS = [
+  {
+    id: "ABB_0001",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580", "ACS150"],
+    code: "0001",
+    name: "OVERCURRENT (Quá dòng ngõ ra)",
+    hexCode: "01H",
+    decCode: 1,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Dòng điện ngõ ra vượt ngưỡng bảo vệ ngắt quá dòng tức thời",
+      "Thời gian tăng tốc (nhóm 22 / 23) quá ngắn so với quán tính cơ khí",
+      "Bó kẹt cơ khí trên trục động cơ hoặc tải bị va đập nặng",
+      "Khối công suất IGBT ngõ ra bị chập hỏng"
+    ],
+    solutions: [
+      "Kiểm tra tải động cơ xem có vật cản cơ khí gây kẹt trục",
+      "Tăng thời gian tăng tốc (Parameter 2202 ACCELER TIME 1)",
+      "Đo kiểm tra cách điện cuộn dây động cơ bằng đồng hồ Megger",
+      "Thực hiện đo nguội nửa cầu nghịch lưu IGBT"
+    ],
+    expertTips: "Trên dòng ABB ACS355, tháo cáp motor ra khỏi chân U2, V2, W2. Cho biến tần chạy không tải, nếu vẫn báo lỗi 0001 thì bộ cảm biến dòng hoặc IGBT đã bị hỏng.",
+    relatedRegisters: ["40004", "40104", "40401"]
+  },
+  {
+    id: "ABB_0002",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580", "ACS150"],
+    code: "0002",
+    name: "DC OVERVOLT (Quá áp Bus DC)",
+    hexCode: "02H",
+    decCode: 2,
+    category: "overvoltage",
+    categoryLabel: "Quá áp & Xả hãm",
+    severity: "error",
+    causes: [
+      "Điện áp một chiều Bus DC vượt quá ngưỡng an toàn (420V đối với hệ 200V; 840V đối với hệ 400V)",
+      "Năng lượng tái sinh dội ngược về biến tần khi hãm dừng quá nhanh",
+      "Chưa lắp điện trở xả hãm hoặc bộ phanh chopper bị hỏng",
+      "Điện áp nguồn lưới đầu vào cao liên tục"
+    ],
+    solutions: [
+      "Kéo dài thời gian giảm tốc (Parameter 2203 DECELER TIME 1)",
+      "Lắp thêm điện trở xả vào chân BRK+ và BRK- (hoặc R+ và R-)",
+      "Bật tính năng tự động khống chế quá áp Overvoltage Controller (Par 2005 = 1)"
+    ],
+    expertTips: "Cài đặt Par 2005 = 1 (ENABLE) để biến tần tự động kéo dài thời gian dừng nếu phát hiện áp DC dâng cao.",
+    relatedRegisters: ["40004", "40107", "40401"]
+  },
+  {
+    id: "ABB_0003",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    code: "0003",
+    name: "DEV OVERTEMP (Quá nhiệt biến tần)",
+    hexCode: "03H",
+    decCode: 3,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Nhiệt độ khối nhôm tản nhiệt IGBT vượt quá 115°C",
+      "Quạt tản nhiệt của biến tần bị chết hoặc nghẽn bụi rác",
+      "Nhiệt độ môi trường bên trong tủ điện quá cao (> 40°C)"
+    ],
+    solutions: [
+      "Kiểm tra và thay thế quạt làm mát biến tần nếu ngừng quay",
+      "Dùng khí nén vệ sinh sạch các cánh nhôm tản nhiệt",
+      "Cải thiện quạt hút đối lưu không khí cho tủ điện"
+    ],
+    expertTips: "Có thể đọc nhiệt độ tản nhiệt thực tế qua Parameter 01.10 (INV TEMP).",
+    relatedRegisters: ["40004", "40401"]
+  },
+  {
+    id: "ABB_0004",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580", "ACS150"],
+    code: "0004",
+    name: "SHORT CIRC (Ngắn mạch ngõ ra)",
+    hexCode: "04H",
+    decCode: 4,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Ngắn mạch trực tiếp giữa các pha ngõ ra của động cơ hoặc trong cáp nối",
+      "Khối công suất IGBT ngõ ra bị đánh thủng"
+    ],
+    solutions: [
+      "Ngắt nguồn ngay lập tức, kiểm tra cáp nối động cơ U2, V2, W2",
+      "Đo điện trở từng cặp pha motor xem có pha nào chạm chập về 0 Ohm"
+    ],
+    expertTips: "Tuyệt đối không cố gắng bật chạy lại nhiều lần khi gặp lỗi 0004 để tránh nổ bo mạch.",
+    relatedRegisters: ["40004", "40401"]
+  },
+  {
+    id: "ABB_0006",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580", "ACS150"],
+    code: "0006",
+    name: "DC UNDERVOLT (Thấp áp Bus DC)",
+    hexCode: "06H",
+    decCode: 6,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Điện áp nguồn xoay chiều ngõ vào bị sụt áp mạnh hoặc mất nguồn chớp nhoáng",
+      "Mất 1 pha nguồn cấp đầu vào",
+      "Cầu chì nguồn bị đứt hoặc hỏng mạch nạp tụ điện"
+    ],
+    solutions: [
+      "Đo điện áp 3 pha nguồn cấp đầu vào L1, L2, L3",
+      "Kiểm tra aptomat và khởi động từ tổng cấp nguồn",
+      "Cài đặt tính năng vượt sụt áp tạm thời Undervoltage Control (Par 2006 = 1)"
+    ],
+    expertTips: "Đọc thông số 01.07 (DC VOLT) qua thanh ghi 40107 để kiểm tra điện áp Bus DC thực tế lúc mang tải.",
+    relatedRegisters: ["40004", "40107", "40401"]
+  },
+  {
+    id: "ABB_0007",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    code: "0007",
+    name: "AI1 LOSS (Mất tín hiệu Analog AI1)",
+    hexCode: "07H",
+    decCode: 7,
+    category: "comm",
+    categoryLabel: "Truyền thông & Ngoại vi",
+    severity: "error",
+    causes: [
+      "Tín hiệu dòng điện 4-20mA ngõ vào AI1 bị đứt dây (dòng điện < ngưỡng tối thiểu cài trong Par 3001)",
+      "Cảm biến áp suất, lưu lượng hoặc ngõ ra analog của PLC bị hỏng"
+    ],
+    solutions: [
+      "Đo kiểm tra dòng điện 4-20mA từ cảm biến đưa về chân AI1 và GND",
+      "Kiểm tra dây dẫn xem có bị đứt hoặc lỏng vít",
+      "Cài đặt hành vi xử lý khi mất tín hiệu analog trong Parameter 3001 (0 = FAULT, 1 = CONST SP 7, 2 = LAST SPEED)"
+    ],
+    expertTips: "Nếu muốn biến tần không dừng khi đứt tín hiệu analog mà chạy tốc độ dự phòng, hãy cài Par 3001 = 2 (LAST SPEED).",
+    relatedRegisters: ["40004", "40401"]
+  },
+  {
+    id: "ABB_0009",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    code: "0009",
+    name: "MOT OVERTEMP (Quá nhiệt động cơ)",
+    hexCode: "09H",
+    decCode: 9,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Mô hình tính toán nhiệt điện tử động cơ tác động do quá tải kéo dài",
+      "Động cơ chạy tần số thấp liên tục làm quạt đuôi không tản nhiệt kịp",
+      "Cài đặt sai thông số dòng định mức động cơ trong Parameter 9906 (MOT NOM CURR)"
+    ],
+    solutions: [
+      "Kiểm tra và nhập chính xác dòng định mức motor vào Par 9906",
+      "Giảm bớt tải cơ khí",
+      "Lắp quạt làm mát độc lập cho động cơ nếu thường xuyên chạy dưới 25Hz"
+    ],
+    expertTips: "Mức tích nhiệt động cơ được lưu trong Parameter 01.11 (MOT TEMP EST).",
+    relatedRegisters: ["40004", "40104", "40401"]
+  },
+  {
+    id: "ABB_0016",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    code: "0016",
+    name: "EARTH FAULT (Chạm đất ngõ ra)",
+    hexCode: "10H",
+    decCode: 16,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Phát hiện dòng rò chạm đất ở ngõ ra phía motor hoặc trong cáp nguồn động cơ",
+      "Động cơ bị ẩm ướt, đọng nước trong hộp đấu dây",
+      "Cáp ngõ ra quá dài không có cuộn kháng"
+    ],
+    solutions: [
+      "Ngắt nguồn ngay lập tức, đo cách điện cuộn dây motor xuống vỏ bằng Megger (> 10 MΩ)",
+      "Kiểm tra dây cáp trong ống máng kim loại xem có bị xước vỏ",
+      "Sấy khô cuộn dây động cơ"
+    ],
+    expertTips: "CẢNH BÁO: Tuyệt đối không xóa lỗi và bật chạy lại liên tục vì dòng ngắn mạch chạm đất sẽ phá hủy các cảm biến dòng và module IGBT.",
+    relatedRegisters: ["40004", "40401"]
+  },
+  {
+    id: "ABB_0022",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    code: "0022",
+    name: "SUPPLY PHASE (Mất pha nguồn cấp đầu vào)",
+    hexCode: "16H",
+    decCode: 22,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Mất 1 trong 3 pha nguồn điện xoay chiều đầu vào",
+      "Độ nhấp nhô điện áp Bus DC quá lớn do nguồn lưới mất cân bằng pha nặng",
+      "Đứt cầu chì ngõ vào"
+    ],
+    solutions: [
+      "Đo cân bằng điện áp 3 pha nguồn cấp đầu vào L1, L2, L3",
+      "Kiểm tra độ siết chặt của các ốc vít cầu đấu nguồn",
+      "Cài đặt tính năng bảo vệ mất pha trong Parameter 3016 (SUPPLY PHASE: 0 = DISABLE, 1 = FAULT)"
+    ],
+    expertTips: "Nếu nguồn lưới nhà xưởng thường xuyên mất cân bằng nhẹ, hãy cân nhắc lắp thêm cuộn kháng đầu vào Line Reactor.",
+    relatedRegisters: ["40004", "40401"]
+  },
+  {
+    id: "ABB_0028",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    code: "0028",
+    name: "SERIAL 1 ERR (Mất truyền thông Modbus RTU)",
+    hexCode: "1CH",
+    decCode: 28,
+    category: "comm",
+    categoryLabel: "Truyền thông & Ngoại vi",
+    severity: "error",
+    causes: [
+      "Mất liên lạc mạng truyền thông Modbus RTU giữa PLC và cổng RS485 biến tần quá thời gian timeout (Par 3018)",
+      "Đứt dây cáp mạng RS485, đấu nhầm cực B+ và A-",
+      "Nhiễu điện từ làm sai lệch dữ liệu kiểm tra CRC"
+    ],
+    solutions: [
+      "Kiểm tra dây cáp mạng RS-485 (Chân 29 là B+, Chân 30 là A- trên ACS355)",
+      "Kiểm tra gạt switch trở đầu cuối 120Ω ở hai điểm cuối của mạng",
+      "Cài đặt Parameter 3018 (COMM FAULT FUNC: 0 = NOT SEL, 1 = FAULT, 2 = CONST SP 7) thành 0 khi đang thử nghiệm"
+    ],
+    expertTips: "Trên cầu đấu EIA-485 của biến tần ABB ACS355: Chân 29 là B+, Chân 30 là A-, Chân 31 là AGND.",
+    relatedRegisters: ["40004", "40001", "40401"]
+  },
+  {
+    id: "ABB_0034",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    code: "0034",
+    name: "MOTOR PHASE (Mất pha ngõ ra motor)",
+    hexCode: "22H",
+    decCode: 34,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Đứt 1 pha cáp nối từ biến tần ra động cơ (U2, V2, W2)",
+      "Khởi động từ phụ ngõ ra đóng không đều pha",
+      "Cuộn dây động cơ bị đứt ngầm"
+    ],
+    solutions: [
+      "Đo thông mạch từng sợi cáp từ biến tần tới hộp cực motor",
+      "Đo cân bằng điện trở 3 cuộn dây motor",
+      "Cài đặt tham số Parameter 3017 (MOTOR PHASE LOSS: 0 = DISABLE, 1 = FAULT)"
+    ],
+    expertTips: "Nếu đang thử biến tần không tải (không gắn motor), cần tắt chức năng này bằng cách đặt Par 3017 = 0.",
+    relatedRegisters: ["40004", "40401"]
+  }
+];
+
+export const ABB_REGISTERS = [
+  {
+    id: "ABB_REG_40001",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    addressDec1Based: 40001,
+    addressHex0Based: "0000H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "Control Word (CW - Từ lệnh điều khiển chuẩn ABB Drives Profile)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Từ lệnh điều khiển vận hành chuẩn ABB Drives Profile qua mạng Modbus RTU",
+    bitDetails: [
+      { bit: "Bit 0 (1142 / 1143)", name: "OFF1 CONTROL", desc: "1 = Bật chạy; 0 = Dừng giảm tốc theo RAMP 1" },
+      { bit: "Bit 1", name: "OFF2 CONTROL", desc: "0 = Dừng tự do ngay lập tức (Coast to stop)" },
+      { bit: "Bit 2", name: "OFF3 CONTROL", desc: "0 = Dừng khẩn cấp theo RAMP khẩn (Emergency stop)" },
+      { bit: "Bit 3", name: "INHIBIT OPERATION", desc: "1 = Cho phép biến tần vận hành; 0 = Cấm chạy" },
+      { bit: "Bit 7", name: "RESET", desc: "Sườn dương (0 -> 1) để xóa lỗi (Fault Reset)" },
+      { bit: "Bit 10", name: "REMOTE_CMD", desc: "1 = Bắt buộc bật ON để biến tần chấp nhận lệnh từ Modbus" }
+    ],
+    example: "Quy trình chạy: Ghi 1142 (0476H) để chuẩn bị, sau đó ghi 1143 (0477H) để khởi động. Dừng: ghi 1142. Reset lỗi: ghi 1142 + 128 = 1270."
+  },
+  {
+    id: "ABB_REG_40002",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    addressDec1Based: 40002,
+    addressHex0Based: "0001H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "REF1 (Reference 1 - Tần số/Tốc độ cài đặt)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Cài đặt tốc độ mục tiêu chuẩn hóa: 0 đến 20000 tương ứng 0% đến 100% tốc độ tối đa cài trong Par 1105",
+    bitDetails: [],
+    example: "Ghi 20000 tương ứng chạy 100% tốc độ (50.00 Hz); Ghi 10000 tương ứng 50% tốc độ (25.00 Hz)."
+  },
+  {
+    id: "ABB_REG_40004",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    addressDec1Based: 40004,
+    addressHex0Based: "0003H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Status Word (SW - Từ trạng thái chuẩn ABB Drives Profile)",
+    category: "status",
+    categoryLabel: "Trạng thái vận hành",
+    description: "Thanh ghi trạng thái hoạt động và cờ báo lỗi biến tần ABB theo chuẩn Fieldbus",
+    bitDetails: [
+      { bit: "Bit 0", name: "RDY_ON", desc: "1 = Sẵn sàng bật nguồn" },
+      { bit: "Bit 1", name: "RDY_RUN", desc: "1 = Sẵn sàng nhận lệnh chạy" },
+      { bit: "Bit 2", name: "RDY_REF", desc: "1 = Biến tần đang chạy xuất điện áp" },
+      { bit: "Bit 3", name: "TRIPPED", desc: "1 = Biến tần đang bị sự cố dừng khẩn cấp (CÓ LỖI)" },
+      { bit: "Bit 7", name: "ALARM", desc: "1 = Đang có cảnh báo vận hành" },
+      { bit: "Bit 8", name: "AT_SETPOINT", desc: "1 = Tốc độ thực tế đã đạt giá trị cài đặt" }
+    ],
+    example: "Đọc Function 03 địa chỉ 40004, kiểm tra Bit 3 để phát hiện biến tần bị lỗi."
+  },
+  {
+    id: "ABB_REG_40005",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    addressDec1Based: 40005,
+    addressHex0Based: "0004H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "ACT1 (Actual Value 1 - Tốc độ thực tế)",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Tốc độ/tần số thực tế ngõ ra của biến tần (Giá trị 0 đến 20000 = 0% đến 100%)",
+    bitDetails: [],
+    example: "Đọc về giá trị 20000 tương ứng biến tần đang chạy đủ 100% tốc độ (50.00 Hz)."
+  },
+  {
+    id: "ABB_REG_40103",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    addressDec1Based: 40103,
+    addressHex0Based: "0066H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Par 01.03 (Output Frequency Monitor)",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Tần số ngõ ra thực tế của động cơ (Đơn vị: 0.1 Hz)",
+    bitDetails: [],
+    example: "Đọc về 500 tương ứng 50.0 Hz."
+  },
+  {
+    id: "ABB_REG_40104",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    addressDec1Based: 40104,
+    addressHex0Based: "0067H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Par 01.04 (Motor Current Monitor)",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Dòng điện thực tế của động cơ (Đơn vị: 0.1 A)",
+    bitDetails: [],
+    example: "Đọc về 38 tương ứng 3.8 A."
+  },
+  {
+    id: "ABB_REG_40107",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    addressDec1Based: 40107,
+    addressHex0Based: "006AH",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Par 01.07 (DC Bus Voltage Monitor)",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Điện áp một chiều trên bộ tụ lọc Bus DC (Đơn vị: 1 V)",
+    bitDetails: [],
+    example: "Hệ 380V đọc về khoảng 540V DC."
+  },
+  {
+    id: "ABB_REG_40401",
+    brand: "abb",
+    brandLabel: "ABB",
+    models: ["ACS355", "ACS550", "ACS580"],
+    addressDec1Based: 40401,
+    addressHex0Based: "0190H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Par 04.01 (Last Fault Code - Mã lỗi ngắt cuối cùng)",
+    category: "fault",
+    categoryLabel: "Giám sát & Lịch sử mã lỗi",
+    description: "Mã số lỗi sự cố cuối cùng khiến biến tần ABB bị Trip (1 = OVERCURRENT, 2 = DC OVERVOLT, 3 = DEV OVERTEMP, 6 = DC UNDERVOLT, 16 = EARTH FAULT...)",
+    bitDetails: [
+      { bit: "1", name: "0001", desc: "Quá dòng ngõ ra (OVERCURRENT)" },
+      { bit: "2", name: "0002", desc: "Quá điện áp Bus DC (DC OVERVOLT)" },
+      { bit: "3", name: "0003", desc: "Quá nhiệt biến tần (DEV OVERTEMP)" },
+      { bit: "4", name: "0004", desc: "Ngắn mạch động cơ (SHORT CIRC)" },
+      { bit: "6", name: "0006", desc: "Thấp điện áp Bus DC (DC UNDERVOLT)" },
+      { bit: "16", name: "0016", desc: "Chạm đất ngõ ra (EARTH FAULT)" },
+      { bit: "28", name: "0028", desc: "Mất truyền thông Modbus (SERIAL 1 ERR)" }
+    ],
+    example: "Khi Bit 3 của thanh ghi 40004 = 1, đọc thanh ghi 40401 để lấy mã lỗi."
+  }
+];

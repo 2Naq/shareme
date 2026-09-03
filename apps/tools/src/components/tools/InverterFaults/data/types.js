@@ -1,8 +1,18 @@
 export const BRANDS = [
   { id: "all", label: "Tất cả các hãng", badge: "All" },
   { id: "mitsubishi", label: "Mitsubishi Electric", badge: "Mitsubishi", color: "bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30" },
+  { id: "siemens", label: "Siemens", badge: "Siemens", color: "bg-teal-500/15 text-teal-600 dark:text-teal-400 border-teal-500/30" },
+  { id: "abb", label: "ABB", badge: "ABB", color: "bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30" },
+  { id: "schneider", label: "Schneider Electric", badge: "Schneider", color: "bg-green-600/15 text-green-600 dark:text-green-400 border-green-600/30" },
+  { id: "ls", label: "LS Electric", badge: "LS", color: "bg-blue-600/15 text-blue-600 dark:text-blue-400 border-blue-600/30" },
+  { id: "delta", label: "Delta Electronics", badge: "Delta", color: "bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30" },
+  { id: "invt", label: "INVT", badge: "INVT", color: "bg-red-600/15 text-red-600 dark:text-red-400 border-red-600/30" },
   { id: "omron", label: "Omron Industrial", badge: "Omron", color: "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30" },
   { id: "wecon", label: "Wecon Technology", badge: "Wecon", color: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30" },
+  { id: "shihlin", label: "Shihlin Electric", badge: "Shihlin", color: "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30" },
+  { id: "kaman", label: "Kaman Automation", badge: "Kaman", color: "bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30" },
+  { id: "arinco", label: "Arinco", badge: "Arinco", color: "bg-violet-500/15 text-violet-600 dark:text-violet-400 border-violet-500/30" },
+  { id: "koc", label: "KOC / KCLY", badge: "KOC", color: "bg-orange-500/15 text-orange-600 dark:text-orange-400 border-orange-500/30" },
 ];
 
 export const FAULT_CATEGORIES = [

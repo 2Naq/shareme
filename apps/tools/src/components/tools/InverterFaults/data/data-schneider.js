@@ -1,0 +1,462 @@
+export const SCHNEIDER_FAULTS = [
+  {
+    id: "SCHNEIDER_OCF",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610", "Altivar ATV12"],
+    code: "OCF",
+    name: "Overcurrent (Quá dòng ngõ ra)",
+    hexCode: "01H",
+    decCode: 1,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Dòng điện ngõ ra biến tần vượt ngưỡng ngắt bảo vệ quá dòng",
+      "Thời gian tăng tốc ACC quá ngắn",
+      "Kẹt cơ khí hoặc tải quá nặng lúc khởi động",
+      "Khối công suất IGBT ngõ ra bị chập hỏng"
+    ],
+    solutions: [
+      "Kiểm tra tải cơ khí làm việc",
+      "Tăng thời gian tăng tốc ACC (Acceleration Time)",
+      "Đo kiểm tra cách điện cuộn dây động cơ bằng đồng hồ Megger",
+      "Thực hiện đo nguội cầu nghịch lưu IGBT"
+    ],
+    expertTips: "Trên dòng Altivar ATV310/320, tháo cáp ngõ ra động cơ khỏi chân U, V, W. Cho biến tần chạy không tải, nếu vẫn báo OCF thì khối IGBT hoặc IC đo dòng bên trong đã bị phá hủy.",
+    relatedRegisters: ["3201", "3204", "7121"]
+  },
+  {
+    id: "SCHNEIDER_ObF",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610", "Altivar ATV12"],
+    code: "ObF",
+    name: "Deceleration overvoltage (Quá áp khi giảm tốc)",
+    hexCode: "02H",
+    decCode: 2,
+    category: "overvoltage",
+    categoryLabel: "Quá áp & Xả hãm",
+    severity: "error",
+    causes: [
+      "Thời gian giảm tốc dEC quá dốc khiến năng lượng hãm dội ngược về Bus DC vượt mức cho phép",
+      "Chưa lắp điện trở xả hãm động năng hoặc điện trở xả bị đứt"
+    ],
+    solutions: [
+      "Kéo dài thời gian giảm tốc dEC (Deceleration Time)",
+      "Lắp thêm điện trở xả vào chân PA/+ và PB",
+      "Kích hoạt tính năng tự động thích ứng giảm tốc hãm (tham số brA = YES)"
+    ],
+    expertTips: "Cài đặt tham số brA = YES (Braking Adaptation) để biến tần tự động nới dài thời gian hãm nếu phát hiện áp DC dâng cao sắp chạm ngưỡng báo lỗi ObF.",
+    relatedRegisters: ["3201", "7121"]
+  },
+  {
+    id: "SCHNEIDER_OHF",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610", "Altivar ATV12"],
+    code: "OHF",
+    name: "Drive overheat (Quá nhiệt biến tần)",
+    hexCode: "03H",
+    decCode: 3,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Nhiệt độ cánh nhôm tản nhiệt biến tần vượt quá ngưỡng an toàn (> 100°C)",
+      "Quạt làm mát biến tần bị chết hoặc nghẽn bụi bẩn",
+      "Nhiệt độ môi trường bên trong tủ điện quá cao (> 50°C)"
+    ],
+    solutions: [
+      "Vệ sinh sạch bụi bẩn bám trên cánh nhôm tản nhiệt",
+      "Kiểm tra và thay mới quạt làm mát biến tần",
+      "Lắp quạt hút thông gió giải nhiệt cho tủ điện"
+    ],
+    expertTips: "Có thể đọc tỷ lệ phần trăm tích nhiệt của biến tần qua thanh ghi Modbus 3207 (THD). Khi THD chạm 118% biến tần sẽ ngắt lỗi OHF.",
+    relatedRegisters: ["3201", "3207", "7121"]
+  },
+  {
+    id: "SCHNEIDER_OLF",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610", "Altivar ATV12"],
+    code: "OLF",
+    name: "Motor overload (Quá tải động cơ)",
+    hexCode: "04H",
+    decCode: 4,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Rơ-le nhiệt điện tử bảo vệ motor tác động do quá tải kéo dài",
+      "Động cơ chạy ở dải tần số thấp kéo dài khiến quạt đuôi không tản nhiệt kịp",
+      "Cài đặt sai thông số dòng định mức động cơ trong tham số ItH"
+    ],
+    solutions: [
+      "Kiểm tra dòng định mức ghi trên tem động cơ và cài chính xác vào tham số ItH",
+      "Giảm bớt tải cơ khí",
+      "Lắp quạt làm mát độc lập cho động cơ nếu chạy tần số thấp thường xuyên"
+    ],
+    expertTips: "Tham số ItH (Motor thermal current) mặc định bằng 100% dòng định mức biến tần, cần chỉnh lại cho đúng dòng tem motor để bảo vệ chính xác.",
+    relatedRegisters: ["3201", "3204", "7121"]
+  },
+  {
+    id: "SCHNEIDER_OPF1",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    code: "OPF1",
+    name: "Output phase loss (Mất 1 pha ngõ ra motor)",
+    hexCode: "05H",
+    decCode: 5,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Đứt 1 pha cáp nối từ biến tần U, V, W ra động cơ",
+      "Khởi động từ phụ ngõ ra đóng không đều pha",
+      "Cuộn dây động cơ bị đứt ngậm một pha"
+    ],
+    solutions: [
+      "Đo thông mạch từng sợi cáp từ biến tần tới hộp cực motor",
+      "Đo cân bằng điện trở 3 cuộn dây motor",
+      "Kiểm tra tham số giám sát mất pha ngõ ra OPL"
+    ],
+    expertTips: "Nếu đang thử biến tần không tải (không đấu motor), cần tắt chức năng bảo vệ bằng cách cài đặt OPL = nO.",
+    relatedRegisters: ["3201", "7121"]
+  },
+  {
+    id: "SCHNEIDER_USF",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610", "Altivar ATV12"],
+    code: "USF",
+    name: "Undervoltage (Thấp áp nguồn Bus DC)",
+    hexCode: "06H",
+    decCode: 6,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Điện áp nguồn xoay chiều ngõ vào bị sụt áp mạnh hoặc mất nguồn chớp nhoáng",
+      "Mất 1 pha nguồn cấp đầu vào",
+      "Bộ tụ điện lọc Bus DC bị khô chai"
+    ],
+    solutions: [
+      "Đo điện áp nguồn cấp đầu vào L1, L2, L3",
+      "Kiểm tra aptomat và khởi động từ cấp nguồn chính",
+      "Kích hoạt tính năng tự khởi động lại sau khi có điện (Atr = YES)"
+    ],
+    expertTips: "Đọc thanh ghi Modbus 3208 (ULN) để giám sát điện áp lưới ngõ vào.",
+    relatedRegisters: ["3201", "3208", "7121"]
+  },
+  {
+    id: "SCHNEIDER_PHF",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    code: "PHF",
+    name: "Input phase loss (Mất pha nguồn cấp đầu vào)",
+    hexCode: "07H",
+    decCode: 7,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Mất 1 trong 3 pha nguồn điện xoay chiều đầu vào",
+      "Độ mất cân bằng điện áp giữa các pha quá lớn (> 5%)",
+      "Đứt cầu chì ngõ vào"
+    ],
+    solutions: [
+      "Đo điện áp 3 pha đầu vào L1-L2, L2-L3, L3-L1",
+      "Siết chặt lại các ốc vít cầu đấu nguồn",
+      "Cài đặt tham số bảo vệ mất pha đầu vào IPL (YES / nO)"
+    ],
+    expertTips: "Nếu dùng biến tần 3 pha chạy trên lưới 1 pha tạm thời để thử máy, bắt buộc phải cài IPL = nO để không bị ngắt lỗi PHF.",
+    relatedRegisters: ["3201", "7121"]
+  },
+  {
+    id: "SCHNEIDER_SCF1",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610", "Altivar ATV12"],
+    code: "SCF1",
+    name: "Motor short circuit (Ngắn mạch động cơ)",
+    hexCode: "08H",
+    decCode: 8,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Ngắn mạch trực tiếp giữa các pha ngõ ra của động cơ hoặc trong cáp nguồn",
+      "Dòng chạm đất lớn ở ngõ ra"
+    ],
+    solutions: [
+      "Ngắt nguồn ngay lập tức, kiểm tra cáp nối động cơ U, V, W",
+      "Đo điện trở từng cặp pha motor xem có bị ngắn mạch",
+      "Kiểm tra xem động cơ có bị ngấm nước"
+    ],
+    expertTips: "Khác với OCF (quá dòng do quá tải), SCF1 là ngắn mạch trực tiếp với tốc độ tăng dòng cực nhanh.",
+    relatedRegisters: ["3201", "7121"]
+  },
+  {
+    id: "SCHNEIDER_SCF3",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    code: "SCF3",
+    name: "Ground short circuit (Chạm đất ngõ ra)",
+    hexCode: "09H",
+    decCode: 9,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Phát hiện dòng rò chạm đất ở ngõ ra phía motor hoặc trong cáp nối",
+      "Động cơ bị ẩm ướt, đọng nước trong hộp đấu dây",
+      "Cáp ngõ ra quá dài sinh dòng nạp rò đất lớn"
+    ],
+    solutions: [
+      "Dùng đồng hồ Megger đo cách điện cuộn dây motor xuống đất (> 5 MΩ)",
+      "Kiểm tra đường cáp chạy trong máng kim loại xem có bị xước vỏ",
+      "Lắp cuộn kháng ngõ ra nếu dây dài trên 50m"
+    ],
+    expertTips: "CẢNH BÁO: Tuyệt đối không xóa lỗi và bật chạy lại liên tục khi đang bị SCF3 vì dòng chập đất sẽ phá hủy các cảm biến dòng và cầu IGBT.",
+    relatedRegisters: ["3201", "7121"]
+  },
+  {
+    id: "SCHNEIDER_SLF1",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610", "Altivar ATV12"],
+    code: "SLF1",
+    name: "Modbus communication interruption (Mất truyền thông Modbus)",
+    hexCode: "0AH",
+    decCode: 10,
+    category: "comm",
+    categoryLabel: "Truyền thông & Ngoại vi",
+    severity: "error",
+    causes: [
+      "Mất kết nối truyền thông Modbus RTU cổng RJ45 giữa PLC và biến tần quá thời gian timeout (tham số tTO)",
+      "Đứt cáp mạng RJ45 hoặc lỏng chân cắm",
+      "Sai cấu hình Baudrate (tbr) hoặc Parity (tFO)"
+    ],
+    solutions: [
+      "Kiểm tra giắc cắm mạng RJ45 trên cổng Modbus của biến tần",
+      "Kiểm tra tốc độ Baudrate (tbr), định dạng khung truyền (tFO) và địa chỉ trạm (Add)",
+      "Cài đặt tham số thời gian timeout tTO hoặc đổi hành vi ngắt lỗi trong SLL"
+    ],
+    expertTips: "Cổng RJ45 trên biến tần Schneider Altivar: Chân 4 là D1 (A+), Chân 5 là D0 (B-), Chân 8 là Common (0V).",
+    relatedRegisters: ["3201", "8501", "7121"]
+  },
+  {
+    id: "SCHNEIDER_CrF1",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    code: "CrF1",
+    name: "Pre-charge capacitor fault (Lỗi mạch nạp tụ điện)",
+    hexCode: "0BH",
+    decCode: 11,
+    category: "hardware",
+    categoryLabel: "Phần cứng & CPU/Bộ nhớ",
+    severity: "error",
+    causes: [
+      "Rơ-le nạp điện trở khởi động mềm Bus DC không đóng",
+      "Điện trở nạp tụ bị đứt hoặc hỏng tiếp điểm rơ-le nạp"
+    ],
+    solutions: [
+      "Tắt nguồn đợi 10 phút xả hết điện rồi bật lại",
+      "Nếu lỗi vẫn xuất hiện thì mạch sạc trên bo mạch nguồn đã bị hỏng cần gửi bảo hành"
+    ],
+    expertTips: "Thường xảy ra khi bật tắt nguồn liên tục với tần suất quá cao làm điện trở nạp bị quá nhiệt cháy đứt.",
+    relatedRegisters: ["3201", "7121"]
+  },
+  {
+    id: "SCHNEIDER_EEF1",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    code: "EEF1",
+    name: "Control EEPROM fault (Lỗi chip nhớ EEPROM)",
+    hexCode: "0CH",
+    decCode: 12,
+    category: "hardware",
+    categoryLabel: "Phần cứng & CPU/Bộ nhớ",
+    severity: "error",
+    causes: [
+      "Lỗi chip nhớ EEPROM lưu trữ dữ liệu tham số cấu hình",
+      "Mất nguồn đột ngột trong lúc đang lưu tham số cấu hình"
+    ],
+    solutions: [
+      "Thực hiện Factory Reset khôi phục cài đặt gốc (FCS = InI)",
+      "Nếu khởi động lại vẫn báo EEF1 thì bo điều khiển đã bị lỗi phần cứng"
+    ],
+    expertTips: "Khi lập trình PLC qua Modbus, ghi tần số vào thanh ghi RAM (LFRD) thay vì ghi vào bộ nhớ EEPROM.",
+    relatedRegisters: ["3201", "7121"]
+  }
+];
+
+export const SCHNEIDER_REGISTERS = [
+  {
+    id: "SCHNEIDER_REG_8501",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    addressDec1Based: 8501,
+    addressHex0Based: "2135H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "CMD (Control Word - Từ lệnh điều khiển chuẩn CiA 402)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Từ lệnh điều khiển vận hành máy trạng thái chuẩn CiA 402 cho biến tần Schneider Altivar",
+    bitDetails: [
+      { bit: "0006H (6)", name: "Shutdown", desc: "Chuyển sang trạng thái Ready to switch on" },
+      { bit: "0007H (7)", name: "Switch On", desc: "Chuyển sang trạng thái Switched on" },
+      { bit: "000FH (15)", name: "Enable Operation (FWD)", desc: "Lệnh chạy động cơ theo chiều thuận" },
+      { bit: "080FH (2063)", name: "Enable Operation (REV)", desc: "Lệnh chạy động cơ theo chiều ngược" },
+      { bit: "0080H (128)", name: "Fault Reset", desc: "Lệnh xóa lỗi sự cố (Trip Reset)" },
+      { bit: "0002H (2)", name: "Quick Stop", desc: "Dừng nhanh khẩn cấp" }
+    ],
+    example: "Quy trình chạy chuẩn CiA 402: Ghi 6 -> Ghi 7 -> Ghi 15 (Chạy thuận). Dừng: ghi 7 hoặc 6. Xóa lỗi: ghi 128."
+  },
+  {
+    id: "SCHNEIDER_REG_8502",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    addressDec1Based: 8502,
+    addressHex0Based: "2136H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "LFRD (Speed Target - Cài đặt tần số mục tiêu)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Cài đặt tần số ngõ ra mục tiêu qua mạng Modbus (Đơn vị: 0.1 Hz)",
+    bitDetails: [],
+    example: "Ghi 500 tương ứng 50.0 Hz; Ghi 250 tương ứng 25.0 Hz."
+  },
+  {
+    id: "SCHNEIDER_REG_3201",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    addressDec1Based: 3201,
+    addressHex0Based: "0C81H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "ETA (Status Word - Từ trạng thái chuẩn CiA 402)",
+    category: "status",
+    categoryLabel: "Trạng thái vận hành",
+    description: "Thanh ghi trạng thái hoạt động và cờ báo lỗi biến tần Schneider Altivar theo chuẩn CiA 402",
+    bitDetails: [
+      { bit: "Bit 0", name: "Ready to switch on", desc: "1 = Sẵn sàng bật nguồn" },
+      { bit: "Bit 1", name: "Switched on", desc: "1 = Đã bật nguồn công suất" },
+      { bit: "Bit 2", name: "Operation enabled", desc: "1 = Biến tần đang chạy xuất điện áp" },
+      { bit: "Bit 3", name: "Fault present", desc: "1 = Biến tần đang bị sự cố Trip (CÓ LỖI)" },
+      { bit: "Bit 4", name: "Voltage enabled", desc: "1 = Điện áp cấp cho động cơ đang bật" },
+      { bit: "Bit 5", name: "Quick stop", desc: "0 = Đang kích hoạt dừng nhanh" },
+      { bit: "Bit 7", name: "Warning present", desc: "1 = Đang có cảnh báo vận hành" }
+    ],
+    example: "Đọc Function 03 địa chỉ 3201, kiểm tra Bit 3 để biết biến tần có đang bị lỗi không."
+  },
+  {
+    id: "SCHNEIDER_REG_3202",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    addressDec1Based: 3202,
+    addressHex0Based: "0C82H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "RFRD (Output Frequency - Tần số thực tế)",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.1 Hz)",
+    bitDetails: [],
+    example: "Đọc về 500 tương ứng 50.0 Hz."
+  },
+  {
+    id: "SCHNEIDER_REG_3204",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    addressDec1Based: 3204,
+    addressHex0Based: "0C84H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "LCR (Motor Current - Dòng điện thực tế)",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Dòng điện ngõ ra thực tế cấp cho động cơ (Đơn vị: 0.1 A)",
+    bitDetails: [],
+    example: "Đọc về 42 tương ứng 4.2 A."
+  },
+  {
+    id: "SCHNEIDER_REG_3207",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    addressDec1Based: 3207,
+    addressHex0Based: "0C87H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "THD (Drive Thermal State - Tỷ lệ nhiệt biến tần)",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Mức tích nhiệt của biến tần (Đơn vị: 1%). Khi đạt 118% sẽ ngắt lỗi OHF.",
+    bitDetails: [],
+    example: "Bình thường dưới 80%, nếu trên 100% cảnh báo quá nhiệt."
+  },
+  {
+    id: "SCHNEIDER_REG_3208",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    addressDec1Based: 3208,
+    addressHex0Based: "0C88H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "ULN (Mains Voltage - Điện áp lưới ngõ vào)",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Điện áp hiệu dụng của nguồn điện xoay chiều đầu vào (Đơn vị: 1 V)",
+    bitDetails: [],
+    example: "Hệ 380V đọc về khoảng 380V ~ 400V."
+  },
+  {
+    id: "SCHNEIDER_REG_7121",
+    brand: "schneider",
+    brandLabel: "Schneider Electric",
+    models: ["Altivar ATV310", "Altivar ATV320", "Altivar ATV610"],
+    addressDec1Based: 7121,
+    addressHex0Based: "1BD1H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "LFT (Last Fault Code - Mã lỗi ngắt cuối cùng)",
+    category: "fault",
+    categoryLabel: "Giám sát & Lịch sử mã lỗi",
+    description: "Mã số lỗi ngắt sự cố gần nhất của biến tần Schneider (1 = OCF, 2 = ObF, 3 = OHF, 4 = OLF, 6 = USF, 7 = PHF, 8 = SCF1, 9 = SCF3, 10 = SLF1...)",
+    bitDetails: [
+      { bit: "1", name: "OCF", desc: "Quá dòng ngõ ra" },
+      { bit: "2", name: "ObF", desc: "Quá áp khi giảm tốc" },
+      { bit: "3", name: "OHF", desc: "Quá nhiệt biến tần" },
+      { bit: "4", name: "OLF", desc: "Quá tải động cơ" },
+      { bit: "6", name: "USF", desc: "Thấp áp Bus DC" },
+      { bit: "7", name: "PHF", desc: "Mất pha đầu vào" },
+      { bit: "8", name: "SCF1", desc: "Ngắn mạch động cơ" },
+      { bit: "9", name: "SCF3", desc: "Chạm đất ngõ ra" },
+      { bit: "10", name: "SLF1", desc: "Mất truyền thông Modbus" }
+    ],
+    example: "Khi Bit 3 của thanh ghi 3201 = 1, đọc thanh ghi 7121 để lấy mã lỗi."
+  }
+];

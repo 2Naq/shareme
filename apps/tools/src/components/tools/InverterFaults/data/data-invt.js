@@ -1,0 +1,463 @@
+export const INVT_FAULTS = [
+  {
+    id: "INVT_OC1",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    code: "OC1",
+    name: "Acceleration overcurrent (Quá dòng khi tăng tốc)",
+    hexCode: "01H",
+    decCode: 1,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Dòng điện ngõ ra vượt ngưỡng quá dòng trong quá trình tăng tốc khởi động",
+      "Thời gian tăng tốc P00.11 quá ngắn so với quán tính cơ khí",
+      "Bù mô-men khởi động P01.01 đặt quá cao",
+      "Động cơ bị kẹt tải nặng hoặc bị bó cứng trục",
+      "Khối công suất IGBT ngõ ra bị chập hỏng"
+    ],
+    solutions: [
+      "Tăng thời gian tăng tốc P00.11",
+      "Giảm thông số bù mô-men Torque Boost P01.01",
+      "Quay thử trục động cơ bằng tay kiểm tra kẹt cơ",
+      "Dùng đồng hồ Megger đo cách điện cuộn dây motor",
+      "Thực hiện đo nguội cầu nghịch lưu IGBT"
+    ],
+    expertTips: "Trên dòng INVT GD20/GD200A, tháo rời 3 dây ngõ ra motor U, V, W. Cho biến tần chạy không tải, nếu vẫn báo OC1 ngay lập tức thì khối IGBT hoặc mạch cảm biến dòng bên trong đã bị phá hủy.",
+    relatedRegisters: ["2100H", "3001H", "3008H"]
+  },
+  {
+    id: "INVT_OC2",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    code: "OC2",
+    name: "Deceleration overcurrent (Quá dòng khi giảm tốc)",
+    hexCode: "02H",
+    decCode: 2,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Thời gian giảm tốc P00.12 quá ngắn làm lực hãm cơ khí tăng vọt",
+      "Quán tính cơ khí của tải quá lớn dội dòng điện hãm",
+      "Chưa lắp điện trở xả hãm động năng"
+    ],
+    solutions: [
+      "Tăng thời gian giảm tốc P00.12 dài hơn",
+      "Lắp thêm điện trở xả vào chân PB và (+)",
+      "Bật tính năng chống quá dòng khi giảm tốc trong nhóm P08"
+    ],
+    expertTips: "Cài đặt đường cong chữ S trong P00.13 để quá trình hãm tốc êm ái hơn không gây giật cơ.",
+    relatedRegisters: ["2100H", "3001H", "3008H"]
+  },
+  {
+    id: "INVT_OC3",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    code: "OC3",
+    name: "Constant speed overcurrent (Quá dòng khi chạy ổn định)",
+    hexCode: "03H",
+    decCode: 3,
+    category: "overcurrent",
+    categoryLabel: "Quá dòng & Chập mạch",
+    severity: "error",
+    causes: [
+      "Tải cơ khí bị quá tải hoặc tăng tải đột ngột khi đang quay tốc độ ổn định",
+      "Cáp nối động cơ bị chạm chập ngắt quãng do rung lắc"
+    ],
+    solutions: [
+      "Kiểm tra tải máy làm việc, loại bỏ dị vật kẹt máy",
+      "Kích hoạt tính năng chống trượt Stall Prevention P08.37",
+      "Cân nhắc nâng công suất biến tần nếu tải thường xuyên biến thiên lớn"
+    ],
+    expertTips: "Đọc dòng điện thực tế qua thanh ghi 3001H (đơn vị: 0.01A) để theo dõi biên độ dòng điện lúc mang tải.",
+    relatedRegisters: ["2100H", "3001H", "3008H"]
+  },
+  {
+    id: "INVT_OV1",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    code: "OV1",
+    name: "Acceleration overvoltage (Quá áp khi tăng tốc)",
+    hexCode: "04H",
+    decCode: 4,
+    category: "overvoltage",
+    categoryLabel: "Quá áp & Xả hãm",
+    severity: "error",
+    causes: [
+      "Điện áp nguồn lưới xoay chiều ngõ vào quá cao",
+      "Tải có lực thế năng kéo motor quay nhanh hơn tần số phát"
+    ],
+    solutions: [
+      "Đo điện áp 3 pha nguồn cấp đầu vào",
+      "Kéo dài thời gian tăng tốc P00.11",
+      "Lắp điện trở xả hãm động năng"
+    ],
+    expertTips: "Thường gặp ở tải quạt hút khi có luồng gió tự nhiên thổi cánh quạt quay trước khi khởi động.",
+    relatedRegisters: ["2100H", "3003H", "3008H"]
+  },
+  {
+    id: "INVT_OV2",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    code: "OV2",
+    name: "Deceleration overvoltage (Quá áp khi giảm tốc)",
+    hexCode: "05H",
+    decCode: 5,
+    category: "overvoltage",
+    categoryLabel: "Quá áp & Xả hãm",
+    severity: "error",
+    causes: [
+      "Thời gian giảm tốc P00.12 quá dốc, năng lượng tái sinh đẩy áp Bus DC vượt mức bảo vệ (> 400V hệ 220V, > 800V hệ 380V)",
+      "Chưa lắp điện trở xả hãm hoặc điện trở xả bị đứt"
+    ],
+    solutions: [
+      "Tăng thời gian giảm tốc P00.12",
+      "Lắp điện trở xả hãm vào chân PB và (+)",
+      "Bật tính năng tự động hạn chế quá áp khi giảm tốc P08.08 = 1"
+    ],
+    expertTips: "Cài đặt P08.08 = 1 (Overvoltage stall during decel) để biến tần tự động ghì thời gian dừng tránh lỗi OV2.",
+    relatedRegisters: ["2100H", "3003H", "3008H"]
+  },
+  {
+    id: "INVT_UV",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    code: "UV",
+    name: "Undervoltage (Thấp áp nguồn Bus DC)",
+    hexCode: "07H",
+    decCode: 7,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Điện áp nguồn xoay chiều ngõ vào bị sụt áp dưới ngưỡng tối thiểu",
+      "Mất pha nguồn điện xoay chiều đầu vào R, S, T",
+      "Hỏng tụ điện lọc Bus DC hoặc hỏng rơ-le nạp nạp tụ"
+    ],
+    solutions: [
+      "Đo điện áp 3 pha nguồn cấp đầu vào R-S, S-T, T-R",
+      "Kiểm tra aptomat và khởi động từ tổng",
+      "Cài đặt tham số P08.17 cho phép tự khởi động lại sau sụt nguồn chớp nhoáng"
+    ],
+    expertTips: "Đọc thanh ghi Modbus 3003H để giám sát điện áp Bus DC (đơn vị: 1V).",
+    relatedRegisters: ["2100H", "3003H", "3008H"]
+  },
+  {
+    id: "INVT_OL1",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    code: "OL1",
+    name: "Motor overload (Quá tải động cơ)",
+    hexCode: "08H",
+    decCode: 8,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Động cơ bị quá tải liên tục trong thời gian dài",
+      "Cài đặt sai thông số dòng định mức động cơ trong tham số P02.01",
+      "Động cơ chạy ở tần số thấp kéo dài làm quạt đuôi không tản nhiệt kịp"
+    ],
+    solutions: [
+      "Kiểm tra tem nhãn motor và cài chính xác dòng định mức vào P02.01",
+      "Giảm bớt tải cơ khí",
+      "Lắp quạt làm mát độc lập cho động cơ nếu chạy tần số thấp thường xuyên"
+    ],
+    expertTips: "Hệ số bảo vệ quá tải nhiệt động cơ được cài đặt trong nhóm P11.00 đến P11.02.",
+    relatedRegisters: ["2100H", "3001H", "3008H"]
+  },
+  {
+    id: "INVT_OL2",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    code: "OL2",
+    name: "Inverter overload (Quá tải biến tần)",
+    hexCode: "09H",
+    decCode: 9,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Biến tần bị quá tải dòng điện liên tục bảo vệ khối công suất",
+      "Thời gian tăng tốc quá nhanh hoặc công suất biến tần chọn quá nhỏ"
+    ],
+    solutions: [
+      "Giảm tải cơ khí tác động lên động cơ",
+      "Kéo dài thời gian tăng/giảm tốc",
+      "Nâng công suất biến tần lên một cấp"
+    ],
+    expertTips: "OL1 là quá tải cuộn dây động cơ, OL2 là quá tải khối công suất biến tần.",
+    relatedRegisters: ["2100H", "3001H", "3008H"]
+  },
+  {
+    id: "INVT_SPI",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    code: "SPI",
+    name: "Input phase loss (Mất pha đầu vào)",
+    hexCode: "0AH",
+    decCode: 10,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Mất 1 trong 3 pha nguồn điện xoay chiều đầu vào R, S, T",
+      "Lỏng ốc siết cầu cực ngõ vào hoặc đứt cầu chì",
+      "Nguồn điện 3 pha mất cân bằng nghiêm trọng"
+    ],
+    solutions: [
+      "Đo điện áp 3 pha ngõ vào R-S, S-T, T-R",
+      "Siết chặt lại các ốc vít cầu đấu",
+      "Cài đặt tham số bảo vệ mất pha đầu vào P11.03 = 0 (Tắt) hoặc 1 (Bật)"
+    ],
+    expertTips: "Nếu dùng biến tần 3 pha 380V chạy tạm trên nguồn 1 pha để thử nghiệm, cần cài P11.03 = 0 để biến tần không ngắt lỗi SPI.",
+    relatedRegisters: ["2100H", "3008H"]
+  },
+  {
+    id: "INVT_SPO",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    code: "SPO",
+    name: "Output phase loss (Mất pha đầu ra)",
+    hexCode: "0BH",
+    decCode: 11,
+    category: "power",
+    categoryLabel: "Nguồn cấp & Mất pha",
+    severity: "error",
+    causes: [
+      "Đứt 1 pha cáp nối từ ngõ ra biến tần U, V, W ra motor",
+      "Khởi động từ phụ ngõ ra đóng không đều pha",
+      "Cuộn dây động cơ bị đứt ngậm"
+    ],
+    solutions: [
+      "Đo thông mạch từng sợi cáp từ biến tần tới hộp cực motor",
+      "Đo cân bằng điện trở 3 cuộn dây motor",
+      "Cài đặt tham số P11.04 = 0 để tắt bảo vệ mất pha ngõ ra khi thử không tải"
+    ],
+    expertTips: "Nếu thử biến tần không tải (không đấu motor), cần cài P11.04 = 0.",
+    relatedRegisters: ["2100H", "3008H"]
+  },
+  {
+    id: "INVT_OH2",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    code: "OH2",
+    name: "Inverter overheat (Quá nhiệt module IGBT)",
+    hexCode: "0CH",
+    decCode: 12,
+    category: "overload",
+    categoryLabel: "Quá tải & Quá nhiệt",
+    severity: "error",
+    causes: [
+      "Cánh nhôm tản nhiệt IGBT quá nóng (> 90°C)",
+      "Quạt làm mát của biến tần bị chết hoặc kẹt bụi rác",
+      "Nhiệt độ trong tủ điện quá cao hoặc nghẽn đường gió đối lưu"
+    ],
+    solutions: [
+      "Vệ sinh sạch bụi bẩn trên cánh tản nhiệt biến tần",
+      "Kiểm tra và thay mới quạt làm mát biến tần",
+      "Cải thiện quạt hút thông gió giải nhiệt tủ điện"
+    ],
+    expertTips: "Tham số P08.40 cài đặt chế độ chạy quạt (0: Tự động chạy theo nhiệt độ, 1: Luôn luôn chạy khi có điện).",
+    relatedRegisters: ["2100H", "3008H"]
+  },
+  {
+    id: "INVT_CE",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    code: "CE",
+    name: "Communication error (Lỗi truyền thông RS485)",
+    hexCode: "0DH",
+    decCode: 13,
+    category: "comm",
+    categoryLabel: "Truyền thông & Ngoại vi",
+    severity: "error",
+    causes: [
+      "Mất kết nối truyền thông Modbus RTU giữa PLC và biến tần quá thời gian timeout (tham số P14.04)",
+      "Sai Baudrate (P14.01), Parity (P14.02) hoặc cáp RS485 bị đứt chập"
+    ],
+    solutions: [
+      "Kiểm tra dây cáp mạng RS485 (Chân 485+ và 485- trên GD20)",
+      "Kiểm tra cấu hình Baudrate, Parity và Station Address (P14.00)",
+      "Cài đặt tham số P14.04 = 0.0s để tắt giám sát timeout khi chạy thử"
+    ],
+    expertTips: "Cổng RS485 của biến tần INVT GD20 hỗ trợ chuẩn Modbus RTU tiêu chuẩn quốc tế, tốc độ lên đến 115200 bps.",
+    relatedRegisters: ["2100H", "2000H", "3008H"]
+  }
+];
+
+export const INVT_REGISTERS = [
+  {
+    id: "INVT_REG_2000",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    addressDec1Based: 8193,
+    addressHex0Based: "2000H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "Control Command Word (Từ lệnh điều khiển chạy)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Thanh ghi điều khiển lệnh chạy/dừng/reset cho biến tần INVT qua Modbus RTU (Địa chỉ Hex 2000H / Dec 8192)",
+    bitDetails: [
+      { bit: "0001H (1)", name: "RUN FWD", desc: "Lệnh chạy thuận" },
+      { bit: "0002H (2)", name: "RUN REV", desc: "Lệnh chạy ngược" },
+      { bit: "0005H (5)", name: "DECEL STOP", desc: "Lệnh dừng giảm tốc" },
+      { bit: "0006H (6)", name: "COAST STOP", desc: "Lệnh dừng tự do" },
+      { bit: "0007H (7)", name: "FAULT RESET", desc: "Lệnh xóa lỗi sự cố (Trip Reset)" }
+    ],
+    example: "Ghi Function 06: [Station] 06 20 00 00 01 [CRC] (Chạy thuận); Ghi 0005H (Dừng); Ghi 0007H (Xóa lỗi)."
+  },
+  {
+    id: "INVT_REG_2001",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    addressDec1Based: 8194,
+    addressHex0Based: "2001H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R/W",
+    name: "Frequency Setting (Cài đặt tần số)",
+    category: "control",
+    categoryLabel: "Lệnh điều khiển",
+    description: "Cài đặt tần số ngõ ra mục tiêu qua Modbus (Đơn vị: 0.01 Hz). Cần cài P00.06 = 8.",
+    bitDetails: [],
+    example: "Ghi Function 06 địa chỉ 2001H giá trị 5000 để đặt 50.00 Hz."
+  },
+  {
+    id: "INVT_REG_2100",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    addressDec1Based: 8449,
+    addressHex0Based: "2100H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Inverter Status Word (Từ trạng thái vận hành)",
+    category: "status",
+    categoryLabel: "Trạng thái vận hành",
+    description: "Thanh ghi đọc trạng thái vận hành của biến tần INVT (Địa chỉ Hex 2100H / Dec 8448)",
+    bitDetails: [
+      { bit: "0001H (1)", name: "FWD RUNNING", desc: "Biến tần đang chạy theo chiều thuận" },
+      { bit: "0002H (2)", name: "REV RUNNING", desc: "Biến tần đang chạy theo chiều ngược" },
+      { bit: "0003H (3)", name: "STOPPED", desc: "Biến tần đang ở trạng thái dừng" }
+    ],
+    example: "Đọc Function 03 địa chỉ 2100H để biết trạng thái máy."
+  },
+  {
+    id: "INVT_REG_3000",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    addressDec1Based: 12289,
+    addressHex0Based: "3000H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Output Frequency Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz)",
+    bitDetails: [],
+    example: "Đọc về 5000 tương ứng 50.00 Hz."
+  },
+  {
+    id: "INVT_REG_3001",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    addressDec1Based: 12290,
+    addressHex0Based: "3001H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Output Current Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Dòng điện ngõ ra thực tế cấp cho động cơ (Đơn vị: 0.01 A)",
+    bitDetails: [],
+    example: "Đọc về 420 tương ứng 4.20 A."
+  },
+  {
+    id: "INVT_REG_3002",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    addressDec1Based: 12291,
+    addressHex0Based: "3002H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Output Voltage Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Điện áp xoay chiều ngõ ra cấp cho động cơ (Đơn vị: 1 V)",
+    bitDetails: [],
+    example: "Đọc về 220 tương ứng 220V AC."
+  },
+  {
+    id: "INVT_REG_3003",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    addressDec1Based: 12292,
+    addressHex0Based: "3003H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "DC Bus Voltage Monitor",
+    category: "monitor",
+    categoryLabel: "Giám sát ngõ ra",
+    description: "Điện áp một chiều trên bộ tụ lọc Bus DC (Đơn vị: 1 V)",
+    bitDetails: [],
+    example: "Hệ 380V đọc về khoảng 540V DC."
+  },
+  {
+    id: "INVT_REG_3008",
+    brand: "invt",
+    brandLabel: "INVT",
+    models: ["GD20", "GD200A", "GD350", "GD10", "GD300"],
+    addressDec1Based: 12297,
+    addressHex0Based: "3008H",
+    type: "holding",
+    typeLabel: "Holding Register (16-bit)",
+    rw: "R",
+    name: "Current Fault Code Monitor (Mã lỗi hiện tại)",
+    category: "fault",
+    categoryLabel: "Giám sát & Lịch sử mã lỗi",
+    description: "Mã số lỗi sự cố hiện tại của biến tần INVT (1 = OC1, 2 = OC2, 3 = OC3, 4 = OV1, 5 = OV2, 6 = OV3, 7 = UV, 8 = OL1, 9 = OL2, 10 = SPI, 11 = SPO, 12 = OH1, 13 = OH2, 15 = CE...)",
+    bitDetails: [
+      { bit: "1", name: "OC1", desc: "Quá dòng khi tăng tốc" },
+      { bit: "2", name: "OC2", desc: "Quá dòng khi giảm tốc" },
+      { bit: "3", name: "OC3", desc: "Quá dòng khi chạy ổn định" },
+      { bit: "4", name: "OV1", desc: "Quá áp khi tăng tốc" },
+      { bit: "5", name: "OV2", desc: "Quá áp khi giảm tốc" },
+      { bit: "7", name: "UV", desc: "Thấp áp Bus DC" },
+      { bit: "8", name: "OL1", desc: "Quá tải động cơ" },
+      { bit: "9", name: "OL2", desc: "Quá tải biến tần" },
+      { bit: "10", name: "SPI", desc: "Mất pha đầu vào" },
+      { bit: "11", name: "SPO", desc: "Mất pha đầu ra" },
+      { bit: "13", name: "OH2", desc: "Quá nhiệt biến tần" },
+      { bit: "15", name: "CE", desc: "Mất truyền thông Modbus" }
+    ],
+    example: "Đọc thanh ghi 3008H để lấy mã số lỗi hiển thị lên giao diện HMI."
+  }
+];

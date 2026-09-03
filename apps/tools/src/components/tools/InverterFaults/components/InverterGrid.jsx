@@ -11,7 +11,8 @@ export function InverterGrid({ items, activeTab, onSelectItem }) {
           Không tìm thấy mục nào phù hợp với bộ lọc.
         </p>
         <p className="text-muted-foreground/70 mt-1 text-xs">
-          Hãy thử tìm kiếm với từ khóa khác hoặc bấm nút "Đặt lại" để xem toàn bộ danh sách.
+          Hãy thử tìm kiếm với từ khóa khác hoặc bấm nút "Đặt lại" để xem toàn
+          bộ danh sách.
         </p>
       </div>
     );
@@ -50,7 +51,7 @@ export function InverterGrid({ items, activeTab, onSelectItem }) {
 
                 {/* Fault Name & Category */}
                 <div>
-                  <h3 className="text-foreground text-sm font-semibold line-clamp-1">
+                  <h3 className="text-foreground line-clamp-1 text-sm font-semibold">
                     {fault.name}
                   </h3>
                   <div className="mt-1 flex flex-wrap gap-1.5">
@@ -58,7 +59,10 @@ export function InverterGrid({ items, activeTab, onSelectItem }) {
                       {fault.categoryLabel}
                     </Badge>
                     {fault.hexCode !== "-" && (
-                      <Badge variant="outline" className="font-mono text-[10px]">
+                      <Badge
+                        variant="outline"
+                        className="font-mono text-[10px]"
+                      >
                         Hex: {fault.hexCode} (Dec: {fault.decCode})
                       </Badge>
                     )}
@@ -66,14 +70,14 @@ export function InverterGrid({ items, activeTab, onSelectItem }) {
                 </div>
 
                 {/* Cause Snippet */}
-                <p className="text-muted-foreground text-xs line-clamp-2">
+                <p className="text-muted-foreground line-clamp-2 text-xs">
                   {fault.causes[0]}
                 </p>
               </div>
 
               {/* Footer: Models + Action */}
               <div className="border-border/40 text-muted-foreground mt-4 flex items-center justify-between border-t pt-3 text-xs">
-                <span className="truncate max-w-[180px]">
+                <span className="max-w-45 truncate">
                   {fault.models.join(", ")}
                 </span>
                 <span className="text-primary flex items-center gap-1 font-medium transition-transform group-hover:translate-x-0.5">
@@ -132,7 +136,7 @@ export function InverterGrid({ items, activeTab, onSelectItem }) {
 
               {/* Register Name & Badges */}
               <div>
-                <h3 className="text-foreground text-sm font-semibold line-clamp-1">
+                <h3 className="text-foreground line-clamp-1 text-sm font-semibold">
                   {reg.name}
                 </h3>
                 <div className="mt-1 flex flex-wrap items-center gap-1.5">
@@ -159,14 +163,14 @@ export function InverterGrid({ items, activeTab, onSelectItem }) {
               </div>
 
               {/* Description */}
-              <p className="text-muted-foreground text-xs line-clamp-2">
+              <p className="text-muted-foreground line-clamp-2 text-xs">
                 {reg.description}
               </p>
             </div>
 
             {/* Footer */}
             <div className="border-border/40 text-muted-foreground mt-4 flex items-center justify-between border-t pt-3 text-xs">
-              <span className="truncate max-w-[180px]">
+              <span className="max-w-45 truncate">
                 {reg.models?.join(", ") || brandConfig?.label}
               </span>
               <span className="text-primary flex items-center gap-1 font-medium transition-transform group-hover:translate-x-0.5">

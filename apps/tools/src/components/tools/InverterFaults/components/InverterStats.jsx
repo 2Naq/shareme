@@ -44,7 +44,9 @@ export function InverterStats({ faults, registers, selectedBrand }) {
               / {holdingCount}
             </span>
           </div>
-          <div className="text-muted-foreground text-xs">Coil (0x) / Holding (4x)</div>
+          <div className="text-muted-foreground text-xs">
+            Coil (0x) / Holding (4x)
+          </div>
         </div>
       </div>
 
@@ -54,7 +56,7 @@ export function InverterStats({ faults, registers, selectedBrand }) {
         </div>
         <div>
           <div className="text-foreground font-mono text-xl font-bold capitalize">
-            {selectedBrand === "all" ? "3 Hãng" : selectedBrand}
+            {selectedBrand === "all" ? "10+ Hãng" : selectedBrand}
           </div>
           <div className="text-muted-foreground text-xs">Hãng biến tần</div>
         </div>
