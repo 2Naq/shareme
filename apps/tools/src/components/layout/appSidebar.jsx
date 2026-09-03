@@ -125,6 +125,7 @@ export function AppSidebar() {
                             className="flex items-center gap-2"
                             isActive={isActive}
                             tooltip={item.label}
+                            title={item.label}
                           >
                             {item.icon && (
                               <item.icon className="h-4 w-4 shrink-0" />
