@@ -280,10 +280,10 @@ export function InverterSearchFilter({
 
         {/* Brand Filter Pills Bar */}
         <div className="flex flex-wrap items-center gap-1.5 pt-1">
-          <span className="text-muted-foreground mr-1 text-xs font-medium">
+          {/* <span className="text-muted-foreground mr-1 text-xs font-medium">
             Hãng:
-          </span>
-          {BRANDS.map((brand) => {
+          </span> 
+           {BRANDS.map((brand) => {
             const isSelected = selectedBrand === brand.id;
             return (
               <button
@@ -299,7 +299,7 @@ export function InverterSearchFilter({
                 {brand.badge}
               </button>
             );
-          })}
+          })} */}
 
           <div className="ml-auto flex items-center gap-2">
             {activeFilterCount > 0 && (
@@ -307,7 +307,7 @@ export function InverterSearchFilter({
                 variant="ghost"
                 size="sm"
                 onClick={handleResetFilters}
-                className="text-muted-foreground hover:text-foreground h-7 gap-1 px-2 text-xs"
+                className="text-muted-foreground hover:text-foreground h-5 gap-1 px-2 text-xs"
               >
                 <RotateCcw className="h-3 w-3" />
                 Đặt lại
