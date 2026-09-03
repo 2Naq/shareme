@@ -1,0 +1,1 @@
+import{Kr as e,Yr as t}from"./index-3PVfX-fx.js";var n=t(e(),1),r=n.createContext({disabled:!1});function i(){return n.useContext(r)}export{i as t};
