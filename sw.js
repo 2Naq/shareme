@@ -1,4 +1,4 @@
-const CACHE_NAME = "shareme-docs-cache-1788443835079";
+const CACHE_NAME = "shareme-docs-cache-1788476653662";
 const ASSETS_TO_CACHE = [
   "/shareme/",
   "/shareme/index.html",
