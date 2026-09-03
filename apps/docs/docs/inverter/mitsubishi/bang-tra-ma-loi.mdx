@@ -1,0 +1,219 @@
+---
+id: bang-tra-ma-loi-mitsubishi
+title: Bảng Tra Cứu Toàn Diện Mã Lỗi Biến Tần Mitsubishi
+sidebar_position: 5
+sidebar_label: Bảng tra cứu mã lỗi
+tags: [mitsubishi, fault-codes, lookup-table, errors, troubleshooting, modbus]
+---
+
+Tài liệu này cung cấp **Bảng tra cứu mã lỗi toàn diện và chi tiết nhất** dành cho các dòng biến tần **Mitsubishi Electric** phổ biến tại Việt Nam (**FR-D700, FR-E700, FR-A800, FR-F800, FR-A700**).
+
+Bảng tra cứu tích hợp sẵn **Mã hiển thị trên màn hình LED (PU)**, **Mã Hex/Decimal đọc qua Truyền thông (Modbus RTU / Inverter Protocol)**, nguyên nhân gốc rễ và quy trình kiểm tra xử lý từng bước.
+
+:::tip[Mẹo tra cứu nhanh]
+Nhấn **`Ctrl + F`** trên bàn phím máy tính hoặc dùng thanh tìm kiếm để gõ ngay mã lỗi cần tra (Ví dụ: `OC1`, `OV3`, `UVT`, `FIN`...).
+:::
+
+---
+
+## 1. Nhóm lỗi Quá dòng & Chập mạch (Overcurrent & Short Circuit)
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Mã lỗi (PU) | Mã Hex | Mã Dec | Tên lỗi tiêu chuẩn (English) | Nguyên nhân kích hoạt sự cố | Hướng dẫn kiểm tra & Khắc phục |
+| :---: | :---: | :---: | --- | --- | --- |
+| **`E.OC1`** | `10H` | `16` | Overcurrent trip during acceleration | • Dòng ngõ ra vượt quá 200% dòng định mức trong lúc tăng tốc.<br/>• Thời gian tăng tốc `Pr.7` quá ngắn.<br/>• Bù mô-men khởi động `Pr.0` quá cao.<br/>• Kẹt cơ khí, động cơ bị bó trục. | • Tăng thời gian tăng tốc `Pr.7`.<br/>• Giảm thông số bù áp `Pr.0` (Torque boost).<br/>• Quay thử trục motor bằng tay kiểm tra kẹt tải.<br/>• Đo cách điện cuộn dây motor (Megger).<br/>• **Mẹo kiểm tra IGBT:** Tháo rời 3 dây ngõ ra motor (U, V, W) khỏi biến tần, cho chạy không tải. Nếu vẫn báo `E.OC1` ngay lập tức $\rightarrow$ Khối công suất IGBT bên trong đã bị chập hỏng. |
+| **`E.OC2`** | `11H` | `17` | Overcurrent trip during constant speed | • Tải cơ khí tăng vọt đột ngột khi đang chạy tốc độ ổn định.<br/>• Động cơ bị quá tải nghiêm trọng.<br/>• Cáp ngõ ra U, V, W bị chạm chập ngắt quãng. | • Kiểm tra tải làm việc thực tế, loại bỏ vật cản kẹt máy.<br/>• Cân nhắc nâng công suất biến tần nếu tải thường xuyên biến động lớn.<br/>• Kiểm tra siết chặt ốc cầu đấu ngõ ra. |
+| **`E.OC3`** | `12H` | `18` | Overcurrent trip during deceleration / stop | • Giảm tốc quá đột ngột khiến dòng hãm tăng vọt.<br/>• Động cơ bị dòng tái sinh dâng cao làm chập ngõ ra. | • Tăng thời gian giảm tốc `Pr.8`.<br/>• Cài đặt đường cong chữ S (`Pr.29 = 1` hoặc `2`) để giảm tốc êm ái hơn.<br/>• Lắp thêm điện trở xả hãm động năng vào chân **P/+** và **PR**. |
+| **`E.GF`** | `80H` | `128` | Output ground fault overcurrent | • Phát hiện dòng chạm đất/rò rỉ điện ở ngõ ra phía motor lớn hơn ngưỡng bảo vệ. | • **Ngắt nguồn ngay lập tức, tuyệt đối không reset bật chạy lại liên tục để tránh gây nổ phá hủy bo mạch công suất.**<br/>• Dùng đồng hồ Megomet đo cách điện pha - vỏ của motor và đường cáp.<br/>• Kiểm tra hơi ẩm, nước đọng trong hộp cực động cơ. |
+
+</div>
+
+---
+
+## 2. Nhóm lỗi Quá áp & Xả hãm (Overvoltage & Braking Faults)
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Mã lỗi (PU) | Mã Hex | Mã Dec | Tên lỗi tiêu chuẩn (English) | Nguyên nhân kích hoạt sự cố | Hướng dẫn kiểm tra & Khắc phục |
+| :---: | :---: | :---: | --- | --- | --- |
+| **`E.OV1`** | `20H` | `32` | Regenerative overvoltage during acceleration | • Quán tính tải quay nhanh hơn tốc độ biến tần đang tăng tốc (tải kéo động cơ).<br/>• Nguồn điện AC đầu vào cao bất thường. | • Giảm gia tốc, chỉnh thời gian tăng tốc dài hơn.<br/>• Bật tính năng chống quá áp `Pr.882`.<br/>• Đo kiểm tra điện áp lưới ngõ vào (R, S, T). |
+| **`E.OV2`** | `21H` | `33` | Regenerative overvoltage during constant speed | • Tải dạng máy nâng hạ, cẩu trục, dốc nghiêng đẩy ngược năng lượng về Bus DC khi chạy đều. | • Kiểm tra điện trở xả và bộ hãm phanh.<br/>• Cài đặt chế độ điều khiển vector hoặc bù trượt. |
+| **`E.OV3`** | `22H` | `34` | Regenerative overvoltage during deceleration | • Thời gian giảm tốc `Pr.8` quá dốc, motor hãm nhanh biến thành máy phát điện đẩy áp DC vượt 400V (loại 200V) hoặc 800V (loại 400V). | • **Tăng thời gian giảm tốc `Pr.8`**.<br/>• Lắp thêm **Điện trở xả (Braking Resistor)** vào chân **P/+** và **PR** (đặc biệt đối với dòng FR-E700, FR-D700).<br/>• Cài đặt tính năng tự động tránh quá áp tái sinh `Pr.882` ~ `Pr.886`. |
+| **`E.BE`** | `70H` | `112` | Brake transistor alarm | • Hỏng transistor xả hãm bên trong biến tần hoặc nối nhầm cực điện trở xả. | • Kiểm tra giá trị điện trở xả xem có bị chập hoặc giá trị ôm ($\Omega$) quá nhỏ dưới mức cho phép của hãng. |
+| **`E.MB1` ~ `MB7`**| - | - | Brake sequence error | • Lỗi phản hồi trạng thái phanh cơ khí đóng/nhả không ăn khớp với lệnh chạy. | • Kiểm tra công tắc hành trình, rơ-le điều khiển cuộn hút phanh động cơ. |
+
+</div>
+
+---
+
+## 3. Nhóm lỗi Quá tải & Nhiệt độ (Overload & Overheat)
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Mã lỗi (PU) | Mã Hex | Mã Dec | Tên lỗi tiêu chuẩn (English) | Nguyên nhân kích hoạt sự cố | Hướng dẫn kiểm tra & Khắc phục |
+| :---: | :---: | :---: | --- | --- | --- |
+| **`E.THT`** | `30H` | `48` | Inverter overload trip | • Biến tần chịu dòng vượt quá định mức trong thời gian dài (Mô hình bảo vệ quá nhiệt IGBT). | • Giảm tải cơ khí.<br/>• Tăng thời gian tăng tốc/giảm tốc.<br/>• Nâng cấp biến tần có dải công suất lớn hơn một cấp. |
+| **`E.THM`** | `31H` | `49` | Motor overload trip | • Rơ-le nhiệt điện tử tích hợp bảo vệ động cơ tác động do motor quá tải hoặc chạy tốc độ thấp kéo dài. | • Kiểm tra dòng định mức motor trong tham số `Pr.9` (Motor rated current).<br/>• Nếu motor chạy tốc độ thấp lâu, cần lắp thêm quạt cưỡng bức làm mát motor. |
+| **`E.OLT`** | `60H` | `96` | Stall prevention operation | • Biến tần kích hoạt chế độ chống trượt (Stall Prevention) nhưng tải vẫn tiếp tục nặng vượt thời gian trễ. | • Kiểm tra độ sụt áp nguồn cấp.<br/>• Tăng dải tần số chống trượt hoặc kiểm tra ổ bi/khớp nối tải. |
+| **`E.FIN`** | `40H` | `64` | Heatsink overheat | • Cánh tản nhiệt mặt sau biến tần bị quá nhiệt độ cho phép ($> 90^\circ\text{C}$). | • Vệ sinh sạch bụi bẩn bám trên khe tản nhiệt.<br/>• Kiểm tra xem quạt làm mát biến tần có bị ngừng quay không.<br/>• Giảm nhiệt độ môi trường bên trong tủ điện ($< 50^\circ\text{C}$). |
+| **`E.OHT`** | `41H` | `65` | External thermal relay operation | • Tiếp điểm rơ-le nhiệt ngoài bảo vệ động cơ tác động do motor quá nhiệt.<br/>• Hở mạch hoặc đứt dây tín hiệu tiếp điểm OH đưa về chân ngõ vào số biến tần. | • Kiểm tra động cơ có bị quá nhiệt hoặc quá tải cơ khí không.<br/>• Kiểm tra tiếp điểm rơ-le nhiệt ngoài và dây nối vào chân chức năng OH (`Pr.178 ~ Pr.189`).<br/>• Sau khi motor nguội, phải nhấn nút **STOP/RESET** trên bàn phím mới xóa được lỗi. |
+| **`E.PTC`** | `91H` | `145` | PTC thermistor operation | • Cảm biến nhiệt điện trở PTC gắn trong cuộn dây motor kích hoạt do động cơ quá nóng. | • Cho motor nghỉ ngơi làm mát.<br/>• Kiểm tra hệ thống quạt gió và tải của động cơ. |
+
+</div>
+
+---
+
+## 4. Nhóm lỗi Nguồn điện & Pha (Power Supply & Phase Loss)
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Mã lỗi (PU) | Mã Hex | Mã Dec | Tên lỗi tiêu chuẩn (English) | Nguyên nhân kích hoạt sự cố | Hướng dẫn kiểm tra & Khắc phục |
+| :---: | :---: | :---: | --- | --- | --- |
+| **`E.UVT`** | `51H` | `81` | Undervoltage | • Điện áp Bus DC tụt xuống dưới ngưỡng duy trì (nguồn lưới sụt, mất điện thoáng qua). | • Đo điện áp nguồn cấp 3 pha ngõ vào lúc có tải nặng.<br/>• Kiểm tra khởi động từ hoặc cầu dao tổng xem có bị move tiếp điểm. |
+| **`E.IPF`** | `50H` | `80` | Instantaneous power failure | • Mất nguồn điện lưới tức thời trong khoảng hơn 15ms. | • Kiểm tra độ ổn định nguồn điện nhà xưởng.<br/>• Nếu ứng dụng cần duy trì, cấu hình chức năng tự khởi động lại sau mất điện `Pr.57`. |
+| **`E.ILF`** | `52H` | `82` | Input phase loss | • Mất 1 trong 3 pha nguồn điện xoay chiều ngõ vào (R, S, T) khi đang chạy. | • Kiểm tra dây nối và cầu chì ngõ vào.<br/>• Đo cân bằng điện áp giữa các pha: R-S, S-T, T-R. |
+| **`E.LF`** | `81H` | `129` | Output phase loss | • Đứt 1 pha cáp nối từ ngõ ra biến tần U, V, W tới motor. | • Đo thông mạch từng sợi dây cáp từ biến tần tới motor.<br/>• Kiểm tra các mối siết ốc cầu đấu xem có bị lỏng. |
+
+</div>
+
+---
+
+## 5. Nhóm lỗi Truyền thông & Ngoại vi (Communication & Interface)
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Mã lỗi (PU) | Mã Hex | Mã Dec | Tên lỗi tiêu chuẩn (English) | Nguyên nhân kích hoạt sự cố | Hướng dẫn kiểm tra & Khắc phục |
+| :---: | :---: | :---: | --- | --- | --- |
+| **`E.PUE`** | `B1H` | `177` | PU disconnection | • Mất liên lạc giữa bàn phím màn hình hiển thị (PU) và thân biến tần. | • Cắm chặt lại giắc cáp màn hình.<br/>• Kiểm tra thời gian timeout `Pr.122` (đặt `9999` để tắt báo lỗi khi tháo bàn phím). |
+| **`E.SER`** | - | - | Communication error | • Lỗi truyền thông RS-485 vượt quá số lần thử cho phép cài trong `Pr.121`. | • Kiểm tra thông số Baudrate, Parity giữa PLC và biến tần.<br/>• Lắp điện trở đầu cuối $120\,\Omega$ giữa chân RDA - RDB.<br/>• Sử dụng cáp bọc kim chống nhiễu tiếp địa đúng chuẩn. |
+| **`E.OPT`** | `A0H` | `160` | Option slot fault | • Card mở rộng (như card truyền thông CC-Link, Profibus, Encoder) bị lỏng hoặc cắm sai cổng. | • Tắt điện, tháo nắp kiểm tra siết ốc chân cắm card Option chắc chắn. |
+| **`E.USB`** | - | - | USB communication error | • Lỗi giao tiếp cổng USB khi kết nối với phần mềm FR Configurator trên máy tính. | • Thay cáp cáp USB mới chất lượng tốt, tránh dây quá dài ($> 3\text{m}$). |
+
+</div>
+
+---
+
+## 6. Nhóm lỗi Bo mạch, Chip nhớ & CPU (Hardware & Processor Faults)
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Mã lỗi (PU) | Mã Hex | Mã Dec | Tên lỗi tiêu chuẩn (English) | Nguyên nhân kích hoạt sự cố | Hướng dẫn kiểm tra & Khắc phục |
+| :---: | :---: | :---: | --- | --- | --- |
+| **`E.PE`** | `B0H` | `176` | Parameter storage device fault | • Lỗi chip nhớ EEPROM lưu trữ dữ liệu tham số (thao tác ghi tham số vượt quá số lần cho phép hoặc bị nhiễu). | • Thực hiện xóa toàn bộ tham số đưa về mặc định qua `Pr.CL = 1`.<br/>• Nếu không hết, bo mạch điều khiển đã bị hư hỏng chip nhớ. |
+| **`E.PE2`** | `B3H` | `179` | Parameter storage fault 2 | • Lỗi chip nhớ lưu trữ thông số mở rộng/nâng cao. | • Thử khởi động lại nguồn, nếu vẫn báo lỗi cần liên hệ bảo hành thay bo mạch. |
+| **`E.CPU`** | `C0H` | `192` | CPU error | • Vi xử lý trung tâm bị treo do xung nhiễu điện từ cực mạnh hoặc bo mạch ẩm mốc, sét đánh. | • Kiểm tra lại tiếp địa vỏ máy.<br/>• Tắt nguồn đợi 5 phút bật lại; nếu vẫn báo lỗi cần gửi bảo hành. |
+| **`E.IOH`** | `C5H` | `197` | Inrush current limit circuit fault | • Hỏng rơ-le hoặc điện trở hạn chế dòng nạp ban đầu cho tụ điện Bus DC. | • Đo kiểm tra điện áp sạc tụ, cần gửi sửa chữa phần cứng. |
+| **`E.CDO`** | `C4H` | `196` | Output current detect value exceeded | • Dòng điện ngõ ra vượt quá ngưỡng an toàn phát hiện tức thời của bo lái công suất. | • Kiểm tra chập ngõ ra, kiểm tra các cảm biến dòng (CT/Hall Sensor). |
+| **`E.AIE`** | `C7H` | `199` | Analog input fault | • Ngõ vào tín hiệu analog nhận áp/dòng vượt ngưỡng dải cho phép. | • Kiểm tra tín hiệu analog từ chiết áp hoặc PLC (0-10V, 4-20mA). |
+| **`E.SAF`** | - | - | Safety stop input fault | • Tín hiệu ngắt an toàn tại chân S1/S2 và SIC hở mạch không đồng bộ. | • Kiểm tra rơ-le an toàn (Safety Relay) và cầu đấu chân an toàn. |
+| **`E.P24`** | - | - | 24VDC power short circuit | • Chân cấp nguồn điều khiển 24V (chân PC) bị chập mát với chân chung hoặc quá tải ngõ ra transistor. | • Tháo hết dây ngoại vi cắm vào chân PC/24V xem có mất lỗi không để xác định thiết bị gây chập. |
+| **`E.RET`** | `B2H` | `178` | Retry count excess | • Số lần tự động Reset và chạy lại sau sự cố vượt quá số lần cài trong tham số `Pr.67`. | • Biến tần đang gặp lỗi liên tục, cần kiểm tra nguyên nhân của mã lỗi gốc trước đó. |
+
+</div>
+
+---
+
+## 7. Bảng tra cứu Cảnh báo vận hành (Warnings - Biến tần không dừng)
+
+Khi xuất hiện các mã dưới đây, biến tần **không bị Trip**, ngõ ra vẫn có thể duy trì hoạt động hoặc chuyển sang trạng thái chờ xử lý:
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Ký hiệu cảnh báo | Tên trạng thái | Ý nghĩa cảnh báo | Hướng dẫn thao tác |
+| :---: | --- | --- | --- |
+| **`OL`** | Overload Warning | Dòng ngõ ra đang chạm ngưỡng chống trượt (Stall Prevention). | Giảm tải máy hoặc kéo dài thời gian tăng tốc để tránh biến tần chuyển sang Trip `E.OLT`. |
+| **`TH`** | Electronic Thermal Warning | Rơ-le nhiệt tích hợp phát hiện động cơ đang tích nhiệt cao sắp chạm ngưỡng báo lỗi. | Giảm tải motor hoặc cải thiện điều kiện thông gió làm mát. |
+| **`PS`** | PU Stop | Nút **STOP** trên bàn phím vừa được nhấn khi biến tần đang nhận lệnh chạy từ Terminal ngoài. | Ngắt công tắc chạy ngoài (OFF chân STF/STR), ký hiệu `PS` sẽ tự tắt và biến tần sẵn sàng chạy tiếp. |
+| **`FN`** | Fan Alarm | Quạt làm mát biến tần quay chậm bất thường hoặc bị bụi kẹt. | Vệ sinh cánh quạt hoặc thay quạt làm mát mới. |
+| **`SA`** | Safety Stop State | Mạch an toàn đang ngắt (Chân S1 hoặc S2 đang hở mạch với SIC). | Kiểm tra nút E-Stop (Dừng khẩn cấp) hoặc cửa bảo vệ an toàn. |
+| **`HOLD`** | Keypad Lock | Bàn phím đang bị khóa chống người lạ nhấn nhầm. | Nhấn giữ nút **`MODE`** trong 2 giây để mở khóa bàn phím. |
+| **`LOCD`** | Password Lock | Thông số bị khóa bằng mật khẩu cài đặt trong `Pr.297`. | Nhập đúng mật khẩu vào `Pr.297` để mở khóa chỉnh sửa tham số. |
+| **`Er1`** | Write Mode Error | Cố gắng ghi tham số khi chưa chuyển chế độ sang PU (`Pr.79 = 1`). | Chuyển sang chế độ PU trước khi sửa tham số. |
+| **`Er2`** | Write During Run Error | Cố gắng sửa đổi tham số khi motor đang quay. | Nhấn nút STOP dừng hẳn động cơ rồi mới sửa đổi tham số. |
+| **`Er3`** | Calibration Error | Lỗi hiệu chuẩn điểm 0% và 100% của tín hiệu Analog. | Cài đặt lại tham số phân độ analog theo đúng tài liệu. |
+| **`Er4`** | Mode Designation Error | Cố gắng sửa tham số khi tham số `Pr.77` đang khóa ghi (`Pr.77 = 1`). | Cài đặt `Pr.77 = 0` hoặc `2` trước. |
+
+</div>
+
+### 7.1 Hướng dẫn chi tiết xử lý các mã cảnh báo đặc thù
+
+*   **Cảnh báo `HOLD` (Khóa bàn phím):**
+    *   *Hiện tượng:* Không thể xoay núm điều chỉnh tần số hoặc cài đặt tham số, màn hình hiển thị chữ `HOLD`.
+    *   *Khắc phục:* Nhấn và giữ phím **`MODE`** trên bàn phím trong khoảng 2 giây để mở khóa bàn phím (hoặc khóa lại).
+*   **Cảnh báo `LOCD` (Khóa mật khẩu bảo mật):**
+    *   *Hiện tượng:* Tham số bị khóa không cho phép xem hoặc sửa.
+    *   *Khắc phục:* Cần nhập đúng mã số mật khẩu đã cài đặt trong tham số **`Pr.297`** để mở khóa chỉnh sửa.
+*   **Cảnh báo `PS` (PU Stop - Dừng bằng phím bấm):**
+    *   *Hiện tượng:* Biến tần đang chạy ở chế độ External (điều khiển qua công tắc ngoài STF/STR), nhưng người vận hành nhấn nút **STOP/RESET** trên bàn phím. Biến tần sẽ tự động dừng động cơ và hiển thị chớp nháy chữ `PS`.
+    *   *Khắc phục:* Tắt công tắc lệnh chạy ngoài (ngắt OFF chân STF hoặc STR), sau đó ký hiệu `PS` sẽ tự động biến mất. Lúc này có thể bật lại lệnh chạy ngoài để tiếp tục vận hành bình thường.
+*   **Bộ 4 lỗi ghi tham số `Er1 ~ Er4`:**
+    *   **`Er1` (Write mode error):** Đang cố ghi tham số khi biến tần không ở chế độ PU. Cần chuyển chế độ vận hành sang **PU** (tham số `Pr.79 = 1`) rồi mới thực hiện sửa đổi.
+    *   **`Er2` (Parameter write error during run):** Đang cố sửa tham số khi động cơ đang quay. Phải nhấn nút **STOP** cho động cơ dừng hẳn mới được sửa (ngoại trừ các tham số cho phép ghi khi chạy được cài đặt trong `Pr.77 = 2`).
+    *   **`Er3` (Calibration error):** Lỗi hiệu chuẩn ngõ vào analog (sai lệch phân độ điểm bắt đầu và kết thúc).
+    *   **`Er4` (Mode designation error):** Cố thay đổi tham số khi đang khóa ghi (`Pr.77 = 1`). Cần đổi `Pr.77 = 0` hoặc `2` trước.
+
+---
+
+## 8. Các thanh ghi & Cuộn Coil Modbus giám sát sự cố
+
+Khi cấu hình biến tần Mitsubishi hoạt động ở chế độ **Modbus RTU (`Pr.549 = 1`)**, toàn bộ trạng thái hoạt động, cờ báo sự cố (Trip) và nhật ký 8 mã lỗi đều được ánh xạ vào các địa chỉ thanh ghi Modbus tiêu chuẩn (áp dụng Function Code `01` đọc Coil, `05` ghi Coil, `03` đọc Holding Register và `06/16` ghi Holding Register):
+
+### 8.1 Bảng cuộn Coil (Bit) điều khiển & Giám sát trạng thái
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Địa chỉ Coil (Hex) | Địa chỉ Dec | Chức năng (Signal Name) | Diễn giải kỹ thuật |
+| :---: | :---: | --- | --- |
+| **`0000H`** | `0` | **STF (Forward Run)** | Lệnh chạy thuận qua mạng Modbus (1 = Chạy, 0 = Dừng). |
+| **`0001H`** | `1` | **STR (Reverse Run)** | Lệnh chạy ngược qua mạng Modbus (1 = Chạy, 0 = Dừng). |
+| **`0002H`** | `2` | **RH (High Speed)** | Chọn cấp tốc độ cao qua truyền thông. |
+| **`0003H`** | `3` | **RM (Middle Speed)** | Chọn cấp tốc độ trung bình qua truyền thông. |
+| **`0004H`** | `4` | **RL (Low Speed)** | Chọn cấp tốc độ thấp qua truyền thông. |
+| **`0007H` / `0009H`** | `7 / 9` | **Inverter Reset** | Ghi `1 (ON)` rồi ghi `0 (OFF)` qua Function 05 để **Reset xóa lỗi từ xa** khi biến tần bị sự cố. |
+
+</div>
+
+---
+
+### 8.2 Bảng thanh ghi Holding Register giám sát sự cố & Lịch sử mã lỗi
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Địa chỉ Modbus (1-based) | Địa chỉ Hex (0-based) | Tên thanh ghi (Parameter / Signal) | Diễn giải chi tiết chức năng |
+| :---: | :---: | --- | --- |
+| **`40003`** | **`0002H`** | **Inverter Status Monitor** | **Thanh ghi cờ trạng thái 16-bit**:<br/>• **Bit 7**: **`ALARM / TRIP`** (1 = Biến tần đang bị sự cố dừng khẩn cấp)<br/>• Bit 0: `RUN` (Biến tần đang chạy)<br/>• Bit 1: `FWD` (Chạy thuận)<br/>• Bit 2: `REV` (Chạy nghịch)<br/>• Bit 3: `SU` (Đạt tần số cài đặt)<br/>• Bit 4: `OL` (Đang quá tải / chống trượt) |
+| **`40008`** | **`0007H`** | **Current Fault Definition** | **Mã lỗi hiện tại đang kích hoạt Trip** (Chứa giá trị mã Hex tương ứng trong các bảng tra cứu ở mục 1 ~ 6). |
+| **`40009`** | `0008H` | Past Fault 1 | Mã lỗi quá khứ gần nhất trước đó (Lỗi số 1). |
+| **`40010`** | `0009H` | Past Fault 2 | Mã lỗi quá khứ số 2. |
+| **`40011`** | `000AH` | Past Fault 3 | Mã lỗi quá khứ số 3. |
+| **`40012`** | `000BH` | Past Fault 4 | Mã lỗi quá khứ số 4. |
+| **`40013`** | `000CH` | Past Fault 5 | Mã lỗi quá khứ số 5. |
+| **`40014`** | `000DH` | Past Fault 6 | Mã lỗi quá khứ số 6. |
+| **`40015`** | `000EH` | Past Fault 7 | Mã lỗi quá khứ số 7. |
+| **`40016`** | `000FH` | Past Fault 8 | Mã lỗi quá khứ số 8 (Lỗi cũ nhất trong bộ nhớ). |
+| **`40002`** | `0001H` | Output Frequency Monitor | Tần số ngõ ra tức thời của biến tần (Đơn vị: `0.01 Hz`). |
+| **`40004`** | `0003H` | Output Current Monitor | Dòng điện ngõ ra thực tế cấp cho động cơ (Đơn vị: `0.01 A`). |
+| **`40005`** | `0004H` | Output Voltage Monitor | Điện áp ngõ ra thực tế của biến tần (Đơn vị: `0.1 V`). |
+
+</div>
+
+:::tip[Quy trình bóc tách lỗi tự động trên PLC]
+1. Đọc thanh ghi **`40003` (`0002H`)**: Kiểm tra nếu **Bit 7 = 1** (Biến tần đang bị Trip).
+2. Lập tức đọc thanh ghi **`40008` (`0007H`)**: Lấy giá trị mã Hex lỗi hiện tại.
+3. Đối chiếu giá trị này với các bảng tra cứu ở trên (ví dụ: đọc về `10H` $\rightarrow$ `E.OC1`, đọc về `22H` $\rightarrow$ `E.OV3`, đọc về `51H` $\rightarrow$ `E.UVT`) để hiển thị thông báo trực quan lên màn hình HMI/SCADA.
+:::
+
+---
+
+## 9. Tài liệu kỹ thuật liên quan
+
+:::info[Xem thêm các hướng dẫn trong cùng chuyên mục:]
+* **[Bảng mã lỗi biến tần Mitsubishi và cách khắc phục nhanh](./error-codes.mdx)** - Hướng dẫn tra cứu nhanh và các bước xử lý sự cố thực địa.
+* **[Truyền thông PLC FX3U với Biến tần Mitsubishi qua Board FX3U-485-BD (Computer Link)](./truyen-thong-fx3u-bien-tan.mdx)** - Hướng dẫn chi tiết tập lệnh IVxx, sơ đồ đấu nối và bảng thanh ghi toàn diện.
+* **[Giám sát lỗi qua truyền thông RS-485 Modbus RTU & PLC](./giam-sat-error.mdx)** - Hướng dẫn chi tiết sơ đồ đấu nối cổng RJ45, code mẫu ST và kỹ thuật Polling State Machine.
+* **[Hướng dẫn cài đặt biến tần Mitsubishi FR-E720 / E700](./e720.mdx)** - Tổng hợp tham số từ Pr.0 đến Pr.999.
+:::
+
+
+

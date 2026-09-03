@@ -1,0 +1,331 @@
+---
+id: truyen-thong-fx3u-bien-tan
+title: Truyền thông PLC FX3U với Biến tần Mitsubishi qua Board FX3U-485-BD (Computer Link)
+sidebar_position: 6
+sidebar_label: Truyền thông FX3U & Biến tần (485-BD)
+tags: [mitsubishi, fx3u, 485-bd, rs485, computer-link, inverter, plc, ivck, ivdr, ivrd, ivwr]
+---
+
+Trong các hệ thống điều khiển tự động sử dụng thiết bị của **Mitsubishi Electric**, giải pháp kết nối giữa **PLC FX3U** và các dòng **Biến tần Mitsubishi (FR-A720, FR-A700, FR-E720, FR-E700, FR-D700, FR-A800, FR-F800)** thông qua board mở rộng **`FX3U-485-BD`** là giải pháp cực kỳ phổ biến, tiết kiệm chi phí dây dẫn I/O và cho phép điều khiển, giám sát toàn diện từ xa.
+
+Bài viết này hướng dẫn chi tiết từ **Sơ đồ đấu nối dây**, **Cài đặt tham số biến tần**, **Tập lệnh chuyên dụng `IVxx` trên FX3U**, cùng **Bảng tổng hợp toàn bộ thanh ghi & mã chỉ thị lệnh (Instruction Codes)** của biến tần Mitsubishi.
+
+---
+
+## 1. Tổng quan phương thức Computer Link (Inverter Protocol)
+
+Giao thức **Computer Link** (còn gọi là **Mitsubishi Inverter Dedicated Protocol**) là giao thức truyền thông chuỗi ký tự ASCII được Mitsubishi tích hợp sẵn trong vi xử lý của biến tần và PLC:
+* **Không cần lập trình tính Checksum CRC phức tạp:** PLC FX3U hỗ trợ sẵn tập lệnh chuyên dụng biến tần họ **`IVxx`** (`IVCK`, `IVDR`, `IVRD`, `IVWR`, `IVBWR`). Người lập trình chỉ cần gọi hàm, PLC sẽ tự động đóng gói khung truyền chuẩn Format 4 (gồm ký tự điều khiển `ENQ`, địa chỉ trạm, mã lệnh, dữ liệu, tổng kiểm tra Sumcheck và kết thúc `CR/LF`).
+* **Hỗ trợ tối đa:** 1 mạng RS-485 có thể kết nối tối đa **8 biến tần** (Trạm số 0 đến 7) khi dùng tập lệnh `IVxx` hoặc lên đến **32 biến tần** khi dùng lệnh truyền thông tự do `RS`.
+
+---
+
+## 2. Sơ đồ đấu nối phần cứng (FX3U-485-BD sang Cổng RJ45 Biến tần)
+
+Board **`FX3U-485-BD`** được gắn trực tiếp vào khe cắm mở rộng (Communication Port 1) ở mặt trước của PLC FX3U.
+
+Cổng kết nối trên biến tần Mitsubishi là cổng mạng chuẩn **RJ45** (8 chân).
+
+```
+   PLC FX3U + FX3U-485-BD                        Biến tần Mitsubishi (Cổng RJ45)
+  +----------------------+                      +------------------------------+
+  |                      |                      |                              |
+  |       RDA  (Rx+) ----+----------------------+---- Chân 3 (SDA: TX+)        |
+  |                      |       \              |                              |
+  |       SDA  (Tx+) ----+--------+             |                              |
+  |                      |         \            |                              |
+  |       RDB  (Rx-) ----+----------+-----------+---- Chân 4 (SDB: TX-)        |
+  |                      |           \          |                              |
+  |       SDB  (Tx-) ----+------------+---------+---- Chân 5 (RDA: RX+)        |
+  |                      |                      |                              |
+  |                      |                      +---- Chân 6 (RDB: RX-)        |
+  |                      |                      |                              |
+  |        SG  (GND) ----+----------------------+---- Chân 1 / 8 (SG: Ground)  |
+  +----------------------+                      +------------------------------+
+         |            |                                |            |
+         +--[110Ω]----+ (Điện trở đầu cuối)            +--[110Ω]----+ (Tại biến tần cuối)
+```
+
+### Bảng đấu dây chi tiết 2 dây Half-Duplex:
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Chân trên Board FX3U-485-BD | Chân trên Cổng RJ45 Biến tần | Tên tín hiệu | Ghi chú đấu nối |
+| :---: | :---: | :---: | --- |
+| **`RDA`** nối chập **`SDA`** | **Chân 3 (SDA)** nối chập **Chân 5 (RDA)** | **DATA+ (A)** | Cặp dây dương truyền/nhận dữ liệu |
+| **`RDB`** nối chập **`SDB`** | **Chân 4 (SDB)** nối chập **Chân 6 (RDB)** | **DATA- (B)** | Cặp dây âm truyền/nhận dữ liệu |
+| **`SG`** | **Chân 1** hoặc **Chân 8 (SG)** | **Signal Ground** | Nối dây mass chung tín hiệu chống trượt áp |
+| Cầu đấu điện trở cuối | Chân **RDA** và **RDB** | **Terminator Resistor** | Gạt công tắc hoặc mắc điện trở $110\,\Omega \sim 120\,\Omega$ ở 2 điểm xa nhất của đường truyền |
+
+</div>
+
+:::warning[Quy tắc chống nhiễu bắt buộc]
+* Dùng dây cáp xoắn đôi chống nhiễu (Shielded Twisted Pair - STP).
+* Nối lớp lưới bạc chống nhiễu của cáp về tiếp địa tủ điện (PE). Tuyệt đối **không** kéo cáp truyền thông đi chung máng dây với cáp động lực ngõ ra động cơ `U, V, W`.
+:::
+
+---
+
+## 3. Cài đặt tham số truyền thông trên Biến tần Mitsubishi
+
+Trước khi truyền thông, cần dùng bàn phím biến tần để thiết lập các tham số sau:
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Tham số | Tên cài đặt | Giá trị cài đặt | Ý nghĩa kỹ thuật |
+| :---: | --- | :---: | --- |
+| **`Pr.79`** | Operation Mode Selection | **`0`** | Chế độ chuyển đổi tự do giữa External và Network (hoặc chọn `2` nếu chỉ chạy mạng) |
+| **`Pr.117`** | Communication Station Number | **`0`** (0 ~ 31) | Địa chỉ trạm của biến tần (Trạm biến tần đầu tiên cài `0`, trạm kế tiếp cài `1`, `2`...) |
+| **`Pr.118`** | Communication Speed (Baudrate) | **`192`** | Tốc độ truyền `19200 bps` (Nếu cài `96` là 9600 bps) |
+| **`Pr.119`** | Stop Bit Length / Data Length | **`0`** | 8 bit dữ liệu, 2 Stop bit (hoặc chọn `10` cho 8-bit, 1 stop bit) |
+| **`Pr.120`** | Parity Check Selection | **`2`** | Kiểm tra chẵn (Even Parity) |
+| **`Pr.121`** | Number of Communication Retries | **`10`** | Số lần thử truyền lại trước khi báo lỗi truyền thông |
+| **`Pr.122`** | Communication Check Time Interval | **`9999`** | **Tắt chế độ trip mất truyền thông** khi đang thử nghiệm (đặt `1.0s` khi vận hành thực tế) |
+| **`Pr.123`** | Waiting Time Setting | **`9999`** | Đặt theo thời gian gửi của PLC (hoặc đặt `10` tương đương 10ms) |
+| **`Pr.124`** | CR/LF Selection | **`1`** | Bật mã kết thúc có cả ký tự `CR` và `LF` |
+| **`Pr.340`** | Communication Startup Mode | **`1`** | **Rất quan trọng:** Biến tần tự động khởi động ở chế độ Network khi vừa cấp nguồn |
+| **`Pr.549`** | Protocol Selection | **`0`** | **`0 = Mitsubishi Dedicated Inverter Protocol (Computer Link)`**; `1 = Modbus RTU` |
+
+</div>
+
+:::tip[Lưu ý sau khi cài đặt]
+Sau khi thay đổi các tham số `Pr.117 ~ Pr.124`, `Pr.340` và `Pr.549`, **bắt buộc phải ngắt nguồn biến tần (tắt cầu dao/aptomat), chờ đèn hiển thị tắt hẳn rồi bật nguồn lại** thì các tham số truyền thông mới có hiệu lực!
+:::
+
+---
+
+## 4. Tập lệnh chuyên dụng điều khiển Biến tần trên PLC FX3U (`IVxx` - FNC 270 ~ FNC 275)
+
+Họ PLC Mitsubishi FX3U (và FX3UC, FX3G) cung cấp 6 tập lệnh chuyên dụng bắt đầu từ mã hàm **FNC 270 đến FNC 275** dành riêng cho việc giao tiếp với biến tần Mitsubishi qua mạng RS-485.
+
+#### Quy tắc chung về cấu trúc đối số của họ lệnh `IVxx`:
+Tất cả các lệnh họ `IVxx` đều tuân thủ cấu trúc đối số chuẩn xác theo tài liệu kỹ thuật của hãng Mitsubishi:
+* **Đối số thứ 1 (`S1`)**: **LUÔN LUÔN LÀ SỐ TRẠM BIẾN TẦN (Station Number: `K0 ~ K31`)**.
+* **Đối số thứ 2 (`S2`)**: **MÃ CHỈ THỊ LỆNH (Instruction Code)** hoặc **SỐ THAM SỐ CẦN TRUY CẬP (`Pr.`)**.
+* **Đối số thứ 3 (`S3` hoặc `D`)**: **DỮ LIỆU ĐIỀU KHIỂN (Set Value / Command Data)** hoặc **Ô NHỚ LƯU DỮ LIỆU ĐỌC VỀ (Destination Device `D...`)**.
+* **Đối số thứ 4 (`n` hoặc `ch`)**: Chỉ định kênh giao tiếp (`K1`: Kênh 1 - Board `FX3U-485-BD`; `K2`: Kênh 2 - Adapter `FX3U-485ADP-MB`). Nếu không khai báo, mặc định PLC hiểu là Kênh 1 (`K1`).
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Mã hàm (FNC) | Tên lệnh | Cú pháp chuẩn (GX Works2) | Chi tiết đối số theo tài liệu hãng | Chức năng chi tiết |
+| :---: | :---: | --- | --- | --- |
+| **FNC 270** | **`IVCK`** | `IVCK  S1  S2  D  [n]` | • **`S1`**: Số trạm biến tần (`K0 ~ K31`)<br/>• **`S2`**: Mã chỉ thị kiểm tra (Monitor Code: `H00`, `H01`, `H02`, `H7B`...)<br/>• **`D`**: Thiết bị đích lưu dữ liệu đọc về (Ví dụ `D200`)<br/>• **`n`**: Số kênh truyền thông (`K1` = Ch1 / 485-BD, `K2` = Ch2 / 485ADP) | **Inverter Status Check**: Đọc kiểm tra trạng thái hoạt động, tần số thực tế, dòng điện, điện áp hoặc đọc mã lỗi hiện tại của biến tần. |
+| **FNC 271** | **`IVDR`** | `IVDR  S1  S2  S3  [n]` | • **`S1`**: Số trạm biến tần (`K0 ~ K31`)<br/>• **`S2`**: Mã lệnh điều khiển (`HFA` = Chạy/Dừng; `HED` = Tần số RAM; `HEE` = Tần số EEPROM; `HFD` = Xóa lỗi)<br/>• **`S3`**: Dữ liệu điều khiển (Ví dụ `H0002` = Chạy thuận, `H0000` = Dừng, `K5000` = 50.00 Hz)<br/>• **`n`**: Số kênh truyền thông (`K1` hoặc `K2`) | **Inverter Drive**: Phát lệnh điều khiển vận hành biến tần (Chạy thuận, Chạy ngược, Dừng khẩn cấp, cài đặt tần số hoặc Reset xóa lỗi). |
+| **FNC 272** | **`IVRD`** | `IVRD  S1  S2  D  [n]` | • **`S1`**: Số trạm biến tần (`K0 ~ K31`)<br/>• **`S2`**: Số thứ tự tham số cần đọc (`K0 ~ K999`, ví dụ `K7` = Pr.7, `K8` = Pr.8)<br/>• **`D`**: Thiết bị đích lưu giá trị tham số đọc về (Ví dụ `D100`)<br/>• **`n`**: Số kênh truyền thông (`K1` hoặc `K2`) | **Inverter Parameter Read**: Đọc giá trị cài đặt của bất kỳ tham số `Pr.` nào từ biến tần về lưu vào thanh ghi PLC. |
+| **FNC 273** | **`IVWR`** | `IVWR  S1  S2  S3  [n]` | • **`S1`**: Số trạm biến tần (`K0 ~ K31`)<br/>• **`S2`**: Số thứ tự tham số cần ghi (`K0 ~ K999`, ví dụ `K7` = Pr.7, `K8` = Pr.8)<br/>• **`S3`**: Giá trị cần ghi vào tham số (Hằng số `K...` hoặc thanh ghi `D...`)<br/>• **`n`**: Số kênh truyền thông (`K1` hoặc `K2`) | **Inverter Parameter Write**: Ghi trực tiếp giá trị cài đặt mới vào một tham số `Pr.` của biến tần từ PLC. |
+| **FNC 274** | **`IVBWR`** | `IVBWR S1  S2  S3  m  [n]` | • **`S1`**: Số trạm biến tần (`K0 ~ K31`)<br/>• **`S2`**: Thiết bị đầu chứa danh sách số tham số cần ghi (Ví dụ `D200`)<br/>• **`S3`**: Thiết bị đầu chứa danh sách giá trị cần ghi (Ví dụ `D210`)<br/>• **`m`**: Số lượng tham số ghi hàng loạt (`1 ~ 32`)<br/>• **`n`**: Số kênh truyền thông (`K1` hoặc `K2`) | **Inverter Parameter Batch Write**: Ghi đồng thời một khối nhiều tham số `Pr.` cùng lúc vào biến tần (Hỗ trợ FX3U/FX3UC). |
+| **FNC 275** | **`IVMC`** | `IVMC  S1  S2  D  [n]` | • **`S1`**: Số trạm biến tần (`K0 ~ K31`)<br/>• **`S2`**: Khối dữ liệu điều khiển gửi đi (2 lệnh cài đặt: Lệnh chạy và Tần số)<br/>• **`D`**: Khối dữ liệu giám sát nhận về (2 giá trị giám sát: Tần số và Dòng điện)<br/>• **`n`**: Số kênh truyền thông (`K1` hoặc `K2`) | **Inverter Multiple Command**: Lệnh tích hợp đa năng, thực hiện đồng thời 2 lệnh cài đặt và 2 lệnh đọc giám sát chỉ trong 1 chu kỳ truyền thông. |
+
+</div>
+
+### Bảng Rơ-le phụ đặc biệt và Thanh ghi trạng thái truyền thông biến tần (FX3U):
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Thiết bị (Kênh 1 - Board 485-BD) | Thiết bị (Kênh 2 - Adapter 485ADP) | Tên chức năng kỹ thuật | Diễn giải trạng thái hoạt động |
+| :---: | :---: | --- | --- |
+| **`M8151`** | **`M8156`** | **Inverter Communication ON (Busy)** | **Cờ báo kênh truyền thông đang bận**: Bật `ON` trong suốt thời gian lệnh `IVxx` đang truyền nhận dữ liệu. **Tuyệt đối không kích hoạt lệnh `IVxx` khác khi cờ này đang ON.** |
+| **`M8152`** | **`M8157`** | **Inverter Communication Error** | **Cờ báo lỗi truyền thông biến tần**: Tự động bật `ON` khi xảy ra lỗi (sai trạm, mất kết nối, lỗi timeout, sai dữ liệu). |
+| **`M8153`** | **`M8158`** | **Communication Error Latch** | **Cờ chốt lỗi truyền thông**: Duy trì trạng thái báo lỗi cho đến khi được lệnh reset bằng tay hoặc khởi động lại PLC. |
+| **`D8152`** | **`D8157`** | **Communication Error Code** | **Thanh ghi lưu mã lỗi truyền thông**: Lưu mã lỗi chi tiết của lệnh `IVxx` bị hỏng. |
+| **`D8153`** | **`D8158`** | **Error Step Number** | **Thanh ghi lưu bước lệnh bị lỗi**: Cho biết chính xác số bước (Step) trong chương trình Ladder chứa lệnh `IVxx` bị lỗi. |
+| **`M8029`** | **`M8029`** | **Instruction Execution Complete** | **Cờ hoàn thành lệnh chung**: Bật `ON` trong đúng 1 chu kỳ quét (Scan Time) ngay sau khi lệnh `IVxx` kết thúc truyền nhận thành công. Tiếp điểm `M8029` phải đặt ngay bên dưới lệnh `IVxx` tương ứng. |
+| **`M8063` / `D8063`** | **`M8438` / `D8438`** | **Serial Comm Error & Code** | Cờ và mã lỗi truyền thông nối tiếp tổng quát của CPU FX3U (Mã `6320`: Inverter Communication Error). |
+
+</div>
+
+---
+
+## 5. Bảng tổng hợp TẤT CẢ Thanh ghi & Mã chỉ thị lệnh (Instruction Codes)
+
+Biến tần Mitsubishi sử dụng các **Mã chỉ thị lệnh (Instruction Code dạng Hex)** để truy xuất dữ liệu vận hành:
+
+### 5.1 Bảng mã Đọc dữ liệu giám sát vận hành (Dùng với lệnh `IVCK` - FNC 270)
+
+Cú pháp: `IVCK  [S1: Trạm]  [S2: Mã Hex dưới đây]  [D: Ô nhớ lưu]  [n: Kênh K1/K2]`
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Mã lệnh (Hex) | Tên thông số giám sát | Đơn vị đo | Ý nghĩa dữ liệu đọc về |
+| :---: | --- | :---: | --- |
+| **`H00`** | **Output Frequency** | `0.01 Hz` | Tần số ngõ ra thực tế đang phát cho động cơ (Ví dụ đọc được `5000` $\rightarrow 50.00\text{ Hz}$). |
+| **`H01`** | **Output Current** | `0.01 A` hoặc `0.1 A` | Dòng điện thực tế đang cấp cho động cơ. |
+| **`H02`** | **Inverter Status 1** | Bitmap (8-bit) | **Byte trạng thái hoạt động** (Xem chi tiết từng bit ở bảng 5.3). |
+| **`H03`** | **Output Voltage** | `0.1 V` | Điện áp ngõ ra biến tần cấp cho động cơ. |
+| **`H04`** | Set Frequency | `0.01 Hz` | Tần số cài đặt mục tiêu hiện tại. |
+| **`H05`** | Motor Torque | `0.1 %` | Mô-men xoắn ngõ ra thực tế của động cơ. |
+| **`H06`** | Converter Output Voltage | `0.1 V` | Điện áp ngõ ra cầu chỉnh lưu. |
+| **`H07`** | **DC Bus Voltage** | `0.1 V` | Điện áp một chiều trên bộ tụ lọc Bus DC (Bình thường $\approx 310\text{V}$ với hệ 220V, $\approx 540\text{V}$ với hệ 380V). |
+| **`H08`** | Electronic Thermal Load Factor | `0.1 %` | Tỷ lệ tích nhiệt bảo vệ rơ-le nhiệt điện tử của motor. |
+| **`H09`** | Output Current Peak Value | `0.01 A` | Giá trị đỉnh cao nhất của dòng điện ngõ ra. |
+| **`H0A`** | DC Bus Voltage Peak Value | `0.1 V` | Giá trị đỉnh cao nhất của điện áp Bus DC. |
+| **`H0B`** | Power Consumption | `0.01 kW` / `0.1 kW` | Công suất tiêu thụ điện tức thời của động cơ. |
+| **`H0C`** | Cumulative Power | `0.1 kWh` | Tổng điện năng tiêu thụ tích lũy. |
+| **`H0E`** | Motor Load Factor | `0.1 %` | Hệ số mang tải thực tế của động cơ. |
+| **`H0F`** | Cumulative Energization Time | `1 giờ (h)` | Tổng thời gian biến tần đã được cấp nguồn điện từ lúc xuất xưởng. |
+| **`H7B`** | **Current Fault Definition** | Mã Hex | **Mã lỗi sự cố hiện tại** đang khiến biến tần bị Trip (Xem bảng tra cứu ở tệp `bang-tra-ma-loi.mdx`). |
+| **`H74`** | Past Fault 1 | Mã Hex | Lỗi xảy ra trong quá khứ gần nhất (Lần 1). |
+| **`H75`** | Past Fault 2 | Mã Hex | Lỗi xảy ra trong quá khứ lần 2. |
+| **`H76`** | Past Fault 3 | Mã Hex | Lỗi xảy ra trong quá khứ lần 3. |
+| **`H77`** | Past Fault 4 | Mã Hex | Lỗi xảy ra trong quá khứ lần 4. |
+
+</div>
+
+---
+
+### 5.2 Bảng mã Điều khiển Chạy/Dừng & Ghi tần số (Dùng với lệnh `IVDR` - FNC 271)
+
+Cú pháp: `IVDR  [S1: Trạm]  [S2: Mã Hex dưới đây]  [S3: Dữ liệu ghi]  [n: Kênh K1/K2]`
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Mã lệnh (Hex) | Tên chức năng | Dải giá trị ghi (`S3`) | Hướng dẫn sử dụng chi tiết |
+| :---: | --- | :---: | --- |
+| **`HFA`** | **Lệnh điều khiển Chạy/Dừng (Operation Command)** | `0000H` ~ `FFFFH` | Ghi word điều khiển logic các chân chạy:<br/>• **`H0002`**: Lệnh Chạy thuận (**FWD / STF**)<br/>• **`H0004`**: Lệnh Chạy ngược (**REV / STR**)<br/>• **`H0000`**: Lệnh Dừng động cơ (**STOP**)<br/>• **`H0008`**: Kích hoạt cấp tốc độ thấp (RL)<br/>• **`H0010`**: Kích hoạt cấp tốc độ trung bình (RM)<br/>• **`H0020`**: Kích hoạt cấp tốc độ cao (RH) |
+| **`HED`** | **Ghi tần số đặt vào bộ nhớ RAM** | `0` ~ `40000` (`0.01 Hz`) | **Khuyên dùng trong chu trình tự động:** Ghi tần số vào RAM giúp thay đổi tốc độ liên tục không giới hạn mà **không gây chai mòn hỏng chip nhớ EEPROM** (Tự mất khi mất điện). |
+| **`HEE`** | **Ghi tần số vào RAM và EEPROM** | `0` ~ `40000` (`0.01 Hz`) | Ghi lưu vĩnh viễn tần số, khi tắt nguồn mở lại vẫn giữ nguyên giá trị (Giới hạn ghi khoảng 100.000 lần). |
+| **`HFD`** | **Xóa lịch sử lỗi (Fault History Clear)** | `H9696` | Ghi giá trị `H9696` để xóa sạch toàn bộ 8 lỗi lưu trong nhật ký bộ nhớ biến tần. |
+| **`HFC`** | **Khôi phục cài đặt gốc (All Parameter Clear)** | `H9696` | Ghi giá trị `H9696` để Reset toàn bộ tham số biến tần về mặc định nhà sản xuất. |
+
+</div>
+
+---
+
+### 5.3 Bảng giải mã chi tiết từng Bit trong Thanh ghi trạng thái hoạt động (`H02`)
+
+Khi dùng lệnh `IVCK` với mã chỉ thị **`H02`**, biến tần sẽ trả về 1 byte dữ liệu (8-bit) mang ý nghĩa trạng thái:
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Vị trí Bit | Tên cờ tín hiệu | Ý nghĩa khi Bit = 1 (ON) | Ý nghĩa khi Bit = 0 (OFF) |
+| :---: | :---: | --- | --- |
+| **`Bit 0`** | **RUN** | Biến tần đang xuất điện áp chạy động cơ | Biến tần đang dừng |
+| **`Bit 1`** | **FWD** | Đang vận hành theo chiều quay Thuận | Không chạy thuận |
+| **`Bit 2`** | **REV** | Đang vận hành theo chiều quay Ngược | Không chạy ngược |
+| **`Bit 3`** | **SU** | Tốc độ động cơ đã đạt đến tần số cài đặt | Tốc độ chưa đạt (đang tăng/giảm tốc) |
+| **`Bit 4`** | **OL** | Báo động quá tải / Chống trượt đang kích hoạt | Vận hành trong ngưỡng dòng an toàn |
+| **`Bit 5`** | **FU** | Tần số ngõ ra đã vượt qua ngưỡng phát hiện `Pr.42` | Dưới ngưỡng phát hiện |
+| **`Bit 6`** | **RY** | Biến tần sẵn sàng nhận lệnh vận hành (Inverter Ready) | Biến tần chưa sẵn sàng |
+| **`Bit 7`** | **ALARM / TRIP** | **Biến tần đang bị sự cố dừng khẩn cấp (CÓ LỖI)** | **Bình thường (KHÔNG CÓ LỖI)** |
+
+</div>
+
+---
+
+### 5.4 Bảng truy xuất đọc/ghi Tham số cài đặt (Dùng với lệnh `IVRD` / `IVWR`)
+
+Khi cần đọc hoặc ghi các tham số vận hành chuẩn của biến tần (`Pr.0 ~ Pr.999`):
+* **Đọc tham số (`IVRD`)**: `IVRD  [S1: Trạm]  [S2: Số Pr.]  [D: Lưu vào]  [n: Kênh K1]`
+  * Ví dụ đọc thời gian tăng tốc `Pr.7`: `IVRD  K0  K7  D100  K1` $\rightarrow$ Giá trị `Pr.7` sẽ lưu vào `D100`.
+* **Ghi tham số (`IVWR`)**: `IVWR  [S1: Trạm]  [S2: Số Pr.]  [S3: Giá trị ghi]  [n: Kênh K1]`
+  * Ví dụ ghi thời gian tăng tốc `Pr.7 = 5.0 giây`: `IVWR  K0  K7  K50  K1`.
+
+---
+
+## 6. Chương trình mẫu hoàn chỉnh trên PLC Mitsubishi FX3U (Ladder Logic)
+
+:::important[Nguyên tắc lập trình truyền thông RS-485 trên PLC FX3U]
+1. Đường truyền RS-485 là **Half-Duplex** và biến tần xử lý theo chu kỳ hỏi - đáp (Master - Slave), do đó **tại một thời điểm CHỈ ĐƯỢC PHÉP kích hoạt DUY NHẤT 1 lệnh `IVxx`** khi cờ **`M8151 = OFF`** (Kênh 1 không bận).
+2. Khi một lệnh hoàn tất, cờ **`M8029`** (Execution Complete) sẽ bật `ON` trong 1 chu kỳ quét. Kỹ sư phải sử dụng thanh ghi bước (ví dụ `D500`) tạo một **Bộ tuần tự Polling (State Machine)** để chuyển tuần tự sang lệnh kế tiếp.
+:::
+
+Dưới đây là cấu trúc tuần tự quét điều khiển biến tần Trạm số 0 qua Kênh 1 (`FX3U-485-BD`):
+* **Bước 0:** Bật nguồn PLC, đưa thanh ghi bước `D500 = 10`.
+* **Bước 10:** Ghi tần số cài đặt `50.00 Hz` (`K5000`) vào RAM biến tần qua lệnh `IVDR`.
+* **Bước 20:** Gửi lệnh điều khiển Chạy/Dừng qua lệnh `IVDR` (`D10` = `H0002` Chạy thuận; `H0000` Dừng).
+* **Bước 30:** Đọc tần số thực tế (`H00`) vào `D200` qua lệnh `IVCK`.
+* **Bước 40:** Đọc dòng điện thực tế (`H01`) vào `D201` qua lệnh `IVCK`.
+* **Bước 50:** Đọc mã lỗi hiện tại (`H7B`) vào `D203` qua lệnh `IVCK`, sau đó quay vòng lại Bước 10.
+
+```pascal
+// =========================================================================================
+// CHƯƠNG TRÌNH ĐIỀU KHIỂN TUẦN TỰ (POLLING STATE MACHINE) FX3U - FX3U-485-BD
+// =========================================================================================
+
+// [KHỞI ĐỘNG]: KHI BẬT NGUỒN PLC (M8002), ĐẶT BƯỚC ĐẦU TIÊN D500 = 10
+|   M8002 (Xung RUN đầu tiên)
+|-------[ P ]----------------------------------------[ MOV  K10  D500 ]
+
+// -----------------------------------------------------------------------------------------
+// [BƯỚC 10]: GHI TẦN SỐ ĐẶT 50.00Hz (K5000) VÀO RAM BIẾN TẦN TRẠM 0
+// Cú pháp: IVDR  S1(Trạm: K0)  S2(Mã: HED)  S3(Tần số: K5000)  n(Kênh: K1)
+// -----------------------------------------------------------------------------------------
+|   [ =  D500  K10 ]     M8151 (Ch1 rảnh)
+|-------[ ]-------------------[/]--------------------[ IVDR  K0  HED  K5000  K1 ]
+|
+|   M8029 (Hoàn tất lệnh IVDR)
+|-------[ ]------------------------------------------[ MOV  K20  D500 ]  // Chuyển sang Bước 20
+
+// -----------------------------------------------------------------------------------------
+// [BƯỚC 20]: GỬI LỆNH ĐIỀU KHIỂN CHẠY/DỪNG (S3 = D10: H0002 Chạy thuận, H0000 Dừng)
+// Cú pháp: IVDR  S1(Trạm: K0)  S2(Mã: HFA)  S3(Lệnh: D10)      n(Kênh: K1)
+// -----------------------------------------------------------------------------------------
+|   [ =  D500  K20 ]     M8151 (Ch1 rảnh)
+|-------[ ]-------------------[/]--------------------[ IVDR  K0  HFA  D10  K1 ]
+|
+|   M8029 (Hoàn tất lệnh IVDR)
+|-------[ ]------------------------------------------[ MOV  K30  D500 ]  // Chuyển sang Bước 30
+
+// -----------------------------------------------------------------------------------------
+// [BƯỚC 30]: ĐỌC TẦN SỐ THỰC TẾ ĐANG PHÁT LƯU VÀO D200 (Đơn vị: 0.01 Hz)
+// Cú pháp: IVCK  S1(Trạm: K0)  S2(Mã: H00)  D(Lưu: D200)       n(Kênh: K1)
+// -----------------------------------------------------------------------------------------
+|   [ =  D500  K30 ]     M8151 (Ch1 rảnh)
+|-------[ ]-------------------[/]--------------------[ IVCK  K0  H00  D200  K1 ]
+|
+|   M8029 (Hoàn tất lệnh IVCK)
+|-------[ ]------------------------------------------[ MOV  K40  D500 ]  // Chuyển sang Bước 40
+
+// -----------------------------------------------------------------------------------------
+// [BƯỚC 40]: ĐỌC DÒNG ĐIỆN THỰC TẾ ĐỘNG CƠ LƯU VÀO D201 (Đơn vị: 0.01 A)
+// Cú pháp: IVCK  S1(Trạm: K0)  S2(Mã: H01)  D(Lưu: D201)       n(Kênh: K1)
+// -----------------------------------------------------------------------------------------
+|   [ =  D500  K40 ]     M8151 (Ch1 rảnh)
+|-------[ ]-------------------[/]--------------------[ IVCK  K0  H01  D201  K1 ]
+|
+|   M8029 (Hoàn tất lệnh IVCK)
+|-------[ ]------------------------------------------[ MOV  K50  D500 ]  // Chuyển sang Bước 50
+
+// -----------------------------------------------------------------------------------------
+// [BƯỚC 50]: ĐỌC MÃ LỖI SỰ CỐ HIỆN TẠI (Mã H7B) LƯU VÀO D203 ĐỂ GIÁM SÁT
+// Cú pháp: IVCK  S1(Trạm: K0)  S2(Mã: H7B)  D(Lưu: D203)       n(Kênh: K1)
+// -----------------------------------------------------------------------------------------
+|   [ =  D500  K50 ]     M8151 (Ch1 rảnh)
+|-------[ ]-------------------[/]--------------------[ IVCK  K0  H7B  D203  K1 ]
+|
+|   M8029 (Hoàn tất lệnh IVCK)
+|-------[ ]------------------------------------------[ MOV  K10  D500 ]  // Lặp lại chu trình Bước 10
+
+// -----------------------------------------------------------------------------------------
+// [XỬ LÝ LỖI]: NẾU TRUYỀN THÔNG BỊ LỖI (M8152 = ON), RESET CỜ VÀ TIẾP TỤC CHU TRÌNH
+// -----------------------------------------------------------------------------------------
+|   M8152 (Báo lỗi Ch1)
+|-------[ ]------------------------------------------[ RST  M8152 ]
+|                                                    [ MOV  K10  D500 ]  // Nhảy lại bước đầu tránh treo vòng lặp
+```
+
+
+---
+
+## 7. Các lỗi thường gặp khi giao tiếp FX3U với Biến tần và Cách xử lý
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Hiện tượng lỗi | Nguyên nhân cốt lõi | Các bước khắc phục |
+| --- | --- | --- |
+| Biến tần báo lỗi **`E.PUE`** | Mất tín hiệu truyền thông quá thời gian quy định. | • Cài đặt `Pr.122 = 9999` để tắt bảo vệ ngắt do timeout khi chạy thử.<br/>• Kiểm tra lực siết dây và đầu cắm RJ45. |
+| Biến tần báo lỗi **`E.SER`** | Sai cấu hình khung truyền hoặc số lần thử vượt mức. | • Kiểm tra lại xem thông số Parity (`Pr.120`), Baudrate (`Pr.118`) giữa PLC và biến tần đã khớp nhau chưa. |
+| PLC báo cờ **`M8152 = ON`** | Lỗi truyền thông ở cổng Port 1 của PLC FX3U. | • Đấu nhầm chéo chân RDA/SDA hoặc chưa gắn điện trở đầu cuối $110\,\Omega$.<br/>• Kiểm tra lại địa chỉ trạm (`S1`) trong câu lệnh PLC có khớp với `Pr.117` hay không. |
+| Biến tần không nhận lệnh chạy dù không báo lỗi | Chưa chuyển sang chế độ điều khiển mạng (Network Mode). | • Kiểm tra tham số **`Pr.340 = 1`** và **`Pr.79 = 0`** (hoặc `2`).<br/>• Phải **tắt nguồn biến tần rồi bật lại** sau khi sửa tham số. |
+
+</div>
+
+---
+
+## 8. Tài liệu kỹ thuật liên quan
+
+:::info[Xem thêm các hướng dẫn trong cùng chuyên mục:]
+* **[Bảng Tra Cứu Toàn Diện Mã Lỗi Biến Tần Mitsubishi](./bang-tra-ma-loi.mdx)** - Tra cứu danh mục mã Hex giải mã cho ô nhớ `D203`.
+* **[Giám sát và đọc lỗi biến tần Mitsubishi qua Modbus RTU](./giam-sat-error.mdx)** - Giải pháp kết nối theo chuẩn Modbus quốc tế.
+* **[Tổng hợp lệnh và tham số FR-E720 / E700 Mitsubishi](./e720.mdx)** - Tra cứu danh mục mã hàm Pr.0 đến Pr.999.
+:::

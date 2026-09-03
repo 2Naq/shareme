@@ -14,6 +14,8 @@ Trong quá trình vận hành, biến tần OMRON (MX2, JX, RX Series) có thể
 
 Mã lỗi trên biến tần Omron thường có dạng chữ **E** kèm theo hai chữ số (Ví dụ: `E01`, `E07`, `E12`...).
 
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
 | Mã lỗi | Tên lỗi hiển thị | Nguyên nhân chủ yếu |
 | :---: | --- | --- |
 | **E01** | Over-current (constant speed) | Quá dòng điện đầu ra khi đang chạy ở tốc độ ổn định |
@@ -34,6 +36,8 @@ Mã lỗi trên biến tần Omron thường có dạng chữ **E** kèm theo ha
 | **E30** | Driver circuit fault (IGBT/STO) | Sự cố mạch kích công suất IGBT hoặc hở mạch an toàn STO (Safe Torque Off) |
 | **E35** | Motor thermistor trip | Động cơ quá nhiệt (tín hiệu nhiệt điện trở PTC đưa về chân số 5 kích hoạt) |
 | **E60** | ezSQ execution error | Lỗi logic/cú pháp trong chương trình lập trình nhúng ezSQ |
+
+</div>
 
 ---
 
@@ -144,3 +148,109 @@ Mục tiêu là kiểm tra các transistor IGBT nghịch lưu nối từ chân c
 :::danger
 Nếu đo giữa bất kỳ pha ngõ ra nào (U, V, W) với chân P hoặc chân N mà có kết quả điện áp rơi bằng $0\text{V}$ (chập mạch hoàn toàn), khối công suất IGBT đã bị phá hủy. Tránh bật nguồn điện trở lại vì có thể gây nổ biến tần hoặc phá hỏng mạch driver điều khiển.
 :::
+
+---
+
+## 4. Bảng tra cứu mã lỗi qua Truyền thông Modbus RTU
+
+Khi kết nối biến tần **Omron (3G3MX2, 3G3JX, 3G3RX)** với PLC hoặc HMI thông qua cổng truyền thông RS-485 Modbus RTU, bạn có thể giám sát trạng thái Trip và bóc tách chính xác mã sự cố từ xa mà không cần trực tiếp xem bàn phím biến tần.
+
+### 4.1 Các thanh ghi & Cuộn Coil Modbus giám sát sự cố
+
+Biến tần Omron phân bổ trạng thái lỗi và lịch sử lỗi vào các địa chỉ Modbus tiêu chuẩn (áp dụng Function Code `01` đọc Coil, `03` đọc Holding Register và `05` ghi Reset):
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Địa chỉ Modbus (Hex) | Loại dữ liệu | Tên thông số / Chức năng | Diễn giải chi tiết |
+| :---: | :---: | --- | --- |
+| **`0003H`** | Coil (Bit) | **Trip Status Flag** | **`1 (ON)`: Biến tần đang bị sự cố (Trip)**;<br/>`0 (OFF)`: Hoạt động bình thường. |
+| **`0002H`** | Coil (Bit) | **Trip Reset Command** | Ghi `1 (ON)` rồi ghi `0 (OFF)` qua Function 05 để **Reset xóa lỗi từ xa** qua mạng Modbus. |
+| **`0011H`** | 16-bit Register | **d080** - Total Trip Count | Tổng số lần biến tần từng bị sự cố Trip (lưu vĩnh viễn trong bộ nhớ). |
+| **`0012H`** | 16-bit Register | **d081 - Current Fault Factor** | **Mã lỗi hiện tại** đang khiến biến tần bị dừng khẩn cấp (Xem bảng tra cứu bên dưới). |
+| **`0013H`** | 16-bit Register | d081 - Frequency at Trip | Tần số ngõ ra tại thời điểm bị lỗi (Đơn vị: `0.01 Hz`). |
+| **`0015H`** | 16-bit Register | d081 - Current at Trip | Dòng điện ngõ ra tại thời điểm bị lỗi (Đơn vị: `0.1 A`). |
+| **`0017H`** | 16-bit Register | d081 - DC Bus Voltage at Trip | Điện áp một chiều trên Bus DC tại thời điểm bị lỗi (Đơn vị: `0.1 V`). |
+| **`0014H`** | 16-bit Register | **d082** - Past Fault 1 | Mã lỗi quá khứ gần nhất trước đó (Lỗi số 1). |
+| **`0016H`** | 16-bit Register | **d083** - Past Fault 2 | Mã lỗi quá khứ số 2. |
+| **`0018H`** | 16-bit Register | **d084** - Past Fault 3 | Mã lỗi quá khứ số 3. |
+| **`001AH`** | 16-bit Register | **d085** - Past Fault 4 | Mã lỗi quá khứ số 4. |
+| **`001CH`** | 16-bit Register | **d086** - Past Fault 5 | Mã lỗi quá khứ số 5. |
+
+</div>
+
+---
+
+### 4.2 Bảng tra cứu giá trị Modbus đọc về sang Mã lỗi Omron tương ứng
+
+Khi dùng Function Code `03` đọc thanh ghi **`0012H`** (thông số `d081`), giá trị nhận được là một số nguyên (Decimal/Hex). Kỹ sư lập trình chỉ cần tra cứu bảng dưới đây để xác định chính xác mã lỗi hiển thị và thông báo lên màn hình HMI/SCADA:
+
+<div className="w-full overflow-x-auto my-6 text-xs sm:text-sm">
+
+| Giá trị Dec | Giá trị Hex | Mã lỗi LED | Tên lỗi chuẩn (English) | Ý nghĩa kỹ thuật & Nguyên nhân |
+| :---: | :---: | :---: | --- | --- |
+| **`0`** | `0000H` | **Không có lỗi** | Normal Operation | Biến tần hoạt động hoàn toàn bình thường |
+| **`1`** | `0001H` | **E01** | Over-current at constant speed | Quá dòng ngõ ra khi đang chạy ở tốc độ ổn định (kẹt tải, tăng tải đột ngột) |
+| **`2`** | `0002H` | **E02** | Over-current during deceleration | Quá dòng ngõ ra trong quá trình giảm tốc |
+| **`3`** | `0003H` | **E03** | Over-current during acceleration | Quá dòng ngõ ra trong quá trình tăng tốc khởi động |
+| **`4`** | `0004H` | **E04** | Over-current during stop / other | Quá dòng ngõ ra khi động cơ đang dừng hoặc trạng thái khác |
+| **`5`** | `0005H` | **E05** | Overload trip (Electronic thermal) | Quá tải động cơ (rơ-le nhiệt điện tử tích hợp `b012` tác động bảo vệ) |
+| **`6`** | `0006H` | **E06** | Braking resistor overload | Quá tải điện trở xả phanh hãm động năng (chu kỳ xả phanh quá dày) |
+| **`7`** | `0007H` | **E07** | Overvoltage protection | Quá điện áp Bus DC (năng lượng tái sinh dội ngược khi giảm tốc dốc) |
+| **`8`** | `0008H` | **E08** | EEPROM memory error | Lỗi chip nhớ EEPROM lưu trữ tham số trên bo mạch điều khiển |
+| **`9`** | `0009H` | **E09** | Undervoltage protection | Thấp áp Bus DC (nguồn lưới sụt, mất pha cấp nguồn hoặc hỏng mạch nạp) |
+| **`10`** | `000AH` | **E10** | Current detection error | Lỗi mạch cảm biến dòng điện biến dòng (CT / Hall Sensor) |
+| **`11`** | `000BH` | **E11** | CPU communication error | Sự cố vi xử lý CPU trung tâm biến tần bị treo do xung nhiễu |
+| **`12`** | `000CH` | **E12** | External trip (EXT) | Tín hiệu dừng khẩn cấp từ thiết bị ngoại vi tác động qua chân `EXT` |
+| **`13`** | `000DH` | **E13** | USP (Unattended Start Protection) | Bảo vệ khởi động ngoài ý muốn (công tắc lệnh chạy vẫn ON khi bật nguồn) |
+| **`14`** | `000EH` | **E14** | Ground fault detection | Phát hiện chạm chập mát / rò điện ở ngõ ra phía motor khi đóng lệnh chạy |
+| **`15`** | `000FH` | **E15** | Input overvoltage | Điện áp nguồn điện AC đầu vào vượt quá ngưỡng cho phép |
+| **`21`** | `0015H` | **E21** | Inverter heatsink overheat | Khối cánh nhôm tản nhiệt IGBT quá nhiệt ($> 95^\circ\text{C}$, quạt hỏng hoặc bụi nghẽn) |
+| **`22`** | `0016H` | **E22** | Option communication error | Lỗi giao tiếp giữa bo mạch chính và card mở rộng gắn thêm |
+| **`25`** | `0019H` | **E25** | Main circuit error | Lỗi mạch động lực chính (mạch nạp tụ hoặc nguồn DC không ổn định) |
+| **`30`** | `001EH` | **E30** | Driver circuit error / STO | Sự cố mạch kích driver IGBT hoặc hở mạch an toàn STO (Safe Torque Off) |
+| **`35`** | `0023H` | **E35** | Motor thermistor trip | Động cơ quá nhiệt (tín hiệu nhiệt điện trở PTC đưa về chân số 5 kích hoạt) |
+| **`36`** | `0024H` | **E36** | Braking error | Lỗi transistor xả phanh bên trong biến tần |
+| **`37`** | `0025H` | **E37** | Safe stop error | Mạch dừng khẩn cấp an toàn phần cứng bị lỗi |
+| **`38`** | `0026H` | **E38** | Low-speed overload | Quá tải khi động cơ chạy ở dải tốc độ cực thấp kéo dài |
+| **`40`** | `0028H` | **E40** | Operator connection error | Mất kết nối cáp giữa màn hình cài đặt và biến tần |
+| **`41`** | `0029H` | **E41** | Modbus communication timeout | Lỗi đường truyền RS-485 Modbus bị ngắt quá thời gian cài đặt trong `C077` |
+| **`60`** | `003CH` | **E60** | ezSQ execution error | Lỗi logic/cú pháp trong chương trình lập trình nhúng ezSQ |
+| **`61`** | `003DH` | **E61** | ezSQ nesting error | Lỗi lồng vòng lặp/hàm quá số cấp cho phép trong chương trình ezSQ |
+| **`80`** | `0050H` | **E80** | Encoder disconnection | Đứt cáp tín hiệu hoặc mất xung Encoder hồi tiếp tốc độ |
+| **`81`** | `0051H` | **E81** | Overspeed trip | Tốc độ thực tế của motor vượt quá tốc độ giới hạn cho phép |
+| **`83`** | `0053H` | **E83** | Positioning error | Lỗi sai lệch vị trí vượt ngưỡng trong chế độ điều khiển vị trí |
+
+</div>
+
+---
+
+### 4.3 Quy trình lập trình đọc lỗi Modbus trên PLC (Ví dụ PLC Omron / Mitsubishi)
+
+1. **Bước 1 (Quét cờ Trip):** Định kỳ mỗi 100ms, PLC gửi lệnh Modbus Function `01` đọc **`Coil 0003H`**.
+2. **Bước 2 (Đọc mã sự cố):** Khi phát hiện `Coil 0003H = ON`, PLC lập tức kích hoạt lệnh Modbus Function `03` đọc **`Thanh ghi 0012H`** (và đồng thời đọc các thanh ghi `0013H`, `0015H`, `0017H` để lấy tần số, dòng điện, điện áp lúc trip).
+3. **Bước 3 (Bóc tách Text hiển thị):** Dùng lệnh so sánh hoặc cấu trúc `CASE ... OF` để chuyển giá trị đọc về thành tên lỗi cụ thể gửi lên bảng cảnh báo động (Alarm Display) của HMI:
+
+```pascal
+// Ví dụ xử lý mã lỗi Modbus Omron đọc về thanh ghi D100 bằng Structured Text (ST)
+IF bOmronTripCoil THEN
+    CASE D100 OF
+        1: sAlarmMessage := "E01: Quá dòng khi chạy ổn định";
+        2: sAlarmMessage := "E02: Quá dòng khi giảm tốc";
+        3: sAlarmMessage := "E03: Quá dòng khi tăng tốc";
+        5: sAlarmMessage := "E05: Quá tải nhiệt động cơ";
+        7: sAlarmMessage := "E07: Quá áp Bus DC";
+        9: sAlarmMessage := "E09: Sụt áp nguồn ngõ vào";
+        14: sAlarmMessage := "E14: Chạm đất ngõ ra Motor";
+        21: sAlarmMessage := "E21: Quá nhiệt nhôm tản nhiệt IGBT";
+        30: sAlarmMessage := "E30: Lỗi mạch Driver / Hở STO";
+        41: sAlarmMessage := "E41: Lỗi timeout truyền thông RS-485";
+        ELSE
+            sAlarmMessage := "E??: Mã lỗi chưa xác định (" + INT_TO_STRING(D100) + ")";
+    END_CASE;
+ELSE
+    sAlarmMessage := "Hệ thống hoạt động bình thường";
+END_IF;
+```
+
+4. **Bước 4 (Reset lỗi qua mạng):** Khi người vận hành nhấn nút **[Reset Lỗi]** trên màn hình cảm ứng HMI, PLC chỉ cần xuất lệnh Function `05` ghi giá trị `ON` vào **`Coil 0002H`**, trễ 100ms rồi ghi `OFF` để hoàn tất xóa lỗi biến tần Omron.
+
