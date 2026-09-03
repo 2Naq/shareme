@@ -51,7 +51,8 @@ export default function RS2FormFields({
         <Select value={dataLength} onValueChange={setDataLength}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn độ dài">
-              {DATA_LENGTH_OPTIONS.find((o) => o.value === dataLength)?.label} [{dataLength}]
+              {DATA_LENGTH_OPTIONS.find((o) => o.value === dataLength)?.label} [
+              {dataLength}]
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -93,7 +94,8 @@ export default function RS2FormFields({
         <Select value={stopBit} onValueChange={setStopBit}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn stop bit">
-              {STOP_BIT_OPTIONS.find((o) => o.value === stopBit)?.label} [{stopBit}]
+              {STOP_BIT_OPTIONS.find((o) => o.value === stopBit)?.label} [
+              {stopBit}]
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -156,7 +158,8 @@ export default function RS2FormFields({
         <Select value={terminator} onValueChange={setTerminator}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn Terminator">
-              {TERMINATOR_OPTIONS.find((o) => o.value === terminator)?.label} [{terminator}]
+              {TERMINATOR_OPTIONS.find((o) => o.value === terminator)?.label} [
+              {terminator}]
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -177,7 +180,8 @@ export default function RS2FormFields({
         <Select value={controlLine} onValueChange={setControlLine}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn Control Line">
-              {CONTROL_LINE_OPTIONS.find((o) => o.value === controlLine)?.label} [{controlLine}]
+              {CONTROL_LINE_OPTIONS.find((o) => o.value === controlLine)?.label}{" "}
+              [{controlLine}]
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -198,7 +202,8 @@ export default function RS2FormFields({
         <Select value={sumCheck} onValueChange={setSumCheck}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn Sum Check">
-              {SUM_CHECK_OPTIONS.find((o) => o.value === sumCheck)?.label} [{sumCheck}]
+              {SUM_CHECK_OPTIONS.find((o) => o.value === sumCheck)?.label} [
+              {sumCheck}]
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -219,7 +224,8 @@ export default function RS2FormFields({
         <Select value={protocol} onValueChange={setProtocol}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn Protocol">
-              {PROTOCOL_OPTIONS.find((o) => o.value === protocol)?.label} [{protocol}]
+              {PROTOCOL_OPTIONS.find((o) => o.value === protocol)?.label} [
+              {protocol}]
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -240,7 +246,12 @@ export default function RS2FormFields({
         <Select value={controlProcedure} onValueChange={setControlProcedure}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn thủ tục CR/LF">
-              {CONTROL_PROCEDURE_OPTIONS.find((o) => o.value === controlProcedure)?.label} [{controlProcedure}]
+              {
+                CONTROL_PROCEDURE_OPTIONS.find(
+                  (o) => o.value === controlProcedure,
+                )?.label
+              }{" "}
+              [{controlProcedure}]
             </SelectValue>
           </SelectTrigger>
           <SelectContent>

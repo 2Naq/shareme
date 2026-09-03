@@ -465,8 +465,12 @@ function BarcodeImageTab({ onScanSuccess }) {
 }
 
 // ── Export chính ────────────────────────────────────────────
-export default function BarcodeScanner({ onScanSuccess, isActive, innerTab, onInnerTabChange }) {
-
+export default function BarcodeScanner({
+  onScanSuccess,
+  isActive,
+  innerTab,
+  onInnerTabChange,
+}) {
   // Bọc callback với toast phân biệt barcode
   const handleSuccess = useCallback(
     (decoded) => {

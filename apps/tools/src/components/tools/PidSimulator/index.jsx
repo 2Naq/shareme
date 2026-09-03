@@ -79,17 +79,13 @@ export default function PidSimulator() {
             Mô phỏng Bộ điều khiển PID
           </h1>
           <p className="text-muted-foreground text-sm">
-            Mô phỏng đáp ứng PID cho đối tượng bậc 1 có trễ (FOPDT) — Chỉnh
-            tham số và quan sát biểu đồ thời gian thực
+            Mô phỏng đáp ứng PID cho đối tượng bậc 1 có trễ (FOPDT) — Chỉnh tham
+            số và quan sát biểu đồ thời gian thực
           </p>
         </div>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2">
-            <Switch
-              id="show-mv"
-              checked={showMV}
-              onCheckedChange={setShowMV}
-            />
+            <Switch id="show-mv" checked={showMV} onCheckedChange={setShowMV} />
             <Label htmlFor="show-mv" className="text-sm">
               Hiển thị MV
             </Label>

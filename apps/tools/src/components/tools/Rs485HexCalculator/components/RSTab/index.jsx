@@ -178,7 +178,8 @@ export default function RSTab() {
           <CardHeader>
             <CardTitle>Communication setting for RS instruction</CardTitle>
             <CardDescription>
-              Cấu hình truyền thông cho lệnh RS. Thanh ghi <strong>D8120</strong>.
+              Cấu hình truyền thông cho lệnh RS. Thanh ghi{" "}
+              <strong>D8120</strong>.
             </CardDescription>
           </CardHeader>
           <CardContent>

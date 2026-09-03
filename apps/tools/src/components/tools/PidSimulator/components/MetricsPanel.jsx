@@ -1,12 +1,13 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Clock, TrendingUp, AlertTriangle, Target, Activity } from "lucide-react";
+import {
+  Clock,
+  TrendingUp,
+  AlertTriangle,
+  Target,
+  Activity,
+} from "lucide-react";
 
 /**
  * Panel hiển thị các chỉ số hiệu suất PID.
@@ -54,10 +55,7 @@ export default function MetricsPanel({ metrics }) {
       icon: AlertTriangle,
       label: "Sai số xác lập",
       value: metrics.steadyStateError.toFixed(2),
-      color:
-        metrics.steadyStateError > 1
-          ? "text-red-500"
-          : "text-green-500",
+      color: metrics.steadyStateError > 1 ? "text-red-500" : "text-green-500",
     },
     {
       icon: Activity,

@@ -16,16 +16,17 @@ export const SHIHLIN_FAULTS = [
       "Thời gian tăng tốc P.7 / 01-06 quá ngắn so với quán tính tải",
       "Bù mô-men khởi động P.0 đặt quá cao",
       "Kẹt cơ khí hoặc động cơ bị bó cứng trục",
-      "Khối công suất IGBT bị chập hỏng"
+      "Khối công suất IGBT bị chập hỏng",
     ],
     solutions: [
       "Tăng thời gian tăng tốc P.7",
       "Giảm giá trị tham số bù mô-men P.0",
       "Quay thử trục motor bằng tay kiểm tra kẹt cơ",
-      "Dùng Megger đo cách điện cuộn dây motor"
+      "Dùng Megger đo cách điện cuộn dây motor",
     ],
-    expertTips: "Tháo 3 dây ngõ ra motor (U, V, W). Bật chạy không tải, nếu vẫn báo lỗi OC1 ngay lập tức thì khối công suất IGBT đã bị chập nổ.",
-    relatedRegisters: ["1000", "1004", "1008"]
+    expertTips:
+      "Tháo 3 dây ngõ ra motor (U, V, W). Bật chạy không tải, nếu vẫn báo lỗi OC1 ngay lập tức thì khối công suất IGBT đã bị chập nổ.",
+    relatedRegisters: ["1000", "1004", "1008"],
   },
   {
     id: "SHIHLIN_OC2",
@@ -41,15 +42,16 @@ export const SHIHLIN_FAULTS = [
     severity: "error",
     causes: [
       "Tải cơ khí tăng đột ngột khi đang quay tốc độ ổn định",
-      "Cáp nối động cơ bị chạm chập ngắt quãng do rung lắc"
+      "Cáp nối động cơ bị chạm chập ngắt quãng do rung lắc",
     ],
     solutions: [
       "Kiểm tra tải cơ khí làm việc",
       "Kích hoạt tính năng chống trượt Stall Prevention (P.22)",
-      "Nâng công suất biến tần lên một cấp nếu tải thường xuyên biến thiên lớn"
+      "Nâng công suất biến tần lên một cấp nếu tải thường xuyên biến thiên lớn",
     ],
-    expertTips: "Tham số P.22 (Stall Prevention level) mặc định là 150% dòng định mức.",
-    relatedRegisters: ["1000", "1004", "1008"]
+    expertTips:
+      "Tham số P.22 (Stall Prevention level) mặc định là 150% dòng định mức.",
+    relatedRegisters: ["1000", "1004", "1008"],
   },
   {
     id: "SHIHLIN_OC3",
@@ -65,14 +67,15 @@ export const SHIHLIN_FAULTS = [
     severity: "error",
     causes: [
       "Thời gian giảm tốc P.8 quá ngắn làm động cơ bị ghì mạnh",
-      "Năng lượng tái sinh dâng cao đột ngột"
+      "Năng lượng tái sinh dâng cao đột ngột",
     ],
     solutions: [
       "Tăng thời gian giảm tốc P.8",
-      "Lắp thêm điện trở xả hãm động năng vào cọc P/+ và PR"
+      "Lắp thêm điện trở xả hãm động năng vào cọc P/+ và PR",
     ],
-    expertTips: "Cần phân biệt giữa OC3 (quá dòng hãm) và OV3 (quá áp hãm). Nếu hãm quá gấp, dòng kích phanh có thể kích hoạt OC3.",
-    relatedRegisters: ["1000", "1004", "1008"]
+    expertTips:
+      "Cần phân biệt giữa OC3 (quá dòng hãm) và OV3 (quá áp hãm). Nếu hãm quá gấp, dòng kích phanh có thể kích hoạt OC3.",
+    relatedRegisters: ["1000", "1004", "1008"],
   },
   {
     id: "SHIHLIN_OV1",
@@ -88,14 +91,15 @@ export const SHIHLIN_FAULTS = [
     severity: "error",
     causes: [
       "Quán tính tải quay nhanh hơn tốc độ tăng tốc của biến tần (tải kéo động cơ)",
-      "Điện áp nguồn lưới xoay chiều ngõ vào quá cao"
+      "Điện áp nguồn lưới xoay chiều ngõ vào quá cao",
     ],
     solutions: [
       "Kéo dài thời gian tăng tốc P.7",
-      "Đo kiểm tra điện áp lưới điện 3 pha đầu vào"
+      "Đo kiểm tra điện áp lưới điện 3 pha đầu vào",
     ],
-    expertTips: "Thường gặp ở ứng dụng quạt hút khi có luồng gió tự nhiên thổi cánh quạt quay trước khi biến tần đề-pa.",
-    relatedRegisters: ["1000", "1005", "1008"]
+    expertTips:
+      "Thường gặp ở ứng dụng quạt hút khi có luồng gió tự nhiên thổi cánh quạt quay trước khi biến tần đề-pa.",
+    relatedRegisters: ["1000", "1005", "1008"],
   },
   {
     id: "SHIHLIN_OV3",
@@ -111,15 +115,16 @@ export const SHIHLIN_FAULTS = [
     severity: "error",
     causes: [
       "Thời gian giảm tốc P.8 quá ngắn, động cơ biến thành máy phát đẩy áp Bus DC vượt ngưỡng bảo vệ",
-      "Chưa lắp điện trở xả hãm hoặc điện trở xả bị đứt"
+      "Chưa lắp điện trở xả hãm hoặc điện trở xả bị đứt",
     ],
     solutions: [
       "Tăng thời gian giảm tốc P.8 dài hơn",
       "Lắp thêm điện trở xả vào chân P/+ và PR (với model có tích hợp bộ hãm)",
-      "Cài đặt chế độ tự động giảm tốc tránh quá áp"
+      "Cài đặt chế độ tự động giảm tốc tránh quá áp",
     ],
-    expertTips: "Đây là lỗi phổ biến nhất trong thực tế khi chạy các tải quán tính lớn như quạt ly tâm, máy ly tâm, bàn quay.",
-    relatedRegisters: ["1000", "1005", "1008"]
+    expertTips:
+      "Đây là lỗi phổ biến nhất trong thực tế khi chạy các tải quán tính lớn như quạt ly tâm, máy ly tâm, bàn quay.",
+    relatedRegisters: ["1000", "1005", "1008"],
   },
   {
     id: "SHIHLIN_THN",
@@ -136,15 +141,16 @@ export const SHIHLIN_FAULTS = [
     causes: [
       "Rơ-le nhiệt điện tử tích hợp bảo vệ motor tác động do quá tải kéo dài",
       "Cài sai dòng định mức động cơ trong tham số P.9",
-      "Động cơ chạy ở tần số thấp kéo dài làm quạt đuôi giải nhiệt kém"
+      "Động cơ chạy ở tần số thấp kéo dài làm quạt đuôi giải nhiệt kém",
     ],
     solutions: [
       "Kiểm tra dòng định mức ghi trên tem động cơ và cài chính xác vào P.9",
       "Giảm bớt tải cơ khí",
-      "Lắp quạt làm mát độc lập cho động cơ nếu chạy tần số thấp thường xuyên"
+      "Lắp quạt làm mát độc lập cho động cơ nếu chạy tần số thấp thường xuyên",
     ],
-    expertTips: "Khi P.9 cài đặt bằng 0, rơ-le nhiệt điện tử sẽ bị tắt (chỉ dùng khi đã có rơ-le nhiệt cơ ngoài).",
-    relatedRegisters: ["1000", "1004", "1008"]
+    expertTips:
+      "Khi P.9 cài đặt bằng 0, rơ-le nhiệt điện tử sẽ bị tắt (chỉ dùng khi đã có rơ-le nhiệt cơ ngoài).",
+    relatedRegisters: ["1000", "1004", "1008"],
   },
   {
     id: "SHIHLIN_THT",
@@ -160,15 +166,16 @@ export const SHIHLIN_FAULTS = [
     severity: "error",
     causes: [
       "Biến tần bị quá tải liên tục trong thời gian dài (mô hình bảo vệ khối công suất)",
-      "Khởi động dừng liên tục với tần suất quá cao"
+      "Khởi động dừng liên tục với tần suất quá cao",
     ],
     solutions: [
       "Giảm tải cơ khí",
       "Tăng thời gian tăng/giảm tốc",
-      "Nâng cấp biến tần lên công suất lớn hơn một cấp"
+      "Nâng cấp biến tần lên công suất lớn hơn một cấp",
     ],
-    expertTips: "THT là quá tải biến tần (bảo vệ mạch bán dẫn), khác với THN là quá tải cuộn dây động cơ.",
-    relatedRegisters: ["1000", "1004", "1008"]
+    expertTips:
+      "THT là quá tải biến tần (bảo vệ mạch bán dẫn), khác với THN là quá tải cuộn dây động cơ.",
+    relatedRegisters: ["1000", "1004", "1008"],
   },
   {
     id: "SHIHLIN_LU",
@@ -185,15 +192,16 @@ export const SHIHLIN_FAULTS = [
     causes: [
       "Điện áp nguồn xoay chiều ngõ vào bị sụt áp mạnh hoặc mất nguồn chớp nhoáng",
       "Mất 1 trong 3 pha nguồn điện đầu vào",
-      "Bộ tụ điện lọc Bus DC bị suy giảm dung lượng"
+      "Bộ tụ điện lọc Bus DC bị suy giảm dung lượng",
     ],
     solutions: [
       "Đo điện áp 3 pha nguồn cấp ngõ vào R, S, T",
       "Kiểm tra aptomat và khởi động từ cấp nguồn chính",
-      "Bật tính năng tự khởi động lại sau sụt nguồn (P.57, P.58)"
+      "Bật tính năng tự khởi động lại sau sụt nguồn (P.57, P.58)",
     ],
-    expertTips: "Hệ 220V bình thường khoảng 310V DC, hệ 380V bình thường khoảng 540V DC.",
-    relatedRegisters: ["1000", "1008"]
+    expertTips:
+      "Hệ 220V bình thường khoảng 310V DC, hệ 380V bình thường khoảng 540V DC.",
+    relatedRegisters: ["1000", "1008"],
   },
   {
     id: "SHIHLIN_OPT",
@@ -209,15 +217,16 @@ export const SHIHLIN_FAULTS = [
     severity: "error",
     causes: [
       "Lỗi giao tiếp truyền thông RS-485 Modbus RTU vượt quá số lần thử lại cho phép cài trong P.35",
-      "Đứt cáp mạng RS485 hoặc đấu nhầm cực"
+      "Đứt cáp mạng RS485 hoặc đấu nhầm cực",
     ],
     solutions: [
       "Kiểm tra cài đặt Baudrate (P.32), Parity (P.34), Stop bit (P.33) giữa PLC và biến tần",
       "Lắp điện trở đầu cuối 120Ω giữa chân RDA và RDB",
-      "Cài đặt P.36 = 9999 để biến tần không ngắt lỗi khi thử nghiệm"
+      "Cài đặt P.36 = 9999 để biến tần không ngắt lỗi khi thử nghiệm",
     ],
-    expertTips: "Cài đặt P.36 = 9999 trong giai đoạn lập trình chạy thử để biến tần không trip ngắt khi tạm dừng PLC.",
-    relatedRegisters: ["1000", "1001", "1008"]
+    expertTips:
+      "Cài đặt P.36 = 9999 trong giai đoạn lập trình chạy thử để biến tần không trip ngắt khi tạm dừng PLC.",
+    relatedRegisters: ["1000", "1001", "1008"],
   },
   {
     id: "SHIHLIN_PE",
@@ -233,14 +242,15 @@ export const SHIHLIN_FAULTS = [
     severity: "error",
     causes: [
       "Lỗi chip nhớ EEPROM lưu trữ dữ liệu tham số cấu hình",
-      "Ghi liên tục giá trị qua Modbus vào EEPROM làm chai mòn tuổi thọ bộ nhớ"
+      "Ghi liên tục giá trị qua Modbus vào EEPROM làm chai mòn tuổi thọ bộ nhớ",
     ],
     solutions: [
       "Thực hiện xóa toàn bộ tham số về mặc định (All Parameter Reset: P.999 = 1)",
-      "Nếu bật lại nguồn vẫn báo PE thì chip nhớ đã bị hỏng"
+      "Nếu bật lại nguồn vẫn báo PE thì chip nhớ đã bị hỏng",
     ],
-    expertTips: "Khi ghi tần số qua mạng Modbus, hãy ghi vào bộ nhớ tạm RAM thay vì ghi vào bộ nhớ EEPROM.",
-    relatedRegisters: ["1000", "1008"]
+    expertTips:
+      "Khi ghi tần số qua mạng Modbus, hãy ghi vào bộ nhớ tạm RAM thay vì ghi vào bộ nhớ EEPROM.",
+    relatedRegisters: ["1000", "1008"],
   },
   {
     id: "SHIHLIN_CPU",
@@ -256,15 +266,16 @@ export const SHIHLIN_FAULTS = [
     severity: "error",
     causes: [
       "Vi xử lý trung tâm bị treo do xung nhiễu điện từ cực mạnh hoặc sét lan truyền",
-      "Bo mạch điều khiển bị ẩm mốc chập vi mạch"
+      "Bo mạch điều khiển bị ẩm mốc chập vi mạch",
     ],
     solutions: [
       "Kiểm tra lại tiếp địa vỏ máy PE",
-      "Tắt nguồn biến tần đợi 5 phút xả hết điện rồi bật lại; nếu vẫn báo lỗi cần gửi bảo hành"
+      "Tắt nguồn biến tần đợi 5 phút xả hết điện rồi bật lại; nếu vẫn báo lỗi cần gửi bảo hành",
     ],
-    expertTips: "Đảm bảo tủ điện có cuộn lọc nhiễu Noise Filter và tiếp địa cọc đồng < 10Ω.",
-    relatedRegisters: ["1000", "1008"]
-  }
+    expertTips:
+      "Đảm bảo tủ điện có cuộn lọc nhiễu Noise Filter và tiếp địa cọc đồng < 10Ω.",
+    relatedRegisters: ["1000", "1008"],
+  },
 ];
 
 export const SHIHLIN_REGISTERS = [
@@ -281,7 +292,8 @@ export const SHIHLIN_REGISTERS = [
     name: "Communication Command (Từ lệnh điều khiển chạy)",
     category: "control",
     categoryLabel: "Lệnh điều khiển",
-    description: "Thanh ghi điều khiển lệnh chạy/dừng/đổi chiều quay qua mạng Modbus RTU (Địa chỉ Dec 41002 / Hex 03E9H hoặc 1001H)",
+    description:
+      "Thanh ghi điều khiển lệnh chạy/dừng/đổi chiều quay qua mạng Modbus RTU (Địa chỉ Dec 41002 / Hex 03E9H hoặc 1001H)",
     bitDetails: [
       { bit: "Bit 0", name: "STOP", desc: "1 = Lệnh dừng động cơ" },
       { bit: "Bit 1", name: "RUN FWD", desc: "1 = Lệnh chạy thuận" },
@@ -289,9 +301,14 @@ export const SHIHLIN_REGISTERS = [
       { bit: "Bit 3", name: "RH", desc: "1 = Tốc độ cao" },
       { bit: "Bit 4", name: "RM", desc: "1 = Tốc độ trung bình" },
       { bit: "Bit 5", name: "RL", desc: "1 = Tốc độ thấp" },
-      { bit: "Bit 7", name: "RESET", desc: "1 = Lệnh xóa lỗi sự cố (Trip Reset)" }
+      {
+        bit: "Bit 7",
+        name: "RESET",
+        desc: "1 = Lệnh xóa lỗi sự cố (Trip Reset)",
+      },
     ],
-    example: "Ghi Function 06 địa chỉ 1001H giá trị 2 (Chạy thuận), giá trị 4 (Chạy ngược), giá trị 1 (Dừng), giá trị 128 (Xóa lỗi)."
+    example:
+      "Ghi Function 06 địa chỉ 1001H giá trị 2 (Chạy thuận), giá trị 4 (Chạy ngược), giá trị 1 (Dừng), giá trị 128 (Xóa lỗi).",
   },
   {
     id: "SHIHLIN_REG_1000",
@@ -306,16 +323,30 @@ export const SHIHLIN_REGISTERS = [
     name: "Inverter Status (Từ trạng thái vận hành)",
     category: "status",
     categoryLabel: "Trạng thái vận hành",
-    description: "Thanh ghi đọc trạng thái vận hành và cờ báo lỗi biến tần Shihlin (Địa chỉ Dec 41001 / Hex 03E8H hoặc 1000H)",
+    description:
+      "Thanh ghi đọc trạng thái vận hành và cờ báo lỗi biến tần Shihlin (Địa chỉ Dec 41001 / Hex 03E8H hoặc 1000H)",
     bitDetails: [
-      { bit: "Bit 0", name: "RUN", desc: "1 = Biến tần đang chạy xuất điện áp" },
+      {
+        bit: "Bit 0",
+        name: "RUN",
+        desc: "1 = Biến tần đang chạy xuất điện áp",
+      },
       { bit: "Bit 1", name: "FWD", desc: "1 = Chiều quay thuận" },
       { bit: "Bit 2", name: "REV", desc: "1 = Chiều quay ngược" },
       { bit: "Bit 3", name: "SU", desc: "1 = Đã đạt tần số cài đặt" },
-      { bit: "Bit 4", name: "OL", desc: "1 = Đang kích hoạt chống trượt / quá tải" },
-      { bit: "Bit 7", name: "TRIP / ALARM", desc: "1 = Biến tần đang bị sự cố Trip (CÓ LỖI)" }
+      {
+        bit: "Bit 4",
+        name: "OL",
+        desc: "1 = Đang kích hoạt chống trượt / quá tải",
+      },
+      {
+        bit: "Bit 7",
+        name: "TRIP / ALARM",
+        desc: "1 = Biến tần đang bị sự cố Trip (CÓ LỖI)",
+      },
     ],
-    example: "Đọc Function 03 địa chỉ 1000H, kiểm tra Bit 7 để biết biến tần có đang bị lỗi không."
+    example:
+      "Đọc Function 03 địa chỉ 1000H, kiểm tra Bit 7 để biết biến tần có đang bị lỗi không.",
   },
   {
     id: "SHIHLIN_REG_1002",
@@ -330,9 +361,10 @@ export const SHIHLIN_REGISTERS = [
     name: "Frequency Setting (Cài đặt tần số)",
     category: "control",
     categoryLabel: "Lệnh điều khiển",
-    description: "Cài đặt tần số ngõ ra mục tiêu qua mạng Modbus (Đơn vị: 0.01 Hz)",
+    description:
+      "Cài đặt tần số ngõ ra mục tiêu qua mạng Modbus (Đơn vị: 0.01 Hz)",
     bitDetails: [],
-    example: "Ghi Function 06 địa chỉ 1002H giá trị 5000 để đặt 50.00 Hz."
+    example: "Ghi Function 06 địa chỉ 1002H giá trị 5000 để đặt 50.00 Hz.",
   },
   {
     id: "SHIHLIN_REG_1003",
@@ -347,9 +379,10 @@ export const SHIHLIN_REGISTERS = [
     name: "Output Frequency Monitor",
     category: "monitor",
     categoryLabel: "Giám sát ngõ ra",
-    description: "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz)",
+    description:
+      "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz)",
     bitDetails: [],
-    example: "Đọc về 5000 tương ứng 50.00 Hz."
+    example: "Đọc về 5000 tương ứng 50.00 Hz.",
   },
   {
     id: "SHIHLIN_REG_1004",
@@ -366,7 +399,7 @@ export const SHIHLIN_REGISTERS = [
     categoryLabel: "Giám sát ngõ ra",
     description: "Dòng điện ngõ ra thực tế cấp cho động cơ (Đơn vị: 0.01 A)",
     bitDetails: [],
-    example: "Đọc về 350 tương ứng 3.50 A."
+    example: "Đọc về 350 tương ứng 3.50 A.",
   },
   {
     id: "SHIHLIN_REG_1005",
@@ -383,7 +416,7 @@ export const SHIHLIN_REGISTERS = [
     categoryLabel: "Giám sát ngõ ra",
     description: "Điện áp xoay chiều ngõ ra cấp cho động cơ (Đơn vị: 0.1 V)",
     bitDetails: [],
-    example: "Đọc về 2200 tương ứng 220.0 V."
+    example: "Đọc về 2200 tương ứng 220.0 V.",
   },
   {
     id: "SHIHLIN_REG_1008",
@@ -398,7 +431,8 @@ export const SHIHLIN_REGISTERS = [
     name: "Current Fault Code Monitor",
     category: "fault",
     categoryLabel: "Giám sát & Lịch sử mã lỗi",
-    description: "Mã số lỗi sự cố hiện tại của biến tần Shihlin (1 = OC1, 2 = OC2, 3 = OC3, 4 = OV1, 6 = OV3, 7 = THN, 8 = THT, 10 = LU, 11 = OPT, 12 = PE, 13 = CPU...)",
+    description:
+      "Mã số lỗi sự cố hiện tại của biến tần Shihlin (1 = OC1, 2 = OC2, 3 = OC3, 4 = OV1, 6 = OV3, 7 = THN, 8 = THT, 10 = LU, 11 = OPT, 12 = PE, 13 = CPU...)",
     bitDetails: [
       { bit: "1", name: "OC1", desc: "Quá dòng khi tăng tốc" },
       { bit: "2", name: "OC2", desc: "Quá dòng khi chạy ổn định" },
@@ -408,8 +442,9 @@ export const SHIHLIN_REGISTERS = [
       { bit: "7", name: "THN", desc: "Quá tải động cơ" },
       { bit: "8", name: "THT", desc: "Quá tải biến tần" },
       { bit: "10", name: "LU", desc: "Thấp áp nguồn Bus DC" },
-      { bit: "11", name: "OPT", desc: "Lỗi truyền thông Modbus" }
+      { bit: "11", name: "OPT", desc: "Lỗi truyền thông Modbus" },
     ],
-    example: "Khi Bit 7 của thanh ghi 1000H = 1, đọc thanh ghi 1008H để lấy mã lỗi."
-  }
+    example:
+      "Khi Bit 7 của thanh ghi 1000H = 1, đọc thanh ghi 1008H để lấy mã lỗi.",
+  },
 ];

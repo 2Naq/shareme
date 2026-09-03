@@ -15,16 +15,17 @@ export const LS_FAULTS = [
       "Dòng điện ngõ ra vượt quá 200% dòng định mức của biến tần",
       "Thời gian tăng tốc ACC quá ngắn so với quán tính tải cơ khí",
       "Động cơ bị kẹt trục cơ khí lúc khởi động",
-      "Khối công suất IGBT ngõ ra bị chập hỏng"
+      "Khối công suất IGBT ngõ ra bị chập hỏng",
     ],
     solutions: [
       "Tăng thời gian tăng tốc ACC trong nhóm điều khiển cơ bản",
       "Kiểm tra khớp nối cơ khí của động cơ xem có bị bó cứng",
       "Dùng đồng hồ Megger đo cách điện các cuộn dây motor xuống đất",
-      "Thực hiện đo nguội cầu IGBT ngõ ra"
+      "Thực hiện đo nguội cầu IGBT ngõ ra",
     ],
-    expertTips: "Trên dòng LS iG5A, tháo 3 dây ra motor U, V, W. Cho biến tần chạy không tải ở 10Hz, nếu vẫn báo lỗi OCT ngay lập tức thì khối IGBT hoặc IC cảm biến dòng đã hỏng.",
-    relatedRegisters: ["0009H", "000AH", "000EH"]
+    expertTips:
+      "Trên dòng LS iG5A, tháo 3 dây ra motor U, V, W. Cho biến tần chạy không tải ở 10Hz, nếu vẫn báo lỗi OCT ngay lập tức thì khối IGBT hoặc IC cảm biến dòng đã hỏng.",
+    relatedRegisters: ["0009H", "000AH", "000EH"],
   },
   {
     id: "LS_OC2",
@@ -40,14 +41,15 @@ export const LS_FAULTS = [
     severity: "error",
     causes: [
       "Ngắn mạch trực tiếp giữa các pha ngõ ra U, V, W hoặc ngắn mạch trong khối bán dẫn IGBT",
-      "Dây dẫn ngõ ra bị dập nát chập vỏ máng điện"
+      "Dây dẫn ngõ ra bị dập nát chập vỏ máng điện",
     ],
     solutions: [
       "Ngắt nguồn ngay lập tức, kiểm tra kỹ đường dây nối motor",
-      "Đo kiểm tra cách điện và điện trở cuộn dây động cơ"
+      "Đo kiểm tra cách điện và điện trở cuộn dây động cơ",
     ],
-    expertTips: "Khác với OCT (quá dòng do tăng tốc/kẹt tải), OC2 là ngắt phần cứng tức thời do ngắn mạch trực tiếp.",
-    relatedRegisters: ["000EH"]
+    expertTips:
+      "Khác với OCT (quá dòng do tăng tốc/kẹt tải), OC2 là ngắt phần cứng tức thời do ngắn mạch trực tiếp.",
+    relatedRegisters: ["000EH"],
   },
   {
     id: "LS_OVT",
@@ -64,15 +66,16 @@ export const LS_FAULTS = [
     causes: [
       "Điện áp một chiều Bus DC vượt quá 400V (đối với dòng 200V) hoặc 800V (đối với dòng 400V)",
       "Thời gian giảm tốc dEC quá dốc khiến năng lượng hãm dội ngược về biến tần",
-      "Chưa lắp điện trở xả hãm động năng hoặc điện trở xả bị đứt"
+      "Chưa lắp điện trở xả hãm động năng hoặc điện trở xả bị đứt",
     ],
     solutions: [
       "Kéo dài thời gian giảm tốc dEC dài hơn",
       "Lắp thêm điện trở xả hãm vào chân B1 và B2",
-      "Bật tính năng chống quá áp khi giảm tốc trong nhóm chức năng nâng cao"
+      "Bật tính năng chống quá áp khi giảm tốc trong nhóm chức năng nâng cao",
     ],
-    expertTips: "Nếu hệ thống bắt buộc phải dừng gấp (dEC ngắn), việc lắp điện trở xả đúng công suất Watt và trị số Ohm (Ω) theo Catalogue LS là bắt buộc.",
-    relatedRegisters: ["000CH", "000EH"]
+    expertTips:
+      "Nếu hệ thống bắt buộc phải dừng gấp (dEC ngắn), việc lắp điện trở xả đúng công suất Watt và trị số Ohm (Ω) theo Catalogue LS là bắt buộc.",
+    relatedRegisters: ["000CH", "000EH"],
   },
   {
     id: "LS_LVT",
@@ -89,15 +92,16 @@ export const LS_FAULTS = [
     causes: [
       "Điện áp nguồn xoay chiều ngõ vào bị sụt áp dưới mức cho phép (< 180V với hệ 200V; < 360V với hệ 400V)",
       "Mất pha nguồn điện xoay chiều đầu vào R, S, T",
-      "Khởi động từ cấp nguồn bị hỏng hoặc move tiếp điểm"
+      "Khởi động từ cấp nguồn bị hỏng hoặc move tiếp điểm",
     ],
     solutions: [
       "Đo kiểm tra điện áp nguồn cấp 3 pha ngõ vào lúc tải khởi động",
       "Kiểm tra aptomat tổng và độ siết ốc tại cầu cực R, S, T",
-      "Cài đặt tính năng tự động khởi động lại sau sụt nguồn"
+      "Cài đặt tính năng tự động khởi động lại sau sụt nguồn",
     ],
-    expertTips: "Đọc thanh ghi Modbus 000CH để theo dõi điện áp Bus DC thực tế của biến tần LS (đơn vị: 0.1V).",
-    relatedRegisters: ["000CH", "000EH"]
+    expertTips:
+      "Đọc thanh ghi Modbus 000CH để theo dõi điện áp Bus DC thực tế của biến tần LS (đơn vị: 0.1V).",
+    relatedRegisters: ["000CH", "000EH"],
   },
   {
     id: "LS_IOL",
@@ -113,15 +117,16 @@ export const LS_FAULTS = [
     severity: "error",
     causes: [
       "Dòng điện ngõ ra vượt quá dòng định mức của biến tần liên tục trong thời gian dài (150% trong 1 phút)",
-      "Công suất biến tần chọn quá nhỏ so với động cơ và tải cơ khí"
+      "Công suất biến tần chọn quá nhỏ so với động cơ và tải cơ khí",
     ],
     solutions: [
       "Giảm tải cơ khí tác động lên động cơ",
       "Tăng thời gian tăng/giảm tốc",
-      "Nâng công suất biến tần lên một cấp"
+      "Nâng công suất biến tần lên một cấp",
     ],
-    expertTips: "IOL là quá tải bảo vệ bản thân biến tần, khác với OLT là quá tải động cơ.",
-    relatedRegisters: ["0009H", "000EH"]
+    expertTips:
+      "IOL là quá tải bảo vệ bản thân biến tần, khác với OLT là quá tải động cơ.",
+    relatedRegisters: ["0009H", "000EH"],
   },
   {
     id: "LS_OLT",
@@ -137,14 +142,14 @@ export const LS_FAULTS = [
     severity: "error",
     causes: [
       "Động cơ bị quá tải cơ khí vượt ngưỡng cho phép cài đặt trong tham số F54~F58",
-      "Cài đặt dòng định mức motor trong thông số H33 chưa đúng"
+      "Cài đặt dòng định mức motor trong thông số H33 chưa đúng",
     ],
     solutions: [
       "Kiểm tra tải cơ khí làm việc",
-      "Cài đặt lại tham số dòng định mức động cơ H33 theo đúng tem motor"
+      "Cài đặt lại tham số dòng định mức động cơ H33 theo đúng tem motor",
     ],
     expertTips: "Có thể điều chỉnh mức bảo vệ quá tải trong nhóm F54 ~ F58.",
-    relatedRegisters: ["0009H", "000EH"]
+    relatedRegisters: ["0009H", "000EH"],
   },
   {
     id: "LS_ETH",
@@ -160,14 +165,14 @@ export const LS_FAULTS = [
     severity: "error",
     causes: [
       "Rơ-le nhiệt điện tử tác động do động cơ bị quá nhiệt",
-      "Motor chạy ở tốc độ thấp kéo dài làm quạt đuôi không tản nhiệt kịp"
+      "Motor chạy ở tốc độ thấp kéo dài làm quạt đuôi không tản nhiệt kịp",
     ],
     solutions: [
       "Để động cơ nguội bớt trước khi bật chạy lại",
-      "Lắp quạt làm mát cưỡng bức độc lập cho động cơ nếu chạy tần số thấp thường xuyên"
+      "Lắp quạt làm mát cưỡng bức độc lập cho động cơ nếu chạy tần số thấp thường xuyên",
     ],
     expertTips: "Cài đặt tham số F50 = 1 để bật chức năng rơ-le nhiệt điện tử.",
-    relatedRegisters: ["000EH"]
+    relatedRegisters: ["000EH"],
   },
   {
     id: "LS_OHT",
@@ -184,15 +189,16 @@ export const LS_FAULTS = [
     causes: [
       "Cánh nhôm tản nhiệt biến tần quá nóng (> 105°C)",
       "Quạt làm mát của biến tần bị chết hoặc nghẽn bụi bẩn",
-      "Nhiệt độ môi trường trong tủ điện quá cao (> 50°C)"
+      "Nhiệt độ môi trường trong tủ điện quá cao (> 50°C)",
     ],
     solutions: [
       "Vệ sinh sạch bụi bẩn trên cánh tản nhiệt biến tần",
       "Kiểm tra và thay thế quạt làm mát mới",
-      "Cải thiện hệ thống quạt thông gió làm mát tủ điện"
+      "Cải thiện hệ thống quạt thông gió làm mát tủ điện",
     ],
-    expertTips: "Tham số H77 cho phép cài đặt chế độ chạy quạt (0: Luôn chạy khi có điện, 1: Chỉ chạy khi biến tần phát xung chạy).",
-    relatedRegisters: ["000EH"]
+    expertTips:
+      "Tham số H77 cho phép cài đặt chế độ chạy quạt (0: Luôn chạy khi có điện, 1: Chỉ chạy khi biến tần phát xung chạy).",
+    relatedRegisters: ["000EH"],
   },
   {
     id: "LS_POT",
@@ -209,15 +215,16 @@ export const LS_FAULTS = [
     causes: [
       "Đứt 1 pha cáp nối từ ngõ ra biến tần U, V, W đến motor",
       "Khởi động từ phụ ngõ ra đóng không đều pha",
-      "Cuộn dây động cơ bị đứt ngầm"
+      "Cuộn dây động cơ bị đứt ngầm",
     ],
     solutions: [
       "Đo thông mạch từng sợi cáp từ biến tần tới hộp đấu dây motor",
       "Đo cân bằng điện trở 3 cuộn dây motor",
-      "Cài đặt tham số H19 = 0 để tắt phát hiện mất pha ngõ ra khi thử không tải"
+      "Cài đặt tham số H19 = 0 để tắt phát hiện mất pha ngõ ra khi thử không tải",
     ],
-    expertTips: "Nếu chạy thử biến tần không tải (không gắn motor), bắt buộc phải tắt bảo vệ bằng cách cài H19 = 0.",
-    relatedRegisters: ["000EH"]
+    expertTips:
+      "Nếu chạy thử biến tần không tải (không gắn motor), bắt buộc phải tắt bảo vệ bằng cách cài H19 = 0.",
+    relatedRegisters: ["000EH"],
   },
   {
     id: "LS_COL",
@@ -234,15 +241,16 @@ export const LS_FAULTS = [
     causes: [
       "Mất 1 trong 3 pha nguồn cấp ngõ vào R, S, T",
       "Độ mất cân bằng điện áp giữa các pha quá lớn",
-      "Lỏng ốc siết cầu cực ngõ vào"
+      "Lỏng ốc siết cầu cực ngõ vào",
     ],
     solutions: [
       "Đo điện áp 3 pha nguồn cấp đầu vào R-S, S-T, T-R",
       "Siết chặt các ốc vít cầu đấu nguồn",
-      "Kiểm tra tham số bảo vệ mất pha đầu vào H18"
+      "Kiểm tra tham số bảo vệ mất pha đầu vào H18",
     ],
-    expertTips: "Tham số H18 cài đặt phát hiện mất pha đầu vào: 0 = Tắt, 1 = Bật.",
-    relatedRegisters: ["000EH"]
+    expertTips:
+      "Tham số H18 cài đặt phát hiện mất pha đầu vào: 0 = Tắt, 1 = Bật.",
+    relatedRegisters: ["000EH"],
   },
   {
     id: "LS_GFT",
@@ -258,15 +266,16 @@ export const LS_FAULTS = [
     severity: "error",
     causes: [
       "Phát hiện dòng ngắn mạch rò rỉ chạm đất ở ngõ ra phía motor hoặc cáp kéo dài",
-      "Động cơ bị ngấm nước, ẩm ướt cách điện kém"
+      "Động cơ bị ngấm nước, ẩm ướt cách điện kém",
     ],
     solutions: [
       "Ngắt nguồn ngay lập tức, dùng Megger đo cách điện từng pha U, V, W xuống đất",
       "Kiểm tra đường cáp chạy trong máng kim loại xem có bị cọ xước vỏ",
-      "Sấy khô cuộn dây động cơ"
+      "Sấy khô cuộn dây động cơ",
     ],
-    expertTips: "CẢNH BÁO: Tuyệt đối không xóa lỗi và bấm chạy lại nhiều lần khi bị GFT vì dòng ngắn mạch chạm đất sẽ phá hủy khối công suất IGBT.",
-    relatedRegisters: ["000EH"]
+    expertTips:
+      "CẢNH BÁO: Tuyệt đối không xóa lỗi và bấm chạy lại nhiều lần khi bị GFT vì dòng ngắn mạch chạm đất sẽ phá hủy khối công suất IGBT.",
+    relatedRegisters: ["000EH"],
   },
   {
     id: "LS_ERR",
@@ -282,15 +291,16 @@ export const LS_FAULTS = [
     severity: "error",
     causes: [
       "Mất kết nối mạng truyền thông Modbus RTU giữa PLC và biến tần quá thời gian timeout (tham số I62)",
-      "Đứt cáp RS485 hoặc đấu nhầm cực S+ và S-"
+      "Đứt cáp RS485 hoặc đấu nhầm cực S+ và S-",
     ],
     solutions: [
       "Kiểm tra dây cáp mạng RS485 (Chân S+ và S- trên iG5A)",
       "Kiểm tra gạt trở đầu cuối 120Ω",
-      "Cài đặt tham số I62 = 0 để tắt chế độ ngắt khi mất kết nối trong quá trình thử nghiệm"
+      "Cài đặt tham số I62 = 0 để tắt chế độ ngắt khi mất kết nối trong quá trình thử nghiệm",
     ],
-    expertTips: "Trên biến tần LS iG5A: Chân S+ là RS485 Data+, Chân S- là RS485 Data-.",
-    relatedRegisters: ["0006H", "000EH"]
+    expertTips:
+      "Trên biến tần LS iG5A: Chân S+ là RS485 Data+, Chân S- là RS485 Data-.",
+    relatedRegisters: ["0006H", "000EH"],
   },
   {
     id: "LS_FAN",
@@ -306,15 +316,16 @@ export const LS_FAULTS = [
     severity: "error",
     causes: [
       "Quạt làm mát biến tần bị kẹt rác cơ học hoặc đứt dây cấp nguồn quạt",
-      "Mạch điều khiển quạt trên bo mạch bị hỏng"
+      "Mạch điều khiển quạt trên bo mạch bị hỏng",
     ],
     solutions: [
       "Kiểm tra xem quạt có bị vướng vật cản không",
-      "Thay thế quạt làm mát mới cùng điện áp và kích thước"
+      "Thay thế quạt làm mát mới cùng điện áp và kích thước",
     ],
-    expertTips: "Quạt làm mát trên dòng iG5A có thể tháo lắp dạng module một cách dễ dàng.",
-    relatedRegisters: ["000EH"]
-  }
+    expertTips:
+      "Quạt làm mát trên dòng iG5A có thể tháo lắp dạng module một cách dễ dàng.",
+    relatedRegisters: ["000EH"],
+  },
 ];
 
 export const LS_REGISTERS = [
@@ -331,9 +342,11 @@ export const LS_REGISTERS = [
     name: "Frequency Command (Cài đặt tần số mục tiêu)",
     category: "control",
     categoryLabel: "Lệnh điều khiển",
-    description: "Cài đặt tần số ngõ ra mục tiêu cho biến tần LS qua Modbus RTU (Đơn vị: 0.01 Hz). Cần cài đặt tham số Frq = 3 (RS485).",
+    description:
+      "Cài đặt tần số ngõ ra mục tiêu cho biến tần LS qua Modbus RTU (Đơn vị: 0.01 Hz). Cần cài đặt tham số Frq = 3 (RS485).",
     bitDetails: [],
-    example: "Ghi Function 06 địa chỉ 0005H giá trị 5000 để đặt 50.00 Hz; Ghi 2500 để đặt 25.00 Hz."
+    example:
+      "Ghi Function 06 địa chỉ 0005H giá trị 5000 để đặt 50.00 Hz; Ghi 2500 để đặt 25.00 Hz.",
   },
   {
     id: "LS_REG_0006",
@@ -348,14 +361,20 @@ export const LS_REGISTERS = [
     name: "Run Command (Lệnh điều khiển Chạy/Dừng)",
     category: "control",
     categoryLabel: "Lệnh điều khiển",
-    description: "Thanh ghi điều khiển lệnh chạy/dừng/đổi chiều quay/xóa lỗi cho biến tần LS (Cần cài drv = 3)",
+    description:
+      "Thanh ghi điều khiển lệnh chạy/dừng/đổi chiều quay/xóa lỗi cho biến tần LS (Cần cài drv = 3)",
     bitDetails: [
       { bit: "0 (0000H)", name: "STOP", desc: "Lệnh giảm tốc dừng động cơ" },
       { bit: "2 (0002H)", name: "RUN FWD", desc: "Lệnh khởi động chạy thuận" },
       { bit: "4 (0004H)", name: "RUN REV", desc: "Lệnh khởi động chạy ngược" },
-      { bit: "8 (0008H)", name: "RESET", desc: "Lệnh xóa lỗi sự cố (Fault Reset)" }
+      {
+        bit: "8 (0008H)",
+        name: "RESET",
+        desc: "Lệnh xóa lỗi sự cố (Fault Reset)",
+      },
     ],
-    example: "Ghi Function 06 địa chỉ 0006H giá trị 2 (Chạy thuận), giá trị 4 (Chạy ngược), giá trị 0 (Dừng), giá trị 8 (Xóa lỗi)."
+    example:
+      "Ghi Function 06 địa chỉ 0006H giá trị 2 (Chạy thuận), giá trị 4 (Chạy ngược), giá trị 0 (Dừng), giá trị 8 (Xóa lỗi).",
   },
   {
     id: "LS_REG_0007",
@@ -370,9 +389,10 @@ export const LS_REGISTERS = [
     name: "Acceleration Time (Thời gian tăng tốc ACC)",
     category: "parameter",
     categoryLabel: "Tham số cài đặt",
-    description: "Cài đặt thời gian tăng tốc từ xa qua Modbus (Đơn vị: 0.1 giây)",
+    description:
+      "Cài đặt thời gian tăng tốc từ xa qua Modbus (Đơn vị: 0.1 giây)",
     bitDetails: [],
-    example: "Ghi 100 tương ứng 10.0 giây; Ghi 50 tương ứng 5.0 giây."
+    example: "Ghi 100 tương ứng 10.0 giây; Ghi 50 tương ứng 5.0 giây.",
   },
   {
     id: "LS_REG_0008",
@@ -387,9 +407,10 @@ export const LS_REGISTERS = [
     name: "Deceleration Time (Thời gian giảm tốc dEC)",
     category: "parameter",
     categoryLabel: "Tham số cài đặt",
-    description: "Cài đặt thời gian giảm tốc từ xa qua Modbus (Đơn vị: 0.1 giây)",
+    description:
+      "Cài đặt thời gian giảm tốc từ xa qua Modbus (Đơn vị: 0.1 giây)",
     bitDetails: [],
-    example: "Ghi 150 tương ứng 15.0 giây; Ghi 50 tương ứng 5.0 giây."
+    example: "Ghi 150 tương ứng 15.0 giây; Ghi 50 tương ứng 5.0 giây.",
   },
   {
     id: "LS_REG_0009",
@@ -406,7 +427,7 @@ export const LS_REGISTERS = [
     categoryLabel: "Giám sát ngõ ra",
     description: "Dòng điện ngõ ra thực tế cấp cho động cơ (Đơn vị: 0.1 A)",
     bitDetails: [],
-    example: "Đọc về giá trị 45 tương ứng 4.5 A."
+    example: "Đọc về giá trị 45 tương ứng 4.5 A.",
   },
   {
     id: "LS_REG_000A",
@@ -421,9 +442,10 @@ export const LS_REGISTERS = [
     name: "Output Frequency Monitor (Tần số ngõ ra)",
     category: "monitor",
     categoryLabel: "Giám sát ngõ ra",
-    description: "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz)",
+    description:
+      "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz)",
     bitDetails: [],
-    example: "Đọc về 5000 tương ứng 50.00 Hz."
+    example: "Đọc về 5000 tương ứng 50.00 Hz.",
   },
   {
     id: "LS_REG_000B",
@@ -440,7 +462,7 @@ export const LS_REGISTERS = [
     categoryLabel: "Giám sát ngõ ra",
     description: "Điện áp xoay chiều ngõ ra cấp cho động cơ (Đơn vị: 0.1 V)",
     bitDetails: [],
-    example: "Đọc về 2200 tương ứng 220.0 V AC."
+    example: "Đọc về 2200 tương ứng 220.0 V AC.",
   },
   {
     id: "LS_REG_000C",
@@ -457,7 +479,8 @@ export const LS_REGISTERS = [
     categoryLabel: "Giám sát ngõ ra",
     description: "Điện áp một chiều trên bộ tụ lọc Bus DC (Đơn vị: 0.1 V)",
     bitDetails: [],
-    example: "Hệ 220V đọc về khoảng 3100 (310.0V DC); Hệ 380V đọc về khoảng 5400 (540.0V DC)."
+    example:
+      "Hệ 220V đọc về khoảng 3100 (310.0V DC); Hệ 380V đọc về khoảng 5400 (540.0V DC).",
   },
   {
     id: "LS_REG_000E",
@@ -472,7 +495,8 @@ export const LS_REGISTERS = [
     name: "Inverter Trip / Fault Code (Mã lỗi ngắt sự cố)",
     category: "fault",
     categoryLabel: "Giám sát & Lịch sử mã lỗi",
-    description: "Mã số lỗi sự cố khiến biến tần LS bị Trip (1 = OCT, 2 = OC2, 3 = OVT, 4 = LVT, 5 = IOL, 6 = OLT, 7 = ETH, 8 = OHT, 9 = POT, 10 = COL, 11 = GFT, 12 = ERR, 13 = FAN...)",
+    description:
+      "Mã số lỗi sự cố khiến biến tần LS bị Trip (1 = OCT, 2 = OC2, 3 = OVT, 4 = LVT, 5 = IOL, 6 = OLT, 7 = ETH, 8 = OHT, 9 = POT, 10 = COL, 11 = GFT, 12 = ERR, 13 = FAN...)",
     bitDetails: [
       { bit: "1", name: "OCT", desc: "Quá dòng ngõ ra lúc tăng tốc/chạy" },
       { bit: "2", name: "OC2", desc: "Ngắn mạch nhánh IGBT / chập cáp" },
@@ -482,8 +506,8 @@ export const LS_REGISTERS = [
       { bit: "6", name: "OLT", desc: "Quá tải động cơ" },
       { bit: "8", name: "OHT", desc: "Quá nhiệt biến tần" },
       { bit: "9", name: "POT", desc: "Mất pha ngõ ra" },
-      { bit: "11", name: "GFT", desc: "Chạm đất ngõ ra" }
+      { bit: "11", name: "GFT", desc: "Chạm đất ngõ ra" },
     ],
-    example: "Đọc thanh ghi 000EH để lấy mã lỗi hiện tại hiển thị lên HMI."
-  }
+    example: "Đọc thanh ghi 000EH để lấy mã lỗi hiện tại hiển thị lên HMI.",
+  },
 ];

@@ -70,11 +70,14 @@ export function useChartZoomPan({
 
       setLeft((prevLeft) => {
         setRight((prevRight) => {
-          const currentLeft = typeof prevLeft === "number" ? prevLeft : minDomain;
-          const currentRight = typeof prevRight === "number" ? prevRight : maxDomain;
+          const currentLeft =
+            typeof prevLeft === "number" ? prevLeft : minDomain;
+          const currentRight =
+            typeof prevRight === "number" ? prevRight : maxDomain;
           const range = currentRight - currentLeft;
 
-          const factor = e.deltaY < 0 ? wheelZoomFactor : -wheelZoomFactor * 1.2;
+          const factor =
+            e.deltaY < 0 ? wheelZoomFactor : -wheelZoomFactor * 1.2;
           const delta = range * factor;
 
           let newLeft = currentLeft + delta;

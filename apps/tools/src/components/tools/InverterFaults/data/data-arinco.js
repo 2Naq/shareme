@@ -13,15 +13,15 @@ export const ARINCO_FAULTS = [
     severity: "error",
     causes: [
       "Ngắn mạch trực tiếp giữa các pha ngõ ra của động cơ hoặc cáp motor bị chạm đất",
-      "Khối công suất IGBT bên trong biến tần bị đánh thủng"
+      "Khối công suất IGBT bên trong biến tần bị đánh thủng",
     ],
     solutions: [
       "Tháo 3 dây ra motor U, V, W khỏi biến tần",
       "Bật chạy không tải, nếu vẫn báo E.SC ngay lập tức thì khối IGBT đã hỏng",
-      "Kiểm tra cách điện cuộn dây motor bằng đồng hồ Megger"
+      "Kiểm tra cách điện cuộn dây motor bằng đồng hồ Megger",
     ],
     expertTips: "Lỗi E.SC là cấp ngắt xung khẩn cấp của mạch bảo vệ phần cứng.",
-    relatedRegisters: ["2100H", "210BH"]
+    relatedRegisters: ["2100H", "210BH"],
   },
   {
     id: "ARINCO_E_OC1",
@@ -38,15 +38,16 @@ export const ARINCO_FAULTS = [
     causes: [
       "Thời gian tăng tốc quá ngắn so với quán tính tải",
       "Bù mô-men khởi động đặt quá cao",
-      "Động cơ bị kẹt tải cơ khí lúc khởi động"
+      "Động cơ bị kẹt tải cơ khí lúc khởi động",
     ],
     solutions: [
       "Tăng thời gian tăng tốc",
       "Giảm giá trị tham số bù mô-men Torque Boost",
-      "Kiểm tra khớp nối cơ khí xem có bị bó trục"
+      "Kiểm tra khớp nối cơ khí xem có bị bó trục",
     ],
-    expertTips: "Tăng thời gian tăng tốc thêm 2 đến 5 giây để dòng đề-pa êm ái hơn.",
-    relatedRegisters: ["2100H", "2102H", "210BH"]
+    expertTips:
+      "Tăng thời gian tăng tốc thêm 2 đến 5 giây để dòng đề-pa êm ái hơn.",
+    relatedRegisters: ["2100H", "2102H", "210BH"],
   },
   {
     id: "ARINCO_E_OC2",
@@ -62,14 +63,14 @@ export const ARINCO_FAULTS = [
     severity: "error",
     causes: [
       "Thời gian giảm tốc quá ngắn làm lực hãm tăng đột ngột",
-      "Chưa lắp điện trở xả hãm"
+      "Chưa lắp điện trở xả hãm",
     ],
     solutions: [
       "Tăng thời gian giảm tốc dài hơn",
-      "Lắp thêm điện trở xả hãm động năng"
+      "Lắp thêm điện trở xả hãm động năng",
     ],
     expertTips: "Kéo dài thời gian dừng hãm giúp giảm lực phản hồi về động cơ.",
-    relatedRegisters: ["2100H", "2102H", "210BH"]
+    relatedRegisters: ["2100H", "2102H", "210BH"],
   },
   {
     id: "ARINCO_E_OC3",
@@ -85,14 +86,14 @@ export const ARINCO_FAULTS = [
     severity: "error",
     causes: [
       "Tải cơ khí bị tăng vọt đột ngột khi đang quay tốc độ ổn định",
-      "Dây dẫn động cơ bị chạm chập ngắt quãng"
+      "Dây dẫn động cơ bị chạm chập ngắt quãng",
     ],
     solutions: [
       "Kiểm tra tải cơ khí làm việc",
-      "Cân nhắc nâng công suất biến tần lên một cấp"
+      "Cân nhắc nâng công suất biến tần lên một cấp",
     ],
     expertTips: "Theo dõi dòng điện thực tế qua thanh ghi 2102H (0.1A).",
-    relatedRegisters: ["2100H", "2102H", "210BH"]
+    relatedRegisters: ["2100H", "2102H", "210BH"],
   },
   {
     id: "ARINCO_E_OU1",
@@ -108,14 +109,15 @@ export const ARINCO_FAULTS = [
     severity: "error",
     causes: [
       "Điện áp nguồn lưới đầu vào quá cao",
-      "Quán tính tải kéo motor quay nhanh hơn tốc độ biến tần"
+      "Quán tính tải kéo motor quay nhanh hơn tốc độ biến tần",
     ],
     solutions: [
       "Kiểm tra điện áp 3 pha nguồn cấp đầu vào",
-      "Kéo dài thời gian tăng tốc"
+      "Kéo dài thời gian tăng tốc",
     ],
-    expertTips: "Thường gặp ở ứng dụng quạt gió hút có luồng gió tự nhiên thổi.",
-    relatedRegisters: ["2100H", "2104H", "210BH"]
+    expertTips:
+      "Thường gặp ở ứng dụng quạt gió hút có luồng gió tự nhiên thổi.",
+    relatedRegisters: ["2100H", "2104H", "210BH"],
   },
   {
     id: "ARINCO_E_OU2",
@@ -131,14 +133,14 @@ export const ARINCO_FAULTS = [
     severity: "error",
     causes: [
       "Thời gian giảm tốc quá nhanh làm điện áp Bus DC dâng cao vượt ngưỡng bảo vệ",
-      "Chưa lắp điện trở xả hãm"
+      "Chưa lắp điện trở xả hãm",
     ],
     solutions: [
       "Tăng thời gian giảm tốc",
-      "Lắp thêm điện trở xả vào chân P+ và PB"
+      "Lắp thêm điện trở xả vào chân P+ và PB",
     ],
     expertTips: "Lỗi phổ biến nhất khi dừng hãm tải quán tính lớn.",
-    relatedRegisters: ["2100H", "2104H", "210BH"]
+    relatedRegisters: ["2100H", "2104H", "210BH"],
   },
   {
     id: "ARINCO_E_LU",
@@ -154,14 +156,14 @@ export const ARINCO_FAULTS = [
     severity: "error",
     causes: [
       "Điện áp nguồn xoay chiều ngõ vào bị sụt áp dưới ngưỡng cho phép",
-      "Mất pha nguồn điện xoay chiều đầu vào R, S, T"
+      "Mất pha nguồn điện xoay chiều đầu vào R, S, T",
     ],
     solutions: [
       "Đo điện áp nguồn cấp đầu vào",
-      "Kiểm tra aptomat và khởi động từ cấp nguồn chính"
+      "Kiểm tra aptomat và khởi động từ cấp nguồn chính",
     ],
     expertTips: "Hệ 220V bình thường khoảng 310V, hệ 380V khoảng 540V DC.",
-    relatedRegisters: ["2100H", "2104H", "210BH"]
+    relatedRegisters: ["2100H", "2104H", "210BH"],
   },
   {
     id: "ARINCO_E_OL1",
@@ -177,14 +179,15 @@ export const ARINCO_FAULTS = [
     severity: "error",
     causes: [
       "Động cơ bị quá tải liên tục trong thời gian dài",
-      "Cài đặt sai dòng định mức động cơ"
+      "Cài đặt sai dòng định mức động cơ",
     ],
     solutions: [
       "Kiểm tra tải cơ khí làm việc",
-      "Cài đặt lại dòng định mức motor theo đúng tem máy"
+      "Cài đặt lại dòng định mức motor theo đúng tem máy",
     ],
-    expertTips: "Lắp quạt làm mát độc lập cho động cơ nếu chạy tần số thấp thường xuyên.",
-    relatedRegisters: ["2100H", "2102H", "210BH"]
+    expertTips:
+      "Lắp quạt làm mát độc lập cho động cơ nếu chạy tần số thấp thường xuyên.",
+    relatedRegisters: ["2100H", "2102H", "210BH"],
   },
   {
     id: "ARINCO_E_OH",
@@ -201,15 +204,15 @@ export const ARINCO_FAULTS = [
     causes: [
       "Cánh nhôm tản nhiệt IGBT quá nóng (> 90°C)",
       "Quạt tản nhiệt của biến tần bị chết hoặc nghẽn bụi bẩn",
-      "Nhiệt độ trong tủ điện quá cao"
+      "Nhiệt độ trong tủ điện quá cao",
     ],
     solutions: [
       "Vệ sinh sạch bụi bẩn trên cánh tản nhiệt biến tần",
       "Kiểm tra và thay mới quạt tản nhiệt biến tần",
-      "Cải thiện quạt hút đối lưu làm mát tủ điện"
+      "Cải thiện quạt hút đối lưu làm mát tủ điện",
     ],
     expertTips: "Vệ sinh định kỳ các khe nhôm thông gió của biến tần.",
-    relatedRegisters: ["2100H", "210BH"]
+    relatedRegisters: ["2100H", "210BH"],
   },
   {
     id: "ARINCO_E_GF",
@@ -225,14 +228,15 @@ export const ARINCO_FAULTS = [
     severity: "error",
     causes: [
       "Phát hiện dòng ngắn mạch rò rỉ chạm đất ở ngõ ra phía motor",
-      "Dây cáp motor bị xước vỏ chạm máng kim loại"
+      "Dây cáp motor bị xước vỏ chạm máng kim loại",
     ],
     solutions: [
       "Dùng Megger đo cách điện từng pha U, V, W xuống đất",
-      "Kiểm tra hộp đấu cực động cơ"
+      "Kiểm tra hộp đấu cực động cơ",
     ],
-    expertTips: "Tuyệt đối không xóa lỗi và bật chạy lại liên tục khi đang bị chạm đất.",
-    relatedRegisters: ["2100H", "210BH"]
+    expertTips:
+      "Tuyệt đối không xóa lỗi và bật chạy lại liên tục khi đang bị chạm đất.",
+    relatedRegisters: ["2100H", "210BH"],
   },
   {
     id: "ARINCO_E_CE",
@@ -248,15 +252,15 @@ export const ARINCO_FAULTS = [
     severity: "error",
     causes: [
       "Mất kết nối truyền thông Modbus RTU giữa PLC và biến tần quá thời gian timeout",
-      "Đứt cáp RS485 hoặc đấu nhầm cực"
+      "Đứt cáp RS485 hoặc đấu nhầm cực",
     ],
     solutions: [
       "Kiểm tra dây cáp mạng RS485",
-      "Kiểm tra cấu hình Baudrate, Parity và Station Address"
+      "Kiểm tra cấu hình Baudrate, Parity và Station Address",
     ],
     expertTips: "Kiểm tra đúng cực A+ và B-.",
-    relatedRegisters: ["2100H", "2000H", "210BH"]
-  }
+    relatedRegisters: ["2100H", "2000H", "210BH"],
+  },
 ];
 
 export const ARINCO_REGISTERS = [
@@ -273,14 +277,20 @@ export const ARINCO_REGISTERS = [
     name: "Control Command Word (Từ lệnh điều khiển chạy)",
     category: "control",
     categoryLabel: "Lệnh điều khiển",
-    description: "Thanh ghi điều khiển lệnh chạy/dừng/reset cho biến tần Arinco qua Modbus RTU (Địa chỉ Hex 2000H / Dec 8192)",
+    description:
+      "Thanh ghi điều khiển lệnh chạy/dừng/reset cho biến tần Arinco qua Modbus RTU (Địa chỉ Hex 2000H / Dec 8192)",
     bitDetails: [
       { bit: "0001H (1)", name: "RUN FWD", desc: "Lệnh chạy thuận" },
       { bit: "0002H (2)", name: "RUN REV", desc: "Lệnh chạy ngược" },
       { bit: "0005H (5)", name: "STOP", desc: "Lệnh dừng giảm tốc" },
-      { bit: "0007H (7)", name: "FAULT RESET", desc: "Lệnh xóa lỗi sự cố (Trip Reset)" }
+      {
+        bit: "0007H (7)",
+        name: "FAULT RESET",
+        desc: "Lệnh xóa lỗi sự cố (Trip Reset)",
+      },
     ],
-    example: "Ghi Function 06 địa chỉ 2000H giá trị 1 (Chạy thuận), giá trị 2 (Chạy ngược), giá trị 5 (Dừng), giá trị 7 (Xóa lỗi)."
+    example:
+      "Ghi Function 06 địa chỉ 2000H giá trị 1 (Chạy thuận), giá trị 2 (Chạy ngược), giá trị 5 (Dừng), giá trị 7 (Xóa lỗi).",
   },
   {
     id: "ARINCO_REG_2001",
@@ -297,7 +307,7 @@ export const ARINCO_REGISTERS = [
     categoryLabel: "Lệnh điều khiển",
     description: "Cài đặt tần số ngõ ra mục tiêu qua Modbus (Đơn vị: 0.01 Hz)",
     bitDetails: [],
-    example: "Ghi Function 06 địa chỉ 2001H giá trị 5000 để đặt 50.00 Hz."
+    example: "Ghi Function 06 địa chỉ 2001H giá trị 5000 để đặt 50.00 Hz.",
   },
   {
     id: "ARINCO_REG_2100",
@@ -312,14 +322,28 @@ export const ARINCO_REGISTERS = [
     name: "Inverter Status Word (Từ trạng thái vận hành)",
     category: "status",
     categoryLabel: "Trạng thái vận hành",
-    description: "Thanh ghi đọc trạng thái vận hành và cờ báo lỗi biến tần Arinco",
+    description:
+      "Thanh ghi đọc trạng thái vận hành và cờ báo lỗi biến tần Arinco",
     bitDetails: [
-      { bit: "Bit 0", name: "RUN", desc: "1 = Biến tần đang chạy; 0 = Đang dừng" },
-      { bit: "Bit 1", name: "REV", desc: "1 = Đang quay ngược; 0 = Đang quay thuận" },
+      {
+        bit: "Bit 0",
+        name: "RUN",
+        desc: "1 = Biến tần đang chạy; 0 = Đang dừng",
+      },
+      {
+        bit: "Bit 1",
+        name: "REV",
+        desc: "1 = Đang quay ngược; 0 = Đang quay thuận",
+      },
       { bit: "Bit 2", name: "READY", desc: "1 = Biến tần sẵn sàng nhận lệnh" },
-      { bit: "Bit 3", name: "FAULT", desc: "1 = Biến tần đang bị sự cố Trip (CÓ LỖI)" }
+      {
+        bit: "Bit 3",
+        name: "FAULT",
+        desc: "1 = Biến tần đang bị sự cố Trip (CÓ LỖI)",
+      },
     ],
-    example: "Đọc Function 03 địa chỉ 2100H, kiểm tra Bit 3 để biết biến tần có đang bị lỗi."
+    example:
+      "Đọc Function 03 địa chỉ 2100H, kiểm tra Bit 3 để biết biến tần có đang bị lỗi.",
   },
   {
     id: "ARINCO_REG_2101",
@@ -334,9 +358,10 @@ export const ARINCO_REGISTERS = [
     name: "Output Frequency Monitor",
     category: "monitor",
     categoryLabel: "Giám sát ngõ ra",
-    description: "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz)",
+    description:
+      "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz)",
     bitDetails: [],
-    example: "Đọc về 5000 tương ứng 50.00 Hz."
+    example: "Đọc về 5000 tương ứng 50.00 Hz.",
   },
   {
     id: "ARINCO_REG_2102",
@@ -353,7 +378,7 @@ export const ARINCO_REGISTERS = [
     categoryLabel: "Giám sát ngõ ra",
     description: "Dòng điện ngõ ra thực tế cấp cho động cơ (Đơn vị: 0.1 A)",
     bitDetails: [],
-    example: "Đọc về 42 tương ứng 4.2 A."
+    example: "Đọc về 42 tương ứng 4.2 A.",
   },
   {
     id: "ARINCO_REG_2104",
@@ -370,7 +395,7 @@ export const ARINCO_REGISTERS = [
     categoryLabel: "Giám sát ngõ ra",
     description: "Điện áp một chiều trên bộ tụ lọc Bus DC (Đơn vị: 1 V)",
     bitDetails: [],
-    example: "Hệ 380V đọc về khoảng 540V DC."
+    example: "Hệ 380V đọc về khoảng 540V DC.",
   },
   {
     id: "ARINCO_REG_210B",
@@ -385,7 +410,8 @@ export const ARINCO_REGISTERS = [
     name: "Current Fault Code Monitor (Mã lỗi hiện tại)",
     category: "fault",
     categoryLabel: "Giám sát & Lịch sử mã lỗi",
-    description: "Mã số lỗi sự cố hiện tại của biến tần Arinco (1 = E.SC, 2 = E.OC1, 3 = E.OC2, 4 = E.OC3, 5 = E.OU1, 6 = E.OU2, 7 = E.LU, 8 = E.OL1, 9 = E.OH, 10 = E.GF, 11 = E.CE...)",
+    description:
+      "Mã số lỗi sự cố hiện tại của biến tần Arinco (1 = E.SC, 2 = E.OC1, 3 = E.OC2, 4 = E.OC3, 5 = E.OU1, 6 = E.OU2, 7 = E.LU, 8 = E.OL1, 9 = E.OH, 10 = E.GF, 11 = E.CE...)",
     bitDetails: [
       { bit: "1", name: "E.SC", desc: "Ngắn mạch / Chập IGBT" },
       { bit: "2", name: "E.OC1", desc: "Quá dòng khi tăng tốc" },
@@ -393,8 +419,8 @@ export const ARINCO_REGISTERS = [
       { bit: "5", name: "E.OU1", desc: "Quá áp khi tăng tốc" },
       { bit: "7", name: "E.LU", desc: "Thấp áp Bus DC" },
       { bit: "8", name: "E.OL1", desc: "Quá tải động cơ" },
-      { bit: "11", name: "E.CE", desc: "Mất truyền thông Modbus" }
+      { bit: "11", name: "E.CE", desc: "Mất truyền thông Modbus" },
     ],
-    example: "Đọc thanh ghi 210BH để lấy mã lỗi hiển thị lên HMI."
-  }
+    example: "Đọc thanh ghi 210BH để lấy mã lỗi hiển thị lên HMI.",
+  },
 ];

@@ -23,7 +23,8 @@ export function FaultTable({ faults, onSelectFault }) {
           Không tìm thấy mã lỗi nào phù hợp với bộ lọc.
         </p>
         <p className="text-muted-foreground/70 mt-1 text-xs">
-          Hãy thử tìm kiếm với từ khóa khác hoặc bấm nút "Đặt lại" để xem toàn bộ danh sách.
+          Hãy thử tìm kiếm với từ khóa khác hoặc bấm nút "Đặt lại" để xem toàn
+          bộ danh sách.
         </p>
       </div>
     );
@@ -100,7 +101,9 @@ export function FaultTable({ faults, onSelectFault }) {
 
                 {/* Fault Name */}
                 <td className="px-4 py-3">
-                  <div className="text-foreground font-medium">{fault.name}</div>
+                  <div className="text-foreground font-medium">
+                    {fault.name}
+                  </div>
                   <div className="text-muted-foreground/80 text-xs">
                     {fault.models.slice(0, 3).join(", ")}
                     {fault.models.length > 3 ? "..." : ""}

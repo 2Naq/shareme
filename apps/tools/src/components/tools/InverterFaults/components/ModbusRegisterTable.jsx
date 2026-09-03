@@ -23,7 +23,8 @@ export function ModbusRegisterTable({ registers, onSelectRegister }) {
           Không tìm thấy thanh ghi Modbus nào phù hợp với bộ lọc.
         </p>
         <p className="text-muted-foreground/70 mt-1 text-xs">
-          Hãy thử tìm kiếm với từ khóa khác hoặc bấm nút "Đặt lại" để xem toàn bộ danh sách.
+          Hãy thử tìm kiếm với từ khóa khác hoặc bấm nút "Đặt lại" để xem toàn
+          bộ danh sách.
         </p>
       </div>
     );

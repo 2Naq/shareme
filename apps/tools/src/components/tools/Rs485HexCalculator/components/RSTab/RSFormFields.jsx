@@ -51,8 +51,8 @@ export default function RSFormFields({
         <Select value={dataLength} onValueChange={setDataLength}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn độ dài">
-              {DATA_LENGTH_OPTIONS.find((o) => o.value === dataLength)?.label}{" "}
-              [{dataLength}]
+              {DATA_LENGTH_OPTIONS.find((o) => o.value === dataLength)?.label} [
+              {dataLength}]
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -92,7 +92,8 @@ export default function RSFormFields({
         <Select value={stopBit} onValueChange={setStopBit}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn Stop Bit">
-              {STOP_BIT_OPTIONS.find((o) => o.value === stopBit)?.label} [{stopBit}]
+              {STOP_BIT_OPTIONS.find((o) => o.value === stopBit)?.label} [
+              {stopBit}]
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -149,7 +150,8 @@ export default function RSFormFields({
         <Select value={terminator} onValueChange={setTerminator}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn Terminator">
-              {TERMINATOR_OPTIONS.find((o) => o.value === terminator)?.label} [{terminator}]
+              {TERMINATOR_OPTIONS.find((o) => o.value === terminator)?.label} [
+              {terminator}]
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -168,7 +170,8 @@ export default function RSFormFields({
         <Select value={protocol} onValueChange={handleProtocolChange}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn Protocol">
-              {PROTOCOL_OPTIONS.find((o) => o.value === protocol)?.label} [{protocol}]
+              {PROTOCOL_OPTIONS.find((o) => o.value === protocol)?.label} [
+              {protocol}]
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -187,7 +190,8 @@ export default function RSFormFields({
         <Select value={controlLine} onValueChange={setControlLine}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn Control Line">
-              {controlLineOptions.find((o) => o.value === controlLine)?.label || "Chọn"}{" "}
+              {controlLineOptions.find((o) => o.value === controlLine)?.label ||
+                "Chọn"}{" "}
               [{controlLine}]
             </SelectValue>
           </SelectTrigger>
@@ -207,7 +211,8 @@ export default function RSFormFields({
         <Select value={sumCheck} onValueChange={setSumCheck}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn Sum Check">
-              {SUM_CHECK_OPTIONS.find((o) => o.value === sumCheck)?.label} [{sumCheck}]
+              {SUM_CHECK_OPTIONS.find((o) => o.value === sumCheck)?.label} [
+              {sumCheck}]
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -223,10 +228,17 @@ export default function RSFormFields({
       {/* Bit 15: Transmission Control */}
       <div className="space-y-2">
         <Label>Transmission Control (Bit 15)</Label>
-        <Select value={transmissionControl} onValueChange={setTransmissionControl}>
+        <Select
+          value={transmissionControl}
+          onValueChange={setTransmissionControl}
+        >
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn Transmission">
-              {TRANSMISSION_CONTROL_OPTIONS.find((o) => o.value === transmissionControl)?.label}{" "}
+              {
+                TRANSMISSION_CONTROL_OPTIONS.find(
+                  (o) => o.value === transmissionControl,
+                )?.label
+              }{" "}
               [{transmissionControl}]
             </SelectValue>
           </SelectTrigger>

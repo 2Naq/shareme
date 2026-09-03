@@ -4,8 +4,12 @@ import { toast } from "sonner";
 import CameraScanner from "./CameraScanner";
 import ImageScanner from "./ImageScanner";
 
-export default function QrScanner({ onScanSuccess, isActive, innerTab, onInnerTabChange }) {
-
+export default function QrScanner({
+  onScanSuccess,
+  isActive,
+  innerTab,
+  onInnerTabChange,
+}) {
   const handleSuccess = useCallback(
     (decoded) => {
       try {

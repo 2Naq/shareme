@@ -14,15 +14,16 @@ export const OMRON_FAULTS = [
     causes: [
       "Dòng điện ngõ ra vượt ngưỡng định mức khi đang quay ở tốc độ ổn định",
       "Tải cơ khí bị kẹt cứng bất ngờ hoặc tăng tải đột ngột",
-      "Cáp nối động cơ bị chạm chập hoặc trầy xước"
+      "Cáp nối động cơ bị chạm chập hoặc trầy xước",
     ],
     solutions: [
       "Kiểm tra tải máy móc xem có bị kẹt đá, dị vật cản trở",
       "Đo kiểm tra cách điện cuộn dây động cơ bằng đồng hồ Megger",
-      "Kiểm tra khối công suất IGBT"
+      "Kiểm tra khối công suất IGBT",
     ],
-    expertTips: "Trên Omron MX2, nếu tháo cáp motor ra mà bật chạy biến tần vẫn báo E01 ngay lập tức thì bo mạch công suất IGBT đã hỏng.",
-    relatedRegisters: ["0012H", "0011H"]
+    expertTips:
+      "Trên Omron MX2, nếu tháo cáp motor ra mà bật chạy biến tần vẫn báo E01 ngay lập tức thì bo mạch công suất IGBT đã hỏng.",
+    relatedRegisters: ["0012H", "0011H"],
   },
   {
     id: "OMRON_E02",
@@ -38,14 +39,15 @@ export const OMRON_FAULTS = [
     severity: "error",
     causes: [
       "Thời gian giảm tốc F003 / b085 quá nhanh khiến dòng hãm tăng đột biến",
-      "Quán tính cơ khí của tải quá lớn"
+      "Quán tính cơ khí của tải quá lớn",
     ],
     solutions: [
       "Tăng thời gian giảm tốc F003 dài hơn",
-      "Lắp thêm điện trở xả hãm động năng vào chân B1 và B2 (hoặc P+ và RB)"
+      "Lắp thêm điện trở xả hãm động năng vào chân B1 và B2 (hoặc P+ và RB)",
     ],
-    expertTips: "Cài đặt đường cong hãm chữ S trong tham số A098 = 01 để làm dịu lực hãm cơ khí.",
-    relatedRegisters: ["0012H"]
+    expertTips:
+      "Cài đặt đường cong hãm chữ S trong tham số A098 = 01 để làm dịu lực hãm cơ khí.",
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E03",
@@ -62,15 +64,16 @@ export const OMRON_FAULTS = [
     causes: [
       "Thời gian tăng tốc F002 quá ngắn",
       "Bù áp mô-men khởi động A042/A043 đặt quá cao",
-      "Động cơ bị bó trục lúc đề-pa"
+      "Động cơ bị bó trục lúc đề-pa",
     ],
     solutions: [
       "Tăng thời gian tăng tốc F002 dài hơn",
       "Giảm thông số bù mô-men Torque Boost (A042)",
-      "Quay thử trục động cơ bằng tay"
+      "Quay thử trục động cơ bằng tay",
     ],
-    expertTips: "Nếu dùng chế độ Vector không cảm biến (A044 = 03), hãy thực hiện tính năng Auto-tuning (H001 = 01) trước.",
-    relatedRegisters: ["0012H"]
+    expertTips:
+      "Nếu dùng chế độ Vector không cảm biến (A044 = 03), hãy thực hiện tính năng Auto-tuning (H001 = 01) trước.",
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E04",
@@ -86,14 +89,15 @@ export const OMRON_FAULTS = [
     severity: "error",
     causes: [
       "Quá dòng ngõ ra khi động cơ đang dừng hoặc trong các trạng thái vận hành khác",
-      "Nhiễu điện từ cực mạnh tác động lên mạch cảm biến dòng"
+      "Nhiễu điện từ cực mạnh tác động lên mạch cảm biến dòng",
     ],
     solutions: [
       "Kiểm tra tiếp địa PE của biến tần và động cơ",
-      "Đo kiểm tra khối công suất IGBT"
+      "Đo kiểm tra khối công suất IGBT",
     ],
-    expertTips: "Đảm bảo cáp động cơ không đi chung máng với cáp tín hiệu điều khiển nhạy cảm.",
-    relatedRegisters: ["0012H"]
+    expertTips:
+      "Đảm bảo cáp động cơ không đi chung máng với cáp tín hiệu điều khiển nhạy cảm.",
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E05",
@@ -109,15 +113,16 @@ export const OMRON_FAULTS = [
     severity: "error",
     causes: [
       "Rơ-le nhiệt điện tử tích hợp bảo vệ motor tác động do quá tải kéo dài",
-      "Cài sai dòng định mức động cơ trong tham số b012"
+      "Cài sai dòng định mức động cơ trong tham số b012",
     ],
     solutions: [
       "Kiểm tra dòng định mức ghi trên nhãn động cơ và cài chính xác vào b012",
       "Giảm tải cơ khí hoặc tăng tỷ số truyền hộp số",
-      "Lắp quạt làm mát độc lập cho động cơ nếu chạy tần số thấp kéo dài"
+      "Lắp quạt làm mát độc lập cho động cơ nếu chạy tần số thấp kéo dài",
     ],
-    expertTips: "Có thể theo dõi mức tích nhiệt bảo vệ motor qua thông số giám sát d015 trên màn hình.",
-    relatedRegisters: ["0012H"]
+    expertTips:
+      "Có thể theo dõi mức tích nhiệt bảo vệ motor qua thông số giám sát d015 trên màn hình.",
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E06",
@@ -133,15 +138,16 @@ export const OMRON_FAULTS = [
     severity: "error",
     causes: [
       "Tần suất xả phanh hãm động năng quá dày đặc vượt quá công suất chịu đựng của điện trở",
-      "Thời gian giảm tốc quá ngắn trong ứng dụng lặp lại liên tục"
+      "Thời gian giảm tốc quá ngắn trong ứng dụng lặp lại liên tục",
     ],
     solutions: [
       "Tăng thời gian giảm tốc F003",
       "Cài đặt hệ số tải sử dụng phanh b090 phù hợp",
-      "Nâng cấp điện trở xả có công suất Watt lớn hơn"
+      "Nâng cấp điện trở xả có công suất Watt lớn hơn",
     ],
-    expertTips: "Tránh cài đặt b090 vượt quá 10% nếu điện trở xả không có quạt làm mát cưỡng bức.",
-    relatedRegisters: ["0012H"]
+    expertTips:
+      "Tránh cài đặt b090 vượt quá 10% nếu điện trở xả không có quạt làm mát cưỡng bức.",
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E07",
@@ -158,15 +164,16 @@ export const OMRON_FAULTS = [
     causes: [
       "Điện áp Bus DC vượt ngưỡng cho phép (trên 400V hệ 200V hoặc trên 800V hệ 400V)",
       "Quán tính tải đẩy ngược điện năng về biến tần khi hãm",
-      "Nguồn điện lưới đầu vào quá cao"
+      "Nguồn điện lưới đầu vào quá cao",
     ],
     solutions: [
       "Tăng thời gian giảm tốc F003",
       "Lắp điện trở xả vào chân B1 và B2",
-      "Bật tính năng tự động tránh quá áp tái sinh b130 = 01"
+      "Bật tính năng tự động tránh quá áp tái sinh b130 = 01",
     ],
-    expertTips: "Kích hoạt b130 = 01 giúp biến tần tự động nới dài thời gian hãm nếu phát hiện áp Bus DC sắp chạm ngưỡng Trip E07.",
-    relatedRegisters: ["0012H", "0017H"]
+    expertTips:
+      "Kích hoạt b130 = 01 giúp biến tần tự động nới dài thời gian hãm nếu phát hiện áp Bus DC sắp chạm ngưỡng Trip E07.",
+    relatedRegisters: ["0012H", "0017H"],
   },
   {
     id: "OMRON_E08",
@@ -182,14 +189,15 @@ export const OMRON_FAULTS = [
     severity: "error",
     causes: [
       "Lỗi chip nhớ EEPROM lưu trữ dữ liệu thông số biến tần",
-      "Nhiễu điện từ lúc lưu tham số hoặc mất điện đột ngột khi đang ghi bộ nhớ"
+      "Nhiễu điện từ lúc lưu tham số hoặc mất điện đột ngột khi đang ghi bộ nhớ",
     ],
     solutions: [
       "Thực hiện khởi tạo lại thông số mặc định nhà sản xuất (Initialize: b084 = 02, b180 = 01)",
-      "Nếu khởi động lại vẫn báo E08, cần thay bo mạch điều khiển"
+      "Nếu khởi động lại vẫn báo E08, cần thay bo mạch điều khiển",
     ],
-    expertTips: "Khi ghi tần số qua mạng Modbus, hãy ghi vào thanh ghi RAM thay vì ghi vào bộ nhớ EEPROM để tránh chai chip nhớ.",
-    relatedRegisters: ["0012H"]
+    expertTips:
+      "Khi ghi tần số qua mạng Modbus, hãy ghi vào thanh ghi RAM thay vì ghi vào bộ nhớ EEPROM để tránh chai chip nhớ.",
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E09",
@@ -206,15 +214,16 @@ export const OMRON_FAULTS = [
     causes: [
       "Điện áp nguồn xoay chiều ngõ vào bị sụt giảm nghiêm trọng",
       "Khởi động từ tổng bị hở mạch tiếp điểm",
-      "Tụ điện lọc nguồn DC bị khô suy hao dung lượng"
+      "Tụ điện lọc nguồn DC bị khô suy hao dung lượng",
     ],
     solutions: [
       "Đo kiểm tra điện áp nguồn cấp 3 pha ngõ vào (R, S, T)",
       "Kiểm tra aptomat và khởi động từ nguồn chính",
-      "Bật chức năng tự khởi động lại sau sụt nguồn b001 = 01"
+      "Bật chức năng tự khởi động lại sau sụt nguồn b001 = 01",
     ],
-    expertTips: "Đọc thanh ghi 0017H để xem điện áp Bus DC chính xác tại thời điểm xảy ra sự cố sụt nguồn.",
-    relatedRegisters: ["0012H", "0017H"]
+    expertTips:
+      "Đọc thanh ghi 0017H để xem điện áp Bus DC chính xác tại thời điểm xảy ra sự cố sụt nguồn.",
+    relatedRegisters: ["0012H", "0017H"],
   },
   {
     id: "OMRON_E10",
@@ -230,14 +239,14 @@ export const OMRON_FAULTS = [
     severity: "error",
     causes: [
       "Sự cố cảm biến dòng biến dòng (CT / Hall Sensor) ngõ ra biến tần",
-      "Nhiễu điện từ cực mạnh hoặc đứt cáp cảm biến dòng bên trong"
+      "Nhiễu điện từ cực mạnh hoặc đứt cáp cảm biến dòng bên trong",
     ],
     solutions: [
       "Tắt nguồn đợi 5 phút rồi bật lại",
-      "Nếu lỗi vẫn xuất hiện thì bo mạch cảm biến dòng đã hỏng cần gửi bảo hành"
+      "Nếu lỗi vẫn xuất hiện thì bo mạch cảm biến dòng đã hỏng cần gửi bảo hành",
     ],
     expertTips: "Kiểm tra kỹ tiếp địa nối đất PE của tủ điện.",
-    relatedRegisters: ["0012H"]
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E11",
@@ -253,14 +262,14 @@ export const OMRON_FAULTS = [
     severity: "error",
     causes: [
       "Lỗi giao tiếp nội bộ giữa vi xử lý CPU chính và CPU phụ trên bo điều khiển",
-      "Nhiễu xung cao tần xâm nhập vào bo mạch"
+      "Nhiễu xung cao tần xâm nhập vào bo mạch",
     ],
     solutions: [
       "Tắt nguồn khởi động lại",
-      "Nếu vẫn báo lỗi, cần thay thế bo điều khiển CPU"
+      "Nếu vẫn báo lỗi, cần thay thế bo điều khiển CPU",
     ],
     expertTips: "Lắp cuộn lọc nhiễu Noise Filter ở ngõ vào nguồn cấp biến tần.",
-    relatedRegisters: ["0012H"]
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E12",
@@ -275,14 +284,15 @@ export const OMRON_FAULTS = [
     categoryLabel: "Cảnh báo vận hành (Không dừng)",
     severity: "error",
     causes: [
-      "Chân ngõ vào số được cài chức năng EXT (mã 12) bị kích hoạt từ thiết bị an toàn bên ngoài (nút Dừng khẩn E-Stop, rơ-le nhiệt ngoài...)"
+      "Chân ngõ vào số được cài chức năng EXT (mã 12) bị kích hoạt từ thiết bị an toàn bên ngoài (nút Dừng khẩn E-Stop, rơ-le nhiệt ngoài...)",
     ],
     solutions: [
       "Kiểm tra mạch nút nhấn Dừng khẩn cấp E-Stop bên ngoài",
-      "Kiểm tra chân ngõ vào thông minh (C001 đến C007) xem chân nào đang được gán mã 12 (EXT)"
+      "Kiểm tra chân ngõ vào thông minh (C001 đến C007) xem chân nào đang được gán mã 12 (EXT)",
     ],
-    expertTips: "Đây là cơ chế khóa an toàn liên động chủ động được kích hoạt bởi thiết bị ngoại vi, không phải lỗi phần cứng biến tần.",
-    relatedRegisters: ["0012H"]
+    expertTips:
+      "Đây là cơ chế khóa an toàn liên động chủ động được kích hoạt bởi thiết bị ngoại vi, không phải lỗi phần cứng biến tần.",
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E13",
@@ -297,13 +307,14 @@ export const OMRON_FAULTS = [
     categoryLabel: "Cảnh báo vận hành (Không dừng)",
     severity: "error",
     causes: [
-      "Chức năng chống tự khởi động ngoài ý muốn tác động khi công tắc lệnh chạy ngoài STF/STR vẫn đang bật ON tại thời điểm cấp điện nguồn"
+      "Chức năng chống tự khởi động ngoài ý muốn tác động khi công tắc lệnh chạy ngoài STF/STR vẫn đang bật ON tại thời điểm cấp điện nguồn",
     ],
     solutions: [
-      "Tắt công tắc lệnh chạy ngoài (ngắt OFF ngõ vào chạy), sau đó nhấn nút RESET để xóa cảnh báo"
+      "Tắt công tắc lệnh chạy ngoài (ngắt OFF ngõ vào chạy), sau đó nhấn nút RESET để xóa cảnh báo",
     ],
-    expertTips: "Tính năng bảo vệ an toàn cực kỳ quan trọng giúp máy không tự ý quay khi vừa có điện trở lại sau cúp điện.",
-    relatedRegisters: ["0012H"]
+    expertTips:
+      "Tính năng bảo vệ an toàn cực kỳ quan trọng giúp máy không tự ý quay khi vừa có điện trở lại sau cúp điện.",
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E14",
@@ -319,14 +330,15 @@ export const OMRON_FAULTS = [
     severity: "error",
     causes: [
       "Phát hiện rò điện hoặc chập mạch từ ngõ ra biến tần U, V, W xuống đất",
-      "Cuộn dây động cơ bị trầy vỏ hoặc ngấm nước ẩm"
+      "Cuộn dây động cơ bị trầy vỏ hoặc ngấm nước ẩm",
     ],
     solutions: [
       "Ngắt điện ngay lập tức, dùng Megomet đo cách điện cuộn dây motor",
-      "Kiểm tra đường ống máng cáp kéo dài từ biến tần đến motor"
+      "Kiểm tra đường ống máng cáp kéo dài từ biến tần đến motor",
     ],
-    expertTips: "Tuyệt đối không cố xóa lỗi và khởi động lại liên tục khi đang bị E14 vì dòng chập đất sẽ phá hủy các cảm biến dòng và cầu IGBT.",
-    relatedRegisters: ["0012H"]
+    expertTips:
+      "Tuyệt đối không cố xóa lỗi và khởi động lại liên tục khi đang bị E14 vì dòng chập đất sẽ phá hủy các cảm biến dòng và cầu IGBT.",
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E15",
@@ -341,14 +353,15 @@ export const OMRON_FAULTS = [
     categoryLabel: "Nguồn cấp & Mất pha",
     severity: "error",
     causes: [
-      "Điện áp nguồn điện xoay chiều AC ngõ vào vượt quá mức an toàn cho phép kéo dài trên 100 giây"
+      "Điện áp nguồn điện xoay chiều AC ngõ vào vượt quá mức an toàn cho phép kéo dài trên 100 giây",
     ],
     solutions: [
       "Đo kiểm tra điện áp lưới điện 3 pha đầu vào",
-      "Lắp biến áp hạ áp hoặc ổn áp nếu điện áp xưởng quá cao"
+      "Lắp biến áp hạ áp hoặc ổn áp nếu điện áp xưởng quá cao",
     ],
-    expertTips: "Thường gặp vào ban đêm khi phụ tải xưởng giảm mạnh làm điện áp lưới dâng cao.",
-    relatedRegisters: ["0012H"]
+    expertTips:
+      "Thường gặp vào ban đêm khi phụ tải xưởng giảm mạnh làm điện áp lưới dâng cao.",
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E21",
@@ -365,15 +378,16 @@ export const OMRON_FAULTS = [
     causes: [
       "Cánh nhôm tản nhiệt biến tần bị quá nhiệt (> 95°C)",
       "Bụi bẩn bám nghẹt khe gió tản nhiệt",
-      "Quạt làm mát biến tần bị chết hoặc ngừng quay"
+      "Quạt làm mát biến tần bị chết hoặc ngừng quay",
     ],
     solutions: [
       "Vệ sinh thổi bụi cánh tản nhiệt định kỳ",
       "Kiểm tra và thay mới quạt tản nhiệt biến tần",
-      "Kiểm tra nhiệt độ môi trường bên trong tủ điện"
+      "Kiểm tra nhiệt độ môi trường bên trong tủ điện",
     ],
-    expertTips: "Tham số b092 điều khiển chế độ vận hành quạt (00 = Luôn quay khi bật nguồn, 01 = Chỉ quay khi biến tần chạy).",
-    relatedRegisters: ["0012H"]
+    expertTips:
+      "Tham số b092 điều khiển chế độ vận hành quạt (00 = Luôn quay khi bật nguồn, 01 = Chỉ quay khi biến tần chạy).",
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E30",
@@ -388,14 +402,15 @@ export const OMRON_FAULTS = [
     categoryLabel: "Phần cứng & CPU/Bộ nhớ",
     severity: "error",
     causes: [
-      "Sự cố mạch kích IGBT hoặc hở mạch ngõ vào an toàn phần cứng STO (Safe Torque Off)"
+      "Sự cố mạch kích IGBT hoặc hở mạch ngõ vào an toàn phần cứng STO (Safe Torque Off)",
     ],
     solutions: [
       "Kiểm tra cầu nối chân GS1, GS2 với chân an toàn PLC",
-      "Kiểm tra mạch relay an toàn Safety Relay bên ngoài"
+      "Kiểm tra mạch relay an toàn Safety Relay bên ngoài",
     ],
-    expertTips: "Nếu không dùng chức năng an toàn STO, phải cắm chặt giắc jump kết nối sẵn của Omron.",
-    relatedRegisters: ["0012H"]
+    expertTips:
+      "Nếu không dùng chức năng an toàn STO, phải cắm chặt giắc jump kết nối sẵn của Omron.",
+    relatedRegisters: ["0012H"],
   },
   {
     id: "OMRON_E41",
@@ -410,15 +425,16 @@ export const OMRON_FAULTS = [
     categoryLabel: "Truyền thông & Ngoại vi",
     severity: "error",
     causes: [
-      "Mất kết nối truyền thông RS-485 Modbus giữa Master và biến tần quá thời gian cài trong C077"
+      "Mất kết nối truyền thông RS-485 Modbus giữa Master và biến tần quá thời gian cài trong C077",
     ],
     solutions: [
       "Kiểm tra dây cáp mạng RS485 và tiếp địa chống nhiễu",
-      "Cài đặt thời gian timeout C077 phù hợp (mặc định 0.00s = Không giám sát timeout)"
+      "Cài đặt thời gian timeout C077 phù hợp (mặc định 0.00s = Không giám sát timeout)",
     ],
-    expertTips: "Cài đặt C077 = 00 trong quá trình commissioning để biến tần không trip ngắt khi dừng PLC.",
-    relatedRegisters: ["0012H"]
-  }
+    expertTips:
+      "Cài đặt C077 = 00 trong quá trình commissioning để biến tần không trip ngắt khi dừng PLC.",
+    relatedRegisters: ["0012H"],
+  },
 ];
 
 export const OMRON_REGISTERS = [
@@ -436,12 +452,13 @@ export const OMRON_REGISTERS = [
     name: "RUN Command (Lệnh Chạy/Dừng)",
     category: "control",
     categoryLabel: "Lệnh điều khiển",
-    description: "Kích hoạt lệnh Chạy hoặc Dừng biến tần qua Modbus (Hiệu lực khi cài đặt A002/A202 = 03)",
+    description:
+      "Kích hoạt lệnh Chạy hoặc Dừng biến tần qua Modbus (Hiệu lực khi cài đặt A002/A202 = 03)",
     bitDetails: [
       { bit: "1 (ON)", name: "RUN", desc: "Biến tần bắt đầu chạy động cơ" },
-      { bit: "0 (OFF)", name: "STOP", desc: "Biến tần giảm tốc dừng động cơ" }
+      { bit: "0 (OFF)", name: "STOP", desc: "Biến tần giảm tốc dừng động cơ" },
     ],
-    example: "Ghi Function 05: [Station] 05 00 01 FF 00 [CRC] (Chạy động cơ)"
+    example: "Ghi Function 05: [Station] 05 00 01 FF 00 [CRC] (Chạy động cơ)",
   },
   {
     id: "OMRON_COIL_0002",
@@ -458,10 +475,19 @@ export const OMRON_REGISTERS = [
     categoryLabel: "Lệnh điều khiển",
     description: "Cài đặt chiều quay động cơ (Hiệu lực khi A002/A202 = 03)",
     bitDetails: [
-      { bit: "0 (OFF)", name: "Forward (Thuận)", desc: "Quay thuận kim đồng hồ" },
-      { bit: "1 (ON)", name: "Reverse (Ngược)", desc: "Quay ngược kim đồng hồ" }
+      {
+        bit: "0 (OFF)",
+        name: "Forward (Thuận)",
+        desc: "Quay thuận kim đồng hồ",
+      },
+      {
+        bit: "1 (ON)",
+        name: "Reverse (Ngược)",
+        desc: "Quay ngược kim đồng hồ",
+      },
     ],
-    example: "Ghi Function 05: [Station] 05 00 02 FF 00 [CRC] (Đổi chiều quay ngược)"
+    example:
+      "Ghi Function 05: [Station] 05 00 02 FF 00 [CRC] (Đổi chiều quay ngược)",
   },
   {
     id: "OMRON_COIL_0003",
@@ -478,9 +504,13 @@ export const OMRON_REGISTERS = [
     categoryLabel: "Lệnh điều khiển",
     description: "Kích hoạt lệnh ngắt sự cố ngoại vi từ xa qua mạng Modbus",
     bitDetails: [
-      { bit: "1 (ON)", name: "TRIP", desc: "Kích hoạt ngắt khẩn cấp biến tần báo lỗi E12" }
+      {
+        bit: "1 (ON)",
+        name: "TRIP",
+        desc: "Kích hoạt ngắt khẩn cấp biến tần báo lỗi E12",
+      },
     ],
-    example: "Ghi Function 05 địa chỉ 0003H = FF00H."
+    example: "Ghi Function 05 địa chỉ 0003H = FF00H.",
   },
   {
     id: "OMRON_COIL_0004",
@@ -497,9 +527,13 @@ export const OMRON_REGISTERS = [
     categoryLabel: "Lệnh điều khiển",
     description: "Lệnh Reset xóa lỗi Trip biến tần từ xa",
     bitDetails: [
-      { bit: "1 (ON)", name: "RESET", desc: "Ghi 1 rồi ghi 0 để kích hoạt sườn Reset" }
+      {
+        bit: "1 (ON)",
+        name: "RESET",
+        desc: "Ghi 1 rồi ghi 0 để kích hoạt sườn Reset",
+      },
     ],
-    example: "Ghi Function 05 địa chỉ 0004H = FF00H, sau đó ghi 0000H."
+    example: "Ghi Function 05 địa chỉ 0004H = FF00H, sau đó ghi 0000H.",
   },
   {
     id: "OMRON_COIL_0010",
@@ -516,10 +550,18 @@ export const OMRON_REGISTERS = [
     categoryLabel: "Trạng thái vận hành",
     description: "Trạng thái cờ báo biến tần đang bị Trip sự cố",
     bitDetails: [
-      { bit: "1 (ON)", name: "ALARM", desc: "Biến tần đang bị lỗi ngắt ngõ ra" },
-      { bit: "0 (OFF)", name: "NORMAL", desc: "Biến tần hoạt động bình thường" }
+      {
+        bit: "1 (ON)",
+        name: "ALARM",
+        desc: "Biến tần đang bị lỗi ngắt ngõ ra",
+      },
+      {
+        bit: "0 (OFF)",
+        name: "NORMAL",
+        desc: "Biến tần hoạt động bình thường",
+      },
     ],
-    example: "Đọc Function 01 địa chỉ 0010H để kiểm tra cờ lỗi."
+    example: "Đọc Function 01 địa chỉ 0010H để kiểm tra cờ lỗi.",
   },
 
   // HOLDING REGISTERS (4xxxx / 16-bit)
@@ -536,9 +578,10 @@ export const OMRON_REGISTERS = [
     name: "Frequency Reference Setting",
     category: "control",
     categoryLabel: "Lệnh điều khiển",
-    description: "Cài đặt tần số mục tiêu qua mạng Modbus (Đơn vị: 0.01 Hz). Cần cài A001 = 03.",
+    description:
+      "Cài đặt tần số mục tiêu qua mạng Modbus (Đơn vị: 0.01 Hz). Cần cài A001 = 03.",
     bitDetails: [],
-    example: "Ghi Function 06 địa chỉ 0001H giá trị 5000 để đặt 50.00 Hz."
+    example: "Ghi Function 06 địa chỉ 0001H giá trị 5000 để đặt 50.00 Hz.",
   },
   {
     id: "OMRON_REG_0011",
@@ -555,7 +598,7 @@ export const OMRON_REGISTERS = [
     categoryLabel: "Giám sát & Lịch sử mã lỗi",
     description: "Đếm số lần biến tần đã từng bị Trip kể từ khi xuất xưởng",
     bitDetails: [],
-    example: "Đọc Function 03: [Station] 03 00 11 00 01 [CRC]."
+    example: "Đọc Function 03: [Station] 03 00 11 00 01 [CRC].",
   },
   {
     id: "OMRON_REG_0012",
@@ -570,7 +613,8 @@ export const OMRON_REGISTERS = [
     name: "d081 Current Trip Factor (Mã lỗi sự cố hiện tại)",
     category: "fault",
     categoryLabel: "Giám sát & Lịch sử mã lỗi",
-    description: "Mã số thập phân phản ánh chính xác lỗi đang Trip (1=E01, 2=E02, 3=E03, 5=E05, 7=E07, 9=E09, 14=E14, 21=E21, 30=E30...)",
+    description:
+      "Mã số thập phân phản ánh chính xác lỗi đang Trip (1=E01, 2=E02, 3=E03, 5=E05, 7=E07, 9=E09, 14=E14, 21=E21, 30=E30...)",
     bitDetails: [
       { bit: "1", name: "E01", desc: "Quá dòng khi chạy ổn định" },
       { bit: "2", name: "E02", desc: "Quá dòng khi giảm tốc" },
@@ -578,9 +622,9 @@ export const OMRON_REGISTERS = [
       { bit: "5", name: "E05", desc: "Quá tải motor" },
       { bit: "7", name: "E07", desc: "Quá áp Bus DC" },
       { bit: "9", name: "E09", desc: "Sụt áp nguồn Bus DC" },
-      { bit: "14", name: "E14", desc: "Chạm đất ngõ ra" }
+      { bit: "14", name: "E14", desc: "Chạm đất ngõ ra" },
     ],
-    example: "Đọc thanh ghi 0012H để lấy mã lỗi hiển thị lên HMI."
+    example: "Đọc thanh ghi 0012H để lấy mã lỗi hiển thị lên HMI.",
   },
   {
     id: "OMRON_REG_0013",
@@ -595,9 +639,10 @@ export const OMRON_REGISTERS = [
     name: "Frequency Monitor at Current Trip",
     category: "fault",
     categoryLabel: "Giám sát & Lịch sử mã lỗi",
-    description: "Tần số thực tế của biến tần ngay tại thời điểm bị ngắt sự cố (0.01 Hz)",
+    description:
+      "Tần số thực tế của biến tần ngay tại thời điểm bị ngắt sự cố (0.01 Hz)",
     bitDetails: [],
-    example: "Đọc để phân tích nguyên nhân lỗi (Snapshot data)."
+    example: "Đọc để phân tích nguyên nhân lỗi (Snapshot data).",
   },
   {
     id: "OMRON_REG_0015",
@@ -612,9 +657,10 @@ export const OMRON_REGISTERS = [
     name: "Output Current at Current Trip",
     category: "fault",
     categoryLabel: "Giám sát & Lịch sử mã lỗi",
-    description: "Dòng điện thực tế của motor ngay tại thời điểm bị ngắt sự cố (0.1 A)",
+    description:
+      "Dòng điện thực tế của motor ngay tại thời điểm bị ngắt sự cố (0.1 A)",
     bitDetails: [],
-    example: "Giá trị 85 tương ứng 8.5 A lúc bị ngắt lỗi."
+    example: "Giá trị 85 tương ứng 8.5 A lúc bị ngắt lỗi.",
   },
   {
     id: "OMRON_REG_0017",
@@ -629,9 +675,10 @@ export const OMRON_REGISTERS = [
     name: "DC Bus Voltage at Current Trip",
     category: "fault",
     categoryLabel: "Giám sát & Lịch sử mã lỗi",
-    description: "Điện áp một chiều Bus DC ngay tại thời điểm bị ngắt sự cố (0.1 V)",
+    description:
+      "Điện áp một chiều Bus DC ngay tại thời điểm bị ngắt sự cố (0.1 V)",
     bitDetails: [],
-    example: "Giúp xác định chính xác biến tần bị quá áp E07 hay sụt áp E09."
+    example: "Giúp xác định chính xác biến tần bị quá áp E07 hay sụt áp E09.",
   },
   {
     id: "OMRON_REG_1001",
@@ -646,9 +693,10 @@ export const OMRON_REGISTERS = [
     name: "d001 Output Frequency Monitor",
     category: "monitor",
     categoryLabel: "Giám sát ngõ ra",
-    description: "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz)",
+    description:
+      "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz)",
     bitDetails: [],
-    example: "Đọc Function 03: [Station] 03 10 01 00 01 [CRC]."
+    example: "Đọc Function 03: [Station] 03 10 01 00 01 [CRC].",
   },
   {
     id: "OMRON_REG_1002",
@@ -665,6 +713,6 @@ export const OMRON_REGISTERS = [
     categoryLabel: "Giám sát ngõ ra",
     description: "Dòng điện ngõ ra thực tế của động cơ (Đơn vị: 0.1 A)",
     bitDetails: [],
-    example: "Đọc Function 03: [Station] 03 10 02 00 01 [CRC]."
-  }
+    example: "Đọc Function 03: [Station] 03 10 02 00 01 [CRC].",
+  },
 ];

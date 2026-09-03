@@ -10,9 +10,21 @@ export const CATEGORIES = [
   { id: "system", label: "Trạng thái & Điều khiển Hệ thống", icon: "Cpu" },
   { id: "clock", label: "Đồng hồ RTC & Cờ Xung Chu kỳ", icon: "Clock" },
   { id: "math", label: "Cờ Phép toán & Trạng thái Lệnh", icon: "Calculator" },
-  { id: "error", label: "Cờ & Mã Báo lỗi (Error Codes)", icon: "AlertTriangle" },
-  { id: "comm", label: "Truyền thông Serial / RS / Modbus / N:N", icon: "Radio" },
-  { id: "positioning", label: "Phát Xung Tốc độ cao & Định vị (Motion)", icon: "Activity" },
+  {
+    id: "error",
+    label: "Cờ & Mã Báo lỗi (Error Codes)",
+    icon: "AlertTriangle",
+  },
+  {
+    id: "comm",
+    label: "Truyền thông Serial / RS / Modbus / N:N",
+    icon: "Radio",
+  },
+  {
+    id: "positioning",
+    label: "Phát Xung Tốc độ cao & Định vị (Motion)",
+    icon: "Activity",
+  },
   { id: "analog", label: "Bo & Module Mở rộng Analog", icon: "Sliders" },
 ];
 

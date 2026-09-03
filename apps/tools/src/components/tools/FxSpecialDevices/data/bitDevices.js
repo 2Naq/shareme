@@ -12,13 +12,16 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R",
-    summary: "Tiếp điểm thường mở giám sát RUN (Luôn ON trong suốt quá trình PLC chạy).",
+    summary:
+      "Tiếp điểm thường mở giám sát RUN (Luôn ON trong suốt quá trình PLC chạy).",
     description:
       "Theo tài liệu Mitsubishi Chapter 37.1.1: [M]8000 là tiếp điểm thường mở (NO contact) tự động duy trì mức logic ON trong suốt thời gian PLC ở chế độ RUN. Khi PLC chuyển sang STOP, M8000 tự động chuyển sang OFF.",
     initialValue: "OFF (STOP) / ON (RUN)",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8000 ]-----------------[ MOV D0 D10 ]--|",
-    notes: "Thiết bị chỉ đọc [M], không thể thay đổi bằng lệnh SET/RST/OUT từ chương trình người dùng.",
+    notes:
+      "Thiết bị chỉ đọc [M], không thể thay đổi bằng lệnh SET/RST/OUT từ chương trình người dùng.",
     tags: ["m8000", "run", "monitor", "no", "system", "always on"],
   },
   {
@@ -27,13 +30,16 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R",
-    summary: "Tiếp điểm thường đóng giám sát RUN (Luôn OFF khi PLC RUN, ON khi STOP).",
+    summary:
+      "Tiếp điểm thường đóng giám sát RUN (Luôn OFF khi PLC RUN, ON khi STOP).",
     description:
       "Theo tài liệu Mitsubishi: [M]8001 hoạt động nghịch đảo với M8000. Giữ mức 0 (OFF) khi PLC ở chế độ RUN và mức 1 (ON) khi PLC ở chế độ STOP.",
     initialValue: "ON (STOP) / OFF (RUN)",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8001 ]-----------------[ OUT Y0 ]--|",
-    notes: "Thường dùng để reset các thanh ghi hoặc ngắt mạch an toàn khi PLC dừng hoạt động.",
+    notes:
+      "Thường dùng để reset các thanh ghi hoặc ngắt mạch an toàn khi PLC dừng hoạt động.",
     tags: ["m8001", "run", "monitor", "nc", "stop"],
   },
   {
@@ -42,13 +48,16 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R",
-    summary: "Xung khởi tạo ban đầu (Bật ON đúng 1 chu kỳ quét đầu tiên khi PLC sang RUN).",
+    summary:
+      "Xung khởi tạo ban đầu (Bật ON đúng 1 chu kỳ quét đầu tiên khi PLC sang RUN).",
     description:
       "Theo tài liệu Mitsubishi: [M]8002 chỉ bật ON trong đúng 1 chu kỳ quét (1 scan time) đầu tiên ngay khi PLC chuyển từ STOP sang RUN, sau đó tự động trở về OFF cho đến chu kỳ RUN kế tiếp.",
     initialValue: "ON (1 scan time) -> OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8002 ]-----------------[ MOV H0081 D8120 ]--|",
-    notes: "Dùng để nạp các tham số cấu hình truyền thông ban đầu, reset biến hoặc khởi tạo giá trị ban đầu.",
+    notes:
+      "Dùng để nạp các tham số cấu hình truyền thông ban đầu, reset biến hoặc khởi tạo giá trị ban đầu.",
     tags: ["m8002", "initial", "pulse", "start", "run", "setup", "no"],
   },
   {
@@ -57,11 +66,13 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R",
-    summary: "Xung khởi tạo đảo (OFF đúng 1 chu kỳ quét đầu tiên khi chuyển sang RUN).",
+    summary:
+      "Xung khởi tạo đảo (OFF đúng 1 chu kỳ quét đầu tiên khi chuyển sang RUN).",
     description:
       "Theo tài liệu Mitsubishi: [M]8003 giữ mức logic OFF trong chu kỳ quét đầu tiên khi PLC bắt đầu RUN, từ chu kỳ quét thứ hai trở đi luôn giữ mức ON.",
     initialValue: "OFF (1 scan time) -> ON",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8003 ]-----------------[ SET M10 ]--|",
     notes: "Hoạt động nghịch đảo hoàn toàn với M8002.",
     tags: ["m8003", "initial", "pulse", "nc"],
@@ -72,13 +83,17 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "error",
     rw: "R",
-    summary: "Cờ tổng báo lỗi hệ thống (Tự động ON khi có bất kỳ lỗi M8060 - M8067 xảy ra).",
+    summary:
+      "Cờ tổng báo lỗi hệ thống (Tự động ON khi có bất kỳ lỗi M8060 - M8067 xảy ra).",
     description:
       "Theo tài liệu Mitsubishi Chapter 37.1.1:\n- Dòng FX3S/FX3G/FX3GC/FX3U/FX3UC: ON khi một trong các cờ M8060, M8061, M8064, M8065, M8066, hoặc M8067 bật ON.\n- Dòng FX1S/FX1N/FX1NC/FX2N/FX2NC: ON khi một trong các cờ M8060, M8061, M8063, M8064, M8065, M8066, hoặc M8067 bật ON.\nThiết bị tương ứng: D8004 lưu mã cờ M gây ra lỗi (ví dụ: 8064, 8067...).",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ M8004 ]-----------------[ OUT Y10 ]--| // Đèn báo lỗi tổng",
-    notes: "Kiểm tra thanh ghi D8004 để biết cờ lỗi cụ thể, và các thanh ghi D8060-D8069 để biết mã lỗi chi tiết.",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ M8004 ]-----------------[ OUT Y10 ]--| // Đèn báo lỗi tổng",
+    notes:
+      "Kiểm tra thanh ghi D8004 để biết cờ lỗi cụ thể, và các thanh ghi D8060-D8069 để biết mã lỗi chi tiết.",
     tags: ["m8004", "error", "fault", "d8004", "alarm"],
   },
   {
@@ -87,13 +102,16 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R",
-    summary: "Cờ báo điện áp pin nuôi nhớ (RAM/RTC) bị yếu (thấp hơn ngưỡng cài đặt ở D8006).",
+    summary:
+      "Cờ báo điện áp pin nuôi nhớ (RAM/RTC) bị yếu (thấp hơn ngưỡng cài đặt ở D8006).",
     description:
       "Theo tài liệu Mitsubishi: [M]8005 tự động bật ON khi điện áp pin nuôi bộ nhớ giảm xuống dưới mức giá trị thiết lập tại thanh ghi D8006 (Mặc định: 2.7V trên FX3G/3U, 3.0V trên FX2N). Thiết bị tương ứng: D8005 (điện áp hiện tại), D8006 (ngưỡng phát hiện).",
     initialValue: "OFF",
     applicableModels: "FX3G, FX3GC, FX3U, FX3UC, FX2N, FX2NC",
-    ladderExample: "|--[ M8005 ]-----------------[ OUT Y12 ]--| // Cảnh báo thay pin PLC",
-    notes: "Không hỗ trợ trên FX3S, FX1S, FX1N, FX1NC vì các dòng này sử dụng bộ nhớ EEPROM không cần pin nuôi.",
+    ladderExample:
+      "|--[ M8005 ]-----------------[ OUT Y12 ]--| // Cảnh báo thay pin PLC",
+    notes:
+      "Không hỗ trợ trên FX3S, FX1S, FX1N, FX1NC vì các dòng này sử dụng bộ nhớ EEPROM không cần pin nuôi.",
     tags: ["m8005", "battery", "voltage", "low", "d8005", "d8006"],
   },
   {
@@ -103,7 +121,8 @@ export const BIT_DEVICES = [
     category: "system",
     rw: "R",
     summary: "Cờ chốt trạng thái phát hiện lỗi pin yếu (Battery error latch).",
-    description: "Được thiết lập khi phát hiện điện áp pin nuôi bộ nhớ giảm xuống dưới ngưỡng an toàn.",
+    description:
+      "Được thiết lập khi phát hiện điện áp pin nuôi bộ nhớ giảm xuống dưới ngưỡng an toàn.",
     initialValue: "OFF",
     applicableModels: "FX3G, FX3GC, FX3U, FX3UC, FX2N, FX2NC",
     ladderExample: "|--[ M8006 ]-----------------[ OUT Y13 ]--|",
@@ -117,7 +136,8 @@ export const BIT_DEVICES = [
     category: "system",
     rw: "R",
     summary: "Cờ phát hiện sụt nguồn thoáng qua (Momentary power failure).",
-    description: "Bật ON khi phát hiện sụt áp nguồn AC/DC trong khoảng thời gian ngắn.",
+    description:
+      "Bật ON khi phát hiện sụt áp nguồn AC/DC trong khoảng thời gian ngắn.",
     initialValue: "OFF",
     applicableModels: "FX3U, FX3UC, FX2N, FX2NC",
     ladderExample: "|--[ M8007 ]-----------------[ INCP D10 ]--|",
@@ -131,7 +151,8 @@ export const BIT_DEVICES = [
     category: "system",
     rw: "R",
     summary: "Cờ phát hiện mất nguồn điện chính (Power failure).",
-    description: "Bật ON khi điện áp nguồn cấp cho PLC bị mất vượt quá thời gian cài đặt tại D8008.",
+    description:
+      "Bật ON khi điện áp nguồn cấp cho PLC bị mất vượt quá thời gian cài đặt tại D8008.",
     initialValue: "OFF",
     applicableModels: "FX3U, FX3UC, FX2N, FX2NC",
     ladderExample: "|--[ M8008 ]-----------------[ SET M100 ]--|",
@@ -144,12 +165,15 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R",
-    summary: "Cờ báo mất nguồn 24V DC cấp cho các khối mở rộng (24V DC power failure).",
-    description: "Bật ON khi nguồn 24V DC cấp cho các khối mở rộng bị sụt áp hoặc ngắt.",
+    summary:
+      "Cờ báo mất nguồn 24V DC cấp cho các khối mở rộng (24V DC power failure).",
+    description:
+      "Bật ON khi nguồn 24V DC cấp cho các khối mở rộng bị sụt áp hoặc ngắt.",
     initialValue: "OFF",
     applicableModels: "FX3G, FX3U, FX2N, FX2NC",
     ladderExample: "|--[ M8009 ]-----------------[ OUT Y15 ]--|",
-    notes: "Thanh ghi D8009 lưu số hiệu ngõ vào đầu tiên của khối bị mất nguồn 24V.",
+    notes:
+      "Thanh ghi D8009 lưu số hiệu ngõ vào đầu tiên của khối bị mất nguồn 24V.",
     tags: ["m8009", "24v power", "dc power", "d8009"],
   },
   {
@@ -159,11 +183,13 @@ export const BIT_DEVICES = [
     category: "system",
     rw: "R/W",
     summary: "Tắt đèn LED BATT.V trên mặt PLC (ngay cả khi cờ M8005 bật ON).",
-    description: "Khi M8030 = ON, đèn LED chỉ thị pin yếu (BATT.V) trên thân PLC sẽ bị cưỡng bức tắt.",
+    description:
+      "Khi M8030 = ON, đèn LED chỉ thị pin yếu (BATT.V) trên thân PLC sẽ bị cưỡng bức tắt.",
     initialValue: "OFF",
     applicableModels: "FX3G, FX3GC, FX3U, FX3UC, FX2N, FX2NC",
     ladderExample: "|--[ M8030 ]-------------------------------------|",
-    notes: "Dùng trong các ứng dụng người dùng không muốn hiển thị cảnh báo đèn ngoài mặt tủ.",
+    notes:
+      "Dùng trong các ứng dụng người dùng không muốn hiển thị cảnh báo đèn ngoài mặt tủ.",
     tags: ["m8030", "battery led", "led extinguish", "batt.v"],
   },
   {
@@ -172,11 +198,15 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R/W",
-    summary: "Xóa toàn bộ vùng nhớ không duy trì (Non-latch memory all clear: Y, M, S, T, C, D).",
-    description: "Khi M8031 = ON, toàn bộ dữ liệu trong vùng nhớ không chốt lưu (Non-latch) sẽ bị xóa sạch về 0.",
+    summary:
+      "Xóa toàn bộ vùng nhớ không duy trì (Non-latch memory all clear: Y, M, S, T, C, D).",
+    description:
+      "Khi M8031 = ON, toàn bộ dữ liệu trong vùng nhớ không chốt lưu (Non-latch) sẽ bị xóa sạch về 0.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ X2 ]--------------------[ SET M8031 ]--| // Xóa biến tạm",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ X2 ]--------------------[ SET M8031 ]--| // Xóa biến tạm",
     notes: "Thực thi tại lệnh END chu kỳ quét.",
     tags: ["m8031", "clear memory", "non-latch", "reset"],
   },
@@ -187,10 +217,13 @@ export const BIT_DEVICES = [
     category: "system",
     rw: "R/W",
     summary: "Xóa toàn bộ vùng nhớ duy trì (Latch memory all clear).",
-    description: "Khi M8032 = ON, toàn bộ dữ liệu trong vùng nhớ chốt lưu giữ pin (Latch devices) sẽ bị xóa về 0.",
+    description:
+      "Khi M8032 = ON, toàn bộ dữ liệu trong vùng nhớ chốt lưu giữ pin (Latch devices) sẽ bị xóa về 0.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ X3 ]--------------------[ SET M8032 ]--| // Reset sạch dữ liệu lưu",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ X3 ]--------------------[ SET M8032 ]--| // Reset sạch dữ liệu lưu",
     notes: "Thực thi tại lệnh END chu kỳ quét.",
     tags: ["m8032", "latch clear", "clear memory", "reset all"],
   },
@@ -200,12 +233,16 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R/W",
-    summary: "Duy trì trạng thái ngõ ra và vùng nhớ khi PLC chuyển sang STOP (Memory hold stop).",
-    description: "Khi M8033 = ON và PLC chuyển từ RUN sang STOP, trạng thái của các ngõ ra Y và các vùng nhớ nội bộ sẽ được giữ nguyên thay vì bị xóa sạch về OFF.",
+    summary:
+      "Duy trì trạng thái ngõ ra và vùng nhớ khi PLC chuyển sang STOP (Memory hold stop).",
+    description:
+      "Khi M8033 = ON và PLC chuyển từ RUN sang STOP, trạng thái của các ngõ ra Y và các vùng nhớ nội bộ sẽ được giữ nguyên thay vì bị xóa sạch về OFF.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8000 ]-----------------[ SET M8033 ]--|",
-    notes: "Cực kỳ hữu ích khi cần debug hoặc giữ nguyên vị trí cơ cấu chấp hành khi tạm dừng PLC.",
+    notes:
+      "Cực kỳ hữu ích khi cần debug hoặc giữ nguyên vị trí cơ cấu chấp hành khi tạm dừng PLC.",
     tags: ["m8033", "memory hold", "stop hold", "keep state"],
   },
   {
@@ -214,12 +251,17 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R/W",
-    summary: "Cấm tất cả các ngõ ra vật lý (Tất cả ngõ ra Y chuyển sang trạng thái OFF).",
-    description: "Khi M8034 = ON, toàn bộ các tiếp điểm ngõ ra vật lý (Y) của PLC sẽ bị cưỡng bức ngắt (OFF). Logic chương trình bên trong vẫn tiếp tục xử lý bình thường.",
+    summary:
+      "Cấm tất cả các ngõ ra vật lý (Tất cả ngõ ra Y chuyển sang trạng thái OFF).",
+    description:
+      "Khi M8034 = ON, toàn bộ các tiếp điểm ngõ ra vật lý (Y) của PLC sẽ bị cưỡng bức ngắt (OFF). Logic chương trình bên trong vẫn tiếp tục xử lý bình thường.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ X0 ]--------------------[ OUT M8034 ]--| // Khóa tất cả ngõ ra Y",
-    notes: "Được thực thi tại lệnh END. Thường dùng trong nút dừng khẩn cấp hoặc chế độ bảo trì.",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ X0 ]--------------------[ OUT M8034 ]--| // Khóa tất cả ngõ ra Y",
+    notes:
+      "Được thực thi tại lệnh END. Thường dùng trong nút dừng khẩn cấp hoặc chế độ bảo trì.",
     tags: ["m8034", "all outputs disable", "disable", "y", "safety"],
   },
   {
@@ -229,9 +271,11 @@ export const BIT_DEVICES = [
     category: "system",
     rw: "R/W",
     summary: "Chế độ cưỡng bức chạy RUN (Forced RUN mode).",
-    description: "Cho phép cưỡng bức chuyển trạng thái PLC sang RUN thông qua tín hiệu M8036.",
+    description:
+      "Cho phép cưỡng bức chuyển trạng thái PLC sang RUN thông qua tín hiệu M8036.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8035 ]-------------------------------------|",
     notes: "Kết hợp với M8036 và M8037.",
     tags: ["m8035", "forced run", "control"],
@@ -242,10 +286,12 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R/W",
-    summary: "Tín hiệu cưỡng bức chạy RUN (Kích hoạt RUN khi công tắc ngoài ở vị trí STOP).",
+    summary:
+      "Tín hiệu cưỡng bức chạy RUN (Kích hoạt RUN khi công tắc ngoài ở vị trí STOP).",
     description: "Kích hoạt RUN khi M8035 = ON.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ X4 ]--------------------[ SET M8036 ]--|",
     notes: "Cần bật M8035 trước.",
     tags: ["m8036", "forced run signal", "remote run"],
@@ -259,7 +305,8 @@ export const BIT_DEVICES = [
     summary: "Tín hiệu cưỡng bức dừng STOP.",
     description: "Kích hoạt STOP khi M8035 = ON.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ X5 ]--------------------[ SET M8037 ]--|",
     notes: "Dừng PLC từ xa qua phần mềm hoặc tín hiệu nút nhấn.",
     tags: ["m8037", "forced stop signal", "remote stop"],
@@ -270,11 +317,15 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R/W",
-    summary: "Chế độ chu kỳ quét không đổi (Constant scan mode - Cố định scan time theo D8039).",
-    description: "Khi M8039 = ON, PLC sẽ chờ cho đến khi đủ khoảng thời gian chu kỳ quét cài đặt tại thanh ghi D8039 (đơn vị: ms) rồi mới bắt đầu chu kỳ quét kế tiếp.",
+    summary:
+      "Chế độ chu kỳ quét không đổi (Constant scan mode - Cố định scan time theo D8039).",
+    description:
+      "Khi M8039 = ON, PLC sẽ chờ cho đến khi đủ khoảng thời gian chu kỳ quét cài đặt tại thanh ghi D8039 (đơn vị: ms) rồi mới bắt đầu chu kỳ quét kế tiếp.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ M8002 ]---[ MOV K20 D8039 ]--[ SET M8039 ]--| // Cố định scan time 20ms",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ M8002 ]---[ MOV K20 D8039 ]--[ SET M8039 ]--| // Cố định scan time 20ms",
     notes: "Thiết bị tương ứng: D8039 (Constant scan duration).",
     tags: ["m8039", "constant scan", "scan time", "d8039"],
   },
@@ -289,9 +340,11 @@ export const BIT_DEVICES = [
     category: "clock",
     rw: "R",
     summary: "Xung đồng hồ chu kỳ 10ms (5ms ON / 5ms OFF, tần số 100 Hz).",
-    description: "Tạo ra xung nhịp dao động liên tục với chu kỳ 10ms (5ms mức ON, 5ms mức OFF).",
+    description:
+      "Tạo ra xung nhịp dao động liên tục với chu kỳ 10ms (5ms mức ON, 5ms mức OFF).",
     initialValue: "Pulse (10ms)",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8011 ]-----------------[ INCP C0 ]--|",
     notes: "Chịu ảnh hưởng bởi thời gian quét của chương trình.",
     tags: ["m8011", "10ms", "clock", "pulse", "timer", "100hz"],
@@ -303,11 +356,15 @@ export const BIT_DEVICES = [
     category: "clock",
     rw: "R",
     summary: "Xung đồng hồ chu kỳ 100ms (50ms ON / 50ms OFF, tần số 10 Hz).",
-    description: "Tạo ra xung nhịp dao động liên tục với chu kỳ 100ms (50ms ON, 50ms OFF).",
+    description:
+      "Tạo ra xung nhịp dao động liên tục với chu kỳ 100ms (50ms ON, 50ms OFF).",
     initialValue: "Pulse (100ms)",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ M8012 ]-----------------[ OUT Y0 ]--| // Chớp đèn cảnh báo nhanh",
-    notes: "Phổ biến trong ứng dụng hiển thị trạng thái nhấp nháy đèn báo lỗi nhanh.",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ M8012 ]-----------------[ OUT Y0 ]--| // Chớp đèn cảnh báo nhanh",
+    notes:
+      "Phổ biến trong ứng dụng hiển thị trạng thái nhấp nháy đèn báo lỗi nhanh.",
     tags: ["m8012", "100ms", "clock", "pulse", "timer", "10hz", "flash"],
   },
   {
@@ -317,11 +374,15 @@ export const BIT_DEVICES = [
     category: "clock",
     rw: "R",
     summary: "Xung đồng hồ chu kỳ 1 giây (500ms ON / 500ms OFF, tần số 1 Hz).",
-    description: "Tạo ra xung nhịp dao động liên tục với chu kỳ 1 giây (0.5 giây ON, 0.5 giây OFF).",
+    description:
+      "Tạo ra xung nhịp dao động liên tục với chu kỳ 1 giây (0.5 giây ON, 0.5 giây OFF).",
     initialValue: "Pulse (1s)",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ M8013 ]-----------------[ INCP D100 ]--| // Bộ đếm giây hoạt động",
-    notes: "Là cờ tạo xung 1s tiêu chuẩn được dùng nhiều nhất để lập trình bộ đếm thời gian hoặc chớp đèn 1s.",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ M8013 ]-----------------[ INCP D100 ]--| // Bộ đếm giây hoạt động",
+    notes:
+      "Là cờ tạo xung 1s tiêu chuẩn được dùng nhiều nhất để lập trình bộ đếm thời gian hoặc chớp đèn 1s.",
     tags: ["m8013", "1s", "second", "clock", "pulse", "1hz"],
   },
   {
@@ -331,10 +392,13 @@ export const BIT_DEVICES = [
     category: "clock",
     rw: "R",
     summary: "Xung đồng hồ chu kỳ 1 phút (30 giây ON / 30 giây OFF).",
-    description: "Tạo ra xung nhịp dao động liên tục với chu kỳ 1 phút (30 giây ON, 30 giây OFF).",
+    description:
+      "Tạo ra xung nhịp dao động liên tục với chu kỳ 1 phút (30 giây ON, 30 giây OFF).",
     initialValue: "Pulse (1min)",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ LDP M8014 ]-------------[ INCP D102 ]--| // Đếm số phút vận hành",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ LDP M8014 ]-------------[ INCP D102 ]--| // Đếm số phút vận hành",
     notes: "Nên sử dụng tiếp điểm cạnh lên (LDP M8014 hoặc PLS) khi đếm phút.",
     tags: ["m8014", "1min", "minute", "clock", "pulse"],
   },
@@ -344,12 +408,17 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "clock",
     rw: "R/W",
-    summary: "Dừng đồng hồ thời gian thực RTC để nạp giá trị cài đặt thời gian mới.",
-    description: "Khi M8015 = ON, đồng hồ thời gian thực (RTC: D8013-D8019) sẽ tạm dừng cập nhật, cho phép chương trình nạp dữ liệu ngày giờ mới vào các thanh ghi RTC.",
+    summary:
+      "Dừng đồng hồ thời gian thực RTC để nạp giá trị cài đặt thời gian mới.",
+    description:
+      "Khi M8015 = ON, đồng hồ thời gian thực (RTC: D8013-D8019) sẽ tạm dừng cập nhật, cho phép chương trình nạp dữ liệu ngày giờ mới vào các thanh ghi RTC.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ X1 ]--------------------[ SET M8015 ]--| // Dừng RTC để chỉnh giờ",
-    notes: "Sau khi nạp xong dữ liệu giờ mới, thực hiện RST M8015 để đồng hồ tiếp tục chạy.",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ X1 ]--------------------[ SET M8015 ]--| // Dừng RTC để chỉnh giờ",
+    notes:
+      "Sau khi nạp xong dữ liệu giờ mới, thực hiện RST M8015 để đồng hồ tiếp tục chạy.",
     tags: ["m8015", "rtc", "clock", "preset", "stop", "time"],
   },
   {
@@ -358,10 +427,13 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "clock",
     rw: "R/W",
-    summary: "Tạm dừng cập nhật dữ liệu hiển thị RTC (Time read display data halt).",
-    description: "Khi M8016 = ON, các giá trị thanh ghi D8013 đến D8019 sẽ giữ nguyên giá trị tại thời điểm kích hoạt để đọc dữ liệu mà không bị nhảy số lẻ.",
+    summary:
+      "Tạm dừng cập nhật dữ liệu hiển thị RTC (Time read display data halt).",
+    description:
+      "Khi M8016 = ON, các giá trị thanh ghi D8013 đến D8019 sẽ giữ nguyên giá trị tại thời điểm kích hoạt để đọc dữ liệu mà không bị nhảy số lẻ.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8016 ]-------------------------------------|",
     notes: "Đồng hồ nội bộ bên trong vẫn tiếp tục chạy bình thường.",
     tags: ["m8016", "rtc", "halt", "read", "clock"],
@@ -372,11 +444,15 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "clock",
     rw: "R/W",
-    summary: "Tự động làm tròn số giây ±30s (0~29s về 00s, 30~59s lên +1 phút và về 00s).",
-    description: "Khi M8017 được bật ON: Nếu số giây trong D8013 nằm trong khoảng 0-29 giây sẽ được làm tròn về 00 giây; nếu nằm trong khoảng 30-59 giây sẽ tăng số phút lên 1 và đưa giây về 00.",
+    summary:
+      "Tự động làm tròn số giây ±30s (0~29s về 00s, 30~59s lên +1 phút và về 00s).",
+    description:
+      "Khi M8017 được bật ON: Nếu số giây trong D8013 nằm trong khoảng 0-29 giây sẽ được làm tròn về 00 giây; nếu nằm trong khoảng 30-59 giây sẽ tăng số phút lên 1 và đưa giây về 00.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ X6 ]--------------------[ SET M8017 ]--| // Đồng bộ chuẩn giờ theo đài",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ X6 ]--------------------[ SET M8017 ]--| // Đồng bộ chuẩn giờ theo đài",
     notes: "Tự động reset về OFF sau khi thực hiện xong việc làm tròn.",
     tags: ["m8017", "rtc", "30s correction", "clock", "sync"],
   },
@@ -387,9 +463,11 @@ export const BIT_DEVICES = [
     category: "clock",
     rw: "R",
     summary: "Cờ phát hiện IC đồng hồ thời gian thực RTC (Luôn ON nếu có RTC).",
-    description: "Tự động ON liên tục khi PLC có tích hợp sẵn mạch RTC (hoặc gắn bo RTC mở rộng).",
+    description:
+      "Tự động ON liên tục khi PLC có tích hợp sẵn mạch RTC (hoặc gắn bo RTC mở rộng).",
     initialValue: "ON (Luôn ON trên FX3 series)",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8018 ]-----------------[ SET M100 ]--|",
     notes: "Trên FX2NC cần gắn thêm bo nhớ có chức năng RTC.",
     tags: ["m8018", "rtc", "detect", "clock", "installation"],
@@ -400,10 +478,13 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "clock",
     rw: "R",
-    summary: "Cờ báo lỗi đồng hồ thời gian thực RTC (Dữ liệu ngày giờ bị sai hoặc mất nguồn).",
-    description: "Bật ON khi dữ liệu trong các thanh ghi RTC D8013-D8019 nằm ngoài dải hợp lệ.",
+    summary:
+      "Cờ báo lỗi đồng hồ thời gian thực RTC (Dữ liệu ngày giờ bị sai hoặc mất nguồn).",
+    description:
+      "Bật ON khi dữ liệu trong các thanh ghi RTC D8013-D8019 nằm ngoài dải hợp lệ.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8019 ]-----------------[ OUT Y16 ]--| // Báo lỗi RTC",
     notes: "Cần nạp lại thời gian chuẩn khi cờ này bật ON.",
     tags: ["m8019", "rtc error", "clock error", "time"],
@@ -418,12 +499,17 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "math",
     rw: "R",
-    summary: "Cờ Zero (Bật ON khi kết quả phép cộng/trừ hoặc phép toán bằng 0).",
-    description: "Tự động bật ON khi kết quả thực thi của phép toán số học (ADD, SUB, MUL, DIV...) cho ra giá trị bằng 0.",
+    summary:
+      "Cờ Zero (Bật ON khi kết quả phép cộng/trừ hoặc phép toán bằng 0).",
+    description:
+      "Tự động bật ON khi kết quả thực thi của phép toán số học (ADD, SUB, MUL, DIV...) cho ra giá trị bằng 0.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ SUB D0 D1 D2 ]--[ M8020 ]--[ OUT Y1 ]--| // Báo 2 giá trị bằng nhau",
-    notes: "Trạng thái của M8020 được làm mới ngay sau mỗi lệnh tính toán số học.",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ SUB D0 D1 D2 ]--[ M8020 ]--[ OUT Y1 ]--| // Báo 2 giá trị bằng nhau",
+    notes:
+      "Trạng thái của M8020 được làm mới ngay sau mỗi lệnh tính toán số học.",
     tags: ["m8020", "zero", "math", "flag", "equal", "sub", "add"],
   },
   {
@@ -432,12 +518,17 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "math",
     rw: "R",
-    summary: "Cờ mượn (Underflow trong phép trừ khi kết quả âm nhỏ hơn số tối thiểu).",
-    description: "Bật ON khi kết quả của phép toán trừ nhỏ hơn giá trị âm tối thiểu (-32,768 đối với 16-bit hoặc -2,147,483,648 đối với 32-bit).",
+    summary:
+      "Cờ mượn (Underflow trong phép trừ khi kết quả âm nhỏ hơn số tối thiểu).",
+    description:
+      "Bật ON khi kết quả của phép toán trừ nhỏ hơn giá trị âm tối thiểu (-32,768 đối với 16-bit hoặc -2,147,483,648 đối với 32-bit).",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ SUB D0 D1 D2 ]--[ M8021 ]--[ SET M50 ]--| // Xử lý tràn âm",
-    notes: "Dùng để phát hiện hiện tượng tràn số âm trong các phép toán định lượng.",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ SUB D0 D1 D2 ]--[ M8021 ]--[ SET M50 ]--| // Xử lý tràn âm",
+    notes:
+      "Dùng để phát hiện hiện tượng tràn số âm trong các phép toán định lượng.",
     tags: ["m8021", "borrow", "math", "sub", "underflow"],
   },
   {
@@ -446,12 +537,17 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "math",
     rw: "R/W",
-    summary: "Cờ nhớ/tràn (Carry/Overflow trong phép cộng, phép dịch bit ROR/ROL/SFT).",
-    description: "M8022 bật ON khi kết quả phép cộng vượt quá số dương tối đa (+32,767 đối với 16-bit hoặc +2,147,483,647 đối với 32-bit), hoặc khi bit bị tràn ra ngoài trong các lệnh dịch chuyển bit.",
+    summary:
+      "Cờ nhớ/tràn (Carry/Overflow trong phép cộng, phép dịch bit ROR/ROL/SFT).",
+    description:
+      "M8022 bật ON khi kết quả phép cộng vượt quá số dương tối đa (+32,767 đối với 16-bit hoặc +2,147,483,647 đối với 32-bit), hoặc khi bit bị tràn ra ngoài trong các lệnh dịch chuyển bit.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ ADD D0 D1 D2 ]--[ M8022 ]--[ SET M51 ]--| // Xử lý tràn dương",
-    notes: "Không có dấu ngoặc [M] nên có thể can thiệp R/W trong chương trình.",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ ADD D0 D1 D2 ]--[ M8022 ]--[ SET M51 ]--| // Xử lý tràn dương",
+    notes:
+      "Không có dấu ngoặc [M] nên có thể can thiệp R/W trong chương trình.",
     tags: ["m8022", "carry", "math", "overflow", "add", "shift"],
   },
   {
@@ -461,9 +557,11 @@ export const BIT_DEVICES = [
     category: "math",
     rw: "R",
     summary: "Hướng truyền dữ liệu trong lệnh BMOV (Block Move).",
-    description: "Chỉ định hướng truyền dữ liệu khi vùng nhớ nguồn và vùng nhớ đích bị trùng lặp trong lệnh BMOV.",
+    description:
+      "Chỉ định hướng truyền dữ liệu khi vùng nhớ nguồn và vùng nhớ đích bị trùng lặp trong lệnh BMOV.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8024 ]-------------------------------------|",
     notes: "Hệ thống tự động quyết định hướng di chuyển dữ liệu.",
     tags: ["m8024", "bmov", "direction", "block move"],
@@ -475,7 +573,8 @@ export const BIT_DEVICES = [
     category: "math",
     rw: "R/W",
     summary: "Chế độ HSC / Chế độ thực thi các lệnh toán học nâng cao.",
-    description: "Quy định chế độ thực thi chi tiết cho một số lệnh chuyển đổi dữ liệu FLT/INT.",
+    description:
+      "Quy định chế độ thực thi chi tiết cho một số lệnh chuyển đổi dữ liệu FLT/INT.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8025 ]-------------------------------------|",
@@ -489,9 +588,11 @@ export const BIT_DEVICES = [
     category: "math",
     rw: "R/W",
     summary: "Chuyển đổi chế độ giữ giá trị lệnh RAMP (Ramp variable value).",
-    description: "Khi M8026 = ON, lệnh RAMP sẽ giữ nguyên giá trị hiện tại khi ngắt lệnh thay vì reset về giá trị bắt đầu.",
+    description:
+      "Khi M8026 = ON, lệnh RAMP sẽ giữ nguyên giá trị hiện tại khi ngắt lệnh thay vì reset về giá trị bắt đầu.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8000 ]-----------------[ SET M8026 ]--|",
     notes: "Dùng điều khiển tăng giảm tốc mượt mà.",
     tags: ["m8026", "ramp", "mode", "ramp variable"],
@@ -502,8 +603,10 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R/W",
-    summary: "Cho phép thực thi lệnh FROM/TO trong chương trình ngắt (Interrupt).",
-    description: "Khi M8028 = ON, cho phép các lệnh FROM/TO giao tiếp với module đặc biệt được thực thi bên trong chương trình con ngắt.",
+    summary:
+      "Cho phép thực thi lệnh FROM/TO trong chương trình ngắt (Interrupt).",
+    description:
+      "Khi M8028 = ON, cho phép các lệnh FROM/TO giao tiếp với module đặc biệt được thực thi bên trong chương trình con ngắt.",
     initialValue: "OFF",
     applicableModels: "FX3U, FX3UC, FX2N, FX2NC",
     ladderExample: "|--[ M8028 ]-------------------------------------|",
@@ -516,12 +619,16 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "math",
     rw: "R",
-    summary: "Cờ báo hoàn thành thực thi lệnh (Dùng cho lệnh xung, bảng, truyền thông, định vị...).",
-    description: "Tự động bật ON khi một lệnh ứng dụng (như DSW, SORT, TBL, SMOV, RAMP, PLSR, DRVI, RS...) đã hoàn thành toàn bộ chu trình xử lý của nó.",
+    summary:
+      "Cờ báo hoàn thành thực thi lệnh (Dùng cho lệnh xung, bảng, truyền thông, định vị...).",
+    description:
+      "Tự động bật ON khi một lệnh ứng dụng (như DSW, SORT, TBL, SMOV, RAMP, PLSR, DRVI, RS...) đã hoàn thành toàn bộ chu trình xử lý của nó.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ DSW X0 Y0 D0 K1 ]--[ M8029 ]--[ SET M20 ]--|",
-    notes: "Cờ M8029 được kích hoạt ngay sau dòng lệnh hoàn tất và được quản lý độc lập theo từng khối lệnh.",
+    notes:
+      "Cờ M8029 được kích hoạt ngay sau dòng lệnh hoàn tất và được quản lý độc lập theo từng khối lệnh.",
     tags: ["m8029", "execution complete", "complete", "done", "finish"],
   },
 
@@ -535,10 +642,13 @@ export const BIT_DEVICES = [
     category: "system",
     rw: "R/W",
     summary: "Cấm chuyển bước trong sơ đồ tuần tự Step Ladder SFC (STL).",
-    description: "Khi M8040 = ON, quá trình chuyển đổi giữa các bước trạng thái State (S) trong sơ đồ STL/SFC sẽ bị tạm khóa.",
+    description:
+      "Khi M8040 = ON, quá trình chuyển đổi giữa các bước trạng thái State (S) trong sơ đồ STL/SFC sẽ bị tạm khóa.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ X7 ]--------------------[ SET M8040 ]--| // Tạm dừng chuyển bước SFC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ X7 ]--------------------[ SET M8040 ]--| // Tạm dừng chuyển bước SFC",
     notes: "Dùng để tạm dừng dây chuyền tự động tại bước hiện thời.",
     tags: ["m8040", "stl", "transfer disable", "sfc", "step"],
   },
@@ -548,10 +658,13 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "system",
     rw: "R",
-    summary: "Cờ báo có ít nhất một trạng thái State (S) đang hoạt động trong SFC.",
-    description: "Bật ON khi có ít nhất một rơ-le trạng thái S đang ở mức ON trong chương trình STL.",
+    summary:
+      "Cờ báo có ít nhất một trạng thái State (S) đang hoạt động trong SFC.",
+    description:
+      "Bật ON khi có ít nhất một rơ-le trạng thái S đang ở mức ON trong chương trình STL.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8046 ]-----------------[ OUT Y17 ]--|",
     notes: "Thiết bị tương ứng: D8040 đến D8047.",
     tags: ["m8046", "stl state on", "sfc", "state"],
@@ -562,11 +675,14 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "error",
     rw: "R",
-    summary: "Cờ báo có rơ-le cảnh báo Annunciator (S900 ~ S999) đang hoạt động.",
-    description: "Bật ON khi có ít nhất một rơ-le cảnh báo sự cố Annunciator (từ S900 đến S999) bật ON.",
+    summary:
+      "Cờ báo có rơ-le cảnh báo Annunciator (S900 ~ S999) đang hoạt động.",
+    description:
+      "Bật ON khi có ít nhất một rơ-le cảnh báo sự cố Annunciator (từ S900 đến S999) bật ON.",
     initialValue: "OFF",
     applicableModels: "FX3G, FX3GC, FX3U, FX3UC, FX2N, FX2NC",
-    ladderExample: "|--[ M8048 ]-----------------[ OUT Y20 ]--| // Báo còi báo động sự cố",
+    ladderExample:
+      "|--[ M8048 ]-----------------[ OUT Y20 ]--| // Báo còi báo động sự cố",
     notes: "Thanh ghi D8049 lưu số hiệu rơ-le cảnh báo nhỏ nhất đang ON.",
     tags: ["m8048", "annunciator", "alarm", "s900", "d8049"],
   },
@@ -581,10 +697,13 @@ export const BIT_DEVICES = [
     category: "system",
     rw: "R/W",
     summary: "Cấm ngắt ngoài I000 / I001 từ chân ngõ vào X000.",
-    description: "Khi M8050 = ON, các tín hiệu kích hoạt ngắt tại ngõ vào X000 sẽ bị vô hiệu hóa.",
+    description:
+      "Khi M8050 = ON, các tín hiệu kích hoạt ngắt tại ngõ vào X000 sẽ bị vô hiệu hóa.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ X10 ]-------------------[ SET M8050 ]--| // Khóa ngắt X0",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ X10 ]-------------------[ SET M8050 ]--| // Khóa ngắt X0",
     notes: "Thực thi kiểm tra trước khi vào vùng ngắt.",
     tags: ["m8050", "interrupt disable", "i000", "x000"],
   },
@@ -597,7 +716,8 @@ export const BIT_DEVICES = [
     summary: "Cấm ngắt ngoài I100 / I101 từ chân ngõ vào X001.",
     description: "Khi M8051 = ON, ngắt từ chân ngõ vào X001 sẽ bị vô hiệu hóa.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8051 ]-------------------------------------|",
     notes: "Khóa ngắt X001.",
     tags: ["m8051", "interrupt disable", "i100", "x001"],
@@ -611,7 +731,8 @@ export const BIT_DEVICES = [
     summary: "Cấm ngắt ngoài I200 / I201 từ chân ngõ vào X002.",
     description: "Khi M8052 = ON, ngắt từ chân ngõ vào X002 sẽ bị vô hiệu hóa.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8052 ]-------------------------------------|",
     notes: "Khóa ngắt X002.",
     tags: ["m8052", "interrupt disable", "i200", "x002"],
@@ -625,7 +746,8 @@ export const BIT_DEVICES = [
     summary: "Cấm ngắt ngoài I300 / I301 từ chân ngõ vào X003.",
     description: "Khi M8053 = ON, ngắt từ chân ngõ vào X003 sẽ bị vô hiệu hóa.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8053 ]-------------------------------------|",
     notes: "Khóa ngắt X003.",
     tags: ["m8053", "interrupt disable", "i300", "x003"],
@@ -639,7 +761,8 @@ export const BIT_DEVICES = [
     summary: "Cấm ngắt ngoài I400 / I401 từ chân ngõ vào X004.",
     description: "Khi M8054 = ON, ngắt từ chân ngõ vào X004 sẽ bị vô hiệu hóa.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8054 ]-------------------------------------|",
     notes: "Khóa ngắt X004.",
     tags: ["m8054", "interrupt disable", "i400", "x004"],
@@ -653,7 +776,8 @@ export const BIT_DEVICES = [
     summary: "Cấm ngắt ngoài I500 / I501 từ chân ngõ vào X005.",
     description: "Khi M8055 = ON, ngắt từ chân ngõ vào X005 sẽ bị vô hiệu hóa.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8055 ]-------------------------------------|",
     notes: "Khóa ngắt X005.",
     tags: ["m8055", "interrupt disable", "i500", "x005"],
@@ -665,9 +789,11 @@ export const BIT_DEVICES = [
     category: "system",
     rw: "R/W",
     summary: "Cấm ngắt định thời Timer Interrupt I6[][] (1ms ~ 99ms).",
-    description: "Khi M8056 = ON, ngắt chu kỳ thời gian I6[][] sẽ bị vô hiệu hóa.",
+    description:
+      "Khi M8056 = ON, ngắt chu kỳ thời gian I6[][] sẽ bị vô hiệu hóa.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8056 ]-------------------------------------|",
     notes: "Khóa ngắt Timer kênh 1.",
     tags: ["m8056", "timer interrupt", "i600", "disable"],
@@ -679,9 +805,11 @@ export const BIT_DEVICES = [
     category: "system",
     rw: "R/W",
     summary: "Cấm ngắt định thời Timer Interrupt I7[][].",
-    description: "Khi M8057 = ON, ngắt chu kỳ thời gian I7[][] sẽ bị vô hiệu hóa.",
+    description:
+      "Khi M8057 = ON, ngắt chu kỳ thời gian I7[][] sẽ bị vô hiệu hóa.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8057 ]-------------------------------------|",
     notes: "Khóa ngắt Timer kênh 2.",
     tags: ["m8057", "timer interrupt", "i700", "disable"],
@@ -693,9 +821,11 @@ export const BIT_DEVICES = [
     category: "system",
     rw: "R/W",
     summary: "Cấm ngắt định thời Timer Interrupt I8[][].",
-    description: "Khi M8058 = ON, ngắt chu kỳ thời gian I8[][] sẽ bị vô hiệu hóa.",
+    description:
+      "Khi M8058 = ON, ngắt chu kỳ thời gian I8[][] sẽ bị vô hiệu hóa.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8058 ]-------------------------------------|",
     notes: "Khóa ngắt Timer kênh 3.",
     tags: ["m8058", "timer interrupt", "i800", "disable"],
@@ -707,9 +837,11 @@ export const BIT_DEVICES = [
     category: "system",
     rw: "R/W",
     summary: "Cấm ngắt bộ đếm tốc độ cao (Counter Interrupt disable).",
-    description: "Khi M8059 = ON, các chương trình ngắt từ lệnh so sánh tốc độ cao HSCS (I010 ~ I060) sẽ bị tạm khóa.",
+    description:
+      "Khi M8059 = ON, các chương trình ngắt từ lệnh so sánh tốc độ cao HSCS (I010 ~ I060) sẽ bị tạm khóa.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8059 ]-------------------------------------|",
     notes: "Dùng khi cần khóa ngắt HSC lúc lập trình cấu hình.",
     tags: ["m8059", "counter interrupt", "hscs", "disable"],
@@ -724,8 +856,10 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "error",
     rw: "R",
-    summary: "Cờ báo lỗi cấu hình phần cứng I/O (Địa chỉ I/O chưa được nạp hoặc xung đột).",
-    description: "Bật ON khi phát hiện lỗi cấu hình khối I/O. Thanh ghi D8060 lưu địa chỉ đầu tiên của khối phần cứng bị lỗi.",
+    summary:
+      "Cờ báo lỗi cấu hình phần cứng I/O (Địa chỉ I/O chưa được nạp hoặc xung đột).",
+    description:
+      "Bật ON khi phát hiện lỗi cấu hình khối I/O. Thanh ghi D8060 lưu địa chỉ đầu tiên của khối phần cứng bị lỗi.",
     initialValue: "OFF",
     applicableModels: "FX3G, FX3GC, FX3U, FX3UC, FX2N, FX2NC",
     ladderExample: "|--[ M8060 ]-----------------[ MOV D8060 D100 ]--|",
@@ -739,7 +873,8 @@ export const BIT_DEVICES = [
     category: "error",
     rw: "R",
     summary: "Cờ báo lỗi phần cứng CPU / RAM / Nguồn (PLC hardware error).",
-    description: "Bật ON khi hệ thống phát hiện lỗi phần cứng CPU hoặc bộ nhớ. Thanh ghi D8061 lưu chi tiết mã lỗi.",
+    description:
+      "Bật ON khi hệ thống phát hiện lỗi phần cứng CPU hoặc bộ nhớ. Thanh ghi D8061 lưu chi tiết mã lỗi.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX2N, FX2NC",
     ladderExample: "|--[ M8061 ]-----------------[ MOV D8061 D101 ]--|",
@@ -753,9 +888,11 @@ export const BIT_DEVICES = [
     category: "comm",
     rw: "R",
     summary: "Cờ báo lỗi truyền thông cổng lập trình USB/RS-422 (Channel 0).",
-    description: "Bật ON khi phát hiện lỗi truyền thông giữa CPU PLC với máy tính nạp chương trình hoặc màn hình HMI cắm cổng tròn RS-422/USB.",
+    description:
+      "Bật ON khi phát hiện lỗi truyền thông giữa CPU PLC với máy tính nạp chương trình hoặc màn hình HMI cắm cổng tròn RS-422/USB.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8062 ]-----------------[ MOV D8062 D201 ]--|",
     notes: "Thiết bị tương ứng: D8062.",
     tags: ["m8062", "pp comm error", "ch0", "rs422", "d8062"],
@@ -766,10 +903,13 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "comm",
     rw: "R",
-    summary: "Cờ báo lỗi truyền thông nối tiếp trên Kênh 1 (ch1 - RS-485 / RS-232C).",
-    description: "Tự động bật ON khi phát hiện sự cố truyền thông trên cổng Ch1 (Lỗi Baudrate, Parity, Framing error, Checksum...). Mã lỗi chi tiết được lưu trong thanh ghi D8063.",
+    summary:
+      "Cờ báo lỗi truyền thông nối tiếp trên Kênh 1 (ch1 - RS-485 / RS-232C).",
+    description:
+      "Tự động bật ON khi phát hiện sự cố truyền thông trên cổng Ch1 (Lỗi Baudrate, Parity, Framing error, Checksum...). Mã lỗi chi tiết được lưu trong thanh ghi D8063.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8063 ]-----------------[ MOV D8063 D200 ]--|",
     notes: "Thiết bị tương ứng: D8063.",
     tags: ["m8063", "serial error", "comm", "d8063", "rs485", "rs232"],
@@ -780,10 +920,13 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "error",
     rw: "R",
-    summary: "Cờ báo lỗi tham số chương trình hoặc tham số phần cứng (Parameter error).",
-    description: "Bật ON khi có giá trị cài đặt tham số PLC bị sai dải hoặc không hợp lệ. Chi tiết mã lỗi lưu trong thanh ghi D8064.",
+    summary:
+      "Cờ báo lỗi tham số chương trình hoặc tham số phần cứng (Parameter error).",
+    description:
+      "Bật ON khi có giá trị cài đặt tham số PLC bị sai dải hoặc không hợp lệ. Chi tiết mã lỗi lưu trong thanh ghi D8064.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8064 ]-----------------[ MOV D8064 D104 ]--|",
     notes: "Thiết bị tương ứng: D8064.",
     tags: ["m8064", "parameter error", "d8064", "error"],
@@ -795,9 +938,11 @@ export const BIT_DEVICES = [
     category: "error",
     rw: "R",
     summary: "Cờ báo lỗi cú pháp câu lệnh trong chương trình (Syntax error).",
-    description: "Bật ON khi CPU phát hiện lỗi cú pháp câu lệnh (thiếu tham số, lệnh không đúng định dạng...). Chi tiết mã lỗi lưu tại D8065, vị trí bước lệnh lưu tại D8069.",
+    description:
+      "Bật ON khi CPU phát hiện lỗi cú pháp câu lệnh (thiếu tham số, lệnh không đúng định dạng...). Chi tiết mã lỗi lưu tại D8065, vị trí bước lệnh lưu tại D8069.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8065 ]-----------------[ MOV D8065 D105 ]--|",
     notes: "Thiết bị tương ứng: D8065, D8069, D8314, D8315.",
     tags: ["m8065", "syntax error", "d8065", "d8069"],
@@ -808,10 +953,13 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "error",
     rw: "R",
-    summary: "Cờ báo lỗi cấu trúc mạch Ladder (Thiếu lệnh LD/AND/OR, vòng lặp hở...).",
-    description: "Bật ON khi mạch logic Ladder bị sai quy tắc ghép nối mạch. Chi tiết mã lỗi lưu tại D8066, bước lệnh lỗi lưu tại D8069.",
+    summary:
+      "Cờ báo lỗi cấu trúc mạch Ladder (Thiếu lệnh LD/AND/OR, vòng lặp hở...).",
+    description:
+      "Bật ON khi mạch logic Ladder bị sai quy tắc ghép nối mạch. Chi tiết mã lỗi lưu tại D8066, bước lệnh lỗi lưu tại D8069.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8066 ]-----------------[ MOV D8066 D106 ]--|",
     notes: "Thiết bị tương ứng: D8066, D8069, D8314, D8315.",
     tags: ["m8066", "ladder error", "circuit", "d8066", "d8069"],
@@ -822,12 +970,16 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "error",
     rw: "R",
-    summary: "Cờ báo lỗi tính toán trong khi RUN (Chia cho 0, vượt dải chỉ số, tràn con trỏ).",
-    description: "Tự động bật ON khi một lệnh đang thực thi gặp lỗi tính toán (ví dụ: chia cho 0, chỉ số thanh ghi Z/V vượt ngoài vùng nhớ...). Mã lỗi lưu tại D8067, bước lệnh phát sinh lỗi lưu tại D8069.",
+    summary:
+      "Cờ báo lỗi tính toán trong khi RUN (Chia cho 0, vượt dải chỉ số, tràn con trỏ).",
+    description:
+      "Tự động bật ON khi một lệnh đang thực thi gặp lỗi tính toán (ví dụ: chia cho 0, chỉ số thanh ghi Z/V vượt ngoài vùng nhớ...). Mã lỗi lưu tại D8067, bước lệnh phát sinh lỗi lưu tại D8069.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8067 ]-----------------[ MOV D8067 D107 ]--|",
-    notes: "Tự động xóa khi chuyển STOP->RUN. Để chốt lưu lại bước lệnh lỗi sau khi sửa, sử dụng thêm cờ M8068 và D8068.",
+    notes:
+      "Tự động xóa khi chuyển STOP->RUN. Để chốt lưu lại bước lệnh lỗi sau khi sửa, sử dụng thêm cờ M8068 và D8068.",
     tags: ["m8067", "operation error", "divide by zero", "d8067", "d8069"],
   },
   {
@@ -837,9 +989,11 @@ export const BIT_DEVICES = [
     category: "error",
     rw: "R/W",
     summary: "Cờ chốt lưu trạng thái lỗi tính toán (Operation error latch).",
-    description: "Khi xảy ra lỗi tính toán M8067, cờ M8068 sẽ bật ON và giữ nguyên trạng thái (chốt) ngay cả khi lỗi đã hết. Thanh ghi D8068 lưu bước lệnh xảy ra lỗi đầu tiên.",
+    description:
+      "Khi xảy ra lỗi tính toán M8067, cờ M8068 sẽ bật ON và giữ nguyên trạng thái (chốt) ngay cả khi lỗi đã hết. Thanh ghi D8068 lưu bước lệnh xảy ra lỗi đầu tiên.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8068 ]-----------------[ MOV D8068 D108 ]--|",
     notes: "Thiết bị tương ứng: D8068.",
     tags: ["m8068", "operation error latch", "latch", "d8068"],
@@ -854,12 +1008,17 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "comm",
     rw: "R",
-    summary: "Cờ chờ phát dữ liệu Kênh 1 (ch1 đang trong khoảng giãn cách chờ gửi).",
-    description: "[M]8121 ở mức ON trong khoảng thời gian cổng nối tiếp ch1 đang bận hoặc đang trong khoảng giãn cách chờ phát gói tin mới.",
+    summary:
+      "Cờ chờ phát dữ liệu Kênh 1 (ch1 đang trong khoảng giãn cách chờ gửi).",
+    description:
+      "[M]8121 ở mức ON trong khoảng thời gian cổng nối tiếp ch1 đang bận hoặc đang trong khoảng giãn cách chờ phát gói tin mới.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ LDI M8121 ]-------------[ SET M8122 ]--| // Phát khi cổng rảnh",
-    notes: "Tự động xóa về OFF khi PLC chuyển từ RUN sang STOP hoặc khi lệnh RS tắt.",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ LDI M8121 ]-------------[ SET M8122 ]--| // Phát khi cổng rảnh",
+    notes:
+      "Tự động xóa về OFF khi PLC chuyển từ RUN sang STOP hoặc khi lệnh RS tắt.",
     tags: ["m8121", "send wait", "rs", "comm", "fnc80", "ch1"],
   },
   {
@@ -869,10 +1028,13 @@ export const BIT_DEVICES = [
     category: "comm",
     rw: "R/W",
     summary: "Cờ yêu cầu gửi dữ liệu Kênh 1 (Lệnh RS / Non-protocol / Modbus).",
-    description: "Khi lập trình viên kích hoạt SET M8122, PLC sẽ bắt đầu phát mảng dữ liệu từ bộ đệm phát ra đường truyền. Sau khi toàn bộ các byte được truyền đi thành công, PLC tự động reset M8122 về OFF.",
+    description:
+      "Khi lập trình viên kích hoạt SET M8122, PLC sẽ bắt đầu phát mảng dữ liệu từ bộ đệm phát ra đường truyền. Sau khi toàn bộ các byte được truyền đi thành công, PLC tự động reset M8122 về OFF.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ M100 ]------------------[ SET M8122 ]--| // Kích phát frame truyền thông",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ M100 ]------------------[ SET M8122 ]--| // Kích phát frame truyền thông",
     notes: "Thiết bị tương ứng: D8122 (Số lượng byte còn lại chưa phát xong).",
     tags: ["m8122", "send request", "transmit", "rs", "modbus", "fnc80", "ch1"],
   },
@@ -882,12 +1044,16 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "comm",
     rw: "R/W",
-    summary: "Cờ báo hoàn tất nhận dữ liệu Kênh 1 (Phải dùng RST M8123 sau khi đọc xong).",
-    description: "Tự động bật ON khi PLC đã nhận đủ số byte quy định theo lệnh RS hoặc nhận được ký tự kết thúc Terminator (ETX/D8125). Lập trình viên BẮT BUỘC phải thực hiện lệnh RST M8123 sau khi xử lý xong dữ liệu nhận được để giải phóng cổng truyền thông.",
+    summary:
+      "Cờ báo hoàn tất nhận dữ liệu Kênh 1 (Phải dùng RST M8123 sau khi đọc xong).",
+    description:
+      "Tự động bật ON khi PLC đã nhận đủ số byte quy định theo lệnh RS hoặc nhận được ký tự kết thúc Terminator (ETX/D8125). Lập trình viên BẮT BUỘC phải thực hiện lệnh RST M8123 sau khi xử lý xong dữ liệu nhận được để giải phóng cổng truyền thông.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8123 ]---[ MOV D100 D200 ]--[ RST M8123 ]--|",
-    notes: "Nếu không thực hiện RST M8123, cổng truyền thông sẽ bị khóa và không thể nhận thêm dữ liệu mới!",
+    notes:
+      "Nếu không thực hiện RST M8123, cổng truyền thông sẽ bị khóa và không thể nhận thêm dữ liệu mới!",
     tags: ["m8123", "receive complete", "rx", "rs", "modbus", "fnc80", "ch1"],
   },
   {
@@ -896,10 +1062,13 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "comm",
     rw: "R",
-    summary: "Cờ phát hiện tín hiệu mang CD (Carrier Detect) trên cổng RS-232C Ch1.",
-    description: "[M]8124 đồng bộ trạng thái ON/OFF theo chân tín hiệu phần cứng CD (Carrier Detect) của giao diện RS-232C.",
+    summary:
+      "Cờ phát hiện tín hiệu mang CD (Carrier Detect) trên cổng RS-232C Ch1.",
+    description:
+      "[M]8124 đồng bộ trạng thái ON/OFF theo chân tín hiệu phần cứng CD (Carrier Detect) của giao diện RS-232C.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8124 ]-----------------[ OUT Y2 ]--|",
     notes: "Chỉ áp dụng khi kết nối Modem hoặc thiết bị có chân phần cứng CD.",
     tags: ["m8124", "carrier detect", "cd", "rs232", "comm"],
@@ -910,12 +1079,17 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "comm",
     rw: "R/W",
-    summary: "Cờ báo quá thời gian chờ nhận phản hồi Timeout trên ch1 (theo D8129).",
-    description: "Tự động bật ON khi khoảng thời gian ngắt quãng giữa các byte hoặc thời gian chờ nhận phản hồi vượt quá giá trị cài đặt tại thanh ghi D8129. Giúp chương trình phát hiện đứt cáp hoặc Slave không phản hồi.",
+    summary:
+      "Cờ báo quá thời gian chờ nhận phản hồi Timeout trên ch1 (theo D8129).",
+    description:
+      "Tự động bật ON khi khoảng thời gian ngắt quãng giữa các byte hoặc thời gian chờ nhận phản hồi vượt quá giá trị cài đặt tại thanh ghi D8129. Giúp chương trình phát hiện đứt cáp hoặc Slave không phản hồi.",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ M8129 ]---[ INCP D50 ]--[ RST M8129 ]--| // Đếm số lần Timeout",
-    notes: "Cần thực hiện lệnh RST M8129 trong chương trình sau khi xử lý sự cố.",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ M8129 ]---[ INCP D50 ]--[ RST M8129 ]--| // Đếm số lần Timeout",
+    notes:
+      "Cần thực hiện lệnh RST M8129 trong chương trình sau khi xử lý sự cố.",
     tags: ["m8129", "timeout", "comm error", "rs", "d8129", "ch1"],
   },
   {
@@ -924,13 +1098,28 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "comm",
     rw: "R/W",
-    summary: "Cờ chuyển chế độ xử lý 8-bit / 16-bit cho các lệnh truyền thông & chuỗi (RS, ASCI, HEX, CRC...).",
-    description: "Theo tài liệu Mitsubishi Chapter 37.1.1 (Note *2):\n- Khi M8161 = ON: Các lệnh ASC (FNC 76), RS (FNC 80), ASCI (FNC 82), HEX (FNC 83), CCD (FNC 84), và CRC (FNC 188) chuyển sang chế độ xử lý 8-bit (Mỗi thanh ghi Data D chỉ chứa 1 byte dữ liệu ở 8-bit thấp, 8-bit cao bằng 0).\n- Khi M8161 = OFF: Xử lý ở chế độ 16-bit chuẩn (mỗi thanh ghi D chứa 2 byte).",
+    summary:
+      "Cờ chuyển chế độ xử lý 8-bit / 16-bit cho các lệnh truyền thông & chuỗi (RS, ASCI, HEX, CRC...).",
+    description:
+      "Theo tài liệu Mitsubishi Chapter 37.1.1 (Note *2):\n- Khi M8161 = ON: Các lệnh ASC (FNC 76), RS (FNC 80), ASCI (FNC 82), HEX (FNC 83), CCD (FNC 84), và CRC (FNC 188) chuyển sang chế độ xử lý 8-bit (Mỗi thanh ghi Data D chỉ chứa 1 byte dữ liệu ở 8-bit thấp, 8-bit cao bằng 0).\n- Khi M8161 = OFF: Xử lý ở chế độ 16-bit chuẩn (mỗi thanh ghi D chứa 2 byte).",
     initialValue: "OFF (16-bit mode)",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ M8002 ]-----------------[ SET M8161 ]--| // Bắt buộc khi lập trình Modbus RTU",
-    notes: "Bắt buộc phải SET M8161 = ON khi lập trình truyền thông Modbus RTU bằng lệnh RS và CRC.",
-    tags: ["m8161", "8bit", "mode", "byte", "rs", "crc", "modbus", "asci", "hex"],
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ M8002 ]-----------------[ SET M8161 ]--| // Bắt buộc khi lập trình Modbus RTU",
+    notes:
+      "Bắt buộc phải SET M8161 = ON khi lập trình truyền thông Modbus RTU bằng lệnh RS và CRC.",
+    tags: [
+      "m8161",
+      "8bit",
+      "mode",
+      "byte",
+      "rs",
+      "crc",
+      "modbus",
+      "asci",
+      "hex",
+    ],
   },
   {
     id: "M8401",
@@ -938,8 +1127,10 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "comm",
     rw: "R",
-    summary: "Cờ báo kênh MODBUS Ch1 đang trong quá trình thực thi yêu cầu (Busy).",
-    description: "Tự động ON khi cổng MODBUS Ch1 đang bận phát hoặc đang chờ nhận khung phản hồi từ Slave.",
+    summary:
+      "Cờ báo kênh MODBUS Ch1 đang trong quá trình thực thi yêu cầu (Busy).",
+    description:
+      "Tự động ON khi cổng MODBUS Ch1 đang bận phát hoặc đang chờ nhận khung phản hồi từ Slave.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ LDI M8401 ]-------------[ SET M8411 ]--|",
@@ -953,7 +1144,8 @@ export const BIT_DEVICES = [
     category: "comm",
     rw: "R",
     summary: "Cờ báo lỗi truyền thông giao thức MODBUS trên Kênh 1.",
-    description: "Tự động bật ON khi phát hiện sự cố truyền nhận Modbus Ch1. Mã lỗi chi tiết được lưu trong thanh ghi D8402.",
+    description:
+      "Tự động bật ON khi phát hiện sự cố truyền nhận Modbus Ch1. Mã lỗi chi tiết được lưu trong thanh ghi D8402.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8402 ]-----------------[ MOV D8402 D300 ]--|",
@@ -967,7 +1159,8 @@ export const BIT_DEVICES = [
     category: "comm",
     rw: "R/W",
     summary: "Cờ chốt lưu trạng thái lỗi truyền thông MODBUS Kênh 1.",
-    description: "Giữ nguyên trạng thái ON khi xảy ra lỗi Modbus Ch1 cho đến khi được reset bằng lệnh RST M8403.",
+    description:
+      "Giữ nguyên trạng thái ON khi xảy ra lỗi Modbus Ch1 cho đến khi được reset bằng lệnh RST M8403.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8403 ]-----------------[ RST M8403 ]--|",
@@ -980,7 +1173,8 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "comm",
     rw: "R",
-    summary: "Cờ báo kênh MODBUS Ch1 đang ở chế độ chỉ lắng nghe (Listen only mode).",
+    summary:
+      "Cờ báo kênh MODBUS Ch1 đang ở chế độ chỉ lắng nghe (Listen only mode).",
     description: "Bật ON khi PLC hoạt động ở chế độ Listen Only.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
@@ -994,8 +1188,10 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "comm",
     rw: "R/W",
-    summary: "Cờ báo quá thời gian phản hồi (Timeout) trong truyền thông MODBUS Kênh 1.",
-    description: "Bật ON khi thời gian Slave phản hồi vượt quá cài đặt trong thanh ghi D8409.",
+    summary:
+      "Cờ báo quá thời gian phản hồi (Timeout) trong truyền thông MODBUS Kênh 1.",
+    description:
+      "Bật ON khi thời gian Slave phản hồi vượt quá cài đặt trong thanh ghi D8409.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8409 ]-----------------[ RST M8409 ]--|",
@@ -1009,7 +1205,8 @@ export const BIT_DEVICES = [
     category: "comm",
     rw: "R/W",
     summary: "Cờ yêu cầu nạp lại cấu hình tham số truyền thông MODBUS Ch1.",
-    description: "Khi M8411 = ON, PLC sẽ nạp lại toàn bộ các tham số cấu hình Modbus mới từ thanh ghi D8400.",
+    description:
+      "Khi M8411 = ON, PLC sẽ nạp lại toàn bộ các tham số cấu hình Modbus mới từ thanh ghi D8400.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8002 ]-----------------[ SET M8411 ]--|",
@@ -1022,8 +1219,10 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "comm",
     rw: "R",
-    summary: "Cờ báo kênh MODBUS Ch2 đang trong quá trình thực thi yêu cầu (Busy).",
-    description: "Tự động ON khi cổng MODBUS Ch2 đang bận phát hoặc đang chờ nhận khung phản hồi từ Slave.",
+    summary:
+      "Cờ báo kênh MODBUS Ch2 đang trong quá trình thực thi yêu cầu (Busy).",
+    description:
+      "Tự động ON khi cổng MODBUS Ch2 đang bận phát hoặc đang chờ nhận khung phản hồi từ Slave.",
     initialValue: "OFF",
     applicableModels: "FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ LDI M8421 ]-------------[ SET M8431 ]--|",
@@ -1037,7 +1236,8 @@ export const BIT_DEVICES = [
     category: "comm",
     rw: "R",
     summary: "Cờ báo lỗi truyền thông giao thức MODBUS trên Kênh 2.",
-    description: "Tự động bật ON khi phát hiện sự cố truyền nhận Modbus Ch2. Mã lỗi chi tiết được lưu trong thanh ghi D8422.",
+    description:
+      "Tự động bật ON khi phát hiện sự cố truyền nhận Modbus Ch2. Mã lỗi chi tiết được lưu trong thanh ghi D8422.",
     initialValue: "OFF",
     applicableModels: "FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8422 ]-----------------[ MOV D8422 D310 ]--|",
@@ -1054,11 +1254,15 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "positioning",
     rw: "R/W",
-    summary: "Chỉ định hướng đếm cho bộ đếm 32-bit C200 (OFF: Đếm tiến, ON: Đếm lùi).",
-    description: "Khi M8200 = OFF, C200 đếm lên (Up-count). Khi M8200 = ON, C200 đếm xuống (Down-count). Tương tự cho C201 đến C234 ứng với M8201 đến M8234.",
+    summary:
+      "Chỉ định hướng đếm cho bộ đếm 32-bit C200 (OFF: Đếm tiến, ON: Đếm lùi).",
+    description:
+      "Khi M8200 = OFF, C200 đếm lên (Up-count). Khi M8200 = ON, C200 đếm xuống (Down-count). Tương tự cho C201 đến C234 ứng với M8201 đến M8234.",
     initialValue: "OFF (Up count)",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ X11 ]-------------------[ OUT M8200 ]--| // Chuyển C200 sang đếm lùi",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ X11 ]-------------------[ OUT M8200 ]--| // Chuyển C200 sang đếm lùi",
     notes: "Áp dụng cho toàn bộ dải C200 ~ C234.",
     tags: ["m8200", "c200", "count direction", "up down", "counter"],
   },
@@ -1068,11 +1272,15 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "positioning",
     rw: "R/W",
-    summary: "Giám sát / Cài đặt hướng đếm cho bộ đếm tốc độ cao 1 pha C235 (X000).",
-    description: "OFF: C235 đang đếm tiến; ON: C235 đang đếm lùi. Tương tự cho các bộ đếm 1 pha C236 ~ C245 (M8236 ~ M8245).",
+    summary:
+      "Giám sát / Cài đặt hướng đếm cho bộ đếm tốc độ cao 1 pha C235 (X000).",
+    description:
+      "OFF: C235 đang đếm tiến; ON: C235 đang đếm lùi. Tương tự cho các bộ đếm 1 pha C236 ~ C245 (M8236 ~ M8245).",
     initialValue: "OFF (Up count)",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ M8235 ]-----------------[ OUT Y21 ]--| // Báo chiều quay trục Encoder",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ M8235 ]-----------------[ OUT Y21 ]--| // Báo chiều quay trục Encoder",
     notes: "Tự động phản ánh chiều đếm của xung vào X000.",
     tags: ["m8235", "c235", "hsc", "count direction", "encoder"],
   },
@@ -1083,9 +1291,11 @@ export const BIT_DEVICES = [
     category: "positioning",
     rw: "R",
     summary: "Giám sát hướng đếm cho bộ đếm 1 pha 2 ngõ vào C246.",
-    description: "OFF: C246 đang đếm tiến; ON: C246 đang đếm lùi. Tương tự cho C247 ~ C250 (M8247 ~ M8250).",
+    description:
+      "OFF: C246 đang đếm tiến; ON: C246 đang đếm lùi. Tương tự cho C247 ~ C250 (M8247 ~ M8250).",
     initialValue: "OFF",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
     ladderExample: "|--[ M8246 ]-------------------------------------|",
     notes: "Chỉ đọc [M].",
     tags: ["m8246", "c246", "hsc direction", "monitor"],
@@ -1097,11 +1307,15 @@ export const BIT_DEVICES = [
     category: "positioning",
     rw: "R",
     summary: "Giám sát chiều quay bộ đếm xung vuông pha AB C251 (X000, X001).",
-    description: "[M]8251 tự động bằng OFF khi Encoder quay thuận (A dẫn trước B), và bằng ON khi Encoder quay ngược (B dẫn trước A). Tương tự cho C252 ~ C255 ứng với M8252 ~ M8255.",
+    description:
+      "[M]8251 tự động bằng OFF khi Encoder quay thuận (A dẫn trước B), và bằng ON khi Encoder quay ngược (B dẫn trước A). Tương tự cho C252 ~ C255 ứng với M8252 ~ M8255.",
     initialValue: "OFF (Forward)",
-    applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
-    ladderExample: "|--[ M8251 ]-----------------[ OUT Y22 ]--| // Đèn báo động cơ quay ngược",
-    notes: "Rất phổ biến để giám sát hướng chuyển động cơ học từ Encoder 2 pha AB.",
+    applicableModels:
+      "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC, FX2N, FX2NC",
+    ladderExample:
+      "|--[ M8251 ]-----------------[ OUT Y22 ]--| // Đèn báo động cơ quay ngược",
+    notes:
+      "Rất phổ biến để giám sát hướng chuyển động cơ học từ Encoder 2 pha AB.",
     tags: ["m8251", "c251", "ab phase", "encoder", "hsc", "direction"],
   },
 
@@ -1114,12 +1328,16 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "analog",
     rw: "R/W",
-    summary: "Chuyển đổi Điện áp (0-10V) / Dòng điện (4-20mA) cho Kênh 1 bo/adapter Analog đầu tiên.",
-    description: "M8260 = OFF: Chế độ Điện áp (Voltage 0-10V). M8260 = ON: Chế độ Dòng điện (Current 4-20mA). Áp dụng cho Kênh 1 của Bo Analog BD1 (trên FX3S/FX3G) hoặc Adapter 1 (trên FX3U/FX3UC).",
+    summary:
+      "Chuyển đổi Điện áp (0-10V) / Dòng điện (4-20mA) cho Kênh 1 bo/adapter Analog đầu tiên.",
+    description:
+      "M8260 = OFF: Chế độ Điện áp (Voltage 0-10V). M8260 = ON: Chế độ Dòng điện (Current 4-20mA). Áp dụng cho Kênh 1 của Bo Analog BD1 (trên FX3S/FX3G) hoặc Adapter 1 (trên FX3U/FX3UC).",
     initialValue: "OFF (Voltage)",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
-    ladderExample: "|--[ M8002 ]-----------------[ SET M8260 ]--| // Chuyển Ch1 sang 4-20mA",
-    notes: "Nạp cấu hình bằng xung M8002 trước khi đọc dữ liệu từ thanh ghi D8260.",
+    ladderExample:
+      "|--[ M8002 ]-----------------[ SET M8260 ]--| // Chuyển Ch1 sang 4-20mA",
+    notes:
+      "Nạp cấu hình bằng xung M8002 trước khi đọc dữ liệu từ thanh ghi D8260.",
     tags: ["m8260", "analog", "mode switch", "voltage", "current", "ch1"],
   },
   {
@@ -1128,7 +1346,8 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "analog",
     rw: "R/W",
-    summary: "Chuyển đổi Điện áp / Dòng điện cho Kênh 2 bo/adapter Analog đầu tiên.",
+    summary:
+      "Chuyển đổi Điện áp / Dòng điện cho Kênh 2 bo/adapter Analog đầu tiên.",
     description: "M8261 = OFF: 0-10V. M8261 = ON: 4-20mA.",
     initialValue: "OFF (Voltage)",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
@@ -1170,8 +1389,10 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "analog",
     rw: "R/W",
-    summary: "Chuyển đổi Điện áp (0-10V) / Dòng điện (4-20mA) cho Kênh 1 của Adapter Analog gắn bên trái.",
-    description: "- Trên FX3S/FX3G: Kênh 1 của Adapter Analog gắn bên trái (ADP1).\n- Trên FX3U/FX3UC: Kênh 1 của Adapter Analog thứ 3 kết nối bên trái.\nM8280 = OFF: 0-10V. M8280 = ON: 4-20mA.",
+    summary:
+      "Chuyển đổi Điện áp (0-10V) / Dòng điện (4-20mA) cho Kênh 1 của Adapter Analog gắn bên trái.",
+    description:
+      "- Trên FX3S/FX3G: Kênh 1 của Adapter Analog gắn bên trái (ADP1).\n- Trên FX3U/FX3UC: Kênh 1 của Adapter Analog thứ 3 kết nối bên trái.\nM8280 = OFF: 0-10V. M8280 = ON: 4-20mA.",
     initialValue: "OFF (Voltage)",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8002 ]-----------------[ SET M8280 ]--|",
@@ -1202,13 +1423,25 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "positioning",
     rw: "R",
-    summary: "Cờ giám sát phát xung ngõ ra Y000 (ON: BUSY đang phát xung / OFF: READY đã dừng).",
-    description: "Theo tài liệu Mitsubishi Chapter 37.1.1: [M]8340 tự động bật ON khi ngõ ra Y000 đang trong quá trình phát xung tốc độ cao (thực thi các lệnh PLSR, DRVI, DRVA, DSZR...). Tự động trở về OFF khi việc phát xung hoàn tất.",
+    summary:
+      "Cờ giám sát phát xung ngõ ra Y000 (ON: BUSY đang phát xung / OFF: READY đã dừng).",
+    description:
+      "Theo tài liệu Mitsubishi Chapter 37.1.1: [M]8340 tự động bật ON khi ngõ ra Y000 đang trong quá trình phát xung tốc độ cao (thực thi các lệnh PLSR, DRVI, DRVA, DSZR...). Tự động trở về OFF khi việc phát xung hoàn tất.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC",
-    ladderExample: "|--[ M8340 ]-----------------[ OUT Y10 ]--| // Đèn báo trục 1 đang chạy",
-    notes: "Dùng làm điều kiện liên khóa (Interlock) để ngăn phát thêm lệnh vị trí mới khi trục đang di chuyển.",
-    tags: ["m8340", "y000", "pulse monitor", "busy", "ready", "servo", "motion"],
+    ladderExample:
+      "|--[ M8340 ]-----------------[ OUT Y10 ]--| // Đèn báo trục 1 đang chạy",
+    notes:
+      "Dùng làm điều kiện liên khóa (Interlock) để ngăn phát thêm lệnh vị trí mới khi trục đang di chuyển.",
+    tags: [
+      "m8340",
+      "y000",
+      "pulse monitor",
+      "busy",
+      "ready",
+      "servo",
+      "motion",
+    ],
   },
   {
     id: "M8341",
@@ -1216,8 +1449,10 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "positioning",
     rw: "R/W",
-    summary: "Xuất tín hiệu xóa lệch vị trí (Clear signal output) cho Driver Servo trên trục Y000.",
-    description: "Khi M8341 = ON, PLC sẽ phát tín hiệu ngắt/xóa độ lệch vị trí (Deviation counter clear) sang bộ Servo Driver.",
+    summary:
+      "Xuất tín hiệu xóa lệch vị trí (Clear signal output) cho Driver Servo trên trục Y000.",
+    description:
+      "Khi M8341 = ON, PLC sẽ phát tín hiệu ngắt/xóa độ lệch vị trí (Deviation counter clear) sang bộ Servo Driver.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8341 ]-------------------------------------|",
@@ -1230,11 +1465,14 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "positioning",
     rw: "R/W",
-    summary: "Hướng chạy khi về gốc tọa độ Home Return trên trục Y000 (OFF: Chiều dương, ON: Chiều âm).",
-    description: "Quy định hướng di chuyển ban đầu của trục Y000 khi thực thi lệnh về gốc DSZR/ZRN.",
+    summary:
+      "Hướng chạy khi về gốc tọa độ Home Return trên trục Y000 (OFF: Chiều dương, ON: Chiều âm).",
+    description:
+      "Quy định hướng di chuyển ban đầu của trục Y000 khi thực thi lệnh về gốc DSZR/ZRN.",
     initialValue: "OFF (Forward)",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
-    ladderExample: "|--[ M8000 ]-----------------[ SET M8342 ]--| // Về gốc theo chiều âm",
+    ladderExample:
+      "|--[ M8000 ]-----------------[ SET M8342 ]--| // Về gốc theo chiều âm",
     notes: "Cài đặt trước khi gọi lệnh DSZR.",
     tags: ["m8342", "y000", "zero return direction", "dszr", "zrn"],
   },
@@ -1244,8 +1482,10 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "positioning",
     rw: "R/W",
-    summary: "Chức năng tìm kiếm cảm biến gốc DOG theo chiều thuận trên trục Y000.",
-    description: "Cho phép tự động đảo chiều tìm kiếm công tắc gốc DOG trong lệnh DSZR khi đã chạm công tắc giới hạn hành trình.",
+    summary:
+      "Chức năng tìm kiếm cảm biến gốc DOG theo chiều thuận trên trục Y000.",
+    description:
+      "Cho phép tự động đảo chiều tìm kiếm công tắc gốc DOG trong lệnh DSZR khi đã chạm công tắc giới hạn hành trình.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8000 ]-----------------[ SET M8343 ]--|",
@@ -1258,8 +1498,10 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "positioning",
     rw: "R",
-    summary: "Cờ kích hoạt lệnh định vị trục Y000 (Positioning instruction activation).",
-    description: "Theo tài liệu Mitsubishi chính thức (Bảng 37.1.1): [M]8348 bật ON khi một lệnh định vị (Positioning instruction) trên trục Y000 đang được kích hoạt.",
+    summary:
+      "Cờ kích hoạt lệnh định vị trục Y000 (Positioning instruction activation).",
+    description:
+      "Theo tài liệu Mitsubishi chính thức (Bảng 37.1.1): [M]8348 bật ON khi một lệnh định vị (Positioning instruction) trên trục Y000 đang được kích hoạt.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8348 ]-----------------[ OUT Y15 ]--|",
@@ -1272,13 +1514,24 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "positioning",
     rw: "R",
-    summary: "Cờ giám sát phát xung ngõ ra Y001 (ON: BUSY đang phát xung / OFF: READY đã dừng).",
-    description: "[M]8350 tự động bật ON khi ngõ ra Y001 đang phát xung tốc độ cao. Tự động trở về OFF khi trục dừng phát xung.",
+    summary:
+      "Cờ giám sát phát xung ngõ ra Y001 (ON: BUSY đang phát xung / OFF: READY đã dừng).",
+    description:
+      "[M]8350 tự động bật ON khi ngõ ra Y001 đang phát xung tốc độ cao. Tự động trở về OFF khi trục dừng phát xung.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC, FX1S, FX1N, FX1NC",
-    ladderExample: "|--[ M8350 ]-----------------[ OUT Y11 ]--| // Đèn báo trục 2 đang chạy",
+    ladderExample:
+      "|--[ M8350 ]-----------------[ OUT Y11 ]--| // Đèn báo trục 2 đang chạy",
     notes: "Giám sát trạng thái hoạt động của trục Y001.",
-    tags: ["m8350", "y001", "pulse monitor", "busy", "ready", "servo", "motion"],
+    tags: [
+      "m8350",
+      "y001",
+      "pulse monitor",
+      "busy",
+      "ready",
+      "servo",
+      "motion",
+    ],
   },
   {
     id: "M8352",
@@ -1301,7 +1554,8 @@ export const BIT_DEVICES = [
     category: "positioning",
     rw: "R",
     summary: "Cờ kích hoạt lệnh định vị trục Y001.",
-    description: "Bật ON khi lệnh định vị trên trục Y001 đang kích hoạt. Mã lỗi lưu tại D8358.",
+    description:
+      "Bật ON khi lệnh định vị trên trục Y001 đang kích hoạt. Mã lỗi lưu tại D8358.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8358 ]-------------------------------------|",
@@ -1315,7 +1569,8 @@ export const BIT_DEVICES = [
     category: "positioning",
     rw: "R",
     summary: "Cờ giám sát phát xung ngõ ra Y002 (ON: BUSY / OFF: READY).",
-    description: "[M]8360 giám sát trạng thái phát xung ngõ ra trục thứ 3 (Y002) trên các dòng PLC hỗ trợ từ 3 trục xung trở lên.",
+    description:
+      "[M]8360 giám sát trạng thái phát xung ngõ ra trục thứ 3 (Y002) trên các dòng PLC hỗ trợ từ 3 trục xung trở lên.",
     initialValue: "OFF",
     applicableModels: "FX3G, FX3U, FX3UC",
     ladderExample: "|--[ M8360 ]-----------------[ OUT Y14 ]--|",
@@ -1329,7 +1584,8 @@ export const BIT_DEVICES = [
     category: "positioning",
     rw: "R",
     summary: "Cờ giám sát phát xung ngõ ra Y003 (ON: BUSY / OFF: READY).",
-    description: "[M]8370 giám sát trạng thái phát xung ngõ ra trục thứ 4 (Y003) trên FX3U/FX3UC.",
+    description:
+      "[M]8370 giám sát trạng thái phát xung ngõ ra trục thứ 4 (Y003) trên FX3U/FX3UC.",
     initialValue: "OFF",
     applicableModels: "FX3U, FX3UC",
     ladderExample: "|--[ M8370 ]-----------------[ OUT Y16 ]--|",
@@ -1342,13 +1598,24 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "clock",
     rw: "R/W",
-    summary: "Kích hoạt bộ đếm vòng tốc độ cao 1ms (1ms ring counter: D8399, D8398).",
-    description: "Khi M8398 = ON, bộ đếm vòng 32-bit (D8399, D8398) sẽ tự động đếm tăng liên tục từ 0 đến 2,147,483,647 theo chu kỳ mỗi 1 mili-giây (1ms).",
+    summary:
+      "Kích hoạt bộ đếm vòng tốc độ cao 1ms (1ms ring counter: D8399, D8398).",
+    description:
+      "Khi M8398 = ON, bộ đếm vòng 32-bit (D8399, D8398) sẽ tự động đếm tăng liên tục từ 0 đến 2,147,483,647 theo chu kỳ mỗi 1 mili-giây (1ms).",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
-    ladderExample: "|--[ M8000 ]-----------------[ SET M8398 ]--| // Đo thời gian chính xác 1ms",
-    notes: "Cực kỳ chuẩn xác để đo khoảng thời gian thực thi giữa các sự kiện mà không phụ thuộc scan time.",
-    tags: ["m8398", "1ms ring counter", "timer", "high resolution", "d8398", "d8399"],
+    ladderExample:
+      "|--[ M8000 ]-----------------[ SET M8398 ]--| // Đo thời gian chính xác 1ms",
+    notes:
+      "Cực kỳ chuẩn xác để đo khoảng thời gian thực thi giữa các sự kiện mà không phụ thuộc scan time.",
+    tags: [
+      "m8398",
+      "1ms ring counter",
+      "timer",
+      "high resolution",
+      "d8398",
+      "d8399",
+    ],
   },
 
   // ==========================================
@@ -1360,8 +1627,10 @@ export const BIT_DEVICES = [
     type: "bit",
     category: "comm",
     rw: "R",
-    summary: "Cờ báo module Ethernet mở rộng FX3U-ENET-ADP (Kênh 1) đã sẵn sàng hoạt động.",
-    description: "Bật ON khi module Ethernet ADP kết nối bên trái đã hoàn tất khởi động và sẵn sàng truyền nhận.",
+    summary:
+      "Cờ báo module Ethernet mở rộng FX3U-ENET-ADP (Kênh 1) đã sẵn sàng hoạt động.",
+    description:
+      "Bật ON khi module Ethernet ADP kết nối bên trái đã hoàn tất khởi động và sẵn sàng truyền nhận.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8404 ]-----------------[ OUT Y23 ]--|",
@@ -1375,7 +1644,8 @@ export const BIT_DEVICES = [
     category: "comm",
     rw: "R",
     summary: "Cờ báo lỗi truyền thông qua cổng lập trình USB tích hợp.",
-    description: "Bật ON khi phát hiện lỗi truyền thông trên cổng Mini-USB tích hợp trên PLC FX3S/FX3G/FX3GC/FX3U.",
+    description:
+      "Bật ON khi phát hiện lỗi truyền thông trên cổng Mini-USB tích hợp trên PLC FX3S/FX3G/FX3GC/FX3U.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8487 ]-----------------[ MOV D8487 D320 ]--|",
@@ -1389,7 +1659,8 @@ export const BIT_DEVICES = [
     category: "error",
     rw: "R",
     summary: "Cờ báo lỗi tham số đặc biệt (Special parameter error).",
-    description: "Bật ON khi các cài đặt tham số đặc biệt (như Ethernet ADP, Analog ADP, CC-Link) bị xung đột hoặc sai giá trị.",
+    description:
+      "Bật ON khi các cài đặt tham số đặc biệt (như Ethernet ADP, Analog ADP, CC-Link) bị xung đột hoặc sai giá trị.",
     initialValue: "OFF",
     applicableModels: "FX3S, FX3G, FX3GC, FX3U, FX3UC",
     ladderExample: "|--[ M8489 ]-----------------[ MOV D8489 D321 ]--|",

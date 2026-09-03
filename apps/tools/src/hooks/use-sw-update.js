@@ -21,7 +21,8 @@ export function useServiceWorkerUpdate() {
   const registrationRef = useRef(null);
 
   useEffect(() => {
-    if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
+    if (typeof window === "undefined" || !("serviceWorker" in navigator))
+      return;
 
     function handleRegistration(registration) {
       registrationRef.current = registration;

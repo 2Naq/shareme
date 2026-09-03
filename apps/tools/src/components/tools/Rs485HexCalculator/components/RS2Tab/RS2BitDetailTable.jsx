@@ -75,9 +75,7 @@ export default function RS2BitDetailTable({ activeRegister, bitState }) {
           <TableBody>
             {/* B0: Data length */}
             <TableRow className="bg-primary/5 transition-colors">
-              <TableCell className="border-r font-mono font-bold">
-                B0
-              </TableCell>
+              <TableCell className="border-r font-mono font-bold">B0</TableCell>
               <TableCell className="border-r font-medium">
                 Data length
               </TableCell>
@@ -127,9 +125,7 @@ export default function RS2BitDetailTable({ activeRegister, bitState }) {
 
             {/* B3: Stop bit */}
             <TableRow className="bg-primary/5 transition-colors">
-              <TableCell className="border-r font-mono font-bold">
-                B3
-              </TableCell>
+              <TableCell className="border-r font-mono font-bold">B3</TableCell>
               <TableCell className="border-r font-medium">Stop bit</TableCell>
               <TableCell
                 className={`border-r text-center transition-colors ${stopBit === "0" ? "bg-primary/15 text-primary font-bold" : ""}`}
@@ -210,9 +206,7 @@ export default function RS2BitDetailTable({ activeRegister, bitState }) {
 
             {/* B8: Header */}
             <TableRow className="bg-primary/5 transition-colors">
-              <TableCell className="border-r font-mono font-bold">
-                B8
-              </TableCell>
+              <TableCell className="border-r font-mono font-bold">B8</TableCell>
               <TableCell className="border-r font-medium">Header</TableCell>
               <TableCell
                 className={`border-r text-center transition-colors ${header === "0" ? "bg-primary/15 text-primary font-bold" : ""}`}
@@ -228,12 +222,8 @@ export default function RS2BitDetailTable({ activeRegister, bitState }) {
 
             {/* B9: Terminator */}
             <TableRow className="bg-primary/5 transition-colors">
-              <TableCell className="border-r font-mono font-bold">
-                B9
-              </TableCell>
-              <TableCell className="border-r font-medium">
-                Terminator
-              </TableCell>
+              <TableCell className="border-r font-mono font-bold">B9</TableCell>
+              <TableCell className="border-r font-medium">Terminator</TableCell>
               <TableCell
                 className={`border-r text-center transition-colors ${terminator === "0" ? "bg-primary/15 text-primary font-bold" : ""}`}
               >
@@ -267,17 +257,20 @@ export default function RS2BitDetailTable({ activeRegister, bitState }) {
                     <div
                       className={`rounded px-1 transition-colors ${controlLine === "000" ? "bg-primary/15 text-primary font-bold" : ""}`}
                     >
-                      &#123;0, 0, 0&#125;: Not provided &lt;RS-232C interface&gt;
+                      &#123;0, 0, 0&#125;: Not provided &lt;RS-232C
+                      interface&gt;
                     </div>
                     <div
                       className={`rounded px-1 transition-colors ${controlLine === "001" ? "bg-primary/15 text-primary font-bold" : ""}`}
                     >
-                      &#123;0, 0, 1&#125;: Standard mode &lt;RS-232C interface&gt;
+                      &#123;0, 0, 1&#125;: Standard mode &lt;RS-232C
+                      interface&gt;
                     </div>
                     <div
                       className={`rounded px-1 transition-colors ${controlLine === "010" ? "bg-primary/15 text-primary font-bold" : ""}`}
                     >
-                      &#123;0, 1, 0&#125;: Interlink mode &lt;RS-232C interface&gt;
+                      &#123;0, 1, 0&#125;: Interlink mode &lt;RS-232C
+                      interface&gt;
                     </div>
                     <div
                       className={`rounded px-1 transition-colors ${controlLine === "011" ? "bg-primary/15 text-primary font-bold" : ""}`}
@@ -287,7 +280,8 @@ export default function RS2BitDetailTable({ activeRegister, bitState }) {
                     <div
                       className={`rounded px-1 transition-colors ${controlLine === "111" ? "bg-primary/15 text-primary font-bold" : ""}`}
                     >
-                      &#123;1, 1, 1&#125;: Communication in accordance with RS-485 &lt;RS-485/RS-422 interface&gt;
+                      &#123;1, 1, 1&#125;: Communication in accordance with
+                      RS-485 &lt;RS-485/RS-422 interface&gt;
                     </div>
                   </div>
                 </div>

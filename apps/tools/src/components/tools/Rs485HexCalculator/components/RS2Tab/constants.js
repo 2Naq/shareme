@@ -78,6 +78,3 @@ export const CONTROL_PROCEDURE_OPTIONS = [
   { label: "Format 1 (CR, LF: Not used)", value: "0" },
   { label: "Format 4 (CR, LF: Used)", value: "1" },
 ];
-
-
-

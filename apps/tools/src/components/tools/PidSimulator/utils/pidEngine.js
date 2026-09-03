@@ -213,9 +213,7 @@ export function zieglerNicholsFOPDT(kProcess, tauProcess, deadTime) {
   const pid = {
     kp: parseFloat(((1.2 * ratio) / kProcess).toFixed(3)),
     ki: parseFloat(((1.2 * ratio) / (kProcess * 2.0 * deadTime)).toFixed(4)),
-    kd: parseFloat(
-      ((1.2 * ratio * 0.5 * deadTime) / kProcess).toFixed(4),
-    ),
+    kd: parseFloat(((1.2 * ratio * 0.5 * deadTime) / kProcess).toFixed(4)),
     label: "PID",
   };
 

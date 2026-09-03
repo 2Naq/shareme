@@ -16,17 +16,18 @@ export const MITSUBISHI_FAULTS = [
       "Thời gian tăng tốc Pr.7 quá ngắn so với quán tính cơ khí của tải",
       "Bù mô-men khởi động Pr.0 (Torque boost) đặt quá cao",
       "Kẹt cơ khí, động cơ bị bó cứng trục",
-      "Khối công suất IGBT ngõ ra bị chập hỏng"
+      "Khối công suất IGBT ngõ ra bị chập hỏng",
     ],
     solutions: [
       "Tăng thời gian tăng tốc Pr.7",
       "Giảm thông số bù áp mô-men Pr.0",
       "Quay thử trục động cơ bằng tay kiểm tra xem có bị kẹt cơ khí",
       "Dùng đồng hồ Megomet đo cách điện cuộn dây động cơ (pha - pha và pha - vỏ)",
-      "Kiểm tra khối công suất IGBT biến tần"
+      "Kiểm tra khối công suất IGBT biến tần",
     ],
-    expertTips: "Mẹo kiểm tra IGBT: Tháo rời 3 dây ngõ ra motor (U, V, W) khỏi biến tần. Bật nguồn và phát lệnh chạy không tải. Nếu biến tần vẫn lập tức báo lỗi E.OC1 thì 100% khối công suất IGBT đã bị chập nổ bên trong.",
-    relatedRegisters: ["40008", "40009", "40202"]
+    expertTips:
+      "Mẹo kiểm tra IGBT: Tháo rời 3 dây ngõ ra motor (U, V, W) khỏi biến tần. Bật nguồn và phát lệnh chạy không tải. Nếu biến tần vẫn lập tức báo lỗi E.OC1 thì 100% khối công suất IGBT đã bị chập nổ bên trong.",
+    relatedRegisters: ["40008", "40009", "40202"],
   },
   {
     id: "MITSU_E_OC2",
@@ -43,15 +44,16 @@ export const MITSUBISHI_FAULTS = [
     causes: [
       "Tải cơ khí tăng vọt đột ngột khi đang chạy tốc độ ổn định",
       "Động cơ bị quá tải nặng kéo dài",
-      "Đường cáp nối động cơ bị chạm chập ngắt quãng do rung lắc"
+      "Đường cáp nối động cơ bị chạm chập ngắt quãng do rung lắc",
     ],
     solutions: [
       "Kiểm tra tải cơ khí làm việc thực tế, loại bỏ dị vật kẹt máy",
       "Cân nhắc nâng công suất biến tần lên một cấp nếu tải thường xuyên biến thiên lớn",
-      "Kiểm tra và siết chặt các ốc bắt cáp tại cầu đấu U, V, W"
+      "Kiểm tra và siết chặt các ốc bắt cáp tại cầu đấu U, V, W",
     ],
-    expertTips: "Nếu tải bị va đập đột ngột (như máy nghiền, máy dập), hãy kích hoạt tính năng chống trượt Stall Prevention (Pr.22) hoặc lắp cuộn kháng ngõ ra AC Reactor.",
-    relatedRegisters: ["40008", "40202"]
+    expertTips:
+      "Nếu tải bị va đập đột ngột (như máy nghiền, máy dập), hãy kích hoạt tính năng chống trượt Stall Prevention (Pr.22) hoặc lắp cuộn kháng ngõ ra AC Reactor.",
+    relatedRegisters: ["40008", "40202"],
   },
   {
     id: "MITSU_E_OC3",
@@ -67,15 +69,16 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Thời gian giảm tốc Pr.8 quá đột ngột khiến dòng hãm tăng vọt",
-      "Năng lượng tái sinh dâng cao làm chập ngõ ra"
+      "Năng lượng tái sinh dâng cao làm chập ngõ ra",
     ],
     solutions: [
       "Tăng thời gian giảm tốc Pr.8",
       "Cài đặt đường cong chữ S (Pr.29 = 1 hoặc 2) để quá trình hãm tốc êm ái hơn",
-      "Lắp đặt thêm điện trở xả hãm động năng vào cặp chân P/+ và PR"
+      "Lắp đặt thêm điện trở xả hãm động năng vào cặp chân P/+ và PR",
     ],
-    expertTips: "Cần phân biệt giữa E.OC3 (Quá dòng khi hãm) và E.OV3 (Quá áp khi hãm). Nếu tải quán tính lớn không gắn điện trở xả thì thông thường sẽ báo E.OV3 trước, nhưng nếu động cơ bị ghì quá mạnh có thể kích hoạt E.OC3.",
-    relatedRegisters: ["40008", "40202"]
+    expertTips:
+      "Cần phân biệt giữa E.OC3 (Quá dòng khi hãm) và E.OV3 (Quá áp khi hãm). Nếu tải quán tính lớn không gắn điện trở xả thì thông thường sẽ báo E.OV3 trước, nhưng nếu động cơ bị ghì quá mạnh có thể kích hoạt E.OC3.",
+    relatedRegisters: ["40008", "40202"],
   },
   {
     id: "MITSU_E_GF",
@@ -92,15 +95,16 @@ export const MITSUBISHI_FAULTS = [
     causes: [
       "Phát hiện dòng chạm đất / rò rỉ điện ở ngõ ra phía motor lớn hơn ngưỡng bảo vệ",
       "Cáp nối ngõ ra U, V, W bị xước xát chạm vào máng cáp hoặc vỏ máy",
-      "Động cơ bị ẩm ướt, đọng nước trong hộp đấu cực"
+      "Động cơ bị ẩm ướt, đọng nước trong hộp đấu cực",
     ],
     solutions: [
       "Ngắt nguồn ngay lập tức, dùng đồng hồ Megomet kiểm tra cách điện từng pha U, V, W xuống vỏ",
       "Kiểm tra đường cáp kéo dài và hộp đấu dây động cơ",
-      "Sấy khô cuộn dây động cơ nếu bị ẩm ướt"
+      "Sấy khô cuộn dây động cơ nếu bị ẩm ướt",
     ],
-    expertTips: "CẢNH BÁO AN TOÀN: Lỗi E.GF xuất hiện ngay tại thời điểm biến tần vừa xuất lệnh chạy. Tuyệt đối KHÔNG cố tình xóa lỗi và bật chạy lại liên tục vì dòng ngắn mạch chạm đất sẽ làm nổ phá hủy bo mạch công suất!",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "CẢNH BÁO AN TOÀN: Lỗi E.GF xuất hiện ngay tại thời điểm biến tần vừa xuất lệnh chạy. Tuyệt đối KHÔNG cố tình xóa lỗi và bật chạy lại liên tục vì dòng ngắn mạch chạm đất sẽ làm nổ phá hủy bo mạch công suất!",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_OV1",
@@ -116,15 +120,16 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Quán tính tải quay nhanh hơn tốc độ biến tần đang tăng tốc (tải kéo động cơ)",
-      "Điện áp nguồn lưới xoay chiều ngõ vào cao bất thường"
+      "Điện áp nguồn lưới xoay chiều ngõ vào cao bất thường",
     ],
     solutions: [
       "Kéo dài thời gian tăng tốc Pr.7",
       "Kích hoạt tính năng chống quá áp tái sinh Pr.882",
-      "Đo kiểm tra điện áp lưới điện 3 pha đầu vào"
+      "Đo kiểm tra điện áp lưới điện 3 pha đầu vào",
     ],
-    expertTips: "Thường gặp ở các ứng dụng quạt gió đang bị luồng gió tự nhiên quay sẵn trước khi biến tần khởi động. Cài đặt tính năng bắt tốc độ quay tự do (Catch on the fly - Pr.57, Pr.162) để xử lý.",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "Thường gặp ở các ứng dụng quạt gió đang bị luồng gió tự nhiên quay sẵn trước khi biến tần khởi động. Cài đặt tính năng bắt tốc độ quay tự do (Catch on the fly - Pr.57, Pr.162) để xử lý.",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_OV2",
@@ -140,14 +145,15 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Tải dạng cẩu trục nâng hạ, dốc nghiêng hoặc máy dệt kéo ngược năng lượng về Bus DC khi chạy đều",
-      "Bộ xả hãm chưa hoạt động hoặc điện trở xả bị đứt"
+      "Bộ xả hãm chưa hoạt động hoặc điện trở xả bị đứt",
     ],
     solutions: [
       "Kiểm tra thông mạch điện trở xả và transistor xả hãm",
-      "Cài đặt chế độ điều khiển Vector có kiểm soát mô-men phản hồi"
+      "Cài đặt chế độ điều khiển Vector có kiểm soát mô-men phản hồi",
     ],
-    expertTips: "Đối với hệ thống tải thế năng (nâng hạ), việc lắp điện trở xả hoặc bộ trả năng lượng về lưới (Power Regeneration Unit) là bắt buộc.",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "Đối với hệ thống tải thế năng (nâng hạ), việc lắp điện trở xả hoặc bộ trả năng lượng về lưới (Power Regeneration Unit) là bắt buộc.",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_OV3",
@@ -163,15 +169,16 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Thời gian giảm tốc Pr.8 quá dốc, motor quay theo quán tính biến thành máy phát điện đẩy điện áp Bus DC vượt ngưỡng an toàn (400V đối với hệ 200V; 800V đối với hệ 400V)",
-      "Chưa lắp điện trở xả hãm động năng"
+      "Chưa lắp điện trở xả hãm động năng",
     ],
     solutions: [
       "Tăng thời gian giảm tốc Pr.8 dài hơn",
       "Lắp thêm Điện trở xả (Braking Resistor) vào chân P/+ và PR (với FR-E700, FR-D700)",
-      "Cài đặt thông số tự động giảm tốc tránh quá áp Pr.882 ~ Pr.886"
+      "Cài đặt thông số tự động giảm tốc tránh quá áp Pr.882 ~ Pr.886",
     ],
-    expertTips: "Đây là lỗi phổ biến nhất trong thực tế. Nếu không thể tăng thời gian giảm tốc vì yêu cầu công nghệ (cần dừng gấp), bắt buộc phải lắp điện trở xả có công suất và trị số Ohm (Ω) phù hợp Catalogue.",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "Đây là lỗi phổ biến nhất trong thực tế. Nếu không thể tăng thời gian giảm tốc vì yêu cầu công nghệ (cần dừng gấp), bắt buộc phải lắp điện trở xả có công suất và trị số Ohm (Ω) phù hợp Catalogue.",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_BE",
@@ -187,14 +194,15 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Hỏng transistor xả phanh tích hợp bên trong biến tần",
-      "Giá trị điện trở xả nối vào chân P/+ và PR có trị số Ohm quá nhỏ dưới ngưỡng tối thiểu cho phép"
+      "Giá trị điện trở xả nối vào chân P/+ và PR có trị số Ohm quá nhỏ dưới ngưỡng tối thiểu cho phép",
     ],
     solutions: [
       "Đo kiểm tra giá trị Ohm của điện trở xả bên ngoài",
-      "Nếu điện trở xả đúng chuẩn mà vẫn báo lỗi khi bật nguồn, biến tần đã bị hỏng transistor xả cần gửi sửa chữa"
+      "Nếu điện trở xả đúng chuẩn mà vẫn báo lỗi khi bật nguồn, biến tần đã bị hỏng transistor xả cần gửi sửa chữa",
     ],
-    expertTips: "Tuyệt đối không sử dụng điện trở xả có giá trị Ohm nhỏ hơn bảng thông số kỹ thuật tối thiểu quy định trong Catalogue của từng model biến tần.",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "Tuyệt đối không sử dụng điện trở xả có giá trị Ohm nhỏ hơn bảng thông số kỹ thuật tối thiểu quy định trong Catalogue của từng model biến tần.",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_THT",
@@ -210,15 +218,16 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Dòng điện ngõ ra vượt quá dòng định mức của biến tần liên tục trong thời gian dài (mô hình bảo vệ quá nhiệt IGBT)",
-      "Khởi động dừng liên tục với tần suất quá cao"
+      "Khởi động dừng liên tục với tần suất quá cao",
     ],
     solutions: [
       "Giảm tải cơ khí tác động lên động cơ",
       "Tăng thời gian tăng/giảm tốc",
-      "Nâng cấp biến tần lên công suất lớn hơn một cấp"
+      "Nâng cấp biến tần lên công suất lớn hơn một cấp",
     ],
-    expertTips: "E.THT là quá tải bản thân BIẾN TẦN (bảo vệ mạch công suất), khác với E.THM là quá tải ĐỘNG CƠ (bảo vệ cuộn dây motor).",
-    relatedRegisters: ["40008", "40202"]
+    expertTips:
+      "E.THT là quá tải bản thân BIẾN TẦN (bảo vệ mạch công suất), khác với E.THM là quá tải ĐỘNG CƠ (bảo vệ cuộn dây motor).",
+    relatedRegisters: ["40008", "40202"],
   },
   {
     id: "MITSU_E_THM",
@@ -235,14 +244,15 @@ export const MITSUBISHI_FAULTS = [
     causes: [
       "Rơ-le nhiệt điện tử tích hợp bảo vệ động cơ tác động do motor quá dòng",
       "Động cơ chạy ở tần số thấp (dưới 20Hz) trong thời gian dài khiến quạt đuôi không làm mát kịp",
-      "Cài đặt sai thông số dòng định mức động cơ trong Pr.9"
+      "Cài đặt sai thông số dòng định mức động cơ trong Pr.9",
     ],
     solutions: [
       "Kiểm tra lại dòng định mức ghi trên nameplate động cơ và nhập chính xác vào Pr.9",
-      "Nếu motor thường xuyên chạy tốc độ thấp, cần lắp thêm quạt cưỡng bức độc lập hoặc chuyển Pr.71 sang loại motor chuyên dụng có quạt riêng"
+      "Nếu motor thường xuyên chạy tốc độ thấp, cần lắp thêm quạt cưỡng bức độc lập hoặc chuyển Pr.71 sang loại motor chuyên dụng có quạt riêng",
     ],
-    expertTips: "Khi Pr.9 cài đặt bằng 0, rơ-le nhiệt điện tử sẽ bị vô hiệu hóa (thường chỉ dùng khi 1 biến tần kéo nhiều motor song song và mỗi motor đã có rơ-le nhiệt cơ ngoài).",
-    relatedRegisters: ["40008", "40202"]
+    expertTips:
+      "Khi Pr.9 cài đặt bằng 0, rơ-le nhiệt điện tử sẽ bị vô hiệu hóa (thường chỉ dùng khi 1 biến tần kéo nhiều motor song song và mỗi motor đã có rơ-le nhiệt cơ ngoài).",
+    relatedRegisters: ["40008", "40202"],
   },
   {
     id: "MITSU_E_FIN",
@@ -260,15 +270,16 @@ export const MITSUBISHI_FAULTS = [
       "Khối cánh nhôm tản nhiệt mặt sau biến tần bị quá nhiệt (> 90°C)",
       "Bụi bẩn bám dày đặc bịt kín các khe tản nhiệt",
       "Quạt làm mát của biến tần bị chết, kẹt rác hoặc quay chậm",
-      "Nhiệt độ bên trong tủ điện quá cao (> 50°C)"
+      "Nhiệt độ bên trong tủ điện quá cao (> 50°C)",
     ],
     solutions: [
       "Vệ sinh sạch sẽ bụi bẩn trên cánh tản nhiệt biến tần",
       "Kiểm tra và thay thế quạt làm mát biến tần nếu ngừng quay",
-      "Cải thiện hệ thống quạt hút thông gió hoặc lắp điều hòa làm mát tủ điện"
+      "Cải thiện hệ thống quạt hút thông gió hoặc lắp điều hòa làm mát tủ điện",
     ],
-    expertTips: "Biến tần Mitsubishi hỗ trợ cài đặt Pr.244 để quản lý chế độ chạy quạt (luôn chạy hoặc chỉ quay khi biến tần phát xung chạy).",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "Biến tần Mitsubishi hỗ trợ cài đặt Pr.244 để quản lý chế độ chạy quạt (luôn chạy hoặc chỉ quay khi biến tần phát xung chạy).",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_OHT",
@@ -284,15 +295,16 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Tiếp điểm rơ-le nhiệt ngoài (chân OH) bảo vệ động cơ tác động do motor quá nhiệt",
-      "Hở mạch hoặc đứt dây tín hiệu tiếp điểm OH đưa về chân ngõ vào số biến tần"
+      "Hở mạch hoặc đứt dây tín hiệu tiếp điểm OH đưa về chân ngõ vào số biến tần",
     ],
     solutions: [
       "Kiểm tra động cơ có bị quá nhiệt hoặc quá tải cơ khí không",
       "Kiểm tra tiếp điểm rơ-le nhiệt ngoài và dây nối vào chân chức năng OH (Pr.178 ~ Pr.189)",
-      "Sau khi motor nguội, phải nhấn nút STOP/RESET trên bàn phím mới xóa được lỗi"
+      "Sau khi motor nguội, phải nhấn nút STOP/RESET trên bàn phím mới xóa được lỗi",
     ],
-    expertTips: "Nếu không dùng rơ-le nhiệt cơ ngoài, hãy đảm bảo các chân ngõ vào số (Pr.178~Pr.189) không bị cài nhầm giá trị số '7' (chức năng OH) để tránh báo lỗi ảo.",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "Nếu không dùng rơ-le nhiệt cơ ngoài, hãy đảm bảo các chân ngõ vào số (Pr.178~Pr.189) không bị cài nhầm giá trị số '7' (chức năng OH) để tránh báo lỗi ảo.",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_UVT",
@@ -309,15 +321,16 @@ export const MITSUBISHI_FAULTS = [
     causes: [
       "Điện áp Bus DC tụt xuống dưới ngưỡng duy trì (nguồn lưới sụt áp mạnh khi máy lớn khởi động)",
       "Mất nguồn điện lưới chớp nhoáng",
-      "Bộ tụ điện lọc nguồn chính Bus DC bị khô chai sau nhiều năm vận hành"
+      "Bộ tụ điện lọc nguồn chính Bus DC bị khô chai sau nhiều năm vận hành",
     ],
     solutions: [
       "Đo kiểm tra điện áp nguồn cấp 3 pha ngõ vào lúc hệ thống tải nặng hoạt động",
       "Kiểm tra khởi động từ hoặc cầu dao tổng xem có bị move tiếp điểm",
-      "Nếu điện áp nguồn ổn định mà vẫn báo UVT thì mạch sạc hoặc bộ tụ DC đã hỏng"
+      "Nếu điện áp nguồn ổn định mà vẫn báo UVT thì mạch sạc hoặc bộ tụ DC đã hỏng",
     ],
-    expertTips: "Hệ 220V bình thường khoảng 310V DC, hệ 380V bình thường khoảng 540V DC.",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "Hệ 220V bình thường khoảng 310V DC, hệ 380V bình thường khoảng 540V DC.",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_ILF",
@@ -333,14 +346,15 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Mất 1 trong 3 pha nguồn điện xoay chiều ngõ vào (R, S, T) khi biến tần đang chạy",
-      "Đứt cầu chì hoặc lỏng cầu đấu đầu vào"
+      "Đứt cầu chì hoặc lỏng cầu đấu đầu vào",
     ],
     solutions: [
       "Đo cân bằng điện áp giữa các pha ngõ vào: R-S, S-T, T-R",
-      "Kiểm tra độ siết chặt ốc cầu đấu ngõ vào R, S, T"
+      "Kiểm tra độ siết chặt ốc cầu đấu ngõ vào R, S, T",
     ],
-    expertTips: "Tham số Pr.872 dùng để bật/tắt tính năng giám sát mất pha đầu vào (mặc định là 0 = Tắt, đặt 1 = Bật bảo vệ).",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "Tham số Pr.872 dùng để bật/tắt tính năng giám sát mất pha đầu vào (mặc định là 0 = Tắt, đặt 1 = Bật bảo vệ).",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_LF",
@@ -356,14 +370,15 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Đứt 1 pha cáp nối từ ngõ ra biến tần U, V, W tới motor",
-      "Khởi động từ phụ ngõ ra đóng không đều pha"
+      "Khởi động từ phụ ngõ ra đóng không đều pha",
     ],
     solutions: [
       "Đo thông mạch từng sợi dây cáp từ biến tần tới hộp cực motor",
-      "Kiểm tra điện trở 3 cuộn dây motor xem có cân bằng"
+      "Kiểm tra điện trở 3 cuộn dây motor xem có cân bằng",
     ],
-    expertTips: "Tham số Pr.251 cấu hình chức năng phát hiện mất pha ngõ ra (0 = Tắt, 1 = Bật).",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "Tham số Pr.251 cấu hình chức năng phát hiện mất pha ngõ ra (0 = Tắt, 1 = Bật).",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_PUE",
@@ -379,14 +394,15 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Mất liên lạc giữa bàn phím màn hình hiển thị (PU) và thân biến tần",
-      "Cáp nối bàn phím bị tuột hoặc gãy chân ngậm RJ45"
+      "Cáp nối bàn phím bị tuột hoặc gãy chân ngậm RJ45",
     ],
     solutions: [
       "Cắm chặt lại giắc cáp màn hình bàn phím",
-      "Cài đặt tham số Pr.122 = 9999 để tắt chế độ ngắt do timeout khi tháo bàn phím"
+      "Cài đặt tham số Pr.122 = 9999 để tắt chế độ ngắt do timeout khi tháo bàn phím",
     ],
-    expertTips: "Khi lập trình truyền thông RS485 cổng PU qua PLC, nếu tháo bàn phím ra cắm cáp 485 mà chưa cài Pr.122=9999 thì biến tần sẽ báo ngay lỗi E.PUE.",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "Khi lập trình truyền thông RS485 cổng PU qua PLC, nếu tháo bàn phím ra cắm cáp 485 mà chưa cài Pr.122=9999 thì biến tần sẽ báo ngay lỗi E.PUE.",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_SER",
@@ -402,15 +418,16 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Lỗi truyền thông RS-485 vượt quá số lần thử lại cho phép cài trong Pr.121",
-      "Nhiễu điện cao tần làm méo khung truyền"
+      "Nhiễu điện cao tần làm méo khung truyền",
     ],
     solutions: [
       "Kiểm tra cài đặt Baudrate (Pr.118), Parity (Pr.120), Stop bit (Pr.119) giữa PLC và biến tần",
       "Lắp điện trở đầu cuối 110-120Ω giữa chân RDA - RDB",
-      "Sử dụng cáp xoắn đôi có vỏ bọc kim chống nhiễu tiếp địa đúng kỹ thuật"
+      "Sử dụng cáp xoắn đôi có vỏ bọc kim chống nhiễu tiếp địa đúng kỹ thuật",
     ],
-    expertTips: "Cài đặt Pr.122 = 9999 trong giai đoạn thử nghiệm để biến tần không trip khi tạm dừng truyền thông.",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "Cài đặt Pr.122 = 9999 trong giai đoạn thử nghiệm để biến tần không trip khi tạm dừng truyền thông.",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_PE",
@@ -426,14 +443,15 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Lỗi chip nhớ EEPROM lưu trữ dữ liệu tham số",
-      "Ghi tham số qua mạng truyền thông liên tục vào EEPROM làm chai mòn tuổi thọ bộ nhớ"
+      "Ghi tham số qua mạng truyền thông liên tục vào EEPROM làm chai mòn tuổi thọ bộ nhớ",
     ],
     solutions: [
       "Thực hiện xóa toàn bộ tham số về mặc định (All Parameter Clear)",
-      "Nếu khởi động lại vẫn báo E.PE, bo điều khiển đã bị hỏng chip nhớ cần thay thế"
+      "Nếu khởi động lại vẫn báo E.PE, bo điều khiển đã bị hỏng chip nhớ cần thay thế",
     ],
-    expertTips: "KHI LẬP TRÌNH PLC/MODBUS: Luôn ghi tần số vào thanh ghi RAM 40014 thay vì ghi vào EEPROM 40015 để tránh làm hỏng chip nhớ EEPROM của biến tần sau vài tháng.",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "KHI LẬP TRÌNH PLC/MODBUS: Luôn ghi tần số vào thanh ghi RAM 40014 thay vì ghi vào EEPROM 40015 để tránh làm hỏng chip nhớ EEPROM của biến tần sau vài tháng.",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_E_CPU",
@@ -449,14 +467,15 @@ export const MITSUBISHI_FAULTS = [
     severity: "error",
     causes: [
       "Vi xử lý trung tâm bị treo do xung nhiễu điện từ cực mạnh hoặc sét lan truyền",
-      "Bo mạch điều khiển bị ẩm mốc, chập vi mạch"
+      "Bo mạch điều khiển bị ẩm mốc, chập vi mạch",
     ],
     solutions: [
       "Kiểm tra lại tiếp địa vỏ máy PE",
-      "Tắt nguồn biến tần đợi 5 phút cho xả hết điện rồi bật lại; nếu vẫn báo lỗi cần gửi bảo hành"
+      "Tắt nguồn biến tần đợi 5 phút cho xả hết điện rồi bật lại; nếu vẫn báo lỗi cần gửi bảo hành",
     ],
-    expertTips: "Đảm bảo tủ điện có cuộn lọc nhiễu Noise Filter và tiếp địa cọc đồng < 10Ω.",
-    relatedRegisters: ["40008"]
+    expertTips:
+      "Đảm bảo tủ điện có cuộn lọc nhiễu Noise Filter và tiếp địa cọc đồng < 10Ω.",
+    relatedRegisters: ["40008"],
   },
   {
     id: "MITSU_WARN_HOLD",
@@ -471,13 +490,14 @@ export const MITSUBISHI_FAULTS = [
     categoryLabel: "Cảnh báo vận hành (Không dừng)",
     severity: "warning",
     causes: [
-      "Bàn phím đang bị kích hoạt tính năng khóa để chống người khác bấm nhầm"
+      "Bàn phím đang bị kích hoạt tính năng khóa để chống người khác bấm nhầm",
     ],
     solutions: [
-      "Nhấn và giữ phím MODE trên bàn phím trong khoảng 2 giây để mở khóa bàn phím (hoặc khóa lại)"
+      "Nhấn và giữ phím MODE trên bàn phím trong khoảng 2 giây để mở khóa bàn phím (hoặc khóa lại)",
     ],
-    expertTips: "Cảnh báo này không làm dừng động cơ, biến tần vẫn chạy bình thường theo lệnh đã cài.",
-    relatedRegisters: []
+    expertTips:
+      "Cảnh báo này không làm dừng động cơ, biến tần vẫn chạy bình thường theo lệnh đã cài.",
+    relatedRegisters: [],
   },
   {
     id: "MITSU_WARN_LOCD",
@@ -492,13 +512,14 @@ export const MITSUBISHI_FAULTS = [
     categoryLabel: "Cảnh báo vận hành (Không dừng)",
     severity: "warning",
     causes: [
-      "Tham số bị khóa bảo vệ bằng mật khẩu cài đặt trong tham số Pr.297"
+      "Tham số bị khóa bảo vệ bằng mật khẩu cài đặt trong tham số Pr.297",
     ],
     solutions: [
-      "Cần nhập đúng mã số mật khẩu đã cài vào tham số Pr.297 để mở khóa chỉnh sửa"
+      "Cần nhập đúng mã số mật khẩu đã cài vào tham số Pr.297 để mở khóa chỉnh sửa",
     ],
-    expertTips: "Nếu quên mật khẩu Pr.297, cần thực hiện quy trình Master Reset theo tài liệu bảo mật của Mitsubishi.",
-    relatedRegisters: []
+    expertTips:
+      "Nếu quên mật khẩu Pr.297, cần thực hiện quy trình Master Reset theo tài liệu bảo mật của Mitsubishi.",
+    relatedRegisters: [],
   },
   {
     id: "MITSU_WARN_PS",
@@ -513,13 +534,14 @@ export const MITSUBISHI_FAULTS = [
     categoryLabel: "Cảnh báo vận hành (Không dừng)",
     severity: "warning",
     causes: [
-      "Biến tần đang chạy ở chế độ External (lệnh chạy ngoài STF/STR), nhưng người dùng nhấn nút STOP/RESET trên bàn phím"
+      "Biến tần đang chạy ở chế độ External (lệnh chạy ngoài STF/STR), nhưng người dùng nhấn nút STOP/RESET trên bàn phím",
     ],
     solutions: [
-      "Tắt công tắc lệnh chạy ngoài (ngắt OFF chân STF hoặc STR), sau đó chữ PS sẽ tự động biến mất và có thể bật lại lệnh chạy ngoài để tiếp tục"
+      "Tắt công tắc lệnh chạy ngoài (ngắt OFF chân STF hoặc STR), sau đó chữ PS sẽ tự động biến mất và có thể bật lại lệnh chạy ngoài để tiếp tục",
     ],
-    expertTips: "Chỉ cần ngắt công tắc chạy ngoài là biến tần tự khôi phục bình thường.",
-    relatedRegisters: []
+    expertTips:
+      "Chỉ cần ngắt công tắc chạy ngoài là biến tần tự khôi phục bình thường.",
+    relatedRegisters: [],
   },
   {
     id: "MITSU_WARN_ER1",
@@ -533,14 +555,13 @@ export const MITSUBISHI_FAULTS = [
     category: "warning",
     categoryLabel: "Cảnh báo vận hành (Không dừng)",
     severity: "warning",
-    causes: [
-      "Đang cố ghi tham số khi biến tần không ở chế độ PU Mode"
-    ],
+    causes: ["Đang cố ghi tham số khi biến tần không ở chế độ PU Mode"],
     solutions: [
-      "Chuyển chế độ vận hành sang PU (Pr.79 = 1) rồi mới thực hiện sửa đổi tham số"
+      "Chuyển chế độ vận hành sang PU (Pr.79 = 1) rồi mới thực hiện sửa đổi tham số",
     ],
-    expertTips: "Khi đang ở chế độ Network hoặc External, đa số tham số cốt lõi sẽ bị chặn ghi và báo Er1.",
-    relatedRegisters: []
+    expertTips:
+      "Khi đang ở chế độ Network hoặc External, đa số tham số cốt lõi sẽ bị chặn ghi và báo Er1.",
+    relatedRegisters: [],
   },
   {
     id: "MITSU_WARN_ER2",
@@ -554,15 +575,14 @@ export const MITSUBISHI_FAULTS = [
     category: "warning",
     categoryLabel: "Cảnh báo vận hành (Không dừng)",
     severity: "warning",
-    causes: [
-      "Đang cố sửa đổi tham số trong lúc động cơ đang quay"
-    ],
+    causes: ["Đang cố sửa đổi tham số trong lúc động cơ đang quay"],
     solutions: [
-      "Nhấn nút STOP cho động cơ dừng hẳn rồi mới chỉnh sửa tham số, hoặc cài Pr.77 = 2 để cho phép ghi khi đang chạy"
+      "Nhấn nút STOP cho động cơ dừng hẳn rồi mới chỉnh sửa tham số, hoặc cài Pr.77 = 2 để cho phép ghi khi đang chạy",
     ],
-    expertTips: "Một số tham số như thời gian tăng giảm tốc (Pr.7, Pr.8) có thể cho phép sửa khi chạy nếu Pr.77=2.",
-    relatedRegisters: []
-  }
+    expertTips:
+      "Một số tham số như thời gian tăng giảm tốc (Pr.7, Pr.8) có thể cho phép sửa khi chạy nếu Pr.77=2.",
+    relatedRegisters: [],
+  },
 ];
 
 export const MITSUBISHI_REGISTERS = [
@@ -582,10 +602,14 @@ export const MITSUBISHI_REGISTERS = [
     categoryLabel: "Lệnh điều khiển",
     description: "Lệnh điều khiển động cơ chạy thuận qua mạng Modbus RTU",
     bitDetails: [
-      { bit: "1 (ON)", name: "RUN FWD", desc: "Kích hoạt biến tần chạy theo chiều thuận" },
-      { bit: "0 (OFF)", name: "STOP", desc: "Dừng chạy thuận" }
+      {
+        bit: "1 (ON)",
+        name: "RUN FWD",
+        desc: "Kích hoạt biến tần chạy theo chiều thuận",
+      },
+      { bit: "0 (OFF)", name: "STOP", desc: "Dừng chạy thuận" },
     ],
-    example: "Ghi Function 05: [Station] 05 00 00 FF 00 [CRC_L] [CRC_H]"
+    example: "Ghi Function 05: [Station] 05 00 00 FF 00 [CRC_L] [CRC_H]",
   },
   {
     id: "MITSU_COIL_0001",
@@ -602,10 +626,14 @@ export const MITSUBISHI_REGISTERS = [
     categoryLabel: "Lệnh điều khiển",
     description: "Lệnh điều khiển động cơ chạy ngược qua mạng Modbus RTU",
     bitDetails: [
-      { bit: "1 (ON)", name: "RUN REV", desc: "Kích hoạt biến tần chạy theo chiều ngược" },
-      { bit: "0 (OFF)", name: "STOP", desc: "Dừng chạy ngược" }
+      {
+        bit: "1 (ON)",
+        name: "RUN REV",
+        desc: "Kích hoạt biến tần chạy theo chiều ngược",
+      },
+      { bit: "0 (OFF)", name: "STOP", desc: "Dừng chạy ngược" },
     ],
-    example: "Ghi Function 05: [Station] 05 00 01 FF 00 [CRC_L] [CRC_H]"
+    example: "Ghi Function 05: [Station] 05 00 01 FF 00 [CRC_L] [CRC_H]",
   },
   {
     id: "MITSU_COIL_0002",
@@ -622,7 +650,7 @@ export const MITSUBISHI_REGISTERS = [
     categoryLabel: "Lệnh điều khiển",
     description: "Kích hoạt cấp tốc độ cao (Pr.4) qua mạng",
     bitDetails: [],
-    example: "Ghi Function 05 địa chỉ 0002H"
+    example: "Ghi Function 05 địa chỉ 0002H",
   },
   {
     id: "MITSU_COIL_0003",
@@ -639,7 +667,7 @@ export const MITSUBISHI_REGISTERS = [
     categoryLabel: "Lệnh điều khiển",
     description: "Kích hoạt cấp tốc độ trung bình (Pr.5) qua mạng",
     bitDetails: [],
-    example: "Ghi Function 05 địa chỉ 0003H"
+    example: "Ghi Function 05 địa chỉ 0003H",
   },
   {
     id: "MITSU_COIL_0004",
@@ -656,7 +684,7 @@ export const MITSUBISHI_REGISTERS = [
     categoryLabel: "Lệnh điều khiển",
     description: "Kích hoạt cấp tốc độ thấp (Pr.6) qua mạng",
     bitDetails: [],
-    example: "Ghi Function 05 địa chỉ 0004H"
+    example: "Ghi Function 05 địa chỉ 0004H",
   },
   {
     id: "MITSU_COIL_0007",
@@ -673,9 +701,14 @@ export const MITSUBISHI_REGISTERS = [
     categoryLabel: "Lệnh điều khiển",
     description: "Lệnh Reset xóa lỗi biến tần từ xa khi xảy ra sự cố",
     bitDetails: [
-      { bit: "1 (ON)", name: "RESET", desc: "Ghi ON rồi OFF lại để kích hoạt sườn xóa lỗi" }
+      {
+        bit: "1 (ON)",
+        name: "RESET",
+        desc: "Ghi ON rồi OFF lại để kích hoạt sườn xóa lỗi",
+      },
     ],
-    example: "Ghi Function 05: [Station] 05 00 07 FF 00 -> rồi ghi 05 00 07 00 00"
+    example:
+      "Ghi Function 05: [Station] 05 00 07 FF 00 -> rồi ghi 05 00 07 00 00",
   },
 
   // HOLDING REGISTERS (4xxxx / 16-bit)
@@ -692,20 +725,38 @@ export const MITSUBISHI_REGISTERS = [
     name: "Inverter Control / Status Register (Chuẩn Manual FR-E700)",
     category: "control",
     categoryLabel: "Lệnh điều khiển",
-    description: "Thanh ghi điều khiển lệnh chạy (khi Ghi) và giám sát trạng thái cờ lỗi (khi Đọc) theo tài liệu chính thức của Mitsubishi",
+    description:
+      "Thanh ghi điều khiển lệnh chạy (khi Ghi) và giám sát trạng thái cờ lỗi (khi Đọc) theo tài liệu chính thức của Mitsubishi",
     bitDetails: [
       { bit: "Ghi = 2 (0002H)", name: "STF", desc: "Lệnh chạy thuận" },
       { bit: "Ghi = 4 (0004H)", name: "STR", desc: "Lệnh chạy ngược" },
       { bit: "Ghi = 0 (0000H)", name: "STOP", desc: "Lệnh dừng động cơ" },
-      { bit: "Ghi = 128 (0080H)", name: "RESET", desc: "Lệnh xóa lỗi sự cố (Trip Reset)" },
-      { bit: "Đọc: Bit 0", name: "RUN", desc: "1 = Biến tần đang chạy xuất điện áp" },
+      {
+        bit: "Ghi = 128 (0080H)",
+        name: "RESET",
+        desc: "Lệnh xóa lỗi sự cố (Trip Reset)",
+      },
+      {
+        bit: "Đọc: Bit 0",
+        name: "RUN",
+        desc: "1 = Biến tần đang chạy xuất điện áp",
+      },
       { bit: "Đọc: Bit 1", name: "FWD", desc: "1 = Chiều quay thuận" },
       { bit: "Đọc: Bit 2", name: "REV", desc: "1 = Chiều quay ngược" },
       { bit: "Đọc: Bit 3", name: "SU", desc: "1 = Đạt tần số cài đặt" },
-      { bit: "Đọc: Bit 4", name: "OL", desc: "1 = Đang kích hoạt chống trượt / quá tải" },
-      { bit: "Đọc: Bit 7", name: "ALARM / TRIP", desc: "1 = Biến tần đang bị sự cố Trip (CÓ LỖI)" }
+      {
+        bit: "Đọc: Bit 4",
+        name: "OL",
+        desc: "1 = Đang kích hoạt chống trượt / quá tải",
+      },
+      {
+        bit: "Đọc: Bit 7",
+        name: "ALARM / TRIP",
+        desc: "1 = Biến tần đang bị sự cố Trip (CÓ LỖI)",
+      },
     ],
-    example: "Ghi Function 06 địa chỉ 0008H giá trị 2 (Chạy thuận), giá trị 4 (Chạy ngược), giá trị 0 (Dừng)."
+    example:
+      "Ghi Function 06 địa chỉ 0008H giá trị 2 (Chạy thuận), giá trị 4 (Chạy ngược), giá trị 0 (Dừng).",
   },
   {
     id: "MITSU_REG_40014",
@@ -720,9 +771,10 @@ export const MITSUBISHI_REGISTERS = [
     name: "Running Frequency (RAM Value)",
     category: "control",
     categoryLabel: "Lệnh điều khiển",
-    description: "Cài đặt tần số vận hành lưu vào bộ nhớ tạm RAM (Đơn vị: 0.01 Hz). Không làm chai chip nhớ EEPROM.",
+    description:
+      "Cài đặt tần số vận hành lưu vào bộ nhớ tạm RAM (Đơn vị: 0.01 Hz). Không làm chai chip nhớ EEPROM.",
     bitDetails: [],
-    example: "Ghi Function 06 địa chỉ 000DH giá trị 5000 để đặt 50.00 Hz."
+    example: "Ghi Function 06 địa chỉ 000DH giá trị 5000 để đặt 50.00 Hz.",
   },
   {
     id: "MITSU_REG_40015",
@@ -737,9 +789,10 @@ export const MITSUBISHI_REGISTERS = [
     name: "Running Frequency (EEPROM Value)",
     category: "parameter",
     categoryLabel: "Tham số cài đặt",
-    description: "Cài đặt tần số vận hành ghi vĩnh viễn vào chip nhớ EEPROM (Đơn vị: 0.01 Hz). Chỉ ghi khi thay đổi thông số cố định.",
+    description:
+      "Cài đặt tần số vận hành ghi vĩnh viễn vào chip nhớ EEPROM (Đơn vị: 0.01 Hz). Chỉ ghi khi thay đổi thông số cố định.",
     bitDetails: [],
-    example: "Ghi Function 06 địa chỉ 000EH giá trị 5000."
+    example: "Ghi Function 06 địa chỉ 000EH giá trị 5000.",
   },
   {
     id: "MITSU_REG_40201",
@@ -754,9 +807,11 @@ export const MITSUBISHI_REGISTERS = [
     name: "Output Frequency Monitor",
     category: "monitor",
     categoryLabel: "Giám sát ngõ ra",
-    description: "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz). Offset 200.",
+    description:
+      "Tần số ngõ ra thực tế đang phát cho động cơ (Đơn vị: 0.01 Hz). Offset 200.",
     bitDetails: [],
-    example: "Đọc Function 03: [Station] 03 00 C8 00 01 [CRC]. Giá trị 5000 = 50.00 Hz."
+    example:
+      "Đọc Function 03: [Station] 03 00 C8 00 01 [CRC]. Giá trị 5000 = 50.00 Hz.",
   },
   {
     id: "MITSU_REG_40202",
@@ -771,9 +826,10 @@ export const MITSUBISHI_REGISTERS = [
     name: "Output Current Monitor",
     category: "monitor",
     categoryLabel: "Giám sát ngõ ra",
-    description: "Dòng điện ngõ ra thực tế cấp cho động cơ (Đơn vị: 0.01 A). Offset 201.",
+    description:
+      "Dòng điện ngõ ra thực tế cấp cho động cơ (Đơn vị: 0.01 A). Offset 201.",
     bitDetails: [],
-    example: "Đọc về giá trị 350 tương ứng 3.50 A."
+    example: "Đọc về giá trị 350 tương ứng 3.50 A.",
   },
   {
     id: "MITSU_REG_40203",
@@ -788,9 +844,10 @@ export const MITSUBISHI_REGISTERS = [
     name: "Output Voltage Monitor",
     category: "monitor",
     categoryLabel: "Giám sát ngõ ra",
-    description: "Điện áp xoay chiều ngõ ra cấp cho động cơ (Đơn vị: 0.1 V). Offset 202.",
+    description:
+      "Điện áp xoay chiều ngõ ra cấp cho động cơ (Đơn vị: 0.1 V). Offset 202.",
     bitDetails: [],
-    example: "Đọc về giá trị 2200 tương ứng 220.0 V."
+    example: "Đọc về giá trị 2200 tương ứng 220.0 V.",
   },
   {
     id: "MITSU_REG_40008",
@@ -805,14 +862,16 @@ export const MITSUBISHI_REGISTERS = [
     name: "Current Fault Definition (Gateway / Special Mode)",
     category: "fault",
     categoryLabel: "Giám sát & Lịch sử mã lỗi",
-    description: "Mã lỗi hiện tại đang kích hoạt Trip biến tần dạng mã Hex (Ví dụ: 10H = E.OC1, 22H = E.OV3, 51H = E.UVT)",
+    description:
+      "Mã lỗi hiện tại đang kích hoạt Trip biến tần dạng mã Hex (Ví dụ: 10H = E.OC1, 22H = E.OV3, 51H = E.UVT)",
     bitDetails: [
       { bit: "10H (16)", name: "E.OC1", desc: "Quá dòng khi tăng tốc" },
       { bit: "22H (34)", name: "E.OV3", desc: "Quá áp khi giảm tốc" },
       { bit: "30H (48)", name: "E.THT", desc: "Quá tải biến tần" },
       { bit: "31H (49)", name: "E.THM", desc: "Quá tải motor" },
-      { bit: "51H (81)", name: "E.UVT", desc: "Sụt áp nguồn Bus DC" }
+      { bit: "51H (81)", name: "E.UVT", desc: "Sụt áp nguồn Bus DC" },
     ],
-    example: "Khi Bit 7 của thanh ghi 40009 = 1, đọc thanh ghi 40008 để lấy mã lỗi."
-  }
+    example:
+      "Khi Bit 7 của thanh ghi 40009 = 1, đọc thanh ghi 40008 để lấy mã lỗi.",
+  },
 ];
