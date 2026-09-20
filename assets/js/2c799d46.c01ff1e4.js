@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshareme=self.webpackChunkshareme||[]).push([["2452"],{11973(e){e.exports=JSON.parse('{"metadata":{"permalink":"/shareme/blog/page/2","page":2,"postsPerPage":24,"totalPages":2,"totalCount":25,"previousPage":"/shareme/blog","blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
