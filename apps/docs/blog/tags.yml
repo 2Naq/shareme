@@ -88,4 +88,18 @@ frontend:
 devops:
   label: DevOps
   permalink: /devops
+robotics:
+  label: Robotics
+  permalink: /robotics
+delta:
+  label: Delta Electronics
+  permalink: /delta
+efort:
+  label: Robot EFORT
+  permalink: /efort
+keyence:
+  label: Keyence
+  permalink: /keyence
+
+
 
