@@ -21,14 +21,16 @@ Mọi chuyển động của Robot EFORT trong không gian đều được đị
 
 ![5 kiểu dữ liệu chuyển động cốt lõi trong ngôn ngữ EFORT RPL](./img/efort-rpl/efort-rpl-slide-02.webp)
 
-| Kiểu Dữ Liệu | Tên Gọi & Ý Nghĩa Kỹ Thuật | Đặc Điểm Cốt Lõi & Ví Dụ |
-| :--- | :--- | :--- |
-| **`POINTJ`** | **Tọa độ Khớp (Joint Coordinates)** | Lưu trữ góc quay thực tế của 6 khớp trục $(J_1, J_2, J_3, J_4, J_5, J_6)$ bằng đơn vị độ $(^\circ)$. Xác định hình thái vật lý chính xác của cánh tay robot. |
-| **`POINTC` / `EPOINTC`** | **Tọa độ Descartes (Cartesian Coordinates)** | Vị trí tâm điểm công cụ (**TCP**) trong không gian 3 chiều: tọa độ tuyến tính $(X, Y, Z)$ tính theo $\text{mm}$ và góc hướng $(A, B, C)$ theo độ Euler. `EPOINTC` bổ sung thêm các trục phụ mở rộng (External Axes). |
-| **`SPEED`** | **Dữ liệu Tốc độ Di chuyển** | Giới hạn vận tốc khi robot di chuyển. Có thể chỉ định giá trị cố định theo vận tốc đường thẳng (ví dụ: `v500` tương đương $500\text{ mm/s}$) hoặc theo tỉ lệ phần trăm năng lực động cơ (ví dụ: `v10perc`). |
-| **`TOOL`** | **Dữ liệu Dụng Cụ Làm Việc (TCP)** | Định nghĩa kích thước, khoảng cách bù từ bích gắn cổ tay robot đến mũi dao/kẹp, trọng lượng tải trọng (*Payload*), và trọng tâm (*Center of Gravity*). Bắt buộc để hệ điều hành tính toán động học và động lực học. |
-| **`REFSYS`** | **Hệ Tọa Độ Tham Chiếu (Work Object)** | Khung tọa độ làm việc của phôi gia công hoặc đồ gá. Mặc định là tọa độ chân đế robot (**`wobj0`**). Cho phép dịch chuyển toàn bộ đường chạy dao chỉ bằng cách thay đổi gốc tọa độ. |
-
+<div className="w-full overflow-x-auto my-6 sm:text-sm text-[10px]">
+  | Kiểu Dữ Liệu | Tên Gọi & Ý Nghĩa Kỹ Thuật | Đặc Điểm Cốt Lõi & Ví Dụ |
+  | :--- | :--- | :--- |
+  | **`POINTJ`** | **Tọa độ Khớp (Joint Coordinates)** | Lưu trữ góc quay thực tế của 6 khớp trục $(J_1, J_2, J_3, J_4, J_5, J_6)$ bằng đơn vị độ $(^\circ)$. Xác định hình thái vật lý chính xác của cánh tay robot. |
+  | **`POINTC` / `EPOINTC`** | **Tọa độ Descartes (Cartesian Coordinates)** | Vị trí tâm điểm công cụ (**TCP**) trong không gian 3 chiều: tọa độ tuyến tính $(X, Y, Z)$ tính theo $\text{mm}$ và góc hướng $(A, B, C)$ theo độ Euler. `EPOINTC` bổ sung thêm các trục phụ mở rộng (External Axes). |
+  | **`SPEED`** | **Dữ liệu Tốc độ Di chuyển** | Giới hạn vận tốc khi robot di chuyển. Có thể chỉ định giá trị cố định theo vận tốc đường thẳng (ví dụ: `v500` tương đương $500\text{ mm/s}$) hoặc theo tỉ lệ phần trăm năng lực động cơ (ví dụ: `v10perc`). |
+  | **`TOOL`** | **Dữ liệu Dụng Cụ Làm Việc (TCP)** | Định nghĩa kích thước, khoảng cách bù từ bích gắn cổ tay robot đến mũi dao/kẹp, trọng lượng tải trọng (*Payload*), và trọng tâm (*Center of Gravity*). Bắt buộc để hệ điều hành tính toán động học và động lực học. |
+  | **`REFSYS`** | **Hệ Tọa Độ Tham Chiếu (Work Object)** | Khung tọa độ làm việc của phôi gia công hoặc đồ gá. Mặc định là tọa độ chân đế robot (**`wobj0`**). Cho phép dịch chuyển toàn bộ đường chạy dao chỉ bằng cách thay đổi gốc tọa độ. |
+  
+</div>
 ---
 
 ## 2. Vùng Chuyển Tiếp ZONE: Bí Quyết Tối Ưu Hóa Cycle Time
@@ -132,13 +134,15 @@ Cho phép đầu công cụ TCP vẽ một đường cong tròn hoàn hảo đi 
 
 ![Ma trận so sánh MJOINT, MLIN và MCIRC](./img/efort-rpl/efort-rpl-slide-08.webp)
 
-| Tiêu Chí Kỹ Thuật | `MJOINT` (Khớp) | `MLIN` (Đường Thẳng) | `MCIRC` (Cung Tròn) |
-| :--- | :--- | :--- | :--- |
-| **Quỹ đạo đầu TCP** | Đường cong tự do | Đường thẳng tuyệt đối | Cung tròn không gian |
-| **Rủi ro dính Điểm Kỳ Dị** | **Không bao giờ bị (An toàn 100%)** | Dễ mắc phải ⚠️ | Dễ mắc phải ⚠️ |
-| **Kiểm soát tư thế Tool** | Tự do biến thiên | Nội suy tuyến tính góc | Xoay đồng pha theo đường cong |
-| **Tốc độ di chuyển thực tế** | Nhanh nhất | Trung bình | Trung bình |
-
+<div className="w-full overflow-x-auto my-6 sm:text-sm text-[10px]">
+  | Tiêu Chí Kỹ Thuật | `MJOINT` (Khớp) | `MLIN` (Đường Thẳng) | `MCIRC` (Cung Tròn) |
+  | :--- | :--- | :--- | :--- |
+  | **Quỹ đạo đầu TCP** | Đường cong tự do | Đường thẳng tuyệt đối | Cung tròn không gian |
+  | **Rủi ro dính Điểm Kỳ Dị** | **Không bao giờ bị (An toàn 100%)** | Dễ mắc phải ⚠️ | Dễ mắc phải ⚠️ |
+  | **Kiểm soát tư thế Tool** | Tự do biến thiên | Nội suy tuyến tính góc | Xoay đồng pha theo đường cong |
+  | **Tốc độ di chuyển thực tế** | Nhanh nhất | Trung bình | Trung bình |
+  
+</div>
 :::tip[Quy Tắc Kinh Nghiệm Cho Lập Trình Viên]
 **Dùng `MJOINT` để bay nhanh trên không trung**, chỉ chuyển sang dùng **`MLIN` hoặc `MCIRC` khi robot chuẩn bị tiếp cận và thao tác trực tiếp với bề mặt phôi**.
 :::

@@ -138,7 +138,7 @@ export default function DownloadBox({
       {(headerTitle || headerDescription) && (
         <div className="border-border/60 mb-3.5 border-b pb-3">
           <div className="text-foreground flex items-center gap-2 text-base font-bold sm:text-lg">
-            <span className="text-xl">📦</span>
+            <span className="text-xl">🗂️</span>
             <span>{headerTitle}</span>
           </div>
           {headerDescription && (
@@ -170,7 +170,7 @@ export default function DownloadBox({
                       {item.title}
                     </span>
                     {(item.badge || item.size) && (
-                      <span className="bg-primary/10 text-primary ring-primary/20 inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-medium ring-1 ring-inset">
+                      <span className="bg-primary/10 text-primary ring-primary/20 hidden items-center rounded-md px-2 py-0.5 text-[11px] font-medium ring-1 ring-inset sm:inline-flex">
                         {item.badge || item.size}
                       </span>
                     )}

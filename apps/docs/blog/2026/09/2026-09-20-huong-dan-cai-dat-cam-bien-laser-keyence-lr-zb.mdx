@@ -33,6 +33,7 @@ Cảm biến **Keyence LR-ZB Series** hoạt động dựa trên nguyên lý tam
 
 ![Thông số kỹ thuật cơ bản và cảnh báo an toàn điện Keyence LR-ZB](./img/keyence-lrz-2/02-thong-so-canh-bao-an-toan.webp)
 
+<div className="w-full overflow-x-auto my-6 sm:text-sm text-[10px]">
 | Thông Số Kỹ Thuật | Giá Trị & Quy Chuẩn Tiêu Chuẩn |
 | :--- | :--- |
 | **Nguồn phát quang** | Laser bán dẫn màu đỏ ($\lambda = 660\text{ nm}$, công suất đỉnh $145\text{ }\mu\text{W}$). |
@@ -40,6 +41,7 @@ Cảm biến **Keyence LR-ZB Series** hoạt động dựa trên nguyên lý tam
 | **Điện áp cấp nguồn** | $10 \div 30\text{V (DC)}$ (bao gồm độ gợn sóng $10\%\text{ ripple P-P}$). |
 | **Cấp bảo vệ vỏ ngoài** | **IP68** (IEC60529) & **IP69K** (DIN40050-9) - Chịu được tia nước áp lực cao và ngâm nước. |
 | **Độ bền cơ học** | Chống rung $10 \div 55\text{ Hz}$ (biên độ kép $1.5\text{ mm}$), chống sốc va đập lên tới $1000\text{ m/s}^2$. |
+</div>
 
 :::danger[3 NGUYÊN TẮC AN TOÀN BẮT BUỘC KHI LẮP ĐẶT]
 1. **KHÔNG DÙNG LÀM CẢM BIẾN AN TOÀN BẢO VỆ CON NGƯỜI**: Keyence LR-ZB là cảm biến phát hiện vật thể công nghiệp, tuyệt đối không sử dụng làm thiết bị dừng khẩn cấp hay bảo vệ an toàn tính mạng theo chuẩn OSHA/ISO 13849.
@@ -57,14 +59,16 @@ Tùy vào cự ly công nghệ của trạm máy và hệ thống điều khiể
 
 ![Ma trận phân loại thiết bị và khoảng cách phát hiện Keyence LR-ZB](./img/keyence-lrz-2/03-ma-tran-model-khoang-cach.webp)
 
-| Dòng Model | Cự Ly Phát Hiện | Độ Lệch Chuẩn (Standard Deviation) | Kiểu Đấu Dây | Logic Ngõ Ra Transistor |
-| :--- | :--- | :--- | :--- | :--- |
-| **LR-ZB100N** / **LR-ZB100P** | $35 \div 100\text{ mm}$ | $1.5 \div 3\text{ mm}$ | Cáp liền $2\text{m}$ (4 sợi) | NPN (`N`) / PNP (`P`) |
-| **LR-ZB100CN** / **LR-ZB100CP** | $35 \div 100\text{ mm}$ | $1.5 \div 3\text{ mm}$ | Giắc M8 4-chân | NPN (`CN`) / PNP (`CP`) |
-| **LR-ZB100C3P** | $35 \div 100\text{ mm}$ | $1.5 \div 3\text{ mm}$ | Giắc M8 3-chân | PNP (`C3P`) |
-| **LR-ZB250N** / **LR-ZB250P** | $35 \div 250\text{ mm}$ | $9 \div 25\text{ mm}$ | Cáp liền $2\text{m}$ (4 sợi) | NPN (`N`) / PNP (`P`) |
-| **LR-ZB250CN** / **LR-ZB250CP** | $35 \div 250\text{ mm}$ | $9 \div 25\text{ mm}$ | Giắc M8 4-chân | NPN (`CN`) / PNP (`CP`) |
-| **LR-ZB250C3P** | $35 \div 250\text{ mm}$ | $9 \div 25\text{ mm}$ | Giắc M8 3-chân | PNP (`C3P`) |
+<div className="w-full overflow-x-auto my-6 sm:text-sm text-[10px]">
+  | Dòng Model | Cự Ly Phát Hiện | Độ Lệch Chuẩn (Standard Deviation) | Kiểu Đấu Dây | Logic Ngõ Ra Transistor |
+  | :--- | :--- | :--- | :--- | :--- |
+  | **LR-ZB100N** / **LR-ZB100P** | $35 \div 100\text{ mm}$ | $1.5 \div 3\text{ mm}$ | Cáp liền $2\text{m}$ (4 sợi) | NPN (`N`) / PNP (`P`) |
+  | **LR-ZB100CN** / **LR-ZB100CP** | $35 \div 100\text{ mm}$ | $1.5 \div 3\text{ mm}$ | Giắc M8 4-chân | NPN (`CN`) / PNP (`CP`) |
+  | **LR-ZB100C3P** | $35 \div 100\text{ mm}$ | $1.5 \div 3\text{ mm}$ | Giắc M8 3-chân | PNP (`C3P`) |
+  | **LR-ZB250N** / **LR-ZB250P** | $35 \div 250\text{ mm}$ | $9 \div 25\text{ mm}$ | Cáp liền $2\text{m}$ (4 sợi) | NPN (`N`) / PNP (`P`) |
+  | **LR-ZB250CN** / **LR-ZB250CP** | $35 \div 250\text{ mm}$ | $9 \div 25\text{ mm}$ | Giắc M8 4-chân | NPN (`CN`) / PNP (`CP`) |
+  | **LR-ZB250C3P** | $35 \div 250\text{ mm}$ | $9 \div 25\text{ mm}$ | Giắc M8 3-chân | PNP (`C3P`) |
+</div>
 
 :::note[Lưu Ý Quan Trọng Về Biến Thể C3P]
 Model có đuôi mã **`C3P`** sử dụng giắc cắm M8 3-chân rút gọn (chỉ gồm chân nguồn dương `+V`, nguồn âm `0V` và ngõ ra `OUT`). Phiên bản này **không hỗ trợ chân tín hiệu điều khiển ngoài (External Input - Chân Trắng)**.
@@ -91,12 +95,14 @@ Cảm biến Keyence LR-ZB trang bị ngõ ra transistor cực thu hở (**Open 
 
 ### Bảng định danh chân giắc M8 & Màu dây cáp:
 
-| Thứ Tự Chân Giắc M8 | Màu Cáp Liền | Ký Hiệu Tín Hiệu | Chức Năng Chi Tiết |
-| :---: | :---: | :---: | :--- |
-| **Chân 1** | **Nâu (Brown)** | `10-30 VDC` | Cấp nguồn dương cho cảm biến từ bộ nguồn tủ điện. |
-| **Chân 2** | **Trắng (White)** | `IN (External Input)` | Ngõ vào đa năng: Hiệu chuẩn ngoài (xung $> 35\text{ ms}$) hoặc Dừng phát laser (xung $> 2\text{ ms}$). |
-| **Chân 3** | **Xanh dương (Blue)** | `0V (GND)` | Cấp nguồn âm chung với hệ thống điều khiển. |
-| **Chân 4** | **Đen (Black)** | `OUT (Control Output)` | Tín hiệu kích hoạt điều khiển (Dòng tải $I_{\max} \le 100\text{ mA}$). |
+<div className="w-full overflow-x-auto my-6 sm:text-sm text-[10px]">
+  | Thứ Tự Chân Giắc M8 | Màu Cáp Liền | Ký Hiệu Tín Hiệu | Chức Năng Chi Tiết |
+  | :---: | :---: | :---: | :--- |
+  | **Chân 1** | **Nâu (Brown)** | `10-30 VDC` | Cấp nguồn dương cho cảm biến từ bộ nguồn tủ điện. |
+  | **Chân 2** | **Trắng (White)** | `IN (External Input)` | Ngõ vào đa năng: Hiệu chuẩn ngoài (xung $> 35\text{ ms}$) hoặc Dừng phát laser (xung $> 2\text{ ms}$). |
+  | **Chân 3** | **Xanh dương (Blue)** | `0V (GND)` | Cấp nguồn âm chung với hệ thống điều khiển. |
+  | **Chân 4** | **Đen (Black)** | `OUT (Control Output)` | Tín hiệu kích hoạt điều khiển (Dòng tải $I_{\max} \le 100\text{ mA}$). |
+</div>
 
 ### Phân biệt bản chất mạch điện tử NPN và PNP:
 * **Mạch NPN (Cực thu hở - Sink Type)**: Ngõ ra chân Đen sẽ đóng xuống mass ($0\text{V}$) khi dẫn điện. Tải nối ngoài (cuộn hút rơ-le hoặc ngõ vào PLC kiểu Source) được nối giữa chân Đen (OUT) và cực dương `10-30 VDC`.
@@ -223,11 +229,13 @@ Khác với các cảm biến quang điện thu phát thông thường, Keyence 
 
 ![Sơ đồ cấu hình Menu nâng cao phần 2 về Shift Hold và Clamp](./img/keyence-lrz-2/11-menu-cai-dat-hien-thi-shift-hold-clamp.webp)
 
-| Tên Tham Số | Mã Hiển Thị | Các Tùy Chọn Cấu Hình | Ý Nghĩa Thực Tế & Lời Khuyên Ứng Dụng |
-| :--- | :---: | :---: | :--- |
-| **Shift Function** *(Dịch chuyển hiển thị)* | **`S_F`** | **`on`** (Mặc định) <br/> **`oFF`** | Khi `on`, cảm biến sẽ tự động dịch chuyển điểm tham chiếu về mốc $0$ tương đối tại vị trí vừa hiệu chuẩn, giúp giá trị khoảng cách hiển thị trực quan và dễ theo dõi độ lệch. |
-| **Hold Function** *(Lưu giữ giá trị đo)* | **`HLd`** | **`oFF`** (Mặc định) <br/> **`P_H`** (Peak Hold) <br/> **`b_H`** (Bottom Hold) | • `P_H` *(Peak Hold)*: Cố định và lưu giữ lại giá trị khoảng cách cao nhất nhận được.<br/>• `b_H` *(Bottom Hold)*: Cố định và lưu giữ lại giá trị khoảng cách thấp nhất nhận được. |
-| **Clamp Function** *(Kẹp giữ trạng thái)* | **`cLP`** | **`oFF`** (Mặc định) <br/> **`on`** | Khi bật sang `on`, nếu cảm biến bị mất hoàn toàn tín hiệu phản xạ (chùm tia bắn ra không gian trống vô cực), hệ thống sẽ **giữ nguyên trạng thái hiển thị và tín hiệu ngõ ra trước đó** thay vì chuyển sang trạng thái lỗi ngắt tức thì. |
+<div className="w-full overflow-x-auto my-6 sm:text-sm text-[10px]">
+  | Tên Tham Số | Mã Hiển Thị | Các Tùy Chọn Cấu Hình | Ý Nghĩa Thực Tế & Lời Khuyên Ứng Dụng |
+  | :--- | :---: | :---: | :--- |
+  | **Shift Function** *(Dịch chuyển hiển thị)* | **`S_F`** | **`on`** (Mặc định) <br/> **`oFF`** | Khi `on`, cảm biến sẽ tự động dịch chuyển điểm tham chiếu về mốc $0$ tương đối tại vị trí vừa hiệu chuẩn, giúp giá trị khoảng cách hiển thị trực quan và dễ theo dõi độ lệch. |
+  | **Hold Function** *(Lưu giữ giá trị đo)* | **`HLd`** | **`oFF`** (Mặc định) <br/> **`P_H`** (Peak Hold) <br/> **`b_H`** (Bottom Hold) | • `P_H` *(Peak Hold)*: Cố định và lưu giữ lại giá trị khoảng cách cao nhất nhận được.<br/>• `b_H` *(Bottom Hold)*: Cố định và lưu giữ lại giá trị khoảng cách thấp nhất nhận được. |
+  | **Clamp Function** *(Kẹp giữ trạng thái)* | **`cLP`** | **`oFF`** (Mặc định) <br/> **`on`** | Khi bật sang `on`, nếu cảm biến bị mất hoàn toàn tín hiệu phản xạ (chùm tia bắn ra không gian trống vô cực), hệ thống sẽ **giữ nguyên trạng thái hiển thị và tín hiệu ngõ ra trước đó** thay vì chuyển sang trạng thái lỗi ngắt tức thì. |
+</div>
 
 ---
 
@@ -263,14 +271,16 @@ Khi vận hành thực tế tại nhà máy, màn hình LED của cảm biến c
 
 ![Ma trận chẩn đoán và khắc phục sự cố cảm biến Keyence LR-ZB](./img/keyence-lrz-2/14-ma-tran-chan-doan-su-co-ma-loi.webp)
 
-| Mã Hiển Thị LED | Phân Loại Vấn Đề (Issue) | Nguyên Nhân Cốt Lõi | Biện Pháp Khắc Phục Xử Lý (Remedy) |
-| :---: | :--- | :--- | :--- |
-| **`ErC`** | **Quá dòng ngõ ra điều khiển** *(Dòng điện vượt quá $100\text{ mA}$)* | Chập cáp ngõ ra đen (OUT) sang nguồn dương/âm, hoặc tải relay/solenoid tiêu thụ dòng quá lớn. Khi này mạch bảo vệ sẽ tự động cắt ngắt ngõ ra (*Control Output OFF*). | Tắt nguồn kiểm tra chạm chập dây dẫn. Kiểm tra nội trở của tải ngoài đảm bảo $I \le 100\text{ mA}$. |
-| **`ErS`** / **`ErE`** / **`ErL`** | **Lỗi phần cứng hệ thống đặc biệt** | • `ErS`: Lỗi vi xử lý CPU.<br/>• `ErE`: Hỏng chip nhớ EEPROM.<br/>• `ErL`: Hỏng hoặc suy giảm Diode phát Laser. | Thử khôi phục cài đặt gốc (`ini`). Nếu vẫn xuất hiện lỗi, bắt buộc liên hệ đại diện Keyence để gửi bảo hành thay thế thiết bị. |
-| **`uuu`** | **Ánh sáng phản xạ quá mạnh** *(Chói cảm quang CMOS)* | Chùm tia laser chiếu vuông góc góc $90^\circ$ vào bề mặt gương kính, inox gương hoặc chi tiết kim loại bóng mạ crom. | **Nghiêng cảm biến một góc $5^\circ \div 10^\circ$** so với phương vuông góc bề mặt để phân tán tia phản xạ gương. |
-| **`---`** | **Ánh sáng phản xạ không đủ** | Bề mặt vật thể quá tối (vật màu đen hấp thụ quang) hoặc vật nằm vượt quá cự ly phát hiện tối đa ($100\text{ mm}$ hoặc $250\text{ mm}$). | Kiểm tra lại khoảng cách lắp đặt thực tế, đưa cảm biến lại gần hơn hoặc chuyển sang dùng chế độ hiệu chuẩn Datum FGS. |
-| **` -FF`** | **Vật thể nằm ngoài phạm vi hiển thị** | Điểm đo vượt quá cự ly giới hạn dải số cho phép hiển thị của màn hình. | Di chuyển vật lại gần hơn hoặc tắt chức năng dịch chuyển tọa độ Shift (`S_F = oFF`). |
-| **`Loc`** | **Bàn phím đang bị khóa** | Tính năng Key Lock đang được bật bảo vệ. | Nhấn giữ đồng thời hai phím `[UP] + [DOWN] > 3s` để mở khóa bàn phím (`unL`). |
+<div className="w-full overflow-x-auto my-6 sm:text-sm text-[10px]">
+  | Mã Hiển Thị LED | Phân Loại Vấn Đề (Issue) | Nguyên Nhân Cốt Lõi | Biện Pháp Khắc Phục Xử Lý (Remedy) |
+  | :---: | :--- | :--- | :--- |
+  | **`ErC`** | **Quá dòng ngõ ra điều khiển** *(Dòng điện vượt quá $100\text{ mA}$)* | Chập cáp ngõ ra đen (OUT) sang nguồn dương/âm, hoặc tải relay/solenoid tiêu thụ dòng quá lớn. Khi này mạch bảo vệ sẽ tự động cắt ngắt ngõ ra (*Control Output OFF*). | Tắt nguồn kiểm tra chạm chập dây dẫn. Kiểm tra nội trở của tải ngoài đảm bảo $I \le 100\text{ mA}$. |
+  | **`ErS`** / **`ErE`** / **`ErL`** | **Lỗi phần cứng hệ thống đặc biệt** | • `ErS`: Lỗi vi xử lý CPU.<br/>• `ErE`: Hỏng chip nhớ EEPROM.<br/>• `ErL`: Hỏng hoặc suy giảm Diode phát Laser. | Thử khôi phục cài đặt gốc (`ini`). Nếu vẫn xuất hiện lỗi, bắt buộc liên hệ đại diện Keyence để gửi bảo hành thay thế thiết bị. |
+  | **`uuu`** | **Ánh sáng phản xạ quá mạnh** *(Chói cảm quang CMOS)* | Chùm tia laser chiếu vuông góc góc $90^\circ$ vào bề mặt gương kính, inox gương hoặc chi tiết kim loại bóng mạ crom. | **Nghiêng cảm biến một góc $5^\circ \div 10^\circ$** so với phương vuông góc bề mặt để phân tán tia phản xạ gương. |
+  | **`---`** | **Ánh sáng phản xạ không đủ** | Bề mặt vật thể quá tối (vật màu đen hấp thụ quang) hoặc vật nằm vượt quá cự ly phát hiện tối đa ($100\text{ mm}$ hoặc $250\text{ mm}$). | Kiểm tra lại khoảng cách lắp đặt thực tế, đưa cảm biến lại gần hơn hoặc chuyển sang dùng chế độ hiệu chuẩn Datum FGS. |
+  | **` -FF`** | **Vật thể nằm ngoài phạm vi hiển thị** | Điểm đo vượt quá cự ly giới hạn dải số cho phép hiển thị của màn hình. | Di chuyển vật lại gần hơn hoặc tắt chức năng dịch chuyển tọa độ Shift (`S_F = oFF`). |
+  | **`Loc`** | **Bàn phím đang bị khóa** | Tính năng Key Lock đang được bật bảo vệ. | Nhấn giữ đồng thời hai phím `[UP] + [DOWN] > 3s` để mở khóa bàn phím (`unL`). |
+</div>
 
 ---
 
