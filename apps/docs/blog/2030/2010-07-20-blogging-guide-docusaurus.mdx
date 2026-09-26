@@ -172,6 +172,22 @@ Do MDX tự động hiểu các dấu ngoặc nhọn `{}` là mã code JavaScrip
 Bạn nên tạo một thư mục ảnh cục bộ nằm cùng cấp với file bài viết để dễ quản lý.
 *   Cú pháp: `![Mô tả ảnh](./img/ten-anh.png)`
 
+*   Cú pháp dùng JSX với component `<DocImage>` hoặc thẻ `<img>`:
+
+```javascript
+<img 
+    src={require('./img/keyence-lrz-2/keyence-reset.png')} 
+    alt="Quy trình khôi phục cài đặt gốc Keyence LR-Z" 
+    width="450" 
+/>
+
+<DocImage 
+    src={require('./img/keyence-lrz-2/keyence-reset.png')} 
+    alt="Quy trình khôi phục cài đặt gốc Keyence LR-Z" 
+    width="450"
+/>
+
+```
 #### Tạo liên kết nội bộ (Link qua lại giữa các bài viết)
 Hãy dùng đường dẫn tương đối trỏ trực tiếp đến file `.mdx` nguồn. Docusaurus sẽ tự động chuyển đổi nó thành URL hoàn chỉnh và kiểm tra xem link có bị hỏng (broken link) khi build hay không.
 *   Cú pháp: `[Xem thêm công thức dòng điện](./2026-07-18-top-5-cong-thu-dien.mdx)`
@@ -179,6 +195,31 @@ Hãy dùng đường dẫn tương đối trỏ trực tiếp đến file `.mdx`
 #### Tạo liên kết đến trang công cụ (Tool của dự án)
 Nếu muốn dẫn link từ blog sang trang Tool tiện ích nằm trong monorepo, hãy sử dụng tiền tố `pathname:///` để tránh Docusaurus hiểu lầm là link ảo của Single Page App.
 *   Cú pháp: `[Bộ công cụ Data Converter](pathname:///shareme/tools/)`
+
+### 3.6. Tạo và fix nội dung trong table sử
+Bộc 1 thẻ `<div>` sao đó thêm stlye custom vào để responsive với các thiết bị khác nhau.
+```javascript {1,9} title="Table custom size"
+<div className="w-full overflow-x-auto my-6 sm:text-sm text-[10px]">
+| Thông Số Kỹ Thuật | Giá Trị & Quy Chuẩn Tiêu Chuẩn |
+| :--- | :--- |
+| **Nguồn phát quang** | Laser bán dẫn màu đỏ ($\lambda = 660\text{ nm}$, công suất đỉnh $145\text{ }\mu\text{W}$). |
+| **Cấp an toàn Laser** | **Class 1** (theo chuẩn quốc tế IEC60825-1 và FDA(CDRH) Part 1040.10). |
+| **Điện áp cấp nguồn** | $10 \div 30\text{V (DC)}$ (bao gồm độ gợn sóng $10\%\text{ ripple P-P}$). |
+| **Cấp bảo vệ vỏ ngoài** | **IP68** (IEC60529) & **IP69K** (DIN40050-9) - Chịu được tia nước áp lực cao và ngâm nước. |
+| **Độ bền cơ học** | Chống rung $10 \div 55\text{ Hz}$ (biên độ kép $1.5\text{ mm}$), chống sốc va đập lên tới $1000\text{ m/s}^2$. |
+</div>
+```
+* Kết quả
+
+<div className="w-full overflow-x-auto my-6 sm:text-sm text-[10px]">
+| Thông Số Kỹ Thuật | Giá Trị & Quy Chuẩn Tiêu Chuẩn |
+| :--- | :--- |
+| **Nguồn phát quang** | Laser bán dẫn màu đỏ ($\lambda = 660\text{ nm}$, công suất đỉnh $145\text{ }\mu\text{W}$). |
+| **Cấp an toàn Laser** | **Class 1** (theo chuẩn quốc tế IEC60825-1 và FDA(CDRH) Part 1040.10). |
+| **Điện áp cấp nguồn** | $10 \div 30\text{V (DC)}$ (bao gồm độ gợn sóng $10\%\text{P-P}$). |
+| **Cấp bảo vệ vỏ ngoài** | **IP68** (IEC60529) & **IP69K** (DIN40050-9) - Chịu được tia nước áp lực cao và ngâm nước. |
+| **Độ bền cơ học** | Chống rung $10 \div 55\text{ Hz}$ (biên độ kép $1.5\text{ mm}$), chống sốc va đập lên tới $1000\text{ m/s}^2$. |
+</div>
 
 ---
 

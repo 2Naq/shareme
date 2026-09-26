@@ -257,12 +257,16 @@ Khác với các cảm biến quang điện thu phát thông thường, Keyence 
 Thao tác khôi phục cài đặt gốc sẽ xóa sạch mọi thông số hiệu chuẩn độ nhạy, thiết lập ngõ ra và giá trị timer đã lưu, đưa cảm biến về trạng thái nguyên bản xuất xưởng.
 :::
 
-**Quy trình thực hiện**:
-  1. Tại màn hình *Run Mode*, nhấn và **giữ phím `[MODE]`**.
-  2. Trong khi ngón tay vẫn đang giữ phím `[MODE]`, **nhấn phím `[DOWN]` liên tục 5 lần (`x5`)**.
-  3. Màn hình sẽ chuyển sang trạng thái xác nhận và hiển thị mã **`ini`** (*Initialize*).
-  4. Nhấn phím `[UP]` hoặc `[DOWN]` để chọn giữa **`ini`** (Tiến hành khôi phục) hoặc **`non`** (Hủy bỏ), sau đó nhấn phím `[MODE]` để xác nhận.
+<DocImage src={require('./img/keyence-lrz-2/keyence-reset.png')} alt="Quy trình khôi phục cài đặt gốc Keyence LR-Z" width="450" />
 
+**Quy trình thực hiện**:
+  1. Tại màn hình *Run Mode*, nhấn và **giữ phím `[DOWN/MODE]`**.
+  2. Trong khi ngón tay vẫn đang giữ phím `[DOWN]`, **nhấn phím `[UP]` liên tục 5 lần (`x5`)**.
+  3. Màn hình sẽ chuyển sang trạng thái xác nhận và hiển thị mã **`rSt`** (*Initialize*).
+  4. Nhấn phím `[UP]` để chọn giữa **`no`** (Not initialize) hoặc **`yes`** (Initialize), sau đó nhấn phím `[DOWN]` để xác nhận.
+
+**Thông số mặc định xuất xưởng của cảm biến Keyence LR-ZB**:
+<DocImage src={require('./img/keyence-lrz-2/keyence-default-settings.png')} alt="Cài đặt gốc Keyence LR-Z" width="450" />
 ---
 
 ## 8. Ma Trận Chẩn Đoán & Khắc Phục Sự Cố (Troubleshooting)
