@@ -1,0 +1,32 @@
+---
+id: "chuong-7-sdo-ethercat-8-08"
+title: "Chương 7: LỆNH TRUYỀN THÔNG SDO QUA MẠNG BUS ETHERCAT (8.08 SDO)"
+sidebar_position: 8
+sidebar_label: "7. Lệnh SDO EtherCAT (8.08)"
+tags: [wecon, lx6v, lx6a, motion-control, plcopen]
+description: "Hướng dẫn kỹ thuật chuẩn hãng Chương 7: LỆNH TRUYỀN THÔNG SDO QUA MẠNG BUS ETHERCAT (8.08 SDO) trên PLC Wecon LX6V / LX6A."
+---
+
+## CHƯƠNG 7: LỆNH TRUYỀN THÔNG SDO QUA MẠNG BUS ETHERCAT (8.08 SDO)
+
+Khi sử dụng Servo qua chuẩn Bus EtherCAT/CANopen, ngoài việc truyền nhận dữ liệu chu kỳ nhanh (PDO) để chạy Motion, kỹ sư cần đọc/ghi các thông số cấu hình của Drive (Object Dictionary) bằng lệnh SDO:
+
+```
+Lệnh Đọc SDO:  -[ MC_READSDO   (S1) (S2) (S3) (D1) (S4) ]-
+Lệnh Ghi SDO:  -[ MC_WRITESDO  (S1) (S2) (S3) (S4) (S5) ]-
+```
+
+### Bảng Định Nghĩa Tham Số Lệnh SDO
+
+| Ký Hiệu | Ý Nghĩa Kỹ Thuật | Kiểu Dữ Liệu | Giải Thích Chi Tiết |
+| :---: | :--- | :---: | :--- |
+| **(S1)** | Index của Object Dictionary | ANY16_U (WORD) | Ví dụ: `16#6040` (Controlword), `16#6060` (Modes of Operation). |
+| **(S2)** | Sub-index của Object Dictionary | ANY16_U (WORD) | Chỉ mục con của tham số trong Servo. |
+| **(S3)** | Độ dài dữ liệu (Số Byte) | ANY16_U (WORD) | 1 Byte (USINT), 2 Byte (UINT), 4 Byte (UDINT). |
+| **(D1)** | Thiết bị lưu trữ kết quả đọc | M, D, R, SD... | Thanh ghi PLC nhận dữ liệu trả về từ Servo. |
+| **(S4 / S5)** | Số trạm Servo (Servo Station No) | ANY16_S (INT) | Địa chỉ Node vật lý của Servo trên tuyến mạng EtherCAT. |
+
+> [!WARNING]
+> Nếu tham số trong từ điển đối tượng (Object Dictionary) đã được ánh xạ (Mapped) vào chu kỳ trao đổi dữ liệu nhanh (RxPDO / TxPDO), một số dòng Servo sẽ khóa quyền đọc/ghi qua SDO và báo lỗi truyền thông.
+
+---

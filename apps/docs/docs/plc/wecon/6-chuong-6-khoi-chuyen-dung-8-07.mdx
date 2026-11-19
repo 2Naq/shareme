@@ -1,0 +1,29 @@
+---
+id: "chuong-6-khoi-chuyen-dung-8-07"
+title: "Chương 6: CÁC KHỐI HÀM ĐẶC BIỆT (8.07 OTHER SPECIAL FBS)"
+sidebar_position: 7
+sidebar_label: "6. Khối chuyên dụng (8.07)"
+tags: [wecon, lx6v, lx6a, motion-control, plcopen]
+description: "Hướng dẫn kỹ thuật chuẩn hãng Chương 6: CÁC KHỐI HÀM ĐẶC BIỆT (8.07 OTHER SPECIAL FBS) trên PLC Wecon LX6V / LX6A."
+---
+
+## CHƯƠNG 6: CÁC KHỐI HÀM ĐẶC BIỆT (8.07 OTHER SPECIAL FBS)
+
+Bao gồm các chế độ điều khiển mở rộng dùng cho các ứng dụng chuyên thù:
+
+1. **MC_MOVEJOG:** Khối chạy nhấp bằng tay (Manual JOG).
+   - Tín hiệu `EnablePositive`: Nhấn giữ chạy thuận.
+   - Tín hiệu `EnableNegative`: Nhấn giữ chạy nghịch.
+   - Tự động áp dụng gia tốc tăng/giảm tốc mượt mà.
+2. **MC_MOVEVELOCITY:** Điều khiển chạy liên tục theo vận tốc (Speed Control Mode).
+   - Trục tăng tốc đến `Velocity` và duy trì liên tục cho đến khi gặp lệnh Stop/Halt. Ngõ ra `InVelocity = TRUE` khi đạt vận tốc cài đặt.
+3. **MC_COMBINEAXES:** Khối tổng hợp chuyển động từ 2 trục chủ (Master 1 và Master 2) để điều khiển 1 trục tớ theo hàm số học (Cộng/Trừ vận tốc/vị trí).
+4. **Các Khối Điều Khiển Lực Căng & Chế Độ Bus CiA402 Nâng Cao:**
+   - **MC_SETTORQUE / MC_TORQUECONTROL:** Điều khiển và duy trì lực xoắn (Torque/Lực căng cuộn/xả màng).
+   - **MC_MOVEVELOCITY_CSV:** Chạy chế độ Cyclic Synchronous Velocity qua EtherCAT.
+   - **MC_SYNCMOVEVELOCITY:** Đồng bộ vận tốc chu kỳ.
+   - **MC_MOVEABSRELPP:** Điều khiển vị trí Profile Position (PP mode).
+   - **MC_MOVEVELOCITYPV:** Điều khiển vận tốc Profile Velocity (PV mode).
+   - **MC_TORQUECONTROLPT:** Điều khiển lực xoắn Profile Torque (PT mode).
+
+---

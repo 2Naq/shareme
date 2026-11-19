@@ -1,0 +1,74 @@
+---
+id: "chuong-1-kien-truc-plcopen"
+title: "Chương 1: KIẾN TRÚC MOTION CONTROL & MÔ HÌNH TRẠNG THÁI PLCOPEN"
+sidebar_position: 2
+sidebar_label: "1. Kiến trúc & Máy trạng thái"
+tags: [wecon, lx6v, lx6a, motion-control, plcopen]
+description: "Hướng dẫn kỹ thuật chuẩn hãng Chương 1: KIẾN TRÚC MOTION CONTROL & MÔ HÌNH TRẠNG THÁI PLCOPEN trên PLC Wecon LX6V / LX6A."
+---
+
+## CHƯƠNG 1: KIẾN TRÚC MOTION CONTROL & MÔ HÌNH TRẠNG THÁI PLCOPEN
+
+### 1.1. Kiến Trúc Trục Logic (Logical Axis Concept)
+Trong môi trường WECON PLC Editor 2, hệ thống điều khiển vị trí không can thiệp trực tiếp vào phần cứng vật lý ở tầng dưới cùng mà quản lý thông qua khái niệm **Trục Logic (Axis Reference)**:
+- **Trục Bus EtherCAT (CiA402 Profile):** Kết nối Servo thông qua mạng truyền thông thời gian thực EtherCAT.
+- **Trục Phát Xung Nội Bộ (Local Pulse Axis):** Sử dụng các ngõ ra transistor tốc độ cao tích hợp trên CPU PLC (Y0/Y1: ID 0, Y2/Y3: ID 1, Y4/Y5: ID 2, Y6/Y7: ID 3).
+- **Trục Ảo (Virtual Axis):** Trục không liên kết phần cứng vật lý, thường dùng làm Trục Chủ (Master Axis) cho cấu hình Cam hoặc Gear điện tử.
+
+```mermaid
+graph TD
+    UserApp["Chương Trình Ứng Dụng (Ladder / ST)"] --> PLCopen["Thư Viện Khối Hàm Chuẩn PLCopen (MC_xxx)"]
+    PLCopen --> AxisInterface["Lớp Giao Tiếp Trục Logic (Axis / AXIS_INFO_T)"]
+    AxisInterface --> EtherCAT["Driver Bus EtherCAT (CiA402)"]
+    AxisInterface --> LocalPulse["Bộ Phát Xung Phần Cứng (Y0 - Y7)"]
+    AxisInterface --> VirtualAxis["Trục Ảo (Master Sync Axis)"]
+```
+
+### 1.2. Mô Hình Trạng Thái Trục Đơn (Single-Axis State Machine)
+Mọi hành vi chuyển động của từng trục phải tuân thủ nghiêm ngặt biểu đồ trạng thái chuẩn PLCopen Part 1/Part 2 do WECON định nghĩa:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Disabled
+    Disabled --> StandStill: MC_Power.Enable = TRUE && Status = TRUE
+    StandStill --> Disabled: MC_Power.Enable = FALSE
+    
+    StandStill --> Homing: MC_Home.Execute (Cạnh lên)
+    Homing --> StandStill: MC_Home.Done = TRUE
+    
+    StandStill --> DiscreteMotion: MC_MoveAbsolute / MC_MoveRelative
+    DiscreteMotion --> StandStill: Done = TRUE
+    DiscreteMotion --> ContinuousMotion: MC_MoveVelocity
+    
+    StandStill --> ContinuousMotion: MC_MoveVelocity.Execute
+    ContinuousMotion --> DiscreteMotion: MC_MoveAbsolute / Relative
+    
+    StandStill --> SynchronizedMotion: MC_GearIn / MC_CamIn
+    DiscreteMotion --> SynchronizedMotion: MC_GearIn / MC_CamIn
+    ContinuousMotion --> SynchronizedMotion: MC_GearIn / MC_CamIn
+    SynchronizedMotion --> StandStill: MC_GearOut / MC_CamOut
+    
+    DiscreteMotion --> Stopping: MC_Stop.Execute = TRUE
+    ContinuousMotion --> Stopping: MC_Stop.Execute = TRUE
+    SynchronizedMotion --> Stopping: MC_Stop.Execute = TRUE
+    StandStill --> Stopping: MC_Stop.Execute = TRUE
+    Stopping --> StandStill: MC_Stop.Done = TRUE && MC_Stop.Execute = FALSE
+    
+    Disabled --> ErrorStop: Lỗi Phần Cứng / Drive Fault
+    StandStill --> ErrorStop: Lỗi Trục Phát Sinh
+    DiscreteMotion --> ErrorStop: Quá Giới Hạn / Lỗi Trục
+    ContinuousMotion --> ErrorStop: Quá Giới Hạn / Lỗi Trục
+    SynchronizedMotion --> ErrorStop: Lỗi Trục Đồng Bộ
+    Stopping --> ErrorStop: Lỗi Khi Đang Dừng
+    
+    ErrorStop --> StandStill: MC_Reset.Done = TRUE (Khi Enable=TRUE)
+    ErrorStop --> Disabled: MC_Reset.Done = TRUE (Khi Enable=FALSE)
+```
+
+> [!IMPORTANT]
+> **Quy tắc sư phạm cốt lõi khi giảng dạy:**
+> 1. Trục chỉ có thể nhận lệnh chuyển động (`MC_Move...`, `MC_Home`) khi đang ở trạng thái **StandStill**.
+> 2. Khi đang ở trạng thái **Stopping**, trục bị khóa hoàn toàn, mọi lệnh chuyển động khác đều bị từ chối cho đến khi `MC_Stop.Done = TRUE` **VÀ** tín hiệu `MC_Stop.Execute` hạ xuống mức `FALSE`.
+> 3. Khi trục rơi vào **ErrorStop**, việc duy nhất cần làm là khắc phục nguyên nhân sự cố rồi kích hoạt `MC_Reset`.
+
+---

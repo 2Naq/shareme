@@ -1,0 +1,43 @@
+---
+id: "chuong-5-nhom-truc-noi-suy-8-05-8-06"
+title: "Chương 5: QUẢN TRỊ & NỘI SUY NHÓM TRỤC - AXIS GROUP (8.05 & 8.06)"
+sidebar_position: 6
+sidebar_label: "5. Nhóm trục & Nội suy (8.05 & 8.06)"
+tags: [wecon, lx6v, lx6a, motion-control, plcopen]
+description: "Hướng dẫn kỹ thuật chuẩn hãng Chương 5: QUẢN TRỊ & NỘI SUY NHÓM TRỤC - AXIS GROUP (8.05 & 8.06) trên PLC Wecon LX6V / LX6A."
+---
+
+## CHƯƠNG 5: QUẢN TRỊ & NỘI SUY NHÓM TRỤC - AXIS GROUP (8.05 & 8.06)
+
+Dành cho các ứng dụng cơ cấu nhiều bậc tự do như Robot Cartesian, máy khắc CNC, máy gắp đặt Pick & Place (2 trục X-Y hoặc 3 trục X-Y-Z).
+
+### 5.1. Khối Quản Trị Nhóm Trục (8.05 Axis Group Management)
+- **MC_GROUPENABLE:** Cấp nguồn và chuyển nhóm trục từ `GroupDisabled` sang `GroupStandby`.
+- **MC_GROUPDISABLE:** Vô hiệu hóa nhóm trục.
+- **MC_GROUPRESET:** Xóa lỗi nhóm trục khi rơi vào `GroupErrorStop`.
+- **MC_GROUPSTOP / MC_GROUPHALT (8.06):** Dừng khẩn cấp hoặc tạm dừng chuyển động phối hợp cả nhóm trục.
+- **MC_GROUPREADSTATUS:** Đọc trạng thái tổng thể của nhóm.
+- **MC_REMOVEAXISFROMGROUP & MC_UNGROUPALLAXES:** Tách một hoặc toàn bộ các trục vật lý ra khỏi nhóm.
+
+---
+
+### 5.2. Các Khối Hàm Nội Suy Nhóm Trục (8.06 Group Motion FBs)
+
+#### 1. Nội Suy Tuyến Tính (Linear Interpolation)
+- **MC_MOVELINEARABSOLUTE:** Di chuyển đầu gắp đến tọa độ không gian tuyệt đối `[X, Y, Z]` theo đường thẳng với vận tốc tiếp tuyến `Velocity`.
+- **MC_MOVELINEARRELATIVE:** Di chuyển đường thẳng theo khoảng dời không gian `[ΔX, ΔY, ΔZ]`.
+
+#### 2. Nội Suy Cung Tròn (Circular Interpolation)
+- **MC_MOVECIRCULARABSOLUTE / MC_MOVECIRCULARRELATIVE:** Di chuyển đầu công cụ theo cung tròn trong không gian.
+Hệ thống WECON hỗ trợ 3 chế độ vẽ cung tròn thông qua tham số `CircMode`:
+
+| Chế Độ (`CircMode`) | Tên Gọi | Cách Xác Định Quỹ Đạo | Đặc Điểm Giảng Dạy |
+| :---: | :--- | :--- | :--- |
+| **0** | **Border (Biên qua 3 điểm)** | Điểm bắt đầu $\to$ Điểm phụ `AuxPoint` $\to$ Điểm kết thúc `EndPoint`. | Trực quan, dễ dạy cho sinh viên; góc ôm cung tròn bắt buộc ``< 2π``. |
+| **1** | **Circle Center (Tâm đường tròn)** | Điểm bắt đầu $\to$ Tọa độ tâm tròn `AuxPoint` $\to$ Điểm kết thúc. Chọn chiều quay `CW` hoặc `CCW`. | Chuẩn phổ biến của lệnh G-code G02/G03 trong CNC máy công cụ; góc không được đúng bằng $\pi$. |
+| **2** | **Diameter (Vectơ pháp tuyến)** | Điểm bắt đầu, điểm kết thúc và vectơ pháp tuyến vuông góc với mặt phẳng chứa cung tròn. | Dùng trong không gian 3D phức tạp; chiều dài vectơ xác định bán kính. |
+
+#### 3. Chuyển Động Trực Tiếp Không Nội Suy (Direct Motion)
+- **MC_MOVEDIRECTABSOLUTE / MC_MOVEDIRECTRELATIVE:** Từng trục tự chạy độc lập tới đích với vận tốc riêng mà không ép buộc đầu công cụ phải đi theo đường thẳng (chạy dạng Point-to-Point nhanh nhất để tiết kiệm thời gian di chuyển trong không gian trống).
+
+---

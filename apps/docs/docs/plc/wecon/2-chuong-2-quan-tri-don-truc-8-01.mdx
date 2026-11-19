@@ -1,0 +1,88 @@
+---
+id: "chuong-2-quan-tri-don-truc-8-01"
+title: "Chương 2: KHỐI HÀM QUẢN TRỊ TRỤC ĐƠN (8.01 SINGLE-AXIS MANAGEMENT FBS)"
+sidebar_position: 3
+sidebar_label: "2. Quản trị đơn trục (8.01)"
+tags: [wecon, lx6v, lx6a, motion-control, plcopen]
+description: "Hướng dẫn kỹ thuật chuẩn hãng Chương 2: KHỐI HÀM QUẢN TRỊ TRỤC ĐƠN (8.01 SINGLE-AXIS MANAGEMENT FBS) trên PLC Wecon LX6V / LX6A."
+---
+
+## CHƯƠNG 2: KHỐI HÀM QUẢN TRỊ TRỤC ĐƠN (8.01 SINGLE-AXIS MANAGEMENT FBS)
+
+Nhóm khối hàm này không trực tiếp sinh ra quỹ đạo chuyển động vật lý mà dùng để cấp nguồn, giám sát, cài đặt vị trí và bắt tín hiệu ngoại vi.
+
+### 2.1. Danh Sách Các Khối Quản Trị
+1. **MC_POWER:** Bật/Tắt nguồn phần mềm cho servo/bộ điều khiển trục.
+2. **MC_READSTATUS:** Đọc trạng thái hoạt động chuẩn PLCopen của trục.
+3. **MC_READMOTIONSTATE:** Đọc trạng thái động học (gia tốc, hãm tốc, tốc độ đều, chiều quay).
+4. **MC_READAXISERROR:** Đọc cờ báo lỗi và mã lỗi chi tiết của trục.
+5. **MC_READAXISINFO:** Đọc thông tin cấu hình phần cứng của trục.
+6. **MC_READPARAMETER:** Đọc giá trị thông số kiểu số thực (LREAL).
+7. **MC_READBOOLPARAMETER:** Đọc giá trị thông số kiểu logic (BOOL).
+8. **MC_READACTUALVELOCITY:** Đọc vận tốc thực tế hiện tại của trục.
+9. **MC_READACTUALPOSITION:** Đọc vị trí thực tế hiện tại của trục.
+10. **MC_RESET:** Reset lỗi phần mềm và giải phóng trạng thái ErrorStop.
+11. **MC_SETPOSITION:** Cài đặt lại vị trí hiện tại (Zero Offset / Calib vị trí).
+12. **MC_TouchProbe:** Bắt vị trí trục tức thời theo ngõ vào cảm biến ngoài cực nhanh.
+13. **MC_AbortTrigger:** Hủy bỏ tác vụ bắt vị trí của TouchProbe.
+
+---
+
+### 2.2. Chi Tiết Thông Số Kỹ Thuật Từng Khối Hàm
+
+#### 1. MC_POWER (Cấp Nguồn Trục)
+*Mục đích:* Công tắc phần mềm điều khiển Servo ON (Ready) cho trục.
+- **Đầu vào (VAR_INPUT):**
+  - `Enable` (BOOL): Mức logic `TRUE` duy trì cấp nguồn cho drive. Khi `FALSE`, trục chuyển về `Disabled`.
+  - `EnablePositive` (BOOL): Cho phép trục quay theo chiều thuận.
+  - `EnableNegative` (BOOL): Cho phép trục quay theo chiều nghịch.
+- **Đầu vào/ra (VAR_IN_OUT):**
+  - `Axis` (WORD / AXIS_REF): Số thứ tự trục (ID: 0 đến 65535).
+- **Đầu ra (VAR_OUTPUT):**
+  - `Status` (BOOL): Trạng thái đóng nguồn thành công (Drive đã sẵn sàng - StandStill).
+  - `Valid` (BOOL): Dữ liệu ngõ ra hợp lệ.
+  - `Error` (BOOL): Cờ báo lỗi khi kích hoạt nguồn.
+  - `ErrorID` (DWORD): Mã lỗi tương ứng (xem Chương 10).
+
+#### 2. MC_READSTATUS (Đọc Trạng Thái Trục)
+*Mục đích:* Quét và giải mã trạng thái của máy trạng thái PLCopen trong chu kỳ thời gian thực.
+- **Đầu vào:** `Enable` (BOOL - Giữ mức TRUE để đọc liên tục).
+- **Đầu ra:**
+  - `Valid` (BOOL): Dữ liệu đọc thành công.
+  - `Busy` (BOOL): Khối đang quét dữ liệu.
+  - `Error` (BOOL), `ErrorID` (DWORD).
+  - `ErrorStop` (BOOL): Trục đang ở trạng thái lỗi dừng.
+  - `Disabled` (BOOL): Trục đang mất nguồn (Disable).
+  - `Stopping` (BOOL): Trục đang trong tiến trình hãm dừng bởi MC_Stop.
+  - `StandStill` (BOOL): Trục đang đứng yên và sẵn sàng nhận lệnh mới.
+  - `DiscreteMotion` (BOOL): Đang chạy định vị điểm-điểm (MoveAbsolute, MoveRelative).
+  - `ContinuousMotion` (BOOL): Đang chạy liên tục theo vận tốc (MoveVelocity, MoveJog).
+  - `SynchronizedMotion` (BOOL): Đang chạy bám trục chủ theo Cam hoặc Gear.
+  - `Homing` (BOOL): Đang thực hiện chu trình tìm gốc tọa độ.
+  - `ConstantVelocity` (BOOL): Đang đạt vận tốc bằng phẳng.
+  - `Accelerating` (BOOL): Đang trong giai đoạn tăng tốc.
+  - `Decelerating` (BOOL): Đang trong giai đoạn giảm tốc.
+
+#### 3. MC_RESET (Xóa Lỗi Trục)
+*Mục đích:* Xóa cờ lỗi của trục và chuyển trạng thái từ `ErrorStop` về `StandStill` (nếu `MC_Power.Status = TRUE`) hoặc về `Disabled` (nếu `MC_Power.Status = FALSE`).
+- **Đầu vào:** `Execute` (BOOL): Kích hoạt bằng **Cạnh lên (Rising Edge)**.
+- **Đầu ra:**
+  - `Done` (BOOL): Đã reset thành công.
+  - `Busy` (BOOL): Đang trong tiến trình truyền lệnh reset.
+  - `Error` (BOOL), `ErrorID` (DWORD).
+
+#### 4. MC_SETPOSITION (Thiết Lập Lại Tọa Độ Hiện Tại)
+*Mục đích:* Cài đặt lại giá trị tọa độ hiện thời mà không làm di chuyển trục cơ khí (ví dụ: Set tọa độ 0 sau khi chạy cữ cơ).
+- **Đầu vào:**
+  - `Execute` (BOOL): Kích hoạt cạnh lên.
+  - `Position` (LREAL): Giá trị tọa độ đích cần gán vào bộ đếm.
+  - `Mode` (BOOL): `FALSE` = Tuyệt đối (Absolute), `TRUE` = Tương đối (Relative).
+- **Đầu ra:** `Done`, `Busy`, `Error`, `ErrorID`.
+
+#### 5. MC_TouchProbe & MC_AbortTrigger (Bắt Vị Trí Nhanh)
+- `MC_TouchProbe`: Chụp tọa độ thực tế tại thời điểm chân cảm biến phần cứng (Probe Input) chuyển mức tín hiệu (độ chính xác micro-giây, không bị ảnh hưởng bởi chu kỳ quét PLC).
+  - Đầu vào: `TriggerInput` (Cấu hình nguồn kích hoạt), `WindowOnly` (Giới hạn vùng tọa độ có hiệu lực), `FirstPosition`, `LastPosition`.
+  - Đầu ra: `RecordedPosition` (LREAL - Tọa độ thực tế được lưu lại).
+- `MC_AbortTrigger`: Hủy quá trình chờ chụp của TouchProbe.
+
+---
