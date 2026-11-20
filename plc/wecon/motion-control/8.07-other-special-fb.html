@@ -1,49 +1,602 @@
-<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-plc docs-version-current docs-doc-page docs-doc-id-wecon/motion-control/8.07-other-special-fb" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>8.07 Các khối hàm chuyển động đặc biệt khác (Other Special FBs) | Automation Notes</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true property=og:url content=https://2naq.github.io/shareme/plc/wecon/motion-control/8.07-other-special-fb /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=docusaurus_version content=current /><meta data-rh=true name=docusaurus_tag content=docs-plc-current /><meta data-rh=true name=docsearch:version content=current /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-plc-current /><meta data-rh=true property=og:title content="8.07 Các khối hàm chuyển động đặc biệt khác (Other Special FBs) | Automation Notes"/><meta data-rh=true name=description content="Hướng dẫn kỹ thuật chi tiết 10 khối hàm đặc biệt: MC_MOVEJOG, MC_MOVEVELOCITY, MC_COMBINEAXES, Torque Control và các chế độ CiA402 CSV/PV/PT/PP."/><meta data-rh=true property=og:description content="Hướng dẫn kỹ thuật chi tiết 10 khối hàm đặc biệt: MC_MOVEJOG, MC_MOVEVELOCITY, MC_COMBINEAXES, Torque Control và các chế độ CiA402 CSV/PV/PT/PP."/><link data-rh=true rel=icon href=/shareme/favicon.ico /><link data-rh=true rel=canonical href=https://2naq.github.io/shareme/plc/wecon/motion-control/8.07-other-special-fb /><link data-rh=true rel=alternate href=https://2naq.github.io/shareme/plc/wecon/motion-control/8.07-other-special-fb hreflang=en /><link data-rh=true rel=alternate href=https://2naq.github.io/shareme/plc/wecon/motion-control/8.07-other-special-fb hreflang=x-default /><link data-rh=true rel=preconnect href=https://EN380UNNOE-dsn.algolia.net crossorigin=anonymous /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://2naq.github.io/shareme/plc/category/wecon-lx6a--lx6v","name":"Wecon (LX6A / LX6V)","position":1},{"@type":"ListItem","item":"https://2naq.github.io/shareme/plc/category/08-motion-control","name":"08 Motion Control","position":2},{"@type":"ListItem","item":"https://2naq.github.io/shareme/plc/wecon/motion-control/8.07-other-special-fb","name":"8.07 Khối chuyên dụng (10 FBs)","position":3}]}</script><link rel=alternate type=application/rss+xml href=/shareme/blog/rss.xml title="Automation Notes RSS Feed"><link rel=alternate type=application/atom+xml href=/shareme/blog/atom.xml title="Automation Notes Atom Feed"><link rel=search type=application/opensearchdescription+xml title="Automation Notes" href=/shareme/opensearch.xml><script>!function(){try{let e=new URLSearchParams(window.location.search).get("pwa")||localStorage.getItem("pwa-preference")||"all",t="/shareme/manifest-all.json";"docs"===e?(t="/shareme/manifest-docs.json",localStorage.setItem("pwa-preference","docs")):(t="/shareme/manifest-all.json",localStorage.setItem("pwa-preference","all"));let n=document.getElementById("pwa-manifest");n||((n=document.createElement("link")).rel="manifest",n.id="pwa-manifest",document.head.appendChild(n)),n.href=t}catch(e){console.error("Failed to set manifest",e)}"serviceWorker"in navigator&&window.addEventListener("load",function(){navigator.serviceWorker.register("/shareme/sw.js",{scope:"/shareme/"}).then(function(e){console.log("Docs SW registered:",e.scope),document.addEventListener("visibilitychange",function(){"visible"===document.visibilityState&&e.update()});let t=!1;navigator.serviceWorker.addEventListener("controllerchange",function(){t||(t=!0,window.location.reload())})}).catch(function(e){console.error("Docs SW registration failed:",e)})}),window.addEventListener("beforeinstallprompt",e=>{e.preventDefault(),window.deferredPrompt=e,window.dispatchEvent(new CustomEvent("pwa-install-prompt-ready"))})}()</script><link rel=stylesheet href=/shareme/assets/css/styles.2a472fab.css /><script src=/shareme/assets/js/runtime~main.9560ac73.js defer></script><script src=/shareme/assets/js/main.ebb3073d.js defer></script></head><body><svg style="display: none;"><defs>
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-plc docs-version-current docs-doc-page docs-doc-id-wecon/motion-control/8.07-other-special-fb" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>8.07 Các khối hàm chuyển động đặc biệt khác | Automation Notes</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true property=og:url content=https://2naq.github.io/shareme/plc/wecon/motion-control/8.07-other-special-fb /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=docusaurus_version content=current /><meta data-rh=true name=docusaurus_tag content=docs-plc-current /><meta data-rh=true name=docsearch:version content=current /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-plc-current /><meta data-rh=true property=og:title content="8.07 Các khối hàm chuyển động đặc biệt khác | Automation Notes"/><meta data-rh=true name=description content="Tài liệu kỹ thuật chi tiết chuẩn hãng 8.07 Các khối hàm chuyển động đặc biệt khác trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."/><meta data-rh=true property=og:description content="Tài liệu kỹ thuật chi tiết chuẩn hãng 8.07 Các khối hàm chuyển động đặc biệt khác trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."/><link data-rh=true rel=icon href=/shareme/favicon.ico /><link data-rh=true rel=canonical href=https://2naq.github.io/shareme/plc/wecon/motion-control/8.07-other-special-fb /><link data-rh=true rel=alternate href=https://2naq.github.io/shareme/plc/wecon/motion-control/8.07-other-special-fb hreflang=en /><link data-rh=true rel=alternate href=https://2naq.github.io/shareme/plc/wecon/motion-control/8.07-other-special-fb hreflang=x-default /><link data-rh=true rel=preconnect href=https://EN380UNNOE-dsn.algolia.net crossorigin=anonymous /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://2naq.github.io/shareme/plc/category/wecon-lx6a--lx6v","name":"Wecon (LX6A / LX6V)","position":1},{"@type":"ListItem","item":"https://2naq.github.io/shareme/plc/category/08-motion-control","name":"08 Motion Control","position":2},{"@type":"ListItem","item":"https://2naq.github.io/shareme/plc/wecon/motion-control/8.07-other-special-fb","name":"8.07 Khối chuyên dụng (10 FBs)","position":3}]}</script><link rel=alternate type=application/rss+xml href=/shareme/blog/rss.xml title="Automation Notes RSS Feed"><link rel=alternate type=application/atom+xml href=/shareme/blog/atom.xml title="Automation Notes Atom Feed"><link rel=search type=application/opensearchdescription+xml title="Automation Notes" href=/shareme/opensearch.xml><script>!function(){try{let e=new URLSearchParams(window.location.search).get("pwa")||localStorage.getItem("pwa-preference")||"all",t="/shareme/manifest-all.json";"docs"===e?(t="/shareme/manifest-docs.json",localStorage.setItem("pwa-preference","docs")):(t="/shareme/manifest-all.json",localStorage.setItem("pwa-preference","all"));let n=document.getElementById("pwa-manifest");n||((n=document.createElement("link")).rel="manifest",n.id="pwa-manifest",document.head.appendChild(n)),n.href=t}catch(e){console.error("Failed to set manifest",e)}"serviceWorker"in navigator&&window.addEventListener("load",function(){navigator.serviceWorker.register("/shareme/sw.js",{scope:"/shareme/"}).then(function(e){console.log("Docs SW registered:",e.scope),document.addEventListener("visibilitychange",function(){"visible"===document.visibilityState&&e.update()});let t=!1;navigator.serviceWorker.addEventListener("controllerchange",function(){t||(t=!0,window.location.reload())})}).catch(function(e){console.error("Docs SW registration failed:",e)})}),window.addEventListener("beforeinstallprompt",e=>{e.preventDefault(),window.deferredPrompt=e,window.dispatchEvent(new CustomEvent("pwa-install-prompt-ready"))})}()</script><link rel=stylesheet href=/shareme/assets/css/styles.2a472fab.css /><script src=/shareme/assets/js/runtime~main.9de6693d.js defer></script><script src=/shareme/assets/js/main.b4aa9a9d.js defer></script></head><body><svg style="display: none;"><defs>
 <symbol id=theme-svg-external-link viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
 </defs></svg>
-<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme-1c5")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/shareme/favicon.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_G6ar href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/shareme/><div class=navbar__logo><img src=/shareme/favicon.svg alt="Automation Notes" class="themedComponent_DHUr themedComponent--light_DIHH"/><img src=/shareme/favicon.svg alt="Automation Notes" class="themedComponent_DHUr themedComponent--dark_Bv2M"/></div><b class="navbar__title text--truncate">Automation Notes</b></a><a aria-current=page class="navbar__item navbar__link navbar__link--active" href=/shareme/plc/intro>PLC</a><a class="navbar__item navbar__link" href=/shareme/inverter/intro>Inverter</a><a class="navbar__item navbar__link" href=/shareme/other/intro>Other</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class=navbarSearchContainer_bmvg><button type=button class="DocSearch DocSearch-Button" aria-label="Search (Meta+k)" aria-keyshortcuts=Meta+k><span class=DocSearch-Button-Container><svg width=20 height=20 class=DocSearch-Search-Icon viewBox="0 0 24 24" aria-hidden=true><circle cx=11 cy=11 r=8 stroke=currentColor fill=none stroke-width=1.4 /><path d="m21 21-4.3-4.3" stroke=currentColor fill=none stroke-linecap=round stroke-linejoin=round /></svg><span class=DocSearch-Button-Placeholder>Search</span></span><span class=DocSearch-Button-Keys></span></button></div><a href=/shareme/tools/ target=_self rel="noopener noreferrer" class="navbar__item navbar__link">Tool<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_awgD><use href=#theme-svg-external-link /></svg></a><a class="navbar__item navbar__link" href=/shareme/blog>Blog</a><a class="navbar__item navbar__link" href=/shareme/about>About Me</a><div class="toggle_OLSw colorModeToggle_Hg9V"><button class="clean-btn toggleButton_wYmb toggleButtonDisabled_vaDU" type=button disabled title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_KEbZ lightToggleIcon_Sxwe"><path fill=currentColor d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_KEbZ darkToggleIcon_Yem1"><path fill=currentColor d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_KEbZ systemToggleIcon_txm5"><path fill=currentColor d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"/></svg></button></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_UyTV"><div class=docsWrapper_XLvK><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_z1FD" type=button></button><div class=docRoot_HciC><aside class="theme-doc-sidebar-container docSidebarContainer_e5ai"><div class=sidebarViewport_N8x0><div class=sidebar_vJCc><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_qiME"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/shareme/plc/intro><span class=linkLabel_PuAu>Tài liệu plc sưu tầm</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_d9ci menu__link menu__link--sublist" href=/shareme/plc/category/mitsubishi><span class=categoryLinkLabel_Oe72>Mitsubishi</span></a><button aria-label="Expand sidebar category 'Mitsubishi'" aria-expanded=false type=button class="clean-btn menu__caret"></button></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_d9ci menu__link menu__link--sublist" href=/shareme/plc/category/omron><span class=categoryLinkLabel_Oe72>Omron</span></a><button aria-label="Expand sidebar category 'Omron'" aria-expanded=false type=button class="clean-btn menu__caret"></button></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_d9ci menu__link menu__link--sublist menu__link--active" href=/shareme/plc/category/wecon-lx6a--lx6v><span class=categoryLinkLabel_Oe72>Wecon (LX6A / LX6V)</span></a><button aria-label="Collapse sidebar category 'Wecon (LX6A / LX6V)'" aria-expanded=true type=button class="clean-btn menu__caret"></button></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon><span class=linkLabel_PuAu>00. Tổng quan tài liệu Wecon</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/01-execution-of-program><span class=linkLabel_PuAu>01 Execution of the Program</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/02-devices><span class=linkLabel_PuAu>02 Devices</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/03-sequence-control><span class=linkLabel_PuAu>03 Sequence Control</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/04-program-flow><span class=linkLabel_PuAu>04 Program Flow</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/05-timer-and-counter><span class=linkLabel_PuAu>05 Timer and Counter</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/06-basic-instructions><span class=linkLabel_PuAu>06 Basic instructions</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/07-ethercat><span class=linkLabel_PuAu>07 EtherCAT</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_d9ci menu__link menu__link--sublist menu__link--active" tabindex=0 href=/shareme/plc/category/08-motion-control><span class=categoryLinkLabel_Oe72>08 Motion Control</span></a><button aria-label="Collapse sidebar category '08 Motion Control'" aria-expanded=true type=button class="clean-btn menu__caret"></button></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control><span class=linkLabel_PuAu>08. Tổng quan Motion Control</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.01-management-function-blocks-single-axis><span class=linkLabel_PuAu>8.01 Quản trị đơn trục (13 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.02-motion-function-blocks-single-axis><span class=linkLabel_PuAu>8.02 Chuyển động đơn trục (7 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.03-management-fb-multi-axis><span class=linkLabel_PuAu>8.03 Quản trị Cam đa trục (3 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.04-motion-fb-multi-axis><span class=linkLabel_PuAu>8.04 Cam & Gear đa trục (5 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.05-management-functions-axis-group><span class=linkLabel_PuAu>8.05 Quản trị nhóm trục (10 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.06-axis-group-motion-fb><span class=linkLabel_PuAu>8.06 Nội suy nhóm trục (8 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current=page tabindex=0 href=/shareme/plc/wecon/motion-control/8.07-other-special-fb><span class=linkLabel_PuAu>8.07 Khối chuyên dụng (10 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.08-sdo-instruction><span class=linkLabel_PuAu>8.08 Lệnh SDO EtherCAT</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.09-built-in-variables-pulse-axis><span class=linkLabel_PuAu>8.09 Biến hệ thống trục xung</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.10-others-state-machine-buffermode><span class=linkLabel_PuAu>8.10 Máy trạng thái & BufferMode</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.11-error-code-table><span class=linkLabel_PuAu>8.11 Bảng tra cứu mã lỗi (154 Mã)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.12-chuong-trinh-mau-giang-day><span class=linkLabel_PuAu>8.12 Code mẫu giảng dạy (ST/Ladder)</span></a></ul><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/09-high-speed-counter><span class=linkLabel_PuAu>09 High Speed Counter</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/10-communication-instruction><span class=linkLabel_PuAu>10 Communication Instruction</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/11-pid-control-instruction><span class=linkLabel_PuAu>11 PID Control Instruction</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/12-character-string-instruction><span class=linkLabel_PuAu>12 Character String Instruction</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/13-ethernet-communication><span class=linkLabel_PuAu>13 Ethernet Communication</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/14-builtin-fc-fb><span class=linkLabel_PuAu>14 Built-in FC/FB</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/15-st-help-manual><span class=linkLabel_PuAu>15 ST Help Manual</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/16-appendixes><span class=linkLabel_PuAu>Appendixes</span></a></ul></ul></nav></div></div></aside><main class=docMainContainer_namt><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_YAwJ"><div class=docItemContainer_Rv5Z><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_zCmv" aria-label=Breadcrumbs><ul class=breadcrumbs><li class=breadcrumbs__item><a aria-label="Home page" class=breadcrumbs__link href=/shareme/><svg viewBox="0 0 24 24" class=breadcrumbHomeIcon_JFrk><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill=currentColor /></svg></a><li class=breadcrumbs__item><a class=breadcrumbs__link href=/shareme/plc/category/wecon-lx6a--lx6v><span>Wecon (LX6A / LX6V)</span></a><li class=breadcrumbs__item><a class=breadcrumbs__link href=/shareme/plc/category/08-motion-control><span>08 Motion Control</span></a><li class="breadcrumbs__item breadcrumbs__item--active"><span class=breadcrumbs__link>8.07 Khối chuyên dụng (10 FBs)</span></ul></nav><div class="tocCollapsible_O_Qc theme-doc-toc-mobile tocMobile_tjDr"><button type=button class="clean-btn tocCollapsibleButton_htYj">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>8.07 Các khối hàm chuyển động đặc biệt khác (Other Special FBs)</h1></header><h2 class="anchor anchorTargetStickyNavbar_SAay" id=tổng-quan-nhóm-khối-hàm-807>Tổng quan nhóm khối hàm 8.07<a href=#tổng-quan-nhóm-khối-hàm-807 class=hash-link aria-label="Direct link to Tổng quan nhóm khối hàm 8.07" title="Direct link to Tổng quan nhóm khối hàm 8.07" translate=no>​</a></h2>
-<p>Nhóm 8.07 cung cấp các giải pháp điều khiển chuyên dụng mở rộng vượt ra ngoài các khối lệnh định vị vị trí truyền thống, bao gồm chạy nhấp bằng tay (Manual JOG), điều khiển tốc độ liên tục, tổng hợp chuyển động vi sai và các chế độ điều khiển lực căng/lực xoắn (Torque) theo đặc tả CiA402.</p>
-<h3 class="anchor anchorTargetStickyNavbar_SAay" id=danh-mục-10-khối-hàm-đặc-biệt>Danh mục 10 khối hàm đặc biệt:<a href=#danh-mục-10-khối-hàm-đặc-biệt class=hash-link aria-label="Direct link to Danh mục 10 khối hàm đặc biệt:" title="Direct link to Danh mục 10 khối hàm đặc biệt:" translate=no>​</a></h3>
-<ol>
-<li class=""><strong>MC_MOVEJOG:</strong> Chạy nhấp bằng tay (Manual JOG) theo chiều thuận hoặc nghịch.</li>
-<li class=""><strong>MC_MOVEVELOCITY:</strong> Chạy liên tục theo vận tốc cài đặt (Speed Mode).</li>
-<li class=""><strong>MC_COMBINEAXES:</strong> Tổng hợp chuyển động từ 2 trục chủ để điều khiển 1 trục tớ.</li>
-<li class=""><strong>MC_MOVEVELOCITY_CSV:</strong> Chế độ điều khiển vận tốc chu kỳ thời gian thực (Cyclic Synchronous Velocity) qua mạng Bus EtherCAT.</li>
-<li class=""><strong>MC_SYNCMOVEVELOCITY:</strong> Đồng bộ chu kỳ vận tốc đa trục.</li>
-<li class=""><strong>MC_SETTORQUE:</strong> Cài đặt giá trị giới hạn lực xoắn / moment xoắn.</li>
-<li class=""><strong>MC_TORQUECONTROL:</strong> Chuyển Servo sang chế độ điều khiển moment xoắn chuyên dụng (Torque Control Mode).</li>
-<li class=""><strong>MC_MOVEABSRELPP:</strong> Điều khiển vị trí Profile Position Mode (PP Mode theo chuẩn CiA402).</li>
-<li class=""><strong>MC_MOVEVELOCITYPV:</strong> Điều khiển vận tốc Profile Velocity Mode (PV Mode).</li>
-<li class=""><strong>MC_TORQUECONTROLPT:</strong> Điều khiển lực xoắn Profile Torque Mode (PT Mode).</li>
-</ol>
-<hr/>
-<h2 class="anchor anchorTargetStickyNavbar_SAay" id=1-mc_movejog-chạy-nhấp-bằng-tay>1. MC_MOVEJOG: Chạy nhấp bằng tay<a href=#1-mc_movejog-chạy-nhấp-bằng-tay class=hash-link aria-label="Direct link to 1. MC_MOVEJOG: Chạy nhấp bằng tay" title="Direct link to 1. MC_MOVEJOG: Chạy nhấp bằng tay" translate=no>​</a></h2>
-<p>Khối hàm bắt buộc trong mọi giao diện vận hành máy (HMI Manual Page) giúp công nhân gá đặt cơ khí, cân chỉnh cữ và test động cơ:</p>
-<div class="language-pascal codeBlockContainer_ZGJx theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_kX1v><pre tabindex=0 class="prism-code language-pascal codeBlock_TAPP thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_AdAo><div class=token-line style=color:#393A34><span class="token plain">fb_Jog(</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    EnablePositive  := bJogFwdButton,    // Nhấn giữ nút chạy thuận</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    EnableNegative  := bJogRevButton,    // Nhấn giữ nút chạy nghịch</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    Velocity        := 40.0,             // Tốc độ JOG (đơn vị/giây)</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    Acceleration    := 200.0,</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    Deceleration    := 200.0,</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    Axis            := 0,</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    Busy            => bJogBusy,</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    CommandAborted  => bJogAborted,</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    Error           => bJogErr,</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    ErrorID         => dwJogErrID</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">);</span><br/></div></code></pre></div></div>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme-1c5")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/shareme/favicon.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_G6ar href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/shareme/><div class=navbar__logo><img src=/shareme/favicon.svg alt="Automation Notes" class="themedComponent_DHUr themedComponent--light_DIHH"/><img src=/shareme/favicon.svg alt="Automation Notes" class="themedComponent_DHUr themedComponent--dark_Bv2M"/></div><b class="navbar__title text--truncate">Automation Notes</b></a><a aria-current=page class="navbar__item navbar__link navbar__link--active" href=/shareme/plc/intro>PLC</a><a class="navbar__item navbar__link" href=/shareme/inverter/intro>Inverter</a><a class="navbar__item navbar__link" href=/shareme/other/intro>Other</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class=navbarSearchContainer_bmvg><button type=button class="DocSearch DocSearch-Button" aria-label="Search (Meta+k)" aria-keyshortcuts=Meta+k><span class=DocSearch-Button-Container><svg width=20 height=20 class=DocSearch-Search-Icon viewBox="0 0 24 24" aria-hidden=true><circle cx=11 cy=11 r=8 stroke=currentColor fill=none stroke-width=1.4 /><path d="m21 21-4.3-4.3" stroke=currentColor fill=none stroke-linecap=round stroke-linejoin=round /></svg><span class=DocSearch-Button-Placeholder>Search</span></span><span class=DocSearch-Button-Keys></span></button></div><a href=/shareme/tools/ target=_self rel="noopener noreferrer" class="navbar__item navbar__link">Tool<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_awgD><use href=#theme-svg-external-link /></svg></a><a class="navbar__item navbar__link" href=/shareme/blog>Blog</a><a class="navbar__item navbar__link" href=/shareme/about>About Me</a><div class="toggle_OLSw colorModeToggle_Hg9V"><button class="clean-btn toggleButton_wYmb toggleButtonDisabled_vaDU" type=button disabled title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_KEbZ lightToggleIcon_Sxwe"><path fill=currentColor d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_KEbZ darkToggleIcon_Yem1"><path fill=currentColor d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_KEbZ systemToggleIcon_txm5"><path fill=currentColor d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"/></svg></button></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_UyTV"><div class=docsWrapper_XLvK><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_z1FD" type=button></button><div class=docRoot_HciC><aside class="theme-doc-sidebar-container docSidebarContainer_e5ai"><div class=sidebarViewport_N8x0><div class=sidebar_vJCc><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_qiME"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/shareme/plc/intro><span class=linkLabel_PuAu>Tài liệu plc sưu tầm</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_d9ci menu__link menu__link--sublist" href=/shareme/plc/category/mitsubishi><span class=categoryLinkLabel_Oe72>Mitsubishi</span></a><button aria-label="Expand sidebar category 'Mitsubishi'" aria-expanded=false type=button class="clean-btn menu__caret"></button></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_d9ci menu__link menu__link--sublist" href=/shareme/plc/category/omron><span class=categoryLinkLabel_Oe72>Omron</span></a><button aria-label="Expand sidebar category 'Omron'" aria-expanded=false type=button class="clean-btn menu__caret"></button></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_d9ci menu__link menu__link--sublist menu__link--active" href=/shareme/plc/category/wecon-lx6a--lx6v><span class=categoryLinkLabel_Oe72>Wecon (LX6A / LX6V)</span></a><button aria-label="Collapse sidebar category 'Wecon (LX6A / LX6V)'" aria-expanded=true type=button class="clean-btn menu__caret"></button></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon><span class=linkLabel_PuAu>00. Tổng quan tài liệu Wecon</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/01-execution-of-program><span class=linkLabel_PuAu>01 Execution of the Program</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/02-devices><span class=linkLabel_PuAu>02 Devices</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/03-sequence-control><span class=linkLabel_PuAu>03 Sequence Control</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/04-program-flow><span class=linkLabel_PuAu>04 Program Flow</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/05-timer-and-counter><span class=linkLabel_PuAu>05 Timer and Counter</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/06-basic-instructions><span class=linkLabel_PuAu>06 Basic instructions</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/07-ethercat><span class=linkLabel_PuAu>07 EtherCAT</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_d9ci menu__link menu__link--sublist menu__link--active" tabindex=0 href=/shareme/plc/category/08-motion-control><span class=categoryLinkLabel_Oe72>08 Motion Control</span></a><button aria-label="Collapse sidebar category '08 Motion Control'" aria-expanded=true type=button class="clean-btn menu__caret"></button></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control><span class=linkLabel_PuAu>08. Tổng quan Motion Control</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.01-management-function-blocks><span class=linkLabel_PuAu>8.01 Quản trị đơn trục (13 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.02-motion-function-blocks><span class=linkLabel_PuAu>8.02 Chuyển động đơn trục (7 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.03-management-fb-multi-axis><span class=linkLabel_PuAu>8.03 Quản trị Cam đa trục (3 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.04-motion-fb-multi-axis><span class=linkLabel_PuAu>8.04 Cam & Gear đa trục (5 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.05-management-functions-axis-group><span class=linkLabel_PuAu>8.05 Quản trị nhóm trục (10 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.06-axis-group-motion-fb><span class=linkLabel_PuAu>8.06 Nội suy nhóm trục (8 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current=page tabindex=0 href=/shareme/plc/wecon/motion-control/8.07-other-special-fb><span class=linkLabel_PuAu>8.07 Khối chuyên dụng (10 FBs)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.08-sdo-instruction><span class=linkLabel_PuAu>8.08 Lệnh SDO EtherCAT</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.09-built-in-variables-pulse-axis><span class=linkLabel_PuAu>8.09 Biến hệ thống trục xung</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.10-others><span class=linkLabel_PuAu>8.10 Máy trạng thái & BufferMode</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.11-error-code-table><span class=linkLabel_PuAu>8.11 Bảng tra cứu mã lỗi (154 Mã)</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/motion-control/8.12-chuong-trinh-mau-giang-day><span class=linkLabel_PuAu>8.12 Code mẫu giảng dạy (ST/Ladder)</span></a></ul><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/09-high-speed-counter><span class=linkLabel_PuAu>09 High Speed Counter</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/10-communication-instruction><span class=linkLabel_PuAu>10 Communication Instruction</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/11-pid-control-instruction><span class=linkLabel_PuAu>11 PID Control Instruction</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/12-character-string-instruction><span class=linkLabel_PuAu>12 Character String Instruction</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/13-ethernet-communication><span class=linkLabel_PuAu>13 Ethernet Communication</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/14-builtin-fc-fb><span class=linkLabel_PuAu>14 Built-in FC/FB</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/15-st-help-manual><span class=linkLabel_PuAu>15 ST Help Manual</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/shareme/plc/wecon/16-appendixes><span class=linkLabel_PuAu>Appendixes</span></a></ul></ul></nav></div></div></aside><main class=docMainContainer_namt><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_YAwJ"><div class=docItemContainer_Rv5Z><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_zCmv" aria-label=Breadcrumbs><ul class=breadcrumbs><li class=breadcrumbs__item><a aria-label="Home page" class=breadcrumbs__link href=/shareme/><svg viewBox="0 0 24 24" class=breadcrumbHomeIcon_JFrk><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill=currentColor /></svg></a><li class=breadcrumbs__item><a class=breadcrumbs__link href=/shareme/plc/category/wecon-lx6a--lx6v><span>Wecon (LX6A / LX6V)</span></a><li class=breadcrumbs__item><a class=breadcrumbs__link href=/shareme/plc/category/08-motion-control><span>08 Motion Control</span></a><li class="breadcrumbs__item breadcrumbs__item--active"><span class=breadcrumbs__link>8.07 Khối chuyên dụng (10 FBs)</span></ul></nav><div class="tocCollapsible_O_Qc theme-doc-toc-mobile tocMobile_tjDr"><button type=button class="clean-btn tocCollapsibleButton_htYj">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Other Special FB</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id=mc_movejog>MC_MOVEJOG<a href=#mc_movejog class=hash-link aria-label="Direct link to MC_MOVEJOG" title="Direct link to MC_MOVEJOG" translate=no>​</a></h2>
+<p>MC_MOVEJOG</p>
+<p>Khối hàm điều khiển trục thực hiện chuyển động nhấp bằng tay (Manual JOG) theo vận tốc mục tiêu cài đặt.</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=vùng-nhớ-thiết-bị-hỗ-trợ-devices-used>Vùng nhớ thiết bị hỗ trợ (Devices Used)<a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used class=hash-link aria-label="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used)" title="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used)" translate=no>​</a></h3>
+<p><em>(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)</em></p>
+<p>| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVEJOG | EnablePositive | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| EnableNegative | �� | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=lưu-ý-khi-sử-dụng-vùng-nhớ-thiết-bị>Lưu ý khi sử dụng vùng nhớ thiết bị<a href=#lưu-ý-khi-sử-dụng-vùng-nhớ-thiết-bị class=hash-link aria-label="Direct link to Lưu ý khi sử dụng vùng nhớ thiết bị" title="Direct link to Lưu ý khi sử dụng vùng nhớ thiết bị" translate=no>​</a></h3>
+<p>▪- <strong>LC</strong> và <strong>HSC</strong> là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);</p>
+<p>▪- <strong>T, C, D, R và SD</strong> là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=bảng-thông-số-chân-và-kiểu-biến-variable-type-used>Bảng thông số chân và kiểu biến (Variable Type Used)<a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used class=hash-link aria-label="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" title="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" translate=no>​</a></h3>
+<p>| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVEJOG | Ngõ vào (Input) | EnablePositive | BOOL | Không | TRUE / FALSE | Chuyển động chiều thuận (+) |
+| EnableNegative | BOOL | Không | TRUE / FALSE | Chuyển động chiều nghịch (-) |
+| Vận tốc cài đặt | LREAL | Không | [0 to 999999999. 999999] | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc giảm tốc |
+| Axis | WORD, AXIS_INFO_T | Không | [0 to 65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Mã lỗi tra cứu (xem <a class="" href=/shareme/plc/wecon/motion-control/8.11-error-code-table>Bảng mã lỗi 8.11</a>) |
+Đặc tính kỹ thuật</p>
+<p>▪Khi tín hiệu <code>EnablePositive</code> chuyển mức lên TRUE, trục thực hiện chuyển động nhấp theo chiều thuận (+) với vận tốc cài đặt.
+▪Khi tín hiệu <code>EnableNegative</code> chuyển mức lên TRUE, trục thực hiện chuyển động nhấp theo chiều nghịch (-) với vận tốc cài đặt.
+▪In the process of positive motion, modifying the Enablepositive to FALSE causes deceleration until the axis stops. In the process of deceleration, if Enablepositive is changed to TRUE, the axis will continue to move until reaching the specified velocity. In the process of deceleration, if EnableNegative is changed to TRUE, the axis will decrease its velocity to 0 and then execute negative motion until its velocity reaches the specified velocity.</p>
+<p>✎Note:</p>
+<p>▪This function is not available when the axis does not exist.</p>
+<p>▪When EnablePositive or EnableNegative is TRUE, modifying velocity does not change the velocity at this time.</p>
+<p>Error code</p>
+<p>| Error code | Content |
+| 4084H | Input data beyond the specifiable range |</p>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id=mc_combineaxes>MC_COMBINEAXES<a href=#mc_combineaxes class=hash-link aria-label="Direct link to MC_COMBINEAXES" title="Direct link to MC_COMBINEAXES" translate=no>​</a></h2>
+<p>MC_COMBINEAXES</p>
+<p>The function block adds and subtracts the positions of the master axis and the auxiliary axis as the position of the slave axis.</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-1>Vùng nhớ thiết bị hỗ trợ (Devices Used)<a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-1 class=hash-link aria-label="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used)" title="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used)" translate=no>​</a></h3>
+<p><em>(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)</em></p>
+<p>| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_COMBINEAXES | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ConbineMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MasterReferenceType |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AuxiliaryReferenceType |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Master |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Auxiliary |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InCombiantion |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=lưu-ý-khi-sử-dụng-vùng-nhớ-thiết-bị-1>Lưu ý khi sử dụng vùng nhớ thiết bị<a href=#lưu-ý-khi-sử-dụng-vùng-nhớ-thiết-bị-1 class=hash-link aria-label="Direct link to Lưu ý khi sử dụng vùng nhớ thiết bị" title="Direct link to Lưu ý khi sử dụng vùng nhớ thiết bị" translate=no>​</a></h3>
+<p>▪- <strong>LC</strong> và <strong>HSC</strong> là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);</p>
+<p>▪- <strong>T, C, D, R và SD</strong> là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=bảng-thông-số-chân-và-kiểu-biến-variable-type-used-1>Bảng thông số chân và kiểu biến (Variable Type Used)<a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-1 class=hash-link aria-label="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" title="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" translate=no>​</a></h3>
+<p>| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_COMBINEAXES | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ConbineMode | WORD | Có | [0 to 1] | Addition and subtraction operation selection 0: Addition 1: Subtraction |
+| MasterReferenceType | WORD | Có | [1 to 2] | Master axis position type 1: Feedback position 2: Khối lệnh position |
+| AuxiliaryReferenceType | WORD | Có | [1 to 2] | Auxiliary axis position type 1: Feedback position 2: Khối lệnh position |
+| BufferMode | LREAL | Không | 0 | Mode selection |
+| Master | WORD, AXIS INFO T | Không | [0 to 65535] | Master axis number |
+| Auxiliary | WORD, AXIS INFO T | Không | [0 to 65535] | Auxiliary axis number |
+| Slave | WORD, AXIS INFO T | Không | [0 to 65535] | Slave axis number |
+| Ngõ ra (Output) | InCombiantion | BOOL | Có | TRUE / FALSE | Addition and subtraction operation flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Mã lỗi tra cứu (xem <a class="" href=/shareme/plc/wecon/motion-control/8.11-error-code-table>Bảng mã lỗi 8.11</a>) |
+Đặc tính kỹ thuật</p>
+<p>▪On the Execute rising edge, the addition and subtraction positioning operation is performed.</p>
+<p>✎Note:</p>
+<p>▪Unable to restart this instruction;</p>
+<p>▪To end this instruction, MC_construction is needed;</p>
+<p>▪This instruction does not execute in-place inspection;</p>
+<p>▪When using the instruction position, the set values of master axis number and auxiliary axis number must be less than the slave axis number;</p>
+<p>▪This instruction is not affected by the abnormal status of the main axis and auxiliary axis. When the abnormal status is released, the slave axis continues to execute the addition and subtraction positioning operation. In addition, when this instruction is enabled and the axis is abnormal, this instruction is interrupted, but it has no effect on the master axis and the slave axis;</p>
+<p>▪When MC_setposition instruction is executed for the master axis or the auxiliary axis, it may happen that the slave axis catches at a large velocity, which is very dangerous.</p>
+<p>Error code</p>
+<p>| Error code | Content |
+| 7000OA | Axis is in a bound status. |
+| 7000OB | Axis cannot be bound at run time. |
+| 800014 | The master axis is consistent with the slave axis. |
+| 800015 | The master axis is consistent with the auxiliary axis. |
+| 800016 | The auxiliary axis is consistent with the slave axis. |
+| 800017 | Master axis (auxiliary axis) and slave axis numbers are not ascending order. |</p>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id=mc_movevelocity>MC_MOVEVELOCITY<a href=#mc_movevelocity class=hash-link aria-label="Direct link to MC_MOVEVELOCITY" title="Direct link to MC_MOVEVELOCITY" translate=no>​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-2>Vùng nhớ thiết bị hỗ trợ (Devices Used)<a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-2 class=hash-link aria-label="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used)" title="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used)" translate=no>​</a></h3>
+<p><em>(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)</em></p>
+<p>| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVEVELOCITY | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Direction |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InVận tốc cài đặt |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=lưu-ý-khi-sử-dụng-vùng-nhớ-thiết-bị-2>Lưu ý khi sử dụng vùng nhớ thiết bị<a href=#lưu-ý-khi-sử-dụng-vùng-nhớ-thiết-bị-2 class=hash-link aria-label="Direct link to Lưu ý khi sử dụng vùng nhớ thiết bị" title="Direct link to Lưu ý khi sử dụng vùng nhớ thiết bị" translate=no>​</a></h3>
+<p>▪- <strong>LC</strong> và <strong>HSC</strong> là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);</p>
+<p>▪- <strong>T, C, D, R và SD</strong> là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=bảng-thông-số-chân-và-kiểu-biến-variable-type-used-2>Bảng thông số chân và kiểu biến (Variable Type Used)<a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-2 class=hash-link aria-label="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" title="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" translate=no>​</a></h3>
+<p>| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVEVELOCITY | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Không | TRUE / FALSE | Whether update continuously or not |
+| Vận tốc cài đặt | LREAL | Không | [0 to 999999999. 999999] | The set velocity |
+| Gia tốc tăng tốc | LREAL | Không | [0 to 999999999. 999999] | The set acceleration |
+| Gia tốc giảm tốc | LREAL | Không | [0 to 999999999. 999999] | The set deceleration |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Có | [0 to 999999999. 999999] | The set jerk is only valid in the S-curve. |
+| Direction | WORD | Không | [1] | Direction flag 1: Positive direction 2: Shortest path 3: Negative direction 4: Current direction |
+| BufferMode | WORD | Có | [0] | Chế độ vùng đệm nối lệnh (BufferMode) |
+| Axis | WORD, AXIS INFO T | Không | [0 to 65535] | Số hiệu định danh trục (Axis ID) and axis in-built variable |
+| Ngõ ra (Output) | InVận tốc cài đặt | BOOL | Có | TRUE / FALSE | Reach the set velocity flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Mã lỗi tra cứu (xem <a class="" href=/shareme/plc/wecon/motion-control/8.11-error-code-table>Bảng mã lỗi 8.11</a>) |
+Đặc tính kỹ thuật</p>
+<p>▪MC_MOVEVELOCITY function block is used for continuing the motion of the previous function block and moving according to the velocity specified by the previous function block. The input values of acceleration, deceleration and jerk are used to monitor whether the corresponding values of the controlled axis are within the input values.</p>
+<p>▪Since there is no input signal of position or distance, the function block will move until other function block sends a new command to stop the operation of this function block;</p>
+<p>▪When the velocity of the controlled axis reaches the set value of input parameter Vận tốc cài đặt, the output parameter Invelocity is set to ON.</p>
+<p>▪Once the input Execute signal detects that the falling edge or other function block makes this function block abort, the output parameter Invelocity is reset.</p>
+<p>▪MC_MOVEVELOCITY function block should be used when the controlled axis is in a stop status or a single-axis running status. When the function block is triggered, the controlled axis is switched to continuous Motion status.</p>
+<p>▪If the controlled axis is not in the above status, the function block is not executed. Erroroutput is set;</p>
+<p>▪MC_MOVEVELOCITY function block can be triggered repeatedly.</p>
+<p>Error code</p>
+<p>| Error code | Content |
+| 4084H | Input data beyond the specifiable range |</p>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id=mc-_-movevelocity-_-csv>MC _ MOVEVELOCITY _ CSV<a href=#mc-_-movevelocity-_-csv class=hash-link aria-label="Direct link to MC _ MOVEVELOCITY _ CSV" title="Direct link to MC _ MOVEVELOCITY _ CSV" translate=no>​</a></h2>
+<p>Sets motion according to the speed specified by the function block</p>
+<p>The function block is used to continue the motion of the previous function block and move according to the speed specified by the function block.</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-device-splicing-and-indexare-not-supported>Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, device splicing and index are not supported)<a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-device-splicing-and-indexare-not-supported class=hash-link aria-label="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, device splicing and index are not supported)" title="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, device splicing and index are not supported)" translate=no>​</a></h3>
+<p>| Khối lệnh | Tham số | Device | Index Modification | Pulse Expansion |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ MOVEVELOCITY _ CSV | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Direction |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InVận tốc cài đặt |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error ID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes:</p>
 <ul>
-<li class="">Khi nút <code>EnablePositive</code> ON: Trục tự động tăng tốc mượt mà và quay theo chiều thuận. Khi nhả nút về OFF, trục hãm dừng lại.</li>
-<li class="">Tương tự cho chiều nghịch với <code>EnableNegative</code>.</li>
+<li class="">
+<ul>
+<li class=""><strong>LC</strong> và <strong>HSC</strong> là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);</li>
 </ul>
-<hr/>
-<h2 class="anchor anchorTargetStickyNavbar_SAay" id=2-mc_movevelocity-điều-khiển-chạy-liên-tục-theo-vận-tốc>2. MC_MOVEVELOCITY: Điều khiển chạy liên tục theo vận tốc<a href=#2-mc_movevelocity-điều-khiển-chạy-liên-tục-theo-vận-tốc class=hash-link aria-label="Direct link to 2. MC_MOVEVELOCITY: Điều khiển chạy liên tục theo vận tốc" title="Direct link to 2. MC_MOVEVELOCITY: Điều khiển chạy liên tục theo vận tốc" translate=no>​</a></h2>
-<p>Dùng cho các cơ cấu vận hành liên tục không có điểm dừng cố định (như băng tải tiếp liệu, trục cán, bơm định lượng):</p>
-<ul>
-<li class="">Kích hoạt bằng <strong>Cạnh lên</strong> của chân <code>Execute</code>.</li>
-<li class="">Trục tăng tốc lên đến <code>Velocity</code> và duy trì quay liên tục vô hạn.</li>
-<li class="">Khi đạt đúng tốc độ cài đặt, chân <strong>InVelocity</strong> báo <code>TRUE</code>.</li>
-<li class="">Trục chỉ dừng lại khi nhận lệnh <code>MC_Stop</code> hoặc <code>MC_Halt</code>.</li>
+</li>
+<li class="">T, C, D, R and SD are signed 16-bit data types.</li>
 </ul>
-<hr/>
-<h2 class="anchor anchorTargetStickyNavbar_SAay" id=3-mc_combineaxes-tổng-hợp-chuyển-động-vi-sai>3. MC_COMBINEAXES: Tổng hợp chuyển động vi sai<a href=#3-mc_combineaxes-tổng-hợp-chuyển-động-vi-sai class=hash-link aria-label="Direct link to 3. MC_COMBINEAXES: Tổng hợp chuyển động vi sai" title="Direct link to 3. MC_COMBINEAXES: Tổng hợp chuyển động vi sai" translate=no>​</a></h2>
-<p>Khối hàm nhận tín hiệu vị trí/vận tốc từ <strong>Master 1</strong> và <strong>Master 2</strong>, sau đó tính toán theo hàm số học (Cộng hoặc Trừ) để điều khiển trục <strong>Slave</strong>:</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=bảng-thông-số-chân-và-kiểu-biến-variable-type-used-3>Bảng thông số chân và kiểu biến (Variable Type Used)<a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-3 class=hash-link aria-label="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" title="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" translate=no>​</a></h3>
+<p>| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC _ MOVE VELOCITY _ CSV | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Có | TRUE / FALSE | Whether update continuously or not |
+| Vận tốc cài đặt | LREAL | Không | [0,999999999.999999] | Setting velocity |
+| Gia tốc tăng tốc | LREAL | Không | [0,999999999.999999] | Setting acceleration |
+| Gia tốc giảm tốc | LREAL | Không | [0,999999999.999999] | Set deceleration |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Có | [0,999999999.999999] | The set jerk is only effective in S-curve. |
+| Direction | WORD | Không | [1,4] | Direction flag bit 1. Positive direction; 2. Negative direction; 3. The current direction; 4. The shortest path (reserved). |
+| BufferMode | WORD | Có | [0] | BufferMode |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) and built-in variable of axis |
+| Ngõ ra (Output) | InVận tốc cài đặt | BOOL | Có | TRUE / FALSE | Reach the set velocity flag bit |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Activity flag |
+| Command aborted | BOOL | Có | TRUE / FALSE | Interrupt flag bit |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| Error ID | DWORD | Có | - | Error code (Please refer to [8.11 Error code comparison table]) |
+Chức năng và nguyên lý hoạt động</p>
 <ul>
-<li class="">Thuật toán: <code>Slave = Master1 +/- Master2</code>.</li>
-<li class="">Ứng dụng: Bàn máy vi sai hai bậc tự do, cơ cấu bù sai lệch động học trong máy cắt laser/plasma.</li>
+<li class="">The MC_ MOVEVELOCITY_CSV function block is used to continue the movement of the previous function block and move according to the speed specified by the function block. The input values of acceleration, deceleration and jerk are used to monitor whether the corresponding values of the controlled axis are within the input values.</li>
+<li class="">Since there is no input signal of position or distance, the function block will move until other function block sends a new command to stop movement of this function block;</li>
+<li class="">When the speed of the controlled axis reaches the input parameter ‘Vận tốc cài đặt’ setpoint, the output parameter ‘InVận tốc cài đặt’ is set. Once the input ‘Execute’ signal detects a falling edge or other function block to abort this function block, the output parameter InVận tốc cài đặt is reset;</li>
+<li class="">The MC_ MOVEVELOCITY_CSV function block shall be in a stopped motion state or a single-axis operation state when the controlled axis is operated. After this function block is triggered, the controlled axis transitions to the ‘Continuous Motion’ state. If the controlled axis is not in the above state, the function block is not executed, Error output is set;</li>
+<li class="">The MC_ MOVEVELOCITY_CSV function block can be triggered repeatedly multiple times.
+Error code</li>
 </ul>
-<hr/>
-<h2 class="anchor anchorTargetStickyNavbar_SAay" id=4-điều-khiển-lực-xoắn-moment-torque-control-mc_torquecontrol>4. Điều khiển lực xoắn Moment (Torque Control): MC_TORQUECONTROL<a href=#4-điều-khiển-lực-xoắn-moment-torque-control-mc_torquecontrol class=hash-link aria-label="Direct link to 4. Điều khiển lực xoắn Moment (Torque Control): MC_TORQUECONTROL" title="Direct link to 4. Điều khiển lực xoắn Moment (Torque Control): MC_TORQUECONTROL" translate=no>​</a></h2>
-<p>Khi cuộn dây đồng, quấn màng bọc nilon hoặc siết nắp chai, việc kiểm soát vị trí không còn ý nghĩa mà bắt buộc phải kiểm soát chính xác lực xoắn để màng không bị rách và nắp chai không bị tuôn ren:</p>
+<p>| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+Lưu ý kỹ thuật quan trọng</p>
 <ul>
-<li class="">Khối hàm chuyển trạng thái của Drive Servo sang <strong>Torque Mode</strong>.</li>
-<li class="">Duy trì lực ép/lực xoắn <code>Torque</code> ổn định liên tục theo giá trị cài đặt.</li>
-</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-tags-row"><div class=col><b>Tags:</b><ul class="tags_q74f padding--none margin-left--sm"><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/wecon>wecon</a><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/lx-6-v>lx6v</a><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/lx-6-a>lx6a</a><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/mc-movejog>mc_movejog</a><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/mc-movevelocity>mc_movevelocity</a><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/torque-control>torque-control</a><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/csv>csv</a><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/cia-402>cia402</a></ul></div></div><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_HJkF"><a href=https://github.com/2naq/shareme/tree/main/apps/docs/docs/plc/wecon/08-motion-control/8.07-other-special-fb.mdx target=_blank rel="noopener noreferrer" class=theme-edit-this-page><svg fill=currentColor height=20 width=20 viewBox="0 0 40 40" class=iconEdit_UohW aria-hidden=true><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"/></g></svg>Edit this page</a></div><div class="col lastUpdated_g62E"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href=/shareme/plc/wecon/motion-control/8.06-axis-group-motion-fb><div class=pagination-nav__sublabel>Previous</div><div class=pagination-nav__label>8.06 Nội suy nhóm trục (8 FBs)</div></a><a class="pagination-nav__link pagination-nav__link--next" href=/shareme/plc/wecon/motion-control/8.08-sdo-instruction><div class=pagination-nav__sublabel>Next</div><div class=pagination-nav__label>8.08 Lệnh SDO EtherCAT</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_TN1Q thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#tổng-quan-nhóm-khối-hàm-807 class="table-of-contents__link toc-highlight">Tổng quan nhóm khối hàm 8.07</a><ul><li><a href=#danh-mục-10-khối-hàm-đặc-biệt class="table-of-contents__link toc-highlight">Danh mục 10 khối hàm đặc biệt:</a></ul><li><a href=#1-mc_movejog-chạy-nhấp-bằng-tay class="table-of-contents__link toc-highlight">1. MC_MOVEJOG: Chạy nhấp bằng tay</a><li><a href=#2-mc_movevelocity-điều-khiển-chạy-liên-tục-theo-vận-tốc class="table-of-contents__link toc-highlight">2. MC_MOVEVELOCITY: Điều khiển chạy liên tục theo vận tốc</a><li><a href=#3-mc_combineaxes-tổng-hợp-chuyển-động-vi-sai class="table-of-contents__link toc-highlight">3. MC_COMBINEAXES: Tổng hợp chuyển động vi sai</a><li><a href=#4-điều-khiển-lực-xoắn-moment-torque-control-mc_torquecontrol class="table-of-contents__link toc-highlight">4. Điều khiển lực xoắn Moment (Torque Control): MC_TORQUECONTROL</a></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class=footer__title>Share docs</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/shareme/plc/intro>PLC</a><li class=footer__item><a class=footer__link-item href=/shareme/inverter/intro>Invertor</a><li class=footer__item><a class=footer__link-item href=/shareme/other/intro>Other</a></ul></div><div class="theme-layout-footer-column col footer__col"><div class=footer__title>Blog</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/shareme/blog>All blog</a><li class=footer__item><a class=footer__link-item href=/shareme/blog/authors>Authors</a></ul></div></div><div class="footer__bottom text--center"><div class=footer__copyright>Built by anTng. TRUONG SA, HOANG SA BELONG TO VIETNAM.</div></div></div></footer></div></body>
+<li class="">Different from the MC _ MOVEVELOCITY function block, this function block will automatically switch the servo mode to CSV (Synchronous Cycle Speed) mode;</li>
+<li class="">Using this function block requires adding four object dictionaries, H60FF, H6060, H6061, and H606C, to the PDO.
+Timing diagram</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id=mc-_-syncmovevelocity>MC _ SYNCMOVEVELOCITY<a href=#mc-_-syncmovevelocity class=hash-link aria-label="Direct link to MC _ SYNCMOVEVELOCITY" title="Direct link to MC _ SYNCMOVEVELOCITY" translate=no>​</a></h2>
+<p>MC _ SYNCMOVEVELOCITY-Sets motion according to the speed specified by the function block</p>
+<p>The function block is used to continue the motion of the previous function block and move according to the speed specified by the function block.</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported>Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)<a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported class=hash-link aria-label="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)" title="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)" translate=no>​</a></h3>
+<p>| Khối lệnh | Tham số | Device | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ SYNCMOVE VELOCITY | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InVận tốc cài đặt |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes for using devices</p>
+<ul>
+<li class="">
+<ul>
+<li class=""><strong>LC</strong> và <strong>HSC</strong> là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);</li>
+</ul>
+</li>
+<li class="">T, C, D, R and SD are signed 16-bit data types.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=bảng-thông-số-chân-và-kiểu-biến-variable-type-used-4>Bảng thông số chân và kiểu biến (Variable Type Used)<a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-4 class=hash-link aria-label="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" title="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" translate=no>​</a></h3>
+<p>| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Empty or not | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC _ SYNCMOVE VELOCITY | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Vận tốc cài đặt | LREAL | Không | [-999999999.999999,99999 9999.999999] | Setting velocity |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) and built-in variable of axis |
+| Ngõ ra (Output) | InVận tốc cài đặt | BOOL | Có | TRUE / FALSE | Reach the set velocity flag bit |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please refer to 8.11 Error Code |
+Chức năng và nguyên lý hoạt động</p>
+<ul>
+<li class="">The MC _ SYNCMOVEVELOCITY function block function block is used to continue the movement of the previous function block and move according to the speed specified by the function block.</li>
+<li class="">Since there is no input signal of position or distance, the function block will move until other function block sends a new command to stop movement of this function block;</li>
+<li class="">When the speed of the controlled axis reaches the input parameter Vận tốc cài đặt setpoint, the output parameter InVận tốc cài đặt is set. Once the input ‘Execute’ signal detects a falling edge or other function block to abort this function block, the output parameter ‘InVận tốc cài đặt’ is reset;</li>
+<li class="">The MC _ SYNCMOVEVELOCITY function block shall be in a stopped motion state or a single-axis operation state when the controlled axis is operated. After this function block is triggered, the controlled axis transitions to the ‘Continuous Motion’ state. If the controlled axis is not in the above state, the function block is not executed, Error output is set;</li>
+<li class="">The MC _ SYNCMOVEVELOCITY function block can be triggered repeatedly multiple times.
+✎Note: After using MC _ SYNCMOVEVELOCITY , the servo mode is automatically switched to the synchronous cycle speed mode.</li>
+</ul>
+<p>Error code</p>
+<p>| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+Timing diagram</p>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id=mc-_-settorque>MC _ SETTORQUE<a href=#mc-_-settorque class=hash-link aria-label="Direct link to MC _ SETTORQUE" title="Direct link to MC _ SETTORQUE" translate=no>​</a></h2>
+<p>Synchronous torque instruction</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-1>Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)<a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-1 class=hash-link aria-label="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)" title="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)" translate=no>​</a></h3>
+<p>| Khối lệnh | Tham số | Device | Index Modification | Pulse Expansion |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ SETTORQUE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TORQUE |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MaxVận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InTorque |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes for using devices</p>
+<ul>
+<li class="">
+<ul>
+<li class=""><strong>LC</strong> và <strong>HSC</strong> là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);</li>
+</ul>
+</li>
+<li class="">T, C, D, R and SD are signed 16-bit data types.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=bảng-thông-số-chân-và-kiểu-biến-variable-type-used-5>Bảng thông số chân và kiểu biến (Variable Type Used)<a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-5 class=hash-link aria-label="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" title="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" translate=no>​</a></h3>
+<p>| Khối lệnh | Pin Type | Tham số | Kiểu dữ liệu | Empty or not | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC _ SETTORQUE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Có | TRUE / FALSE | Updated during operation |
+| Torque | LREAL | Không | [-32768,32767] | Target torque (unit is 0.1%) |
+| MaxVận tốc cài đặt | LREAL | Không | [0,999999999.999999] | Maximum speed |
+| BufferMode | WORD | Có | [0] | Currently only interrupts are supported |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | InTorque | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Abortion flag |
+| Error | BOOL | Có | TRUE / FALSE | Error or not |
+| ErrorID | DWORD | Có | - | Error code ( Please refer to [8.11 Error code comparison table]) |
+Chức năng và nguyên lý hoạt động</p>
+<ul>
+<li class="">This instruction is used to implement the synchronous torque control function and is only used for the bus servo axis. The rising edge and high level of the command are valid, and the virtual axis mode is not supported.</li>
+<li class="">The following PDOs need to be configured in CST mode;
+0x1600: 0x6060, 0x6071, 607f (optional), 6040</li>
+</ul>
+<p>0x1A00: 0x6061, 0x6077, 0x6041</p>
+<ul>
+<li class="">If you use VD3E, you need to configure the startup parameter 2001: 9 value to 2;</li>
+<li class="">When Enable = ON, the function block converts TarTorque and MaxVận tốc cài đặt from user units to pulse units and sends them to the servo driver from time to time. The shaft is in the Continuous Motion state and performs synchronous torque motion. When the falling edge of Eanble, the function block performs synchronous torque motion with the TarTorque and Vận tốc cài đặt latched during the high level, and it is invalid to modify the TarTorque and Vận tốc cài đặt in real time;</li>
+<li class="">This instruction can only be invoked if the axis is switched to the enabled state using the MC _ Power instruction;</li>
+<li class="">This instruction uses the driver synchronous torque mode to realize the torque control function. When Enable = ON, the function block converts TarTorque and Vận tốc cài đặt from user units to pulse units and sends them to the servo driver from time to time. The shaft is in the Continuous Motion state and performs synchronous torque motion;
+TarTorque: The target torque, the unit is 0.1%. One decimal place after the decimal point is valid in the program, and the latter ones are directly discarded. The actual torque of the driver is limited by the maximum positive and negative torques set in the configuration parameters.</li>
+</ul>
+<p>Note</p>
+<ul>
+<li class="">Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục <code>Axis</code> không tồn tại trong cấu hình phần cứng.</li>
+<li class="">Giản đồ thời gian thực thi (Sequence Diagram)</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id=mc-_-torquecontrol>MC _ TORQUECONTROL<a href=#mc-_-torquecontrol class=hash-link aria-label="Direct link to MC _ TORQUECONTROL" title="Direct link to MC _ TORQUECONTROL" translate=no>​</a></h2>
+<p>Torque control command</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-2>Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)<a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-2 class=hash-link aria-label="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)" title="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)" translate=no>​</a></h3>
+<p>| Khối lệnh | Tham số | Device | Index Modification | Pulse Expansion |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ TORQUE CONTROL | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TORQUE |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TorqueRamp |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MaxVận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InTorque |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes for using devices</p>
+<ul>
+<li class="">
+<ul>
+<li class=""><strong>LC</strong> và <strong>HSC</strong> là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);</li>
+</ul>
+</li>
+<li class="">T, C, D, R and SD are signed 16-bit data types.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=bảng-thông-số-chân-và-kiểu-biến-variable-type-used-6>Bảng thông số chân và kiểu biến (Variable Type Used)<a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-6 class=hash-link aria-label="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" title="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" translate=no>​</a></h3>
+<p>| Khối lệnh | Pin Type | Tham số | Kiểu dữ liệu | Empty or not | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC _ TORQUECONTROL | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Có | TRUE / FALSE | Updated during operation |
+| Torque | LREAL | Không | [-32768,32767] | Target torque (unit is 0.1%） |
+| MaxVận tốc cài đặt | LREAL | Không | [0,999999999.999999] | Maximum speed |
+| TorqueRamp | LREAL | Không | [0,999999999.999999] | Torque slope |
+| BufferMode | WORD | Có | [0] | Only interrupt mode supported |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | InTorque | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Abortion flag |
+| Error | BOOL | Có | TRUE / FALSE | Error or not |
+| ErrorID | DWORD | Có | - | Error code (Please refer to [8.11 Error code comparison table]) |
+Chức năng và nguyên lý hoạt động</p>
+<ul>
+<li class="">This instruction is used to realize the torque control function and is only used for the EtherCAT bus axis. The rising edge of the instruction is valid, and the imaginary axis mode is not supported.</li>
+<li class="">The following PDOs need to be configured in CST mode:
+0x1600: 0x6060, 0x6071, 607f (optional), 6040</li>
+</ul>
+<p>0x1A00: 0x6061, 0x6077, 0x6041</p>
+<ul>
+<li class="">
+<p>If VD3E is used, the value of startup parameter 2001:9 is 2;
+Chức năng và nguyên lý hoạt động description</p>
+</li>
+<li class="">
+<p>This instruction can only be invoked if the axis is switched to the enabled state using the MC _ Power instruction;</p>
+</li>
+<li class="">
+<p>This instruction uses the driver synchronous torque mode to realize the torque control function;</p>
+</li>
+<li class="">
+<p>On the rising edge of the instruction, the function block latches the input parameters of TarTorque, TorqueSlope and MaxVận tốc cài đặt, and the axis is in the ContinuousMotion state and performs torque motion;
+TarTorque: Target torque, the unit is 0.1%, one decimal place after the decimal point is valid in the program, and the latter ones are discarded. The actual torque of the driver is limited by the maximum positive and negative torques set in the configuration parameters;</p>
+</li>
+</ul>
+<p>TorqueSlope: Moment slope, the unit is 1%, one decimal place after the decimal point is valid in the program, and the latter ones are directly discarded;</p>
+<ul>
+<li class="">Speed control in torque mode
+For servo drives, if 0x607f is mapped in the axis parameter, this instruction limits the maximum speed of the servo motor by 0x607f, if 0x607f is not mapped, the speed limit is invalid;</li>
+</ul>
+<p>On the rising edge of Execute, the instruction converts the speed limit set by Vận tốc cài đặt into pulse units and writes it into 0x607f through PDO;</p>
+<p>When the torque instruction is interrupted by others, the maximum speed of the axis will be limited by the "Maximum speed" in the configuration interface;</p>
+<p>For third-party drives, Vận tốc cài đặt can only be used as a speed limit under the following conditions:</p>
+<p>The maximum speed of the servomotor can be limited by 0x607F;</p>
+<p>0x607F can be configured into the PDO;</p>
+<p>The unit of 0x607F is pulse unit, non-speed unit.</p>
+<ul>
+<li class="">
+<p>Stop control on torque mode
+In the torque mode, the MC _ Stop instruction is called to perform the shut down, and after receiving the Stop instruction, the driver switches to the synchronous position mode, and performs deceleration according to the deceleration set by the Stop instruction.</p>
+</li>
+<li class="">
+<p>Interrupt
+In PLCOpen, when the instruction is valid, the axis will be in the Continuous Motion state. Other instructions that can make the axis in Discrete motion or comply with PLCOpen state machine switching can interrupt the instruction. When the instruction is interrupted, CommandAboarted is valid;</p>
+</li>
+</ul>
+<p>CommandAboarted is valid when Execute=ON and Done signal is invalid and is about to hit the limit signal execution needs to perform deceleration;</p>
+<p>The axis de-enable CommandAboarted is valid when Execute=ON and the Done signal is invalid.</p>
+<p>Timing diagram</p>
+<p>After setting the target torque, the command is triggered, and the actual output torque can reach the target torque.</p>
+<p>After setting the target torque, the command is triggered, and finally the actual output torque cannot reach the target torque.</p>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id=mc-_-moveabsrelpp>MC _ MOVEABSRELPP<a href=#mc-_-moveabsrelpp class=hash-link aria-label="Direct link to MC _ MOVEABSRELPP" title="Direct link to MC _ MOVEABSRELPP" translate=no>​</a></h2>
+<p>Positioning instruction based on contour position mode</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-3>Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)<a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-3 class=hash-link aria-label="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)" title="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)" translate=no>​</a></h3>
+<p>| Khối lệnh | Tham số | Device | Sửa đổi chỉ mục | Pulse Expansion |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ MOVEA BSRELPP | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Mode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes for using devices</p>
+<ul>
+<li class="">
+<ul>
+<li class=""><strong>LC</strong> và <strong>HSC</strong> là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);</li>
+</ul>
+</li>
+<li class="">T, C, D, R and SD are signed 16-bit data types.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=bảng-thông-số-chân-và-kiểu-biến-variable-type-used-7>Bảng thông số chân và kiểu biến (Variable Type Used)<a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-7 class=hash-link aria-label="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" title="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" translate=no>​</a></h3>
+<p>| Khối lệnh | Pin Type | Tham số | Kiểu dữ liệu | Empty or not | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC _ MOVE ABSRELPP | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Position | LREAL | Không | -999999999.999999 999999999.999999 | Target location |
+| Vận tốc cài đặt | LREAL | Không | （0,999999999.999999] | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | （0,999999999.999999] | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | （0,999999999.999999] | Gia tốc giảm tốc |
+| Mode | INT | Không | [0,1] | 1: Absolute mode. 1: Relative mode |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Error or not |
+| ErrorID | DWORD | Có | - | Error code (Please refer to [8.11 Error code comparison table]) |
+Chức năng và nguyên lý hoạt động</p>
+<ul>
+<li class="">This command is used to control the EtherCAT bus contour axis to realize the absolute/relative positioning function in contour position mode. In the basic settings of axis configuration, the contour mode option needs to be checked before it can be called, and the rising edge is valid.</li>
+<li class="">Contour Position Mode requires the following PDOs:
+0x1600: 0x6081, 0x6083, 0x6084, 0x607A, 0x6060, 0x6040</li>
+</ul>
+<p>0x1A00: 0x6061, 0x6064, 0x6041</p>
+<p>Chức năng và nguyên lý hoạt động description</p>
+<ul>
+<li class="">This instruction can only be invoked if the axis is switched to the enabled state using the MC _ Power instruction;</li>
+<li class="">At the rising edge of the Execute input, the instruction latches the input parameters on the left side such as Position and Vận tốc cài đặt, triggers the absolute/relative positioning function, and switches the PLCOpen state machine of the axis to the DiscreteMotion state;</li>
+<li class="">When Mode = 0, the positioning Mode is absolute positioning Mode, and Position is used to set the target Position of absolute positioning. If the axis Mode is configured as rotation Mode, the target Position is positioned according to the shortest distance;</li>
+<li class="">When Mode = 1, the positioning Mode is a relative positioning Mode, and Position is used to set the target distance of relative positioning;</li>
+<li class="">Interrupt
+When this instruction is valid in PLCOpen, the axis will be in the Discretemotion state. Other outline mode instructions that can make the axis in Discretemotion or comply with PLCOpen state machine switching can interrupt this instruction. CommandAboarted is valid when the instruction is interrupted. The instruction of periodic synchronization mode cannot be called, otherwise a fault will be reported;</li>
+</ul>
+<p>CommandAboarted is valid when the MC _ Power instruction is invalid when Execute = TRUE and the Busy signal is valid causes the axis to be de-enabled.</p>
+<p>Timing diagram</p>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id=mc-_-movevelocitypv>MC _ MOVEVELOCITYPV<a href=#mc-_-movevelocitypv class=hash-link aria-label="Direct link to MC _ MOVEVELOCITYPV" title="Direct link to MC _ MOVEVELOCITYPV" translate=no>​</a></h2>
+<p>Contour Speed Command</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-4>Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)<a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-4 class=hash-link aria-label="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)" title="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)" translate=no>​</a></h3>
+<p>| Khối lệnh | Tham số | Device | Index Modification | Pulse Expansion |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ MOVEVELO CITYPV | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InVận tốc cài đặt |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes for using devices</p>
+<ul>
+<li class="">
+<ul>
+<li class=""><strong>LC</strong> và <strong>HSC</strong> là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);</li>
+</ul>
+</li>
+<li class="">T, C, D, R and SD are signed 16-bit data types.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=bảng-thông-số-chân-và-kiểu-biến-variable-type-used-8>Bảng thông số chân và kiểu biến (Variable Type Used)<a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-8 class=hash-link aria-label="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" title="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" translate=no>​</a></h3>
+<p>| Khối lệnh | Kiểu chân | Tham số | Variable Type | Can you Is empty | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC _ MOVEVE LOCITYPV | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Vận tốc cài đặt | LREAL | Không | -999999999.999999 999999999.999999 | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | （0,999999999.999999] | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | The QPS Exceeds Maximum Limit 5 | Gia tốc giảm tốc |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | InVận tốc cài đặt | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Abortion flag |
+| Error | BOOL | Có | TRUE / FALSE | Error or not |
+| ErrorID | DWORD | Có | - | Error code (Please refer to [8.11 Error code comparison table]) |
+Chức năng và nguyên lý hoạt động</p>
+<ul>
+<li class="">This command is used to realize the continuous motion function of EtherCAT bus contour axis in contour speed mode. In the basic settings of axis configuration, the contour mode option needs to be checked before it can be called, and the rising edge is valid;</li>
+<li class="">This instruction is a simulated velocity instruction based on the profile velocity (PV) mode;</li>
+<li class="">The following PDOs are required for the profile speed mode:
+0x1600: 0x6083, 0x6084, 0x60FF, 0x6060, 0x6040</li>
+</ul>
+<p>0x1A00: 0x6061, 0x606c, 0x6041</p>
+<p>Chức năng và nguyên lý hoạt động description</p>
+<ul>
+<li class="">This instruction can only be invoked if the axis is switched to the STANDSTILL state using the MC _ Power instruction;</li>
+<li class="">When Execute = TRUE, the instruction latches the input parameters on the left side such as Vận tốc cài đặt and Gia tốc tăng tốc, the axis continuously runs according to the target speed set by Vận tốc cài đặt, and switches the PLCOpen state machine of the axis to the ContinuousMotion state.
+Timing diagram</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_SAay" id=mc-_-torquecontrolpt>MC _ TORQUECONTROLPT<a href=#mc-_-torquecontrolpt class=hash-link aria-label="Direct link to MC _ TORQUECONTROLPT" title="Direct link to MC _ TORQUECONTROLPT" translate=no>​</a></h2>
+<p>MC _ TORQUECONTROLPT-Contour torque control command</p>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-5>Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)<a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-5 class=hash-link aria-label="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)" title="Direct link to Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)" translate=no>​</a></h3>
+<p>| Khối lệnh | Tham số | Device | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ TORQUE CONTROLPT | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TORQUE |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TorqueRamp |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MaxVận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InTorque |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes for using devices</p>
+<ul>
+<li class="">
+<ul>
+<li class=""><strong>LC</strong> và <strong>HSC</strong> là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);</li>
+</ul>
+</li>
+<li class="">T, C, D, R and SD are signed 16-bit data types.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_SAay" id=bảng-thông-số-chân-và-kiểu-biến-variable-type-used-9>Bảng thông số chân và kiểu biến (Variable Type Used)<a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-9 class=hash-link aria-label="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" title="Direct link to Bảng thông số chân và kiểu biến (Variable Type Used)" translate=no>​</a></h3>
+<p>| Khối lệnh | Pin Type | Tham số | Kiểu dữ liệu | Empty or not | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_ TORQUECONTROLPT | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Torque | LREAL | Không | [-32768,32767] | Target torque (unit is 0.1%) |
+| TorqueRamp | LREAL | Không | （0,999999999.999999] | Torque slope |
+| MaxVận tốc cài đặt | LREAL | Không | [0,999999999.999999] | Maximum speed |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | InTorque | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Abortion flag |
+| Error | BOOL | Có | TRUE / FALSE | Error or not |
+| ErrorID | DWORD | Có | - | Error code (Please refer to [8.11 Error code comparison table]) |
+Chức năng và nguyên lý hoạt động</p>
+<ul>
+<li class="">This instruction is used to control the EtherCAT bus profile axis to realize the absolute/relative positioning function in profile position mode. In the basic settings of axis configuration, the profile mode option needs to be checked before it can be called, and the rising edge is valid;</li>
+<li class="">This instruction is used to realize the torque control function and is only used for the EtherCAT bus axis. The rising edge of the instruction is valid and the virtual axis mode is not supported;</li>
+<li class="">Profile torque mode needs to be configured with the following PDOs:
+0x1600: 0x6087 (optional), 0x6060, 0x6071, 0x607f (optional), 0x6040</li>
+</ul>
+<p>0x1A00: 0x6061, 0x6077, 0x6041</p>
+<p>Chức năng và nguyên lý hoạt động description</p>
+<ul>
+<li class="">This instruction can only be invoked if the axis is switched to the enabled state using the MC _ Power instruction. Otherwise, report a fault;</li>
+<li class="">This instruction uses the driver synchronous torque mode to realize the torque control function;</li>
+<li class="">On the rising edge of the instruction, the function block latches the input parameters of TarTorque, TorqueSlope and MaxVận tốc cài đặt, and the axis is in the ContinuousMotion state and performs torque motion;
+TarTorque: Target torque, the unit is 0.1%, one decimal place after the decimal point is valid in the program, and the latter ones are directly discarded. The actual torque of the driver is limited by the maximum positive and negative torques set in the configuration parameters;</li>
+</ul>
+<p>TorqueRamp: Torque ramp, the unit is 1%, one decimal place after the decimal point is valid in the program, and the latter ones are directly discarded.</p>
+<ul>
+<li class="">Speed control in torque mode
+For servo drives, if 0x607f is mapped in the axis parameter, this instruction limits the maximum speed of the servo motor by 0x607f, if 0x607f is not mapped, the speed limit is invalid;</li>
+</ul>
+<p>On the rising edge of Execute, the instruction converts the speed limit set by Vận tốc cài đặt into pulse units and writes it into 0x607f through PDO;</p>
+<p>When the torque instruction is interrupted by others, the maximum speed of the axis will be limited by the "Maximum speed" in the configuration interface;</p>
+<p>For third-party drives, Vận tốc cài đặt can only be used as a speed limit under the following conditions:</p>
+<p>The maximum speed of the servomotor can be limited by 0x607F;</p>
+<p>0x607F can be configured into the PDO;</p>
+<p>The unit of 0x607F is pulse unit, non-speed unit.</p>
+<ul>
+<li class="">
+<p>Stop control on torque mode
+In the torque mode, the MC _ Stop instruction is called to perform the shut down, and after receiving the Stop instruction, the driver switches to the synchronous position mode, and performs deceleration according to the deceleration set by the Stop instruction.</p>
+</li>
+<li class="">
+<p>Interrupt
+In PLCOpen, when the instruction is valid, the axis will be in the Continuous Motion state. Other instructions that can make the axis in Discrete motion or comply with PLCOpen state machine switching can interrupt the instruction. When the instruction is interrupted, CommandAboarted is valid;</p>
+</li>
+</ul>
+<p>CommandAboarted is valid when Execute=ON and Done signal is invalid and is about to hit the limit signal execution needs to perform deceleration;</p>
+<p>The axis de-enable CommandAboarted is valid when Execute=ON and the Done signal is invalid.</p>
+<p>Timing diagram</div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-tags-row"><div class=col><b>Tags:</b><ul class="tags_q74f padding--none margin-left--sm"><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/wecon>wecon</a><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/lx-6-v>lx6v</a><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/lx-6-a>lx6a</a><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/motion-control>motion-control</a><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/plcopen>plcopen</a><li class=tag_lSC7><a rel=tag class="tag_qE9H tagRegular_aHXt" href=/shareme/plc/tags/manual>manual</a></ul></div></div><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_HJkF"><a href=https://github.com/2naq/shareme/tree/main/apps/docs/docs/plc/wecon/08-motion-control/8.07-other-special-fb.mdx target=_blank rel="noopener noreferrer" class=theme-edit-this-page><svg fill=currentColor height=20 width=20 viewBox="0 0 40 40" class=iconEdit_UohW aria-hidden=true><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"/></g></svg>Edit this page</a></div><div class="col lastUpdated_g62E"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href=/shareme/plc/wecon/motion-control/8.06-axis-group-motion-fb><div class=pagination-nav__sublabel>Previous</div><div class=pagination-nav__label>8.06 Nội suy nhóm trục (8 FBs)</div></a><a class="pagination-nav__link pagination-nav__link--next" href=/shareme/plc/wecon/motion-control/8.08-sdo-instruction><div class=pagination-nav__sublabel>Next</div><div class=pagination-nav__label>8.08 Lệnh SDO EtherCAT</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_TN1Q thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#mc_movejog class="table-of-contents__link toc-highlight">MC_MOVEJOG</a><ul><li><a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used class="table-of-contents__link toc-highlight">Vùng nhớ thiết bị hỗ trợ (Devices Used)</a><li><a href=#lưu-ý-khi-sử-dụng-vùng-nhớ-thiết-bị class="table-of-contents__link toc-highlight">Lưu ý khi sử dụng vùng nhớ thiết bị</a><li><a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used class="table-of-contents__link toc-highlight">Bảng thông số chân và kiểu biến (Variable Type Used)</a></ul><li><a href=#mc_combineaxes class="table-of-contents__link toc-highlight">MC_COMBINEAXES</a><ul><li><a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-1 class="table-of-contents__link toc-highlight">Vùng nhớ thiết bị hỗ trợ (Devices Used)</a><li><a href=#lưu-ý-khi-sử-dụng-vùng-nhớ-thiết-bị-1 class="table-of-contents__link toc-highlight">Lưu ý khi sử dụng vùng nhớ thiết bị</a><li><a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-1 class="table-of-contents__link toc-highlight">Bảng thông số chân và kiểu biến (Variable Type Used)</a></ul><li><a href=#mc_movevelocity class="table-of-contents__link toc-highlight">MC_MOVEVELOCITY</a><ul><li><a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-2 class="table-of-contents__link toc-highlight">Vùng nhớ thiết bị hỗ trợ (Devices Used)</a><li><a href=#lưu-ý-khi-sử-dụng-vùng-nhớ-thiết-bị-2 class="table-of-contents__link toc-highlight">Lưu ý khi sử dụng vùng nhớ thiết bị</a><li><a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-2 class="table-of-contents__link toc-highlight">Bảng thông số chân và kiểu biến (Variable Type Used)</a></ul><li><a href=#mc-_-movevelocity-_-csv class="table-of-contents__link toc-highlight">MC _ MOVEVELOCITY _ CSV</a><ul><li><a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-device-splicing-and-indexare-not-supported class="table-of-contents__link toc-highlight">Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, device splicing and index are not supported)</a><li><a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-3 class="table-of-contents__link toc-highlight">Bảng thông số chân và kiểu biến (Variable Type Used)</a></ul><li><a href=#mc-_-syncmovevelocity class="table-of-contents__link toc-highlight">MC _ SYNCMOVEVELOCITY</a><ul><li><a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported class="table-of-contents__link toc-highlight">Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)</a><li><a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-4 class="table-of-contents__link toc-highlight">Bảng thông số chân và kiểu biến (Variable Type Used)</a></ul><li><a href=#mc-_-settorque class="table-of-contents__link toc-highlight">MC _ SETTORQUE</a><ul><li><a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-1 class="table-of-contents__link toc-highlight">Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)</a><li><a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-5 class="table-of-contents__link toc-highlight">Bảng thông số chân và kiểu biến (Variable Type Used)</a></ul><li><a href=#mc-_-torquecontrol class="table-of-contents__link toc-highlight">MC _ TORQUECONTROL</a><ul><li><a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-2 class="table-of-contents__link toc-highlight">Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)</a><li><a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-6 class="table-of-contents__link toc-highlight">Bảng thông số chân và kiểu biến (Variable Type Used)</a></ul><li><a href=#mc-_-moveabsrelpp class="table-of-contents__link toc-highlight">MC _ MOVEABSRELPP</a><ul><li><a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-3 class="table-of-contents__link toc-highlight">Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)</a><li><a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-7 class="table-of-contents__link toc-highlight">Bảng thông số chân và kiểu biến (Variable Type Used)</a></ul><li><a href=#mc-_-movevelocitypv class="table-of-contents__link toc-highlight">MC _ MOVEVELOCITYPV</a><ul><li><a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-4 class="table-of-contents__link toc-highlight">Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)</a><li><a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-8 class="table-of-contents__link toc-highlight">Bảng thông số chân và kiểu biến (Variable Type Used)</a></ul><li><a href=#mc-_-torquecontrolpt class="table-of-contents__link toc-highlight">MC _ TORQUECONTROLPT</a><ul><li><a href=#vùng-nhớ-thiết-bị-hỗ-trợ-devices-used-only-a-single-device-can-be-used-and-device-splicing-and-indexare-not-supported-5 class="table-of-contents__link toc-highlight">Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)</a><li><a href=#bảng-thông-số-chân-và-kiểu-biến-variable-type-used-9 class="table-of-contents__link toc-highlight">Bảng thông số chân và kiểu biến (Variable Type Used)</a></ul></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class=footer__title>Share docs</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/shareme/plc/intro>PLC</a><li class=footer__item><a class=footer__link-item href=/shareme/inverter/intro>Invertor</a><li class=footer__item><a class=footer__link-item href=/shareme/other/intro>Other</a></ul></div><div class="theme-layout-footer-column col footer__col"><div class=footer__title>Blog</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/shareme/blog>All blog</a><li class=footer__item><a class=footer__link-item href=/shareme/blog/authors>Authors</a></ul></div></div><div class="footer__bottom text--center"><div class=footer__copyright>Built by anTng. TRUONG SA, HOANG SA BELONG TO VIETNAM.</div></div></div></footer></div></body>
