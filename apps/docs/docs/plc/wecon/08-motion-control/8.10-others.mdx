@@ -3,7 +3,7 @@ id: "8.10-others"
 title: "8.10 Sơ đồ trạng thái PLCopen, Chế độ cung tròn & Vùng đệm BufferMode"
 sidebar_position: 11
 sidebar_label: "8.10 Máy trạng thái & BufferMode"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.10 Sơ đồ trạng thái PLCopen, Chế độ cung tròn & Vùng đệm BufferMode"
 ---
 
@@ -11,7 +11,7 @@ description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.10 Sơ đồ trạ
 
 ### Sơ đồ trạng thái điều khiển chuyển động đơn trục
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/123.png?width=621&amp;height=659&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/123.png?width=621&height=659&rev=1.1)
 
 :::tip
 ✎ Lưu ý: Mũi tên nét liền biểu thị chuyển đổi trạng thái thông qua lệnh điều khiển. Mũi tên nét đứt biểu thị chuyển đổi tự động khi lệnh trên trục kết thúc hoặc khi xảy ra sự kiện hệ thống liên quan (ví dụ: phát sinh lỗi).
@@ -31,7 +31,7 @@ description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.10 Sơ đồ trạ
 
 ### Sơ đồ trạng thái điều khiển chuyển động nhóm trục
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/234.png?width=669&amp;height=405&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/234.png?width=669&height=405&rev=1.1)
 
 :::tip
 ✎Note : For all states in the diagram could be transitioned to GroupDisabled state by MC_GroupDisable or MC_UngroupAllAxes.
@@ -49,28 +49,28 @@ description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.10 Sơ đồ trạ
 
 ### Mô tả chế độ cung tròn
 
-| Chế độ | Điểm biên (CircMode=0) | Tâm đường tròn (CircMode=1) | Đường kính (CircMode=2) |
-| :--- | :--- | :--- | :--- |
-| Đặc tính kỹ thuật | Quỹ đạo cung tròn được xác định bởi điểm đầu, điểm phụ trợ và điểm cuối. | Quỹ đạo cung tròn được xác định bởi điểm đầu, điểm tâm và điểm cuối. | Cung tròn được xác định bởi điểm đầu, điểm cuối và vectơ pháp tuyến của mặt phẳng chứa đường tròn. Hướng của vectơ xác định chiều quay CW và CCW của đường tròn. Độ dài của vectơ là bán kính của cung tròn. |
-| Mô tả kỹ thuật | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016369357-809.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016369360-366.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016369361-660.png?rev=1.1) |
-| Auxpoint | Điểm nằm trên quỹ đạo cung tròn | Điểm tâm của cung tròn | Vectơ pháp tuyến của mặt phẳng chứa cung tròn không gian |
-| Lựa chọn đường đi | Không hợp lệ | Đường tròn theo chiều CW và CCW: Chế độ CCW / Chế độ CW | Cung lớn và cung nhỏ: 1: Cung nhỏ; 0: Cung lớn |
-| Đặc điểm | Giới hạn góc nhỏ hơn 2π cho một lệnh đơn | Giới hạn góc nhỏ hơn 2π và khác π cho một lệnh đơn | Giới hạn góc nhỏ hơn 2π cho một lệnh đơn. Phải tính toán vectơ vuông góc với mặt phẳng đường tròn. |
+| Chế độ            | Điểm biên (CircMode=0)                                                                                                                                    | Tâm đường tròn (CircMode=1)                                                                                                                               | Đường kính (CircMode=2)                                                                                                                                                                                      |
+| :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Đặc tính kỹ thuật | Quỹ đạo cung tròn được xác định bởi điểm đầu, điểm phụ trợ và điểm cuối.                                                                                  | Quỹ đạo cung tròn được xác định bởi điểm đầu, điểm tâm và điểm cuối.                                                                                      | Cung tròn được xác định bởi điểm đầu, điểm cuối và vectơ pháp tuyến của mặt phẳng chứa đường tròn. Hướng của vectơ xác định chiều quay CW và CCW của đường tròn. Độ dài của vectơ là bán kính của cung tròn. |
+| Mô tả kỹ thuật    | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016369357-809.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016369360-366.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016369361-660.png?rev=1.1)                                                    |
+| Auxpoint          | Điểm nằm trên quỹ đạo cung tròn                                                                                                                           | Điểm tâm của cung tròn                                                                                                                                    | Vectơ pháp tuyến của mặt phẳng chứa cung tròn không gian                                                                                                                                                     |
+| Lựa chọn đường đi | Không hợp lệ                                                                                                                                              | Đường tròn theo chiều CW và CCW: Chế độ CCW / Chế độ CW                                                                                                   | Cung lớn và cung nhỏ: 1: Cung nhỏ; 0: Cung lớn                                                                                                                                                               |
+| Đặc điểm          | Giới hạn góc nhỏ hơn 2π cho một lệnh đơn                                                                                                                  | Giới hạn góc nhỏ hơn 2π và khác π cho một lệnh đơn                                                                                                        | Giới hạn góc nhỏ hơn 2π cho một lệnh đơn. Phải tính toán vectơ vuông góc với mặt phẳng đường tròn.                                                                                                           |
 
 ### Mô tả chế độ chuyển tiếp
 
 Giải thích chi tiết về chế độ chuyển tiếp: Tham số chuyển tiếp là các tham số bổ sung của chế độ chuyển tiếp, có hiệu lực tùy theo các chế độ chuyển tiếp khác nhau.
 
-| TransitionMode | 0 (Không dùng chế độ chuyển tiếp đệm) | 1 (Đệm với vận tốc lớn nhất) | 2 (Đệm với vận tốc chỉ định) |
-| :--- | :--- | :--- | :--- |
-| TransitionParameter | Không hợp lệ | Không hợp lệ | Vận tốc chỉ định |
+| TransitionMode      | 0 (Không dùng chế độ chuyển tiếp đệm) | 1 (Đệm với vận tốc lớn nhất) | 2 (Đệm với vận tốc chỉ định) |
+| :------------------ | :------------------------------------ | :--------------------------- | :--------------------------- |
+| TransitionParameter | Không hợp lệ                          | Không hợp lệ                 | Vận tốc chỉ định             |
 
 ### Hướng dẫn chọn chế độ
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016491129-791.png?rev=1.1)
 
-| Cảnh báo kỹ thuật |
-| :--- |
+| Cảnh báo kỹ thuật                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Cần lưu ý rằng nếu khối hàm đang chuyển động bị ngắt bởi một khối hàm khác, lỗi sau có thể xảy ra: quãng đường phanh không đủ do giới hạn của gia tốc giảm tốc; Lưu ý rằng trong tất cả các giản đồ thời gian được giải thích dưới đây, một số giản đồ về phản hồi từ trạng thái chưa chính xác. Ví dụ, trong Hình 8-2, tín hiệu khởi động không được hệ thống tự động đặt sau khi kích hoạt mà do người dùng điều khiển. Khối hàm kích hoạt logic thực thi tại sườn lên. Tương tự, tín hiệu Done không được đặt tự động. Khi khối hàm kết thúc, Done sẽ được giữ ở mức cao cho đến khi xuất hiện sườn xuống của tín hiệu Execute! |
 
 (1) mcAborting
@@ -212,5 +212,3 @@ Như thể hiện trong Hình 8-6 của giản đồ thời gian mcBlendingLow, 
 Khi FB2 ở chế độ bộ đệm, trục đệm ở vận tốc hòa trộn thấp và di chuyển ở tốc độ 50u/s theo vận tốc của FB2, cho đến khi đạt vị trí cài đặt 2000u.
 
 Do đó, vận tốc trục là 50u/s khi ngõ ra Active của FB1 được xóa, và vận tốc trục là 50u/s khi ngõ ra Active của FB2 được xóa.
-
-0

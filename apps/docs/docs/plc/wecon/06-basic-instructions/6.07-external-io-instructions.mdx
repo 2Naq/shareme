@@ -3,7 +3,7 @@ id: "6.07-external-io-instructions"
 title: "6.07 Lệnh giao tiếp thiết bị ngoại vi I/O (External IO Instructions)"
 sidebar_position: 7
 sidebar_label: "6.07 External IO instructions"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.07 Lệnh giao tiếp thiết bị ngoại vi I/O (External IO Instructions)"
 ---
 
@@ -17,21 +17,21 @@ Lệnh nhập dữ liệu sử dụng các công tắc mũi tên để di chuy�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | địa chỉ thiết bị bắt đầu that input | - | BIN16 bit | ANY_BOOL |
-| (d1) | Số hiệu thiết bị word lưu trữ dữ liệu chuyển đổi BCD | - | BIN16 bit | ANY_BOOL |
-| (d2) | Thiết bị bit bắt đầu (Y) kết nối với màn hình LED 7 đoạn | 0 to 9999 | BIN16 bit | ANY16_S |
-| (n) | Chỉ định số chữ số hiển thị trên LED 7 đoạn (Phạm vi cài đặt: K0 đến K3) | 0 to 3 | BIN16 bit | ANY16_S |
+| Tham số | Nội dung mô tả                                                           | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | địa chỉ thiết bị bắt đầu that input                                      | -               | BIN16 bit    | ANY_BOOL                 |
+| (d1)    | Số hiệu thiết bị word lưu trữ dữ liệu chuyển đổi BCD                     | -               | BIN16 bit    | ANY_BOOL                 |
+| (d2)    | Thiết bị bit bắt đầu (Y) kết nối với màn hình LED 7 đoạn                 | 0 to 9999       | BIN16 bit    | ANY16_S                  |
+| (n)     | Chỉ định số chữ số hiển thị trên LED 7 đoạn (Phạm vi cài đặt: K0 đến K3) | 0 to 3          | BIN16 bit    | ANY16_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ARWS | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| ARWS | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| ARWS | Parameter 3 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| ARWS | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| ARWS             | Parameter 1 |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| ARWS             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| ARWS             | Parameter 3 |     |  ●  |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| ARWS             | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |  ●  |  ●  |     |                       |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -51,17 +51,17 @@ Ví dụ dưới đây minh họa nguyên lý hoạt động với dữ liệu 4
 
 (2) Hoạt động của công tắc chọn chữ số (S+2, S+3)
 
-1) Hoạt động khi ngõ vào giảm hàng chữ số (S+2) bật ON: Mỗi lần nhấn công tắc, vị trí hàng chữ số thay đổi tuần hoàn theo thứ tự 10³ → 10² → 10¹ → 10⁰ → 10³.
+1. Hoạt động khi ngõ vào giảm hàng chữ số (S+2) bật ON: Mỗi lần nhấn công tắc, vị trí hàng chữ số thay đổi tuần hoàn theo thứ tự 10³ → 10² → 10¹ → 10⁰ → 10³.
 
-2) Hoạt động khi ngõ vào tăng hàng chữ số (S+3) bật ON: Mỗi lần nhấn công tắc, vị trí hàng chữ số thay đổi tuần hoàn theo thứ tự 10³ → 10⁰ → 10¹ → 10² → 10³.
+2. Hoạt động khi ngõ vào tăng hàng chữ số (S+3) bật ON: Mỗi lần nhấn công tắc, vị trí hàng chữ số thay đổi tuần hoàn theo thứ tự 10³ → 10⁰ → 10¹ → 10² → 10³.
 
 (3) Hoạt động của đèn LED hiển thị chữ số đang chọn (D2+4 đến D2+7). Vị trí chữ số được chỉ định có thể hiển thị bằng đèn LED thông qua các tín hiệu chọn (strobe) D2+4 đến D2+7.
 
 (4) Hoạt động của công tắc thay đổi dữ liệu theo từng chữ số (S, S+1). Dữ liệu được thay đổi tại vị trí chữ số do "công tắc chọn chữ số" ở trên chỉ định.
 
-1) Hoạt động khi ngõ vào tăng giá trị bật ON. Mỗi lần nhấn công tắc, nội dung của D1 thay đổi theo thứ tự 0→1→2→...→8→9→0→1.
+1. Hoạt động khi ngõ vào tăng giá trị bật ON. Mỗi lần nhấn công tắc, nội dung của D1 thay đổi theo thứ tự 0→1→2→...→8→9→0→1.
 
-2) Hoạt động khi ngõ vào giảm giá trị bật ON. Mỗi lần nhấn công tắc, nội dung của D1 thay đổi theo thứ tự 0→9→8→7...1→0→9.
+2. Hoạt động khi ngõ vào giảm giá trị bật ON. Mỗi lần nhấn công tắc, nội dung của D1 thay đổi theo thứ tự 0→9→8→7...1→0→9.
 
 Các nội dung này có thể được hiển thị trên bộ hiển thị LED 7 đoạn.
 
@@ -91,11 +91,11 @@ Chỉ có thể sử dụng tối đa một lệnh ARWS trong chương trình.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | The data input in the lệnh ứng dụng (d1) and (d2) exceeds the specified range |
-| 4085H | The output result of the read lệnh ứng dụng (s), (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output result of the write lệnh ứng dụng (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                    |
+| :------------------ | :------------------------------------------------------------------------------------------------ |
+| 4084H               | The data input in the lệnh ứng dụng (d1) and (d2) exceeds the specified range                     |
+| 4085H               | The output result of the read lệnh ứng dụng (s), (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H               | The output result of the write lệnh ứng dụng (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị     |
 
 #### Ví dụ minh họa
 
@@ -121,21 +121,21 @@ Lệnh này dùng để đọc trạng thái của công tắc cài đặt dạn
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu thiết bị bắt đầu (X) kết nối với công tắc số (chiếm 4 điểm) | - | Bit | ANY_BOOL |
-| (d1) | Số hiệu thiết bị bắt đầu (Y) xuất tín hiệu quét (strobe) (chiếm 4 điểm) | - | Bit | ANY_BOOL |
-| (d2) | địa chỉ thiết bị that stores the value of the digital switch (occupies n points) | 0 to 9999 | Signed BIN16 | ANY16_S |
-| (n) | Số nhóm công tắc số (mỗi nhóm 4 chữ số) (n=1 hoặc 2) | 1 to 2 | Signed BIN16 | ANY16_S |
+| Tham số | Nội dung mô tả                                                                   | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | Số hiệu thiết bị bắt đầu (X) kết nối với công tắc số (chiếm 4 điểm)              | -               | Bit          | ANY_BOOL                 |
+| (d1)    | Số hiệu thiết bị bắt đầu (Y) xuất tín hiệu quét (strobe) (chiếm 4 điểm)          | -               | Bit          | ANY_BOOL                 |
+| (d2)    | địa chỉ thiết bị that stores the value of the digital switch (occupies n points) | 0 to 9999       | Signed BIN16 | ANY16_S                  |
+| (n)     | Số nhóm công tắc số (mỗi nhóm 4 chữ số) (n=1 hoặc 2)                             | 1 to 2          | Signed BIN16 | ANY16_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DSW | Parameter 1 | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| DSW | Parameter 2 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| DSW | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| DSW | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DSW              | Parameter 1 |  ●  |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| DSW              | Parameter 2 |     |  ●  |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| DSW              | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| DSW              | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |  ●  |  ●  |     |                       |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -151,11 +151,11 @@ Nhóm thứ nhất được lưu vào (d2), và nhóm thứ hai được lưu v�
 
 (2) Chỉ định số lượng nhóm n
 
-1) Khi sử dụng 4 chữ số / 1 nhóm × 1 [n=K1], thông qua tín hiệu chọn (strobe)
+1. Khi sử dụng 4 chữ số / 1 nhóm × 1 [n=K1], thông qua tín hiệu chọn (strobe)
 
 Từ (s) đến [(s)+3], lần lượt đọc các công tắc số BCD 4 chữ số kết nối từ (d1) đến [(d1)+3], và lưu giá trị dưới dạng BIN vào (d2).
 
-2) Khi sử dụng 4 chữ số / 1 nhóm × 2 [n=K2], thông qua tín hiệu chọn (strobe)
+2. Khi sử dụng 4 chữ số / 1 nhóm × 2 [n=K2], thông qua tín hiệu chọn (strobe)
 
 Từ (s) đến [(s)+3], lần lượt đọc các công tắc số BCD 4 chữ số kết nối từ (d1) đến [(d1)+3], và lưu giá trị dưới dạng BIN vào (d2).
 
@@ -170,9 +170,9 @@ Ngay cả khi lệnh OFF, nội dung của (d2) không thay đổi, nhưng các 
 
 (2) Số điểm thiết bị bị chiếm dụng
 
-1) Khi sử dụng 4 chữ số 2 nhóm (n=K2), chiếm 2 điểm bắt đầu từ (d2).
+1. Khi sử dụng 4 chữ số 2 nhóm (n=K2), chiếm 2 điểm bắt đầu từ (d2).
 
-2) Khi dùng 4 chữ số 1 nhóm, (s) chiếm 4 điểm; khi dùng 4 chữ số 2 nhóm, (s) chiếm 8 điểm.
+2. Khi dùng 4 chữ số 1 nhóm, (s) chiếm 4 điểm; khi dùng 4 chữ số 2 nhóm, (s) chiếm 8 điểm.
 
 (3) Khi kết nối công tắc số có ít hơn 4 chữ số
 
@@ -197,24 +197,24 @@ Có thể sử dụng đồng thời tối đa 2 lệnh.
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM229 | Kết thúc thực thi lệnh | Sau khi kết thúc một chu kỳ đọc, SM229 sẽ được đặt ON trong một chu kỳ quét |
+| Vùng nhớ thiết bị (Devices) | Tên                    | Nội dung mô tả                                                              |
+| :-------------------------- | :--------------------- | :-------------------------------------------------------------------------- |
+| SM229                       | Kết thúc thực thi lệnh | Sau khi kết thúc một chu kỳ đọc, SM229 sẽ được đặt ON trong một chu kỳ quét |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | The data input in the lệnh ứng dụng (n) and (d2) exceeds the specified range |
-| 4085H | The output result of the read lệnh ứng dụng (s) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output result of the write lệnh ứng dụng (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
-| 4089H | The number of các lệnh ứng dụng exceeds the limit |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                |
+| :------------------ | :-------------------------------------------------------------------------------------------- |
+| 4084H               | The data input in the lệnh ứng dụng (n) and (d2) exceeds the specified range                  |
+| 4085H               | The output result of the read lệnh ứng dụng (s) and (d2) vượt quá phạm vi vùng nhớ thiết bị   |
+| 4086H               | The output result of the write lệnh ứng dụng (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
+| 4089H               | The number of các lệnh ứng dụng exceeds the limit                                             |
 
 #### Ví dụ minh họa
 
 Chương trình
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760512862523-769.png?width=482&amp;height=168&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760512862523-769.png?width=482&height=168&rev=1.1)
 
 Sơ đồ đấu dây
 
@@ -236,21 +236,21 @@ Khi chức năng mở rộng bật ON, có thể sử dụng số thập lục p
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu thiết bị bit bắt đầu (X) nhận đầu vào bàn phím 16 phím (chiếm 4 điểm) | - | Bit | ANY_BOOL |
-| (d1) | Số hiệu thiết bị bắt đầu (Y) xuất tín hiệu quét (chiếm 4 điểm) | - | Bit | ANY_BOOL |
-| (d2) | địa chỉ thiết bị that stores the value input from the 16 keys | 0 to 9999 | BIN16 bit | ANY16_S |
-| (d3) | Số hiệu thiết bị bit bắt đầu lưu trạng thái phím nhấn ON (chiếm 8 điểm) | - | BIN16 bit | ANY16_S |
+| Tham số | Nội dung mô tả                                                                | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | Số hiệu thiết bị bit bắt đầu (X) nhận đầu vào bàn phím 16 phím (chiếm 4 điểm) | -               | Bit          | ANY_BOOL                 |
+| (d1)    | Số hiệu thiết bị bắt đầu (Y) xuất tín hiệu quét (chiếm 4 điểm)                | -               | Bit          | ANY_BOOL                 |
+| (d2)    | địa chỉ thiết bị that stores the value input from the 16 keys                 | 0 to 9999       | BIN16 bit    | ANY16_S                  |
+| (d3)    | Số hiệu thiết bị bit bắt đầu lưu trạng thái phím nhấn ON (chiếm 8 điểm)       | -               | BIN16 bit    | ANY16_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| HKY | Parameter 1 | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| HKY | Parameter 2 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| HKY | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| HKY | Parameter 4 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| HKY              | Parameter 1 |  ●  |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| HKY              | Parameter 2 |     |  ●  |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| HKY              | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| HKY              | Parameter 4 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -271,13 +271,13 @@ Khi bất kỳ phím nào từ 0 đến 9 được nhấn, ngõ ra phát hiện 
 Tương ứng với các phím A đến F, 6 điểm đầu tiên từ D3 (D3 đến D3+5) sẽ bật ON. Khi bất kỳ phím nào từ A đến F được nhấn, ngõ ra phát hiện phím D3+6 sẽ bật ON.
 
 | Keyboard | Key information |
-| :--- | :--- |
-| A | D3 |
-| B | D3+1 |
-| C | D3+2 |
-| D | D3+3 |
-| E | D3+4 |
-| F | D3+5 |
+| :------- | :-------------- |
+| A        | D3              |
+| B        | D3+1            |
+| C        | D3+2            |
+| D        | D3+3            |
+| E        | D3+4            |
+| F        | D3+5            |
 
 Chức năng mở rộng
 
@@ -341,26 +341,26 @@ Vui lòng sử dụng bộ điều khiển lập trình (PLC) loại ngõ ra tra
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM229 | Kết thúc thực thi lệnh | OFF: Đang quét (d1) đến (d1)+3 hoặc lệnh chưa được thực thi; ON: Hoàn tất xuất tuần hoàn (d1) đến (d1)+3 (quét từ chữ số 1 đến 4) rồi bật ON |
+| Vùng nhớ thiết bị (Devices) | Tên                    | Nội dung mô tả                                                                                                                               |
+| :-------------------------- | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| SM229                       | Kết thúc thực thi lệnh | OFF: Đang quét (d1) đến (d1)+3 hoặc lệnh chưa được thực thi; ON: Hoàn tất xuất tuần hoàn (d1) đến (d1)+3 (quét từ chữ số 1 đến 4) rồi bật ON |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output result of the read lệnh ứng dụng (s) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output result of the write lệnh ứng dụng (d1), (d2) and (d3) vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                      |
+| :------------------ | :-------------------------------------------------------------------------------------------------- |
+| 4085H               | The output result of the read lệnh ứng dụng (s) and (d2) vượt quá phạm vi vùng nhớ thiết bị         |
+| 4086H               | The output result of the write lệnh ứng dụng (d1), (d2) and (d3) vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
 Chương trình
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513293092-735.png?width=484&amp;height=89&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513293092-735.png?width=484&height=89&rev=1.1)
 
 Sơ đồ đấu dây
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513332784-164.png?width=500&amp;height=460&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513332784-164.png?width=500&height=460&rev=1.1)
 
 Khi nhập [1]→[2]→[3]→[B]→[F], lưu "23BF" vào D0 ở dạng BIN.
 
@@ -378,21 +378,21 @@ Khi chức năng mở rộng bật ON, có thể sử dụng số thập lục p
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu thiết bị bit bắt đầu (X) nhận đầu vào bàn phím 16 phím (chiếm 4 điểm) | - | Bit | ANY_BOOL |
-| (d1) | Số hiệu thiết bị bắt đầu (Y) xuất tín hiệu quét (chiếm 4 điểm) | - | Bit | ANY_BOOL |
-| (d2) | địa chỉ thiết bị that stores the value input from the 16 keys | 0 to 99999999 | BIN32 bit | ANY32_S |
-| (d3) | Số hiệu thiết bị bit bắt đầu lưu trạng thái phím nhấn ON (chiếm 8 điểm) | - | BIN16 bit | ANY16_S |
+| Tham số | Nội dung mô tả                                                                | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | Số hiệu thiết bị bit bắt đầu (X) nhận đầu vào bàn phím 16 phím (chiếm 4 điểm) | -               | Bit          | ANY_BOOL                 |
+| (d1)    | Số hiệu thiết bị bắt đầu (Y) xuất tín hiệu quét (chiếm 4 điểm)                | -               | Bit          | ANY_BOOL                 |
+| (d2)    | địa chỉ thiết bị that stores the value input from the 16 keys                 | 0 to 99999999   | BIN32 bit    | ANY32_S                  |
+| (d3)    | Số hiệu thiết bị bit bắt đầu lưu trạng thái phím nhấn ON (chiếm 8 điểm)       | -               | BIN16 bit    | ANY16_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DHKY | Parameter 1 | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| DHKY | Parameter 2 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| DHKY | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● |  |
-| DHKY | Parameter 4 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DHKY             | Parameter 1 |  ●  |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| DHKY             | Parameter 2 |     |  ●  |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| DHKY             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |                    |
+| DHKY             | Parameter 4 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -474,26 +474,26 @@ Vui lòng sử dụng bộ điều khiển lập trình (PLC) loại ngõ ra tra
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM229 | Kết thúc thực thi lệnh | OFF: Đang quét (d1) đến (d1)+3 hoặc lệnh chưa được thực thi; ON: Hoàn tất xuất tuần hoàn (d1) đến (d1)+3 (quét từ chữ số 1 đến 4) rồi bật ON |
+| Vùng nhớ thiết bị (Devices) | Tên                    | Nội dung mô tả                                                                                                                               |
+| :-------------------------- | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| SM229                       | Kết thúc thực thi lệnh | OFF: Đang quét (d1) đến (d1)+3 hoặc lệnh chưa được thực thi; ON: Hoàn tất xuất tuần hoàn (d1) đến (d1)+3 (quét từ chữ số 1 đến 4) rồi bật ON |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output result of the read lệnh ứng dụng (s) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output result of the write lệnh ứng dụng (d1), (d2) and (d3) vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                      |
+| :------------------ | :-------------------------------------------------------------------------------------------------- |
+| 4085H               | The output result of the read lệnh ứng dụng (s) and (d2) vượt quá phạm vi vùng nhớ thiết bị         |
+| 4086H               | The output result of the write lệnh ứng dụng (d1), (d2) and (d3) vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
 Chương trình
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513491921-463.png?width=439&amp;height=72&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513491921-463.png?width=439&height=72&rev=1.1)
 
 Sơ đồ đấu dây
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513520049-993.png?width=505&amp;height=472&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513520049-993.png?width=505&height=472&rev=1.1)
 
 Khi nhập 1→2→3→B→F→5→7→6, lưu "123BF576" ở dạng BIN vào [D1,D0].
 
@@ -507,17 +507,17 @@ Lệnh này dùng để xuất song song dữ liệu ASCII ra các ngõ ra (Y).
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu mã ASCII |  | String (ASCII code only) | ANY_ASC |
-| (d) | Số hiệu bắt đầu Y xuất dữ liệu mã ASCII | - | Bit | ANY_BOOL |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị | Kiểu dữ liệu             | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :-------------- | :----------------------- | :----------------------- |
+| (s)     | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu mã ASCII |                 | String (ASCII code only) | ANY_ASC                  |
+| (d)     | Số hiệu bắt đầu Y xuất dữ liệu mã ASCII               | -               | Bit                      | ANY_BOOL                 |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| PR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| PR | Parameter 2 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| PR               | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| PR               | Parameter 2 |     |  ●  |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -535,9 +535,9 @@ Giản đồ xung thời gian
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM227 | PR mode | OFF: Xuất nối tiếp 8 byte (cố định 8 ký tự); ON: Xuất nối tiếp 16 byte (1 đến 16 ký tự) |
+| Vùng nhớ thiết bị (Devices) | Tên     | Nội dung mô tả                                                                          |
+| :-------------------------- | :------ | :-------------------------------------------------------------------------------------- |
+| SM227                       | PR mode | OFF: Xuất nối tiếp 8 byte (cố định 8 ký tự); ON: Xuất nối tiếp 16 byte (1 đến 16 ký tự) |
 
 :::tip
 ✎Lưu ý
@@ -573,16 +573,16 @@ Chỉ có thể sử dụng tối đa một lệnh PR trong chương trình.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output result of the read lệnh ứng dụng (s) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output result of the write lệnh ứng dụng (d) vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                      |
+| :------------------ | :---------------------------------------------------------------------------------- |
+| 4085H               | The output result of the read lệnh ứng dụng (s) vượt quá phạm vi vùng nhớ thiết bị  |
+| 4086H               | The output result of the write lệnh ứng dụng (d) vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
 Chương trình
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513895339-222.png?width=382&amp;height=59&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513895339-222.png?width=382&height=59&rev=1.1)
 
 Nếu mã ASCII trong D200 đến D203 là "Stopped", tín hiệu cổng ngõ ra tương ứng và giản đồ thời gian của nó như sau:
 
@@ -598,17 +598,17 @@ Lệnh điều khiển hiển thị LED 7 đoạn (1 chữ số).
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Thiết bị word bắt đầu được giải mã | -32767 to 32767 | Bit | ANY_BOOL |
-| (d) | Số hiệu thiết bị word lưu trữ dữ liệu hiển thị LED 7 đoạn | -32767 to 32767 | Bit | ANY_BOOL |
+| Tham số | Nội dung mô tả                                            | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | Thiết bị word bắt đầu được giải mã                        | -32767 to 32767 | Bit          | ANY_BOOL                 |
+| (d)     | Số hiệu thiết bị word lưu trữ dữ liệu hiển thị LED 7 đoạn | -32767 to 32767 | Bit          | ANY_BOOL                 |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| SEGD | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| SEGD | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| SEGD             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| SEGD             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -626,10 +626,10 @@ Số điểm thiết bị bị chiếm dụng: 8 bit thấp của thiết bị n
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output result of the read lệnh ứng dụng (s) and (d) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output result of the write lệnh ứng dụng (d) vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                             |
+| :------------------ | :----------------------------------------------------------------------------------------- |
+| 4085H               | The output result of the read lệnh ứng dụng (s) and (d) vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H               | The output result of the write lệnh ứng dụng (d) vượt quá phạm vi vùng nhớ thiết bị        |
 
 #### Ví dụ minh họa
 
@@ -647,19 +647,19 @@ Lệnh điều khiển hiển thị 1 hoặc 2 nhóm LED 7 đoạn 4 chữ số 
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Thiết bị word bắt đầu để chuyển đổi BCD | 0 to 9999 | BIN16 bit | ANY16 |
-| (d) | The starting Y number to be output | - | Bit | ANY_BOOL |
-| (n) | Số hiệu tham số [Phạm vi cài đặt: K0(H0) đến K7(H7)] | 0 to 7 | BIN16/32 bit | ANY16_U |
+| Tham số | Nội dung mô tả                                       | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :--------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | Thiết bị word bắt đầu để chuyển đổi BCD              | 0 to 9999       | BIN16 bit    | ANY16                    |
+| (d)     | The starting Y number to be output                   | -               | Bit          | ANY_BOOL                 |
+| (n)     | Số hiệu tham số [Phạm vi cài đặt: K0(H0) đến K7(H7)] | 0 to 7          | BIN16/32 bit | ANY16_U                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| SEGL | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| SEGL | Parameter 2 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| SEGL | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| SEGL             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| SEGL             | Parameter 2 |     |  ●  |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| SEGL             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |  ●  |  ●  |     |                       |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -667,16 +667,16 @@ Chuyển đổi giá trị 4 chữ số của (s) thành dữ liệu BCD và s�
 
 Tham số (n) cần được cài đặt như sau dựa trên logic dương/âm ở phía bộ điều khiển lập trình (PLC) và logic dương/âm ở phía LED 7 đoạn.
 
-| Mức logic ngõ ra của bộ điều khiển lập trình (PLC) | Ngõ vào dữ liệu | Tín hiệu quét (Strobe) | Parameter n (4 digitsin 1 group) | Parameter n (4 digitsin 2 groups) |
-| :--- | :--- | :--- | :--- | :--- |
-| Logic âm | Logic âm (đồng nhất) | Logic âm (đồng nhất) | 0 | 4 |
-| Logic âm | Logic âm (đồng nhất) | Logic dương (không đồng nhất) | 1 | 5 |
-| Logic âm | Logic dương (không đồng nhất) | Logic âm (đồng nhất) | 2 | 6 |
-| Logic âm | Logic dương (không đồng nhất) | Logic dương (không đồng nhất) | 3 | 7 |
-| Logic dương | Logic dương (đồng nhất) | Logic âm (đồng nhất) | 0 | 4 |
-| Logic dương | Logic dương (đồng nhất) | Logic dương (không đồng nhất) | 1 | 5 |
-| Logic dương | Logic âm (không đồng nhất) | Logic âm (đồng nhất) | 2 | 6 |
-| Logic dương | Logic âm (không đồng nhất) | Logic dương (không đồng nhất) | 3 | 7 |
+| Mức logic ngõ ra của bộ điều khiển lập trình (PLC) | Ngõ vào dữ liệu               | Tín hiệu quét (Strobe)        | Parameter n (4 digitsin 1 group) | Parameter n (4 digitsin 2 groups) |
+| :------------------------------------------------- | :---------------------------- | :---------------------------- | :------------------------------- | :-------------------------------- |
+| Logic âm                                           | Logic âm (đồng nhất)          | Logic âm (đồng nhất)          | 0                                | 4                                 |
+| Logic âm                                           | Logic âm (đồng nhất)          | Logic dương (không đồng nhất) | 1                                | 5                                 |
+| Logic âm                                           | Logic dương (không đồng nhất) | Logic âm (đồng nhất)          | 2                                | 6                                 |
+| Logic âm                                           | Logic dương (không đồng nhất) | Logic dương (không đồng nhất) | 3                                | 7                                 |
+| Logic dương                                        | Logic dương (đồng nhất)       | Logic âm (đồng nhất)          | 0                                | 4                                 |
+| Logic dương                                        | Logic dương (đồng nhất)       | Logic dương (không đồng nhất) | 1                                | 5                                 |
+| Logic dương                                        | Logic âm (không đồng nhất)    | Logic âm (đồng nhất)          | 2                                | 6                                 |
+| Logic dương                                        | Logic âm (không đồng nhất)    | Logic dương (không đồng nhất) | 3                                | 7                                 |
 
 (1) Khi sử dụng 4 chữ số trong 1 nhóm (n=K0 đến 3)
 
@@ -684,11 +684,11 @@ Sau khi chuyển đổi giá trị 4 chữ số của (s) từ BIN→BCD, sử d
 
 (2) Khi sử dụng 4 chữ số trong 2 nhóm (n=K4 đến 7)
 
-1) Nhóm 4 chữ số thứ 1
+1. Nhóm 4 chữ số thứ 1
 
 Sau khi chuyển đổi giá trị 4 chữ số của (s) từ BIN→BCD, sử dụng phương pháp phân chia thời gian để xuất lần lượt từng chữ số từ (d) đến (d)+3. Ngõ ra tín hiệu chọn (strobe) (d)+4 đến (d)+7 được xuất lần lượt theo phương pháp phân chia thời gian, chốt vào màn hình LED 7 đoạn của nhóm 4 chữ số thứ nhất.
 
-2) Nhóm 4 chữ số thứ 2
+2. Nhóm 4 chữ số thứ 2
 
 Sau khi chuyển đổi giá trị 4 chữ số của (s)+1 từ BIN→BCD, sử dụng phương pháp phân chia thời gian để xuất lần lượt từng chữ số từ (d)+10 đến (d)+13. Ngõ ra tín hiệu chọn (strobe) (d)+4 đến (d)+7 được xuất lần lượt theo phương pháp phân chia thời gian, chốt vào màn hình LED 7 đoạn của nhóm 4 chữ số thứ hai.
 
@@ -732,24 +732,24 @@ Có thể sử dụng đồng thời tối đa 2 lệnh.
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM229 | Kết thúc thực thi lệnh | Sau khi xử lý hoàn tất, SM229 bật ON trong một chu kỳ quét |
+| Vùng nhớ thiết bị (Devices) | Tên                    | Nội dung mô tả                                             |
+| :-------------------------- | :--------------------- | :--------------------------------------------------------- |
+| SM229                       | Kết thúc thực thi lệnh | Sau khi xử lý hoàn tất, SM229 bật ON trong một chu kỳ quét |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | The data input in the lệnh ứng dụng (n) exceeds the specified range |
-| 4085H | The output result of the read lệnh ứng dụng (s) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output result of the write lệnh ứng dụng (d) vượt quá phạm vi vùng nhớ thiết bị |
-| 4089H | The number of các lệnh ứng dụng exceeds the limit |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                      |
+| :------------------ | :---------------------------------------------------------------------------------- |
+| 4084H               | The data input in the lệnh ứng dụng (n) exceeds the specified range                 |
+| 4085H               | The output result of the read lệnh ứng dụng (s) vượt quá phạm vi vùng nhớ thiết bị  |
+| 4086H               | The output result of the write lệnh ứng dụng (d) vượt quá phạm vi vùng nhớ thiết bị |
+| 4089H               | The number of các lệnh ứng dụng exceeds the limit                                   |
 
 #### Ví dụ minh họa
 
 Chương trình
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760514168362-367.png?width=480&amp;height=64&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760514168362-367.png?width=480&height=64&rev=1.1)
 
 Sơ đồ đấu nối phần cứng tương ứng được thể hiện trong hình sau. Nội dung của D0 được hiển thị trên nhóm LED 7 đoạn thứ nhất, và nội dung của D1 được hiển thị trên nhóm LED 7 đoạn thứ hai. Nếu giá trị đọc của D0 hoặc D1 vượt quá 9999, chương trình sẽ báo lỗi:
 
@@ -761,11 +761,11 @@ Cần 12 chu kỳ quét để hoàn thành một lần làm tươi hiển thị.
 
 Đối với một nhóm 4 chữ số, n=0 đến 3. Khi dùng hai nhóm 4 chữ số, n=4 đến 7.
 
-| Số nhóm hiển thị | Group 1 | Group 1 | Group 1 | Group 1 | Group 2 | Group 2 | Group 2 | Group 2 |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Cực tính xuất dữ liệu Y | PNP |  | NPN |  | PNP |  | NPN |  |
+| Số nhóm hiển thị                           | Group 1   | Group 1  | Group 1   | Group 1  | Group 2   | Group 2  | Group 2   | Group 2  |
+| :----------------------------------------- | :-------- | :------- | :-------- | :------- | :-------- | :------- | :-------- | :------- |
+| Cực tính xuất dữ liệu Y                    | PNP       |          | NPN       |          | PNP       |          | NPN       |          |
 | Cực tính tín hiệu quét (Strobe) và dữ liệu | Identical | Opposite | Identical | Opposite | Identical | Opposite | Identical | Opposite |
-| the value of n | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+| the value of n                             | 0         | 1        | 2         | 3        | 4         | 5        | 6         | 7        |
 
 ### TKY/Nhập phím số (0 đến 9)
 
@@ -777,19 +777,19 @@ Lệnh sử dụng bàn phím (các phím số) từ 0 đến 9 để nhập d�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Thiết bị bit bắt đầu nhận đầu vào phím số (chiếm 10 điểm) | - | Bit | ANY_BOOL |
-| (d1) | Số hiệu thiết bị word lưu trữ dữ liệu | 0 to 9999 | Signed BIN16 | ANY16_S |
-| (d2) | Số hiệu thiết bị bit bắt đầu biểu thị phím được nhấn ON (chiếm 11 điểm) | - | Bit | ANY_BOOL |
+| Tham số | Nội dung mô tả                                                          | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | Thiết bị bit bắt đầu nhận đầu vào phím số (chiếm 10 điểm)               | -               | Bit          | ANY_BOOL                 |
+| (d1)    | Số hiệu thiết bị word lưu trữ dữ liệu                                   | 0 to 9999       | Signed BIN16 | ANY16_S                  |
+| (d2)    | Số hiệu thiết bị bit bắt đầu biểu thị phím được nhấn ON (chiếm 11 điểm) | -               | Bit          | ANY_BOOL                 |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| TKY | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| TKY | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| TKY | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| TKY              | Parameter 1 |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| TKY              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| TKY              | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -845,10 +845,10 @@ Chỉ có thể sử dụng một trong hai lệnh TKY hoặc lệnh DTKY trong 
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output result of the read lệnh ứng dụng (s) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output result of the write lệnh ứng dụng (d) vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                      |
+| :------------------ | :---------------------------------------------------------------------------------- |
+| 4085H               | The output result of the read lệnh ứng dụng (s) vượt quá phạm vi vùng nhớ thiết bị  |
+| 4086H               | The output result of the write lệnh ứng dụng (d) vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
@@ -868,19 +868,19 @@ Sử dụng 4 điểm bắt đầu từ thiết bị chỉ định tại (d) đ�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Thiết bị bit bắt đầu nhận đầu vào phím số (chiếm 10 điểm) | - | Bit | ANY_BOOL |
-| (d1) | Số hiệu thiết bị word lưu trữ dữ liệu | 0 to 99999999 | Signed BIN32 | ANY32_S |
-| (d2) | Số hiệu thiết bị bit bắt đầu biểu thị phím được nhấn ON [chiếm 11 điểm] | - | Bit | ANY_BOOL |
+| Tham số | Nội dung mô tả                                                          | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | Thiết bị bit bắt đầu nhận đầu vào phím số (chiếm 10 điểm)               | -               | Bit          | ANY_BOOL                 |
+| (d1)    | Số hiệu thiết bị word lưu trữ dữ liệu                                   | 0 to 99999999   | Signed BIN32 | ANY32_S                  |
+| (d2)    | Số hiệu thiết bị bit bắt đầu biểu thị phím được nhấn ON [chiếm 11 điểm] | -               | Bit          | ANY_BOOL                 |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DTKY | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| DTKY | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● |  |
-| DTKY | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DTKY             | Parameter 1 |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| DTKY             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |                    |
+| DTKY             | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -934,15 +934,13 @@ Chỉ có thể sử dụng một trong hai lệnh TKY hoặc lệnh DTKY trong 
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output result of the read lệnh ứng dụng (s) and (d1) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output result of the write lệnh ứng dụng (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                |
+| :------------------ | :-------------------------------------------------------------------------------------------- |
+| 4085H               | The output result of the read lệnh ứng dụng (s) and (d1) vượt quá phạm vi vùng nhớ thiết bị   |
+| 4086H               | The output result of the write lệnh ứng dụng (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760515045145-370.png?rev=1.1)
 
 Khi X20 đang ON, nếu muốn nhập số "20205689", hãy nhấn lần lượt 2, 0, 2, 0, 5, 6, 8, 9 (X2, X0, X2, X0, X5, X6, X10, X11), khi đó giá trị trong (D1, D0) là 20205689.
-
-0

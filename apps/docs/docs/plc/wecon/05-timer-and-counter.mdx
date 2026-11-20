@@ -3,7 +3,7 @@ id: "05-timer-and-counter"
 title: "05 Bộ định thời và Bộ đếm (Timer and Counter)"
 sidebar_position: 5
 sidebar_label: "05 Timer and Counter"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 05 Bộ định thời và Bộ đếm (Timer and Counter)"
 ---
 
@@ -17,17 +17,17 @@ Khi kết quả tính toán trước lệnh OUT là ON, cuộn dây của bộ �
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bộ định thời | - | Counter | ANY |
-| (value) | Giá trị đặt của bộ định thời | 0 to 32767 | Unsigned BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                | Phạm vi giá trị | Kiểu dữ liệu        | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------- | :-------------- | :------------------ | :----------------------- |
+| (d)     | Số hiệu thiết bị bộ định thời | -               | Counter             | ANY                      |
+| (value) | Giá trị đặt của bộ định thời  | 0 to 32767      | Unsigned BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| OUT T | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |
-| OUT T | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  | ● | ● | ● | ● |  |  | ● | ● |  |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: | :----------------: |
+| OUT T            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |     |     |     |     |     |     |     |     |     |                    |                    |
+| OUT T            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |     |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |                    |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -35,10 +35,10 @@ Khi kết quả phép toán trước lệnh OUT là ON, cuộn dây của bộ �
 
 Khi kết quả phép toán trước lệnh OUT chuyển từ ON sang OFF, tình huống diễn ra như sau.
 
-| Loại bộ định thời | Cuộn dây bộ định thời | Giá trị hiện tại của bộ định thời | Before the time limit (tiếp điểm thường mở (NO)) | Before the time limit (tiếp điểm thường đóng (NC)) | After the time limit (tiếp điểm thường mở (NO)) | After the time limit (tiếp điểm thường đóng (NC)) |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Timer | OFF | 0 | Non-conductive | Conduction | Non-conductive | Conduction |
-| Bộ định thời tích lũy | OFF | Giữ nguyên giá trị hiện tại | Non-conductive | Conduction | Conduction | Non-conductive |
+| Loại bộ định thời     | Cuộn dây bộ định thời | Giá trị hiện tại của bộ định thời | Before the time limit (tiếp điểm thường mở (NO)) | Before the time limit (tiếp điểm thường đóng (NC)) | After the time limit (tiếp điểm thường mở (NO)) | After the time limit (tiếp điểm thường đóng (NC)) |
+| :-------------------- | :-------------------- | :-------------------------------- | :----------------------------------------------- | :------------------------------------------------- | :---------------------------------------------- | :------------------------------------------------ |
+| Timer                 | OFF                   | 0                                 | Non-conductive                                   | Conduction                                         | Non-conductive                                  | Conduction                                        |
+| Bộ định thời tích lũy | OFF                   | Giữ nguyên giá trị hiện tại       | Non-conductive                                   | Conduction                                         | Conduction                                      | Non-conductive                                    |
 
 • Sau khi hết thời gian giới hạn, xóa giá trị hiện tại của bộ định thời tích lũy và tắt tiếp điểm bằng lệnh RST.
 
@@ -50,18 +50,18 @@ Khi kết quả phép toán trước lệnh OUT chuyển từ ON sang OFF, tình
 
 • Mô tả từng loại bộ định thời:
 
-| Số hiệu thiết bị | Thông số kỹ thuật bộ định thời | Số hiệu thiết bị | Thông số kỹ thuật bộ định thời |
-| :--- | :--- | :--- | :--- |
-| T0 to T191 | 100ms timer | T246 to T249 | Bộ định thời tích lũy 1ms |
-| T192 to T199 | Bộ định thời chương trình con 100ms (dùng trong chương trình con; ngay cả khi chương trình con không được gọi, nó vẫn được cập nhật) | T250 to T255 | Bộ định thời tích lũy 10ms |
-| T192 to T199 | Bộ định thời chương trình con 100ms (dùng trong chương trình con; ngay cả khi chương trình con không được gọi, nó vẫn được cập nhật) | T256 to T383 | 1ms timer |
-| T200 to T245 | 10ms timer | T384 to T511 | 0.1ms timer |
+| Số hiệu thiết bị | Thông số kỹ thuật bộ định thời                                                                                                       | Số hiệu thiết bị | Thông số kỹ thuật bộ định thời |
+| :--------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :--------------- | :----------------------------- |
+| T0 to T191       | 100ms timer                                                                                                                          | T246 to T249     | Bộ định thời tích lũy 1ms      |
+| T192 to T199     | Bộ định thời chương trình con 100ms (dùng trong chương trình con; ngay cả khi chương trình con không được gọi, nó vẫn được cập nhật) | T250 to T255     | Bộ định thời tích lũy 10ms     |
+| T192 to T199     | Bộ định thời chương trình con 100ms (dùng trong chương trình con; ngay cả khi chương trình con không được gọi, nó vẫn được cập nhật) | T256 to T383     | 1ms timer                      |
+| T200 to T245     | 10ms timer                                                                                                                           | T384 to T511     | 0.1ms timer                    |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Tham số cài đặt trong (value) nằm ngoài phạm vi |
+| Mã lỗi (Error Code) | Nội dung mô tả                                  |
+| :------------------ | :---------------------------------------------- |
+| 4084H               | Tham số cài đặt trong (value) nằm ngoài phạm vi |
 
 #### Ví dụ minh họa
 
@@ -79,17 +79,17 @@ Lệnh bộ đếm 16-bit: Khi kết quả phép toán trước lệnh OUT chuy�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bộ đếm | - | Counter | ANY |
-| (value) | Giá trị đặt của bộ đếm | 0 to 32767 | Unsigned BIN 16 bit | ANY_INT |
+| Tham số | Nội dung mô tả          | Phạm vi giá trị | Kiểu dữ liệu        | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------- | :-------------- | :------------------ | :----------------------- |
+| (d)     | Số hiệu thiết bị bộ đếm | -               | Counter             | ANY                      |
+| (value) | Giá trị đặt của bộ đếm  | 0 to 32767      | Unsigned BIN 16 bit | ANY_INT                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| OUT C | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |
-| OUT C | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  | ● | ● | ● |  |  | ● | ● | ● |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: | :----------------: |
+| OUT C            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |  ●  |     |     |     |     |     |     |     |     |                    |                    |
+| OUT C            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |  ●  |                    |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -103,10 +103,10 @@ Lệnh bộ đếm 16-bit: Khi kết quả phép toán trước lệnh OUT chuy�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Tham số cài đặt trong (value) nằm ngoài phạm vi |
-| 4085H | The (value) parameter vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                           |
+| :------------------ | :------------------------------------------------------- |
+| 4084H               | Tham số cài đặt trong (value) nằm ngoài phạm vi          |
+| 4085H               | The (value) parameter vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
@@ -124,17 +124,17 @@ Lệnh bộ đếm 32-bit: Khi kết quả phép toán trước lệnh OUT chuy�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bộ đếm dài (32-bit) | - | Counter | ANY |
-| (value) | Giá trị đặt của bộ đếm dài (32-bit) | 0 to 4294967295 | Unsigned BIN 32 bit | ANY_INT |
+| Tham số | Nội dung mô tả                       | Phạm vi giá trị | Kiểu dữ liệu        | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------- | :-------------- | :------------------ | :----------------------- |
+| (d)     | Số hiệu thiết bị bộ đếm dài (32-bit) | -               | Counter             | ANY                      |
+| (value) | Giá trị đặt của bộ đếm dài (32-bit)  | 0 to 4294967295 | Unsigned BIN 32 bit | ANY_INT                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| OUT LC | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |
-| OUT LC | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  | ● | ● | ● |  |  | ● | ● | ● |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: | :----------------: |
+| OUT LC           | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |  ●  |     |     |     |     |                    |                    |
+| OUT LC           | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |  ●  |                    |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -148,9 +148,9 @@ Lệnh bộ đếm 32-bit: Khi kết quả phép toán trước lệnh OUT chuy�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The (value) parameter vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                           |
+| :------------------ | :------------------------------------------------------- |
+| 4085H               | The (value) parameter vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
@@ -159,5 +159,3 @@ Lệnh bộ đếm 32-bit: Khi kết quả phép toán trước lệnh OUT chuy�
 Mỗi lần M0 chuyển từ OFF sang ON, LC0 sẽ tăng thêm 1. Khi giá trị của LC0 cộng đến K10, tiếp điểm thường mở (NO) của LC0 đóng lại và Y0 xuất ngõ ra. Lúc này, M0 tiếp tục chuyển từ OFF→ON, giá trị của LC0 sẽ không thay đổi nữa.
 
 Tiếp điểm của LC0 chỉ có thể được tắt OFF bằng lệnh RST/ZRST và qua truyền thông.
-
-0

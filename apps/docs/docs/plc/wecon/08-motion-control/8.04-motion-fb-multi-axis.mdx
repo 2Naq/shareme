@@ -3,7 +3,7 @@ id: "8.04-motion-fb-multi-axis"
 title: "8.04 Khối hàm chuyển động cho điều khiển đa trục (Motion FBs for Multi-axis)"
 sidebar_position: 5
 sidebar_label: "8.04 Cam & Gear đa trục (5 FBs)"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.04 Khối hàm chuyển động cho điều khiển đa trục (Motion FBs for Multi-axis)"
 ---
 
@@ -17,29 +17,29 @@ Khối hàm này cho phép trục được điều khiển thực hiện chuyể
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_CAMIN | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | MasterIndex |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | SlaveIndex |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | MasterScaling |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | SlaveScaling |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | MasterStartDistance |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | MasterSyncPosition |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | StartMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | MasterValueSource |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | CamTableID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | Master |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | InSync |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | InstructionAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMIN | EndOfProfile |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số             |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :------------------ | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_CAMIN         | Execute             |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | ContinuousUpdate    |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | MasterIndex         |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | SlaveIndex          |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | MasterScaling       |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | SlaveScaling        |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | MasterStartDistance |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | MasterSyncPosition  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | StartMode           |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | MasterValueSource   |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | CamTableID          |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | BufferMode          |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | Master              |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | Slave               |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | InSync              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | Busy                |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | Active              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | InstructionAborted  |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | Error               |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | ErrorID             |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMIN         | EndOfProfile        |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -49,29 +49,29 @@ Khối hàm này cho phép trục được điều khiển thực hiện chuyể
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_CAMIN | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_CAMIN | Ngõ vào (Input) | ContinuousUpdate | BOOL | Không | TRUE/FALSE | Cập nhật trong quá trình vận hành |
-| MC_CAMIN | Ngõ vào (Input) | MasterIndex | LREAL | Không | -9999999.00~9999999.00 | Độ lệch (Offset) trục chủ (Master) |
-| MC_CAMIN | Ngõ vào (Input) | SlaveIndex | LREAL | Không | -9999999.00~9999999.00 | Độ lệch (Bias) trục tớ (Slave) |
-| MC_CAMIN | Ngõ vào (Input) | MasterScaling | LREAL | Không | -9999999.00~9999999.00 | Hệ số tỷ lệ trục chủ (Master) |
-| MC_CAMIN | Ngõ vào (Input) | SlaveScaling | LREAL | Không | -9999999.00~9999999.00 | Hệ số tỷ lệ trục tớ (Slave) |
-| MC_CAMIN | Ngõ vào (Input) | MasterStartDistance | LREAL | Không | -9999999.00~9999999.00 (not 0) | Khoảng cách bắt đầu trục chủ (Master) |
-| MC_CAMIN | Ngõ vào (Input) | MasterSyncPosition | LREAL | Không | -9999999.00~9999999.00 | Vị trí đồng bộ trục chủ (Master) |
-| MC_CAMIN | Ngõ vào (Input) | StartMode | WORD | Không | 0 to 2 | Chế độ khởi động (0-Tuyệt đối, 1-Tương đối, 2-Bắt kịp) |
-| MC_CAMIN | Ngõ vào (Input) | MasterValueSource | WORD | Không | 0 to 2 | Nguồn đồng bộ trục chủ (Master) (Giá trị lệnh, giá trị cài đặt và giá trị thực tế) |
-| MC_CAMIN | Ngõ vào (Input) | CamTableID | WORD | Không | 0 to 9999999.00 | Nhận dạng bảng Cam điện tử |
-| MC_CAMIN | Ngõ vào (Input) | BufferMode | WORD | Không | 0 | Lựa chọn chế độ |
-| MC_CAMIN | Ngõ vào (Input) | Master | WORD | Không | - | Trục chủ (Master Axis) |
-| MC_CAMIN | Ngõ vào (Input) | Slave | WORD | Không | - | Trục tớ (Slave Axis) |
-| MC_CAMIN | Ngõ ra (Output) | InSync | BOOL | Không | TRUE/FALSE | Dấu hiệu hoàn tất |
-| MC_CAMIN | Ngõ ra (Output) | Busy | BOOL | Không | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_CAMIN | Ngõ ra (Output) | Active | BOOL | Không | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_CAMIN | Ngõ ra (Output) | CommandAborted | BOOL | Không | TRUE/FALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| MC_CAMIN | Ngõ ra (Output) | Error | BOOL | Không | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_CAMIN | Ngõ ra (Output) | ErrorID | DWORD | Không | - | Mã lỗi (Error Code) |
-| MC_CAMIN | Ngõ ra (Output) | EndOfProfile | WORD | Không | - | Tín hiệu kết thúc Cam điện tử |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số             | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị                | Mô tả kỹ thuật                                                                     |
+| :--------------- | :-------------- | :------------------ | :----------- | :---------------- | :----------------------------- | :--------------------------------------------------------------------------------- |
+| MC_CAMIN         | Ngõ vào (Input) | Execute             | BOOL         | Không             | TRUE/FALSE                     | Kích hoạt khối hàm (Enable)                                                        |
+| MC_CAMIN         | Ngõ vào (Input) | ContinuousUpdate    | BOOL         | Không             | TRUE/FALSE                     | Cập nhật trong quá trình vận hành                                                  |
+| MC_CAMIN         | Ngõ vào (Input) | MasterIndex         | LREAL        | Không             | -9999999.00~9999999.00         | Độ lệch (Offset) trục chủ (Master)                                                 |
+| MC_CAMIN         | Ngõ vào (Input) | SlaveIndex          | LREAL        | Không             | -9999999.00~9999999.00         | Độ lệch (Bias) trục tớ (Slave)                                                     |
+| MC_CAMIN         | Ngõ vào (Input) | MasterScaling       | LREAL        | Không             | -9999999.00~9999999.00         | Hệ số tỷ lệ trục chủ (Master)                                                      |
+| MC_CAMIN         | Ngõ vào (Input) | SlaveScaling        | LREAL        | Không             | -9999999.00~9999999.00         | Hệ số tỷ lệ trục tớ (Slave)                                                        |
+| MC_CAMIN         | Ngõ vào (Input) | MasterStartDistance | LREAL        | Không             | -9999999.00~9999999.00 (not 0) | Khoảng cách bắt đầu trục chủ (Master)                                              |
+| MC_CAMIN         | Ngõ vào (Input) | MasterSyncPosition  | LREAL        | Không             | -9999999.00~9999999.00         | Vị trí đồng bộ trục chủ (Master)                                                   |
+| MC_CAMIN         | Ngõ vào (Input) | StartMode           | WORD         | Không             | 0 to 2                         | Chế độ khởi động (0-Tuyệt đối, 1-Tương đối, 2-Bắt kịp)                             |
+| MC_CAMIN         | Ngõ vào (Input) | MasterValueSource   | WORD         | Không             | 0 to 2                         | Nguồn đồng bộ trục chủ (Master) (Giá trị lệnh, giá trị cài đặt và giá trị thực tế) |
+| MC_CAMIN         | Ngõ vào (Input) | CamTableID          | WORD         | Không             | 0 to 9999999.00                | Nhận dạng bảng Cam điện tử                                                         |
+| MC_CAMIN         | Ngõ vào (Input) | BufferMode          | WORD         | Không             | 0                              | Lựa chọn chế độ                                                                    |
+| MC_CAMIN         | Ngõ vào (Input) | Master              | WORD         | Không             | -                              | Trục chủ (Master Axis)                                                             |
+| MC_CAMIN         | Ngõ vào (Input) | Slave               | WORD         | Không             | -                              | Trục tớ (Slave Axis)                                                               |
+| MC_CAMIN         | Ngõ ra (Output) | InSync              | BOOL         | Không             | TRUE/FALSE                     | Dấu hiệu hoàn tất                                                                  |
+| MC_CAMIN         | Ngõ ra (Output) | Busy                | BOOL         | Không             | TRUE/FALSE                     | Cờ báo khối hàm đang bận thực thi (Busy)                                           |
+| MC_CAMIN         | Ngõ ra (Output) | Active              | BOOL         | Không             | TRUE/FALSE                     | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)                                               |
+| MC_CAMIN         | Ngõ ra (Output) | CommandAborted      | BOOL         | Không             | TRUE/FALSE                     | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)                                   |
+| MC_CAMIN         | Ngõ ra (Output) | Error               | BOOL         | Không             | TRUE/FALSE                     | Cờ báo có phát sinh lỗi hay không (Error)                                          |
+| MC_CAMIN         | Ngõ ra (Output) | ErrorID             | DWORD        | Không             | -                              | Mã lỗi (Error Code)                                                                |
+| MC_CAMIN         | Ngõ ra (Output) | EndOfProfile        | WORD         | Không             | -                              | Tín hiệu kết thúc Cam điện tử                                                      |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -89,25 +89,25 @@ MasterSyncPosition là vị trí tương đối khi chế độ trục là tươ
 
 - Chế độ của trục chính chỉ được quyết định bởi MasterAbsolute và không bị ảnh hưởng bởi giá trị trong StartMode. Chế độ của trục tớ được biểu diễn như sau:
 
-| StartMode | SlaveAbsolute | Chế độ trục tớ (Slave) |
-| :--- | :--- | :--- |
-| Tuyệt đối | Tương đối | Tương đối |
-| Tuyệt đối | Tuyệt đối | Tuyệt đối |
-| Tương đối | Tương đối | Tương đối |
-| Tương đối | Tuyệt đối | Tương đối |
-| Bắt kịp (Catch up) | Tương đối | Bắt kịp tương đối (Relative catch up) |
-| Bắt kịp (Catch up) | Tuyệt đối | Bắt kịp tương đối (Relative catch up) |
+| StartMode          | SlaveAbsolute | Chế độ trục tớ (Slave)                |
+| :----------------- | :------------ | :------------------------------------ |
+| Tuyệt đối          | Tương đối     | Tương đối                             |
+| Tuyệt đối          | Tuyệt đối     | Tuyệt đối                             |
+| Tương đối          | Tương đối     | Tương đối                             |
+| Tương đối          | Tuyệt đối     | Tương đối                             |
+| Bắt kịp (Catch up) | Tương đối     | Bắt kịp tương đối (Relative catch up) |
+| Bắt kịp (Catch up) | Tuyệt đối     | Bắt kịp tương đối (Relative catch up) |
 
-| Chế độ trục chủ (Master) | Chế độ trục tớ (Slave) | Kết quả |
-| :--- | :--- | :--- |
-| Tương đối | Tương đối | Khi CAMIN được thực thi, vị trí trục tớ (Slave) nhảy đến vị trí lệch (offset) đã cài đặt; khi trục chủ (Master) đang thực thi, trục tớ (Slave) thực hiện chuyển động tương đối theo vị trí bắt đầu của bảng Cam điện tử. |
-| Tương đối | Tuyệt đối | Khi CAMIN được thực thi, vị trí trục tớ (Slave) nhảy đến vị trí bắt đầu của bảng Cam điện tử (tức là 0); khi trục chủ (Master) đang thực thi, trục tớ (Slave) di chuyển theo vị trí điểm tương ứng của bảng Cam điện tử. |
-| Tương đối | Tương đối | Khi CAMIN được thực thi, vị trí trục tớ (Slave) bắt kịp đến vị trí lệch (offset) đã cài đặt; khi trục chủ (Master) đang thực thi, trục tớ (Slave) thực hiện chuyển động tương đối theo các điểm tương ứng của bảng Cam điện tử. |
-| Tương đối | Bắt kịp tuyệt đối (Absolute catch up) | Khi CAMIN được thực thi, vị trí trục tớ (Slave) đuổi kịp đến vị trí bắt đầu của bảng cam (tức là 0); Khi trục chủ (Master) đang thực thi, trục tớ di chuyển theo vị trí điểm tương ứng trong bảng cam. |
-| Tuyệt đối | Tương đối | Khi CAMIN được thực thi, vị trí trục tớ (Slave) nhảy đến vị trí bù (Offset) đã cài đặt; Khi trục chủ (Master) đang thực thi, trục tớ thực hiện chuyển động tương đối theo các điểm tương ứng của bảng cam. |
-| Tuyệt đối | Tuyệt đối | Khi CAMIN được thực thi, vị trí trục tớ (Slave) nhảy đến vị trí trục tớ hiện tại tương ứng với trục chủ (Master) trong bảng cam (Ví dụ: nếu vị trí hiện tại của trục chủ là 100 và điểm trục tớ tương ứng với điểm trục chủ 100 trong bảng cam là 200, trục tớ sẽ nhảy sau khi CAMIN được thực thi); Sau khi trục chủ đang thực thi, trục tớ thực hiện chuyển động tương đối theo các điểm tương ứng trong bảng cam. |
-| Tuyệt đối | Bắt kịp tương đối (Relative catch up) | Khi CAMIN được thực thi, vị trí trục tớ (Slave) đuổi kịp đến vị trí bù (Offset) đã cài đặt; Khi trục chủ (Master) đang thực thi, trục tớ thực hiện chuyển động tương đối theo các điểm tương ứng của bảng cam. |
-| Tuyệt đối | Bắt kịp tuyệt đối (Absolute catch up) | Khi CAMIN được thực thi, vị trí trục tớ (Slave) đuổi kịp đến vị trí trục tớ hiện tại tương ứng với trục chủ (Master) trong bảng cam (Ví dụ: nếu vị trí hiện tại của trục chủ là 100 và điểm trục tớ tương ứng với điểm trục chủ 100 trong bảng cam là 200, trục tớ sẽ nhảy sau khi CAMIN được thực thi); Sau khi trục chủ đang chạy, trục tớ thực hiện chuyển động tương đối đến các điểm tương ứng trong bảng cam. |
+| Chế độ trục chủ (Master) | Chế độ trục tớ (Slave)                | Kết quả                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :----------------------- | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tương đối                | Tương đối                             | Khi CAMIN được thực thi, vị trí trục tớ (Slave) nhảy đến vị trí lệch (offset) đã cài đặt; khi trục chủ (Master) đang thực thi, trục tớ (Slave) thực hiện chuyển động tương đối theo vị trí bắt đầu của bảng Cam điện tử.                                                                                                                                                                                             |
+| Tương đối                | Tuyệt đối                             | Khi CAMIN được thực thi, vị trí trục tớ (Slave) nhảy đến vị trí bắt đầu của bảng Cam điện tử (tức là 0); khi trục chủ (Master) đang thực thi, trục tớ (Slave) di chuyển theo vị trí điểm tương ứng của bảng Cam điện tử.                                                                                                                                                                                             |
+| Tương đối                | Tương đối                             | Khi CAMIN được thực thi, vị trí trục tớ (Slave) bắt kịp đến vị trí lệch (offset) đã cài đặt; khi trục chủ (Master) đang thực thi, trục tớ (Slave) thực hiện chuyển động tương đối theo các điểm tương ứng của bảng Cam điện tử.                                                                                                                                                                                      |
+| Tương đối                | Bắt kịp tuyệt đối (Absolute catch up) | Khi CAMIN được thực thi, vị trí trục tớ (Slave) đuổi kịp đến vị trí bắt đầu của bảng cam (tức là 0); Khi trục chủ (Master) đang thực thi, trục tớ di chuyển theo vị trí điểm tương ứng trong bảng cam.                                                                                                                                                                                                               |
+| Tuyệt đối                | Tương đối                             | Khi CAMIN được thực thi, vị trí trục tớ (Slave) nhảy đến vị trí bù (Offset) đã cài đặt; Khi trục chủ (Master) đang thực thi, trục tớ thực hiện chuyển động tương đối theo các điểm tương ứng của bảng cam.                                                                                                                                                                                                           |
+| Tuyệt đối                | Tuyệt đối                             | Khi CAMIN được thực thi, vị trí trục tớ (Slave) nhảy đến vị trí trục tớ hiện tại tương ứng với trục chủ (Master) trong bảng cam (Ví dụ: nếu vị trí hiện tại của trục chủ là 100 và điểm trục tớ tương ứng với điểm trục chủ 100 trong bảng cam là 200, trục tớ sẽ nhảy sau khi CAMIN được thực thi); Sau khi trục chủ đang thực thi, trục tớ thực hiện chuyển động tương đối theo các điểm tương ứng trong bảng cam. |
+| Tuyệt đối                | Bắt kịp tương đối (Relative catch up) | Khi CAMIN được thực thi, vị trí trục tớ (Slave) đuổi kịp đến vị trí bù (Offset) đã cài đặt; Khi trục chủ (Master) đang thực thi, trục tớ thực hiện chuyển động tương đối theo các điểm tương ứng của bảng cam.                                                                                                                                                                                                       |
+| Tuyệt đối                | Bắt kịp tuyệt đối (Absolute catch up) | Khi CAMIN được thực thi, vị trí trục tớ (Slave) đuổi kịp đến vị trí trục tớ hiện tại tương ứng với trục chủ (Master) trong bảng cam (Ví dụ: nếu vị trí hiện tại của trục chủ là 100 và điểm trục tớ tương ứng với điểm trục chủ 100 trong bảng cam là 200, trục tớ sẽ nhảy sau khi CAMIN được thực thi); Sau khi trục chủ đang chạy, trục tớ thực hiện chuyển động tương đối đến các điểm tương ứng trong bảng cam.  |
 
 - Khi trục ở chế độ tuyệt đối, nếu vị trí hiện tại của trục không nằm trong phạm vi của trục trong bảng cam, hệ thống sẽ tự động xử lý quy đổi theo chu kỳ.
 
@@ -117,9 +117,9 @@ Ví dụ: vị trí hiện tại của trục là 110, và vị trí trục tron
 
 - Mối quan hệ vị trí giữa trục chính và trục tớ (trong đó CAM () biểu thị vị trí trục tớ tương ứng với vị trí trục chính trên bảng cam):
 
-Vị trí trục chính (Master) = Vị trí trục chính * Hệ số nhân trục chính + Độ lệch trục chính
+Vị trí trục chính (Master) = Vị trí trục chính \* Hệ số nhân trục chính + Độ lệch trục chính
 
-Vị trí trục tớ (Slave) = Hệ số nhân trục tớ * CAM (vị trí trục chính) + Độ lệch trục tớ
+Vị trí trục tớ (Slave) = Hệ số nhân trục tớ \* CAM (vị trí trục chính) + Độ lệch trục tớ
 
 - Hệ số nhân trục chính - trục tớ không được bằng 0.
 
@@ -131,9 +131,9 @@ Vị trí trục tớ (Slave) = Hệ số nhân trục tớ * CAM (vị trí tr�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                    |
+| :------------------ | :------------------------------------------------ |
+| 4084H               | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
 
 #### Giản đồ thời gian (Sequence Diagram)
 
@@ -151,17 +151,17 @@ Giả sử các điều kiện bắt đầu cho chuyển động cam như sau:
 
 ▪ Trong điều kiện 3, biến ngõ ra InSync (đang đồng bộ) chuyển sang TRUE khi trục chính đi qua vị trí 70, và trục tớ bắt đầu chạy cam.
 
-| Biến đầu vào | Điều kiện 1 | Điều kiện 2 | Điều kiện 3 |
-| :--- | :--- | :--- | :--- |
-| MasterAbsolute | True (Tuyệt đối) | True (Tuyệt đối) | True (Tuyệt đối) |
-| SlaveAbsolute | True (Tuyệt đối) | True (Tuyệt đối) | FALSE (Tương đối) |
-| StartMode | MC_START_MODE_ABSOLUTE | MC_START_MODE_RAMPIN | MC_START_MODE_RELATIVE |
-| MasterSyncPosition | 70 | 70 | 70 |
-| MasterDistace | 50 | 50 | 50 |
-| MasterOffset | 0 | 0 | 0 |
-| SlaveOffset | 0 | 0 | 0 |
-| MasterScaling | 1 | 1 | 1 |
-| SlaveScaling | 1 | 1 | 1 |
+| Biến đầu vào       | Điều kiện 1            | Điều kiện 2          | Điều kiện 3            |
+| :----------------- | :--------------------- | :------------------- | :--------------------- |
+| MasterAbsolute     | True (Tuyệt đối)       | True (Tuyệt đối)     | True (Tuyệt đối)       |
+| SlaveAbsolute      | True (Tuyệt đối)       | True (Tuyệt đối)     | FALSE (Tương đối)      |
+| StartMode          | MC_START_MODE_ABSOLUTE | MC_START_MODE_RAMPIN | MC_START_MODE_RELATIVE |
+| MasterSyncPosition | 70                     | 70                   | 70                     |
+| MasterDistace      | 50                     | 50                   | 50                     |
+| MasterOffset       | 0                      | 0                    | 0                      |
+| SlaveOffset        | 0                      | 0                    | 0                      |
+| MasterScaling      | 1                      | 1                    | 1                      |
+| SlaveScaling       | 1                      | 1                    | 1                      |
 
 (2) Chuyển động của trục tớ thay đổi tùy thuộc vào MasterAbsolute.
 
@@ -185,14 +185,14 @@ Khối hàm này cho phép trục được điều khiển thực hiện chuyể
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_CAMOUT | Ngõ vào (Input) | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMOUT | Ngõ vào (Input) | Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMOUT | Ngõ ra (Output) | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMOUT | Ngõ ra (Output) | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMOUT | Ngõ ra (Output) | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_CAMOUT | Ngõ ra (Output) | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :-------------- | :-----: | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_CAMOUT        | Ngõ vào (Input) | Execute |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMOUT        | Ngõ vào (Input) |  Slave  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMOUT        | Ngõ ra (Output) |  Done   |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMOUT        | Ngõ ra (Output) |  Busy   |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMOUT        | Ngõ ra (Output) |  Error  |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_CAMOUT        | Ngõ ra (Output) | ErrorID |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -202,14 +202,14 @@ Khối hàm này cho phép trục được điều khiển thực hiện chuyể
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_CAMOUT | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_CAMOUT | Slave | WORD | Không | 0 to 65535 | Trục tớ (Slave Axis) |
-| MC_CAMOUT | Done | BOOL | Không | TRUE/FALSE | Dấu hiệu hoàn tất |
-| MC_CAMOUT | Busy | BOOL | Không | TRUE/FALSE | Dấu hiệu bận (Busy) |
-| MC_CAMOUT | Error | BOOL | Không | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_CAMOUT | ErrorID | DWORD | Không | - | Mã lỗi (Error Code) |
+| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                            |
+| :--------------- | :------ | :----------- | :---------------- | :-------------- | :---------------------------------------- |
+| MC_CAMOUT        | Execute | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)               |
+| MC_CAMOUT        | Slave   | WORD         | Không             | 0 to 65535      | Trục tớ (Slave Axis)                      |
+| MC_CAMOUT        | Done    | BOOL         | Không             | TRUE/FALSE      | Dấu hiệu hoàn tất                         |
+| MC_CAMOUT        | Busy    | BOOL         | Không             | TRUE/FALSE      | Dấu hiệu bận (Busy)                       |
+| MC_CAMOUT        | Error   | BOOL         | Không             | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_CAMOUT        | ErrorID | DWORD        | Không             | -               | Mã lỗi (Error Code)                       |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -231,25 +231,25 @@ Khối hàm này cho phép trục được điều khiển thực hiện chuyể
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_GEARIN | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | RatioNumerator |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | RatioDenominator |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | MasterValueSource |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | Acceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | Deceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | Jerk |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | Master |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | InGear |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | InstructionAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARIN | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số            |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :----------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_GEARIN        | Execute            |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | ContinuousUpdate   |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | RatioNumerator     |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | RatioDenominator   |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | MasterValueSource  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | Acceleration       |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | Deceleration       |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | Jerk               |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | BufferMode         |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | Master             |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | Slave              |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | InGear             |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | Busy               |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | Active             |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | InstructionAborted |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | Error              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARIN        | ErrorID            |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -259,25 +259,25 @@ Khối hàm này cho phép trục được điều khiển thực hiện chuyể
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_GEARIN | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_GEARIN | Ngõ vào (Input) | ContinuousUpdate | BOOL | Không | TRUE/FALSE | Cập nhật trong quá trình vận hành |
-| MC_GEARIN | Ngõ vào (Input) | RatioNumerator | INT16 | Không | -32768~32767 | Tỉ số truyền vận tốc bánh răng (tử số) |
-| MC_GEARIN | Ngõ vào (Input) | RatioDenominator | UINT16 | Không | 0 to 65535 | Tỉ số truyền vận tốc bánh răng (mẫu số) |
-| MC_GEARIN | Ngõ vào (Input) | MasterValueSource | WORD | Không | 0 to 2 | Nguồn đồng bộ trục chủ (Master) (Giá trị lệnh, giá trị cài đặt và giá trị thực tế) |
-| MC_GEARIN | Ngõ vào (Input) | Acceleration | LREAL | Không | 0 to 9999999.00 | Gia tốc tăng tốc (Acceleration) |
-| MC_GEARIN | Ngõ vào (Input) | Deceleration | LREAL | Không | 0 to 9999999.00 | Gia tốc giảm tốc (Deceleration) |
-| MC_GEARIN | Ngõ vào (Input) | Jerk | LREAL | Không | 0 to 9999999.00 | Độ giật làm mượt đường cong S (Jerk) |
-| MC_GEARIN | Ngõ vào (Input) | BufferMode | WORD | Không | 0 | Lựa chọn |
-| MC_GEARIN | Ngõ vào (Input) | Master | WORD | Không | - | Trục chủ (Master Axis) |
-| MC_GEARIN | Ngõ vào (Input) | Slave | WORD | Không | - | Trục tớ (Slave Axis) |
-| MC_GEARIN | Ngõ ra (Output) | InGear | BOOL | Không | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_GEARIN | Ngõ ra (Output) | Busy | BOOL | Không | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_GEARIN | Ngõ ra (Output) | Active | BOOL | Không | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_GEARIN | Ngõ ra (Output) | CommandAborted | BOOL | Không | TRUE/FALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| MC_GEARIN | Ngõ ra (Output) | Error | BOOL | Không | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_GEARIN | Ngõ ra (Output) | ErrorID | DWORD | Không | - | Mã lỗi (Error Code) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số           | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                                                                     |
+| :--------------- | :-------------- | :---------------- | :----------- | :---------------- | :-------------- | :--------------------------------------------------------------------------------- |
+| MC_GEARIN        | Ngõ vào (Input) | Execute           | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                                                        |
+| MC_GEARIN        | Ngõ vào (Input) | ContinuousUpdate  | BOOL         | Không             | TRUE/FALSE      | Cập nhật trong quá trình vận hành                                                  |
+| MC_GEARIN        | Ngõ vào (Input) | RatioNumerator    | INT16        | Không             | -32768~32767    | Tỉ số truyền vận tốc bánh răng (tử số)                                             |
+| MC_GEARIN        | Ngõ vào (Input) | RatioDenominator  | UINT16       | Không             | 0 to 65535      | Tỉ số truyền vận tốc bánh răng (mẫu số)                                            |
+| MC_GEARIN        | Ngõ vào (Input) | MasterValueSource | WORD         | Không             | 0 to 2          | Nguồn đồng bộ trục chủ (Master) (Giá trị lệnh, giá trị cài đặt và giá trị thực tế) |
+| MC_GEARIN        | Ngõ vào (Input) | Acceleration      | LREAL        | Không             | 0 to 9999999.00 | Gia tốc tăng tốc (Acceleration)                                                    |
+| MC_GEARIN        | Ngõ vào (Input) | Deceleration      | LREAL        | Không             | 0 to 9999999.00 | Gia tốc giảm tốc (Deceleration)                                                    |
+| MC_GEARIN        | Ngõ vào (Input) | Jerk              | LREAL        | Không             | 0 to 9999999.00 | Độ giật làm mượt đường cong S (Jerk)                                               |
+| MC_GEARIN        | Ngõ vào (Input) | BufferMode        | WORD         | Không             | 0               | Lựa chọn                                                                           |
+| MC_GEARIN        | Ngõ vào (Input) | Master            | WORD         | Không             | -               | Trục chủ (Master Axis)                                                             |
+| MC_GEARIN        | Ngõ vào (Input) | Slave             | WORD         | Không             | -               | Trục tớ (Slave Axis)                                                               |
+| MC_GEARIN        | Ngõ ra (Output) | InGear            | BOOL         | Không             | TRUE/FALSE      | Cờ báo hoàn thành (Done)                                                           |
+| MC_GEARIN        | Ngõ ra (Output) | Busy              | BOOL         | Không             | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)                                           |
+| MC_GEARIN        | Ngõ ra (Output) | Active            | BOOL         | Không             | TRUE/FALSE      | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)                                               |
+| MC_GEARIN        | Ngõ ra (Output) | CommandAborted    | BOOL         | Không             | TRUE/FALSE      | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)                                   |
+| MC_GEARIN        | Ngõ ra (Output) | Error             | BOOL         | Không             | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)                                          |
+| MC_GEARIN        | Ngõ ra (Output) | ErrorID           | DWORD        | Không             | -               | Mã lỗi (Error Code)                                                                |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -289,9 +289,9 @@ Khối hàm này cho phép trục được điều khiển thực hiện chuyể
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                    |
+| :------------------ | :------------------------------------------------ |
+| 4084H               | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
 
 #### Giản đồ thời gian (Sequence Diagram)
 
@@ -327,14 +327,14 @@ Khối hàm này cho phép trục được điều khiển thực hiện chuyể
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_GEAROUT | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEAROUT | Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEAROUT | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEAROUT | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEAROUT | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEAROUT | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :------ | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_GEAROUT       | Execute |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEAROUT       | Slave   |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEAROUT       | Done    |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEAROUT       | Busy    |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEAROUT       | Error   |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEAROUT       | ErrorID |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -344,14 +344,14 @@ Khối hàm này cho phép trục được điều khiển thực hiện chuyể
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_GEAROUT | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_GEAROUT | Ngõ vào (Input) | Slave | WORD | Không | 0 to 65535 | Số hiệu định danh trục (Axis ID) |
-| MC_GEAROUT | Ngõ ra (Output) | Done | BOOL | Không | TRUE/FALSE | Dấu hiệu hoàn tất |
-| MC_GEAROUT | Ngõ ra (Output) | Busy | BOOL | Không | TRUE/FALSE | Dấu hiệu bận (Busy) |
-| MC_GEAROUT | Ngõ ra (Output) | Error | BOOL | Không | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_GEAROUT | Ngõ ra (Output) | ErrorID | DWORD | Không | - | Mã lỗi (Error Code) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                            |
+| :--------------- | :-------------- | :------ | :----------- | :---------------- | :-------------- | :---------------------------------------- |
+| MC_GEAROUT       | Ngõ vào (Input) | Execute | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)               |
+| MC_GEAROUT       | Ngõ vào (Input) | Slave   | WORD         | Không             | 0 to 65535      | Số hiệu định danh trục (Axis ID)          |
+| MC_GEAROUT       | Ngõ ra (Output) | Done    | BOOL         | Không             | TRUE/FALSE      | Dấu hiệu hoàn tất                         |
+| MC_GEAROUT       | Ngõ ra (Output) | Busy    | BOOL         | Không             | TRUE/FALSE      | Dấu hiệu bận (Busy)                       |
+| MC_GEAROUT       | Ngõ ra (Output) | Error   | BOOL         | Không             | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_GEAROUT       | Ngõ ra (Output) | ErrorID | DWORD        | Không             | -               | Mã lỗi (Error Code)                       |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -373,30 +373,30 @@ Khối hàm này cho phép trục được điều khiển thực hiện chuyể
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_GEARINPOS | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | RatioNumerator |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | RatioDenominator |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | MasterValueSource |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | MasterSyncPosition |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | SlaveSyncPosition |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | SyncMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | MasterStartDistance |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | Velocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | Acceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | Deceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | Jerk |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | Master |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | StartSync |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | InSync |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | InstructionAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GEARINPOS | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số             |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :------------------ | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_GEARINPOS     | Execute             |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | RatioNumerator      |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | RatioDenominator    |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | MasterValueSource   |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | MasterSyncPosition  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | SlaveSyncPosition   |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | SyncMode            |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | MasterStartDistance |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | Velocity            |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | Acceleration        |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | Deceleration        |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | Jerk                |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | BufferMode          |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | Master              |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | Slave               |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | StartSync           |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | InSync              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | Busy                |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | Active              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | InstructionAborted  |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | Error               |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GEARINPOS     | ErrorID             |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -406,30 +406,30 @@ Khối hàm này cho phép trục được điều khiển thực hiện chuyể
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_GEARINPOS | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_GEARINPOS | Ngõ vào (Input) | RatioNumerator | DINT | Không | -32768~32767 | Tỉ số truyền vận tốc bánh răng (tử số) |
-| MC_GEARINPOS | Ngõ vào (Input) | RatioDenominator | UINT | Không | 0 to 65535 | Tỉ số truyền vận tốc bánh răng (mẫu số) |
-| MC_GEARINPOS | Ngõ vào (Input) | MasterValueSource | WORD | Không | 0 to 2 | Nguồn đồng bộ trục chủ (Master) (Giá trị lệnh, giá trị cài đặt và giá trị thực tế) |
-| MC_GEARINPOS | Ngõ vào (Input) | MasterSyncPosition | LREAL | Không | -9999999.00~9999999.00 | Vị trí đồng bộ trục chủ (Master) |
-| MC_GEARINPOS | Ngõ vào (Input) | SlaveSyncPosition | LREAL | Không | -9999999.00~9999999.00 | Vị trí đồng bộ của trục tớ (Slave) |
-| MC_GEARINPOS | Ngõ vào (Input) | SyncMode | WORD | Không | 0 to 2 | Chế độ đồng bộ (đường ngắn nhất, đuổi kịp, giảm tốc) |
-| MC_GEARINPOS | Ngõ vào (Input) | MasterStartDistance | LREAL | Không | -9999999.00~9999999.00 (not 0) | Khoảng cách bắt đầu trục chủ (Master) |
-| MC_GEARINPOS | Ngõ vào (Input) | Velocity | LREAL | Không | 0~9999999.00 (not 0) | Vận tốc cài đặt (Velocity) |
-| MC_GEARINPOS | Ngõ vào (Input) | Acceleration | LREAL | Không | 0 to 9999999.00 | Gia tốc tăng tốc (Acceleration) |
-| MC_GEARINPOS | Ngõ vào (Input) | Deceleration | LREAL | Không | 0 to 9999999.00 | Gia tốc giảm tốc (Deceleration) |
-| MC_GEARINPOS | Ngõ vào (Input) | Jerk | LREAL | Không | 0 to 9999999.00 | Độ giật làm mượt đường cong S (Jerk) |
-| MC_GEARINPOS | Ngõ vào (Input) | BufferMode | WORD | Không | 0 | Lựa chọn chế độ vùng đệm (BufferMode) |
-| MC_GEARINPOS | Ngõ vào (Input) | Master | WORD | Không | - | Trục chủ (Master Axis) |
-| MC_GEARINPOS | Ngõ vào (Input) | Slave | WORD | Không | - | Trục tớ (Slave Axis) |
-| MC_GEARINPOS | Ngõ ra (Output) | StartSync | BOOL | Không | TRUE/FALSE | Cờ nhận dạng đồng bộ |
-| MC_GEARINPOS | Ngõ ra (Output) | InSync | BOOL | Không | TRUE/FALSE | Cờ đã đồng bộ |
-| MC_GEARINPOS | Ngõ ra (Output) | Busy | BOOL | Không | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_GEARINPOS | Ngõ ra (Output) | Active | BOOL | Không | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_GEARINPOS | Ngõ ra (Output) | CommandAborted | BOOL | Không | TRUE/FALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| MC_GEARINPOS | Ngõ ra (Output) | Error | BOOL | Không | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_GEARINPOS | Ngõ ra (Output) | ErrorID | DWORD | Không | - | Mã lỗi (Error Code) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số             | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị                | Mô tả kỹ thuật                                                                     |
+| :--------------- | :-------------- | :------------------ | :----------- | :---------------- | :----------------------------- | :--------------------------------------------------------------------------------- |
+| MC_GEARINPOS     | Ngõ vào (Input) | Execute             | BOOL         | Không             | TRUE/FALSE                     | Kích hoạt khối hàm (Enable)                                                        |
+| MC_GEARINPOS     | Ngõ vào (Input) | RatioNumerator      | DINT         | Không             | -32768~32767                   | Tỉ số truyền vận tốc bánh răng (tử số)                                             |
+| MC_GEARINPOS     | Ngõ vào (Input) | RatioDenominator    | UINT         | Không             | 0 to 65535                     | Tỉ số truyền vận tốc bánh răng (mẫu số)                                            |
+| MC_GEARINPOS     | Ngõ vào (Input) | MasterValueSource   | WORD         | Không             | 0 to 2                         | Nguồn đồng bộ trục chủ (Master) (Giá trị lệnh, giá trị cài đặt và giá trị thực tế) |
+| MC_GEARINPOS     | Ngõ vào (Input) | MasterSyncPosition  | LREAL        | Không             | -9999999.00~9999999.00         | Vị trí đồng bộ trục chủ (Master)                                                   |
+| MC_GEARINPOS     | Ngõ vào (Input) | SlaveSyncPosition   | LREAL        | Không             | -9999999.00~9999999.00         | Vị trí đồng bộ của trục tớ (Slave)                                                 |
+| MC_GEARINPOS     | Ngõ vào (Input) | SyncMode            | WORD         | Không             | 0 to 2                         | Chế độ đồng bộ (đường ngắn nhất, đuổi kịp, giảm tốc)                               |
+| MC_GEARINPOS     | Ngõ vào (Input) | MasterStartDistance | LREAL        | Không             | -9999999.00~9999999.00 (not 0) | Khoảng cách bắt đầu trục chủ (Master)                                              |
+| MC_GEARINPOS     | Ngõ vào (Input) | Velocity            | LREAL        | Không             | 0~9999999.00 (not 0)           | Vận tốc cài đặt (Velocity)                                                         |
+| MC_GEARINPOS     | Ngõ vào (Input) | Acceleration        | LREAL        | Không             | 0 to 9999999.00                | Gia tốc tăng tốc (Acceleration)                                                    |
+| MC_GEARINPOS     | Ngõ vào (Input) | Deceleration        | LREAL        | Không             | 0 to 9999999.00                | Gia tốc giảm tốc (Deceleration)                                                    |
+| MC_GEARINPOS     | Ngõ vào (Input) | Jerk                | LREAL        | Không             | 0 to 9999999.00                | Độ giật làm mượt đường cong S (Jerk)                                               |
+| MC_GEARINPOS     | Ngõ vào (Input) | BufferMode          | WORD         | Không             | 0                              | Lựa chọn chế độ vùng đệm (BufferMode)                                              |
+| MC_GEARINPOS     | Ngõ vào (Input) | Master              | WORD         | Không             | -                              | Trục chủ (Master Axis)                                                             |
+| MC_GEARINPOS     | Ngõ vào (Input) | Slave               | WORD         | Không             | -                              | Trục tớ (Slave Axis)                                                               |
+| MC_GEARINPOS     | Ngõ ra (Output) | StartSync           | BOOL         | Không             | TRUE/FALSE                     | Cờ nhận dạng đồng bộ                                                               |
+| MC_GEARINPOS     | Ngõ ra (Output) | InSync              | BOOL         | Không             | TRUE/FALSE                     | Cờ đã đồng bộ                                                                      |
+| MC_GEARINPOS     | Ngõ ra (Output) | Busy                | BOOL         | Không             | TRUE/FALSE                     | Cờ báo khối hàm đang bận thực thi (Busy)                                           |
+| MC_GEARINPOS     | Ngõ ra (Output) | Active              | BOOL         | Không             | TRUE/FALSE                     | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)                                               |
+| MC_GEARINPOS     | Ngõ ra (Output) | CommandAborted      | BOOL         | Không             | TRUE/FALSE                     | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)                                   |
+| MC_GEARINPOS     | Ngõ ra (Output) | Error               | BOOL         | Không             | TRUE/FALSE                     | Cờ báo có phát sinh lỗi hay không (Error)                                          |
+| MC_GEARINPOS     | Ngõ ra (Output) | ErrorID             | DWORD        | Không             | -                              | Mã lỗi (Error Code)                                                                |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -441,9 +441,9 @@ Khối hàm này cho phép trục được điều khiển thực hiện chuyể
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                    |
+| :------------------ | :------------------------------------------------ |
+| 4084H               | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
 
 #### Giản đồ thời gian (Sequence Diagram)
 
@@ -482,5 +482,3 @@ gearInPos thực hiện chuyển động đuổi theo ở ba chế độ sau đ�
 :::tip
 ✎ Lưu ý: Khi quãng đường di chuyển trong quá trình đuổi theo ngắn, có thể xảy ra sự thay đổi tốc độ đột ngột từ trục tới vị trí đích rồi chuyển thẳng sang tốc độ đích.
 :::
-
-0

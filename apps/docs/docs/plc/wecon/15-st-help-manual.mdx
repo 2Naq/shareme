@@ -3,7 +3,7 @@ id: "15-st-help-manual"
 title: "15 Hướng dẫn lập trình ngôn ngữ Structured Text (ST Help Manual)"
 sidebar_position: 15
 sidebar_label: "15 ST Help Manual"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 15 Hướng dẫn lập trình ngôn ngữ Structured Text (ST Help Manual)"
 ---
 
@@ -19,7 +19,7 @@ Ngôn ngữ văn bản có cấu trúc (Structured Text - ST) có cú pháp tư�
 
 Thứ tự thực thi của các chương trình sử dụng ngôn ngữ văn bản có cấu trúc được thực hiện tuần tự từ trên xuống dưới theo "số dòng".
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203145336-464.png?width=271&amp;height=115&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203145336-464.png?width=271&height=115&rev=1.1)
 
 ### Thứ tự thực thi biểu thức
 
@@ -31,19 +31,19 @@ Nếu có nhiều toán tử trong một biểu thức, các toán tử sẽ đ�
 
 Bảng các câu lệnh ngôn ngữ văn bản có cấu trúc (ST) được trình bày trong bảng dưới đây.
 
-| Loại lệnh | Câu lệnh | Ví dụ minh họa |
-| :--- | :--- | :--- |
-| Câu lệnh gán | := | bFan:= TRUE; |
-| khối hàm (FB)/function call | khối hàm (FB)/function name(); | COS(); |
-| Câu lệnh rẽ nhánh chọn | IF | IF var1 = 1 THENvar1: = 2;END_IF |
-| Câu lệnh rẽ nhánh chọn | CASE | CASE var1 OF0: var1: = 10;1: var1: = 20;2: var1: = 30;END_CASE |
-| Câu lệnh lặp | FOR | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;END_FOR |
-| Câu lệnh lặp | WHILE | WHILE var1 = 2 DOvar1: = 123;END_WHILE |
-| Câu lệnh lặp | REPEAT | REPEATvar3: = 234;UNTIL var1 = 2END_REPEAT |
-| Câu lệnh nhảy | EXIT | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;IF var1 = 5 THENEXITEND_IFEND_FOR |
-| Câu lệnh nhảy | CONTINUE | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;IF var1 = 5 THENCONTINUEEND_IFEND_FOR |
-| Câu lệnh trả về (Return) | RETURN | IF var1 = 1 THENRETURN 1;ELSERETURN 0;END_IF |
-| Câu lệnh rỗng (NULL) | : | N/A |
+| Loại lệnh                   | Câu lệnh                       | Ví dụ minh họa                                                               |
+| :-------------------------- | :----------------------------- | :--------------------------------------------------------------------------- |
+| Câu lệnh gán                | :=                             | bFan:= TRUE;                                                                 |
+| khối hàm (FB)/function call | khối hàm (FB)/function name(); | COS();                                                                       |
+| Câu lệnh rẽ nhánh chọn      | IF                             | IF var1 = 1 THENvar1: = 2;END_IF                                             |
+| Câu lệnh rẽ nhánh chọn      | CASE                           | CASE var1 OF0: var1: = 10;1: var1: = 20;2: var1: = 30;END_CASE               |
+| Câu lệnh lặp                | FOR                            | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;END_FOR                               |
+| Câu lệnh lặp                | WHILE                          | WHILE var1 = 2 DOvar1: = 123;END_WHILE                                       |
+| Câu lệnh lặp                | REPEAT                         | REPEATvar3: = 234;UNTIL var1 = 2END_REPEAT                                   |
+| Câu lệnh nhảy               | EXIT                           | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;IF var1 = 5 THENEXITEND_IFEND_FOR     |
+| Câu lệnh nhảy               | CONTINUE                       | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;IF var1 = 5 THENCONTINUEEND_IFEND_FOR |
+| Câu lệnh trả về (Return)    | RETURN                         | IF var1 = 1 THENRETURN 1;ELSERETURN 0;END_IF                                 |
+| Câu lệnh rỗng (NULL)        | :                              | N/A                                                                          |
 
 ## Biểu diễn và khai báo biến
 
@@ -65,7 +65,7 @@ Ký tự đầu tiên của định danh (Identifier) phải là chữ cái, ký
 
 Không được chứa khoảng trắng.
 
-Ví dụ: ab_c, AB_de và _AbC là các định danh hợp lệ, trong khi 1abc không được phép.
+Ví dụ: ab_c, AB_de và \_AbC là các định danh hợp lệ, trong khi 1abc không được phép.
 
 ### Khai báo biến
 
@@ -83,19 +83,19 @@ Cách khai báo biến thông dụng nhất — đối với các biến không 
 
 Bảng các câu lệnh ngôn ngữ văn bản có cấu trúc (ST) được trình bày trong bảng dưới đây.
 
-| Loại lệnh | Câu lệnh | Ví dụ minh họa |
-| :--- | :--- | :--- |
-| Câu lệnh gán | := | bFan:= TRUE; |
-| khối hàm (FB)/function call | khối hàm (FB)/function name(); | COS(); |
-| Câu lệnh rẽ nhánh chọn | IF | IF var1 = 1 THENvar1: = 2;END_IF |
-| Câu lệnh rẽ nhánh chọn | CASE | CASE var1 OF0: var1: = 10;1: var1: = 20;2: var1: = 30;END_CASE |
-| Câu lệnh lặp | FOR | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;END_FOR |
-| Câu lệnh lặp | WHILE | WHILE var1 = 2 DOvar1: = 123;END_WHILE |
-| Câu lệnh lặp | REPEAT | REPEATvar3: = 234;UNTIL var1 = 2END_REPEAT |
-| Câu lệnh nhảy | EXIT | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;IF var1 = 5 THENEXITEND_IFEND_FOR |
-| Câu lệnh nhảy | CONTINUE | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;IF var1 = 5 THENCONTINUEEND_IFEND_FOR |
-| Câu lệnh trả về (Return) | RETURN | IF var1 = 1 THENRETURN 1;ELSERETURN 0;END_IF |
-| Câu lệnh rỗng (NULL) | : | N/A |
+| Loại lệnh                   | Câu lệnh                       | Ví dụ minh họa                                                               |
+| :-------------------------- | :----------------------------- | :--------------------------------------------------------------------------- |
+| Câu lệnh gán                | :=                             | bFan:= TRUE;                                                                 |
+| khối hàm (FB)/function call | khối hàm (FB)/function name(); | COS();                                                                       |
+| Câu lệnh rẽ nhánh chọn      | IF                             | IF var1 = 1 THENvar1: = 2;END_IF                                             |
+| Câu lệnh rẽ nhánh chọn      | CASE                           | CASE var1 OF0: var1: = 10;1: var1: = 20;2: var1: = 30;END_CASE               |
+| Câu lệnh lặp                | FOR                            | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;END_FOR                               |
+| Câu lệnh lặp                | WHILE                          | WHILE var1 = 2 DOvar1: = 123;END_WHILE                                       |
+| Câu lệnh lặp                | REPEAT                         | REPEATvar3: = 234;UNTIL var1 = 2END_REPEAT                                   |
+| Câu lệnh nhảy               | EXIT                           | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;IF var1 = 5 THENEXITEND_IFEND_FOR     |
+| Câu lệnh nhảy               | CONTINUE                       | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;IF var1 = 5 THENCONTINUEEND_IFEND_FOR |
+| Câu lệnh trả về (Return)    | RETURN                         | IF var1 = 1 THENRETURN 1;ELSERETURN 0;END_IF                                 |
+| Câu lệnh rỗng (NULL)        | :                              | N/A                                                                          |
 
 ### Câu lệnh gán
 
@@ -105,7 +105,7 @@ Câu lệnh gán là một trong những câu lệnh được sử dụng phổ 
 
 Ví dụ: Lần lượt gán giá trị cho hai biến kiểu Boolean, đặt TRUE cho bFan và đặt FALSE cho bHeater.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203251045-400.png?width=291&amp;height=166&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203251045-400.png?width=291&height=166&rev=1.1)
 
 ### Gọi hàm và khối hàm (FB)
 
@@ -127,7 +127,7 @@ Nếu cần gọi một khối hàm (FB) trong ngôn ngữ ST, có thể nhập 
 
 Ví dụ: nếu gọi khối hàm bộ định thời TON trong ngôn ngữ văn bản có cấu trúc (ST), giả sử tên thể hiện của nó là TON1, cách viết cụ thể như sau:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203336140-297.png?width=333&amp;height=133&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203336140-297.png?width=333&height=133&rev=1.1)
 
 ### Câu lệnh lựa chọn
 
@@ -149,7 +149,7 @@ Nội dung câu lệnh có thể là một câu lệnh, một câu lệnh rỗng
 
 Ví dụ: Sử dụng PLC để kiểm tra xem nhiệt độ hiện tại có vượt quá 60 độ C hay không. Nếu vượt quá, luôn bật quạt để tản nhiệt. Đoạn mã thực hiện cụ thể như sau:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203376837-726.png?width=524&amp;height=202&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203376837-726.png?width=524&height=202&rev=1.1)
 
 Câu lệnh IF.... ELSE
 
@@ -325,7 +325,7 @@ Dưới đây là ví dụ minh họa cách sử dụng vòng lặp FOR.
 
 Ví dụ: Sử dụng vòng lặp FOR để thực hiện phép tính 2 lũy thừa bậc 5.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204416519-677.png?width=435&amp;height=265&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204416519-677.png?width=435&height=265&rev=1.1)
 
 Giả sử giá trị ban đầu của Var1 là 1, sau khi vòng lặp kết thúc, giá trị của Var1 là 32.
 
@@ -333,7 +333,7 @@ Giả sử giá trị ban đầu của Var1 là 1, sau khi vòng lặp kết th�
 ✎Lưu ý:
 
 - If equal the limit value of , it will enter an infinite loop. Assuming that the type of in the above example is SINT (-128 to 127), When is set to 127, the controller enters an infinite loop. Therefore, cannot be set the limit value.
-:::
+  :::
 
 Vòng lặp WHILE
 
@@ -391,7 +391,7 @@ Sau lần thực thi &lt;Nội dung câu lệnh&gt; đầu tiên, nếu giá tr�
 Lưu ý
 
 - Nếu biểu thức điều kiện luôn luôn là TRUE, vòng lặp vô hạn sẽ xảy ra (cần tuyệt đối tránh để không gây lỗi Watchdog). Có thể ngăn ngừa vòng lặp vô hạn bằng cách cập nhật biến đếm tăng/giảm trong thân vòng lặp.
-:::
+  :::
 
 #### Ví dụ minh họa
 
@@ -455,7 +455,7 @@ Chú thích là một phần rất quan trọng của chương trình, giúp ch�
 
 Trong ngôn ngữ ST, có hai phương pháp chú thích:
 
-Chú thích nhiều dòng bắt đầu bằng (* và kết thúc bằng *). Ví dụ:
+Chú thích nhiều dòng bắt đầu bằng (_ và kết thúc bằng _). Ví dụ:
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204636003-272.png?rev=1.1)
 
@@ -475,47 +475,47 @@ Tuy nhiên, cách sử dụng chú thích trong vùng khai báo biến dưới �
 
 Dòng lệnh REF được thiết kế chuyên biệt cho các thiết bị, dùng để truy cập dữ liệu lưu trong thiết bị theo từng kiểu dữ liệu cụ thể. Bảng dưới đây liệt kê các thiết bị được hỗ trợ bởi từng lệnh REF (không hỗ trợ thiết bị V và Z).
 
-| Khối lệnh / Lệnh | Thiết bị áp dụng | Mô tả cách sử dụng |
-| :--- | :--- | :--- |
-| REFBOOL | S/M/SM/X/Y | Lấy giá trị của thiết bị kiểu bit tương ứng |
-| REFBOOL | C/LC/HSC/T | Lấy giá trị của thiết bị kiểu bit tương ứng |
-| REFBOOL | D/R/SD | Lấy giá trị byte thấp của thiết bị tương ứng |
-| REFBYTE | C/LC/HSC/T | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu BYTE |
-| REFBYTE | D/R/SD | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu BYTE |
-| REFWORD | C/LC/HSC/T | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu WORD. |
-| REFWORD | D/R/SD | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu WORD. |
-| REFDWORD | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DWORD. |
-| REFDWORD | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DWORD. |
-| REFLWORD | C/LC/HSC/T | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LWORD. |
-| REFLWORD | D/R/SD | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LWORD. |
-| REFSINT | C/LC/HSC/T | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu SINT |
-| REFSINT | D/R/SD | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu SINT |
-| REFUSINT | C/LC/HSC/T | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu USINT |
-| REFUSINT | D/R/SD | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu USINT |
-| REFINT | C/LC/HSC/T | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu INT |
-| REFINT | D/R/SD | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu INT |
-| REFUINT | C/LC/HSC/T | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu UINT |
-| REFUINT | D/R/SD | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu UINT |
-| REFDINT | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DINT. |
-| REFDINT | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DINT. |
-| REFUDINT | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu UDINT. |
-| REFUDINT | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu UDINT. |
-| REFLINT | C/LC/HSC/T | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LINT |
-| REFLINT | D/R/SD | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LINT |
-| REFREAL | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu REAL |
-| REFREAL | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu REAL |
-| REFLREAL | C/LC/HSC/T | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LREAL |
-| REFLREAL | D/R/SD | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LREAL |
-| REFTIME | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu TIME |
-| REFTIME | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu TIME |
-| REFTOD | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu TOD |
-| REFTOD | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu TOD |
-| REFDATE | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DATE |
-| REFDATE | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DATE |
-| REFDT | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DT |
-| REFDT | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DT |
-| REFLTIME | C/LC/HSC/T | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LTIME |
-| REFLTIME | D/R/SD | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LTIME |
+| Khối lệnh / Lệnh | Thiết bị áp dụng | Mô tả cách sử dụng                                                                    |
+| :--------------- | :--------------- | :------------------------------------------------------------------------------------ |
+| REFBOOL          | S/M/SM/X/Y       | Lấy giá trị của thiết bị kiểu bit tương ứng                                           |
+| REFBOOL          | C/LC/HSC/T       | Lấy giá trị của thiết bị kiểu bit tương ứng                                           |
+| REFBOOL          | D/R/SD           | Lấy giá trị byte thấp của thiết bị tương ứng                                          |
+| REFBYTE          | C/LC/HSC/T       | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu BYTE  |
+| REFBYTE          | D/R/SD           | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu BYTE  |
+| REFWORD          | C/LC/HSC/T       | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu WORD.            |
+| REFWORD          | D/R/SD           | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu WORD.            |
+| REFDWORD         | C/LC/HSC/T       | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DWORD.           |
+| REFDWORD         | D/R/SD           | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DWORD.           |
+| REFLWORD         | C/LC/HSC/T       | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LWORD.           |
+| REFLWORD         | D/R/SD           | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LWORD.           |
+| REFSINT          | C/LC/HSC/T       | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu SINT  |
+| REFSINT          | D/R/SD           | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu SINT  |
+| REFUSINT         | C/LC/HSC/T       | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu USINT |
+| REFUSINT         | D/R/SD           | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu USINT |
+| REFINT           | C/LC/HSC/T       | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu INT              |
+| REFINT           | D/R/SD           | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu INT              |
+| REFUINT          | C/LC/HSC/T       | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu UINT             |
+| REFUINT          | D/R/SD           | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu UINT             |
+| REFDINT          | C/LC/HSC/T       | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DINT.            |
+| REFDINT          | D/R/SD           | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DINT.            |
+| REFUDINT         | C/LC/HSC/T       | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu UDINT.           |
+| REFUDINT         | D/R/SD           | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu UDINT.           |
+| REFLINT          | C/LC/HSC/T       | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LINT             |
+| REFLINT          | D/R/SD           | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LINT             |
+| REFREAL          | C/LC/HSC/T       | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu REAL             |
+| REFREAL          | D/R/SD           | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu REAL             |
+| REFLREAL         | C/LC/HSC/T       | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LREAL            |
+| REFLREAL         | D/R/SD           | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LREAL            |
+| REFTIME          | C/LC/HSC/T       | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu TIME             |
+| REFTIME          | D/R/SD           | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu TIME             |
+| REFTOD           | C/LC/HSC/T       | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu TOD              |
+| REFTOD           | D/R/SD           | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu TOD              |
+| REFDATE          | C/LC/HSC/T       | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DATE             |
+| REFDATE          | D/R/SD           | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DATE             |
+| REFDT            | C/LC/HSC/T       | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DT               |
+| REFDT            | D/R/SD           | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DT               |
+| REFLTIME         | C/LC/HSC/T       | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LTIME            |
+| REFLTIME         | D/R/SD           | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LTIME            |
 
 Ví dụ mã nguồn đơn giản cho câu lệnh REF như sau:
 
@@ -531,17 +531,17 @@ Khi kết quả phép toán trước lệnh OUT là ON, cuộn dây của bộ �
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bộ định thời | - | Counter | ANY | - |
-| (value) | Giá trị đặt của bộ định thời | - | Unsigned BIN16 bits | ANY16 | ANY_INT |
+| Tham số | Nội dung mô tả                | Phạm vi giá trị | Kiểu dữ liệu        | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :---------------------------- | :-------------- | :------------------ | :----------------------- | :---------------------- |
+| (d)     | Số hiệu thiết bị bộ định thời | -               | Counter             | ANY                      | -                       |
+| (value) | Giá trị đặt của bộ định thời  | -               | Unsigned BIN16 bits | ANY16                    | ANY_INT                 |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| OUT T | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |
-| OUT T | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  | ● |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: | :----------------: |
+| OUT T            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |     |     |     |     |     |     |     |     |     |                    |                    |
+| OUT T            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |  ●  |     |     |  ●  |     |     |                    |                    |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -549,10 +549,10 @@ Khi kết quả phép toán trước lệnh OUT là ON, cuộn dây của bộ �
 
 - Khi kết quả trước lệnh OUT chuyển từ ON sang OFF, trạng thái được thể hiện như bên dưới.
 
-| Loại bộ định thời | Cuộn dây bộ định thời | Giá trị hiện tại của bộ định thời (Timer) | Before the time limit is reached (tiếp điểm thường mở (NO)) | Before the time limit is reached (tiếp điểm thường đóng (NC)) | After the time limit is reached (tiếp điểm thường mở (NO)) | After the time limit is reached (tiếp điểm thường đóng (NC)) |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Timer | OFF | 0 | Non-conducting | conducting | Non-conducting | conducting |
-| Bộ định thời tích lũy | OFF | Giữ nguyên giá trị hiện tại | Non-conducting | conducting | conducting | Non-conducting |
+| Loại bộ định thời     | Cuộn dây bộ định thời | Giá trị hiện tại của bộ định thời (Timer) | Before the time limit is reached (tiếp điểm thường mở (NO)) | Before the time limit is reached (tiếp điểm thường đóng (NC)) | After the time limit is reached (tiếp điểm thường mở (NO)) | After the time limit is reached (tiếp điểm thường đóng (NC)) |
+| :-------------------- | :-------------------- | :---------------------------------------- | :---------------------------------------------------------- | :------------------------------------------------------------ | :--------------------------------------------------------- | :----------------------------------------------------------- |
+| Timer                 | OFF                   | 0                                         | Non-conducting                                              | conducting                                                    | Non-conducting                                             | conducting                                                   |
+| Bộ định thời tích lũy | OFF                   | Giữ nguyên giá trị hiện tại               | Non-conducting                                              | conducting                                                    | conducting                                                 | Non-conducting                                               |
 
 - Sau khi đạt thời gian giới hạn, giá trị hiện tại của bộ định thời tích lũy được xóa về 0 và tiếp điểm được ngắt về OFF bằng lệnh RST.
 
@@ -562,18 +562,18 @@ Khi kết quả phép toán trước lệnh OUT là ON, cuộn dây của bộ �
 
 - Mô tả từng loại bộ định thời:
 
-| Số hiệu thiết bị | Thông số kỹ thuật bộ định thời | Số hiệu thiết bị | Thông số kỹ thuật bộ định thời |
-| :--- | :--- | :--- | :--- |
-| QPS vượt quá giới hạn tối đa 5 | 100ms timer | T246 to T249 | Bộ định thời tích lũy 1ms |
-| T192 to T199 | Bộ định thời chương trình con 100ms (kiểu tích lũy, dùng trong chương trình con, vẫn được cập nhật ngay cả khi chương trình con không được gọi) | T250 to T255 | Bộ định thời tích lũy 10ms |
-| T192 to T199 | Bộ định thời chương trình con 100ms (kiểu tích lũy, dùng trong chương trình con, vẫn được cập nhật ngay cả khi chương trình con không được gọi) | T256 to T383 | 1ms timer |
-| T200 to T245 | 10ms timer | T384 to T511 | 0.1ms timer |
+| Số hiệu thiết bị               | Thông số kỹ thuật bộ định thời                                                                                                                  | Số hiệu thiết bị | Thông số kỹ thuật bộ định thời |
+| :----------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- | :--------------- | :----------------------------- |
+| QPS vượt quá giới hạn tối đa 5 | 100ms timer                                                                                                                                     | T246 to T249     | Bộ định thời tích lũy 1ms      |
+| T192 to T199                   | Bộ định thời chương trình con 100ms (kiểu tích lũy, dùng trong chương trình con, vẫn được cập nhật ngay cả khi chương trình con không được gọi) | T250 to T255     | Bộ định thời tích lũy 10ms     |
+| T192 to T199                   | Bộ định thời chương trình con 100ms (kiểu tích lũy, dùng trong chương trình con, vẫn được cập nhật ngay cả khi chương trình con không được gọi) | T256 to T383     | 1ms timer                      |
+| T200 to T245                   | 10ms timer                                                                                                                                      | T384 to T511     | 0.1ms timer                    |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Cài đặt tham số trong (value) nằm ngoài phạm vi. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                   |
+| :------------------ | :----------------------------------------------- |
+| 4084H               | Cài đặt tham số trong (value) nằm ngoài phạm vi. |
 
 #### Ví dụ minh họa
 
@@ -589,17 +589,17 @@ Lệnh bộ đếm 16-bit: Khi kết quả phép toán trước lệnh OUT chuy�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thành phần bộ đếm (Counter) | - | Counter | ANY | - |
-| (value) | Giá trị đặt bộ đếm (Counter) | [0,32767] | Unsigned BIN16 bits | ANY_INT | INT |
+| Tham số | Nội dung mô tả                      | Phạm vi giá trị | Kiểu dữ liệu        | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :---------------------------------- | :-------------- | :------------------ | :----------------------- | :---------------------- |
+| (d)     | Số hiệu thành phần bộ đếm (Counter) | -               | Counter             | ANY                      | -                       |
+| (value) | Giá trị đặt bộ đếm (Counter)        | [0,32767]       | Unsigned BIN16 bits | ANY_INT                  | INT                     |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| OUT C | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |
-| OUT C | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  | ● | ● | ● |  |  | ● | ● |  |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: | :----------------: |
+| OUT C            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |  ●  |     |     |     |     |     |     |     |     |                    |                    |
+| OUT C            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |     |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |                    |                    |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -613,10 +613,10 @@ Lệnh bộ đếm 16-bit: Khi kết quả phép toán trước lệnh OUT chuy�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Cài đặt tham số trong (value) nằm ngoài phạm vi. |
-| 4085H | The (value) parameter is out of the range of devices. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                        |
+| :------------------ | :---------------------------------------------------- |
+| 4084H               | Cài đặt tham số trong (value) nằm ngoài phạm vi.      |
+| 4085H               | The (value) parameter is out of the range of devices. |
 
 #### Ví dụ minh họa
 
@@ -632,17 +632,17 @@ Lệnh bộ đếm 32-bit: Khi kết quả phép toán trước lệnh OUT chuy�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bộ đếm dài (32-bit) | - | Counter | ANY | - |
-| (value) | Giá trị đặt của bộ đếm dài (32-bit) | [0,4294967295] | Unsigned BIN32 bits | ANY_INT | UDINT |
+| Tham số | Nội dung mô tả                       | Phạm vi giá trị | Kiểu dữ liệu        | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :----------------------------------- | :-------------- | :------------------ | :----------------------- | :---------------------- |
+| (d)     | Số hiệu thiết bị bộ đếm dài (32-bit) | -               | Counter             | ANY                      | -                       |
+| (value) | Giá trị đặt của bộ đếm dài (32-bit)  | [0,4294967295]  | Unsigned BIN32 bits | ANY_INT                  | UDINT                   |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| OUT LC | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |
-| OUT LC | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  | ● | ● | ● |  |  | ● | ● |  |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: | :----------------: |
+| OUT LC           | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |  ●  |     |     |     |     |                    |                    |
+| OUT LC           | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |     |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |                    |                    |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -656,9 +656,9 @@ Lệnh bộ đếm 32-bit: Khi kết quả phép toán trước lệnh OUT chuy�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The (value) parameter is out of the range of devices. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                        |
+| :------------------ | :---------------------------------------------------- |
+| 4085H               | The (value) parameter is out of the range of devices. |
 
 #### Ví dụ minh họa
 
@@ -680,15 +680,15 @@ Mô-đun CPU thông thường ở trạng thái cấm ngắt. Lệnh này có th
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s) | Mức ưu tiên cấm ngắt | [0,2] | Signed BIN16 bits | ANY16 | INT |
+| Tham số | Nội dung mô tả       | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :------------------- | :-------------- | :---------------- | :----------------------- | :---------------------- |
+| (s)     | Mức ưu tiên cấm ngắt | [0,2]           | Signed BIN16 bits | ANY16                    | INT                     |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DI | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: | :----------------: |
+| DI               | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |         ●          |                    |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -720,17 +720,17 @@ Thực hiện đặt lại (reset) hàng loạt giữa các thiết bị cùng l
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (d1) | Số hiệu thiết bị bit/word bắt đầu để đặt lại (Reset) hàng loạt | - | Bits/Signed BIN16 Bits | ANY_ELEMENTARY | - |
-| (d2) | Số hiệu thiết bị bit/word bắt đầu để đặt lại (Reset) hàng loạt | - | Bits/Signed BIN16 Bits | ANY_ELEMENTARY | - |
+| Tham số | Nội dung mô tả                                                 | Phạm vi giá trị | Kiểu dữ liệu           | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :------------------------------------------------------------- | :-------------- | :--------------------- | :----------------------- | :---------------------- |
+| (d1)    | Số hiệu thiết bị bit/word bắt đầu để đặt lại (Reset) hàng loạt | -               | Bits/Signed BIN16 Bits | ANY_ELEMENTARY           | -                       |
+| (d2)    | Số hiệu thiết bị bit/word bắt đầu để đặt lại (Reset) hàng loạt | -               | Bits/Signed BIN16 Bits | ANY_ELEMENTARY           | -                       |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ZRST | Parameter 1 |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● |  |
-| ZRST | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: | :----------------: |
+| ZRST             | Parameter 1 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |         ●          |                    |
+| ZRST             | Parameter 2 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |         ●          |                    |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -750,15 +750,15 @@ Các lệnh trong hình sẽ đặt lại M0, D0, C0.
 ✎Lưu ý
 
 - Vui lòng gán cùng địa chỉ thiết bị cho (d1) và (d2), đồng thời đảm bảo số hiệu thiết bị (d1)
-:::
+  :::
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi loại thiết bị chỉ định tại (d1) khác với loại thiết bị chỉ định tại (d2). |
-| 4085H | When the devices specified in the read các lệnh ứng dụng (d1) and (d2) exceed the range of the corresponding device. |
-| 4086H | When the devices specified in the write lệnh ứng dụng (d1) excceed the range of the corresponding device. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                       |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi loại thiết bị chỉ định tại (d1) khác với loại thiết bị chỉ định tại (d2).                                        |
+| 4085H               | When the devices specified in the read các lệnh ứng dụng (d1) and (d2) exceed the range of the corresponding device. |
+| 4086H               | When the devices specified in the write lệnh ứng dụng (d1) excceed the range of the corresponding device.            |
 
 #### Ví dụ minh họa
 
@@ -774,17 +774,17 @@ Chức năng của lệnh ứng dụng này là đặt giá trị của các thi
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (d1) | Số hiệu thiết bị bit bắt đầu để đặt (Set) hàng loạt | - | Bit | ANY_BOOL | - |
-| (d2) | Số hiệu thiết bị bit bắt đầu để đặt (Set) hàng loạt | - | Bit | ANY_BOOL | - |
+| Tham số | Nội dung mô tả                                      | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :-------------------------------------------------- | :-------------- | :----------- | :----------------------- | :---------------------- |
+| (d1)    | Số hiệu thiết bị bit bắt đầu để đặt (Set) hàng loạt | -               | Bit          | ANY_BOOL                 | -                       |
+| (d2)    | Số hiệu thiết bị bit bắt đầu để đặt (Set) hàng loạt | -               | Bit          | ANY_BOOL                 | -                       |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ZSET | Parameter 1 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
-| ZSET | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: |
+| ZSET             | Parameter 1 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |         ●          |
+| ZSET             | Parameter 2 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |         ●          |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -798,16 +798,16 @@ Chức năng của lệnh ứng dụng này là đặt giá trị của các thi
 ✎Lưu ý
 
 - Please specify the same type of number for (d1), (d2) and make (d1) number
-:::
+  :::
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi loại thiết bị chỉ định tại (d1) khác với loại thiết bị chỉ định tại (d2). |
-| 4085H | When the devices specified in the read các lệnh ứng dụng (d1) and (d2) exceed the range of the corresponding device. |
-| 4086H | When the devices specified in the write lệnh ứng dụng (d1) excceed the range of the corresponding device. |
-| 4087H | Khi loại thiết bị chỉ định tại (d1) khác với loại thiết bị chỉ định tại (d2). |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                       |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi loại thiết bị chỉ định tại (d1) khác với loại thiết bị chỉ định tại (d2).                                        |
+| 4085H               | When the devices specified in the read các lệnh ứng dụng (d1) and (d2) exceed the range of the corresponding device. |
+| 4086H               | When the devices specified in the write lệnh ứng dụng (d1) excceed the range of the corresponding device.            |
+| 4087H               | Khi loại thiết bị chỉ định tại (d1) khác với loại thiết bị chỉ định tại (d2).                                        |
 
 #### Ví dụ minh họa
 
@@ -831,26 +831,26 @@ Khi ngõ vào RST chuyển sang ON, phần tử mềm được chỉ định tro
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bit để đặt lại (Reset) / Chỉ định bit của thiết bị word / Số hiệu thiết bị word để đặt lại (Reset) | - | Bit/word/double word | ANY_ELEMENTARY | - |
+| Tham số | Nội dung mô tả                                                                                                      | Phạm vi giá trị | Kiểu dữ liệu         | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :------------------------------------------------------------------------------------------------------------------ | :-------------- | :------------------- | :----------------------- | :---------------------- |
+| (d)     | Số hiệu thiết bị bit để đặt lại (Reset) / Chỉ định bit của thiết bị word / Số hiệu thiết bị word để đặt lại (Reset) | -               | Bit/word/double word | ANY_ELEMENTARY           | -                       |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| RST | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● |  |  |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: |
+| RST              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |     |     |     |     |         ●          |
 
 #### Chức năng và nguyên lý hoạt động
 
 Khi điều kiện thực thi lệnh là ON, thiết bị được chỉ định sẽ chuyển sang trạng thái sau.
 
-| Vùng nhớ thiết bị (Devices) | Trạng thái thiết bị |
-| :--- | :--- |
-| Bit device | Đặt cuộn dây (Coil) và tiếp điểm về OFF. |
-| Timer, counter | Đặt giá trị hiện tại về 0 và đặt các cuộn dây (Coil) và tiếp điểm về OFF |
-| Chỉ định bit của thiết bị word | Đặt bit được chỉ định về 0. |
-| Thiết bị word | Set content to 0 |
+| Vùng nhớ thiết bị (Devices)    | Trạng thái thiết bị                                                      |
+| :----------------------------- | :----------------------------------------------------------------------- |
+| Bit device                     | Đặt cuộn dây (Coil) và tiếp điểm về OFF.                                 |
+| Timer, counter                 | Đặt giá trị hiện tại về 0 và đặt các cuộn dây (Coil) và tiếp điểm về OFF |
+| Chỉ định bit của thiết bị word | Đặt bit được chỉ định về 0.                                              |
+| Thiết bị word                  | Set content to 0                                                         |
 
 - Khi điều kiện thực thi lệnh là OFF, trạng thái của phần tử mềm không thay đổi.
 
@@ -862,14 +862,12 @@ Khi điều kiện thực thi lệnh là ON, thiết bị được chỉ định
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4086H | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                        |
+| :------------------ | :---------------------------------------------------- |
+| 4086H               | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
 
 #### Ví dụ minh họa
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774862859206-747.png?rev=1.1)
 
 Trong ví dụ này, lệnh RST đặt lại các thiết bị C1, T1 và LC1.
-
-0

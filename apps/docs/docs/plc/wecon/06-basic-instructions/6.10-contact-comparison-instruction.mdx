@@ -3,7 +3,7 @@ id: "6.10-contact-comparison-instruction"
 title: "6.10 Lệnh so sánh trực tiếp dạng tiếp điểm (Contact Comparison Instruction)"
 sidebar_position: 10
 sidebar_label: "6.10 Contact Comparison instruction"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.10 Lệnh so sánh trực tiếp dạng tiếp điểm (Contact Comparison Instruction)"
 ---
 
@@ -27,33 +27,33 @@ Giản đồ thang (Ladder)
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | Signed BIN 16 bit | ANY16_S |
-| (s2) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | Signed BIN 16 bit | ANY16_S |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | Signed BIN 16 bit | ANY16_S                  |
+| (s2)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | Signed BIN 16 bit | ANY16_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| LD= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| LD&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| LD&lt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| LD&gt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| LD&lt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| LD&lt;&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| AND= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| AND&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| AND&lt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| AND&gt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| AND&lt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| AND&lt;&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| OR= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| OR&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| OR&lt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| OR&gt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| OR&lt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| OR&lt;&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+| Khối lệnh / Lệnh | Tham số |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :------ | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| LD=              | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| LD&gt;           | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| LD&lt;           | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| LD&gt;=          | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| LD&lt;=          | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| LD&lt;&gt;       | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| AND=             | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| AND&gt;          | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| AND&lt;          | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| AND&gt;=         | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| AND&lt;=         | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| AND&lt;&gt;      | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| OR=              | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| OR&gt;           | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| OR&lt;           | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| OR&gt;=          | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| OR&lt;=          | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| OR&lt;&gt;       | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -61,26 +61,26 @@ Dữ liệu BIN 16-bit của thiết bị được chỉ định tại (s1) và 
 
 Kết quả phép toán so sánh của từng lệnh được trình bày dưới đây.
 
-| Ký hiệu lệnh | Điều kiện | Kết quả phép toán so sánh | Ký hiệu lệnh | Điều kiện | Kết quả phép toán so sánh |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-|  | (s1)=(s2) | Trạng thái dẫn (ON) |  | (s1)≠(s2) | Trạng thái không dẫn (OFF) |
-| &lt;&gt; | (s1)≠(s2) | Trạng thái dẫn (ON) | &lt;&gt; | (s1)=(s2) | Trạng thái không dẫn (OFF) |
-| &gt; | (s1)&gt;(s2) | Trạng thái dẫn (ON) | &gt; | (s1)≤(s2) | Trạng thái không dẫn (OFF) |
-| &lt; | (s1)&lt;(s2) | Trạng thái dẫn (ON) | &lt; | (s1)≥(s2) | Trạng thái không dẫn (OFF) |
-| &gt;= | (s1)≥(s2) | Trạng thái dẫn (ON) | &gt;= | (s1)&lt;(s2) | Trạng thái không dẫn (OFF) |
-| &lt;= | (s1)≤(s2) | Trạng thái dẫn (ON) | &lt;= | (s1)&gt;(s2) | Trạng thái không dẫn (OFF) |
+| Ký hiệu lệnh | Điều kiện    | Kết quả phép toán so sánh | Ký hiệu lệnh | Điều kiện    | Kết quả phép toán so sánh  |
+| :----------- | :----------- | :------------------------ | :----------- | :----------- | :------------------------- |
+|              | (s1)=(s2)    | Trạng thái dẫn (ON)       |              | (s1)≠(s2)    | Trạng thái không dẫn (OFF) |
+| &lt;&gt;     | (s1)≠(s2)    | Trạng thái dẫn (ON)       | &lt;&gt;     | (s1)=(s2)    | Trạng thái không dẫn (OFF) |
+| &gt;         | (s1)&gt;(s2) | Trạng thái dẫn (ON)       | &gt;         | (s1)≤(s2)    | Trạng thái không dẫn (OFF) |
+| &lt;         | (s1)&lt;(s2) | Trạng thái dẫn (ON)       | &lt;         | (s1)≥(s2)    | Trạng thái không dẫn (OFF) |
+| &gt;=        | (s1)≥(s2)    | Trạng thái dẫn (ON)       | &gt;=        | (s1)&lt;(s2) | Trạng thái không dẫn (OFF) |
+| &lt;=        | (s1)≤(s2)    | Trạng thái dẫn (ON)       | &lt;=        | (s1)&gt;(s2) | Trạng thái không dẫn (OFF) |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | (s) read address vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                      |
+| :------------------ | :-------------------------------------------------- |
+| 4085H               | (s) read address vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
 (1) Lệnh LD£:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.10%20Contact%20Comparison%20instruction/WebHome/1760925192272-827.png?width=636&amp;height=63&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.10%20Contact%20Comparison%20instruction/WebHome/1760925192272-827.png?width=636&height=63&rev=1.1)
 
 (2) Lệnh AND£:
 
@@ -110,33 +110,33 @@ Có thể nhập “=”, “&lt;&gt;”, “&gt;”, “&lt;”, “&gt;=”, �
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S |
-| (s2) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị           | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :------------------------ | :---------------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S                  |
+| (s2)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| LDD= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| LDD&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| LDD&lt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| LDD&gt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| LDD&lt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| LDD&lt;&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| ANDD= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| ANDD&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| ANDD&lt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| ANDD&gt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| ANDD&lt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| ANDD&lt;&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| ORD= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| ORD&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| ORD&lt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| ORD&gt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| ORD&lt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
-| ORD&lt;&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
+| Khối lệnh / Lệnh | Tham số |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :------ | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| LDD=             | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| LDD&gt;          | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| LDD&lt;          | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| LDD&gt;=         | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| LDD&lt;=         | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| LDD&lt;&gt;      | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| ANDD=            | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| ANDD&gt;         | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| ANDD&lt;         | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| ANDD&gt;=        | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| ANDD&lt;=        | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| ANDD&lt;&gt;     | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| ORD=             | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| ORD&gt;          | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| ORD&lt;          | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| ORD&gt;=         | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| ORD&lt;=         | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
+| ORD&lt;&gt;      | s1, s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -144,20 +144,20 @@ Dữ liệu BIN 32-bit của thiết bị được chỉ định tại (s1) và 
 
 Kết quả phép toán so sánh của từng lệnh được trình bày dưới đây.
 
-| Ký hiệu lệnh | Điều kiện | Kết quả phép toán so sánh | Ký hiệu lệnh | Điều kiện | Kết quả phép toán so sánh |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-|  | (s1)=(s2) | Trạng thái dẫn (ON) |  | (s1)≠(s2) | Trạng thái không dẫn (OFF) |
-| &lt;&gt; | (s1)≠(s2) | Trạng thái dẫn (ON) | &lt;&gt; | (s1)=(s2) | Trạng thái không dẫn (OFF) |
-| &gt; | (s1)&gt;(s2) | Trạng thái dẫn (ON) | &gt; | (s1)≤(s2) | Trạng thái không dẫn (OFF) |
-| &lt; | (s1)＜(s2) | Trạng thái dẫn (ON) | &lt; | (s1)≥(s2) | Trạng thái không dẫn (OFF) |
-| &gt;= | (s1)≥(s2) | Trạng thái dẫn (ON) | &gt;= | (s1)＜(s2) | Trạng thái không dẫn (OFF) |
-| &lt;= | (s1)≤(s2) | Trạng thái dẫn (ON) | &lt;= | (s1)&gt;(s2) | Trạng thái không dẫn (OFF) |
+| Ký hiệu lệnh | Điều kiện    | Kết quả phép toán so sánh | Ký hiệu lệnh | Điều kiện    | Kết quả phép toán so sánh  |
+| :----------- | :----------- | :------------------------ | :----------- | :----------- | :------------------------- |
+|              | (s1)=(s2)    | Trạng thái dẫn (ON)       |              | (s1)≠(s2)    | Trạng thái không dẫn (OFF) |
+| &lt;&gt;     | (s1)≠(s2)    | Trạng thái dẫn (ON)       | &lt;&gt;     | (s1)=(s2)    | Trạng thái không dẫn (OFF) |
+| &gt;         | (s1)&gt;(s2) | Trạng thái dẫn (ON)       | &gt;         | (s1)≤(s2)    | Trạng thái không dẫn (OFF) |
+| &lt;         | (s1)＜(s2)   | Trạng thái dẫn (ON)       | &lt;         | (s1)≥(s2)    | Trạng thái không dẫn (OFF) |
+| &gt;=        | (s1)≥(s2)    | Trạng thái dẫn (ON)       | &gt;=        | (s1)＜(s2)   | Trạng thái không dẫn (OFF) |
+| &lt;=        | (s1)≤(s2)    | Trạng thái dẫn (ON)       | &lt;=        | (s1)&gt;(s2) | Trạng thái không dẫn (OFF) |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | (S) read address vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                      |
+| :------------------ | :-------------------------------------------------- |
+| 4085H               | (S) read address vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
@@ -205,33 +205,33 @@ Có thể nhập “=”, “&lt;&gt;”, “&gt;”, “&lt;”, “&gt;=”, �
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu so sánh | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
-| (s2) | Dữ liệu so sánh hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu so sánh | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                        | Phạm vi giá trị            | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------------------- | :------------------------- | :--------------------------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu so sánh | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32               |
+| (s2)    | Dữ liệu so sánh hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu so sánh | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| LDE= | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| LDE&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| LDE&lt; | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| LDE&gt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| LDE&lt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| LDE&lt;&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| ANDE= | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| ANDE&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| ANDE&lt; | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| ANDE&gt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| ANDE&lt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| ANDE&lt;&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| ORE= | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| ORD&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| ORE&lt; | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| ORE&gt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| ORE&lt;= | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
-| ORE&lt;&gt; | s1, s2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |
+| Khối lệnh / Lệnh | Tham số |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :------ | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| LDE=             | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| LDE&gt;          | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| LDE&lt;          | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| LDE&gt;=         | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| LDE&lt;=         | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| LDE&lt;&gt;      | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| ANDE=            | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| ANDE&gt;         | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| ANDE&lt;         | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| ANDE&gt;=        | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| ANDE&lt;=        | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| ANDE&lt;&gt;     | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| ORE=             | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| ORD&gt;          | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| ORE&lt;          | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| ORE&gt;=         | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| ORE&lt;=         | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
+| ORE&lt;&gt;      | s1, s2  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -239,21 +239,21 @@ Số thực độ chính xác đơn của thiết bị được chỉ định t�
 
 Kết quả phép toán so sánh của từng lệnh được trình bày dưới đây.
 
-| Ký hiệu lệnh | Điều kiện | Kết quả phép toán so sánh | Ký hiệu lệnh | Điều kiện | Kết quả phép toán so sánh |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| E= | (s1)=(s2) | Trạng thái dẫn (ON) | E= | (s1)≠(s2) | Trạng thái không dẫn (OFF) |
-| E&lt;&gt; | (s1)≠(s2) | Trạng thái dẫn (ON) | E&lt;&gt; | (s1)=(s2) | Trạng thái không dẫn (OFF) |
-| E&gt; | (s1)&gt;(s2) | Trạng thái dẫn (ON) | E&gt; | (s1)≤(s2) | Trạng thái không dẫn (OFF) |
-| E&lt; | (s1)＜(s2) | Trạng thái dẫn (ON) | E&lt; | (s1)≥(s2) | Trạng thái không dẫn (OFF) |
-| E&gt;= | (s1)≥(s2) | Trạng thái dẫn (ON) | E&gt;= | (s1)＜(s2) | Trạng thái không dẫn (OFF) |
-| E&lt;= | (s1)≤(s2) | Trạng thái dẫn (ON) | E&lt;= | (s1)&gt;(s2) | Trạng thái không dẫn (OFF) |
+| Ký hiệu lệnh | Điều kiện    | Kết quả phép toán so sánh | Ký hiệu lệnh | Điều kiện    | Kết quả phép toán so sánh  |
+| :----------- | :----------- | :------------------------ | :----------- | :----------- | :------------------------- |
+| E=           | (s1)=(s2)    | Trạng thái dẫn (ON)       | E=           | (s1)≠(s2)    | Trạng thái không dẫn (OFF) |
+| E&lt;&gt;    | (s1)≠(s2)    | Trạng thái dẫn (ON)       | E&lt;&gt;    | (s1)=(s2)    | Trạng thái không dẫn (OFF) |
+| E&gt;        | (s1)&gt;(s2) | Trạng thái dẫn (ON)       | E&gt;        | (s1)≤(s2)    | Trạng thái không dẫn (OFF) |
+| E&lt;        | (s1)＜(s2)   | Trạng thái dẫn (ON)       | E&lt;        | (s1)≥(s2)    | Trạng thái không dẫn (OFF) |
+| E&gt;=       | (s1)≥(s2)    | Trạng thái dẫn (ON)       | E&gt;=       | (s1)＜(s2)   | Trạng thái không dẫn (OFF) |
+| E&lt;=       | (s1)≤(s2)    | Trạng thái dẫn (ON)       | E&lt;=       | (s1)&gt;(s2) | Trạng thái không dẫn (OFF) |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi nội dung của thiết bị chỉ định bởi (s1) và (s2) là số phi chuẩn, giá trị không phải số (NaN) hoặc ±∞ |
-| 4085H | Địa chỉ đọc của (s1) và (s2) vượt quá phạm vi thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                           |
+| :------------------ | :------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi nội dung của thiết bị chỉ định bởi (s1) và (s2) là số phi chuẩn, giá trị không phải số (NaN) hoặc ±∞ |
+| 4085H               | Địa chỉ đọc của (s1) và (s2) vượt quá phạm vi thiết bị                                                   |
 
 #### Ví dụ minh họa
 
@@ -293,27 +293,27 @@ ORS£: Lệnh so sánh chuỗi ký tự mắc song song
 
 Giản đồ thang (Ladder)
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.10%20Contact%20Comparison%20instruction/WebHome/1760926946325-424.png?width=497&amp;height=331&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.10%20Contact%20Comparison%20instruction/WebHome/1760926946325-424.png?width=497&height=331&rev=1.1)
 
 Có thể nhập “=” và “&lt;&gt;” vào vị trí “£”
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (nhãn) |
-| :--- | :--- | :--- | :--- | :--- |
-| (S1) | Dữ liệu nối chuỗi hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu hoặc chuỗi được chỉ định trực tiếp | - | Chuỗi ký tự (String) | ANYSTRING_SINGLE |
-| (S1) | Dữ liệu nối chuỗi hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu hoặc chuỗi được chỉ định trực tiếp | - | Chuỗi ký tự (String) | ANYSTRING_SINGLE |
+| Tham số | Nội dung mô tả                                                                                     | Phạm vi giá trị | Kiểu dữ liệu         | Kiểu dữ liệu (nhãn) |
+| :------ | :------------------------------------------------------------------------------------------------- | :-------------- | :------------------- | :------------------ |
+| (S1)    | Dữ liệu nối chuỗi hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu hoặc chuỗi được chỉ định trực tiếp | -               | Chuỗi ký tự (String) | ANYSTRING_SINGLE    |
+| (S1)    | Dữ liệu nối chuỗi hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu hoặc chuỗi được chỉ định trực tiếp | -               | Chuỗi ký tự (String) | ANYSTRING_SINGLE    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| LDS= | s1. s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| LDS&lt;&gt; | s1. s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| ANDS= | s1. s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| ANDS&lt;&gt; | s1. s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| ORS= | s1. s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| ORS&lt;&gt; | s1. s2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :------ | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| LDS=             | s1. s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| LDS&lt;&gt;      | s1. s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| ANDS=            | s1. s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| ANDS&lt;&gt;     | s1. s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| ORS=             | s1. s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| ORS&lt;&gt;      | s1. s2  |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -321,18 +321,18 @@ Có thể nhập “=” và “&lt;&gt;” vào vị trí “£”
 
 • Kết quả phép toán so sánh của từng lệnh được trình bày dưới đây.
 
-| Ký hiệu lệnh | Điều kiện | Kết quả phép toán so sánh | Ký hiệu lệnh | Điều kiện | Kết quả phép toán so sánh |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-|  | (s1)＝(s2) | On stat |  | (s1)≠(s2) | Trạng thái không dẫn (OFF) |
-| &lt;&gt; | (s1)≠(s2) | On stat | &lt;&gt; | (s1)＝(s2) | Trạng thái không dẫn (OFF) |
+| Ký hiệu lệnh | Điều kiện  | Kết quả phép toán so sánh | Ký hiệu lệnh | Điều kiện  | Kết quả phép toán so sánh  |
+| :----------- | :--------- | :------------------------ | :----------- | :--------- | :------------------------- |
+|              | (s1)＝(s2) | On stat                   |              | (s1)≠(s2)  | Trạng thái không dẫn (OFF) |
+| &lt;&gt;     | (s1)≠(s2)  | On stat                   | &lt;&gt;     | (s1)＝(s2) | Trạng thái không dẫn (OFF) |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The read address of (s1) or (s2) vượt quá phạm vi vùng nhớ thiết bị |
-| 408AH | Độ dài chuỗi đọc của (s1) hoặc (s2) vượt giới hạn và độ dài chuỗi liên tiếp vượt quá 400 ký tự. |
-| 408BH | Khi (s1) hoặc (s2) đọc chuỗi, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                |
+| :------------------ | :------------------------------------------------------------------------------------------------------------ |
+| 4085H               | The read address of (s1) or (s2) vượt quá phạm vi vùng nhớ thiết bị                                           |
+| 408AH               | Độ dài chuỗi đọc của (s1) hoặc (s2) vượt giới hạn và độ dài chuỗi liên tiếp vượt quá 400 ký tự.               |
+| 408BH               | Khi (s1) hoặc (s2) đọc chuỗi, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
 
 #### Ví dụ minh họa
 
@@ -347,5 +347,3 @@ Có thể nhập “=” và “&lt;&gt;” vào vị trí “£”
 (3) Lệnh ORS£
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.10%20Contact%20Comparison%20instruction/WebHome/1760927130962-622.png?rev=1.1)
-
-0

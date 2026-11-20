@@ -3,7 +3,7 @@ id: "8.08-sdo-instruction"
 title: "8.08 Lệnh đọc/ghi tham số SDO qua mạng EtherCAT (SDO Instruction)"
 sidebar_position: 9
 sidebar_label: "8.08 Lệnh SDO EtherCAT"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.08 Lệnh đọc/ghi tham số SDO qua mạng EtherCAT (SDO Instruction)"
 ---
 
@@ -19,23 +19,23 @@ Lệnh này dùng để đọc giá trị của từ điển đối tượng (Ob
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Bảng) |
-| :--- | :--- | :--- | :--- | :--- |
-| (S1) | Chỉ số từ điển đối tượng SDO (Index) | - | Unsigned BIN16 | ANY16_U |
-| (S2) | Chỉ số phụ từ điển đối tượng SDO (Subindex) | - | Unsigned BIN16 | ANY16_U |
-| (S3) | Độ dài (đơn vị BYTE) | - | Unsigned BIN16 | ANY16_U |
-| (D1) | Thiết bị đọc dữ liệu | - | Define the size according to S3. | - |
-| (S4) | Chỉ định số trạm servo | - | Signed BIN16 | ANY16_S |
+| Tham số | Nội dung mô tả                              | Phạm vi giá trị | Kiểu dữ liệu                     | Kiểu dữ liệu (Bảng) |
+| :------ | :------------------------------------------ | :-------------- | :------------------------------- | :------------------ |
+| (S1)    | Chỉ số từ điển đối tượng SDO (Index)        | -               | Unsigned BIN16                   | ANY16_U             |
+| (S2)    | Chỉ số phụ từ điển đối tượng SDO (Subindex) | -               | Unsigned BIN16                   | ANY16_U             |
+| (S3)    | Độ dài (đơn vị BYTE)                        | -               | Unsigned BIN16                   | ANY16_U             |
+| (D1)    | Thiết bị đọc dữ liệu                        | -               | Define the size according to S3. | -                   |
+| (S4)    | Chỉ định số trạm servo                      | -               | Signed BIN16                     | ANY16_S             |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | Vùng nhớ thiết bị (Devices) | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_READSDO | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |  |  |
-| MC_READSDO | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |  |  |
-| MC_READSDO | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |  |  |
-| MC_READSDO | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● |  |  |  |  |  |  |  |
-| MC_READSDO | Parameter 5 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | Vùng nhớ thiết bị (Devices) | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------------: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------: | :-------------------: | :----------------: |
+| MC_READSDO       | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |                             |  ●  |  ●  |  ●  |  ●  |     |     |                 |                       |                    |
+| MC_READSDO       | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |                             |  ●  |  ●  |  ●  |  ●  |     |     |                 |                       |                    |
+| MC_READSDO       | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |                             |  ●  |  ●  |  ●  |  ●  |     |     |                 |                       |                    |
+| MC_READSDO       | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |                             |  ●  |  ●  |     |     |     |     |                 |                       |                    |
+| MC_READSDO       | Parameter 5 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |                             |  ●  |  ●  |  ●  |  ●  |     |     |                 |                       |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -57,23 +57,23 @@ Lệnh này dùng để ghi giá trị của từ điển đối tượng (Objec
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Bảng) |
-| :--- | :--- | :--- | :--- | :--- |
-| (S1) | Chỉ số từ điển đối tượng SDO (Index) | - | Unsigned BIN16 | ANY16_U |
-| (S2) | Chỉ số phụ từ điển đối tượng SDO (Sub-index) | - | Unsigned BIN16 | ANY16_U |
-| (S3) | Độ dài (đơn vị BYTE) | - | Unsigned BIN16 | ANY16_U |
-| (S4) | Giá trị cần ghi | - | Define the size according to S3. | - |
-| (S5) | Chỉ định số trạm servo | - | Signed BIN16 | ANY16_S |
+| Tham số | Nội dung mô tả                               | Phạm vi giá trị | Kiểu dữ liệu                     | Kiểu dữ liệu (Bảng) |
+| :------ | :------------------------------------------- | :-------------- | :------------------------------- | :------------------ |
+| (S1)    | Chỉ số từ điển đối tượng SDO (Index)         | -               | Unsigned BIN16                   | ANY16_U             |
+| (S2)    | Chỉ số phụ từ điển đối tượng SDO (Sub-index) | -               | Unsigned BIN16                   | ANY16_U             |
+| (S3)    | Độ dài (đơn vị BYTE)                         | -               | Unsigned BIN16                   | ANY16_U             |
+| (S4)    | Giá trị cần ghi                              | -               | Define the size according to S3. | -                   |
+| (S5)    | Chỉ định số trạm servo                       | -               | Signed BIN16                     | ANY16_S             |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_READSDO | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
-| MC_READSDO | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
-| MC_READSDO | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
-| MC_READSDO | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● |  |  |  |  |  |
-| MC_READSDO | Parameter 5 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_READSDO       | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |  ●  |  ●  |  ●  |  ●  |     |                       |                    |
+| MC_READSDO       | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |  ●  |  ●  |  ●  |  ●  |     |                       |                    |
+| MC_READSDO       | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |  ●  |  ●  |  ●  |  ●  |     |                       |                    |
+| MC_READSDO       | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |  ●  |  ●  |     |     |     |                       |                    |
+| MC_READSDO       | Parameter 5 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |  ●  |  ●  |  ●  |  ●  |     |                       |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -84,5 +84,3 @@ Lệnh này dùng để ghi giá trị của từ điển đối tượng (Objec
 
 ▪Khi có từ điển đối tượng tương ứng đã được cài đặt trong PDO, có thể xảy ra trường hợp SDO không thể ghi vào đó.
 :::
-
-0

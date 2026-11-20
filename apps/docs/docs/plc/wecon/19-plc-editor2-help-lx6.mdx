@@ -3,7 +3,7 @@ id: "19-plc-editor2-help-lx6"
 title: "19 Hướng dẫn sử dụng phần mềm PLC Editor 2 (LX6)"
 sidebar_position: 19
 sidebar_label: "PLC Editor2 Help (LX6)"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 19 Hướng dẫn sử dụng phần mềm PLC Editor 2 (LX6)"
 ---
 
@@ -37,7 +37,7 @@ Có thể tạo mới, xóa và di chuyển thứ tự các biến lên/xuống 
 
 Người dùng có thể viết chương trình trong khu vực chỉnh sửa giản đồ bậc thang. Sau khi chọn một nút trong mạng (network), có thể chèn các phần tử như tiếp điểm, khối phép toán và cuộn dây thông qua các biểu tượng giản đồ bậc thang, cửa sổ chỉnh sửa lệnh và phím tắt trên thanh công cụ, hoặc sửa đổi và xóa các phần tử hiện có.
 
-1) Chỉnh sửa lệnh
+1. Chỉnh sửa lệnh
 
 Cách 1: Chèn biểu tượng giản đồ bậc thang;
 
@@ -51,7 +51,7 @@ Cách 3: Nhấn Enter hoặc nhập trực tiếp ký tự.
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%875.png?rev=1.1)
 
-2) Chỉnh sửa hàng và cột / chỉnh sửa mạng (network)
+2. Chỉnh sửa hàng và cột / chỉnh sửa mạng (network)
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%876.png?rev=1.1)
 
@@ -99,21 +99,21 @@ Giao diện chỉnh sửa chương trình khối hàm không khác biệt so v�
 
 ① Category (Danh mục): Thuộc tính của các biến khối hàm.
 
-| Category | Mô tả phân loại | Mô tả kỹ thuật |
-| :--- | :--- | :--- |
-| VAR | Biến cục bộ | Chỉ có hiệu lực trong khối logic này và không thể truy cập từ bên ngoài |
-| VAR_IN_OUT | Biến đầu vào và đầu ra (IN_OUT) | Biến đầu vào và đầu ra không chỉ có thể được truyền vào khối logic được gọi, mà còn có thể được sửa đổi bên trong khối logic được gọi đó |
-| VAR_INPUT | Biến đầu vào | Tham số này được cung cấp bởi khối logic gọi nó và dữ liệu/lệnh truyền vào khối logic sẽ được nhập qua đây |
-| VAR_OUTPUT | Biến đầu ra | Cung cấp tham số trả về cho khối logic gọi nó, xuất dữ liệu cấu trúc từ khối logic |
-| VAR_TEMP | Biến tạm thời | Variables used for program and khối hàm (FB) internal storage, and when the block is called each time, temporary variables are initialized |
+| Category   | Mô tả phân loại                 | Mô tả kỹ thuật                                                                                                                             |
+| :--------- | :------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------- |
+| VAR        | Biến cục bộ                     | Chỉ có hiệu lực trong khối logic này và không thể truy cập từ bên ngoài                                                                    |
+| VAR_IN_OUT | Biến đầu vào và đầu ra (IN_OUT) | Biến đầu vào và đầu ra không chỉ có thể được truyền vào khối logic được gọi, mà còn có thể được sửa đổi bên trong khối logic được gọi đó   |
+| VAR_INPUT  | Biến đầu vào                    | Tham số này được cung cấp bởi khối logic gọi nó và dữ liệu/lệnh truyền vào khối logic sẽ được nhập qua đây                                 |
+| VAR_OUTPUT | Biến đầu ra                     | Cung cấp tham số trả về cho khối logic gọi nó, xuất dữ liệu cấu trúc từ khối logic                                                         |
+| VAR_TEMP   | Biến tạm thời                   | Variables used for program and khối hàm (FB) internal storage, and when the block is called each time, temporary variables are initialized |
 
 ② Symbol (Ký hiệu)
 
-| Category | Mô tả phân loại | Mô tả kỹ thuật |
-| :--- | :--- | :--- |
-| CONSTANT | Hằng số | Trong quá trình chạy chương trình, dữ liệu này chỉ có thể đọc mà không thể sửa đổi |
-| RETAIN | Dự phòng | Biến này sẽ được lưu giữ sau khi mất nguồn và thao tác khởi tạo sẽ được thực hiện khi giá trị ban đầu được thiết lập. |
-| PRESISTENT | Save | Biến này sẽ được lưu giữ sau khi mất nguồn và thao tác khởi tạo sẽ không được thực hiện khi giá trị ban đầu được thiết lập. Biến này chỉ bị xóa khi bộ nhớ PLC được xóa |
+| Category   | Mô tả phân loại | Mô tả kỹ thuật                                                                                                                                                          |
+| :--------- | :-------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CONSTANT   | Hằng số         | Trong quá trình chạy chương trình, dữ liệu này chỉ có thể đọc mà không thể sửa đổi                                                                                      |
+| RETAIN     | Dự phòng        | Biến này sẽ được lưu giữ sau khi mất nguồn và thao tác khởi tạo sẽ được thực hiện khi giá trị ban đầu được thiết lập.                                                   |
+| PRESISTENT | Save            | Biến này sẽ được lưu giữ sau khi mất nguồn và thao tác khởi tạo sẽ không được thực hiện khi giá trị ban đầu được thiết lập. Biến này chỉ bị xóa khi bộ nhớ PLC được xóa |
 
 ③ Name (Tên): Tên của biến. Tham khảo các ràng buộc nhập liệu của biến để biết quy tắc đặt tên.
 
@@ -267,27 +267,27 @@ Nhập một khối phép toán có hỗ trợ mở rộng ngõ vào, chọn vù
 
 Khi lập trình trong PLC Editor2, ngoài việc sử dụng trực tiếp các địa chỉ như thiết bị M, D, S, X, Y và các thiết bị khác, người dùng còn có thể lập trình dưới dạng [biến] không gắn địa chỉ lưu trữ cụ thể, giúp tăng tính thuận tiện và khả năng tái sử dụng mã nguồn. Các kiểu biến tùy chỉnh được phần mềm này hỗ trợ như sau:
 
-| Kiểu dữ liệu | Keyword | Length (bits) | Phạm vi giá trị |
-| :--- | :--- | :--- | :--- |
-| BOOL | BOOL | 1 | FALSE (0) or TRUE (1) |
-| Byte | BYTE | 8 | 0 to 255 |
-| Word | WORD | 16 | 0 to 65535 |
-| Double Word | DWORD | 32 | 0 to 4294967295 |
-| Long Word | LWORD | 64 | 0-(2^64-1) |
-| Short Int | SINT | 8 | -128-127 |
-| Unsigned Short Int | USINT | 8 | 0 to 255 |
-| Int | INT | 16 | -32768 to 32767 |
-| Unsigned Int | UINT | 16 | 0 to 65535 |
-| Double Int | DINT | 32 | -2147483648 to 2147483647 |
-| Unsigned Double Int | UDINT | 32 | 0 to 4294967295 |
-| Long Int | LINT | 64 | -2^63 -(2^63-1) |
-| Real Number | REAL | 32 | ±1.175495E-38 to ±3.402823E+38 |
-| Long Real Number | LREAL | 64 | ±2.225073858507202E-308 to ±1.797693134862315E+308 |
-| Time | TIME | 32 | 0ms - 4294967295ms |
-| Time | TIME_OF_DAY | 32 | 0:0:0 - 23:59:59 |
-| Time | DATE | 32 | 1970-01-01 - 2106-02-07 |
-| Time | DATE_AND_TIME | 32 | 1970-01-01 : 0 : 0 : 0 - 2106-02-07-06 : 28 : 15 |
-| Time | LTIME | 64 | 0ns - (2^64-1)ns |
+| Kiểu dữ liệu        | Keyword       | Length (bits) | Phạm vi giá trị                                    |
+| :------------------ | :------------ | :------------ | :------------------------------------------------- |
+| BOOL                | BOOL          | 1             | FALSE (0) or TRUE (1)                              |
+| Byte                | BYTE          | 8             | 0 to 255                                           |
+| Word                | WORD          | 16            | 0 to 65535                                         |
+| Double Word         | DWORD         | 32            | 0 to 4294967295                                    |
+| Long Word           | LWORD         | 64            | 0-(2^64-1)                                         |
+| Short Int           | SINT          | 8             | -128-127                                           |
+| Unsigned Short Int  | USINT         | 8             | 0 to 255                                           |
+| Int                 | INT           | 16            | -32768 to 32767                                    |
+| Unsigned Int        | UINT          | 16            | 0 to 65535                                         |
+| Double Int          | DINT          | 32            | -2147483648 to 2147483647                          |
+| Unsigned Double Int | UDINT         | 32            | 0 to 4294967295                                    |
+| Long Int            | LINT          | 64            | -2^63 -(2^63-1)                                    |
+| Real Number         | REAL          | 32            | ±1.175495E-38 to ±3.402823E+38                     |
+| Long Real Number    | LREAL         | 64            | ±2.225073858507202E-308 to ±1.797693134862315E+308 |
+| Time                | TIME          | 32            | 0ms - 4294967295ms                                 |
+| Time                | TIME_OF_DAY   | 32            | 0:0:0 - 23:59:59                                   |
+| Time                | DATE          | 32            | 1970-01-01 - 2106-02-07                            |
+| Time                | DATE_AND_TIME | 32            | 1970-01-01 : 0 : 0 : 0 - 2106-02-07-06 : 28 : 15   |
+| Time                | LTIME         | 64            | 0ns - (2^64-1)ns                                   |
 
 ## Biến tùy chỉnh
 
@@ -403,7 +403,7 @@ Quy tắc chung khi sử dụng biến làm chỉ số mảng: trong toàn bộ 
 
 ### Các kiểu kết hợp cơ bản
 
-1) Biến mảng, với tư cách là mảng chứa phần tử, chỉ hỗ trợ các kiểu BOOL, BYTE, DATE, DATE_AND_TIME, DINT, DWORD, INT, LINT, LREAL, LTIME, LWORD, REAL, SINT, TIME, TIME_OF_DAY, LDINT, UINT, USINT, WORD; không hỗ trợ biến con trỏ, v.v.;
+1. Biến mảng, với tư cách là mảng chứa phần tử, chỉ hỗ trợ các kiểu BOOL, BYTE, DATE, DATE_AND_TIME, DINT, DWORD, INT, LINT, LREAL, LTIME, LWORD, REAL, SINT, TIME, TIME_OF_DAY, LDINT, UINT, USINT, WORD; không hỗ trợ biến con trỏ, v.v.;
 
 (2) Biến index, với tư cách là biến chỉ số mảng, hỗ trợ các thiết bị C, D, HSC, LC, R, SD, T, V, Z và không cho phép độ lệch (offset); hỗ trợ các kiểu biến BYTE, WORD, DWORD, LWORD, SINT, USINT, INT, UINT, DINT, UDINT, LINT; không hỗ trợ lồng mảng, ví dụ như array[index[5]];
 
@@ -681,11 +681,11 @@ Khi thêm mô-đun mở rộng, hệ thống mặc định sẽ gán một đị
 
 - Thông tin thiết bị (Device Info): Hiển thị các thông tin định danh cơ bản của mô-đun mở rộng hiện tại.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8768.png?width=862&amp;height=701&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8768.png?width=862&height=701&rev=1.1)
 
 - Giao diện ánh xạ I/O (I/O Mapping Interface): Dùng để cấp phát địa chỉ vùng nhớ ngõ vào/ra tương ứng cho mô-đun mở rộng. Nhập địa chỉ bắt đầu vào ô thiết lập, phần mềm sẽ tự động gán dải địa chỉ liên tiếp và lưu lại khi nhấn OK (Nhấn Reset sẽ tự động gán lại các địa chỉ chưa sử dụng theo thứ tự).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8769.png?width=905&amp;height=736&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8769.png?width=905&height=736&rev=1.1)
 
 :::tip
 Lưu ý 1: Các phần tử mềm (địa chỉ) đã được ánh xạ không được phép ánh xạ trùng lại, nếu không hệ thống sẽ báo lỗi khi lưu cấu hình.
@@ -697,17 +697,17 @@ Lưu ý 3: Đối với thiết bị X và Y thuộc hệ bát phân, địa ch�
 
 - Giao diện cấu hình mô-đun (Module Configuration Interface): Dùng để thiết lập thông số hoạt động cho mô-đun mở rộng (chi tiết từng tham số vui lòng tham khảo tài liệu phần cứng của mô-đun tương ứng).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8770.png?width=823&amp;height=669&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8770.png?width=823&height=669&rev=1.1)
 
 (4) Sau khi hoàn tất cấu hình trên giao diện mô-đun mở rộng, có thể tải thông tin cấu hình mô-đun tương ứng xuống PLC thông qua giao diện tải xuống (Download). Cũng có thể tải cấu hình mô-đun mở rộng từ PLC lên máy tính thông qua giao diện tải lên (Upload).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8771.png?width=931&amp;height=842&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8771.png?width=931&height=842&rev=1.1)
 
 :::tip
 Lưu ý 1: Khi tải cấu hình mô-đun mở rộng xuống PLC, thứ tự cấu hình các mô-đun phải liên tiếp nhau để đảm bảo quá trình tải xuống diễn ra bình thường. Như minh họa ở hình bên trái dưới đây, nếu mô-đun mở rộng được đặt cách quãng (bỏ trống khe), cấu hình sẽ không thể tải xuống bình thường. Cần điều chỉnh lại vị trí mô-đun sao cho các mô-đun được sắp xếp liên tiếp nhau thì mới có thể tải xuống bình thường.
 :::
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8772.png?width=1024&amp;height=412&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8772.png?width=1024&height=412&rev=1.1)
 
 :::tip
 Lưu ý 2: Khi tải cấu hình mô-đun mở rộng xuống PLC, số điểm của PLC chủ được cấu hình phải trùng khớp với số điểm thực tế của PLC chủ để đảm bảo quá trình tải xuống diễn ra bình thường.
@@ -715,13 +715,13 @@ Lưu ý 2: Khi tải cấu hình mô-đun mở rộng xuống PLC, số điểm 
 
 (5) Sau khi tải xuống hoàn tất, chuyển sang chế độ giám sát. Trên giao diện hiển thị thông tin chi tiết của các mô-đun đã thêm, cột loại lắp đặt thực tế và cột số phiên bản thiết bị sẽ hiển thị model và số phiên bản tương ứng với loại mô-đun thực tế đang kết nối tại vị trí tương ứng của PLC.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8773.png?width=1650&amp;height=501&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8773.png?width=1650&height=501&rev=1.1)
 
 (6) Người dùng có thể xem các địa chỉ thiết bị đang bị chiếm dụng do mô-đun mở rộng cấu hình thông qua giao diện danh sách sử dụng thiết bị.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8774.png?width=1699&amp;height=557&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8774.png?width=1699&height=557&rev=1.1)
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8775.png?width=1699&amp;height=643&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8775.png?width=1699&height=643&rev=1.1)
 
 ## EtherCAT
 
@@ -733,7 +733,7 @@ EtherCAT là một công nghệ truyền thông trường công nghiệp mở d�
 
 Nhấp đúp vào nút EtherCAT trên cây quản lý dự án để mở cấu hình EtherCAT, sửa đổi cấu hình và lưu lại.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8776.png?width=1295&amp;height=729&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8776.png?width=1295&height=729&rev=1.1)
 
 ## Nhập tệp cấu hình và Thêm trạm tớ (Slave)
 
@@ -741,13 +741,13 @@ Nhấp đúp vào nút EtherCAT trên cây quản lý dự án để mở cấu 
 
 Nhấp chuột phải vào nút EtherCAT trên cây quản lý dự án, chọn New, nhấn nút Import trong cửa sổ Add Slave bật lên và chọn tệp XML EtherCAT của nhà sản xuất tương ứng để nhập vào.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8777.png?width=1332&amp;height=748&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8777.png?width=1332&height=748&rev=1.1)
 
 ### Thêm trạm tớ (Slave)
 
 Nhấp chuột phải vào nút EtherCAT trên cây quản lý dự án, chọn New, chọn một loại trạm tớ rồi nhấn Add; một nút trạm tớ mới sẽ được thêm vào dưới nút EtherCAT trên cây quản lý dự án, sau đó nhấn Close để kết thúc thao tác thêm trạm tớ.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8778.png?width=1699&amp;height=955&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8778.png?width=1699&height=955&rev=1.1)
 
 ## Cấu hình trạm tớ (Slave)
 
@@ -995,66 +995,64 @@ Trên trang tải xuống PLC, đánh dấu chọn tên bảng cam điện tử 
 
 Mô tả các lệnh vô hiệu hóa chức năng
 
-| Quản lý dự án | Chức năng mở rộng | Bảng cam điện tử (E-CAM) | Không |
-| :--- | :--- | :--- | :--- |
-| Chức năng chỉnh sửa | Chỉnh sửa chú thích |  | Không |
-| Chức năng chỉnh sửa | Trình soạn thảo câu lệnh |  | Không |
-| Chức năng chỉnh sửa | Switch |  | Không |
-| Liên quan đến truyền thông | PLC checksum | Kiểm tra chi tiết | Không |
-| Liên quan đến truyền thông | Tải xuống qua USB (U-disk) |  | Không |
-| Liên quan đến truyền thông | Tạo tệp tải xuống |  | Không |
-| Liên quan đến truyền thông | Tính toán tổng số bước chương trình |  | Không |
-| Liên quan đến truyền thông | Chỉnh sửa trong chế độ giám sát (W) |  | Không |
-| Liên quan đến truyền thông | Giám sát mô-đun |  | Không |
+| Quản lý dự án              | Chức năng mở rộng                   | Bảng cam điện tử (E-CAM) | Không |
+| :------------------------- | :---------------------------------- | :----------------------- | :---- |
+| Chức năng chỉnh sửa        | Chỉnh sửa chú thích                 |                          | Không |
+| Chức năng chỉnh sửa        | Trình soạn thảo câu lệnh            |                          | Không |
+| Chức năng chỉnh sửa        | Switch                              |                          | Không |
+| Liên quan đến truyền thông | PLC checksum                        | Kiểm tra chi tiết        | Không |
+| Liên quan đến truyền thông | Tải xuống qua USB (U-disk)          |                          | Không |
+| Liên quan đến truyền thông | Tạo tệp tải xuống                   |                          | Không |
+| Liên quan đến truyền thông | Tính toán tổng số bước chương trình |                          | Không |
+| Liên quan đến truyền thông | Chỉnh sửa trong chế độ giám sát (W) |                          | Không |
+| Liên quan đến truyền thông | Giám sát mô-đun                     |                          | Không |
 
 ## Phím tắt
 
 Đối với các phím tắt chung, vui lòng tham khảo mục "Software Help" (Trợ giúp phần mềm) trong phần mềm PLC Editor2. Bảng dưới đây trình bày các phím tắt có sẵn trong Trình soạn thảo giản đồ bậc thang.
 
-| Phím tắt | Summary |
-| :--- | :--- |
-| F5 | tiếp điểm thường mở (NO) |
-| Shift+F5 | tiếp điểm thường mở (NO) OR |
-| F6 | tiếp điểm thường đóng (NC) |
-| Shift+F6 | tiếp điểm thường đóng (NC) OR |
-| F7 | Coil |
-| F8 | lệnh ứng dụng |
-| F9 | Nhập đường ngang |
-| F11 | Nhập đường dọc |
-| Ctrl+F9 | Xóa đường ngang |
-| Ctrl+F11 | Xóa đường dọc |
-| Shift+F7 | sườn lên (cạnh lên) pulse |
-| Shift+F8 | sườn xuống (cạnh xuống) pulse |
-| Ctrl+Alt+F7 | Parallel sườn lên (cạnh lên) pulse |
-| Ctrl+Alt+F8 | Parallel sườn xuống (cạnh xuống) pulse |
-| Ctrl+Alt+F11 | Đảo ngược kết quả phép toán |
-| Shift+F9 | Đường ngang liên tiếp |
-| Shift+F11 | Đường gạch ngang liên tiếp |
-| Alt+F5 | MEP |
-| Ctrl+Alt+F5 | MEF |
-| Shift+Insert | Chèn dòng chương trình |
-| Shift+Delete | Xóa hàng |
-| Ctrl+Insert | Chèn cột |
-| Ctrl+Delete | Xóa cột |
-| Ctrl + → | Underline |
-| Ctrl + ← | Underline |
-| Ctrl + ↓ | Underline |
-| Ctrl + ↑ | Underline |
-| Ctrl+/ | Normally open/normally closed/sườn lên (cạnh lên)/sườn xuống (cạnh xuống) contact switching |
-| Ctrl+F5 | Hiển thị chú thích |
-| F1 | Mở trợ giúp lệnh |
-| HOME | Beginning of line |
-| Ctrl+HOME | Dòng đầu tiên |
-| END | End of line |
-| Ctrl+END | End of program |
-| PAGE UP | Trang trước |
-| PAGE DOWN (Trang sau) | Trang sau |
-| Backspace | Xóa |
-| Xóa | Xóa |
-| Shift+N | Chèn mạng (Network) |
-| Shift+Ctrl+N | Chèn mạng (Network) bên dưới |
-| Shift+D | Xóa mạng (Network) |
-| F2 | Chèn khối phép toán nối tiếp |
-| Shift+F2 | Chèn khối phép toán song song |
-
-0
+| Phím tắt              | Summary                                                                                     |
+| :-------------------- | :------------------------------------------------------------------------------------------ |
+| F5                    | tiếp điểm thường mở (NO)                                                                    |
+| Shift+F5              | tiếp điểm thường mở (NO) OR                                                                 |
+| F6                    | tiếp điểm thường đóng (NC)                                                                  |
+| Shift+F6              | tiếp điểm thường đóng (NC) OR                                                               |
+| F7                    | Coil                                                                                        |
+| F8                    | lệnh ứng dụng                                                                               |
+| F9                    | Nhập đường ngang                                                                            |
+| F11                   | Nhập đường dọc                                                                              |
+| Ctrl+F9               | Xóa đường ngang                                                                             |
+| Ctrl+F11              | Xóa đường dọc                                                                               |
+| Shift+F7              | sườn lên (cạnh lên) pulse                                                                   |
+| Shift+F8              | sườn xuống (cạnh xuống) pulse                                                               |
+| Ctrl+Alt+F7           | Parallel sườn lên (cạnh lên) pulse                                                          |
+| Ctrl+Alt+F8           | Parallel sườn xuống (cạnh xuống) pulse                                                      |
+| Ctrl+Alt+F11          | Đảo ngược kết quả phép toán                                                                 |
+| Shift+F9              | Đường ngang liên tiếp                                                                       |
+| Shift+F11             | Đường gạch ngang liên tiếp                                                                  |
+| Alt+F5                | MEP                                                                                         |
+| Ctrl+Alt+F5           | MEF                                                                                         |
+| Shift+Insert          | Chèn dòng chương trình                                                                      |
+| Shift+Delete          | Xóa hàng                                                                                    |
+| Ctrl+Insert           | Chèn cột                                                                                    |
+| Ctrl+Delete           | Xóa cột                                                                                     |
+| Ctrl + →              | Underline                                                                                   |
+| Ctrl + ←              | Underline                                                                                   |
+| Ctrl + ↓              | Underline                                                                                   |
+| Ctrl + ↑              | Underline                                                                                   |
+| Ctrl+/                | Normally open/normally closed/sườn lên (cạnh lên)/sườn xuống (cạnh xuống) contact switching |
+| Ctrl+F5               | Hiển thị chú thích                                                                          |
+| F1                    | Mở trợ giúp lệnh                                                                            |
+| HOME                  | Beginning of line                                                                           |
+| Ctrl+HOME             | Dòng đầu tiên                                                                               |
+| END                   | End of line                                                                                 |
+| Ctrl+END              | End of program                                                                              |
+| PAGE UP               | Trang trước                                                                                 |
+| PAGE DOWN (Trang sau) | Trang sau                                                                                   |
+| Backspace             | Xóa                                                                                         |
+| Xóa                   | Xóa                                                                                         |
+| Shift+N               | Chèn mạng (Network)                                                                         |
+| Shift+Ctrl+N          | Chèn mạng (Network) bên dưới                                                                |
+| Shift+D               | Xóa mạng (Network)                                                                          |
+| F2                    | Chèn khối phép toán nối tiếp                                                                |
+| Shift+F2              | Chèn khối phép toán song song                                                               |

@@ -3,7 +3,7 @@ id: "6.15-io-refresh-instruction"
 title: "6.15 Lệnh làm mới ngõ vào/ra tức thời (IO Refresh Instruction)"
 sidebar_position: 15
 sidebar_label: "6.15 IO Refresh instruction"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.15 Lệnh làm mới ngõ vào/ra tức thời (IO Refresh Instruction)"
 ---
 
@@ -19,17 +19,17 @@ Làm mới n điểm bắt đầu từ thiết bị được chỉ định tại
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu bắt đầu của thiết bị được làm mới | Khi dùng X và Y: Chữ số thấp nhất chỉ có thể là 0; Khi dùng HSC: HSC0 đến HSC7 | Bit | ANY_BOOL |
-| (n) | Số điểm làm mới | Khi dùng X và Y: Chỉ có thể là bội số của 8; Khi dùng HSC: 1 đến 8 | UnsignedBIN 16 bit | ANY16_U |
+| Tham số | Nội dung mô tả                            | Phạm vi giá trị                                                                | Kiểu dữ liệu       | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------- | :----------------------------------------------------------------------------- | :----------------- | :----------------------- |
+| (s)     | Số hiệu bắt đầu của thiết bị được làm mới | Khi dùng X và Y: Chữ số thấp nhất chỉ có thể là 0; Khi dùng HSC: HSC0 đến HSC7 | Bit                | ANY_BOOL                 |
+| (n)     | Số điểm làm mới                           | Khi dùng X và Y: Chỉ có thể là bội số của 8; Khi dùng HSC: 1 đến 8             | UnsignedBIN 16 bit | ANY16_U                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| REF | Parameter 1 | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
-| REF | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| REF              | Parameter 1 |  ●  |  ●  |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |         ●          |
+| REF              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -53,12 +53,12 @@ Lệnh REF cũng có thể làm mới giá trị của thiết bị bộ đếm 
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The read address of (s) and (n) vượt quá phạm vi vùng nhớ thiết bị.✎Note: If (s)+(n) exceeds the maximum range of the device corresponding (s), an error will be reported |
-| 4085H | (s) sử dụng thiết bị có chữ số thấp nhất khác 0 |
-| 4084H | Khi (s) dùng X và Y, (n) không phải bội số của 8; Khi (s) dùng HSC: (n) vượt quá phạm vi K1 đến K8 |
-| 2585H | Use REF instruction to refresh bộ đếm tốc độ cao (HSC) value, but there is no OUT HSC instruction to open the bộ đếm tốc độ cao (HSC) of the channel. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                                                            |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 4085H               | The read address of (s) and (n) vượt quá phạm vi vùng nhớ thiết bị.✎Note: If (s)+(n) exceeds the maximum range of the device corresponding (s), an error will be reported |
+| 4085H               | (s) sử dụng thiết bị có chữ số thấp nhất khác 0                                                                                                                           |
+| 4084H               | Khi (s) dùng X và Y, (n) không phải bội số của 8; Khi (s) dùng HSC: (n) vượt quá phạm vi K1 đến K8                                                                        |
+| 2585H               | Use REF instruction to refresh bộ đếm tốc độ cao (HSC) value, but there is no OUT HSC instruction to open the bộ đếm tốc độ cao (HSC) of the channel.                     |
 
 #### Ví dụ minh họa
 
@@ -84,15 +84,15 @@ Thay đổi tạm thời hiệu ứng lọc của bộ lọc số từ X0 đến
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (n) | Giá trị bộ lọc của X0 đến X17 | 0 to 60 | BIN16 bit | ANY16 |
+| Tham số | Nội dung mô tả                | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------- | :-------------- | :----------- | :----------------------- |
+| (n)     | Giá trị bộ lọc của X0 đến X17 | 0 to 60         | BIN16 bit    | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| REFF | Parameter 1 | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| REFF             | Parameter 1 |  ●  |  ●  |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -110,15 +110,13 @@ Việc lọc điểm X trước lệnh này có thể không được kiểm so�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The (n) read address vượt quá phạm vi vùng nhớ thiết bị |
-| 4084H | (n) is not in the range of 0 to 60 |
+| Mã lỗi (Error Code) | Nội dung mô tả                                          |
+| :------------------ | :------------------------------------------------------ |
+| 4085H               | The (n) read address vượt quá phạm vi vùng nhớ thiết bị |
+| 4084H               | (n) is not in the range of 0 to 60                      |
 
 #### Ví dụ minh họa
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.15%20IO%20Refresh%20instruction/WebHome/1761027170147-497.png?rev=1.1)
 
 Sau khi M0 được bật ON, thời gian lọc của X0 đến X17 trong chương trình bậc thang (Ladder) sau lệnh REFF sẽ tạm thời là 3ms, còn SD2280 và SD2281 không thay đổi.
-
-0

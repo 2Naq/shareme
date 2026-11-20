@@ -3,7 +3,7 @@ id: "09-high-speed-counter"
 title: "09 Bộ đếm tốc độ cao & Trục Encoder (High Speed Counter)"
 sidebar_position: 9
 sidebar_label: "09 High Speed Counter"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 09 Bộ đếm tốc độ cao & Trục Encoder (High Speed Counter)"
 ---
 
@@ -27,14 +27,14 @@ Trục Encoder giải mã tín hiệu Encoder theo đơn vị xung (Pulse Unit),
 
 Các tham số cần cài đặt để quy đổi đơn vị như sau:
 
-| Tên tham số | Chức năng và nguyên lý hoạt động |
-| :--- | :--- |
-| Số xung động cơ/bộ mã hóa (encoder) trên một vòng quay | Cài đặt số xung động cơ trên một vòng quay theo độ phân giải bộ mã hóa (encoder) |
-| Có hộp số hay không | Chỉ định có sử dụng hộp số hay không |
-| Lượng dịch chuyển của động cơ/bộ mã hóa trên một vòng quay | Lượng dịch chuyển phôi trên một vòng quay động cơ khi không có hộp số |
-| Lượng dịch chuyển của bàn máy trên một vòng quay | Lượng dịch chuyển phôi trên một vòng quay động cơ khi có hộp số |
-| Tử số tỷ số truyền hộp số | Cài đặt tỷ số truyền phía phôi |
-| Mẫu số tỉ số truyền | Cài đặt tỷ số truyền phía động cơ |
+| Tên tham số                                                | Chức năng và nguyên lý hoạt động                                                 |
+| :--------------------------------------------------------- | :------------------------------------------------------------------------------- |
+| Số xung động cơ/bộ mã hóa (encoder) trên một vòng quay     | Cài đặt số xung động cơ trên một vòng quay theo độ phân giải bộ mã hóa (encoder) |
+| Có hộp số hay không                                        | Chỉ định có sử dụng hộp số hay không                                             |
+| Lượng dịch chuyển của động cơ/bộ mã hóa trên một vòng quay | Lượng dịch chuyển phôi trên một vòng quay động cơ khi không có hộp số            |
+| Lượng dịch chuyển của bàn máy trên một vòng quay           | Lượng dịch chuyển phôi trên một vòng quay động cơ khi có hộp số                  |
+| Tử số tỷ số truyền hộp số                                  | Cài đặt tỷ số truyền phía phôi                                                   |
+| Mẫu số tỉ số truyền                                        | Cài đặt tỷ số truyền phía động cơ                                                |
 
 Trong truyền động bánh răng, trục dẫn động thường được gọi là trục vào, và trục bị dẫn được gọi là trục ra. Do đó, tử số của tỷ số truyền hộp số biểu thị tốc độ của trục vào (thường cũng biểu thị bánh răng được dẫn động bởi trục vào), và mẫu số biểu thị tốc độ của trục ra (thường cũng biểu thị bánh răng được dẫn động bởi trục ra). Nếu tỷ số truyền hộp số là a: b, nghĩa là khi trục vào quay a vòng thì trục ra sẽ quay b vòng.
 
@@ -132,35 +132,35 @@ Nguồn tín hiệu: Tùy theo các chế độ đếm khác nhau, người dùn
 
 Các cổng ngõ vào nguồn tín hiệu được hỗ trợ trong từng chế độ đếm được trình bày trong bảng dưới đây. Các trục Encoder cục bộ khác nhau có thể chọn cùng một cổng ngõ vào nguồn tín hiệu:
 
-| Chế độ đếm | AB phase | Pulse + Direction | Đếm một pha |
-| :--- | :--- | :--- | :--- |
-| X0 | A phase | Xung (Pulse) | Xung (Pulse) |
-| X1 | B phase | Chiều chuyển động (Direction) | Xung (Pulse) |
-| X2 | A phase | Xung (Pulse) | Xung (Pulse) |
-| X3 | B phase | Chiều chuyển động (Direction) | Xung (Pulse) |
-| X4 | A phase | Xung (Pulse) | Xung (Pulse) |
-| X5 | B phase | Chiều chuyển động (Direction) | Xung (Pulse) |
-| X6 | A phase | Xung (Pulse) | Xung (Pulse) |
-| X7 | B phase | Chiều chuyển động (Direction) | Xung (Pulse) |
-| 100us | × | × | Xung (Pulse) |
-| 1ms | × | × | Xung (Pulse) |
-| 10ms | × | × | Xung (Pulse) |
+| Chế độ đếm | AB phase | Pulse + Direction             | Đếm một pha  |
+| :--------- | :------- | :---------------------------- | :----------- |
+| X0         | A phase  | Xung (Pulse)                  | Xung (Pulse) |
+| X1         | B phase  | Chiều chuyển động (Direction) | Xung (Pulse) |
+| X2         | A phase  | Xung (Pulse)                  | Xung (Pulse) |
+| X3         | B phase  | Chiều chuyển động (Direction) | Xung (Pulse) |
+| X4         | A phase  | Xung (Pulse)                  | Xung (Pulse) |
+| X5         | B phase  | Chiều chuyển động (Direction) | Xung (Pulse) |
+| X6         | A phase  | Xung (Pulse)                  | Xung (Pulse) |
+| X7         | B phase  | Chiều chuyển động (Direction) | Xung (Pulse) |
+| 100us      | ×        | ×                             | Xung (Pulse) |
+| 1ms        | ×        | ×                             | Xung (Pulse) |
+| 10ms       | ×        | ×                             | Xung (Pulse) |
 
 Khi sử dụng chức năng đầu dò chạm (Touch Probe) hoặc đặt trước (Preset), trục Encoder được chia thành hai nhóm, cụ thể X0 ~ X3 là nhóm đếm 1 và X4 ~ X7 là nhóm đếm 2. Cùng một nguồn tín hiệu trong nhóm đếm chỉ có thể dùng cho một trục Encoder, nghĩa là khi chức năng đầu dò chạm của nhóm đếm 1 được bật, X3 bị chiếm dụng và không thể dùng làm nguồn tín hiệu cho các chế độ đếm khác. Chức năng đầu dò chạm và đặt trước không thể dùng với nguồn tín hiệu nội bộ.
 
-| Chế độ đếm | AB phase | Pulse + Direction | Đếm một pha |
-| :--- | :--- | :--- | :--- |
-| X0 | A phase | Xung (Pulse) | Xung (Pulse) |
-| X1 | B phase | Chiều chuyển động (Direction) | × |
-| X2 | Đầu dò chạm (Touch probe) | Đầu dò chạm (Touch probe) | Đầu dò chạm (Touch probe) |
-| X3 | Preset | Preset | Preset |
-| X4 | A phase | Xung (Pulse) | Xung (Pulse) |
-| X5 | B phase | Chiều chuyển động (Direction) | Xung (Pulse) |
-| X6 | Đầu dò chạm (Touch probe) | Đầu dò chạm (Touch probe) | Đầu dò chạm (Touch probe) |
-| X7 | Preset | Preset | Preset |
-| 100us | × | × | Xung (Pulse) |
-| 1ms | × | × | Xung (Pulse) |
-| 10ms | × | × | Xung (Pulse) |
+| Chế độ đếm | AB phase                  | Pulse + Direction             | Đếm một pha               |
+| :--------- | :------------------------ | :---------------------------- | :------------------------ |
+| X0         | A phase                   | Xung (Pulse)                  | Xung (Pulse)              |
+| X1         | B phase                   | Chiều chuyển động (Direction) | ×                         |
+| X2         | Đầu dò chạm (Touch probe) | Đầu dò chạm (Touch probe)     | Đầu dò chạm (Touch probe) |
+| X3         | Preset                    | Preset                        | Preset                    |
+| X4         | A phase                   | Xung (Pulse)                  | Xung (Pulse)              |
+| X5         | B phase                   | Chiều chuyển động (Direction) | Xung (Pulse)              |
+| X6         | Đầu dò chạm (Touch probe) | Đầu dò chạm (Touch probe)     | Đầu dò chạm (Touch probe) |
+| X7         | Preset                    | Preset                        | Preset                    |
+| 100us      | ×                         | ×                             | Xung (Pulse)              |
+| 1ms        | ×                         | ×                             | Xung (Pulse)              |
+| 10ms       | ×                         | ×                             | Xung (Pulse)              |
 
 Chế độ pha A/B
 
@@ -236,33 +236,33 @@ Khối hàm này dùng để điều khiển khởi chạy hoặc dừng bộ đ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| HC_COUNTER | Enable | BOOL | Không | TRUEFALSE | bộ đếm tốc độ cao (HSC) preset value khối hàm (FB) enabledHigh speed counter preset value khối hàm (FB) enabled |
-| HC_COUNTER | Invert | BOOL | Có | TRUEFALSE | Đếm lùi (đếm âm) |
-| HC_COUNTER | Axis | WORD | Không | 0~65535 | Axis name/axis number: specify the local trục phản hồi Encoder to operate |
-| HC_COUNTER | Valid | BOOL | Có | TRUEFALSE | Trạng thái hợp lệ: khi vào trạng thái đếm sẽ ở mức ON |
-| HC_COUNTER | Position | LREAL | Có | - | vị trí hiện tại: user unit |
-| HC_COUNTER | Velocity | LREAL | Có | - | vận tốc hiện tại: user unit |
-| HC_COUNTER | Direction | BOOL | Có | TRUEFALSE | Chiều đếm (TRUE: Đếm tiến, FALSE: Đếm lùi) |
-| HC_COUNTER | CommandAborted | BOOL | Có | TRUEFALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| HC_COUNTER | Error | BOOL | Có | TRUEFALSE | Lỗi (Error) |
-| HC_COUNTER | ErrorID | DWORD | Có | Check [ErrorID] for details | Mã lỗi (Error Code) |
+| Khối lệnh / Lệnh | Tham số        | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị             | Mô tả kỹ thuật                                                                                                  |
+| :--------------- | :------------- | :----------- | :---------------- | :-------------------------- | :-------------------------------------------------------------------------------------------------------------- |
+| HC_COUNTER       | Enable         | BOOL         | Không             | TRUEFALSE                   | bộ đếm tốc độ cao (HSC) preset value khối hàm (FB) enabledHigh speed counter preset value khối hàm (FB) enabled |
+| HC_COUNTER       | Invert         | BOOL         | Có                | TRUEFALSE                   | Đếm lùi (đếm âm)                                                                                                |
+| HC_COUNTER       | Axis           | WORD         | Không             | 0~65535                     | Axis name/axis number: specify the local trục phản hồi Encoder to operate                                       |
+| HC_COUNTER       | Valid          | BOOL         | Có                | TRUEFALSE                   | Trạng thái hợp lệ: khi vào trạng thái đếm sẽ ở mức ON                                                           |
+| HC_COUNTER       | Position       | LREAL        | Có                | -                           | vị trí hiện tại: user unit                                                                                      |
+| HC_COUNTER       | Velocity       | LREAL        | Có                | -                           | vận tốc hiện tại: user unit                                                                                     |
+| HC_COUNTER       | Direction      | BOOL         | Có                | TRUEFALSE                   | Chiều đếm (TRUE: Đếm tiến, FALSE: Đếm lùi)                                                                      |
+| HC_COUNTER       | CommandAborted | BOOL         | Có                | TRUEFALSE                   | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)                                                                |
+| HC_COUNTER       | Error          | BOOL         | Có                | TRUEFALSE                   | Lỗi (Error)                                                                                                     |
+| HC_COUNTER       | ErrorID        | DWORD        | Có                | Check [ErrorID] for details | Mã lỗi (Error Code)                                                                                             |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T (Bit) | HSC (Bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng DWORD (DXX) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| HC_COUNTER | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COUNTER | Invert | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COUNTER | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |  |
-| HC_COUNTER | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COUNTER | Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COUNTER | Velocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COUNTER | Direction |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COUNTER | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COUNTER | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COUNTER | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số        |  X  |  Y  |  M  |  S  | SM  | T (Bit) | HSC (Bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) | Mở rộng DWORD (DXX) | Mở rộng xung (XXP) |
+| :--------------- | :------------- | :-: | :-: | :-: | :-: | :-: | :-----: | :-------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: | :-----------------: | :----------------: |
+| HC_COUNTER       | Enable         |  ●  |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COUNTER       | Invert         |  ●  |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COUNTER       | Axis           |     |     |     |     |     |         |           |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |     |     |     |                    |                     |                    |
+| HC_COUNTER       | Valid          |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COUNTER       | Position       |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COUNTER       | Velocity       |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COUNTER       | Direction      |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COUNTER       | CommandAborted |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COUNTER       | Error          |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COUNTER       | ErrorID        |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -284,10 +284,10 @@ Tham số Invert (Đếm âm / đảo chiều đếm)
 
 Chiều đếm của bộ đếm được cài đặt bởi tham số Invert. Định nghĩa chiều đếm cho các chế độ đếm khác nhau được minh họa trong hình dưới đây. Khi thay đổi cài đặt của Invert, thay đổi sẽ có hiệu lực trực tiếp nếu khối hàm đang được bật.
 
-| Invert | Phase A/B | Pulse + Direction | CW/CCW | Đếm một pha |
-| :--- | :--- | :--- | :--- | :--- |
-| FALSE | Pha A sớm hơn pha B để đếm lên. Pha B sớm hơn pha A để đếm xuống. | Tín hiệu chiều Vil đếm xuống. Tín hiệu chiều VIH đếm lên | Pha A đếm lên. Pha B đếm xuống. | Counting up |
-| TRUE | Pha A sớm hơn pha B để đếm xuống. Pha B sớm hơn pha A để đếm lên. | Tín hiệu chiều Vil đếm lên. Tín hiệu chiều Vol đếm xuống | Pha A đếm xuống. Pha B đếm lên. | Đang đếm xuống |
+| Invert | Phase A/B                                                         | Pulse + Direction                                        | CW/CCW                          | Đếm một pha    |
+| :----- | :---------------------------------------------------------------- | :------------------------------------------------------- | :------------------------------ | :------------- |
+| FALSE  | Pha A sớm hơn pha B để đếm lên. Pha B sớm hơn pha A để đếm xuống. | Tín hiệu chiều Vil đếm xuống. Tín hiệu chiều VIH đếm lên | Pha A đếm lên. Pha B đếm xuống. | Counting up    |
+| TRUE   | Pha A sớm hơn pha B để đếm xuống. Pha B sớm hơn pha A để đếm lên. | Tín hiệu chiều Vil đếm lên. Tín hiệu chiều Vol đếm xuống | Pha A đếm xuống. Pha B đếm lên. | Đang đếm xuống |
 
 Mô tả kỹ thuật
 
@@ -301,12 +301,12 @@ Lấy chế độ "xung + hướng" làm ví dụ. Khi tín hiệu hướng = ON
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 0x00400005 | Vị trí đếm vượt quá giá trị giới hạn dương. |
-| 0x00400006 | Vị trí đếm vượt quá giá trị giới hạn âm. |
-| 0x00700005 | Trục chưa được định nghĩa hoặc số hiệu trục không hợp lệ |
-| 0x00800008 | Modify the axis number when the khối hàm (FB) is running. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                            |
+| :------------------ | :-------------------------------------------------------- |
+| 0x00400005          | Vị trí đếm vượt quá giá trị giới hạn dương.               |
+| 0x00400006          | Vị trí đếm vượt quá giá trị giới hạn âm.                  |
+| 0x00700005          | Trục chưa được định nghĩa hoặc số hiệu trục không hợp lệ  |
+| 0x00800008          | Modify the axis number when the khối hàm (FB) is running. |
 
 #### Ví dụ minh họa
 
@@ -328,31 +328,31 @@ HC_PRESET
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| HC_PRESET | Enable | BOOL | Không | TRUEFALSE | bộ đếm tốc độ cao (HSC) preset enabled |
-| HC_PRESET | TriggerEdge | WORD | Có | 0~1 | Trigger edge0: Instruction Enable sườn lên (cạnh lên) triggers1: External X sườn lên (cạnh lên) triggers |
-| HC_PRESET | Position | LREAL | Không | - | Vị trí đặt trước (Preset): đơn vị người dùng |
-| HC_PRESET | Axis | WORD | Không | 0~65535 | Axis name/axis number: specify the local trục phản hồi Encoder to operate |
-| HC_PRESET | Done | BOOL | Có | TRUEFALSE | Completed |
-| HC_PRESET | Busy | BOOL | Có | TRUEFALSE | Executing |
-| HC_PRESET | CommandAborted | BOOL | Có | TRUEFALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| HC_PRESET | Error | BOOL | Có | TRUEFALSE | Lỗi (Error) |
-| HC_PRESET | ErrorID | DWORD | Có | Check "ErrorID" for details | Mã lỗi (Error Code) |
+| Khối lệnh / Lệnh | Tham số        | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị             | Mô tả kỹ thuật                                                                                           |
+| :--------------- | :------------- | :----------- | :---------------- | :-------------------------- | :------------------------------------------------------------------------------------------------------- |
+| HC_PRESET        | Enable         | BOOL         | Không             | TRUEFALSE                   | bộ đếm tốc độ cao (HSC) preset enabled                                                                   |
+| HC_PRESET        | TriggerEdge    | WORD         | Có                | 0~1                         | Trigger edge0: Instruction Enable sườn lên (cạnh lên) triggers1: External X sườn lên (cạnh lên) triggers |
+| HC_PRESET        | Position       | LREAL        | Không             | -                           | Vị trí đặt trước (Preset): đơn vị người dùng                                                             |
+| HC_PRESET        | Axis           | WORD         | Không             | 0~65535                     | Axis name/axis number: specify the local trục phản hồi Encoder to operate                                |
+| HC_PRESET        | Done           | BOOL         | Có                | TRUEFALSE                   | Completed                                                                                                |
+| HC_PRESET        | Busy           | BOOL         | Có                | TRUEFALSE                   | Executing                                                                                                |
+| HC_PRESET        | CommandAborted | BOOL         | Có                | TRUEFALSE                   | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)                                                         |
+| HC_PRESET        | Error          | BOOL         | Có                | TRUEFALSE                   | Lỗi (Error)                                                                                              |
+| HC_PRESET        | ErrorID        | DWORD        | Có                | Check "ErrorID" for details | Mã lỗi (Error Code)                                                                                      |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T (Bit) | HSC (Bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | Hiệu chỉnh chỉ số (E) | Sửa đổi chỉ mục ([D]) | Mở rộng DWORD | Mở rộng DWORD (DXX) | Mở rộng xung | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| HC_PRESET | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_PRESET | TriggerEdge |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |  |  |  |
-| HC_PRESET | Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_PRESET | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |  |  |  |
-| HC_PRESET | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_PRESET | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_PRESET | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_PRESET | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_PRESET | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số        |  X  |  Y  |  M  |  S  | SM  | T (Bit) | HSC (Bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  | Hiệu chỉnh chỉ số (E) | Sửa đổi chỉ mục ([D]) | Mở rộng DWORD | Mở rộng DWORD (DXX) | Mở rộng xung | Mở rộng xung (XXP) |
+| :--------------- | :------------- | :-: | :-: | :-: | :-: | :-: | :-----: | :-------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :-------------------: | :-----------: | :-----------------: | :----------: | :----------------: |
+| HC_PRESET        | Enable         |  ●  |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                       |               |                     |              |                    |
+| HC_PRESET        | TriggerEdge    |     |     |     |     |     |         |           |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |     |     |                       |                       |               |                     |              |                    |
+| HC_PRESET        | Position       |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                       |               |                     |              |                    |
+| HC_PRESET        | Axis           |     |     |     |     |     |         |           |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |     |     |                       |                       |               |                     |              |                    |
+| HC_PRESET        | Done           |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                       |               |                     |              |                    |
+| HC_PRESET        | Busy           |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                       |               |                     |              |                    |
+| HC_PRESET        | CommandAborted |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                       |               |                     |              |                    |
+| HC_PRESET        | Error          |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                       |               |                     |              |                    |
+| HC_PRESET        | ErrorID        |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                       |               |                     |              |                    |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -362,10 +362,10 @@ Tham số TriggerEdge
 
 Chọn cạnh lên của tín hiệu cho phép lệnh (Enable) hoặc ngõ vào X ngoài để kích hoạt chức năng đặt trước.
 
-| Tham số | Settings | Definition |
-| :--- | :--- | :--- |
-| TriggerEdge | 0 | Enable sườn lên (cạnh lên) triggering |
-|  | 1 | External X sườn lên (cạnh lên) trigger |
+| Tham số     | Settings | Definition                             |
+| :---------- | :------- | :------------------------------------- |
+| TriggerEdge | 0        | Enable sườn lên (cạnh lên) triggering  |
+|             | 1        | External X sườn lên (cạnh lên) trigger |
 
 Khi chọn kích hoạt từ ngõ vào X ngoài làm điều kiện đặt trước, cần bật chức năng đặt trước trong cài đặt tham số bộ đếm. Chọn chân ngõ vào và điều kiện kích hoạt: X2 và X6 cho chân ngõ vào và kích hoạt cạnh lên cho điều kiện kích hoạt.
 
@@ -379,13 +379,13 @@ Ngắt X ngoài kích hoạt. Lấy kích hoạt cạnh lên (TriggerEdge=1) là
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/09%20%20High%20Speed%20Counter/WebHome/1709189239134-257.png?rev=1.1)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 0x007000000 | Đã đặt cạnh kích hoạt là kích hoạt cạnh ngõ vào X ngoài, nhưng chức năng đặt trước (Preset) trong giao diện cấu hình trục chưa được bật |
-| 0x00700005 | Trục chưa được định nghĩa hoặc số hiệu trục không hợp lệ |
-| 0x00700008 | bộ đếm tốc độ cao (HSC) of local trục phản hồi Encoder is not enabled |
-| 0x00800006 | Cài đặt vị trí đặt trước vượt quá giá trị giới hạn / cài đặt tham số cạnh kích hoạt vượt quá phạm vi |
-| 0x00800008 | Modify the axis number when the khối hàm (FB) is running. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                          |
+| :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| 0x007000000         | Đã đặt cạnh kích hoạt là kích hoạt cạnh ngõ vào X ngoài, nhưng chức năng đặt trước (Preset) trong giao diện cấu hình trục chưa được bật |
+| 0x00700005          | Trục chưa được định nghĩa hoặc số hiệu trục không hợp lệ                                                                                |
+| 0x00700008          | bộ đếm tốc độ cao (HSC) of local trục phản hồi Encoder is not enabled                                                                   |
+| 0x00800006          | Cài đặt vị trí đặt trước vượt quá giá trị giới hạn / cài đặt tham số cạnh kích hoạt vượt quá phạm vi                                    |
+| 0x00800008          | Modify the axis number when the khối hàm (FB) is running.                                                                               |
 
 #### Ví dụ minh họa
 
@@ -405,37 +405,37 @@ Theo chế độ và điều kiện kích hoạt đã cài đặt, ghi lại gi�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| HC_TOUCHPROBE | Enable | BOOL | Không | TRUEFALSE | bộ đếm tốc độ cao (HSC) preset enable |
-| HC_TOUCHPROBE | ProbeID | WORD | Không | 0 | ID bộ dò chạm (Touch probe): 0: Touch probe 1 |
-| HC_TOUCHPROBE | TriggerEdge | WORD | Không | 1~3 | Trigger edge1: External X sườn lên (cạnh lên) triggers2: External X sườn xuống (cạnh xuống) triggers3: External X rising or sườn xuống (cạnh xuống) triggers |
-| HC_TOUCHPROBE | TriggerMode | WORD | Có | 0~1 | Chế độ kích hoạt: 0: Kích hoạt đơn; 1: Kích hoạt liên tục |
-| HC_TOUCHPROBE | Axis | WORD | Không | 0~65535 | Axis name/axis number: specify the local trục phản hồi Encoder to operate |
-| HC_TOUCHPROBE | Done | BOOL | Có | TRUEFALSE | Completed |
-| HC_TOUCHPROBE | Busy | BOOL | Có | TRUEFALSE | Executing |
-| HC_TOUCHPROBE | PositivePosition | LREAL | Có | - | sườn lên (cạnh lên) latch position: user unit |
-| HC_TOUCHPROBE | NegativePosition | LREAL | Có | - | sườn xuống (cạnh xuống) latch position: user unit |
-| HC_TOUCHPROBE | CommandAborted | BOOL | Có | TRUEFALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| HC_TOUCHPROBE | Error | BOOL | Có | TRUEFALSE | Lỗi (Error) |
-| HC_TOUCHPROBE | ErrorID | DWORD | Có | Check "ErrorID" for details | Mã lỗi (Error Code) |
+| Khối lệnh / Lệnh | Tham số          | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị             | Mô tả kỹ thuật                                                                                                                                               |
+| :--------------- | :--------------- | :----------- | :---------------- | :-------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HC_TOUCHPROBE    | Enable           | BOOL         | Không             | TRUEFALSE                   | bộ đếm tốc độ cao (HSC) preset enable                                                                                                                        |
+| HC_TOUCHPROBE    | ProbeID          | WORD         | Không             | 0                           | ID bộ dò chạm (Touch probe): 0: Touch probe 1                                                                                                                |
+| HC_TOUCHPROBE    | TriggerEdge      | WORD         | Không             | 1~3                         | Trigger edge1: External X sườn lên (cạnh lên) triggers2: External X sườn xuống (cạnh xuống) triggers3: External X rising or sườn xuống (cạnh xuống) triggers |
+| HC_TOUCHPROBE    | TriggerMode      | WORD         | Có                | 0~1                         | Chế độ kích hoạt: 0: Kích hoạt đơn; 1: Kích hoạt liên tục                                                                                                    |
+| HC_TOUCHPROBE    | Axis             | WORD         | Không             | 0~65535                     | Axis name/axis number: specify the local trục phản hồi Encoder to operate                                                                                    |
+| HC_TOUCHPROBE    | Done             | BOOL         | Có                | TRUEFALSE                   | Completed                                                                                                                                                    |
+| HC_TOUCHPROBE    | Busy             | BOOL         | Có                | TRUEFALSE                   | Executing                                                                                                                                                    |
+| HC_TOUCHPROBE    | PositivePosition | LREAL        | Có                | -                           | sườn lên (cạnh lên) latch position: user unit                                                                                                                |
+| HC_TOUCHPROBE    | NegativePosition | LREAL        | Có                | -                           | sườn xuống (cạnh xuống) latch position: user unit                                                                                                            |
+| HC_TOUCHPROBE    | CommandAborted   | BOOL         | Có                | TRUEFALSE                   | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)                                                                                                             |
+| HC_TOUCHPROBE    | Error            | BOOL         | Có                | TRUEFALSE                   | Lỗi (Error)                                                                                                                                                  |
+| HC_TOUCHPROBE    | ErrorID          | DWORD        | Có                | Check "ErrorID" for details | Mã lỗi (Error Code)                                                                                                                                          |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T (Bit) | HSC (Bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng DWORD (DXX) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| HC_TOUCHPROBE | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_TOUCHPROBE | ProbeID |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |  |
-| HC_TOUCHPROBE | TriggerEdge |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |  |
-| HC_TOUCHPROBE | TriggerMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |  |
-| HC_TOUCHPROBE | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |  |
-| HC_TOUCHPROBE | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_TOUCHPROBE | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_TOUCHPROBE | PositivePosition |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_TOUCHPROBE | NegativePosition |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_TOUCHPROBE | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_TOUCHPROBE | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_TOUCHPROBE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số          |  X  |  Y  |  M  |  S  | SM  | T (Bit) | HSC (Bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) | Mở rộng DWORD (DXX) | Mở rộng xung (XXP) |
+| :--------------- | :--------------- | :-: | :-: | :-: | :-: | :-: | :-----: | :-------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: | :-----------------: | :----------------: |
+| HC_TOUCHPROBE    | Enable           |  ●  |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_TOUCHPROBE    | ProbeID          |     |     |     |     |     |         |           |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |     |     |     |                    |                     |                    |
+| HC_TOUCHPROBE    | TriggerEdge      |     |     |     |     |     |         |           |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |     |     |     |                    |                     |                    |
+| HC_TOUCHPROBE    | TriggerMode      |     |     |     |     |     |         |           |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |     |     |     |                    |                     |                    |
+| HC_TOUCHPROBE    | Axis             |     |     |     |     |     |         |           |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |     |     |     |                    |                     |                    |
+| HC_TOUCHPROBE    | Done             |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_TOUCHPROBE    | Busy             |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_TOUCHPROBE    | PositivePosition |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_TOUCHPROBE    | NegativePosition |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_TOUCHPROBE    | CommandAborted   |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_TOUCHPROBE    | Error            |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_TOUCHPROBE    | ErrorID          |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -449,11 +449,11 @@ Tham số TriggerEdge
 
 Cạnh kích hoạt đầu dò chạm có thể được cài đặt. Vị trí kích hoạt cạnh lên được chốt vào tham số ngõ ra PositivePosition. Vị trí kích hoạt cạnh xuống được chốt vào tham số ngõ ra NegativePosition.
 
-| Tham số | Settings | Definition |
-| :--- | :--- | :--- |
-| TriggerEdge | 1 | External X sườn lên (cạnh lên) triggers |
-| TriggerEdge | 2 | External X sườn xuống (cạnh xuống) triggers |
-| TriggerEdge | 3 | External X rising or sườn xuống (cạnh xuống) triggers |
+| Tham số     | Settings | Definition                                            |
+| :---------- | :------- | :---------------------------------------------------- |
+| TriggerEdge | 1        | External X sườn lên (cạnh lên) triggers               |
+| TriggerEdge | 2        | External X sườn xuống (cạnh xuống) triggers           |
+| TriggerEdge | 3        | External X rising or sườn xuống (cạnh xuống) triggers |
 
 Tham số TriggerMode
 
@@ -501,12 +501,12 @@ Kích hoạt cả cạnh lên và cạnh xuống ngõ vào X ngoài (TriggerEdge
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 0x007000000 | Chức năng dò chạm (Touch probe) trong giao diện cấu hình trục chưa được bật |
-| 0x00700005 | Trục chưa được định nghĩa hoặc số hiệu trục không hợp lệ |
-| 0x00800006 | Lỗi cài đặt từ cạnh kích hoạt / chế độ kích hoạt / ID bộ dò chạm (Touch probe) |
-| 0x00800008 | Modify the axis number when the khối hàm (FB) is running. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                 |
+| :------------------ | :----------------------------------------------------------------------------- |
+| 0x007000000         | Chức năng dò chạm (Touch probe) trong giao diện cấu hình trục chưa được bật    |
+| 0x00700005          | Trục chưa được định nghĩa hoặc số hiệu trục không hợp lệ                       |
+| 0x00800006          | Lỗi cài đặt từ cạnh kích hoạt / chế độ kích hoạt / ID bộ dò chạm (Touch probe) |
+| 0x00800008          | Modify the axis number when the khối hàm (FB) is running.                      |
 
 #### Ví dụ minh họa
 
@@ -530,33 +530,33 @@ Giá trị đếm bộ đếm đầu dò chạm đạt tới giá trị chỉ đ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| HC_COMPARE | Enable | BOOL | Không | TRUEFALSE | bộ đếm tốc độ cao (HSC) comparison enabled |
-| HC_COMPARE | Position | LREAL | Không | - | Vị trí so sánh: đơn vị người dùng |
-| HC_COMPARE | OutputEnable | BOOL | Có | TRUEFALSE | Cho phép ngõ ra phần cứng: FALSE: Không xuất phần cứng; TRUE: Sử dụng ngõ ra phần cứng |
-| HC_COMPARE | InterruptMap | POINTER | Có | - | Ánh xạ ngắt: ngắt được tạo và liên kết khi giá trị so sánh khớp với giá trị đếm. Có thể nhập trực tiếp tên ngắt, ví dụ: IRQ0: liên kết ngắt IRQ0; None: không liên kết ngắt |
-| HC_COMPARE | Axis | WORD | Không | 0~65535 | Axis name/axis number: specify the local trục phản hồi Encoder to operate |
-| HC_COMPARE | Done | BOOL | Có | TRUEFALSE | Completed |
-| HC_COMPARE | Busy | BOOL | Có | TRUEFALSE | Executing |
-| HC_COMPARE | CommandAborted | BOOL | Có | TRUEFALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| HC_COMPARE | Error | BOOL | Có | TRUEFALSE | Lỗi (Error) |
-| HC_COMPARE | ErrorID | DWORD | Có | Check "ErrorID" for details | Mã lỗi (Error Code) |
+| Khối lệnh / Lệnh | Tham số        | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị             | Mô tả kỹ thuật                                                                                                                                                              |
+| :--------------- | :------------- | :----------- | :---------------- | :-------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HC_COMPARE       | Enable         | BOOL         | Không             | TRUEFALSE                   | bộ đếm tốc độ cao (HSC) comparison enabled                                                                                                                                  |
+| HC_COMPARE       | Position       | LREAL        | Không             | -                           | Vị trí so sánh: đơn vị người dùng                                                                                                                                           |
+| HC_COMPARE       | OutputEnable   | BOOL         | Có                | TRUEFALSE                   | Cho phép ngõ ra phần cứng: FALSE: Không xuất phần cứng; TRUE: Sử dụng ngõ ra phần cứng                                                                                      |
+| HC_COMPARE       | InterruptMap   | POINTER      | Có                | -                           | Ánh xạ ngắt: ngắt được tạo và liên kết khi giá trị so sánh khớp với giá trị đếm. Có thể nhập trực tiếp tên ngắt, ví dụ: IRQ0: liên kết ngắt IRQ0; None: không liên kết ngắt |
+| HC_COMPARE       | Axis           | WORD         | Không             | 0~65535                     | Axis name/axis number: specify the local trục phản hồi Encoder to operate                                                                                                   |
+| HC_COMPARE       | Done           | BOOL         | Có                | TRUEFALSE                   | Completed                                                                                                                                                                   |
+| HC_COMPARE       | Busy           | BOOL         | Có                | TRUEFALSE                   | Executing                                                                                                                                                                   |
+| HC_COMPARE       | CommandAborted | BOOL         | Có                | TRUEFALSE                   | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)                                                                                                                            |
+| HC_COMPARE       | Error          | BOOL         | Có                | TRUEFALSE                   | Lỗi (Error)                                                                                                                                                                 |
+| HC_COMPARE       | ErrorID        | DWORD        | Có                | Check "ErrorID" for details | Mã lỗi (Error Code)                                                                                                                                                         |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T (Bit) | HSC (Bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng DWORD (DXX) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| HC_COMPARE | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COMPARE | Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COMPARE | OutputEnable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COMPARE | InterruptMap |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COMPARE | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |  |
-| HC_COMPARE | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COMPARE | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COMPARE | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COMPARE | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_COMPARE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số        |  X  |  Y  |  M  |  S  | SM  | T (Bit) | HSC (Bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Dịch địa chỉ ([D]) | Mở rộng DWORD (DXX) | Mở rộng xung (XXP) |
+| :--------------- | :------------- | :-: | :-: | :-: | :-: | :-: | :-----: | :-------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :----------------: | :-----------------: | :----------------: |
+| HC_COMPARE       | Enable         |  ●  |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COMPARE       | Position       |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COMPARE       | OutputEnable   |  ●  |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COMPARE       | InterruptMap   |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COMPARE       | Axis           |     |     |     |     |     |         |           |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |     |     |     |                    |                     |                    |
+| HC_COMPARE       | Done           |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COMPARE       | Busy           |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COMPARE       | CommandAborted |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COMPARE       | Error          |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
+| HC_COMPARE       | ErrorID        |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                    |                     |                    |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -568,7 +568,7 @@ Bật HC_COMPARE để thực hiện so sánh một vị trí của trục bộ 
 - Khi sử dụng khối hàm này, nếu tham số InterruptMap chỉ định tên chương trình ánh xạ ngắt, lệnh EI phải được bật trong chương trình quét. Nếu không, chương trình ngắt không thể thực thi.
 
 - Nếu có hai khối hàm so sánh tốc độ cao có tham số Axis cùng chỉ định một trục Encoder cục bộ, quá trình thực thi của khối hàm thực thi trước sẽ bị ngắt bởi khối hàm sau. Cờ ngắt thực thi ComandAborted sẽ được đặt thành ON.
-:::
+  :::
 
 Mô tả kỹ thuật
 
@@ -578,12 +578,12 @@ Sử dụng ngõ ra phần cứng (OutputEnable=TRUE), giản đồ thời gian 
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 0x007000000 | OutEnable đang ON, nhưng ngõ ra so sánh trong giao diện cấu hình trục chưa được bật. |
-| 0x00700005 | Trục chưa được định nghĩa hoặc số hiệu trục không hợp lệ |
-| 0x00800006 | Vị trí so sánh đã cài đặt vượt quá giới hạn. |
-| 0x00800008 | Modify the axis number when the khối hàm (FB) is running. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                       |
+| :------------------ | :----------------------------------------------------------------------------------- |
+| 0x007000000         | OutEnable đang ON, nhưng ngõ ra so sánh trong giao diện cấu hình trục chưa được bật. |
+| 0x00700005          | Trục chưa được định nghĩa hoặc số hiệu trục không hợp lệ                             |
+| 0x00800006          | Vị trí so sánh đã cài đặt vượt quá giới hạn.                                         |
+| 0x00800008          | Modify the axis number when the khối hàm (FB) is running.                            |
 
 #### Ví dụ minh họa
 
@@ -605,37 +605,37 @@ Kiểm tra tuần tự xem giá trị đếm của bộ đếm có bằng với 
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| HC_ARRAYCOMPARE | Enable | BOOL | Không | TRUEFALSE | bộ đếm tốc độ cao (HSC) comparison enabled |
-| HC_ARRAYCOMPARE | PositionArray | ARRAY OF LREAL | Không | - | Mảng vị trí so sánh: đơn vị người dùng |
-| HC_ARRAYCOMPARE | ArrayLength | WORD | Không | 1~32 | Độ dài mảng |
-| HC_ARRAYCOMPARE | OutputEnable | WORD | Có | TRUEFALSE | Cho phép ngõ ra phần cứng: FALSE: Không xuất phần cứng; TRUE: Sử dụng ngõ ra phần cứng |
-| HC_ARRAYCOMPARE | InterruptMap | POINTER | Có | - | Ánh xạ ngắt: khi giá trị so sánh khớp với giá trị đếm, một ngắt được tạo và liên kết. Có thể nhập trực tiếp tên ngắt. IRQ0: liên kết ngắt IRQ0; None: không liên kết ngắt |
-| HC_ARRAYCOMPARE | Axis | WORD | Không | 0~65535 | Axis name/axis number: specify the local trục phản hồi Encoder to operate |
-| HC_ARRAYCOMPARE | Done | BOOL | Có | TRUEFALSE | Completed |
-| HC_ARRAYCOMPARE | Busy | BOOL | Có | TRUEFALSE | Executing |
-| HC_ARRAYCOMPARE | NextIndex | WORD | Có | 0~32 | Chỉ số vị trí so sánh tiếp theo |
-| HC_ARRAYCOMPARE | CommandAborted | BOOL | Có | TRUEFALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| HC_ARRAYCOMPARE | Error | BOOL | Có | TRUEFALSE | Lỗi (Error) |
-| HC_ARRAYCOMPARE | ErrorID | DWORD | Có | Kiểm tra "Mã lỗi" để biết chi tiết | Mã lỗi (Error Code) |
+| Khối lệnh / Lệnh | Tham số        | Kiểu dữ liệu   | Cho phép để trống | Phạm vi giá trị                    | Mô tả kỹ thuật                                                                                                                                                            |
+| :--------------- | :------------- | :------------- | :---------------- | :--------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| HC_ARRAYCOMPARE  | Enable         | BOOL           | Không             | TRUEFALSE                          | bộ đếm tốc độ cao (HSC) comparison enabled                                                                                                                                |
+| HC_ARRAYCOMPARE  | PositionArray  | ARRAY OF LREAL | Không             | -                                  | Mảng vị trí so sánh: đơn vị người dùng                                                                                                                                    |
+| HC_ARRAYCOMPARE  | ArrayLength    | WORD           | Không             | 1~32                               | Độ dài mảng                                                                                                                                                               |
+| HC_ARRAYCOMPARE  | OutputEnable   | WORD           | Có                | TRUEFALSE                          | Cho phép ngõ ra phần cứng: FALSE: Không xuất phần cứng; TRUE: Sử dụng ngõ ra phần cứng                                                                                    |
+| HC_ARRAYCOMPARE  | InterruptMap   | POINTER        | Có                | -                                  | Ánh xạ ngắt: khi giá trị so sánh khớp với giá trị đếm, một ngắt được tạo và liên kết. Có thể nhập trực tiếp tên ngắt. IRQ0: liên kết ngắt IRQ0; None: không liên kết ngắt |
+| HC_ARRAYCOMPARE  | Axis           | WORD           | Không             | 0~65535                            | Axis name/axis number: specify the local trục phản hồi Encoder to operate                                                                                                 |
+| HC_ARRAYCOMPARE  | Done           | BOOL           | Có                | TRUEFALSE                          | Completed                                                                                                                                                                 |
+| HC_ARRAYCOMPARE  | Busy           | BOOL           | Có                | TRUEFALSE                          | Executing                                                                                                                                                                 |
+| HC_ARRAYCOMPARE  | NextIndex      | WORD           | Có                | 0~32                               | Chỉ số vị trí so sánh tiếp theo                                                                                                                                           |
+| HC_ARRAYCOMPARE  | CommandAborted | BOOL           | Có                | TRUEFALSE                          | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)                                                                                                                          |
+| HC_ARRAYCOMPARE  | Error          | BOOL           | Có                | TRUEFALSE                          | Lỗi (Error)                                                                                                                                                               |
+| HC_ARRAYCOMPARE  | ErrorID        | DWORD          | Có                | Kiểm tra "Mã lỗi" để biết chi tiết | Mã lỗi (Error Code)                                                                                                                                                       |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T (Bit) | HSC (Bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng DWORD (DXX) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| HC_ARRAYCOMPARE | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_ARRAYCOMPARE | PositionArray |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_ARRAYCOMPARE | ArrayLength |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |  |
-| HC_ARRAYCOMPARE | OutputEnable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_ARRAYCOMPARE | InterruptMap |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_ARRAYCOMPARE | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |  |
-| HC_ARRAYCOMPARE | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_ARRAYCOMPARE | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_ARRAYCOMPARE | NextIndex |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |  |
-| HC_ARRAYCOMPARE | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_ARRAYCOMPARE | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| HC_ARRAYCOMPARE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số        |  X  |  Y  |  M  |  S  | SM  | T (Bit) | HSC (Bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng DWORD (DXX) | Mở rộng xung (XXP) |
+| :--------------- | :------------- | :-: | :-: | :-: | :-: | :-: | :-----: | :-------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :-----------------: | :----------------: |
+| HC_ARRAYCOMPARE  | Enable         |  ●  |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                     |                    |
+| HC_ARRAYCOMPARE  | PositionArray  |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                     |                    |
+| HC_ARRAYCOMPARE  | ArrayLength    |     |     |     |     |     |         |           |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |     |     |     |                       |                     |                    |
+| HC_ARRAYCOMPARE  | OutputEnable   |  ●  |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                     |                    |
+| HC_ARRAYCOMPARE  | InterruptMap   |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                     |                    |
+| HC_ARRAYCOMPARE  | Axis           |     |     |     |     |     |         |           |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |     |     |     |                       |                     |                    |
+| HC_ARRAYCOMPARE  | Done           |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                     |                    |
+| HC_ARRAYCOMPARE  | Busy           |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                     |                    |
+| HC_ARRAYCOMPARE  | NextIndex      |     |     |     |     |     |         |           |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |     |     |     |                       |                     |                    |
+| HC_ARRAYCOMPARE  | CommandAborted |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                     |                    |
+| HC_ARRAYCOMPARE  | Error          |     |  ●  |  ●  |  ●  |  ●  |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                     |                    |
+| HC_ARRAYCOMPARE  | ErrorID        |     |     |     |     |     |         |           |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                     |                    |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -655,7 +655,7 @@ Tham số ngõ ra NextIndex biểu thị chỉ số vị trí so sánh tiếp th
 - Khi nhập tham số PositionArray của mảng vị trí so sánh, mảng này phải là mảng tăng đơn điệu hoặc mảng giảm đơn điệu, và hai vị trí so sánh liền kề không được trùng lặp.
 
 - Nếu có hai khối hàm so sánh tốc độ cao có tham số Axis cùng chỉ định một trục Encoder cục bộ, quá trình thực thi của khối hàm thực thi trước sẽ bị ngắt bởi khối hàm sau. Cờ ngắt thực thi ComandAborted sẽ được đặt thành ON.
-:::
+  :::
 
 #### Giản đồ thời gian (Sequence Diagram)
 
@@ -665,12 +665,12 @@ So sánh ba vị trí (ArrayLength=3), sử dụng ngõ ra phần cứng (Output
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 0x007000000 | OutEnable đang ON, nhưng ngõ ra so sánh trong giao diện cấu hình trục chưa được bật. |
-| 0x00700005 | Trục chưa được định nghĩa hoặc số hiệu trục không hợp lệ. |
-| 0x00800006 | Mảng so sánh chưa được cài đặt hoặc độ dài mảng cài đặt không đúng. |
-| 0x00800008 | Modify the axis number when the khối hàm (FB) is running. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                       |
+| :------------------ | :----------------------------------------------------------------------------------- |
+| 0x007000000         | OutEnable đang ON, nhưng ngõ ra so sánh trong giao diện cấu hình trục chưa được bật. |
+| 0x00700005          | Trục chưa được định nghĩa hoặc số hiệu trục không hợp lệ.                            |
+| 0x00800006          | Mảng so sánh chưa được cài đặt hoặc độ dài mảng cài đặt không đúng.                  |
+| 0x00800008          | Modify the axis number when the khối hàm (FB) is running.                            |
 
 #### Ví dụ minh họa
 
@@ -692,21 +692,21 @@ So sánh tuần tự và liên tục giá trị đếm của bộ đếm với c
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| HC_STEPCOMPARE | Enable | BOOL | Không | TRUEFALSE | bộ đếm tốc độ cao (HSC) comparison enabled |
-| HC_STEPCOMPARE | StartPosition | LREAL | Không | - | Vị trí bắt đầu: đơn vị người dùng |
-| HC_STEPCOMPARE | EndPosition | LREAL | Không | - | Vị trí kết thúc: đơn vị người dùng |
-| HC_STEPCOMPARE | Step | LREAL | Không | Số thực LREAL dương | Khoảng cách bước: đơn vị người dùng |
-| HC_STEPCOMPARE | OutputEnable | BOOL | Có | TRUEFALSE | Cho phép ngõ ra phần cứng: FALSE: Không xuất phần cứng; TRUE: Sử dụng ngõ ra phần cứng |
-| HC_STEPCOMPARE | InterruptMap | POINTER | Có | - | Ánh xạ ngắt: khi giá trị so sánh khớp với giá trị đếm, một ngắt được tạo và liên kết. Có thể nhập trực tiếp tên ngắt. IRQ0: liên kết ngắt IRQ0; None: không liên kết ngắt |
-| HC_STEPCOMPARE | Axis | WORD | Không | 0~65535 | Axis name/axis number: specify the local trục phản hồi Encoder to operate |
-| HC_STEPCOMPARE | Done | BOOL | Có | TRUEFALSE | Completed |
-| HC_STEPCOMPARE | Busy | BOOL | Có | TRUEFALSE | Executing |
-| HC_STEPCOMPARE | NextIndex | WORD | Có | 0~65535 | Chỉ số vị trí so sánh tiếp theo |
-| HC_STEPCOMPARE | CommandAborted | BOOL | Có | TRUEFALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| HC_STEPCOMPARE | Error | BOOL | Có | TRUEFALSE | Lỗi (Error) |
-| HC_STEPCOMPARE | ErrorID | DWORD | Có | Kiểm tra "Mã lỗi" để biết chi tiết | Mã lỗi (Error Code) |
+| Khối lệnh / Lệnh | Tham số        | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị                    | Mô tả kỹ thuật                                                                                                                                                            |
+| :--------------- | :------------- | :----------- | :---------------- | :--------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| HC_STEPCOMPARE   | Enable         | BOOL         | Không             | TRUEFALSE                          | bộ đếm tốc độ cao (HSC) comparison enabled                                                                                                                                |
+| HC_STEPCOMPARE   | StartPosition  | LREAL        | Không             | -                                  | Vị trí bắt đầu: đơn vị người dùng                                                                                                                                         |
+| HC_STEPCOMPARE   | EndPosition    | LREAL        | Không             | -                                  | Vị trí kết thúc: đơn vị người dùng                                                                                                                                        |
+| HC_STEPCOMPARE   | Step           | LREAL        | Không             | Số thực LREAL dương                | Khoảng cách bước: đơn vị người dùng                                                                                                                                       |
+| HC_STEPCOMPARE   | OutputEnable   | BOOL         | Có                | TRUEFALSE                          | Cho phép ngõ ra phần cứng: FALSE: Không xuất phần cứng; TRUE: Sử dụng ngõ ra phần cứng                                                                                    |
+| HC_STEPCOMPARE   | InterruptMap   | POINTER      | Có                | -                                  | Ánh xạ ngắt: khi giá trị so sánh khớp với giá trị đếm, một ngắt được tạo và liên kết. Có thể nhập trực tiếp tên ngắt. IRQ0: liên kết ngắt IRQ0; None: không liên kết ngắt |
+| HC_STEPCOMPARE   | Axis           | WORD         | Không             | 0~65535                            | Axis name/axis number: specify the local trục phản hồi Encoder to operate                                                                                                 |
+| HC_STEPCOMPARE   | Done           | BOOL         | Có                | TRUEFALSE                          | Completed                                                                                                                                                                 |
+| HC_STEPCOMPARE   | Busy           | BOOL         | Có                | TRUEFALSE                          | Executing                                                                                                                                                                 |
+| HC_STEPCOMPARE   | NextIndex      | WORD         | Có                | 0~65535                            | Chỉ số vị trí so sánh tiếp theo                                                                                                                                           |
+| HC_STEPCOMPARE   | CommandAborted | BOOL         | Có                | TRUEFALSE                          | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)                                                                                                                          |
+| HC_STEPCOMPARE   | Error          | BOOL         | Có                | TRUEFALSE                          | Lỗi (Error)                                                                                                                                                               |
+| HC_STEPCOMPARE   | ErrorID        | DWORD        | Có                | Kiểm tra "Mã lỗi" để biết chi tiết | Mã lỗi (Error Code)                                                                                                                                                       |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -726,7 +726,7 @@ Biểu thị chỉ số của vị trí so sánh tiếp theo, và chỉ số b�
 - Khi sử dụng khối hàm này, nếu tham số InterruptMap chỉ định chương trình ánh xạ ngắt, lệnh EI phải được bật trong chương trình quét. Nếu không, chương trình ngắt không thể thực thi.
 
 - Nếu có hai khối hàm so sánh tốc độ cao có tham số Axis cùng chỉ định một trục Encoder cục bộ, quá trình thực thi của khối hàm thực thi trước sẽ bị ngắt bởi khối hàm sau. Cờ ngắt thực thi ComandAborted sẽ được đặt thành ON.
-:::
+  :::
 
 #### Giản đồ thời gian (Sequence Diagram)
 
@@ -740,13 +740,13 @@ Sử dụng ngõ ra phần cứng (OutputEnable=TRUE), StartPosition&lt;EndPosit
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 0x007000000 | OutEnable đang ON, nhưng ngõ ra so sánh trong giao diện cấu hình trục chưa được bật |
-| 0x00700005 | Trục chưa được định nghĩa hoặc số hiệu trục không hợp lệ |
-| 0x00800000 | Số lượng vị trí so sánh vượt quá 65535 và quá trình so sánh cách đều chưa hoàn tất. |
-| 0x00800006 | Lỗi cài đặt vị trí bắt đầu, vị trí kết thúc và khoảng cách bước |
-| 0x00800008 | Modify the axis number when the khối hàm (FB) is running. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                      |
+| :------------------ | :---------------------------------------------------------------------------------- |
+| 0x007000000         | OutEnable đang ON, nhưng ngõ ra so sánh trong giao diện cấu hình trục chưa được bật |
+| 0x00700005          | Trục chưa được định nghĩa hoặc số hiệu trục không hợp lệ                            |
+| 0x00800000          | Số lượng vị trí so sánh vượt quá 65535 và quá trình so sánh cách đều chưa hoàn tất. |
+| 0x00800006          | Lỗi cài đặt vị trí bắt đầu, vị trí kết thúc và khoảng cách bước                     |
+| 0x00800008          | Modify the axis number when the khối hàm (FB) is running.                           |
 
 #### Ví dụ minh họa
 
@@ -755,5 +755,3 @@ Ví dụ ứng dụng
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/09%20%20High%20Speed%20Counter/WebHome/1709190866318-894.png?rev=1.1)
 
 Khi khối hàm được bật, vị trí so sánh hiện tại được đặt thành giá trị vị trí chỉ định của StartPosition. Khi vị trí giá trị đếm hiện tại bằng vị trí so sánh, ngắt so sánh được kích hoạt và chương trình ngắt do tham số InterruptMap chỉ định sẽ được gọi. Nếu ngõ ra phần cứng được bật (OutputEnable=TRUE), điểm Y tương ứng sẽ tạo ra xung có độ rộng xung xác định. Khi vị trí hiện tại vượt quá vị trí kết thúc, tín hiệu hoàn tất được xuất ra liên tục.
-
-0

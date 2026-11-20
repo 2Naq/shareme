@@ -3,7 +3,7 @@ id: "6.13-data-block-instructions"
 title: "6.13 Lệnh xử lý khối dữ liệu (Data Block Instructions)"
 sidebar_position: 13
 sidebar_label: "6.13 Data Block instructions"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.13 Lệnh xử lý khối dữ liệu (Data Block Instructions)"
 ---
 
@@ -17,21 +17,21 @@ Cộng dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị �
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| s1 | Thiết bị bắt đầu lưu trữ dữ liệu bị cộng | -32,768 to +32,767 | BIN16 bit | ANY16_S |
-| s2 | Dữ liệu cộng hoặc thiết bị bắt đầu lưu trữ dữ liệu cộng | -32,768 to +32,767 | BIN16 bit | ANY16_S |
-| d | The start device that stores the addition kết quả phép toán | - | BIN16 bit | ANY16_S |
-| n | Số lượng dữ liệu thực hiện phép cộng | 0 to 65,535 | BIN16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                              | Phạm vi giá trị    | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------- | :----------------- | :----------- | :----------------------- |
+| s1      | Thiết bị bắt đầu lưu trữ dữ liệu bị cộng                    | -32,768 to +32,767 | BIN16 bit    | ANY16_S                  |
+| s2      | Dữ liệu cộng hoặc thiết bị bắt đầu lưu trữ dữ liệu cộng     | -32,768 to +32,767 | BIN16 bit    | ANY16_S                  |
+| d       | The start device that stores the addition kết quả phép toán | -                  | BIN16 bit    | ANY16_S                  |
+| n       | Số lượng dữ liệu thực hiện phép cộng                        | 0 to 65,535        | BIN16 bit    | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| BK+ | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| BK+ | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| BK+ | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| BK+ | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| BK+              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| BK+              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| BK+              | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| BK+              | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -59,11 +59,11 @@ Khi chỉ định không dấu:
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Phạm vi thiết bị gồm (n) điểm bắt đầu từ (s1) hoặc (s2) bị trùng lặp một phần với phạm vi thiết bị gồm (n) điểm bắt đầu từ (d). |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                  |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------ |
+| 4084H               | Phạm vi thiết bị gồm (n) điểm bắt đầu từ (s1) hoặc (s2) bị trùng lặp một phần với phạm vi thiết bị gồm (n) điểm bắt đầu từ (d). |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng                                          |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng                                          |
 
 #### Ví dụ minh họa
 
@@ -83,21 +83,21 @@ Cộng dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị �
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| s1 | Thiết bị bắt đầu lưu trữ dữ liệu bị cộng | -2147483648 to +2147483647 | BIN32 bit | ANY32_S |
-| s2 | Dữ liệu cộng hoặc thiết bị bắt đầu lưu trữ dữ liệu cộng | -2147483648 to +2147483647 | BIN32 bit | ANY32_S |
-| d | Thiết bị bắt đầu lưu trữ dữ liệu phép toán | - | BIN32 bit | ANY32_S |
-| n | Số lượng dữ liệu thực hiện phép cộng | 0 to 65535 | BIN32 bit | ANY32_S |
+| Tham số | Nội dung mô tả                                          | Phạm vi giá trị            | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------ | :------------------------- | :----------- | :----------------------- |
+| s1      | Thiết bị bắt đầu lưu trữ dữ liệu bị cộng                | -2147483648 to +2147483647 | BIN32 bit    | ANY32_S                  |
+| s2      | Dữ liệu cộng hoặc thiết bị bắt đầu lưu trữ dữ liệu cộng | -2147483648 to +2147483647 | BIN32 bit    | ANY32_S                  |
+| d       | Thiết bị bắt đầu lưu trữ dữ liệu phép toán              | -                          | BIN32 bit    | ANY32_S                  |
+| n       | Số lượng dữ liệu thực hiện phép cộng                    | 0 to 65535                 | BIN32 bit    | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DBK+ | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DBK+ | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DBK+ | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DBK+ | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DBK+             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DBK+             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DBK+             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DBK+             | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -119,13 +119,13 @@ Khi chỉ định một hằng số tại (s2) (khi chỉ định có dấu)
 
 Khi 4 điểm đầu tiên của thiết bị (s2) và (d) trùng khớp hoàn toàn.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942076993-202.png?width=571&amp;height=169&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942076993-202.png?width=571&height=169&rev=1.1)
 
 (1) Do trùng khớp hoàn toàn nên phép toán có thể được thực thi.
 
 Khi 4 điểm đầu tiên của thiết bị (s2) và (d) trùng khớp một phần.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942101627-784.png?width=559&amp;height=167&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942101627-784.png?width=559&height=167&rev=1.1)
 
 (2) Do trùng khớp một phần nên xảy ra lỗi phép toán.
 
@@ -135,7 +135,7 @@ Khi 4 điểm đầu tiên của thiết bị (s2) và (d) trùng khớp một p
 
 Khi chỉ định có dấu (Sign):
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942133527-935.png?width=489&amp;height=130&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942133527-935.png?width=489&height=130&rev=1.1)
 
 Khi chỉ định không dấu:
 
@@ -143,15 +143,15 @@ Khi chỉ định không dấu:
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Phạm vi thiết bị gồm (n) điểm bắt đầu từ (s1) hoặc (s2) bị trùng lặp một phần với phạm vi thiết bị gồm (n) điểm bắt đầu từ (d). |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                  |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------ |
+| 4084H               | Phạm vi thiết bị gồm (n) điểm bắt đầu từ (s1) hoặc (s2) bị trùng lặp một phần với phạm vi thiết bị gồm (n) điểm bắt đầu từ (d). |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng                                          |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng                                          |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942190081-276.png?width=510&amp;height=64&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942190081-276.png?width=510&height=64&rev=1.1)
 
 Như minh họa trong chương trình giản đồ thang (ladder) ở trên:
 
@@ -167,21 +167,21 @@ Trừ dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị đ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Thiết bị bắt đầu lưu trữ dữ liệu bị trừ | -32768 to +32767 | BIN16 bit | ANY16_S |
-| (S2) | Dữ liệu trừ hoặc thiết bị bắt đầu lưu trữ dữ liệu trừ | -32768 to +32767 | BIN16 bit | ANY16_S |
-| (d) | The start device that stores the kết quả phép toán | - | BIN16 bit | ANY16_S |
-| (n) | Số lượng dữ liệu thực hiện phép trừ | 0 to 65,535 | BIN16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị  | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :--------------- | :----------- | :----------------------- |
+| (s1)    | Thiết bị bắt đầu lưu trữ dữ liệu bị trừ               | -32768 to +32767 | BIN16 bit    | ANY16_S                  |
+| (S2)    | Dữ liệu trừ hoặc thiết bị bắt đầu lưu trữ dữ liệu trừ | -32768 to +32767 | BIN16 bit    | ANY16_S                  |
+| (d)     | The start device that stores the kết quả phép toán    | -                | BIN16 bit    | ANY16_S                  |
+| (n)     | Số lượng dữ liệu thực hiện phép trừ                   | 0 to 65,535      | BIN16 bit    | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| BK- | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| BK- | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| BK- | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| BK- | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| BK-              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| BK-              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| BK-              | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| BK-              | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -201,23 +201,23 @@ Khi chỉ định một hằng số tại (s2)
 
 Khi chỉ định có dấu (Sign):
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942271072-293.png?width=376&amp;height=115&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942271072-293.png?width=376&height=115&rev=1.1)
 
 Khi chỉ định không dấu:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942286371-216.png?width=437&amp;height=82&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942286371-216.png?width=437&height=82&rev=1.1)
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Phạm vi thiết bị gồm (n) điểm bắt đầu từ (s1) hoặc (s2) bị trùng lặp một phần với phạm vi thiết bị gồm (n) điểm bắt đầu từ (d). |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                  |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------ |
+| 4084H               | Phạm vi thiết bị gồm (n) điểm bắt đầu từ (s1) hoặc (s2) bị trùng lặp một phần với phạm vi thiết bị gồm (n) điểm bắt đầu từ (d). |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng                                          |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng                                          |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942309307-510.png?width=452&amp;height=63&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942309307-510.png?width=452&height=63&rev=1.1)
 
 Như minh họa trong chương trình bậc thang (Ladder) trên:
 
@@ -233,21 +233,21 @@ Trừ dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị đ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Thiết bị bắt đầu lưu trữ dữ liệu bị trừ | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (s2) | Dữ liệu trừ hoặc thiết bị bắt đầu lưu trữ dữ liệu trừ | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (d) | The start device that stores the kết quả phép toán | - | BIN32 bit | ANY32_S |
-| (n) | Số lượng dữ liệu thực hiện phép trừ | 0 to 65,535 | BIN32 bit | ANY32_S |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (s1)    | Thiết bị bắt đầu lưu trữ dữ liệu bị trừ               | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (s2)    | Dữ liệu trừ hoặc thiết bị bắt đầu lưu trữ dữ liệu trừ | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (d)     | The start device that stores the kết quả phép toán    | -                         | BIN32 bit    | ANY32_S                  |
+| (n)     | Số lượng dữ liệu thực hiện phép trừ                   | 0 to 65,535               | BIN32 bit    | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DBK- | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DBK- | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DBK- | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DBK- | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DBK-             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DBK-             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DBK-             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DBK-             | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -285,23 +285,23 @@ Khi 4 điểm đầu tiên của thiết bị (s2) và (d) trùng khớp một p
 
 Khi chỉ định có dấu:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942518014-135.png?width=538&amp;height=133&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942518014-135.png?width=538&height=133&rev=1.1)
 
 Khi chỉ định không dấu:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942543589-285.png?width=516&amp;height=71&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942543589-285.png?width=516&height=71&rev=1.1)
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Phạm vi thiết bị gồm (n) điểm bắt đầu từ (s1) hoặc (s2) bị trùng lặp một phần với phạm vi thiết bị gồm (n) điểm bắt đầu từ (d). |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                  |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------ |
+| 4084H               | Phạm vi thiết bị gồm (n) điểm bắt đầu từ (s1) hoặc (s2) bị trùng lặp một phần với phạm vi thiết bị gồm (n) điểm bắt đầu từ (d). |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng                                          |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng                                          |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942588679-283.png?width=622&amp;height=67&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942588679-283.png?width=622&height=67&rev=1.1)
 
 Như minh họa trong chương trình bậc thang (Ladder) trên:
 
@@ -317,21 +317,21 @@ So sánh dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | BIN16 bit | ANY16_S |
-| (s2) | Thiết bị lưu trữ dữ liệu nguồn cần so sánh | -32768 to 32767 | BIN16 bit | ANY16_S |
-| (d) | Thiết bị bắt đầu lưu trữ kết quả so sánh | - | Bit | ANY_BOOL |
-| (n) | Số lượng phần tử dữ liệu so sánh | 0 to 65535 | BIN16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | BIN16 bit    | ANY16_S                  |
+| (s2)    | Thiết bị lưu trữ dữ liệu nguồn cần so sánh            | -32768 to 32767 | BIN16 bit    | ANY16_S                  |
+| (d)     | Thiết bị bắt đầu lưu trữ kết quả so sánh              | -               | Bit          | ANY_BOOL                 |
+| (n)     | Số lượng phần tử dữ liệu so sánh                      | 0 to 65535      | BIN16 bit    | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| BKCMP = | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| BKCMP = | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| BKCMP = | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| BKCMP = | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| BKCMP =          | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| BKCMP =          | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| BKCMP =          | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| BKCMP =          | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -348,17 +348,17 @@ So sánh dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760942648942-697.png?rev=1.1)
 
 | Ký hiệu lệnh | Điều kiện | Kết quả so sánh |
-| :--- | :--- | :--- |
-| BKCMP= | (s1)=(s2) | ON |
+| :----------- | :-------- | :-------------- |
+| BKCMP=       | (s1)=(s2) | ON              |
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM156 (tín hiệu so sánh khối) sẽ bật ON.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------- |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
@@ -378,21 +378,21 @@ So sánh dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (s2) | Thiết bị lưu trữ dữ liệu nguồn cần so sánh | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (d) | Thiết bị bắt đầu lưu trữ kết quả so sánh | - | Bit | ANY_BOOL |
-| (n) | Số lượng phần tử dữ liệu so sánh | 0 to 65,535 | BIN32 bit | ANY32_S |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (s2)    | Thiết bị lưu trữ dữ liệu nguồn cần so sánh            | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (d)     | Thiết bị bắt đầu lưu trữ kết quả so sánh              | -                         | Bit          | ANY_BOOL                 |
+| (n)     | Số lượng phần tử dữ liệu so sánh                      | 0 to 65,535               | BIN32 bit    | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DBKCMP= | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DBKCMP= | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DBKCMP= | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| DBKCMP= | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DBKCMP=          | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DBKCMP=          | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DBKCMP=          | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| DBKCMP=          | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -413,22 +413,22 @@ So sánh dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị
 • Kết quả phép toán so sánh của từng lệnh được trình bày dưới đây.
 
 | Ký hiệu lệnh | Điều kiện | Kết quả so sánh |
-| :--- | :--- | :--- |
-| DBKCMP= | (s1)=(s2) | ON |
+| :----------- | :-------- | :-------------- |
+| DBKCMP=      | (s1)=(s2) | ON              |
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM156 (tín hiệu so sánh khối) sẽ bật ON.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | When (n) is out of range |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------- |
+| 4084H               | When (n) is out of range                                                               |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760943035769-715.png?width=445&amp;height=76&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760943035769-715.png?width=445&height=76&rev=1.1)
 
 Khi X020 đang ON, sử dụng lệnh DBKCMP= để so sánh 4 điểm dữ liệu 32-bit (BIN) bắt đầu từ D100 và 4 điểm dữ liệu 32-bit bắt đầu từ D200, rồi lưu kết quả vào 4 điểm của thiết bị bắt đầu từ M10 trong chương trình.
 
@@ -446,21 +446,21 @@ Sơ đồ bậc thang (Ladder)
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | BIN16 bit | ANY16_S |
-| (s2) | Thiết bị lưu trữ dữ liệu nguồn cần so sánh | -32768 to 32767 | BIN16 bit | ANY16_S |
-| (d) | Thiết bị bắt đầu lưu trữ kết quả so sánh | - | Bit | ANY_BOOL |
-| (n) | Số lượng phần tử dữ liệu so sánh | 0 to 65535 | BIN16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | BIN16 bit    | ANY16_S                  |
+| (s2)    | Thiết bị lưu trữ dữ liệu nguồn cần so sánh            | -32768 to 32767 | BIN16 bit    | ANY16_S                  |
+| (d)     | Thiết bị bắt đầu lưu trữ kết quả so sánh              | -               | Bit          | ANY_BOOL                 |
+| (n)     | Số lượng phần tử dữ liệu so sánh                      | 0 to 65535      | BIN16 bit    | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| BKCMP&lt;&gt; | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| BKCMP&lt;&gt; | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| BKCMP&lt;&gt; | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| BKCMP&lt;&gt; | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| BKCMP&lt;&gt;    | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| BKCMP&lt;&gt;    | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| BKCMP&lt;&gt;    | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| BKCMP&lt;&gt;    | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -476,18 +476,18 @@ So sánh dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760943105408-654.png?rev=1.1)
 
-| Ký hiệu lệnh | condition | Kết quả so sánh |
-| :--- | :--- | :--- |
-| BKCMP&lt;&gt; | (s1)≠(s2) | ON |
+| Ký hiệu lệnh  | condition | Kết quả so sánh |
+| :------------ | :-------- | :-------------- |
+| BKCMP&lt;&gt; | (s1)≠(s2) | ON              |
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM156 (tín hiệu so sánh khối) sẽ bật ON.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------- |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
@@ -507,21 +507,21 @@ So sánh dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (s2) | Thiết bị lưu trữ dữ liệu nguồn cần so sánh | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (d) | Thiết bị bắt đầu lưu trữ kết quả so sánh | - | Bit | ANY_BOOL |
-| (n) | Số lượng phần tử dữ liệu so sánh | 0 to 65535 | BIN32 bit | ANY32_S |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (s2)    | Thiết bị lưu trữ dữ liệu nguồn cần so sánh            | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (d)     | Thiết bị bắt đầu lưu trữ kết quả so sánh              | -                         | Bit          | ANY_BOOL                 |
+| (n)     | Số lượng phần tử dữ liệu so sánh                      | 0 to 65535                | BIN32 bit    | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DBKCMP&lt;&gt; | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DBKCMP&lt;&gt; | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DBKCMP&lt;&gt; | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| DBKCMP&lt;&gt; | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DBKCMP&lt;&gt;   | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DBKCMP&lt;&gt;   | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DBKCMP&lt;&gt;   | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| DBKCMP&lt;&gt;   | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -541,19 +541,19 @@ So sánh dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị
 
 • Kết quả phép toán so sánh của từng lệnh được trình bày dưới đây.
 
-| Ký hiệu lệnh | Điều kiện | Kết quả so sánh |
-| :--- | :--- | :--- |
-| DBKCMP&lt;&gt; | (s1)≠(s2) | ON |
+| Ký hiệu lệnh   | Điều kiện | Kết quả so sánh |
+| :------------- | :-------- | :-------------- |
+| DBKCMP&lt;&gt; | (s1)≠(s2) | ON              |
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM156 (tín hiệu so sánh khối) sẽ bật ON.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | When (n) is out of range |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------- |
+| 4084H               | When (n) is out of range                                                               |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
@@ -573,21 +573,21 @@ So sánh dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | BIN16 bit | ANY16_S |
-| (s2) | Thiết bị lưu trữ dữ liệu nguồn cần so sánh | -32768 to 32767 | BIN16 bit | ANY16_S |
-| (d) | Thiết bị bắt đầu lưu trữ kết quả so sánh | - | Bit | ANY_BOOL |
-| (n) | Số lượng phần tử dữ liệu so sánh | 0 to 65535 | BIN16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | BIN16 bit    | ANY16_S                  |
+| (s2)    | Thiết bị lưu trữ dữ liệu nguồn cần so sánh            | -32768 to 32767 | BIN16 bit    | ANY16_S                  |
+| (d)     | Thiết bị bắt đầu lưu trữ kết quả so sánh              | -               | Bit          | ANY_BOOL                 |
+| (n)     | Số lượng phần tử dữ liệu so sánh                      | 0 to 65535      | BIN16 bit    | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| BKCMP&gt; | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| BKCMP&gt; | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| BKCMP&gt; | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| BKCMP&gt; | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| BKCMP&gt;        | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| BKCMP&gt;        | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| BKCMP&gt;        | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| BKCMP&gt;        | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -603,18 +603,18 @@ So sánh dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760943605931-120.png?rev=1.1)
 
-| Ký hiệu lệnh | Điều kiện | Kết quả so sánh |
-| :--- | :--- | :--- |
-| BKCMP&gt; | (s1)&gt;(s2) | ON |
+| Ký hiệu lệnh | Điều kiện    | Kết quả so sánh |
+| :----------- | :----------- | :-------------- |
+| BKCMP&gt;    | (s1)&gt;(s2) | ON              |
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM156 (tín hiệu so sánh khối) sẽ bật ON.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------- |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
@@ -634,21 +634,21 @@ So sánh dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (s2) | Thiết bị lưu trữ dữ liệu nguồn cần so sánh | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (d) | Thiết bị bắt đầu lưu trữ kết quả so sánh | - | Bit | ANY_BOOL |
-| (n) | Số lượng phần tử dữ liệu so sánh | 0 to 65535 | BIN32 bit | ANY32_S |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (s2)    | Thiết bị lưu trữ dữ liệu nguồn cần so sánh            | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (d)     | Thiết bị bắt đầu lưu trữ kết quả so sánh              | -                         | Bit          | ANY_BOOL                 |
+| (n)     | Số lượng phần tử dữ liệu so sánh                      | 0 to 65535                | BIN32 bit    | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DBKCMP&gt; | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DBKCMP&gt; | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DBKCMP&gt; | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| DBKCMP&gt; | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DBKCMP&gt;       | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DBKCMP&gt;       | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DBKCMP&gt;       | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| DBKCMP&gt;       | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -668,19 +668,19 @@ So sánh dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị
 
 • Kết quả phép toán so sánh của từng lệnh được trình bày dưới đây.
 
-| Ký hiệu lệnh | Điều kiện | Kết quả so sánh |
-| :--- | :--- | :--- |
-| DBKCMP&gt; | (s1)&gt;(s2) | ON |
+| Ký hiệu lệnh | Điều kiện    | Kết quả so sánh |
+| :----------- | :----------- | :-------------- |
+| DBKCMP&gt;   | (s1)&gt;(s2) | ON              |
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM156 (tín hiệu so sánh khối) sẽ bật ON.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | When (n) is out of range |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------- |
+| 4084H               | When (n) is out of range                                                               |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
@@ -700,21 +700,21 @@ So sánh dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | BIN16 bit | ANY16_S |
-| (s2) | Thiết bị lưu trữ dữ liệu nguồn cần so sánh | -32768 to 32767 | BIN16 bit | ANY16_S |
-| (d) | Thiết bị bắt đầu lưu trữ kết quả so sánh | - | Bit | ANY_BOOL |
-| (n) | Số lượng phần tử dữ liệu so sánh | 0 to 65,535 | BIN16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | BIN16 bit    | ANY16_S                  |
+| (s2)    | Thiết bị lưu trữ dữ liệu nguồn cần so sánh            | -32768 to 32767 | BIN16 bit    | ANY16_S                  |
+| (d)     | Thiết bị bắt đầu lưu trữ kết quả so sánh              | -               | Bit          | ANY_BOOL                 |
+| (n)     | Số lượng phần tử dữ liệu so sánh                      | 0 to 65,535     | BIN16 bit    | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| BKCMP&gt;= | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| BKCMP&gt;= | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| BKCMP&gt;= | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| BKCMP&gt;= | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| BKCMP&gt;=       | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| BKCMP&gt;=       | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| BKCMP&gt;=       | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| BKCMP&gt;=       | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -730,18 +730,18 @@ So sánh dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760943976872-328.png?rev=1.1)
 
-| Ký hiệu lệnh | Điều kiện | Kết quả so sánh |
-| :--- | :--- | :--- |
-| BKCMP&gt;= | (s1)&gt;=(s2) | ON |
+| Ký hiệu lệnh | Điều kiện     | Kết quả so sánh |
+| :----------- | :------------ | :-------------- |
+| BKCMP&gt;=   | (s1)&gt;=(s2) | ON              |
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM156 (tín hiệu so sánh khối) sẽ bật ON.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------- |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
@@ -761,21 +761,21 @@ So sánh dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (s2) | Thiết bị lưu trữ dữ liệu nguồn cần so sánh | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (d) | Thiết bị bắt đầu lưu trữ kết quả so sánh | - | Bit | ANY_BOOL |
-| (n) | Số lượng phần tử dữ liệu so sánh | 0 to 65535 | BIN32 bit | ANY32_S |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (s2)    | Thiết bị lưu trữ dữ liệu nguồn cần so sánh            | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (d)     | Thiết bị bắt đầu lưu trữ kết quả so sánh              | -                         | Bit          | ANY_BOOL                 |
+| (n)     | Số lượng phần tử dữ liệu so sánh                      | 0 to 65535                | BIN32 bit    | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DBKCMP&gt;= | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DBKCMP&gt;= | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DBKCMP&gt;= | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| DBKCMP&gt;= | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DBKCMP&gt;=      | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DBKCMP&gt;=      | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DBKCMP&gt;=      | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| DBKCMP&gt;=      | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -795,19 +795,19 @@ So sánh dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị
 
 • Kết quả phép toán so sánh của từng lệnh được trình bày dưới đây
 
-| Ký hiệu lệnh | Điều kiện | Kết quả so sánh |
-| :--- | :--- | :--- |
-| DBKCMP&gt;= | (s1)&gt;=(s2) | ON |
+| Ký hiệu lệnh | Điều kiện     | Kết quả so sánh |
+| :----------- | :------------ | :-------------- |
+| DBKCMP&gt;=  | (s1)&gt;=(s2) | ON              |
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM349 (tín hiệu so sánh khối) sẽ bật ON.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | When (n) is out of range |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------- |
+| 4084H               | When (n) is out of range                                                               |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
@@ -825,21 +825,21 @@ So sánh dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | BIN16 bit | ANY16_S |
-| (s2) | Thiết bị lưu trữ dữ liệu nguồn cần so sánh | -32768 to 32767 | BIN16 bit | ANY16_S |
-| (d) | Thiết bị bắt đầu lưu trữ kết quả so sánh | - | Bit | ANY_BOOL |
-| (n) | Số lượng phần tử dữ liệu so sánh | 0 to 65535 | BIN16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | BIN16 bit    | ANY16_S                  |
+| (s2)    | Thiết bị lưu trữ dữ liệu nguồn cần so sánh            | -32768 to 32767 | BIN16 bit    | ANY16_S                  |
+| (d)     | Thiết bị bắt đầu lưu trữ kết quả so sánh              | -               | Bit          | ANY_BOOL                 |
+| (n)     | Số lượng phần tử dữ liệu so sánh                      | 0 to 65535      | BIN16 bit    | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| BKCMP&lt; | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| BKCMP&lt; | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| BKCMP&lt; | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| BKCMP&lt; | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| BKCMP&lt;        | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| BKCMP&lt;        | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| BKCMP&lt;        | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| BKCMP&lt;        | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -855,22 +855,22 @@ So sánh dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760944370132-592.png?rev=1.1)
 
-| Ký hiệu lệnh | Điều kiện | Kết quả so sánh |
-| :--- | :--- | :--- |
-| BKCMP&lt; | (s1)&lt;(s2) | ON |
+| Ký hiệu lệnh | Điều kiện    | Kết quả so sánh |
+| :----------- | :----------- | :-------------- |
+| BKCMP&lt;    | (s1)&lt;(s2) | ON              |
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM156 (tín hiệu so sánh khối) sẽ bật ON.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------- |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760944615302-523.png?width=389&amp;height=69&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.13%20Data%20Block%20instructions/WebHome/1760944615302-523.png?width=389&height=69&rev=1.1)
 
 Khi X020 đang ON, sử dụng lệnh BKCMP&lt; để so sánh 4 điểm dữ liệu 16-bit (BIN) bắt đầu từ D100 và 4 điểm dữ liệu 16-bit bắt đầu từ D200, rồi lưu kết quả vào 4 điểm của thiết bị bắt đầu từ M10 trong chương trình.
 
@@ -882,21 +882,21 @@ Chuyển đổi n ký tự (chữ số) trong dữ liệu mã HEX được chỉ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (s2) | Thiết bị lưu trữ dữ liệu nguồn cần so sánh | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (d) | Thiết bị bắt đầu lưu trữ kết quả so sánh | - | Bit | ANY_BOOL |
-| (n) | Số lượng phần tử dữ liệu so sánh | 0 to 65535 | BIN32 bit | ANY32_S |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (s2)    | Thiết bị lưu trữ dữ liệu nguồn cần so sánh            | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (d)     | Thiết bị bắt đầu lưu trữ kết quả so sánh              | -                         | Bit          | ANY_BOOL                 |
+| (n)     | Số lượng phần tử dữ liệu so sánh                      | 0 to 65535                | BIN32 bit    | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DBKCMP&lt; | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DBKCMP&lt; | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DBKCMP&lt; | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| DBKCMP&lt; | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DBKCMP&lt;       | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DBKCMP&lt;       | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DBKCMP&lt;       | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| DBKCMP&lt;       | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -916,19 +916,19 @@ So sánh dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị
 
 • Kết quả phép toán so sánh của từng lệnh được trình bày dưới đây.
 
-| Ký hiệu lệnh | Điều kiện | Kết quả so sánh |
-| :--- | :--- | :--- |
-| DBKCMP&lt; | (s1)&gt;=(s2) | ON |
+| Ký hiệu lệnh | Điều kiện     | Kết quả so sánh |
+| :----------- | :------------ | :-------------- |
+| DBKCMP&lt;   | (s1)&gt;=(s2) | ON              |
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM349 (tín hiệu so sánh khối) sẽ bật ON.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | When (n) is out of range |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------- |
+| 4084H               | When (n) is out of range                                                               |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
@@ -946,21 +946,21 @@ So sánh dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | BIN16 bit | ANY16_S |
-| (s2) | Thiết bị lưu trữ dữ liệu nguồn cần so sánh | -32768 to 32767 | BIN16 bit | ANY16_S |
-| (d) | Thiết bị bắt đầu lưu trữ kết quả so sánh | - | Bit | ANY_BOOL |
-| (n) | Số lượng phần tử dữ liệu so sánh | 0 to 65535 | BIN16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -32768 to 32767 | BIN16 bit    | ANY16_S                  |
+| (s2)    | Thiết bị lưu trữ dữ liệu nguồn cần so sánh            | -32768 to 32767 | BIN16 bit    | ANY16_S                  |
+| (d)     | Thiết bị bắt đầu lưu trữ kết quả so sánh              | -               | Bit          | ANY_BOOL                 |
+| (n)     | Số lượng phần tử dữ liệu so sánh                      | 0 to 65535      | BIN16 bit    | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| BKCMP&lt;= | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| BKCMP&lt;= | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| BKCMP&lt;= | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| BKCMP&lt;= | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| BKCMP&lt;=       | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| BKCMP&lt;=       | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| BKCMP&lt;=       | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| BKCMP&lt;=       | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -978,18 +978,18 @@ So sánh dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM156 (tín hiệu so sánh khối) sẽ bật ON.
 
-| Ký hiệu lệnh | Điều kiện | Kết quả so sánh |
-| :--- | :--- | :--- |
-| BKCMP&lt;= | (s1)&gt;=(s2) | ON |
+| Ký hiệu lệnh | Điều kiện     | Kết quả so sánh |
+| :----------- | :------------ | :-------------- |
+| BKCMP&lt;=   | (s1)&gt;=(s2) | ON              |
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM156 (tín hiệu so sánh khối) sẽ bật ON.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------- |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
@@ -1007,21 +1007,21 @@ So sánh dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (s2) | Thiết bị lưu trữ dữ liệu nguồn cần so sánh | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
-| (d) | Thiết bị bắt đầu lưu trữ kết quả so sánh | - | Bit | ANY_BOOL |
-| (n) | Số lượng phần tử dữ liệu so sánh | 0 to 65535 | BIN32 bit | ANY32_S |
+| Tham số | Nội dung mô tả                                        | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (s1)    | Dữ liệu so sánh hoặc thiết bị lưu trữ dữ liệu so sánh | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (s2)    | Thiết bị lưu trữ dữ liệu nguồn cần so sánh            | -2147483648 to 2147483647 | BIN32 bit    | ANY32_S                  |
+| (d)     | Thiết bị bắt đầu lưu trữ kết quả so sánh              | -                         | Bit          | ANY_BOOL                 |
+| (n)     | Số lượng phần tử dữ liệu so sánh                      | 0 to 65535                | BIN32 bit    | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Iarameter | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| BKCMP&lt;= | Tham số 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| BKCMP&lt;= | Tham số 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| BKCMP&lt;= | Tham số 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| BKCMP&lt;= | Tham số 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  | ● |
+| Khối lệnh / Lệnh | Iarameter |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :-------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| BKCMP&lt;=       | Tham số 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| BKCMP&lt;=       | Tham số 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| BKCMP&lt;=       | Tham số 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| BKCMP&lt;=       | Tham số 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -1041,19 +1041,19 @@ So sánh dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị
 
 • Kết quả phép toán so sánh của từng lệnh được trình bày dưới đây.
 
-| Ký hiệu lệnh | Điều kiện | Kết quả so sánh |
-| :--- | :--- | :--- |
-| DBKCMP&lt;= | (s1)&gt;=(s2) | ON |
+| Ký hiệu lệnh | Điều kiện     | Kết quả so sánh |
+| :----------- | :------------ | :-------------- |
+| DBKCMP&lt;=  | (s1)&gt;=(s2) | ON              |
 
 • Khi tất cả các kết quả phép toán so sánh lưu trong (n) điểm bắt đầu từ (d) đều ON (1), SM156 (tín hiệu so sánh khối) sẽ bật ON.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | When (n) is out of range |
-| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
-| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------- |
+| 4084H               | When (n) is out of range                                                               |
+| 4085H               | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H               | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
@@ -1062,5 +1062,3 @@ So sánh dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị
 Khi X020 đang ON, sử dụng lệnh DBKCMP&lt;= để so sánh 4 điểm dữ liệu 32-bit (BIN) bắt đầu từ D100 và 4 điểm dữ liệu 32-bit bắt đầu từ D200, rồi lưu kết quả vào 4 điểm của thiết bị bắt đầu từ M10 trong chương trình.
 
 Ngoài ra, khi các kết quả so sánh (4 điểm bắt đầu từ M10) đều ON (1), Y000 sẽ bật ON.
-
-0

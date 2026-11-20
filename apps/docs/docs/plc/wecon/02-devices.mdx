@@ -3,34 +3,34 @@ id: "02-devices"
 title: "02 Vùng nhớ thiết bị và Thanh ghi (Devices)"
 sidebar_position: 2
 sidebar_label: "02 Devices"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 02 Vùng nhớ thiết bị và Thanh ghi (Devices)"
 ---
 
 Danh sách vùng nhớ thiết bị
 
-| Classification | Kiểu dữ liệu | Tên thiết bị | Sign | Phạm vi giá trị | Mark |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Vùng nhớ thiết bị người dùng | Bit | Ngõ vào (Input) | X | 0 to 1777 | Hệ bát phân |
-| Vùng nhớ thiết bị người dùng | Bit | Ngõ ra (Output) | Y | 0 to 1777 | Hệ bát phân |
-| Vùng nhớ thiết bị người dùng | Bit | rơ-le trung gian | M | 0 to 7999 | Số thập phân |
-| Vùng nhớ thiết bị người dùng | Bit | Rơ-le bước | S | 0 to 4095 | Số thập phân |
-| Vùng nhớ thiết bị người dùng | Bit/word | Timer | T | 0 to 511 | Số thập phân |
-| Vùng nhớ thiết bị người dùng | Bit/word | Counter | C | 0 to 255 | Số thập phân |
-| Vùng nhớ thiết bị người dùng | Bit/double word | Bộ đếm 32-bit (Long counter) | LC | 0 to 255 | Số thập phân |
-| Vùng nhớ thiết bị người dùng | Bit/double word | bộ đếm tốc độ cao (HSC) | HSC | 0 to 15 | Số thập phân |
-| Vùng nhớ thiết bị người dùng | Word | thanh ghi dữ liệu (D) | D | 0 to 7999 | Số thập phân |
-| Vùng nhớ thiết bị người dùng | Word | thanh ghi dữ liệu (D) | R | 0 to 29999 | Số thập phân |
-| Thiết bị hệ thống | Bit | Special | SM | 0 to 4095 | Số thập phân |
-| Thiết bị hệ thống | Word | thanh ghi đặc biệt (SD) | SD | 0 to 4095 | Số thập phân |
-| Thanh ghi chỉ số | Word | Thanh ghi chỉ số | [D] | 0 to 7999 | Số thập phân |
-| Thanh ghi chỉ số | Word | Thanh ghi chỉ số | V | 0 to 7 | Số thập phân |
-| Thanh ghi chỉ số | Double word | Thanh ghi chỉ số dài (32-bit) | Z | 0 to 7 | Số thập phân |
-| Nested | Bit | Nested | N | 0 to 7 | Số thập phân |
-| Con trỏ | - | Con trỏ | P | 0 to 4095 | Số thập phân |
-| Hằng số | - | Hằng số thập phân | K | - | Số thập phân |
-| Hằng số | - | Hằng số thập lục phân | H | - | Số thập lục phân |
-| Hằng số | Single precision floating point | Hằng số thực | E | - | - |
+| Classification               | Kiểu dữ liệu                    | Tên thiết bị                  | Sign | Phạm vi giá trị | Mark             |
+| :--------------------------- | :------------------------------ | :---------------------------- | :--- | :-------------- | :--------------- |
+| Vùng nhớ thiết bị người dùng | Bit                             | Ngõ vào (Input)               | X    | 0 to 1777       | Hệ bát phân      |
+| Vùng nhớ thiết bị người dùng | Bit                             | Ngõ ra (Output)               | Y    | 0 to 1777       | Hệ bát phân      |
+| Vùng nhớ thiết bị người dùng | Bit                             | rơ-le trung gian              | M    | 0 to 7999       | Số thập phân     |
+| Vùng nhớ thiết bị người dùng | Bit                             | Rơ-le bước                    | S    | 0 to 4095       | Số thập phân     |
+| Vùng nhớ thiết bị người dùng | Bit/word                        | Timer                         | T    | 0 to 511        | Số thập phân     |
+| Vùng nhớ thiết bị người dùng | Bit/word                        | Counter                       | C    | 0 to 255        | Số thập phân     |
+| Vùng nhớ thiết bị người dùng | Bit/double word                 | Bộ đếm 32-bit (Long counter)  | LC   | 0 to 255        | Số thập phân     |
+| Vùng nhớ thiết bị người dùng | Bit/double word                 | bộ đếm tốc độ cao (HSC)       | HSC  | 0 to 15         | Số thập phân     |
+| Vùng nhớ thiết bị người dùng | Word                            | thanh ghi dữ liệu (D)         | D    | 0 to 7999       | Số thập phân     |
+| Vùng nhớ thiết bị người dùng | Word                            | thanh ghi dữ liệu (D)         | R    | 0 to 29999      | Số thập phân     |
+| Thiết bị hệ thống            | Bit                             | Special                       | SM   | 0 to 4095       | Số thập phân     |
+| Thiết bị hệ thống            | Word                            | thanh ghi đặc biệt (SD)       | SD   | 0 to 4095       | Số thập phân     |
+| Thanh ghi chỉ số             | Word                            | Thanh ghi chỉ số              | [D]  | 0 to 7999       | Số thập phân     |
+| Thanh ghi chỉ số             | Word                            | Thanh ghi chỉ số              | V    | 0 to 7          | Số thập phân     |
+| Thanh ghi chỉ số             | Double word                     | Thanh ghi chỉ số dài (32-bit) | Z    | 0 to 7          | Số thập phân     |
+| Nested                       | Bit                             | Nested                        | N    | 0 to 7          | Số thập phân     |
+| Con trỏ                      | -                               | Con trỏ                       | P    | 0 to 4095       | Số thập phân     |
+| Hằng số                      | -                               | Hằng số thập phân             | K    | -               | Số thập phân     |
+| Hằng số                      | -                               | Hằng số thập lục phân         | H    | -               | Số thập lục phân |
+| Hằng số                      | Single precision floating point | Hằng số thực                  | E    | -               | -                |
 
 ## Vùng nhớ thiết bị người dùng
 
@@ -72,16 +72,16 @@ Dải giá trị T của bộ định thời là từ 0 đến 32767.
 
 Khi lệnh cuộn dây bộ định thời (lệnh OUT T) được thực thi, cuộn dây bộ định thời được bật/tắt (ON/OFF), giá trị hiện tại được cập nhật và tiếp điểm được bật/tắt (ON/OFF).
 
-| Số hiệu thiết bị | Timer | Số hiệu thiết bị | Timer |
-| :--- | :--- | :--- | :--- |
-| T0 to T191 | 100ms timer | T246 to T249 | Bộ định thời tích lũy 1ms |
-| T192 to T199 | Bộ định thời chương trình con 100ms (dùng trong chương trình con; ngay cả khi chương trình con không được gọi, nó vẫn được cập nhật) | T250 to T255 | Bộ định thời tích lũy 10ms |
-| T192 to T199 | Bộ định thời chương trình con 100ms (dùng trong chương trình con; ngay cả khi chương trình con không được gọi, nó vẫn được cập nhật) | T256 to T383 | 1ms timer |
-| T200 to T245 | 10ms timer | T384 to T511 | 0.1ms timer |
+| Số hiệu thiết bị | Timer                                                                                                                                | Số hiệu thiết bị | Timer                      |
+| :--------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :--------------- | :------------------------- |
+| T0 to T191       | 100ms timer                                                                                                                          | T246 to T249     | Bộ định thời tích lũy 1ms  |
+| T192 to T199     | Bộ định thời chương trình con 100ms (dùng trong chương trình con; ngay cả khi chương trình con không được gọi, nó vẫn được cập nhật) | T250 to T255     | Bộ định thời tích lũy 10ms |
+| T192 to T199     | Bộ định thời chương trình con 100ms (dùng trong chương trình con; ngay cả khi chương trình con không được gọi, nó vẫn được cập nhật) | T256 to T383     | 1ms timer                  |
+| T200 to T245     | 10ms timer                                                                                                                           | T384 to T511     | 0.1ms timer                |
 
 (1) Bộ định thời thông thường
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/30.png?width=505&amp;height=135&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/30.png?width=505&height=135&rev=1.1)
 
 Hình a
 
@@ -89,7 +89,7 @@ Như minh họa trong hình trên: khi tiếp điểm thường mở (NO) của 
 
 (2) Bộ định thời tích lũy
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/31.png?width=544&amp;height=208&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/31.png?width=544&height=208&rev=1.1)
 
 Hình b
 
@@ -99,9 +99,9 @@ Khi tiếp điểm thường mở (NO) của X1 trong Hình b được đóng, b
 
 Thời gian của bộ định thời có thể sử dụng các hằng số (K, H) trong bộ nhớ chương trình làm giá trị cài đặt, hoặc có thể được chỉ định gián tiếp thông qua nội dung của thanh ghi dữ liệu (D).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/32.png?width=254&amp;height=108&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/32.png?width=254&height=108&rev=1.1)
 
-Sau khi PLC được cấp nguồn, phép nhân được thực hiện, D3=D0*2. Sử dụng dữ liệu của D3 làm giá trị thời gian định thời của T10.
+Sau khi PLC được cấp nguồn, phép nhân được thực hiện, D3=D0\*2. Sử dụng dữ liệu của D3 làm giá trị thời gian định thời của T10.
 
 ### Bộ đếm (C)
 
@@ -111,7 +111,7 @@ Các bộ đếm được ký hiệu bằng C0, C1,..., C255 và thứ tự đư
 
 Bộ đếm (C) là bộ đếm 16-bit.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/33.png?width=437&amp;height=128&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/33.png?width=437&height=128&rev=1.1)
 
 Hình c
 
@@ -193,7 +193,7 @@ Các hằng số được giải thích bên dưới
 
 “E” là ký hiệu biểu diễn số thực dấu phẩy động độ chính xác đơn, được chỉ định bởi E□ (ví dụ: E1.23), chủ yếu dùng để chỉ định giá trị toán hạng của lệnh ứng dụng, dải giá trị của số thực dấu phẩy động độ chính xác đơn E là ±1.175495*10^-38 đến ±3.402823*10^+38 (±1.175495 E-38 đến ±3.402823 E+38) và 0 (7 chữ số có nghĩa).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/37.png?width=419&amp;height=42&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/37.png?width=419&height=42&rev=1.1)
 
 (Địa chỉ chiếm D1 và D0)
 
@@ -201,13 +201,13 @@ Các hằng số được giải thích bên dưới
 
 Hằng số chuỗi ký tự là thiết bị chỉ định chuỗi ký tự và chỉ hỗ trợ bộ mã ký tự ASCII, mọi chuỗi ký tự đều kết thúc bằng ký tự NULL (00H). Để sử dụng thiết bị chuỗi, bạn phải dùng dấu ngoặc kép để bao quanh các ký tự, như sau để chuyển đổi chuỗi thành ký tự ASCII và điền vào thiết bị bắt đầu từ D0:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/38.png?width=351&amp;height=42&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/38.png?width=351&height=42&rev=1.1)
 
 ## Cài đặt lưu giữ khi mất điện (Retentive)
 
 Người dùng có thể tự do cấu hình vùng lưu giữ khi mất điện (Latch) trong dải của thiết bị. Cấu hình hằng số/chốt giữ nằm tại: “Quản lý dự án” → ”Tham số” → ”Tham số PLC” → ”Chốt giữ thiết bị (Device Latch)”.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/39.png?width=542&amp;height=308&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/39.png?width=542&height=308&rev=1.1)
 
 :::tip
 ✎Lưu ý: Các thanh ghi X và Y không hỗ trợ chức năng lưu giữ khi mất điện.
@@ -221,13 +221,13 @@ Người dùng có thể tự do cấu hình vùng lưu giữ khi mất điện 
 
 K là ký tự cố định.
 
-Giá trị của n là từ 1 đến 8, có nghĩa là (n * 4) bit được ghép thành một từ, chẳng hạn K4M0 là tổ hợp từ M0 đến M15.
+Giá trị của n là từ 1 đến 8, có nghĩa là (n \* 4) bit được ghép thành một từ, chẳng hạn K4M0 là tổ hợp từ M0 đến M15.
 
 B là số hiệu thiết bị bit.
 
 Ví dụ: Đặt đồng thời tổng cộng 32 bit từ M0 đến M31.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/40.png?width=386&amp;height=40&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/02%20Devices/WebHome/40.png?width=386&height=40&rev=1.1)
 
 :::tip
 ✎Lưu ý: Dạng KnB cũng có thể hỗ trợ hiệu chỉnh chỉ số.
@@ -248,5 +248,3 @@ Ví dụ: bit 14 trong D2000 được đặt lên 1 và Y0 xuất ngõ ra
 :::tip
 ✎Lưu ý: Dạng D.b cũng có thể hỗ trợ hiệu chỉnh chỉ số.
 :::
-
-0

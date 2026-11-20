@@ -3,7 +3,7 @@ id: "8.07-other-special-fb"
 title: "8.07 Các khối hàm chuyển động đặc biệt khác (Other Special FB)"
 sidebar_position: 8
 sidebar_label: "8.07 Khối chuyên dụng (10 FBs)"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.07 Các khối hàm chuyển động đặc biệt khác (Other Special FB)"
 ---
 
@@ -19,18 +19,18 @@ Khối hàm này làm cho trục được điều khiển thực hiện chuyển
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_MOVEJOG | EnablePositive | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEJOG | EnableNegative | �� | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEJOG | Velocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEJOG | Acceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEJOG | Deceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEJOG | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEJOG | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEJOG | InstructionAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEJOG | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEJOG | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số            |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :----------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_MOVEJOG       | EnablePositive     |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEJOG       | EnableNegative     | ��  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEJOG       | Velocity           |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEJOG       | Acceleration       |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEJOG       | Deceleration       |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEJOG       | Axis               |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEJOG       | Busy               |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEJOG       | InstructionAborted |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEJOG       | Error              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEJOG       | ErrorID            |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -40,18 +40,18 @@ Khối hàm này làm cho trục được điều khiển thực hiện chuyển
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_MOVEJOG | Ngõ vào (Input) | EnablePositive | BOOL | Không | TRUE/FALSE | Chuyển động chiều thuận |
-| MC_MOVEJOG | Ngõ vào (Input) | EnableNegative | BOOL | Không | TRUE/FALSE | Chuyển động chiều nghịch |
-| MC_MOVEJOG | Ngõ vào (Input) | Velocity | LREAL | Không | [0 to 999999999. 999999] | Vận tốc cài đặt (Velocity) |
-| MC_MOVEJOG | Ngõ vào (Input) | Acceleration | LREAL | Không | [0 to 999999999. 999999] | Gia tốc tăng tốc (Acceleration) |
-| MC_MOVEJOG | Ngõ vào (Input) | Deceleration | LREAL | Không | [0 to 999999999. 999999] | Gia tốc giảm tốc (Deceleration) |
-| MC_MOVEJOG | Ngõ vào (Input) | Axis | WORD, AXIS_INFO_T | Không | [0 to 65535] | Số hiệu định danh trục (Axis ID) |
-| MC_MOVEJOG | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_MOVEJOG | Ngõ ra (Output) | CommandAborted | BOOL | Có | TRUE/FALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| MC_MOVEJOG | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_MOVEJOG | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra [8.10 Mã lỗi]) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số        | Kiểu dữ liệu      | Cho phép để trống | Phạm vi giá trị          | Mô tả kỹ thuật                                   |
+| :--------------- | :-------------- | :------------- | :---------------- | :---------------- | :----------------------- | :----------------------------------------------- |
+| MC_MOVEJOG       | Ngõ vào (Input) | EnablePositive | BOOL              | Không             | TRUE/FALSE               | Chuyển động chiều thuận                          |
+| MC_MOVEJOG       | Ngõ vào (Input) | EnableNegative | BOOL              | Không             | TRUE/FALSE               | Chuyển động chiều nghịch                         |
+| MC_MOVEJOG       | Ngõ vào (Input) | Velocity       | LREAL             | Không             | [0 to 999999999. 999999] | Vận tốc cài đặt (Velocity)                       |
+| MC_MOVEJOG       | Ngõ vào (Input) | Acceleration   | LREAL             | Không             | [0 to 999999999. 999999] | Gia tốc tăng tốc (Acceleration)                  |
+| MC_MOVEJOG       | Ngõ vào (Input) | Deceleration   | LREAL             | Không             | [0 to 999999999. 999999] | Gia tốc giảm tốc (Deceleration)                  |
+| MC_MOVEJOG       | Ngõ vào (Input) | Axis           | WORD, AXIS_INFO_T | Không             | [0 to 65535]             | Số hiệu định danh trục (Axis ID)                 |
+| MC_MOVEJOG       | Ngõ ra (Output) | Busy           | BOOL              | Có                | TRUE/FALSE               | Cờ báo khối hàm đang bận thực thi (Busy)         |
+| MC_MOVEJOG       | Ngõ ra (Output) | CommandAborted | BOOL              | Có                | TRUE/FALSE               | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
+| MC_MOVEJOG       | Ngõ ra (Output) | Error          | BOOL              | Có                | TRUE/FALSE               | Cờ báo có phát sinh lỗi hay không (Error)        |
+| MC_MOVEJOG       | Ngõ ra (Output) | ErrorID        | DWORD             | Có                | -                        | Mã lỗi (Vui lòng kiểm tra [8.10 Mã lỗi])         |
 
 #### Đặc tính kỹ thuật
 
@@ -71,9 +71,9 @@ Khối hàm này làm cho trục được điều khiển thực hiện chuyển
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
+| Mã lỗi (Error Code) | Nội dung mô tả                                   |
+| :------------------ | :----------------------------------------------- |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
 
 ## MC_COMBINEAXES
 
@@ -85,22 +85,22 @@ Khối hàm này cộng và trừ vị trí của trục chính và trục phụ
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_COMBINEAXES | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | ConbineMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | MasterReferenceType |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | AuxiliaryReferenceType |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | Master |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | Auxiliary |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | InCombiantion |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | InstructionAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_COMBINEAXES | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số                |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :--------------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_COMBINEAXES   | Execute                |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | ConbineMode            |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | MasterReferenceType    |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | AuxiliaryReferenceType |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | BufferMode             |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | Master                 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | Auxiliary              |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | Slave                  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | InCombiantion          |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | Busy                   |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | Active                 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | InstructionAborted     |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | Error                  |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_COMBINEAXES   | ErrorID                |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -110,22 +110,22 @@ Khối hàm này cộng và trừ vị trí của trục chính và trục phụ
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_COMBINEAXES | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_COMBINEAXES | Ngõ vào (Input) | ConbineMode | WORD | Có | [0 to 1] | Lựa chọn phép toán cộng và trừ: 0: Cộng, 1: Trừ |
-| MC_COMBINEAXES | Ngõ vào (Input) | MasterReferenceType | WORD | Có | [1 to 2] | Loại vị trí trục chủ (Master): 1: Vị trí phản hồi, 2: Vị trí lệnh |
-| MC_COMBINEAXES | Ngõ vào (Input) | AuxiliaryReferenceType | WORD | Có | [1 to 2] | Loại vị trí trục phụ: 1: Vị trí phản hồi, 2: Vị trí lệnh |
-| MC_COMBINEAXES | Ngõ vào (Input) | BufferMode | LREAL | Không | 0 | Lựa chọn chế độ |
-| MC_COMBINEAXES | Ngõ vào (Input) | Master | WORD, AXIS INFO T | Không | [0 to 65535] | Số hiệu trục chủ (Master) |
-| MC_COMBINEAXES | Ngõ vào (Input) | Auxiliary | WORD, AXIS INFO T | Không | [0 to 65535] | Số hiệu trục phụ |
-| MC_COMBINEAXES | Ngõ vào (Input) | Slave | WORD, AXIS INFO T | Không | [0 to 65535] | Số hiệu trục tớ (Slave) |
-| MC_COMBINEAXES | Ngõ ra (Output) | InCombiantion | BOOL | Có | TRUE/FALSE | Cờ phép toán cộng và trừ |
-| MC_COMBINEAXES | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_COMBINEAXES | Ngõ ra (Output) | Active | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_COMBINEAXES | Ngõ ra (Output) | CommandAborted | BOOL | Có | TRUE/FALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| MC_COMBINEAXES | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_COMBINEAXES | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra [8.10 Mã lỗi]) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số                | Kiểu dữ liệu      | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                                                    |
+| :--------------- | :-------------- | :--------------------- | :---------------- | :---------------- | :-------------- | :---------------------------------------------------------------- |
+| MC_COMBINEAXES   | Ngõ vào (Input) | Execute                | BOOL              | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                                       |
+| MC_COMBINEAXES   | Ngõ vào (Input) | ConbineMode            | WORD              | Có                | [0 to 1]        | Lựa chọn phép toán cộng và trừ: 0: Cộng, 1: Trừ                   |
+| MC_COMBINEAXES   | Ngõ vào (Input) | MasterReferenceType    | WORD              | Có                | [1 to 2]        | Loại vị trí trục chủ (Master): 1: Vị trí phản hồi, 2: Vị trí lệnh |
+| MC_COMBINEAXES   | Ngõ vào (Input) | AuxiliaryReferenceType | WORD              | Có                | [1 to 2]        | Loại vị trí trục phụ: 1: Vị trí phản hồi, 2: Vị trí lệnh          |
+| MC_COMBINEAXES   | Ngõ vào (Input) | BufferMode             | LREAL             | Không             | 0               | Lựa chọn chế độ                                                   |
+| MC_COMBINEAXES   | Ngõ vào (Input) | Master                 | WORD, AXIS INFO T | Không             | [0 to 65535]    | Số hiệu trục chủ (Master)                                         |
+| MC_COMBINEAXES   | Ngõ vào (Input) | Auxiliary              | WORD, AXIS INFO T | Không             | [0 to 65535]    | Số hiệu trục phụ                                                  |
+| MC_COMBINEAXES   | Ngõ vào (Input) | Slave                  | WORD, AXIS INFO T | Không             | [0 to 65535]    | Số hiệu trục tớ (Slave)                                           |
+| MC_COMBINEAXES   | Ngõ ra (Output) | InCombiantion          | BOOL              | Có                | TRUE/FALSE      | Cờ phép toán cộng và trừ                                          |
+| MC_COMBINEAXES   | Ngõ ra (Output) | Busy                   | BOOL              | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)                          |
+| MC_COMBINEAXES   | Ngõ ra (Output) | Active                 | BOOL              | Có                | TRUE/FALSE      | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)                              |
+| MC_COMBINEAXES   | Ngõ ra (Output) | CommandAborted         | BOOL              | Có                | TRUE/FALSE      | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)                  |
+| MC_COMBINEAXES   | Ngõ ra (Output) | Error                  | BOOL              | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)                         |
+| MC_COMBINEAXES   | Ngõ ra (Output) | ErrorID                | DWORD             | Có                | -               | Mã lỗi (Vui lòng kiểm tra [8.10 Mã lỗi])                          |
 
 #### Đặc tính kỹ thuật
 
@@ -149,14 +149,14 @@ Khối hàm này cộng và trừ vị trí của trục chính và trục phụ
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 7000OA | Trục đang ở trạng thái bị ràng buộc (liên kết). |
-| 7000OB | Không thể ràng buộc (liên kết) trục trong khi đang chạy. |
-| 800014 | Trục chủ (Master) trùng với trục tớ (Slave). |
-| 800015 | Trục chủ (Master) trùng với trục phụ. |
-| 800016 | Trục phụ trùng với trục tớ (Slave). |
-| 800017 | Số hiệu trục chủ (trục phụ) và trục tớ không theo thứ tự tăng dần. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                     |
+| :------------------ | :----------------------------------------------------------------- |
+| 7000OA              | Trục đang ở trạng thái bị ràng buộc (liên kết).                    |
+| 7000OB              | Không thể ràng buộc (liên kết) trục trong khi đang chạy.           |
+| 800014              | Trục chủ (Master) trùng với trục tớ (Slave).                       |
+| 800015              | Trục chủ (Master) trùng với trục phụ.                              |
+| 800016              | Trục phụ trùng với trục tớ (Slave).                                |
+| 800017              | Số hiệu trục chủ (trục phụ) và trục tớ không theo thứ tự tăng dần. |
 
 ## MC_MOVEVELOCITY
 
@@ -164,23 +164,23 @@ Khối hàm này cộng và trừ vị trí của trục chính và trục phụ
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_MOVEVELOCITY | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | Velocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | Acceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | Deceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | Jerk |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | Direction |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | InVelocity |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | InstructionAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_MOVEVELOCITY | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số            |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :----------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_MOVEVELOCITY  | Execute            |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | ContinuousUpdate   |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | Velocity           |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | Acceleration       |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | Deceleration       |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | Jerk               |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | Direction          |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | BufferMode         |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | Axis               |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | InVelocity         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | Busy               |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | Active             |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | InstructionAborted |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | Error              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_MOVEVELOCITY  | ErrorID            |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -190,23 +190,23 @@ Khối hàm này cộng và trừ vị trí của trục chính và trục phụ
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_MOVEVELOCITY | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_MOVEVELOCITY | Ngõ vào (Input) | ContinuousUpdate | BOOL | Không | TRUE/FALSE | Có cập nhật liên tục hay không |
-| MC_MOVEVELOCITY | Ngõ vào (Input) | Velocity | LREAL | Không | [0 to 999999999. 999999] | Vận tốc cài đặt |
-| MC_MOVEVELOCITY | Ngõ vào (Input) | Acceleration | LREAL | Không | [0 to 999999999. 999999] | Gia tốc cài đặt |
-| MC_MOVEVELOCITY | Ngõ vào (Input) | Deceleration | LREAL | Không | [0 to 999999999. 999999] | Gia tốc giảm tốc cài đặt |
-| MC_MOVEVELOCITY | Ngõ vào (Input) | Jerk | LREAL | Có | [0 to 999999999. 999999] | Độ giật (Jerk) cài đặt chỉ có hiệu lực trong đường cong S. |
-| MC_MOVEVELOCITY | Ngõ vào (Input) | Direction | WORD | Không | [1] | Cờ hướng: 1: Chiều thuận, 2: Đường ngắn nhất, 3: Chiều nghịch, 4: Chiều hiện tại |
-| MC_MOVEVELOCITY | Ngõ vào (Input) | BufferMode | WORD | Có | [0] | Chế độ vùng đệm nối lệnh (BufferMode) |
-| MC_MOVEVELOCITY | Ngõ vào (Input) | Axis | WORD, AXIS INFO T | Không | [0 to 65535] | Số hiệu trục và biến tích hợp sẵn của trục |
-| MC_MOVEVELOCITY | Ngõ ra (Output) | InVelocity | BOOL | Có | TRUE/FALSE | Cờ báo đạt đến vận tốc cài đặt |
-| MC_MOVEVELOCITY | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_MOVEVELOCITY | Ngõ ra (Output) | Active | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_MOVEVELOCITY | Ngõ ra (Output) | CommandAborted | BOOL | Có | TRUE/FALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| MC_MOVEVELOCITY | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_MOVEVELOCITY | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra [8.10 Mã lỗi]) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số          | Kiểu dữ liệu      | Cho phép để trống | Phạm vi giá trị          | Mô tả kỹ thuật                                                                   |
+| :--------------- | :-------------- | :--------------- | :---------------- | :---------------- | :----------------------- | :------------------------------------------------------------------------------- |
+| MC_MOVEVELOCITY  | Ngõ vào (Input) | Execute          | BOOL              | Không             | TRUE/FALSE               | Kích hoạt khối hàm (Enable)                                                      |
+| MC_MOVEVELOCITY  | Ngõ vào (Input) | ContinuousUpdate | BOOL              | Không             | TRUE/FALSE               | Có cập nhật liên tục hay không                                                   |
+| MC_MOVEVELOCITY  | Ngõ vào (Input) | Velocity         | LREAL             | Không             | [0 to 999999999. 999999] | Vận tốc cài đặt                                                                  |
+| MC_MOVEVELOCITY  | Ngõ vào (Input) | Acceleration     | LREAL             | Không             | [0 to 999999999. 999999] | Gia tốc cài đặt                                                                  |
+| MC_MOVEVELOCITY  | Ngõ vào (Input) | Deceleration     | LREAL             | Không             | [0 to 999999999. 999999] | Gia tốc giảm tốc cài đặt                                                         |
+| MC_MOVEVELOCITY  | Ngõ vào (Input) | Jerk             | LREAL             | Có                | [0 to 999999999. 999999] | Độ giật (Jerk) cài đặt chỉ có hiệu lực trong đường cong S.                       |
+| MC_MOVEVELOCITY  | Ngõ vào (Input) | Direction        | WORD              | Không             | [1]                      | Cờ hướng: 1: Chiều thuận, 2: Đường ngắn nhất, 3: Chiều nghịch, 4: Chiều hiện tại |
+| MC_MOVEVELOCITY  | Ngõ vào (Input) | BufferMode       | WORD              | Có                | [0]                      | Chế độ vùng đệm nối lệnh (BufferMode)                                            |
+| MC_MOVEVELOCITY  | Ngõ vào (Input) | Axis             | WORD, AXIS INFO T | Không             | [0 to 65535]             | Số hiệu trục và biến tích hợp sẵn của trục                                       |
+| MC_MOVEVELOCITY  | Ngõ ra (Output) | InVelocity       | BOOL              | Có                | TRUE/FALSE               | Cờ báo đạt đến vận tốc cài đặt                                                   |
+| MC_MOVEVELOCITY  | Ngõ ra (Output) | Busy             | BOOL              | Có                | TRUE/FALSE               | Cờ báo khối hàm đang bận thực thi (Busy)                                         |
+| MC_MOVEVELOCITY  | Ngõ ra (Output) | Active           | BOOL              | Có                | TRUE/FALSE               | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)                                             |
+| MC_MOVEVELOCITY  | Ngõ ra (Output) | CommandAborted   | BOOL              | Có                | TRUE/FALSE               | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)                                 |
+| MC_MOVEVELOCITY  | Ngõ ra (Output) | Error            | BOOL              | Có                | TRUE/FALSE               | Cờ báo có phát sinh lỗi hay không (Error)                                        |
+| MC_MOVEVELOCITY  | Ngõ ra (Output) | ErrorID          | DWORD             | Có                | -                        | Mã lỗi (Vui lòng kiểm tra [8.10 Mã lỗi])                                         |
 
 #### Đặc tính kỹ thuật
 
@@ -226,9 +226,9 @@ Khối hàm này cộng và trừ vị trí của trục chính và trục phụ
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
+| Mã lỗi (Error Code) | Nội dung mô tả                                   |
+| :------------------ | :----------------------------------------------- |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
 
 ## MC _ MOVEVELOCITY _ CSV
 
@@ -240,23 +240,23 @@ Khối hàm này được dùng để tiếp nối chuyển động của khối
 
 #### Thiết bị (thanh ghi) sử dụng (chỉ sử dụng được một thiết bị đơn lẻ, không hỗ trợ ghép nối thiết bị và thanh ghi chỉ mục (Index))
 
-| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Hiệu chỉnh chỉ số ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC _ MOVEVELOCITY_ CSV | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | Velocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | Acceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | Deceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | Jerk |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | Direction |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | InVelocity |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITY_ CSV | Error ID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh       | Tham số          | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Hiệu chỉnh chỉ số ([D]) | Mở rộng xung (XXP) |
+| :--------------------- | :--------------- | :----------: | :----------: | :----------: | :----------: | :-----------: | :---------------: | :---------------: | :----------------: | :-----------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :----------: | :----------: | :----------: | :----------: | :-----------: | :-----------: | :------------: | :----------: | :----------: | :----------: | :---------------------: | :----------------: |
+| MC _ MOVEVELOCITY_ CSV | Execute          |      ●       |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | ContinuousUpdate |      ●       |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | Velocity         |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | Acceleration     |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | Deceleration     |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | Jerk             |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | Direction        |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | BufferMode       |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | Axis             |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | InVelocity       |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | Busy             |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | Active           |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | CommandAborted   |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | Error            |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC _ MOVEVELOCITY_ CSV | Error ID         |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
 
 :::tip
 Lưu ý:
@@ -264,59 +264,59 @@ Lưu ý:
 - LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
 
 - T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit).
-:::
+  :::
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | ContinuousUpdate | BOOL | Có | TRUE/FALSE | Có cập nhật liên tục hay không |
-| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Velocity | LREAL | Không | [0,999999999.999999] | Vận tốc cài đặt |
-| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Acceleration | LREAL | Không | [0,999999999.999999] | Gia tốc cài đặt |
-| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Deceleration | LREAL | Không | [0,999999999.999999] | Gia tốc giảm tốc cài đặt |
-| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Jerk | LREAL | Có | [0,999999999.999999] | Độ giật (Jerk) cài đặt chỉ có hiệu lực trong đường cong S. |
-| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Direction | WORD | Không | [1,4] | Bit cờ hướng: 1. Chiều thuận; 2. Chiều nghịch; 3. Chiều hiện tại; 4. Đường ngắn nhất (dự phòng). |
-| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | BufferMode | WORD | Có | [0] | BufferMode |
-| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu trục và biến tích hợp sẵn của trục |
-| MC _ MOVEVELOCITY _ CSV | Ngõ ra (Output) | InVelocity | BOOL | Có | TRUE/FALSE | Bit cờ báo đạt đến vận tốc cài đặt |
-| MC _ MOVEVELOCITY _ CSV | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC _ MOVEVELOCITY _ CSV | Ngõ ra (Output) | Active | BOOL | Có | TRUE/FALSE | Cờ đang hoạt động (Active) |
-| MC _ MOVEVELOCITY _ CSV | Ngõ ra (Output) | Command aborted | BOOL | Có | TRUE/FALSE | Bit cờ ngắt lệnh (CommandAborted) |
-| MC _ MOVEVELOCITY _ CSV | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC _ MOVEVELOCITY _ CSV | Ngõ ra (Output) | Error ID | DWORD | Có | - | Mã lỗi (Vui lòng tham khảo [8.11 Bảng đối chiếu mã lỗi]) |
+| Khối lệnh / Lệnh        | Kiểu chân       | Tham số          | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị      | Mô tả kỹ thuật                                                                                   |
+| :---------------------- | :-------------- | :--------------- | :----------- | :---------------- | :------------------- | :----------------------------------------------------------------------------------------------- |
+| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Execute          | BOOL         | Không             | TRUE/FALSE           | Kích hoạt khối hàm (Enable)                                                                      |
+| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | ContinuousUpdate | BOOL         | Có                | TRUE/FALSE           | Có cập nhật liên tục hay không                                                                   |
+| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Velocity         | LREAL        | Không             | [0,999999999.999999] | Vận tốc cài đặt                                                                                  |
+| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Acceleration     | LREAL        | Không             | [0,999999999.999999] | Gia tốc cài đặt                                                                                  |
+| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Deceleration     | LREAL        | Không             | [0,999999999.999999] | Gia tốc giảm tốc cài đặt                                                                         |
+| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Jerk             | LREAL        | Có                | [0,999999999.999999] | Độ giật (Jerk) cài đặt chỉ có hiệu lực trong đường cong S.                                       |
+| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Direction        | WORD         | Không             | [1,4]                | Bit cờ hướng: 1. Chiều thuận; 2. Chiều nghịch; 3. Chiều hiện tại; 4. Đường ngắn nhất (dự phòng). |
+| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | BufferMode       | WORD         | Có                | [0]                  | BufferMode                                                                                       |
+| MC _ MOVEVELOCITY _ CSV | Ngõ vào (Input) | Axis             | WORD         | Không             | [0,65535]            | Số hiệu trục và biến tích hợp sẵn của trục                                                       |
+| MC _ MOVEVELOCITY _ CSV | Ngõ ra (Output) | InVelocity       | BOOL         | Có                | TRUE/FALSE           | Bit cờ báo đạt đến vận tốc cài đặt                                                               |
+| MC _ MOVEVELOCITY _ CSV | Ngõ ra (Output) | Busy             | BOOL         | Có                | TRUE/FALSE           | Cờ báo khối hàm đang bận thực thi (Busy)                                                         |
+| MC _ MOVEVELOCITY _ CSV | Ngõ ra (Output) | Active           | BOOL         | Có                | TRUE/FALSE           | Cờ đang hoạt động (Active)                                                                       |
+| MC _ MOVEVELOCITY _ CSV | Ngõ ra (Output) | Command aborted  | BOOL         | Có                | TRUE/FALSE           | Bit cờ ngắt lệnh (CommandAborted)                                                                |
+| MC _ MOVEVELOCITY _ CSV | Ngõ ra (Output) | Error            | BOOL         | Có                | TRUE/FALSE           | Cờ báo có phát sinh lỗi hay không (Error)                                                        |
+| MC _ MOVEVELOCITY _ CSV | Ngõ ra (Output) | Error ID         | DWORD        | Có                | -                    | Mã lỗi (Vui lòng tham khảo [8.11 Bảng đối chiếu mã lỗi])                                         |
 
 #### Chức năng và nguyên lý hoạt động
 
-- Khối hàm MC_ MOVEVELOCITY_CSV được dùng để tiếp nối chuyển động của khối hàm trước đó và di chuyển theo tốc độ được chỉ định bởi khối hàm. Các giá trị ngõ vào gia tốc tăng tốc, gia tốc giảm tốc và độ giật (Jerk) được dùng để giám sát xem các giá trị tương ứng của trục được điều khiển có nằm trong giới hạn các giá trị ngõ vào hay không.
+- Khối hàm MC\_ MOVEVELOCITY_CSV được dùng để tiếp nối chuyển động của khối hàm trước đó và di chuyển theo tốc độ được chỉ định bởi khối hàm. Các giá trị ngõ vào gia tốc tăng tốc, gia tốc giảm tốc và độ giật (Jerk) được dùng để giám sát xem các giá trị tương ứng của trục được điều khiển có nằm trong giới hạn các giá trị ngõ vào hay không.
 
 - Vì không có tín hiệu ngõ vào vị trí hoặc quãng đường, khối hàm sẽ chuyển động cho đến khi một khối hàm khác gửi lệnh mới để dừng chuyển động của khối hàm này;
 
 - Khi tốc độ của trục được điều khiển đạt đến giá trị cài đặt của tham số ngõ vào ‘Velocity’, tham số ngõ ra ‘InVelocity’ được bật. Ngay khi tín hiệu ngõ vào ‘Execute’ phát hiện cạnh xuống hoặc khối hàm khác làm hủy bỏ khối hàm này, tham số ngõ ra InVelocity bị đặt về 0 (reset);
 
-- Khi vận hành trục được điều khiển, khối hàm MC_ MOVEVELOCITY_CSV phải được dùng khi trục đang ở trạng thái dừng chuyển động hoặc trạng thái vận hành đơn trục. Sau khi khối hàm này được kích hoạt, trục được điều khiển chuyển sang trạng thái ‘ContinuousMotion’. Nếu trục được điều khiển không ở các trạng thái trên, khối hàm sẽ không được thực thi và ngõ ra Error được bật;
+- Khi vận hành trục được điều khiển, khối hàm MC\_ MOVEVELOCITY_CSV phải được dùng khi trục đang ở trạng thái dừng chuyển động hoặc trạng thái vận hành đơn trục. Sau khi khối hàm này được kích hoạt, trục được điều khiển chuyển sang trạng thái ‘ContinuousMotion’. Nếu trục được điều khiển không ở các trạng thái trên, khối hàm sẽ không được thực thi và ngõ ra Error được bật;
 
-- Khối hàm MC_ MOVEVELOCITY_CSV có thể được kích hoạt lặp đi lặp lại nhiều lần.
+- Khối hàm MC\_ MOVEVELOCITY_CSV có thể được kích hoạt lặp đi lặp lại nhiều lần.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
+| Mã lỗi (Error Code) | Nội dung mô tả                                   |
+| :------------------ | :----------------------------------------------- |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
 
 #### Lưu ý kỹ thuật quan trọng
 
-- Khác với khối hàm MC _ MOVEVELOCITY, khối hàm này sẽ tự động chuyển chế độ Servo sang chế độ CSV (Vận tốc đồng bộ theo chu kỳ);
+- Khác với khối hàm MC \_ MOVEVELOCITY, khối hàm này sẽ tự động chuyển chế độ Servo sang chế độ CSV (Vận tốc đồng bộ theo chu kỳ);
 
 - Việc sử dụng khối hàm này yêu cầu thêm bốn đối tượng từ điển (Object Dictionary) là H60FF, H6060, H6061 và H606C vào PDO.
 
 Giản đồ xung thời gian
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1761032845559-339.png?width=520&amp;height=306&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1761032845559-339.png?width=520&height=306&rev=1.1)
 
-## MC _ SYNCMOVEVELOCITY
+## MC \_ SYNCMOVEVELOCITY
 
-MC _ SYNCMOVEVELOCITY - Thiết lập chuyển động theo tốc độ được chỉ định bởi khối hàm
+MC \_ SYNCMOVEVELOCITY - Thiết lập chuyển động theo tốc độ được chỉ định bởi khối hàm
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1761032974104-584.png?rev=1.1)
 
@@ -324,16 +324,16 @@ Khối hàm này được dùng để tiếp nối chuyển động của khối
 
 #### Thiết bị (thanh ghi) sử dụng (chỉ sử dụng được một thiết bị đơn lẻ, không hỗ trợ ghép nối thiết bị và thanh ghi chỉ mục (Index))
 
-| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC _ SYNCMOVEVELOCITY | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SYNCMOVEVELOCITY | Velocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SYNCMOVEVELOCITY | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SYNCMOVEVELOCITY | InVelocity |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SYNCMOVEVELOCITY | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SYNCMOVEVELOCITY | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SYNCMOVEVELOCITY | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SYNCMOVEVELOCITY | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh       | Tham số        | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------------- | :------------- | :----------: | :----------: | :----------: | :----------: | :-----------: | :---------------: | :---------------: | :----------------: | :-----------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :----------: | :----------: | :----------: | :----------: | :-----------: | :-----------: | :------------: | :----------: | :----------: | :----------: | :-------------------: | :----------------: |
+| MC \_ SYNCMOVEVELOCITY | Execute        |      ●       |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ SYNCMOVEVELOCITY | Velocity       |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ SYNCMOVEVELOCITY | Axis           |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ SYNCMOVEVELOCITY | InVelocity     |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ SYNCMOVEVELOCITY | Busy           |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ SYNCMOVEVELOCITY | CommandAborted |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ SYNCMOVEVELOCITY | Error          |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ SYNCMOVEVELOCITY | ErrorID        |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
 
 :::tip
 Lưu ý khi sử dụng thiết bị (thanh ghi)
@@ -341,48 +341,48 @@ Lưu ý khi sử dụng thiết bị (thanh ghi)
 - LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
 
 - T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit).
-:::
+  :::
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC _ SYNCMOVEVELOCITY | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC _ SYNCMOVEVELOCITY | Ngõ vào (Input) | Velocity | LREAL | Không | [-999999999.999999,999999999.999999] | Vận tốc cài đặt |
-| MC _ SYNCMOVEVELOCITY | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu trục và biến tích hợp sẵn của trục |
-| MC _ SYNCMOVEVELOCITY | Ngõ ra (Output) | InVelocity | BOOL | Có | TRUE/FALSE | Bit cờ báo đạt đến vận tốc cài đặt |
-| MC _ SYNCMOVEVELOCITY | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC _ SYNCMOVEVELOCITY | Ngõ ra (Output) | CommandAborted | BOOL | Có | TRUE/FALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| MC _ SYNCMOVEVELOCITY | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC _ SYNCMOVEVELOCITY | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng tham khảo 8.11 Mã lỗi) |
+| Khối lệnh / Lệnh       | Kiểu chân       | Tham số        | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị                      | Mô tả kỹ thuật                                   |
+| :--------------------- | :-------------- | :------------- | :----------- | :---------------- | :----------------------------------- | :----------------------------------------------- |
+| MC \_ SYNCMOVEVELOCITY | Ngõ vào (Input) | Execute        | BOOL         | Không             | TRUE/FALSE                           | Kích hoạt khối hàm (Enable)                      |
+| MC \_ SYNCMOVEVELOCITY | Ngõ vào (Input) | Velocity       | LREAL        | Không             | [-999999999.999999,999999999.999999] | Vận tốc cài đặt                                  |
+| MC \_ SYNCMOVEVELOCITY | Ngõ vào (Input) | Axis           | WORD         | Không             | [0,65535]                            | Số hiệu trục và biến tích hợp sẵn của trục       |
+| MC \_ SYNCMOVEVELOCITY | Ngõ ra (Output) | InVelocity     | BOOL         | Có                | TRUE/FALSE                           | Bit cờ báo đạt đến vận tốc cài đặt               |
+| MC \_ SYNCMOVEVELOCITY | Ngõ ra (Output) | Busy           | BOOL         | Có                | TRUE/FALSE                           | Cờ báo khối hàm đang bận thực thi (Busy)         |
+| MC \_ SYNCMOVEVELOCITY | Ngõ ra (Output) | CommandAborted | BOOL         | Có                | TRUE/FALSE                           | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
+| MC \_ SYNCMOVEVELOCITY | Ngõ ra (Output) | Error          | BOOL         | Có                | TRUE/FALSE                           | Cờ báo có phát sinh lỗi hay không (Error)        |
+| MC \_ SYNCMOVEVELOCITY | Ngõ ra (Output) | ErrorID        | DWORD        | Có                | -                                    | Mã lỗi (Vui lòng tham khảo 8.11 Mã lỗi)          |
 
 #### Chức năng và nguyên lý hoạt động
 
-- Khối hàm MC _ SYNCMOVEVELOCITY được dùng để tiếp nối chuyển động của khối hàm trước đó và di chuyển theo tốc độ được chỉ định bởi khối hàm.
+- Khối hàm MC \_ SYNCMOVEVELOCITY được dùng để tiếp nối chuyển động của khối hàm trước đó và di chuyển theo tốc độ được chỉ định bởi khối hàm.
 
 - Vì không có tín hiệu ngõ vào vị trí hoặc quãng đường, khối hàm sẽ chuyển động cho đến khi một khối hàm khác gửi lệnh mới để dừng chuyển động của khối hàm này;
 
 - Khi tốc độ của trục được điều khiển đạt đến giá trị cài đặt của tham số ngõ vào Velocity, tham số ngõ ra InVelocity được bật. Ngay khi tín hiệu ngõ vào ‘Execute’ phát hiện cạnh xuống hoặc khối hàm khác làm hủy bỏ khối hàm này, tham số ngõ ra ‘InVelocity’ bị đặt về 0 (reset);
 
-- Khi vận hành trục được điều khiển, khối hàm MC _ SYNCMOVEVELOCITY phải được dùng khi trục đang ở trạng thái dừng chuyển động hoặc trạng thái vận hành đơn trục. Sau khi khối hàm này được kích hoạt, trục được điều khiển chuyển sang trạng thái ‘ContinuousMotion’. Nếu trục được điều khiển không ở các trạng thái trên, khối hàm sẽ không được thực thi và ngõ ra Error được bật;
+- Khi vận hành trục được điều khiển, khối hàm MC \_ SYNCMOVEVELOCITY phải được dùng khi trục đang ở trạng thái dừng chuyển động hoặc trạng thái vận hành đơn trục. Sau khi khối hàm này được kích hoạt, trục được điều khiển chuyển sang trạng thái ‘ContinuousMotion’. Nếu trục được điều khiển không ở các trạng thái trên, khối hàm sẽ không được thực thi và ngõ ra Error được bật;
 
-- Khối hàm MC _ SYNCMOVEVELOCITY có thể được kích hoạt lặp đi lặp lại nhiều lần.
+- Khối hàm MC \_ SYNCMOVEVELOCITY có thể được kích hoạt lặp đi lặp lại nhiều lần.
 
 :::tip
-✎Lưu ý: Sau khi sử dụng MC _ SYNCMOVEVELOCITY, chế độ Servo tự động được chuyển sang chế độ vận tốc đồng bộ theo chu kỳ (CSV).
+✎Lưu ý: Sau khi sử dụng MC \_ SYNCMOVEVELOCITY, chế độ Servo tự động được chuyển sang chế độ vận tốc đồng bộ theo chu kỳ (CSV).
 :::
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
+| Mã lỗi (Error Code) | Nội dung mô tả                                   |
+| :------------------ | :----------------------------------------------- |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
 
 Giản đồ xung thời gian
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1761033004563-270.png?rev=1.1)
 
-## MC _ SETTORQUE
+## MC \_ SETTORQUE
 
 Lệnh điều khiển mô-men đồng bộ
 
@@ -390,19 +390,19 @@ Lệnh điều khiển mô-men đồng bộ
 
 #### Thiết bị (thanh ghi) sử dụng (chỉ sử dụng được một thiết bị đơn lẻ, không hỗ trợ ghép nối thiết bị và thanh ghi chỉ mục (Index))
 
-| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Hiệu chỉnh chỉ số ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC _ SETTORQUE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SETTORQUE | TORQUE |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SETTORQUE | MaxVelocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SETTORQUE | BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SETTORQUE | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SETTORQUE | InTorque |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SETTORQUE | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SETTORQUE | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SETTORQUE | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SETTORQUE | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ SETTORQUE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số        | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Hiệu chỉnh chỉ số ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :------------- | :----------: | :----------: | :----------: | :----------: | :-----------: | :---------------: | :---------------: | :----------------: | :-----------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :----------: | :----------: | :----------: | :----------: | :-----------: | :-----------: | :------------: | :----------: | :----------: | :----------: | :---------------------: | :----------------: |
+| MC \_ SETTORQUE  | Execute        |      ●       |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ SETTORQUE  | TORQUE         |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ SETTORQUE  | MaxVelocity    |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ SETTORQUE  | BufferMode     |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ SETTORQUE  | Axis           |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ SETTORQUE  | InTorque       |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ SETTORQUE  | Busy           |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ SETTORQUE  | Active         |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ SETTORQUE  | CommandAborted |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ SETTORQUE  | Error          |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ SETTORQUE  | ErrorID        |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
 
 :::tip
 Lưu ý khi sử dụng thiết bị (thanh ghi)
@@ -410,24 +410,24 @@ Lưu ý khi sử dụng thiết bị (thanh ghi)
 - LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
 
 - T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit).
-:::
+  :::
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC _ SETTORQUE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC _ SETTORQUE | Ngõ vào (Input) | ContinuousUpdate | BOOL | Có | TRUE/FALSE | Cập nhật trong quá trình vận hành |
-| MC _ SETTORQUE | Ngõ vào (Input) | Torque | LREAL | Không | [-32768,32767] | Mô-men xoắn mục tiêu (Torque, đơn vị 0,1%) |
-| MC _ SETTORQUE | Ngõ vào (Input) | MaxVelocity | LREAL | Không | [0,999999999.999999] | Tốc độ tối đa |
-| MC _ SETTORQUE | Ngõ vào (Input) | BufferMode | WORD | Có | [0] | Hiện tại chỉ hỗ trợ chế độ ngắt (Aborting) |
-| MC _ SETTORQUE | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC _ SETTORQUE | Ngõ ra (Output) | InTorque | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC _ SETTORQUE | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC _ SETTORQUE | Ngõ ra (Output) | Active | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC _ SETTORQUE | Ngõ ra (Output) | CommandAborted | BOOL | Có | TRUE/FALSE | Cờ hủy bỏ |
-| MC _ SETTORQUE | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Có lỗi hay không |
-| MC _ SETTORQUE | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng tham khảo [8.11 Bảng đối chiếu mã lỗi]) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số          | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị      | Mô tả kỹ thuật                                           |
+| :--------------- | :-------------- | :--------------- | :----------- | :---------------- | :------------------- | :------------------------------------------------------- |
+| MC \_ SETTORQUE  | Ngõ vào (Input) | Execute          | BOOL         | Không             | TRUE/FALSE           | Kích hoạt khối hàm (Enable)                              |
+| MC \_ SETTORQUE  | Ngõ vào (Input) | ContinuousUpdate | BOOL         | Có                | TRUE/FALSE           | Cập nhật trong quá trình vận hành                        |
+| MC \_ SETTORQUE  | Ngõ vào (Input) | Torque           | LREAL        | Không             | [-32768,32767]       | Mô-men xoắn mục tiêu (Torque, đơn vị 0,1%)               |
+| MC \_ SETTORQUE  | Ngõ vào (Input) | MaxVelocity      | LREAL        | Không             | [0,999999999.999999] | Tốc độ tối đa                                            |
+| MC \_ SETTORQUE  | Ngõ vào (Input) | BufferMode       | WORD         | Có                | [0]                  | Hiện tại chỉ hỗ trợ chế độ ngắt (Aborting)               |
+| MC \_ SETTORQUE  | Ngõ vào (Input) | Axis             | WORD         | Không             | [0,65535]            | Số hiệu định danh trục (Axis ID)                         |
+| MC \_ SETTORQUE  | Ngõ ra (Output) | InTorque         | BOOL         | Có                | TRUE/FALSE           | Cờ báo hoàn thành (Done)                                 |
+| MC \_ SETTORQUE  | Ngõ ra (Output) | Busy             | BOOL         | Có                | TRUE/FALSE           | Cờ báo khối hàm đang bận thực thi (Busy)                 |
+| MC \_ SETTORQUE  | Ngõ ra (Output) | Active           | BOOL         | Có                | TRUE/FALSE           | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)                     |
+| MC \_ SETTORQUE  | Ngõ ra (Output) | CommandAborted   | BOOL         | Có                | TRUE/FALSE           | Cờ hủy bỏ                                                |
+| MC \_ SETTORQUE  | Ngõ ra (Output) | Error            | BOOL         | Có                | TRUE/FALSE           | Có lỗi hay không                                         |
+| MC \_ SETTORQUE  | Ngõ ra (Output) | ErrorID          | DWORD        | Có                | -                    | Mã lỗi (Vui lòng tham khảo [8.11 Bảng đối chiếu mã lỗi]) |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -443,7 +443,7 @@ Lưu ý khi sử dụng thiết bị (thanh ghi)
 
 - Khi Enable = ON, khối hàm chuyển đổi TarTorque và MaxVelocity từ đơn vị người dùng sang đơn vị xung và gửi liên tục đến bộ điều khiển Servo (Drive). Trục ở trạng thái ContinuousMotion và thực hiện chuyển động mô-men đồng bộ. Tại cạnh xuống của Enable, khối hàm thực hiện chuyển động mô-men đồng bộ với TarTorque và Velocity đã được chốt trong suốt thời gian ở mức cao, và việc thay đổi TarTorque và Velocity theo thời gian thực lúc này không có hiệu lực;
 
-- Lệnh này chỉ có thể được gọi nếu trục đã được chuyển sang trạng thái bật (Enable) bằng lệnh MC _ Power;
+- Lệnh này chỉ có thể được gọi nếu trục đã được chuyển sang trạng thái bật (Enable) bằng lệnh MC \_ Power;
 
 - Lệnh này sử dụng chế độ mô-men đồng bộ của bộ điều khiển Servo (Drive) để thực hiện chức năng điều khiển mô-men. Khi Enable = ON, khối hàm chuyển đổi TarTorque và Velocity từ đơn vị người dùng sang đơn vị xung và gửi liên tục đến bộ điều khiển Servo (Drive). Trục ở trạng thái ContinuousMotion và thực hiện chuyển động mô-men đồng bộ;
 
@@ -453,35 +453,35 @@ TarTorque: Mô-men đích, đơn vị là 0.1%. Một chữ số thập phân sa
 Ghi chú kỹ thuật
 
 - Khối hàm này không khả dụng khi trục không tồn tại.
-:::
+  :::
 
 - Giản đồ thời gian (Sequence Diagram)
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1782099566758-458.png?width=458&amp;height=454&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1782099566758-458.png?width=458&height=454&rev=1.1)
 
-## MC _ TORQUECONTROL
+## MC \_ TORQUECONTROL
 
 Lệnh điều khiển mô-men
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1761033167971-496.png?width=262&amp;height=206&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1761033167971-496.png?width=262&height=206&rev=1.1)
 
 #### Thiết bị (thanh ghi) sử dụng (chỉ sử dụng được một thiết bị đơn lẻ, không hỗ trợ ghép nối thiết bị và thanh ghi chỉ mục (Index))
 
-| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Hiệu chỉnh chỉ số ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC _ TORQUECONTROL | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROL | ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROL | TORQUE |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROL | TorqueRamp |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROL | MaxVelocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROL | BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROL | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROL | InTorque |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROL | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROL | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROL | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROL | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROL | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh    | Tham số          | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Hiệu chỉnh chỉ số ([D]) | Mở rộng xung (XXP) |
+| :------------------ | :--------------- | :----------: | :----------: | :----------: | :----------: | :-----------: | :---------------: | :---------------: | :----------------: | :-----------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :----------: | :----------: | :----------: | :----------: | :-----------: | :-----------: | :------------: | :----------: | :----------: | :----------: | :---------------------: | :----------------: |
+| MC \_ TORQUECONTROL | Execute          |      ●       |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ TORQUECONTROL | ContinuousUpdate |      ●       |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ TORQUECONTROL | TORQUE           |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ TORQUECONTROL | TorqueRamp       |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ TORQUECONTROL | MaxVelocity      |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ TORQUECONTROL | BufferMode       |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ TORQUECONTROL | Axis             |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ TORQUECONTROL | InTorque         |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ TORQUECONTROL | Busy             |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ TORQUECONTROL | Active           |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ TORQUECONTROL | CommandAborted   |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ TORQUECONTROL | Error            |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ TORQUECONTROL | ErrorID          |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
 
 :::tip
 Lưu ý khi sử dụng thiết bị (thanh ghi)
@@ -489,25 +489,25 @@ Lưu ý khi sử dụng thiết bị (thanh ghi)
 - LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
 
 - T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit).
-:::
+  :::
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC _ TORQUECONTROL | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC _ TORQUECONTROL | Ngõ vào (Input) | ContinuousUpdate | BOOL | Có | TRUE/FALSE | Cập nhật trong quá trình vận hành |
-| MC _ TORQUECONTROL | Ngõ vào (Input) | Torque | LREAL | Không | [-32768,32767] | Mô-men xoắn mục tiêu (Torque, đơn vị 0,1%) |
-| MC _ TORQUECONTROL | Ngõ vào (Input) | MaxVelocity | LREAL | Không | [0,999999999.999999] | Tốc độ tối đa |
-| MC _ TORQUECONTROL | Ngõ vào (Input) | TorqueRamp | LREAL | Không | [0,999999999.999999] | Độ dốc mô-men xoắn (Torque slope) |
-| MC _ TORQUECONTROL | Ngõ vào (Input) | BufferMode | WORD | Có | [0] | Chỉ hỗ trợ chế độ ngắt (Aborting) |
-| MC _ TORQUECONTROL | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC _ TORQUECONTROL | Ngõ ra (Output) | InTorque | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC _ TORQUECONTROL | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC _ TORQUECONTROL | Ngõ ra (Output) | Active | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC _ TORQUECONTROL | Ngõ ra (Output) | CommandAborted | BOOL | Có | TRUE/FALSE | Cờ hủy bỏ |
-| MC _ TORQUECONTROL | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Có lỗi hay không |
-| MC _ TORQUECONTROL | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng tham khảo [8.11 Bảng đối chiếu mã lỗi]) |
+| Khối lệnh / Lệnh    | Kiểu chân       | Tham số          | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị      | Mô tả kỹ thuật                                           |
+| :------------------ | :-------------- | :--------------- | :----------- | :---------------- | :------------------- | :------------------------------------------------------- |
+| MC \_ TORQUECONTROL | Ngõ vào (Input) | Execute          | BOOL         | Không             | TRUE/FALSE           | Kích hoạt khối hàm (Enable)                              |
+| MC \_ TORQUECONTROL | Ngõ vào (Input) | ContinuousUpdate | BOOL         | Có                | TRUE/FALSE           | Cập nhật trong quá trình vận hành                        |
+| MC \_ TORQUECONTROL | Ngõ vào (Input) | Torque           | LREAL        | Không             | [-32768,32767]       | Mô-men xoắn mục tiêu (Torque, đơn vị 0,1%)               |
+| MC \_ TORQUECONTROL | Ngõ vào (Input) | MaxVelocity      | LREAL        | Không             | [0,999999999.999999] | Tốc độ tối đa                                            |
+| MC \_ TORQUECONTROL | Ngõ vào (Input) | TorqueRamp       | LREAL        | Không             | [0,999999999.999999] | Độ dốc mô-men xoắn (Torque slope)                        |
+| MC \_ TORQUECONTROL | Ngõ vào (Input) | BufferMode       | WORD         | Có                | [0]                  | Chỉ hỗ trợ chế độ ngắt (Aborting)                        |
+| MC \_ TORQUECONTROL | Ngõ vào (Input) | Axis             | WORD         | Không             | [0,65535]            | Số hiệu định danh trục (Axis ID)                         |
+| MC \_ TORQUECONTROL | Ngõ ra (Output) | InTorque         | BOOL         | Có                | TRUE/FALSE           | Cờ báo hoàn thành (Done)                                 |
+| MC \_ TORQUECONTROL | Ngõ ra (Output) | Busy             | BOOL         | Có                | TRUE/FALSE           | Cờ báo khối hàm đang bận thực thi (Busy)                 |
+| MC \_ TORQUECONTROL | Ngõ ra (Output) | Active           | BOOL         | Có                | TRUE/FALSE           | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)                     |
+| MC \_ TORQUECONTROL | Ngõ ra (Output) | CommandAborted   | BOOL         | Có                | TRUE/FALSE           | Cờ hủy bỏ                                                |
+| MC \_ TORQUECONTROL | Ngõ ra (Output) | Error            | BOOL         | Có                | TRUE/FALSE           | Có lỗi hay không                                         |
+| MC \_ TORQUECONTROL | Ngõ ra (Output) | ErrorID          | DWORD        | Có                | -                    | Mã lỗi (Vui lòng tham khảo [8.11 Bảng đối chiếu mã lỗi]) |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -523,7 +523,7 @@ Lưu ý khi sử dụng thiết bị (thanh ghi)
 
 Mô tả chức năng
 
-- Lệnh này chỉ có thể được gọi nếu trục đã được chuyển sang trạng thái bật (Enable) bằng lệnh MC _ Power;
+- Lệnh này chỉ có thể được gọi nếu trục đã được chuyển sang trạng thái bật (Enable) bằng lệnh MC \_ Power;
 
 - Lệnh này sử dụng chế độ mô-men đồng bộ của bộ điều khiển Servo (Drive) để thực hiện chức năng điều khiển mô-men;
 
@@ -551,7 +551,7 @@ Tốc độ tối đa của động cơ Servo có thể được giới hạn b�
 
 - Điều khiển dừng ở chế độ mô-men xoắn
 
-Ở chế độ mô-men xoắn, lệnh MC _ Stop được gọi để thực hiện dừng; sau khi nhận lệnh Stop, bộ điều khiển (Driver) chuyển sang chế độ vị trí đồng bộ và thực hiện giảm tốc theo giá trị giảm tốc do lệnh Stop cài đặt.
+Ở chế độ mô-men xoắn, lệnh MC \_ Stop được gọi để thực hiện dừng; sau khi nhận lệnh Stop, bộ điều khiển (Driver) chuyển sang chế độ vị trí đồng bộ và thực hiện giảm tốc theo giá trị giảm tốc do lệnh Stop cài đặt.
 
 - Ngắt lệnh (Gián đoạn)
 
@@ -571,7 +571,7 @@ Sau khi cài đặt mô-men xoắn mục tiêu, lệnh được kích hoạt và
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1761033334729-116.png?rev=1.1)
 
-## MC _ MOVEABSRELPP
+## MC \_ MOVEABSRELPP
 
 Lệnh định vị dựa trên chế độ vị trí biên dạng (Profile Position)
 
@@ -579,21 +579,21 @@ Lệnh định vị dựa trên chế độ vị trí biên dạng (Profile Posi
 
 #### Thiết bị (thanh ghi) sử dụng (chỉ sử dụng được một thiết bị đơn lẻ, không hỗ trợ ghép nối thiết bị và thanh ghi chỉ mục (Index))
 
-| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC _ MOVEABSRELPP | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEABSRELPP | Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEABSRELPP | Velocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEABSRELPP | Acceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEABSRELPP | Deceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEABSRELPP | Mode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEABSRELPP | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEABSRELPP | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEABSRELPP | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEABSRELPP | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEABSRELPP | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEABSRELPP | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEABSRELPP | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh   | Tham số        | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :----------------- | :------------- | :----------: | :----------: | :----------: | :----------: | :-----------: | :---------------: | :---------------: | :----------------: | :-----------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :----------: | :----------: | :----------: | :----------: | :-----------: | :-----------: | :------------: | :----------: | :----------: | :----------: | :-------------------: | :----------------: |
+| MC \_ MOVEABSRELPP | Execute        |      ●       |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ MOVEABSRELPP | Position       |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ MOVEABSRELPP | Velocity       |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ MOVEABSRELPP | Acceleration   |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ MOVEABSRELPP | Deceleration   |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ MOVEABSRELPP | Mode           |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ MOVEABSRELPP | Axis           |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ MOVEABSRELPP | Done           |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ MOVEABSRELPP | Busy           |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ MOVEABSRELPP | Active         |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ MOVEABSRELPP | CommandAborted |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ MOVEABSRELPP | Error          |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ MOVEABSRELPP | ErrorID        |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
 
 :::tip
 Lưu ý khi sử dụng thiết bị (thanh ghi)
@@ -601,25 +601,25 @@ Lưu ý khi sử dụng thiết bị (thanh ghi)
 - LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
 
 - T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit).
-:::
+  :::
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC _ MOVEABSRELPP | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC _ MOVEABSRELPP | Ngõ vào (Input) | Position | LREAL | Không | -999999999.999999999999999.999999 | Vị trí mục tiêu |
-| MC _ MOVEABSRELPP | Ngõ vào (Input) | Velocity | LREAL | Không | （0,999999999.999999] | Vận tốc cài đặt (Velocity) |
-| MC _ MOVEABSRELPP | Ngõ vào (Input) | Acceleration | LREAL | Không | （0,999999999.999999] | Gia tốc tăng tốc (Acceleration) |
-| MC _ MOVEABSRELPP | Ngõ vào (Input) | Deceleration | LREAL | Không | （0,999999999.999999] | Gia tốc giảm tốc (Deceleration) |
-| MC _ MOVEABSRELPP | Ngõ vào (Input) | Mode | INT | Không | [0,1] | 1: Chế độ tuyệt đối. 1: Chế độ tương đối |
-| MC _ MOVEABSRELPP | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC _ MOVEABSRELPP | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC _ MOVEABSRELPP | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC _ MOVEABSRELPP | Ngõ ra (Output) | Active | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC _ MOVEABSRELPP | Ngõ ra (Output) | CommandAborted | BOOL | Có | TRUE/FALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
-| MC _ MOVEABSRELPP | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Có lỗi hay không |
-| MC _ MOVEABSRELPP | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng tham khảo [8.11 Bảng đối chiếu mã lỗi]) |
+| Khối lệnh / Lệnh   | Kiểu chân       | Tham số        | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị                   | Mô tả kỹ thuật                                           |
+| :----------------- | :-------------- | :------------- | :----------- | :---------------- | :-------------------------------- | :------------------------------------------------------- |
+| MC \_ MOVEABSRELPP | Ngõ vào (Input) | Execute        | BOOL         | Không             | TRUE/FALSE                        | Kích hoạt khối hàm (Enable)                              |
+| MC \_ MOVEABSRELPP | Ngõ vào (Input) | Position       | LREAL        | Không             | -999999999.999999999999999.999999 | Vị trí mục tiêu                                          |
+| MC \_ MOVEABSRELPP | Ngõ vào (Input) | Velocity       | LREAL        | Không             | （0,999999999.999999]             | Vận tốc cài đặt (Velocity)                               |
+| MC \_ MOVEABSRELPP | Ngõ vào (Input) | Acceleration   | LREAL        | Không             | （0,999999999.999999]             | Gia tốc tăng tốc (Acceleration)                          |
+| MC \_ MOVEABSRELPP | Ngõ vào (Input) | Deceleration   | LREAL        | Không             | （0,999999999.999999]             | Gia tốc giảm tốc (Deceleration)                          |
+| MC \_ MOVEABSRELPP | Ngõ vào (Input) | Mode           | INT          | Không             | [0,1]                             | 1: Chế độ tuyệt đối. 1: Chế độ tương đối                 |
+| MC \_ MOVEABSRELPP | Ngõ vào (Input) | Axis           | WORD         | Không             | [0,65535]                         | Số hiệu định danh trục (Axis ID)                         |
+| MC \_ MOVEABSRELPP | Ngõ ra (Output) | Done           | BOOL         | Có                | TRUE/FALSE                        | Cờ báo hoàn thành (Done)                                 |
+| MC \_ MOVEABSRELPP | Ngõ ra (Output) | Busy           | BOOL         | Có                | TRUE/FALSE                        | Cờ báo khối hàm đang bận thực thi (Busy)                 |
+| MC \_ MOVEABSRELPP | Ngõ ra (Output) | Active         | BOOL         | Có                | TRUE/FALSE                        | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)                     |
+| MC \_ MOVEABSRELPP | Ngõ ra (Output) | CommandAborted | BOOL         | Có                | TRUE/FALSE                        | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)         |
+| MC \_ MOVEABSRELPP | Ngõ ra (Output) | Error          | BOOL         | Có                | TRUE/FALSE                        | Có lỗi hay không                                         |
+| MC \_ MOVEABSRELPP | Ngõ ra (Output) | ErrorID        | DWORD        | Có                | -                                 | Mã lỗi (Vui lòng tham khảo [8.11 Bảng đối chiếu mã lỗi]) |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -633,7 +633,7 @@ Lưu ý khi sử dụng thiết bị (thanh ghi)
 
 Mô tả chức năng
 
-- Lệnh này chỉ có thể được gọi nếu trục đã được chuyển sang trạng thái bật (Enable) bằng lệnh MC _ Power;
+- Lệnh này chỉ có thể được gọi nếu trục đã được chuyển sang trạng thái bật (Enable) bằng lệnh MC \_ Power;
 
 - Tại cạnh lên của ngõ vào Execute, lệnh chốt các tham số đầu vào ở phía bên trái như Position và Velocity, kích hoạt chức năng định vị tuyệt đối/tương đối và chuyển máy trạng thái PLCopen của trục sang trạng thái DiscreteMotion;
 
@@ -645,13 +645,13 @@ Mô tả chức năng
 
 Khi lệnh này có hiệu lực trong PLCopen, trục sẽ ở trạng thái Discretemotion. Các lệnh chế độ biên dạng khác có thể đưa trục vào trạng thái Discretemotion hoặc tuân thủ chuyển đổi máy trạng thái PLCopen đều có thể ngắt lệnh này. CommandAboarted có hiệu lực khi lệnh bị ngắt. Không được gọi lệnh của chế độ đồng bộ chu kỳ, nếu không hệ thống sẽ báo lỗi;
 
-CommandAboarted có hiệu lực khi lệnh MC _ Power không có hiệu lực trong lúc Execute = TRUE và tín hiệu Busy đang có hiệu lực, làm cho trục bị ngắt kích hoạt (de-enabled).
+CommandAboarted có hiệu lực khi lệnh MC \_ Power không có hiệu lực trong lúc Execute = TRUE và tín hiệu Busy đang có hiệu lực, làm cho trục bị ngắt kích hoạt (de-enabled).
 
 Giản đồ xung thời gian
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1761034304535-743.png?rev=1.1)
 
-## MC _ MOVEVELOCITYPV
+## MC \_ MOVEVELOCITYPV
 
 Lệnh điều khiển tốc độ biên dạng
 
@@ -659,19 +659,19 @@ Lệnh điều khiển tốc độ biên dạng
 
 #### Thiết bị (thanh ghi) sử dụng (chỉ sử dụng được một thiết bị đơn lẻ, không hỗ trợ ghép nối thiết bị và thanh ghi chỉ mục (Index))
 
-| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Hiệu chỉnh chỉ số ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC _ MOVEVELOCITYPV | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITYPV | Velocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITYPV | Acceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITYPV | Deceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITYPV | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITYPV | InVelocity |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITYPV | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITYPV | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITYPV | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITYPV | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ MOVEVELOCITYPV | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh     | Tham số        | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Hiệu chỉnh chỉ số ([D]) | Mở rộng xung (XXP) |
+| :------------------- | :------------- | :----------: | :----------: | :----------: | :----------: | :-----------: | :---------------: | :---------------: | :----------------: | :-----------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :----------: | :----------: | :----------: | :----------: | :-----------: | :-----------: | :------------: | :----------: | :----------: | :----------: | :---------------------: | :----------------: |
+| MC \_ MOVEVELOCITYPV | Execute        |      ●       |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ MOVEVELOCITYPV | Velocity       |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ MOVEVELOCITYPV | Acceleration   |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ MOVEVELOCITYPV | Deceleration   |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ MOVEVELOCITYPV | Axis           |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ MOVEVELOCITYPV | InVelocity     |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ MOVEVELOCITYPV | Busy           |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ MOVEVELOCITYPV | Active         |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ MOVEVELOCITYPV | CommandAborted |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ MOVEVELOCITYPV | Error          |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
+| MC \_ MOVEVELOCITYPV | ErrorID        |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                         |                    |
 
 :::tip
 Lưu ý khi sử dụng thiết bị (thanh ghi)
@@ -679,23 +679,23 @@ Lưu ý khi sử dụng thiết bị (thanh ghi)
 - LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
 
 - T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit).
-:::
+  :::
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Loại chân (PinType) | Tham số | Kiểu biến (VariableType) | Có thể để trống không | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC _ MOVEVELOCITYPV | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC _ MOVEVELOCITYPV | Ngõ vào (Input) | Velocity | LREAL | Không | -999999999.999999999999999.999999 | Vận tốc cài đặt (Velocity) |
-| MC _ MOVEVELOCITYPV | Ngõ vào (Input) | Acceleration | LREAL | Không | （0,999999999.999999] | Gia tốc tăng tốc (Acceleration) |
-| MC _ MOVEVELOCITYPV | Ngõ vào (Input) | Deceleration | LREAL | Không | QPS vượt quá giới hạn tối đa 5 | Gia tốc giảm tốc (Deceleration) |
-| MC _ MOVEVELOCITYPV | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC _ MOVEVELOCITYPV | Ngõ ra (Output) | InVelocity | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC _ MOVEVELOCITYPV | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC _ MOVEVELOCITYPV | Ngõ ra (Output) | Active | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC _ MOVEVELOCITYPV | Ngõ ra (Output) | CommandAborted | BOOL | Có | TRUE/FALSE | Cờ hủy bỏ |
-| MC _ MOVEVELOCITYPV | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Có lỗi hay không |
-| MC _ MOVEVELOCITYPV | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng tham khảo [8.11 Bảng đối chiếu mã lỗi]) |
+| Khối lệnh / Lệnh     | Loại chân (PinType) | Tham số        | Kiểu biến (VariableType) | Có thể để trống không | Phạm vi giá trị                   | Mô tả kỹ thuật                                           |
+| :------------------- | :------------------ | :------------- | :----------------------- | :-------------------- | :-------------------------------- | :------------------------------------------------------- |
+| MC \_ MOVEVELOCITYPV | Ngõ vào (Input)     | Execute        | BOOL                     | Không                 | TRUE/FALSE                        | Kích hoạt khối hàm (Enable)                              |
+| MC \_ MOVEVELOCITYPV | Ngõ vào (Input)     | Velocity       | LREAL                    | Không                 | -999999999.999999999999999.999999 | Vận tốc cài đặt (Velocity)                               |
+| MC \_ MOVEVELOCITYPV | Ngõ vào (Input)     | Acceleration   | LREAL                    | Không                 | （0,999999999.999999]             | Gia tốc tăng tốc (Acceleration)                          |
+| MC \_ MOVEVELOCITYPV | Ngõ vào (Input)     | Deceleration   | LREAL                    | Không                 | QPS vượt quá giới hạn tối đa 5    | Gia tốc giảm tốc (Deceleration)                          |
+| MC \_ MOVEVELOCITYPV | Ngõ vào (Input)     | Axis           | WORD                     | Không                 | [0,65535]                         | Số hiệu định danh trục (Axis ID)                         |
+| MC \_ MOVEVELOCITYPV | Ngõ ra (Output)     | InVelocity     | BOOL                     | Có                    | TRUE/FALSE                        | Cờ báo hoàn thành (Done)                                 |
+| MC \_ MOVEVELOCITYPV | Ngõ ra (Output)     | Busy           | BOOL                     | Có                    | TRUE/FALSE                        | Cờ báo khối hàm đang bận thực thi (Busy)                 |
+| MC \_ MOVEVELOCITYPV | Ngõ ra (Output)     | Active         | BOOL                     | Có                    | TRUE/FALSE                        | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)                     |
+| MC \_ MOVEVELOCITYPV | Ngõ ra (Output)     | CommandAborted | BOOL                     | Có                    | TRUE/FALSE                        | Cờ hủy bỏ                                                |
+| MC \_ MOVEVELOCITYPV | Ngõ ra (Output)     | Error          | BOOL                     | Có                    | TRUE/FALSE                        | Có lỗi hay không                                         |
+| MC \_ MOVEVELOCITYPV | Ngõ ra (Output)     | ErrorID        | DWORD                    | Có                    | -                                 | Mã lỗi (Vui lòng tham khảo [8.11 Bảng đối chiếu mã lỗi]) |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -711,7 +711,7 @@ Lưu ý khi sử dụng thiết bị (thanh ghi)
 
 Mô tả chức năng
 
-- Lệnh này chỉ có thể được gọi nếu trục đã được chuyển sang trạng thái STANDSTILL bằng lệnh MC _ Power;
+- Lệnh này chỉ có thể được gọi nếu trục đã được chuyển sang trạng thái STANDSTILL bằng lệnh MC \_ Power;
 
 - Khi Execute = TRUE, lệnh chốt các tham số đầu vào ở phía bên trái như Velocity và Acceleration, trục chạy liên tục theo tốc độ mục tiêu do Velocity cài đặt và chuyển máy trạng thái PLCopen của trục sang trạng thái ContinuousMotion.
 
@@ -719,27 +719,27 @@ Giản đồ xung thời gian
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1761034458765-139.png?rev=1.1)
 
-## MC _ TORQUECONTROLPT
+## MC \_ TORQUECONTROLPT
 
-MC _ TORQUECONTROLPT - Lệnh điều khiển mô-men xoắn theo biên dạng
+MC \_ TORQUECONTROLPT - Lệnh điều khiển mô-men xoắn theo biên dạng
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1761034544967-630.png?rev=1.1)
 
 #### Thiết bị (thanh ghi) sử dụng (chỉ sử dụng được một thiết bị đơn lẻ, không hỗ trợ ghép nối thiết bị và thanh ghi chỉ mục (Index))
 
-| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC _ TORQUECONTROLPT | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROLPT | TORQUE |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROLPT | TorqueRamp |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROLPT | MaxVelocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROLPT | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROLPT | InTorque |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROLPT | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROLPT | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROLPT | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROLPT | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC _ TORQUECONTROLPT | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh      | Tham số        | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :-------------------- | :------------- | :----------: | :----------: | :----------: | :----------: | :-----------: | :---------------: | :---------------: | :----------------: | :-----------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :----------: | :----------: | :----------: | :----------: | :-----------: | :-----------: | :------------: | :----------: | :----------: | :----------: | :-------------------: | :----------------: |
+| MC \_ TORQUECONTROLPT | Execute        |      ●       |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ TORQUECONTROLPT | TORQUE         |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ TORQUECONTROLPT | TorqueRamp     |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ TORQUECONTROLPT | MaxVelocity    |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ TORQUECONTROLPT | Axis           |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ TORQUECONTROLPT | InTorque       |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ TORQUECONTROLPT | Busy           |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ TORQUECONTROLPT | Active         |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ TORQUECONTROLPT | CommandAborted |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ TORQUECONTROLPT | Error          |              |      ●       |      ●       |      ●       |       ●       |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
+| MC \_ TORQUECONTROLPT | ErrorID        |              |              |              |              |               |                   |                   |                    |                     |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                       |                    |
 
 :::tip
 Lưu ý khi sử dụng thiết bị (thanh ghi)
@@ -747,23 +747,23 @@ Lưu ý khi sử dụng thiết bị (thanh ghi)
 - LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
 
 - T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit).
-:::
+  :::
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_ TORQUECONTROLPT | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_ TORQUECONTROLPT | Ngõ vào (Input) | Torque | LREAL | Không | [-32768,32767] | Mô-men xoắn mục tiêu (Torque, đơn vị 0,1%) |
-| MC_ TORQUECONTROLPT | Ngõ vào (Input) | TorqueRamp | LREAL | Không | （0,999999999.999999] | Độ dốc mô-men xoắn (Torque slope) |
-| MC_ TORQUECONTROLPT | Ngõ vào (Input) | MaxVelocity | LREAL | Không | [0,999999999.999999] | Tốc độ tối đa |
-| MC_ TORQUECONTROLPT | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC_ TORQUECONTROLPT | Ngõ ra (Output) | InTorque | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_ TORQUECONTROLPT | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_ TORQUECONTROLPT | Ngõ ra (Output) | Active | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_ TORQUECONTROLPT | Ngõ ra (Output) | CommandAborted | BOOL | Có | TRUE/FALSE | Cờ hủy bỏ |
-| MC_ TORQUECONTROLPT | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Có lỗi hay không |
-| MC_ TORQUECONTROLPT | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng tham khảo [8.11 Bảng đối chiếu mã lỗi]) |
+| Khối lệnh / Lệnh     | Kiểu chân       | Tham số        | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị       | Mô tả kỹ thuật                                           |
+| :------------------- | :-------------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------------------------------------------- |
+| MC\_ TORQUECONTROLPT | Ngõ vào (Input) | Execute        | BOOL         | Không             | TRUE/FALSE            | Kích hoạt khối hàm (Enable)                              |
+| MC\_ TORQUECONTROLPT | Ngõ vào (Input) | Torque         | LREAL        | Không             | [-32768,32767]        | Mô-men xoắn mục tiêu (Torque, đơn vị 0,1%)               |
+| MC\_ TORQUECONTROLPT | Ngõ vào (Input) | TorqueRamp     | LREAL        | Không             | （0,999999999.999999] | Độ dốc mô-men xoắn (Torque slope)                        |
+| MC\_ TORQUECONTROLPT | Ngõ vào (Input) | MaxVelocity    | LREAL        | Không             | [0,999999999.999999]  | Tốc độ tối đa                                            |
+| MC\_ TORQUECONTROLPT | Ngõ vào (Input) | Axis           | WORD         | Không             | [0,65535]             | Số hiệu định danh trục (Axis ID)                         |
+| MC\_ TORQUECONTROLPT | Ngõ ra (Output) | InTorque       | BOOL         | Có                | TRUE/FALSE            | Cờ báo hoàn thành (Done)                                 |
+| MC\_ TORQUECONTROLPT | Ngõ ra (Output) | Busy           | BOOL         | Có                | TRUE/FALSE            | Cờ báo khối hàm đang bận thực thi (Busy)                 |
+| MC\_ TORQUECONTROLPT | Ngõ ra (Output) | Active         | BOOL         | Có                | TRUE/FALSE            | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)                     |
+| MC\_ TORQUECONTROLPT | Ngõ ra (Output) | CommandAborted | BOOL         | Có                | TRUE/FALSE            | Cờ hủy bỏ                                                |
+| MC\_ TORQUECONTROLPT | Ngõ ra (Output) | Error          | BOOL         | Có                | TRUE/FALSE            | Có lỗi hay không                                         |
+| MC\_ TORQUECONTROLPT | Ngõ ra (Output) | ErrorID        | DWORD        | Có                | -                     | Mã lỗi (Vui lòng tham khảo [8.11 Bảng đối chiếu mã lỗi]) |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -779,7 +779,7 @@ Lưu ý khi sử dụng thiết bị (thanh ghi)
 
 Mô tả chức năng
 
-- Lệnh này chỉ có thể được gọi nếu trục đã được chuyển sang trạng thái kích hoạt bằng lệnh MC _ Power. Nếu không, hệ thống sẽ báo lỗi;
+- Lệnh này chỉ có thể được gọi nếu trục đã được chuyển sang trạng thái kích hoạt bằng lệnh MC \_ Power. Nếu không, hệ thống sẽ báo lỗi;
 
 - Lệnh này sử dụng chế độ mô-men đồng bộ của bộ điều khiển Servo (Drive) để thực hiện chức năng điều khiển mô-men;
 
@@ -807,7 +807,7 @@ Tốc độ tối đa của động cơ Servo có thể được giới hạn b�
 
 - Điều khiển dừng ở chế độ mô-men xoắn
 
-Ở chế độ mô-men xoắn, lệnh MC _ Stop được gọi để thực hiện dừng; sau khi nhận lệnh Stop, bộ điều khiển (Driver) chuyển sang chế độ vị trí đồng bộ và thực hiện giảm tốc theo giá trị giảm tốc do lệnh Stop cài đặt.
+Ở chế độ mô-men xoắn, lệnh MC \_ Stop được gọi để thực hiện dừng; sau khi nhận lệnh Stop, bộ điều khiển (Driver) chuyển sang chế độ vị trí đồng bộ và thực hiện giảm tốc theo giá trị giảm tốc do lệnh Stop cài đặt.
 
 - Ngắt lệnh (Gián đoạn)
 
@@ -820,5 +820,3 @@ Khi ngắt kích hoạt (de-enable) trục, CommandAboarted có hiệu lực khi
 Giản đồ xung thời gian
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.07%20Other%20Special%20FB/WebHome/1761034615747-763.png?rev=1.1)
-
-0

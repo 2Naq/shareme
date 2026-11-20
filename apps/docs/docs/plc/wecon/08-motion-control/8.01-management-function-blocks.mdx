@@ -3,7 +3,7 @@ id: "8.01-management-function-blocks"
 title: "8.01 Khối hàm quản trị cho điều khiển đơn trục (Management FBs for Single-axis)"
 sidebar_position: 2
 sidebar_label: "8.01 Quản trị đơn trục (13 FBs)"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.01 Khối hàm quản trị cho điều khiển đơn trục (Management FBs for Single-axis)"
 ---
 
@@ -17,16 +17,16 @@ Khối hàm này là công tắc phần mềm cấp nguồn (Servo ON) cho hệ 
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_POWER | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_POWER | EnablePositive | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_POWER | EnableNegative | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_POWER | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_POWER | Status |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_POWER | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_POWER | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_POWER | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số        |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_POWER         | Enable         |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_POWER         | EnablePositive |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_POWER         | EnableNegative |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_POWER         | Axis           |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_POWER         | Status         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_POWER         | Valid          |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_POWER         | Error          |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_POWER         | ErrorID        |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -36,16 +36,16 @@ Khối hàm này là công tắc phần mềm cấp nguồn (Servo ON) cho hệ 
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Kiểu dữ liệu | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_POWER | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_POWER | Ngõ vào (Input) | EnablePositive | BOOL | Không | TRUE/FALSE | Cho phép chuyển động theo chiều dương |
-| MC_POWER | Ngõ vào (Input) | EnableNegative | BOOL | Không | TRUE/FALSE | Cho phép chuyển động theo chiều âm |
-| MC_POWER | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC_POWER | Ngõ ra (Output) | Status | BOOL | Có | TRUE/FALSE | Trạng thái kích hoạt |
-| MC_POWER | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_POWER | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_POWER | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Xem [8.11 Bảng so sánh mã lỗi]) |
+| Khối lệnh / Lệnh | Kiểu chân       | Kiểu dữ liệu   | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                            |
+| :--------------- | :-------------- | :------------- | :----------- | :---------------- | :-------------- | :---------------------------------------- |
+| MC_POWER         | Ngõ vào (Input) | Enable         | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)               |
+| MC_POWER         | Ngõ vào (Input) | EnablePositive | BOOL         | Không             | TRUE/FALSE      | Cho phép chuyển động theo chiều dương     |
+| MC_POWER         | Ngõ vào (Input) | EnableNegative | BOOL         | Không             | TRUE/FALSE      | Cho phép chuyển động theo chiều âm        |
+| MC_POWER         | Ngõ vào (Input) | Axis           | WORD         | Không             | [0,65535]       | Số hiệu định danh trục (Axis ID)          |
+| MC_POWER         | Ngõ ra (Output) | Status         | BOOL         | Có                | TRUE/FALSE      | Trạng thái kích hoạt                      |
+| MC_POWER         | Ngõ ra (Output) | Valid          | BOOL         | Có                | TRUE/FALSE      | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)      |
+| MC_POWER         | Ngõ ra (Output) | Error          | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_POWER         | Ngõ ra (Output) | ErrorID        | DWORD        | Có                | -               | Mã lỗi (Xem [8.11 Bảng so sánh mã lỗi])   |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -91,22 +91,22 @@ Khối hàm này được sử dụng để đọc trạng thái của trục đ
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_READSTATUS | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | Errorstop |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | Disabled |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | Stopping |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | Homing |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | Standstill |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | DiscreteMotion |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | ContinuousMotion |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READSTATUS | SynchronizedMotion |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số            |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :----------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_READSTATUS    | Enable             |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | Axis               |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | Valid              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | Busy               |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | Error              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | ErrorID            |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | Errorstop          |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | Disabled           |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | Stopping           |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | Homing             |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | Standstill         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | DiscreteMotion     |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | ContinuousMotion   |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READSTATUS    | SynchronizedMotion |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -116,22 +116,22 @@ Khối hàm này được sử dụng để đọc trạng thái của trục đ
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_READ STATUS | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_READ STATUS | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC_READ STATUS | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_READ STATUS | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_READ STATUS | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_READ STATUS | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (xem [8.11 Bảng so sánh mã lỗi]) |
-| MC_READ STATUS | Ngõ ra (Output) | Errorstop | BOOL | Có | TRUE/FALSE | Cờ dừng do lỗi (ErrorStop) |
-| MC_READ STATUS | Ngõ ra (Output) | Disabled | BOOL | Có | TRUE/FALSE | Cờ vô hiệu hóa (Disabled) |
-| MC_READ STATUS | Ngõ ra (Output) | Stopping | BOOL | Có | TRUE/FALSE | Cờ đang dừng (Stopping) |
-| MC_READ STATUS | Ngõ ra (Output) | Homing | BOOL | Có | TRUE/FALSE | Dấu hiệu về gốc (Homing) |
-| MC_READ STATUS | Ngõ ra (Output) | Standstill | BOOL | Có | TRUE/FALSE | Dấu hiệu đứng yên (StandStill) |
-| MC_READ STATUS | Ngõ ra (Output) | DiscreteMotion | BOOL | Có | TRUE/FALSE | Cờ chuyển động rời rạc (DiscreteMotion) |
-| MC_READ STATUS | Ngõ ra (Output) | ContinuousMotion | BOOL | Có | TRUE/FALSE | Cờ chuyển động liên tục (ContinuousMotion) |
-| MC_READ STATUS | Ngõ ra (Output) | SynchronizedMotion | BOOL | Có | TRUE/FALSE | Cờ chuyển động đồng bộ (SynchronizedMotion) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số            | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                              |
+| :--------------- | :-------------- | :----------------- | :----------- | :---------------- | :-------------- | :------------------------------------------ |
+| MC_READ STATUS   | Ngõ vào (Input) | Enable             | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                 |
+| MC_READ STATUS   | Ngõ vào (Input) | Axis               | WORD         | Không             | [0,65535]       | Số hiệu định danh trục (Axis ID)            |
+| MC_READ STATUS   | Ngõ ra (Output) | Valid              | BOOL         | Có                | TRUE/FALSE      | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)        |
+| MC_READ STATUS   | Ngõ ra (Output) | Busy               | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)    |
+| MC_READ STATUS   | Ngõ ra (Output) | Error              | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)   |
+| MC_READ STATUS   | Ngõ ra (Output) | ErrorID            | DWORD        | Có                | -               | Mã lỗi (xem [8.11 Bảng so sánh mã lỗi])     |
+| MC_READ STATUS   | Ngõ ra (Output) | Errorstop          | BOOL         | Có                | TRUE/FALSE      | Cờ dừng do lỗi (ErrorStop)                  |
+| MC_READ STATUS   | Ngõ ra (Output) | Disabled           | BOOL         | Có                | TRUE/FALSE      | Cờ vô hiệu hóa (Disabled)                   |
+| MC_READ STATUS   | Ngõ ra (Output) | Stopping           | BOOL         | Có                | TRUE/FALSE      | Cờ đang dừng (Stopping)                     |
+| MC_READ STATUS   | Ngõ ra (Output) | Homing             | BOOL         | Có                | TRUE/FALSE      | Dấu hiệu về gốc (Homing)                    |
+| MC_READ STATUS   | Ngõ ra (Output) | Standstill         | BOOL         | Có                | TRUE/FALSE      | Dấu hiệu đứng yên (StandStill)              |
+| MC_READ STATUS   | Ngõ ra (Output) | DiscreteMotion     | BOOL         | Có                | TRUE/FALSE      | Cờ chuyển động rời rạc (DiscreteMotion)     |
+| MC_READ STATUS   | Ngõ ra (Output) | ContinuousMotion   | BOOL         | Có                | TRUE/FALSE      | Cờ chuyển động liên tục (ContinuousMotion)  |
+| MC_READ STATUS   | Ngõ ra (Output) | SynchronizedMotion | BOOL         | Có                | TRUE/FALSE      | Cờ chuyển động đồng bộ (SynchronizedMotion) |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -157,19 +157,19 @@ Khối hàm này được sử dụng để đọc trạng thái chuyển độn
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_READMOTIONSTATE | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READMOTIONSTATE | Axis |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READMOTIONSTATE | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READMOTIONSTATE | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READMOTIONSTATE | Error |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READMOTIONSTATE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READMOTIONSTATE | ConstantVelocity |  | ● | �� | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READMOTIONSTATE | Accelerating |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READMOTIONSTATE | Decelerating |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READMOTIONSTATE | DirectionPositive |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READMOTIONSTATE | DirectionNegative |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh   | Tham số           |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :----------------- | :---------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_READMOTIONSTATE | Enable            |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READMOTIONSTATE | Axis              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READMOTIONSTATE | Valid             |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READMOTIONSTATE | Busy              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READMOTIONSTATE | Error             |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READMOTIONSTATE | ErrorID           |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READMOTIONSTATE | ConstantVelocity  |     |  ●  | ��  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READMOTIONSTATE | Accelerating      |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READMOTIONSTATE | Decelerating      |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READMOTIONSTATE | DirectionPositive |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READMOTIONSTATE | DirectionNegative |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -179,19 +179,19 @@ Khối hàm này được sử dụng để đọc trạng thái chuyển độn
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_READMOTIONSTATE | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_READMOTIONSTATE | Ngõ vào (Input) | Axis | WORD | Không | 0 to 65535 | Số hiệu định danh trục (Axis ID) |
-| MC_READMOTIONSTATE | Ngõ ra (Output) | Valid | BOOL | Không | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_READMOTIONSTATE | Ngõ ra (Output) | Busy | BOOL | Không | TRUE/FALSE | Dấu hiệu bận (Busy) |
-| MC_READMOTIONSTATE | Ngõ ra (Output) | Error | BOOL | Không | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_READMOTIONSTATE | Ngõ ra (Output) | ErrorID | DWORD | Không | - | Mã lỗi (Error Code) |
-| MC_READMOTIONSTATE | Ngõ ra (Output) | ConstantVelocity | BOOL | Không | TRUE/FALSE | Vận tốc không đổi |
-| MC_READMOTIONSTATE | Ngõ ra (Output) | Accelerating | BOOL | Không | TRUE/FALSE | Đang tăng tốc |
-| MC_READMOTIONSTATE | Ngõ ra (Output) | Decelerating | BOOL | Không | TRUE/FALSE | Đang giảm tốc |
-| MC_READMOTIONSTATE | Ngõ ra (Output) | DirectionPositive | BOOL | Không | TRUE/FALSE | Chiều dương |
-| MC_READMOTIONSTATE | Ngõ ra (Output) | DirectionNegative | BOOL | Không | TRUE/FALSE | Chiều âm |
+| Khối lệnh / Lệnh   | Kiểu chân       | Tham số           | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                            |
+| :----------------- | :-------------- | :---------------- | :----------- | :---------------- | :-------------- | :---------------------------------------- |
+| MC_READMOTIONSTATE | Ngõ vào (Input) | Enable            | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)               |
+| MC_READMOTIONSTATE | Ngõ vào (Input) | Axis              | WORD         | Không             | 0 to 65535      | Số hiệu định danh trục (Axis ID)          |
+| MC_READMOTIONSTATE | Ngõ ra (Output) | Valid             | BOOL         | Không             | TRUE/FALSE      | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)      |
+| MC_READMOTIONSTATE | Ngõ ra (Output) | Busy              | BOOL         | Không             | TRUE/FALSE      | Dấu hiệu bận (Busy)                       |
+| MC_READMOTIONSTATE | Ngõ ra (Output) | Error             | BOOL         | Không             | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_READMOTIONSTATE | Ngõ ra (Output) | ErrorID           | DWORD        | Không             | -               | Mã lỗi (Error Code)                       |
+| MC_READMOTIONSTATE | Ngõ ra (Output) | ConstantVelocity  | BOOL         | Không             | TRUE/FALSE      | Vận tốc không đổi                         |
+| MC_READMOTIONSTATE | Ngõ ra (Output) | Accelerating      | BOOL         | Không             | TRUE/FALSE      | Đang tăng tốc                             |
+| MC_READMOTIONSTATE | Ngõ ra (Output) | Decelerating      | BOOL         | Không             | TRUE/FALSE      | Đang giảm tốc                             |
+| MC_READMOTIONSTATE | Ngõ ra (Output) | DirectionPositive | BOOL         | Không             | TRUE/FALSE      | Chiều dương                               |
+| MC_READMOTIONSTATE | Ngõ ra (Output) | DirectionNegative | BOOL         | Không             | TRUE/FALSE      | Chiều âm                                  |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -205,9 +205,9 @@ Khối hàm này được sử dụng để đọc trạng thái chuyển độn
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                    |
+| :------------------ | :------------------------------------------------ |
+| 4084H               | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
 
 #### Giản đồ thời gian (Sequence Diagram)
 
@@ -223,15 +223,15 @@ Khối hàm này cung cấp thông tin lỗi về trục.
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_READAXISERROR | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISERROR | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISERROR | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISERROR | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISERROR | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISERROR | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISERROR | AxisErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_READAXISERROR | Enable      |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISERROR | Axis        |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISERROR | Valid       |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISERROR | Busy        |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISERROR | Error       |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISERROR | ErrorID     |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISERROR | AxisErrorID |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -241,15 +241,15 @@ Khối hàm này cung cấp thông tin lỗi về trục.
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_READAXISERROR | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_READAXISERROR | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC_READAXISERROR | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_READAXISERROR | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_READAXISERROR | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_READAXISERROR | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Đã xảy ra lỗi trong khối hàm này (xem [8.11 Mã lỗi]) |
-| MC_READAXISERROR | Ngõ ra (Output) | AxisErrorID | DWORD | Có | - | Đọc mã lỗi của trục |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số     | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                                       |
+| :--------------- | :-------------- | :---------- | :----------- | :---------------- | :-------------- | :--------------------------------------------------- |
+| MC_READAXISERROR | Ngõ vào (Input) | Enable      | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                          |
+| MC_READAXISERROR | Ngõ vào (Input) | Axis        | WORD         | Không             | [0,65535]       | Số hiệu định danh trục (Axis ID)                     |
+| MC_READAXISERROR | Ngõ ra (Output) | Valid       | BOOL         | Có                | TRUE/FALSE      | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)                 |
+| MC_READAXISERROR | Ngõ ra (Output) | Busy        | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)             |
+| MC_READAXISERROR | Ngõ ra (Output) | Error       | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)            |
+| MC_READAXISERROR | Ngõ ra (Output) | ErrorID     | DWORD        | Có                | -               | Đã xảy ra lỗi trong khối hàm này (xem [8.11 Mã lỗi]) |
+| MC_READAXISERROR | Ngõ ra (Output) | AxisErrorID | DWORD        | Có                | -               | Đọc mã lỗi của trục                                  |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -273,21 +273,21 @@ Khối hàm này được sử dụng để cung cấp thông tin về trục.
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_READAXISINFO | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISINFO | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISINFO | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISINFO | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISINFO | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISINFO | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISINFO | HomeAbsSwitch |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISINFO | LimitSwitchPos |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISINFO | LimitSwitchNeg |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISINFO | ReadyForPowerOn |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISINFO | powerOn |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISINFO | IsHomed |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READAXISINFO | AxisWarning |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số         |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :-------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_READAXISINFO  | Enable          |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISINFO  | Axis            |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISINFO  | Valid           |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISINFO  | Busy            |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISINFO  | Error           |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISINFO  | ErrorID         |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISINFO  | HomeAbsSwitch   |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISINFO  | LimitSwitchPos  |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISINFO  | LimitSwitchNeg  |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISINFO  | ReadyForPowerOn |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISINFO  | powerOn         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISINFO  | IsHomed         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READAXISINFO  | AxisWarning     |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -297,21 +297,21 @@ Khối hàm này được sử dụng để cung cấp thông tin về trục.
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_READAXISINFO | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_READAXISINFO | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC_READAXISINFO | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_READAXISINFO | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_READAXISINFO | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_READAXISINFO | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Xem [8.11 Bảng so sánh mã lỗi]) |
-| MC_READAXISINFO | Ngõ ra (Output) | HomeAbsSwitch | BOOL | Có | TRUE/FALSE | Công tắc vị trí tuyệt đối về gốc (Home) |
-| MC_READAXISINFO | Ngõ ra (Output) | LimitSwitchPos | BOOL | Có | TRUE/FALSE | Công tắc giới hạn chiều dương |
-| MC_READAXISINFO | Ngõ ra (Output) | LimitSwitchNeg | BOOL | Có | TRUE/FALSE | Công tắc giới hạn chiều âm |
-| MC_READAXISINFO | Ngõ ra (Output) | ReadyForPowerOn | BOOL | Có | TRUE/FALSE | Sẵn sàng kích hoạt |
-| MC_READAXISINFO | Ngõ ra (Output) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_READAXISINFO | Ngõ ra (Output) | IsHomed | BOOl | Không | TRUE/FALSE | Về gốc (Homing) thành công |
-| MC_READAXISINFO | Ngõ ra (Output) | AxisWarning | BOOl | Không | TRUE/FALSE | Cảnh báo trục |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số         | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                            |
+| :--------------- | :-------------- | :-------------- | :----------- | :---------------- | :-------------- | :---------------------------------------- |
+| MC_READAXISINFO  | Ngõ vào (Input) | Enable          | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)               |
+| MC_READAXISINFO  | Ngõ vào (Input) | Axis            | WORD         | Không             | [0,65535]       | Số hiệu định danh trục (Axis ID)          |
+| MC_READAXISINFO  | Ngõ ra (Output) | Valid           | BOOL         | Có                | TRUE/FALSE      | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)      |
+| MC_READAXISINFO  | Ngõ ra (Output) | Busy            | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)  |
+| MC_READAXISINFO  | Ngõ ra (Output) | Error           | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_READAXISINFO  | Ngõ ra (Output) | ErrorID         | DWORD        | Có                | -               | Mã lỗi (Xem [8.11 Bảng so sánh mã lỗi])   |
+| MC_READAXISINFO  | Ngõ ra (Output) | HomeAbsSwitch   | BOOL         | Có                | TRUE/FALSE      | Công tắc vị trí tuyệt đối về gốc (Home)   |
+| MC_READAXISINFO  | Ngõ ra (Output) | LimitSwitchPos  | BOOL         | Có                | TRUE/FALSE      | Công tắc giới hạn chiều dương             |
+| MC_READAXISINFO  | Ngõ ra (Output) | LimitSwitchNeg  | BOOL         | Có                | TRUE/FALSE      | Công tắc giới hạn chiều âm                |
+| MC_READAXISINFO  | Ngõ ra (Output) | ReadyForPowerOn | BOOL         | Có                | TRUE/FALSE      | Sẵn sàng kích hoạt                        |
+| MC_READAXISINFO  | Ngõ ra (Output) | Enable          | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)               |
+| MC_READAXISINFO  | Ngõ ra (Output) | IsHomed         | BOOl         | Không             | TRUE/FALSE      | Về gốc (Homing) thành công                |
+| MC_READAXISINFO  | Ngõ ra (Output) | AxisWarning     | BOOl         | Không             | TRUE/FALSE      | Cảnh báo trục                             |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -335,16 +335,16 @@ Khối hàm này được sử dụng để đọc các tham số của trục.
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_READPARAMETER | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READPARAMETER | ParameterNumber |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
-| MC_READPARAMETER | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READPARAMETER | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READPARAMETER | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READPARAMETER | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READPARAMETER | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READPARAMETER | Value |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số         |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :-------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_READPARAMETER | Enable          |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READPARAMETER | ParameterNumber |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |                       |                    |
+| MC_READPARAMETER | Axis            |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READPARAMETER | Valid           |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READPARAMETER | Busy            |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READPARAMETER | Error           |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READPARAMETER | ErrorID         |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READPARAMETER | Value           |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -354,40 +354,40 @@ Khối hàm này được sử dụng để đọc các tham số của trục.
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_READPARAMETER | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_READPARAMETER | Ngõ vào (Input) | ParameterNumber | INT | Không | [1,17] | Số tham số |
-| MC_READPARAMETER | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC_READPARAMETER | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_READPARAMETER | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_READPARAMETER | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_READPARAMETER | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Xem [8.11 Bảng mã lỗi]) |
-| MC_READPARAMETER | Ngõ ra (Output) | Value | LREAL | Có | - | Giá trị tham số trục |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số         | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                            |
+| :--------------- | :-------------- | :-------------- | :----------- | :---------------- | :-------------- | :---------------------------------------- |
+| MC_READPARAMETER | Ngõ vào (Input) | Enable          | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)               |
+| MC_READPARAMETER | Ngõ vào (Input) | ParameterNumber | INT          | Không             | [1,17]          | Số tham số                                |
+| MC_READPARAMETER | Ngõ vào (Input) | Axis            | WORD         | Không             | [0,65535]       | Số hiệu định danh trục (Axis ID)          |
+| MC_READPARAMETER | Ngõ ra (Output) | Valid           | BOOL         | Có                | TRUE/FALSE      | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)      |
+| MC_READPARAMETER | Ngõ ra (Output) | Busy            | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)  |
+| MC_READPARAMETER | Ngõ ra (Output) | Error           | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_READPARAMETER | Ngõ ra (Output) | ErrorID         | DWORD        | Có                | -               | Mã lỗi (Xem [8.11 Bảng mã lỗi])           |
+| MC_READPARAMETER | Ngõ ra (Output) | Value           | LREAL        | Có                | -               | Giá trị tham số trục                      |
 
 #### Chức năng và nguyên lý hoạt động
 
 - Dùng để đọc các tham số của trục, như được trình bày trong bảng sau.
 
-| Số tham số PN | Tên tham số | Kiểu dữ liệu | B/E | R/W | Ghi chú kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | InstructionedPosition | REAL | B | R | Vị trí lệnh |
-| 2 | SWLimitPos | REAL | E | R/W | Vị trí công tắc giới hạn phần mềm dương |
-| 3 | SWLimitNeg | REAL | E | R/W | Vị trí công tắc giới hạn phần mềm âm |
-| 4 | EnableLimitPos | BOOL | E | R/W | Kích hoạt công tắc giới hạn phần mềm dương |
-| 5 | EnableLimitNeg | BOOL | E | R/W | Kích hoạt công tắc giới hạn phần mềm âm |
-| 6 | EnablePosLagMonitoring | BOOL | E | R/W | Kích hoạt giám sát độ trễ vị trí |
-| 7 | MaxPositionLag | REAL | E | R/W | Độ trễ vị trí tối đa |
-| 8 | MaxVelocitySystem | REAL | E | R | Vận tốc trục tối đa cho phép trong hệ thống chuyển động |
-| 9 | MaxVelocityAppl | REAL | B | R/W | Vận tốc trục tối đa cho phép trong ứng dụng |
-| 10 | ActualVelocity | REAL | B | R | Vận tốc thực tế (Actual Velocity) |
-| 11 | InstructionedVelocity | REAL | B | R | Vận tốc lệnh |
-| 12 | MaxAccelerationSystem | REAL | E | R | Gia tốc trục tối đa cho phép trong hệ thống chuyển động |
-| 13 | MaxAccelerationAppl | REAL | E | R/W | Gia tốc trục tối đa cho phép trong ứng dụng |
-| 14 | MaxDecelerationSystem | REAL | E | R | Giảm tốc trục tối đa cho phép trong hệ thống chuyển động |
-| 15 | MaxDecelerationAppl | REAL | E | R/W | Giảm tốc trục tối đa cho phép trong ứng dụng |
-| 16 | MaxJerkSystem | REAL | E | R | Độ giật (Jerk) trục tối đa cho phép trong hệ thống chuyển động |
-| 17 | MaxJerkAppl | REAL | E | R/W | Độ giật (Jerk) trục tối đa cho phép trong hệ thống ứng dụng |
+| Số tham số PN | Tên tham số            | Kiểu dữ liệu | B/E | R/W | Ghi chú kỹ thuật                                               |
+| :------------ | :--------------------- | :----------- | :-- | :-- | :------------------------------------------------------------- |
+| 1             | InstructionedPosition  | REAL         | B   | R   | Vị trí lệnh                                                    |
+| 2             | SWLimitPos             | REAL         | E   | R/W | Vị trí công tắc giới hạn phần mềm dương                        |
+| 3             | SWLimitNeg             | REAL         | E   | R/W | Vị trí công tắc giới hạn phần mềm âm                           |
+| 4             | EnableLimitPos         | BOOL         | E   | R/W | Kích hoạt công tắc giới hạn phần mềm dương                     |
+| 5             | EnableLimitNeg         | BOOL         | E   | R/W | Kích hoạt công tắc giới hạn phần mềm âm                        |
+| 6             | EnablePosLagMonitoring | BOOL         | E   | R/W | Kích hoạt giám sát độ trễ vị trí                               |
+| 7             | MaxPositionLag         | REAL         | E   | R/W | Độ trễ vị trí tối đa                                           |
+| 8             | MaxVelocitySystem      | REAL         | E   | R   | Vận tốc trục tối đa cho phép trong hệ thống chuyển động        |
+| 9             | MaxVelocityAppl        | REAL         | B   | R/W | Vận tốc trục tối đa cho phép trong ứng dụng                    |
+| 10            | ActualVelocity         | REAL         | B   | R   | Vận tốc thực tế (Actual Velocity)                              |
+| 11            | InstructionedVelocity  | REAL         | B   | R   | Vận tốc lệnh                                                   |
+| 12            | MaxAccelerationSystem  | REAL         | E   | R   | Gia tốc trục tối đa cho phép trong hệ thống chuyển động        |
+| 13            | MaxAccelerationAppl    | REAL         | E   | R/W | Gia tốc trục tối đa cho phép trong ứng dụng                    |
+| 14            | MaxDecelerationSystem  | REAL         | E   | R   | Giảm tốc trục tối đa cho phép trong hệ thống chuyển động       |
+| 15            | MaxDecelerationAppl    | REAL         | E   | R/W | Giảm tốc trục tối đa cho phép trong ứng dụng                   |
+| 16            | MaxJerkSystem          | REAL         | E   | R   | Độ giật (Jerk) trục tối đa cho phép trong hệ thống chuyển động |
+| 17            | MaxJerkAppl            | REAL         | E   | R/W | Độ giật (Jerk) trục tối đa cho phép trong hệ thống ứng dụng    |
 
 #### Lưu ý kỹ thuật quan trọng
 
@@ -395,9 +395,9 @@ Khối hàm này được sử dụng để đọc các tham số của trục.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                    |
+| :------------------ | :------------------------------------------------ |
+| 4084H               | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
 
 #### Giản đồ thời gian (Sequence Diagram)
 
@@ -413,16 +413,16 @@ Khối hàm này được sử dụng để đọc các tham số kiểu Boolean
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_READBOOLPARAMETER | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READBOOLPARAMETER | ParameterNumber |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
-| MC_READBOOLPARAMETER | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READBOOLPARAMETER | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READBOOLPARAMETER | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READBOOLPARAMETER | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READBOOLPARAMETER | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READBOOLPARAMETER | Value |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh     | Tham số         |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :------------------- | :-------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_READBOOLPARAMETER | Enable          |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READBOOLPARAMETER | ParameterNumber |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |                       |                    |
+| MC_READBOOLPARAMETER | Axis            |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READBOOLPARAMETER | Valid           |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READBOOLPARAMETER | Busy            |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READBOOLPARAMETER | Error           |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READBOOLPARAMETER | ErrorID         |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READBOOLPARAMETER | Value           |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -432,40 +432,40 @@ Khối hàm này được sử dụng để đọc các tham số kiểu Boolean
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_READBOOLPARAMETER | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_READBOOLPARAMETER | Ngõ vào (Input) | ParameterNumber | INT | Không | [1,17] | Số tham số |
-| MC_READBOOLPARAMETER | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC_READBOOLPARAMETER | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_READBOOLPARAMETER | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_READBOOLPARAMETER | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_READBOOLPARAMETER | Ngõ ra (Output) | ErrorID | DWORD | Có |  | Mã lỗi (Xem [8.11 Mã lỗi]) |
-| MC_READBOOLPARAMETER | Ngõ ra (Output) | Value | BOOL | Có | TRUE/FALSE | Tham số trục |
+| Khối lệnh / Lệnh     | Kiểu chân       | Tham số         | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                            |
+| :------------------- | :-------------- | :-------------- | :----------- | :---------------- | :-------------- | :---------------------------------------- |
+| MC_READBOOLPARAMETER | Ngõ vào (Input) | Enable          | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)               |
+| MC_READBOOLPARAMETER | Ngõ vào (Input) | ParameterNumber | INT          | Không             | [1,17]          | Số tham số                                |
+| MC_READBOOLPARAMETER | Ngõ vào (Input) | Axis            | WORD         | Không             | [0,65535]       | Số hiệu định danh trục (Axis ID)          |
+| MC_READBOOLPARAMETER | Ngõ ra (Output) | Valid           | BOOL         | Có                | TRUE/FALSE      | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)      |
+| MC_READBOOLPARAMETER | Ngõ ra (Output) | Busy            | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)  |
+| MC_READBOOLPARAMETER | Ngõ ra (Output) | Error           | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_READBOOLPARAMETER | Ngõ ra (Output) | ErrorID         | DWORD        | Có                |                 | Mã lỗi (Xem [8.11 Mã lỗi])                |
+| MC_READBOOLPARAMETER | Ngõ ra (Output) | Value           | BOOL         | Có                | TRUE/FALSE      | Tham số trục                              |
 
 #### Chức năng và nguyên lý hoạt động
 
 - Dùng để đọc các tham số kiểu Boolean của trục, như được trình bày trong bảng sau.
 
-| Số tham số PN | Tên tham số | Kiểu dữ liệu | B/E | R/W | Ghi chú kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | InstructionedPosition | REAL | B | R | Vị trí lệnh |
-| 2 | SWLimitPos | REAL | E | R/W | Vị trí công tắc giới hạn phần mềm dương |
-| 3 | SWLimitNeg | REAL | E | R/W | Vị trí công tắc giới hạn phần mềm âm |
-| 4 | EnableLimitPos | BOOL | E | R/W | Kích hoạt công tắc giới hạn phần mềm dương |
-| 5 | EnableLimitNeg | BOOL | E | R/W | Kích hoạt công tắc giới hạn phần mềm âm |
-| 6 | EnablePosLagMonitoring | BOOL | E | R/W | Kích hoạt giám sát độ trễ vị trí |
-| 7 | MaxPositionLag | REAL | E | R/W | Độ trễ vị trí tối đa |
-| 8 | MaxVelocitySystem | REAL | E | R | Vận tốc trục tối đa cho phép trong hệ thống chuyển động |
-| 9 | MaxVelocityAppl | REAL | B | R/W | Vận tốc trục tối đa cho phép trong ứng dụng |
-| 10 | ActualVelocity | REAL | B | R | Vận tốc thực tế (Actual Velocity) |
-| 11 | InstructionedVelocity | REAL | B | R | Vận tốc lệnh |
-| 12 | MaxAccelerationSystem | REAL | E | R | Gia tốc trục tối đa cho phép trong hệ thống chuyển động |
-| 13 | MaxAccelerationAppl | REAL | E | R/W | Gia tốc trục tối đa cho phép trong ứng dụng |
-| 14 | MaxDecelerationSystem | REAL | E | R | Giảm tốc trục tối đa cho phép trong hệ thống chuyển động |
-| 15 | MaxDecelerationAppl | REAL | E | R/W | Giảm tốc trục tối đa cho phép trong ứng dụng |
-| 16 | MaxJerkSystem | REAL | E | R | Độ giật (Jerk) trục tối đa cho phép trong hệ thống chuyển động |
-| 17 | MaxJerkAppl | REAL | E | R/W | Độ giật (Jerk) trục tối đa cho phép trong hệ thống ứng dụng |
+| Số tham số PN | Tên tham số            | Kiểu dữ liệu | B/E | R/W | Ghi chú kỹ thuật                                               |
+| :------------ | :--------------------- | :----------- | :-- | :-- | :------------------------------------------------------------- |
+| 1             | InstructionedPosition  | REAL         | B   | R   | Vị trí lệnh                                                    |
+| 2             | SWLimitPos             | REAL         | E   | R/W | Vị trí công tắc giới hạn phần mềm dương                        |
+| 3             | SWLimitNeg             | REAL         | E   | R/W | Vị trí công tắc giới hạn phần mềm âm                           |
+| 4             | EnableLimitPos         | BOOL         | E   | R/W | Kích hoạt công tắc giới hạn phần mềm dương                     |
+| 5             | EnableLimitNeg         | BOOL         | E   | R/W | Kích hoạt công tắc giới hạn phần mềm âm                        |
+| 6             | EnablePosLagMonitoring | BOOL         | E   | R/W | Kích hoạt giám sát độ trễ vị trí                               |
+| 7             | MaxPositionLag         | REAL         | E   | R/W | Độ trễ vị trí tối đa                                           |
+| 8             | MaxVelocitySystem      | REAL         | E   | R   | Vận tốc trục tối đa cho phép trong hệ thống chuyển động        |
+| 9             | MaxVelocityAppl        | REAL         | B   | R/W | Vận tốc trục tối đa cho phép trong ứng dụng                    |
+| 10            | ActualVelocity         | REAL         | B   | R   | Vận tốc thực tế (Actual Velocity)                              |
+| 11            | InstructionedVelocity  | REAL         | B   | R   | Vận tốc lệnh                                                   |
+| 12            | MaxAccelerationSystem  | REAL         | E   | R   | Gia tốc trục tối đa cho phép trong hệ thống chuyển động        |
+| 13            | MaxAccelerationAppl    | REAL         | E   | R/W | Gia tốc trục tối đa cho phép trong ứng dụng                    |
+| 14            | MaxDecelerationSystem  | REAL         | E   | R   | Giảm tốc trục tối đa cho phép trong hệ thống chuyển động       |
+| 15            | MaxDecelerationAppl    | REAL         | E   | R/W | Giảm tốc trục tối đa cho phép trong ứng dụng                   |
+| 16            | MaxJerkSystem          | REAL         | E   | R   | Độ giật (Jerk) trục tối đa cho phép trong hệ thống chuyển động |
+| 17            | MaxJerkAppl            | REAL         | E   | R/W | Độ giật (Jerk) trục tối đa cho phép trong hệ thống ứng dụng    |
 
 #### Lưu ý kỹ thuật quan trọng
 
@@ -473,9 +473,9 @@ Khối hàm này được sử dụng để đọc các tham số kiểu Boolean
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                    |
+| :------------------ | :------------------------------------------------ |
+| 4084H               | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
 
 #### Giản đồ thời gian (Sequence Diagram)
 
@@ -489,15 +489,15 @@ Khối hàm này được sử dụng để đọc vận tốc thực tế của
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_READACTUALVELOCITY | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READACTUALVELOCITY | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READACTUALVELOCITY | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READACTUALVELOCITY | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READACTUALVELOCITY | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READACTUALVELOCITY | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READACTUALVELOCITY | Velocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh      | Tham số  |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :-------------------- | :------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_READACTUALVELOCITY | Enable   |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READACTUALVELOCITY | Axis     |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READACTUALVELOCITY | Valid    |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READACTUALVELOCITY | Busy     |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READACTUALVELOCITY | Error    |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READACTUALVELOCITY | ErrorID  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READACTUALVELOCITY | Velocity |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -507,15 +507,15 @@ Khối hàm này được sử dụng để đọc vận tốc thực tế của
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_READACTUALVELOCITY | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_READACTUALVELOCITY | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC_READACTUALVELOCITY | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_READACTUALVELOCITY | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_READACTUALVELOCITY | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_READACTUALVELOCITY | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Xem [8.11 Mã lỗi]) |
-| MC_READACTUALVELOCITY | Ngõ ra (Output) | Velocity | LREAL | Có | - | Vận tốc thực tế (Actual Velocity) |
+| Khối lệnh / Lệnh      | Kiểu chân       | Tham số  | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                            |
+| :-------------------- | :-------------- | :------- | :----------- | :---------------- | :-------------- | :---------------------------------------- |
+| MC_READACTUALVELOCITY | Ngõ vào (Input) | Enable   | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)               |
+| MC_READACTUALVELOCITY | Ngõ vào (Input) | Axis     | WORD         | Không             | [0,65535]       | Số hiệu định danh trục (Axis ID)          |
+| MC_READACTUALVELOCITY | Ngõ ra (Output) | Valid    | BOOL         | Có                | TRUE/FALSE      | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)      |
+| MC_READACTUALVELOCITY | Ngõ ra (Output) | Busy     | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)  |
+| MC_READACTUALVELOCITY | Ngõ ra (Output) | Error    | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_READACTUALVELOCITY | Ngõ ra (Output) | ErrorID  | DWORD        | Có                | -               | Mã lỗi (Xem [8.11 Mã lỗi])                |
+| MC_READACTUALVELOCITY | Ngõ ra (Output) | Velocity | LREAL        | Có                | -               | Vận tốc thực tế (Actual Velocity)         |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -539,15 +539,15 @@ Khối hàm này được sử dụng để đọc vị trí tuyệt đối th�
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_READACTUALPOSITION | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READACTUALPOSITION | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READACTUALPOSITION | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READACTUALPOSITION | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READACTUALPOSITION | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READACTUALPOSITION | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_READACTUALPOSITION | Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh      | Tham số  |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :-------------------- | :------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_READACTUALPOSITION | Enable   |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READACTUALPOSITION | Axis     |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READACTUALPOSITION | Valid    |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READACTUALPOSITION | Busy     |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READACTUALPOSITION | Error    |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READACTUALPOSITION | ErrorID  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_READACTUALPOSITION | Position |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -557,15 +557,15 @@ Khối hàm này được sử dụng để đọc vị trí tuyệt đối th�
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_READACTUALPOSITION | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_READACTUALPOSITION | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC_READACTUALPOSITION | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Cờ báo dữ liệu ngõ ra hợp lệ (Valid) |
-| MC_READACTUALPOSITION | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_READACTUALPOSITION | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_READACTUALPOSITION | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Xem [8.11 Mã lỗi]) |
-| MC_READACTUALPOSITION | Ngõ ra (Output) | Position | LREAL | Có | - | Vị trí tuyệt đối thực tế |
+| Khối lệnh / Lệnh      | Kiểu chân       | Tham số  | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                            |
+| :-------------------- | :-------------- | :------- | :----------- | :---------------- | :-------------- | :---------------------------------------- |
+| MC_READACTUALPOSITION | Ngõ vào (Input) | Enable   | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)               |
+| MC_READACTUALPOSITION | Ngõ vào (Input) | Axis     | WORD         | Không             | [0,65535]       | Số hiệu định danh trục (Axis ID)          |
+| MC_READACTUALPOSITION | Ngõ ra (Output) | Valid    | BOOL         | Có                | TRUE/FALSE      | Cờ báo dữ liệu ngõ ra hợp lệ (Valid)      |
+| MC_READACTUALPOSITION | Ngõ ra (Output) | Busy     | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)  |
+| MC_READACTUALPOSITION | Ngõ ra (Output) | Error    | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_READACTUALPOSITION | Ngõ ra (Output) | ErrorID  | DWORD        | Có                | -               | Mã lỗi (Xem [8.11 Mã lỗi])                |
+| MC_READACTUALPOSITION | Ngõ ra (Output) | Position | LREAL        | Có                | -               | Vị trí tuyệt đối thực tế                  |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -591,14 +591,14 @@ Khối hàm này được sử dụng để xóa lỗi của trục được đi
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_RESET | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_RESET | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_RESET | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_RESET | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_RESET | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_RESET | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :------ | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_RESET         | Execute |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_RESET         | Axis    |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_RESET         | Done    |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_RESET         | Busy    |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_RESET         | Error   |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_RESET         | ErrorID |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -608,14 +608,14 @@ Khối hàm này được sử dụng để xóa lỗi của trục được đi
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_RESET | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_RESET | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC_RESET | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_RESET | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_RESET | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_RESET | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Xem [8.11 Mã lỗi]) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                            |
+| :--------------- | :-------------- | :------ | :----------- | :---------------- | :-------------- | :---------------------------------------- |
+| MC_RESET         | Ngõ vào (Input) | Execute | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)               |
+| MC_RESET         | Ngõ vào (Input) | Axis    | WORD         | Không             | [0,65535]       | Số hiệu định danh trục (Axis ID)          |
+| MC_RESET         | Ngõ ra (Output) | Done    | BOOL         | Có                | TRUE/FALSE      | Cờ báo hoàn thành (Done)                  |
+| MC_RESET         | Ngõ ra (Output) | Busy    | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)  |
+| MC_RESET         | Ngõ ra (Output) | Error   | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_RESET         | Ngõ ra (Output) | ErrorID | DWORD        | Có                | -               | Mã lỗi (Xem [8.11 Mã lỗi])                |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -643,17 +643,17 @@ Khối hàm này được sử dụng để cài đặt vị trí (vị trí tuy
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_SETPOSITION | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SETPOSITION | Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SETPOSITION | Relative | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SETPOSITION | Execution Mode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SETPOSITION | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SETPOSITION | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SETPOSITION | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SETPOSITION | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SETPOSITION | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số        |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_SETPOSITION   | Execute        |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SETPOSITION   | Position       |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SETPOSITION   | Relative       |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SETPOSITION   | Execution Mode |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SETPOSITION   | Axis           |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SETPOSITION   | Done           |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SETPOSITION   | Busy           |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SETPOSITION   | Error          |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SETPOSITION   | ErrorID        |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -663,17 +663,17 @@ Khối hàm này được sử dụng để cài đặt vị trí (vị trí tuy
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_SETPOSITION | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_SETPOSITION | Ngõ vào (Input) | Position | LREAL | Có | [-999999999.999999, 999999999.999999] | Tọa độ vị trí (Position) |
-| MC_SETPOSITION | Ngõ vào (Input) | Relative | BOOL | Có | TRUE/FALSE | Cài đặt vị trí tương đối hoặc vị trí tuyệt đối |
-| MC_SETPOSITION | Ngõ vào (Input) | ExecutionMode | WORD | Có | [0,2] | Chế độ vận hành: 0 biểu thị thao tác ghi dữ liệu khối hàm được thực thi ngay lập tức; 1 biểu thị thao tác ghi dữ liệu khối hàm bị trì hoãn (Dự phòng); 2 biểu thị thao tác ghi dữ liệu khối hàm được thực thi ở chế độ bộ đệm (Dự phòng); |
-| MC_SETPOSITION | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC_SETPOSITION | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_SETPOSITION | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_SETPOSITION | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_SETPOSITION | Ngõ ra (Output) | ErrorID | DWORD | Có |  | Mã lỗi (Xem [8.11 Mã lỗi]) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số       | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị                       | Mô tả kỹ thuật                                                                                                                                                                                                                            |
+| :--------------- | :-------------- | :------------ | :----------- | :---------------- | :------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| MC_SETPOSITION   | Ngõ vào (Input) | Execute       | BOOL         | Không             | TRUE/FALSE                            | Kích hoạt khối hàm (Enable)                                                                                                                                                                                                               |
+| MC_SETPOSITION   | Ngõ vào (Input) | Position      | LREAL        | Có                | [-999999999.999999, 999999999.999999] | Tọa độ vị trí (Position)                                                                                                                                                                                                                  |
+| MC_SETPOSITION   | Ngõ vào (Input) | Relative      | BOOL         | Có                | TRUE/FALSE                            | Cài đặt vị trí tương đối hoặc vị trí tuyệt đối                                                                                                                                                                                            |
+| MC_SETPOSITION   | Ngõ vào (Input) | ExecutionMode | WORD         | Có                | [0,2]                                 | Chế độ vận hành: 0 biểu thị thao tác ghi dữ liệu khối hàm được thực thi ngay lập tức; 1 biểu thị thao tác ghi dữ liệu khối hàm bị trì hoãn (Dự phòng); 2 biểu thị thao tác ghi dữ liệu khối hàm được thực thi ở chế độ bộ đệm (Dự phòng); |
+| MC_SETPOSITION   | Ngõ vào (Input) | Axis          | WORD         | Không             | [0,65535]                             | Số hiệu định danh trục (Axis ID)                                                                                                                                                                                                          |
+| MC_SETPOSITION   | Ngõ ra (Output) | Done          | BOOL         | Có                | TRUE/FALSE                            | Cờ báo hoàn thành (Done)                                                                                                                                                                                                                  |
+| MC_SETPOSITION   | Ngõ ra (Output) | Busy          | BOOL         | Có                | TRUE/FALSE                            | Cờ báo khối hàm đang bận thực thi (Busy)                                                                                                                                                                                                  |
+| MC_SETPOSITION   | Ngõ ra (Output) | Error         | BOOL         | Có                | TRUE/FALSE                            | Cờ báo có phát sinh lỗi hay không (Error)                                                                                                                                                                                                 |
+| MC_SETPOSITION   | Ngõ ra (Output) | ErrorID       | DWORD        | Có                |                                       | Mã lỗi (Xem [8.11 Mã lỗi])                                                                                                                                                                                                                |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -689,26 +689,26 @@ Khối hàm này được sử dụng để cài đặt vị trí (vị trí tuy
 
 - MC_TouchProbe - Lưu dữ liệu vị trí cho trục hiện tại
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.01%20Management%20Function%20Blocks%20for%20Single-axis%20Motion%20Control/WebHome/1781612856058-235.jpeg?width=253&amp;height=305&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.01%20Management%20Function%20Blocks%20for%20Single-axis%20Motion%20Control/WebHome/1781612856058-235.jpeg?width=253&height=305&rev=1.1)
 
 - Chức năng này được sử dụng để lưu dữ liệu vị trí của trục hiện tại thông qua kích hoạt tín hiệu.
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_Touch Probe | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_Touch Probe | WIndowsOnly | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_Touch Probe | FirstPosition |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_Touch Probe | LastPosition |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_Touch Probe | TriggerInput |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_Touch Probe | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_Touch Probe | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_Touch Probe | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_Touch Probe | CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_Touch Probe | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_Touch Probe | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_Touch Probe | RecorededPosition |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số           |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_Touch Probe   | Execute           |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_Touch Probe   | WIndowsOnly       |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_Touch Probe   | FirstPosition     |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_Touch Probe   | LastPosition      |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_Touch Probe   | TriggerInput      |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_Touch Probe   | Axis              |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_Touch Probe   | Done              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_Touch Probe   | Busy              |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_Touch Probe   | CommandAborted    |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_Touch Probe   | Error             |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_Touch Probe   | ErrorID           |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_Touch Probe   | RecorededPosition |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -718,21 +718,21 @@ Khối hàm này được sử dụng để cài đặt vị trí (vị trí tuy
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật | Mô tả kỹ thuật |  |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_Touch Probe |  | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |  |  |
-| MC_Touch Probe |  | Ngõ vào (Input) | WindowsOnly | BOOL | Có | TRUE/FALSE | Chế độ cửa sổ (Window mode) |  |  |
-| MC_Touch Probe |  | Ngõ vào (Input) | FirstPosition | LREAL | Có | [-999999999.999999, 999999999.999999] | Vị trí bắt đầu |  |  |
-| MC_Touch Probe |  | Ngõ vào (Input) | LastPosition | LREAL | Có | [-999999999.999999, 999999999.999999] | Vị trí kết thúc |  |  |
-| MC_Touch Probe |  | Ngõ vào (Input) | TriggerInput | MC_TRIGGER_REF | Không |  | Các thuộc tính liên quan như tín hiệu kích hoạt đầu dò hoặc thuộc tính kích hoạt |  |  |
-| MC_Touch Probe |  | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |  |  |
-| MC_Touch Probe |  | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Cờ kích hoạt đầu dò chạm (Touch probe) |  |  |
-| MC_Touch Probe |  | Ngõ ra (Output) |  |  |  |  |  |  |  |
-| MC_Touch Probe |  | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE |  | Cờ báo khối hàm đang bận thực thi (Busy) |  |
-| MC_Touch Probe |  | Ngõ ra (Output) | CommandAborted | BOOL | Có | TRUE/FALSE |  | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |  |
-| MC_Touch Probe |  | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE |  | Có lỗi hay không |  |
-| MC_Touch Probe |  | Ngõ ra (Output) | ErrorID | DWORD | Có |  |  | Mã lỗi (Error Code) |  |
-| MC_Touch Probe |  | Ngõ ra (Output) | RecorededPosition | LREAL | Có | [-999999999.999999, 999999999.999999] |  | Vị trí ghi nhận khi kích hoạt đầu dò chạm (Touch probe) |  |
+| Khối lệnh / Lệnh | Khối lệnh / Lệnh | Kiểu chân       | Tham số           | Kiểu dữ liệu   | Cho phép để trống | Phạm vi giá trị                       | Mô tả kỹ thuật                                                                   | Mô tả kỹ thuật                                          |     |
+| :--------------- | :--------------- | :-------------- | :---------------- | :------------- | :---------------- | :------------------------------------ | :------------------------------------------------------------------------------- | :------------------------------------------------------ | :-- |
+| MC_Touch Probe   |                  | Ngõ vào (Input) | Execute           | BOOL           | Không             | TRUE/FALSE                            | Kích hoạt khối hàm (Enable)                                                      |                                                         |     |
+| MC_Touch Probe   |                  | Ngõ vào (Input) | WindowsOnly       | BOOL           | Có                | TRUE/FALSE                            | Chế độ cửa sổ (Window mode)                                                      |                                                         |     |
+| MC_Touch Probe   |                  | Ngõ vào (Input) | FirstPosition     | LREAL          | Có                | [-999999999.999999, 999999999.999999] | Vị trí bắt đầu                                                                   |                                                         |     |
+| MC_Touch Probe   |                  | Ngõ vào (Input) | LastPosition      | LREAL          | Có                | [-999999999.999999, 999999999.999999] | Vị trí kết thúc                                                                  |                                                         |     |
+| MC_Touch Probe   |                  | Ngõ vào (Input) | TriggerInput      | MC_TRIGGER_REF | Không             |                                       | Các thuộc tính liên quan như tín hiệu kích hoạt đầu dò hoặc thuộc tính kích hoạt |                                                         |     |
+| MC_Touch Probe   |                  | Ngõ vào (Input) | Axis              | WORD           | Không             | [0,65535]                             | Số hiệu định danh trục (Axis ID)                                                 |                                                         |     |
+| MC_Touch Probe   |                  | Ngõ ra (Output) | Done              | BOOL           | Có                | TRUE/FALSE                            | Cờ kích hoạt đầu dò chạm (Touch probe)                                           |                                                         |     |
+| MC_Touch Probe   |                  | Ngõ ra (Output) |                   |                |                   |                                       |                                                                                  |                                                         |     |
+| MC_Touch Probe   |                  | Ngõ ra (Output) | Busy              | BOOL           | Có                | TRUE/FALSE                            |                                                                                  | Cờ báo khối hàm đang bận thực thi (Busy)                |     |
+| MC_Touch Probe   |                  | Ngõ ra (Output) | CommandAborted    | BOOL           | Có                | TRUE/FALSE                            |                                                                                  | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted)        |     |
+| MC_Touch Probe   |                  | Ngõ ra (Output) | Error             | BOOL           | Có                | TRUE/FALSE                            |                                                                                  | Có lỗi hay không                                        |     |
+| MC_Touch Probe   |                  | Ngõ ra (Output) | ErrorID           | DWORD          | Có                |                                       |                                                                                  | Mã lỗi (Error Code)                                     |     |
+| MC_Touch Probe   |                  | Ngõ ra (Output) | RecorededPosition | LREAL          | Có                | [-999999999.999999, 999999999.999999] |                                                                                  | Vị trí ghi nhận khi kích hoạt đầu dò chạm (Touch probe) |     |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -750,13 +750,13 @@ Mô tả chế độ cửa sổ (Window Mode)
 
 - Bảng dưới đây mô tả chi tiết các thuộc tính của biến TriggerInput thuộc kiểu MC_TRIGGER_REF.
 
-| Tên kiểu | Biến | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Ngõ vào (Input) | nTriggerNumber | WORD | Không | [0,3] | Lựa chọn chức năng đầu dò chạm (Touch probe). 0: Chốt cạnh lên đầu dò chạm 1; 1: Chốt cạnh xuống đầu dò chạm 1; 2: Chốt cạnh lên đầu dò chạm 2; 3: Chốt cạnh xuống đầu dò chạm 2. |
-| Ngõ vào (Input) | Single | BOOL | Có | TRUE/FALSE | Có kích hoạt một lần hay không (chỉ kích hoạt khi tín hiệu kích hoạt có hiệu lực lần đầu tiên). True: Kích hoạt đơn; False: Kích hoạt liên tục |
-| Ngõ vào (Input) | FastLatChing | BOOL | Có | TRUE/FALSE | Chỉ định chế độ kích hoạt (hiện tại chỉ hỗ trợ chế độ bộ điều khiển Driver). TRUE: Chế độ Driver; FALSE: Chế độ bộ điều khiển (Controller). |
-| Ngõ vào (Input) | Ngõ vào (Input) | BOOL | Có | TRUE/FALSE | Ngõ vào tín hiệu chế độ bộ điều khiển (Controller). Khi FastLatChing là FALSE, phát hiện tín hiệu này. |
-| Ngõ vào (Input) | Active | BOOL | Có | TRUE/FALSE | Dự phòng |
+| Tên kiểu        | Biến            | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                                                                                                                                                                    |
+| :-------------- | :-------------- | :----------- | :---------------- | :-------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ngõ vào (Input) | nTriggerNumber  | WORD         | Không             | [0,3]           | Lựa chọn chức năng đầu dò chạm (Touch probe). 0: Chốt cạnh lên đầu dò chạm 1; 1: Chốt cạnh xuống đầu dò chạm 1; 2: Chốt cạnh lên đầu dò chạm 2; 3: Chốt cạnh xuống đầu dò chạm 2. |
+| Ngõ vào (Input) | Single          | BOOL         | Có                | TRUE/FALSE      | Có kích hoạt một lần hay không (chỉ kích hoạt khi tín hiệu kích hoạt có hiệu lực lần đầu tiên). True: Kích hoạt đơn; False: Kích hoạt liên tục                                    |
+| Ngõ vào (Input) | FastLatChing    | BOOL         | Có                | TRUE/FALSE      | Chỉ định chế độ kích hoạt (hiện tại chỉ hỗ trợ chế độ bộ điều khiển Driver). TRUE: Chế độ Driver; FALSE: Chế độ bộ điều khiển (Controller).                                       |
+| Ngõ vào (Input) | Ngõ vào (Input) | BOOL         | Có                | TRUE/FALSE      | Ngõ vào tín hiệu chế độ bộ điều khiển (Controller). Khi FastLatChing là FALSE, phát hiện tín hiệu này.                                                                            |
+| Ngõ vào (Input) | Active          | BOOL         | Có                | TRUE/FALSE      | Dự phòng                                                                                                                                                                          |
 
 - Thông qua khối hàm MC_TouchProbe, vị trí hiện tại của trục đang chạy sẽ được ghi lại khi tín hiệu tương ứng của tham số ngõ vào TriggerInput được kích hoạt;
 
@@ -770,7 +770,7 @@ Mô tả chế độ cửa sổ (Window Mode)
 
 - Ngõ ra Done của khối hàm biểu thị rằng tín hiệu bắt vị trí (Probe) đã được kích hoạt thành công và thông tin vị trí đã được ghi nhận.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.01%20Management%20Function%20Blocks%20for%20Single-axis%20Motion%20Control/WebHome/1781612856064-129.jpeg?width=579&amp;height=483&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.01%20Management%20Function%20Blocks%20for%20Single-axis%20Motion%20Control/WebHome/1781612856064-129.jpeg?width=579&height=483&rev=1.1)
 
 #### Lưu ý kỹ thuật quan trọng
 
@@ -786,15 +786,15 @@ Khối hàm này chấm dứt các đặc tính liên quan đến sự kiện c�
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_AbortTrigger | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_AbortTrigger | TriggerInput |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_AbortTrigger | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_AbortTrigger | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_AbortTrigger | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_AbortTrigger | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_AbortTrigger | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số      |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :----------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_AbortTrigger  | Execute      |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_AbortTrigger  | TriggerInput |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_AbortTrigger  | Axis         |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_AbortTrigger  | Done         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_AbortTrigger  | Busy         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_AbortTrigger  | Error        |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_AbortTrigger  | ErrorID      |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -804,15 +804,15 @@ Khối hàm này chấm dứt các đặc tính liên quan đến sự kiện c�
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_AbortTrigger | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_AbortTrigger | Ngõ vào (Input) | TriggerInput | MC_TRIGGER_REF | Không | - | Các thuộc tính liên quan như tín hiệu kích hoạt đầu dò hoặc thuộc tính kích hoạt |
-| MC_AbortTrigger | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
-| MC_AbortTrigger | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_AbortTrigger | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_AbortTrigger | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_AbortTrigger | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Lỗi (Error) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số      | Kiểu dữ liệu   | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                                                                   |
+| :--------------- | :-------------- | :----------- | :------------- | :---------------- | :-------------- | :------------------------------------------------------------------------------- |
+| MC_AbortTrigger  | Ngõ vào (Input) | Execute      | BOOL           | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                                                      |
+| MC_AbortTrigger  | Ngõ vào (Input) | TriggerInput | MC_TRIGGER_REF | Không             | -               | Các thuộc tính liên quan như tín hiệu kích hoạt đầu dò hoặc thuộc tính kích hoạt |
+| MC_AbortTrigger  | Ngõ vào (Input) | Axis         | WORD           | Không             | [0,65535]       | Số hiệu định danh trục (Axis ID)                                                 |
+| MC_AbortTrigger  | Ngõ ra (Output) | Done         | BOOL           | Có                | TRUE/FALSE      | Cờ báo hoàn thành (Done)                                                         |
+| MC_AbortTrigger  | Ngõ ra (Output) | Busy         | BOOL           | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)                                         |
+| MC_AbortTrigger  | Ngõ ra (Output) | Error        | BOOL           | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)                                        |
+| MC_AbortTrigger  | Ngõ ra (Output) | ErrorID      | DWORD          | Có                | -               | Lỗi (Error)                                                                      |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -830,6 +830,4 @@ Khối hàm này chấm dứt các đặc tính liên quan đến sự kiện c�
 
 Máy trạng thái kích hoạt (Trigger State Machine)
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.01%20Management%20Function%20Blocks%20for%20Single-axis%20Motion%20Control/WebHome/1781612856065-344.png?width=788&amp;height=341&amp;rev=1.1)
-
-0
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.01%20Management%20Function%20Blocks%20for%20Single-axis%20Motion%20Control/WebHome/1781612856065-344.png?width=788&height=341&rev=1.1)

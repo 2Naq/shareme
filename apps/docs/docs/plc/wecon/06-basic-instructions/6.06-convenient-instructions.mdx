@@ -3,7 +3,7 @@ id: "6.06-convenient-instructions"
 title: "6.06 Nhóm lệnh tiện ích chuyên dụng (Convenient Instructions)"
 sidebar_position: 6
 sidebar_label: "6.06 Convenient instructions"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.06 Nhóm lệnh tiện ích chuyên dụng (Convenient Instructions)"
 ---
 
@@ -17,21 +17,21 @@ Tạo nhiều mẫu ngõ ra tương ứng với giá trị hiện tại của b�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | địa chỉ thiết bị bắt đầu storing the data table(sườn lên (cạnh lên) point and sườn xuống (cạnh xuống) point) | - | Signed BIN 16 bit | ANY16 |
-| (s2) | Số hiệu bộ đếm dùng để giám sát giá trị hiện tại so sánh với bảng dữ liệu | - | Signed BIN 16 bit | ANY16 |
-| (d) | Số điểm của thiết bị bắt đầu ngõ ra | - | Bit | ANY16_BOOL |
-| (n) | Số hàng của bảng và số điểm thiết bị bit ngõ ra | 1 to 64 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                                                                               | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------------------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s1)    | địa chỉ thiết bị bắt đầu storing the data table(sườn lên (cạnh lên) point and sườn xuống (cạnh xuống) point) | -               | Signed BIN 16 bit | ANY16                    |
+| (s2)    | Số hiệu bộ đếm dùng để giám sát giá trị hiện tại so sánh với bảng dữ liệu                                    | -               | Signed BIN 16 bit | ANY16                    |
+| (d)     | Số điểm của thiết bị bắt đầu ngõ ra                                                                          | -               | Bit               | ANY16_BOOL               |
+| (n)     | Số hàng của bảng và số điểm thiết bị bit ngõ ra                                                              | 1 to 64         | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ABSD | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| ABSD | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  | ● |  |
-| ABSD | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| ABSD | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| ABSD             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| ABSD             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |  ●  |     |     |     |     |     |     |     |     |           ●           |                    |
+| ABSD             | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| ABSD             | Parameter 4 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -39,18 +39,18 @@ Lấy ví dụ bàn xoay quay 1 vòng (0 đến 360 độ) để điều khiển
 
 So sánh bảng dữ liệu gồm (n) hàng bắt đầu từ (s1) (chiếm (n) × 2 điểm) với giá trị hiện tại của bộ đếm (s2), thực hiện điều khiển ON/OFF liên tục cho (n) ngõ ra bắt đầu từ (d) trong suốt một vòng quay.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760507942757-678.png?width=408&amp;height=199&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760507942757-678.png?width=408&height=199&rev=1.1)
 
 Sử dụng lệnh truyền để ghi trước dữ liệu sau vào các thiết bị từ (s1) đến (s1)+2(n)-1. Ví dụ: dữ liệu điểm sườn lên được lưu dưới dạng 16-bit vào các thiết bị số chẵn trước, và dữ liệu điểm sườn xuống được lưu dưới dạng 16-bit vào các thiết bị số lẻ trước.
 
 | sườn lên (cạnh lên) point (-) | sườn lên (cạnh lên) point (Data value (example)) | sườn xuống (cạnh xuống) point (-) | sườn xuống (cạnh xuống) point (Data value (example)) | Ngõ ra đối tượng |
-| :--- | :--- | :--- | :--- | :--- |
-| (S1) | 40 | (S1)+1 | 140 | (D) |
-| (S1)+2 | 100 | (S1) +3 | 200 | (D) +1 |
-| (S1) +4 | 160 | (S1) +5 | 60 | (D) +2 |
-| (S1) +6 | 240 | (S1) +7 | 280 | (D) +3 |
-| ... | - | ... | - | ... |
-| (S1)+2(n)-2 | - | (S1)+2(n)-1 | - | (D) +n-1 |
+| :---------------------------- | :----------------------------------------------- | :-------------------------------- | :--------------------------------------------------- | :--------------- |
+| (S1)                          | 40                                               | (S1)+1                            | 140                                                  | (D)              |
+| (S1)+2                        | 100                                              | (S1) +3                           | 200                                                  | (D) +1           |
+| (S1) +4                       | 160                                              | (S1) +5                           | 60                                                   | (D) +2           |
+| (S1) +6                       | 240                                              | (S1) +7                           | 280                                                  | (D) +3           |
+| ...                           | -                                                | ...                               | -                                                    | ...              |
+| (S1)+2(n)-2                   | -                                                | (S1)+2(n)-1                       | -                                                    | (D) +n-1         |
 
 Nếu đầu vào lệnh được đặt thành ON, mẫu ngõ ra gồm (n) điểm bắt đầu từ (d) sẽ như hình dưới đây. Mỗi điểm sườn lên và sườn xuống có thể được thay đổi riêng lẻ bằng cách ghi lại dữ liệu từ (s1) đến (s1)+2(n)-1.
 
@@ -68,11 +68,11 @@ Ngay cả khi đầu vào lệnh tắt OFF, ngõ ra vẫn không thay đổi.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n) vượt quá phạm vi 1 đến 64 |
-| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (s1), (s2 )and (n) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                   |
+| :------------------ | :--------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n) vượt quá phạm vi 1 đến 64                                                           |
+| 4085H               | When thiết bị được chỉ định tại the read lệnh ứng dụng (s1), (s2 )and (n) exceeds the corresponding device range |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range               |
 
 #### Ví dụ minh họa
 
@@ -88,21 +88,21 @@ Tạo nhiều mẫu ngõ ra tương ứng với giá trị hiện tại của b�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | địa chỉ thiết bị bắt đầu storing the data table(sườn lên (cạnh lên) point and sườn xuống (cạnh xuống) point) | - | Signed BIN 32 bit | ANY32 |
-| (s2) | Số hiệu bộ đếm dùng để giám sát giá trị hiện tại so sánh với bảng dữ liệu | - | Signed BIN 32 bit | ANY32 |
-| (d) | Số điểm của thiết bị bắt đầu ngõ ra | - | Bit | ANY16_BOOL |
-| (n) | Số hàng của bảng và số điểm thiết bị bit ngõ ra | 1 to 64 | Signed BIN 32 bit | ANY32 |
+| Tham số | Nội dung mô tả                                                                                               | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------------------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s1)    | địa chỉ thiết bị bắt đầu storing the data table(sườn lên (cạnh lên) point and sườn xuống (cạnh xuống) point) | -               | Signed BIN 32 bit | ANY32                    |
+| (s2)    | Số hiệu bộ đếm dùng để giám sát giá trị hiện tại so sánh với bảng dữ liệu                                    | -               | Signed BIN 32 bit | ANY32                    |
+| (d)     | Số điểm của thiết bị bắt đầu ngõ ra                                                                          | -               | Bit               | ANY16_BOOL               |
+| (n)     | Số hàng của bảng và số điểm thiết bị bit ngõ ra                                                              | 1 to 64         | Signed BIN 32 bit | ANY32                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DABSD | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● |  |
-| DABSD | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  | ● | ● |  |  |  | ● |  |
-| DABSD | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| DABSD | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DABSD            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |                    |
+| DABSD            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |  ●  |     |     |     |  ●  |  ●  |     |     |     |           ●           |                    |
+| DABSD            | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| DABSD            | Parameter 4 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -110,18 +110,18 @@ Lấy ví dụ bàn xoay quay 1 vòng (0 đến 360 độ) để điều khiển
 
 So sánh bảng dữ liệu gồm (n) hàng bắt đầu từ (s1) (chiếm (n) × 4 điểm) với giá trị hiện tại của bộ đếm (s2), thực hiện điều khiển ON/OFF liên tục cho (n) ngõ ra bắt đầu từ (d) trong suốt một vòng quay.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760508060206-929.png?width=468&amp;height=239&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760508060206-929.png?width=468&height=239&rev=1.1)
 
 Sử dụng lệnh truyền để ghi trước dữ liệu sau vào (s1), (s1)+1 đến (s1)+4(n)-2, (s1)+4(n)-1. Ví dụ: dữ liệu điểm sườn lên được lưu dưới dạng 32-bit vào các thiết bị chẵn trước, và dữ liệu điểm sườn xuống được lưu dưới dạng 32-bit vào các thiết bị lẻ trước.
 
 | sườn lên (cạnh lên) point (-) | sườn lên (cạnh lên) point (Data value (example)) | sườn xuống (cạnh xuống) point (-) | sườn xuống (cạnh xuống) point (Data value (example)) | Ngõ ra đối tượng |
-| :--- | :--- | :--- | :--- | :--- |
-| (S1)+1, (S1) | 40 | (S1)+3, (S1)+2 | 140 | (D) |
-| (S1)+5, (S1)+4 | 100 | (S1) +7, (S1) +6 | 200 | (D) +1 |
-| (S1) +9, (S1) +8 | 160 | (S1)+11, (S1)+10 | 60 | (D) +2 |
-| (S1) +13, (S1) +12 | 240 | (S1) +15, (S1) +14 | 280 | (D) +3 |
-| ... | - | ... | - | ... |
-| (S1)+4(n)-3,(S1)+4(n)-4 | - | (S1)+4(n)-1,(S1)+4(n)-2 | - | (D) +n-1 |
+| :---------------------------- | :----------------------------------------------- | :-------------------------------- | :--------------------------------------------------- | :--------------- |
+| (S1)+1, (S1)                  | 40                                               | (S1)+3, (S1)+2                    | 140                                                  | (D)              |
+| (S1)+5, (S1)+4                | 100                                              | (S1) +7, (S1) +6                  | 200                                                  | (D) +1           |
+| (S1) +9, (S1) +8              | 160                                              | (S1)+11, (S1)+10                  | 60                                                   | (D) +2           |
+| (S1) +13, (S1) +12            | 240                                              | (S1) +15, (S1) +14                | 280                                                  | (D) +3           |
+| ...                           | -                                                | ...                               | -                                                    | ...              |
+| (S1)+4(n)-3,(S1)+4(n)-4       | -                                                | (S1)+4(n)-1,(S1)+4(n)-2           | -                                                    | (D) +n-1         |
 
 Nếu đầu vào lệnh được đặt thành ON, mẫu ngõ ra gồm (n) điểm bắt đầu từ (d) sẽ như hình dưới đây. Mỗi điểm sườn lên và sườn xuống có thể được thay đổi riêng lẻ bằng cách ghi lại dữ liệu từ (s1) đến (s1)+2(n)-1.
 
@@ -141,11 +141,11 @@ Ngay cả khi đầu vào lệnh tắt OFF, ngõ ra vẫn không thay đổi.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n) vượt quá phạm vi 1 đến 64 |
-| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (s1), (s2 )and (n) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                   |
+| :------------------ | :--------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n) vượt quá phạm vi 1 đến 64                                                           |
+| 4085H               | When thiết bị được chỉ định tại the read lệnh ứng dụng (s1), (s2 )and (n) exceeds the corresponding device range |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range               |
 
 #### Ví dụ minh họa
 
@@ -161,21 +161,21 @@ Tìm kiếm dữ liệu giống nhau cùng các giá trị lớn nhất và nh�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Search for địa chỉ thiết bị bắt đầu of the same data, maximum value, and minimum value | - | Signed BIN 16 bit | ANY16 |
-| (s2) | Tìm kiếm giá trị dữ liệu trùng khớp hoặc số hiệu thiết bị đích lưu trữ dữ liệu đó | - | Signed BIN 16 bit | ANY16 |
-| (d) | Search for the same data, maximum value, minimum value and store địa chỉ thiết bị bắt đầu | - | Signed BIN 16 bit | ANY16 |
-| (n) | Tìm kiếm số lượng dữ liệu trùng khớp, giá trị lớn nhất và nhỏ nhất | 1 to 256 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                                                            | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s1)    | Search for địa chỉ thiết bị bắt đầu of the same data, maximum value, and minimum value    | -               | Signed BIN 16 bit | ANY16                    |
+| (s2)    | Tìm kiếm giá trị dữ liệu trùng khớp hoặc số hiệu thiết bị đích lưu trữ dữ liệu đó         | -               | Signed BIN 16 bit | ANY16                    |
+| (d)     | Search for the same data, maximum value, minimum value and store địa chỉ thiết bị bắt đầu | -               | Signed BIN 16 bit | ANY16                    |
+| (n)     | Tìm kiếm số lượng dữ liệu trùng khớp, giá trị lớn nhất và nhỏ nhất                        | 1 to 256        | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| SER | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| SER | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| SER | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-|  | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| SER              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| SER              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| SER              | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+|                  | Parameter 4 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -188,27 +188,27 @@ Nếu không có dữ liệu giống nhau, số lượng dữ liệu giống nha
 • Cấu trúc và ví dụ dữ liệu của bảng kết quả tìm kiếm như sau. (N=10)
 
 | Thiết bị được tìm kiếm (s1) | Giá trị của dữ liệu được tìm kiếm (s1) | Giá trị dữ liệu so sánh (S2) | Vị trí dữ liệu | Kết quả tìm kiếm (Giá trị lớn nhất (d)+4) | Kết quả tìm kiếm (Trùng khớp (d)) | Kết quả tìm kiếm (Giá trị nhỏ nhất (d+3)) |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| (s1) | K100 | K100 | 0 |  | ○ (Lần đầu tiên) |  |
-| (s1)+1 | K111 | K100 | 1 |  |  |  |
-| (s1)+2 | K100 | K100 | 2 |  | ○ |  |
-| (s1) +3 | K98 | K100 | 3 |  |  |  |
-| (s1) +4 | K123 | K100 | 4 |  |  |  |
-| (s1) +5 | K66 | K100 | 5 |  |  | ○ |
-| (s1) +6 | K100 | K100 | 6 |  | ○ (final) |  |
-| (s1) +7 | K95 | K100 | 7 |  |  |  |
-| (s1) +8 | 210 | K100 | 8 | ○ |  |  |
-| (s1) +9 | K88 | K100 | 9 |  |  |  |
+| :-------------------------- | :------------------------------------- | :--------------------------- | :------------- | :---------------------------------------- | :-------------------------------- | :---------------------------------------- |
+| (s1)                        | K100                                   | K100                         | 0              |                                           | ○ (Lần đầu tiên)                  |                                           |
+| (s1)+1                      | K111                                   | K100                         | 1              |                                           |                                   |                                           |
+| (s1)+2                      | K100                                   | K100                         | 2              |                                           | ○                                 |                                           |
+| (s1) +3                     | K98                                    | K100                         | 3              |                                           |                                   |                                           |
+| (s1) +4                     | K123                                   | K100                         | 4              |                                           |                                   |                                           |
+| (s1) +5                     | K66                                    | K100                         | 5              |                                           |                                   | ○                                         |
+| (s1) +6                     | K100                                   | K100                         | 6              |                                           | ○ (final)                         |                                           |
+| (s1) +7                     | K95                                    | K100                         | 7              |                                           |                                   |                                           |
+| (s1) +8                     | 210                                    | K100                         | 8              | ○                                         |                                   |                                           |
+| (s1) +9                     | K88                                    | K100                         | 9              |                                           |                                   |                                           |
 
 • Bảng kết quả tìm kiếm dựa trên ví dụ trên được trình bày bên dưới.
 
-| Số hiệu thiết bị | Nội dung mô tả | Các mục kết quả tìm kiếm |
-| :--- | :--- | :--- |
-| (d) | 3 | Số lượng dữ liệu trùng khớp |
-| (d) +1 | 0 | Vị trí của dữ liệu trùng khớp (lần đầu tiên) |
-| (d) +2 | 6 | Vị trí của dữ liệu trùng khớp (lần cuối cùng) |
-| (d) +3 | 5 | Vị trí cuối cùng của giá trị nhỏ nhất |
-| (d) +4 | 8 | Vị trí cuối cùng của giá trị lớn nhất |
+| Số hiệu thiết bị | Nội dung mô tả | Các mục kết quả tìm kiếm                      |
+| :--------------- | :------------- | :-------------------------------------------- |
+| (d)              | 3              | Số lượng dữ liệu trùng khớp                   |
+| (d) +1           | 0              | Vị trí của dữ liệu trùng khớp (lần đầu tiên)  |
+| (d) +2           | 6              | Vị trí của dữ liệu trùng khớp (lần cuối cùng) |
+| (d) +3           | 5              | Vị trí cuối cùng của giá trị nhỏ nhất         |
+| (d) +4           | 8              | Vị trí cuối cùng của giá trị lớn nhất         |
 
 :::tip
 ✎Lưu ý:
@@ -222,11 +222,11 @@ Khi lệnh này được thực thi, kết quả tìm kiếm (d) chiếm 5 đi�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 256 |
-| 4085H | When thiết bị được chỉ định tại read lệnh ứng dụng (s1), (s2), (d) and (n) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                    |
+| :------------------ | :---------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 256                                                           |
+| 4085H               | When thiết bị được chỉ định tại read lệnh ứng dụng (s1), (s2), (d) and (n) exceeds the corresponding device range |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range                |
 
 #### Ví dụ minh họa
 
@@ -242,21 +242,21 @@ Tìm kiếm dữ liệu giống nhau cùng các giá trị lớn nhất và nh�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Search for địa chỉ thiết bị bắt đầu of the same data, maximum value, and minimum value | - | Signed BIN 32 bit | ANY32 |
-| (s2) | Tìm kiếm giá trị dữ liệu trùng khớp hoặc số hiệu thiết bị đích lưu trữ dữ liệu đó | - | Signed BIN 32 bit | ANY32 |
-| (d) | Search for the same data, maximum value, minimum value and store địa chỉ thiết bị bắt đầu | - | Signed BIN 32 bit | ANY32 |
-| (n) | Tìm kiếm số lượng dữ liệu trùng khớp, giá trị lớn nhất và nhỏ nhất | 1 to 128 | Signed BIN 32 bit | ANY32 |
+| Tham số | Nội dung mô tả                                                                            | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s1)    | Search for địa chỉ thiết bị bắt đầu of the same data, maximum value, and minimum value    | -               | Signed BIN 32 bit | ANY32                    |
+| (s2)    | Tìm kiếm giá trị dữ liệu trùng khớp hoặc số hiệu thiết bị đích lưu trữ dữ liệu đó         | -               | Signed BIN 32 bit | ANY32                    |
+| (d)     | Search for the same data, maximum value, minimum value and store địa chỉ thiết bị bắt đầu | -               | Signed BIN 32 bit | ANY32                    |
+| (n)     | Tìm kiếm số lượng dữ liệu trùng khớp, giá trị lớn nhất và nhỏ nhất                        | 1 to 128        | Signed BIN 32 bit | ANY32                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DSER | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DSER | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DSER | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-|  | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DSER             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DSER             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DSER             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+|                  | Parameter 4 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -269,27 +269,27 @@ Trong trường hợp không có dữ liệu giống nhau, số lượng dữ li
 • Cấu trúc và ví dụ dữ liệu của bảng kết quả tìm kiếm như sau. (N=10)
 
 | Thiết bị được tìm kiếm (S1) | Giá trị của dữ liệu được tìm kiếm (S1) | Giá trị dữ liệu so sánh (S2) | Vị trí dữ liệu | Kết quả tìm kiếm (Giá trị lớn nhất (d)+4) | Kết quả tìm kiếm (Trùng khớp (d)) | Kết quả tìm kiếm (Giá trị nhỏ nhất (d+3)) |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| (S1)+1, (S1) | K100 | K100 | 0 |  | ○ (Lần đầu tiên) |  |
-| (S1)+3, (S1)+2 | K111 | K100 | 1 |  |  |  |
-| (S1)+5, (S1)+4 | K100 | K100 | 2 |  | ○ |  |
-| (S1) +7, (S1) +6 | K98 | K100 | 3 |  |  |  |
-| (S1) +9, (S1) +8 | K123 | K100 | 4 |  |  |  |
-| (S1)+11, (S1)+10 | K66 | K100 | 5 |  |  | ○ |
-| (S1) +13, (S1) +12 | K100 | K100 | 6 |  | ○ (final) |  |
-| (S1) +15, (S1) +14 | K95 | K100 | 7 |  |  |  |
-| (S1) +17, (S1) +16 | 210 | K100 | 8 | ○ |  |  |
-| (S1) +19, (S1) +18 | K88 | K100 | 9 |  |  |  |
+| :-------------------------- | :------------------------------------- | :--------------------------- | :------------- | :---------------------------------------- | :-------------------------------- | :---------------------------------------- |
+| (S1)+1, (S1)                | K100                                   | K100                         | 0              |                                           | ○ (Lần đầu tiên)                  |                                           |
+| (S1)+3, (S1)+2              | K111                                   | K100                         | 1              |                                           |                                   |                                           |
+| (S1)+5, (S1)+4              | K100                                   | K100                         | 2              |                                           | ○                                 |                                           |
+| (S1) +7, (S1) +6            | K98                                    | K100                         | 3              |                                           |                                   |                                           |
+| (S1) +9, (S1) +8            | K123                                   | K100                         | 4              |                                           |                                   |                                           |
+| (S1)+11, (S1)+10            | K66                                    | K100                         | 5              |                                           |                                   | ○                                         |
+| (S1) +13, (S1) +12          | K100                                   | K100                         | 6              |                                           | ○ (final)                         |                                           |
+| (S1) +15, (S1) +14          | K95                                    | K100                         | 7              |                                           |                                   |                                           |
+| (S1) +17, (S1) +16          | 210                                    | K100                         | 8              | ○                                         |                                   |                                           |
+| (S1) +19, (S1) +18          | K88                                    | K100                         | 9              |                                           |                                   |                                           |
 
 • Bảng kết quả tìm kiếm dựa trên ví dụ trên được trình bày bên dưới.
 
-| Số hiệu thiết bị | Nội dung mô tả | Các mục kết quả tìm kiếm |
-| :--- | :--- | :--- |
-| (d)+1, (d) | 3 | Số lượng dữ liệu trùng khớp |
-| (d)+3, (d)+2 | 0 | Vị trí của dữ liệu trùng khớp (lần đầu tiên) |
-| (d) +5, (d) +4 | 6 | Vị trí của dữ liệu trùng khớp (lần cuối cùng) |
-| (d) +7, (d) +6 | 5 | Vị trí cuối cùng của giá trị nhỏ nhất |
-| (d) +9, (d) +8 | 8 | Vị trí cuối cùng của giá trị lớn nhất |
+| Số hiệu thiết bị | Nội dung mô tả | Các mục kết quả tìm kiếm                      |
+| :--------------- | :------------- | :-------------------------------------------- |
+| (d)+1, (d)       | 3              | Số lượng dữ liệu trùng khớp                   |
+| (d)+3, (d)+2     | 0              | Vị trí của dữ liệu trùng khớp (lần đầu tiên)  |
+| (d) +5, (d) +4   | 6              | Vị trí của dữ liệu trùng khớp (lần cuối cùng) |
+| (d) +7, (d) +6   | 5              | Vị trí cuối cùng của giá trị nhỏ nhất         |
+| (d) +9, (d) +8   | 8              | Vị trí cuối cùng của giá trị lớn nhất         |
 
 :::tip
 ✎Lưu ý:
@@ -303,11 +303,11 @@ Khi lệnh này được thực thi, kết quả tìm kiếm (d) chiếm 5 đi�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 128 |
-| 4085H | When thiết bị được chỉ định tại read lệnh ứng dụng (s1), (s2), (d) and (n) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                    |
+| :------------------ | :---------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 128                                                           |
+| 4085H               | When thiết bị được chỉ định tại read lệnh ứng dụng (s1), (s2), (d) and (n) exceeds the corresponding device range |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range                |
 
 #### Ví dụ minh họa
 
@@ -323,15 +323,15 @@ Nếu đầu vào bật ON, trạng thái thiết bị bit sẽ bị đảo (ON�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị ngõ ra đảo trạng thái luân phiên | - | Bit | ANY16_BOOL |
+| Tham số | Nội dung mô tả                                    | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------ | :-------------- | :----------- | :----------------------- |
+| (d)     | Số hiệu thiết bị ngõ ra đảo trạng thái luân phiên | -               | Bit          | ANY16_BOOL               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ALT | Parameter 1 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| ALT              | Parameter 1 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -345,7 +345,7 @@ Ngõ ra chia tần số (thông qua ngõ ra luân phiên 2 cấp)
 
 Kết hợp nhiều lệnh ALTP để thực hiện ngõ ra chia tần số.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760508608411-793.png?width=547&amp;height=350&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760508608411-793.png?width=547&height=350&rev=1.1)
 
 :::tip
 ✎Lưu ý:
@@ -355,10 +355,10 @@ Nếu lập trình bằng lệnh ALT, trạng thái sẽ bị đảo ở mỗi c
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (d) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                     |
+| :------------------ | :------------------------------------------------------------------------------------------------- |
+| 4085H               | When thiết bị được chỉ định tại the read lệnh ứng dụng (d) exceeds the corresponding device range  |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
 
 #### Ví dụ minh họa
 
@@ -388,21 +388,21 @@ Sử dụng một cặp bộ đếm để tạo nhiều mẫu ngõ ra.
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | địa chỉ thiết bị bắt đầu storing the set value | - | Signed BIN 16 bit | ANY16 |
-| (s2) | Số hiệu bắt đầu của bộ đếm để giám sát giá trị hiện tại | - | Signed BIN 16 bit | ANY16 |
-| (d) | Số hiệu thiết bị bit bắt đầu của ngõ ra | - | Bit | ANY16_BOOL |
-| (n) | Số điểm thiết bị bit ngõ ra | 1 to 64 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                          | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------ | :-------------- | :---------------- | :----------------------- |
+| (s1)    | địa chỉ thiết bị bắt đầu storing the set value          | -               | Signed BIN 16 bit | ANY16                    |
+| (s2)    | Số hiệu bắt đầu của bộ đếm để giám sát giá trị hiện tại | -               | Signed BIN 16 bit | ANY16                    |
+| (d)     | Số hiệu thiết bị bit bắt đầu của ngõ ra                 | -               | Bit               | ANY16_BOOL               |
+| (n)     | Số điểm thiết bị bit ngõ ra                             | 1 to 64         | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| INCD | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| INCD | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  | ● |  |
-| INCD | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
-| INCD | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| INCD             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| INCD             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |  ●  |     |     |     |     |     |     |     |     |           ●           |                    |
+| INCD             | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| INCD             | Parameter 4 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -416,19 +416,19 @@ Hoạt động được giải thích qua ví dụ mạch sau. (S2) chiếm 2 đ
 
 • Giả sử dữ liệu sau đã được ghi trước bằng lệnh truyền.
 
-| Thiết bị lưu trữ | Thiết bị lưu trữ | Ngõ ra (Output) | Ngõ ra (Output) |
-| :--- | :--- | :--- | :--- |
-| - | Giá trị dữ liệu (ví dụ) | - | Ví dụ minh họa |
-| (S1) | D300=20 | (D) | M0 |
-| (S1)+1 | D301=30 | (D) +1 | M1 |
-| (S1)+2 | D302=10 | (D) +2 | M2 |
-| (S1) +3 | D303=40 | (D) +3 | M3 |
-| ... | .... | ... | ... |
-| (S1)+(n)-1 | - | (D) +n-1 | - |
+| Thiết bị lưu trữ | Thiết bị lưu trữ        | Ngõ ra (Output) | Ngõ ra (Output) |
+| :--------------- | :---------------------- | :-------------- | :-------------- |
+| -                | Giá trị dữ liệu (ví dụ) | -               | Ví dụ minh họa  |
+| (S1)             | D300=20                 | (D)             | M0              |
+| (S1)+1           | D301=30                 | (D) +1          | M1              |
+| (S1)+2           | D302=10                 | (D) +2          | M2              |
+| (S1) +3          | D303=40                 | (D) +3          | M3              |
+| ...              | ....                    | ...             | ...             |
+| (S1)+(n)-1       | -                       | (D) +n-1        | -               |
 
 Giản đồ xung thời gian
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509242587-909.png?width=439&amp;height=401&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509242587-909.png?width=439&height=401&rev=1.1)
 
 Nếu tiếp điểm lệnh bật ON, ngõ ra M0 bật ON.
 
@@ -454,12 +454,12 @@ Có thể điều khiển đồng thời tối đa 4 lệnh INCD trong chương 
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n) vượt quá phạm vi 1 đến 64 |
-| 4085H | When thiết bị được chỉ định tại read lệnh ứng dụng (s1), (s2), (d) and (n) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (s2) and (d) exceeds the corresponding device range |
-| 4089H | Số lượng lệnh được kích hoạt vượt quá giới hạn. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                    |
+| :------------------ | :---------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n) vượt quá phạm vi 1 đến 64                                                            |
+| 4085H               | When thiết bị được chỉ định tại read lệnh ứng dụng (s1), (s2), (d) and (n) exceeds the corresponding device range |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (s2) and (d) exceeds the corresponding device range       |
+| 4089H               | Số lượng lệnh được kích hoạt vượt quá giới hạn.                                                                   |
 
 #### Ví dụ minh họa
 
@@ -475,21 +475,21 @@ Tạo dữ liệu thay đổi tuyến tính giữa hai giá trị bắt đầu (
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | địa chỉ thiết bị that stores the initial value of the set ramp | - | Signed BIN 16 bit | ANY16 |
-| (s2) | địa chỉ thiết bị that stores the set ramp target value | - | Signed BIN 16 bit | ANY16 |
-| (d) | địa chỉ thiết bị that stores the current value data of ramp | - | Signed BIN 16 bit | ANY16 |
-| (n) | Thời gian chuyển tiếp dốc (số chu kỳ quét) | 1-32767 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                                 | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s1)    | địa chỉ thiết bị that stores the initial value of the set ramp | -               | Signed BIN 16 bit | ANY16                    |
+| (s2)    | địa chỉ thiết bị that stores the set ramp target value         | -               | Signed BIN 16 bit | ANY16                    |
+| (d)     | địa chỉ thiết bị that stores the current value data of ramp    | -               | Signed BIN 16 bit | ANY16                    |
+| (n)     | Thời gian chuyển tiếp dốc (số chu kỳ quét)                     | 1-32767         | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| RAMP | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| RAMP | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| RAMP | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| RAMP | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| RAMP             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| RAMP             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| RAMP             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| RAMP             | Parameter 4 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -523,11 +523,11 @@ Khi thiết bị lưu giữ khi mất điện (vùng nhớ lưu giữ) được 
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n) vượt quá phạm vi quy định từ 1 đến 32767 |
-| 4085H | When thiết bị được chỉ định tại read lệnh ứng dụng (s1), (s2), (d) and (n) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                    |
+| :------------------ | :---------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n) vượt quá phạm vi quy định từ 1 đến 32767                                             |
+| 4085H               | When thiết bị được chỉ định tại read lệnh ứng dụng (s1), (s2), (d) and (n) exceeds the corresponding device range |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range                |
 
 #### Ví dụ minh họa
 
@@ -545,40 +545,40 @@ ROTC
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s) | Thanh ghi chỉ định điều kiện gọi (được cài đặt trước theo lệnh truyền) | (s)+0: Thanh ghi dùng để đếm | - | Signed BIN 16 bit | ANY16 |
-| (s) | Thanh ghi chỉ định điều kiện gọi (được cài đặt trước theo lệnh truyền) | (s)+1: Cài đặt số hiệu cửa sổ cần gọi | - | Signed BIN 16 bit | ANY16 |
-| (s) | Thanh ghi chỉ định điều kiện gọi (được cài đặt trước theo lệnh truyền) | (s)+2: Cài đặt số hiệu mục cần gọi | - | Signed BIN 16 bit | ANY16 |
-| (n1) | Number of divisions |  | 2 to 32767 | Signed BIN 16 bit | ANY16 |
-| (n2) | Số lẻ trong vùng tốc độ thấp |  | 0 to 32767 | Signed BIN 16 bit | ANY16 |
-| (d) | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d): phase A signal | - | Signed BIN 16 bit | ANY16 |
-| (d) | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+1: phase B signal | - | Signed BIN 16 bit | ANY16 |
-| (d) | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+2: Tín hiệu phát hiện điểm 0 (Zero) | - | Signed BIN 16 bit | ANY16 |
-| (d) | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+3: Quay thuận tốc độ cao | - | Signed BIN 16 bit | ANY16 |
-| (d) | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+4: Quay thuận tốc độ thấp | - | Signed BIN 16 bit | ANY16 |
-| (d) | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+5: stop | - | Signed BIN 16 bit | ANY16 |
-| (d) | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+6: Quay nghịch tốc độ thấp | - | Signed BIN 16 bit | ANY16 |
-| (d) | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+7: Quay nghịch tốc độ cao | - | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                                                                       | Nội dung mô tả                          | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :--------------------------------------------------------------------------------------------------- | :-------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s)     | Thanh ghi chỉ định điều kiện gọi (được cài đặt trước theo lệnh truyền)                               | (s)+0: Thanh ghi dùng để đếm            | -               | Signed BIN 16 bit | ANY16                    |
+| (s)     | Thanh ghi chỉ định điều kiện gọi (được cài đặt trước theo lệnh truyền)                               | (s)+1: Cài đặt số hiệu cửa sổ cần gọi   | -               | Signed BIN 16 bit | ANY16                    |
+| (s)     | Thanh ghi chỉ định điều kiện gọi (được cài đặt trước theo lệnh truyền)                               | (s)+2: Cài đặt số hiệu mục cần gọi      | -               | Signed BIN 16 bit | ANY16                    |
+| (n1)    | Number of divisions                                                                                  |                                         | 2 to 32767      | Signed BIN 16 bit | ANY16                    |
+| (n2)    | Số lẻ trong vùng tốc độ thấp                                                                         |                                         | 0 to 32767      | Signed BIN 16 bit | ANY16                    |
+| (d)     | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d): phase A signal                     | -               | Signed BIN 16 bit | ANY16                    |
+| (d)     | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+1: phase B signal                   | -               | Signed BIN 16 bit | ANY16                    |
+| (d)     | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+2: Tín hiệu phát hiện điểm 0 (Zero) | -               | Signed BIN 16 bit | ANY16                    |
+| (d)     | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+3: Quay thuận tốc độ cao            | -               | Signed BIN 16 bit | ANY16                    |
+| (d)     | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+4: Quay thuận tốc độ thấp           | -               | Signed BIN 16 bit | ANY16                    |
+| (d)     | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+5: stop                             | -               | Signed BIN 16 bit | ANY16                    |
+| (d)     | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+6: Quay nghịch tốc độ thấp          | -               | Signed BIN 16 bit | ANY16                    |
+| (d)     | Bit chỉ định điều kiện gọi (tạo thành mạch tiếp điểm nội bộ được kích trước từ tín hiệu ngõ vào (X)) | (d)+7: Quay nghịch tốc độ cao           | -               | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ROTC | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● |  |
-| ROTC | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| ROTC | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| ROTC | Parameter 4 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| ROTC             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| ROTC             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| ROTC             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| ROTC             | Parameter 4 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
 Để lấy các vật phẩm trên bàn xoay được chia thành n1 (=10) phần như hình dưới đây, đưa ô cần lấy đến cửa lấy hàng theo yêu cầu và quay bàn xoay theo chiều gần nhất với điều kiện n2 hoặc (s), (d). Nếu các điều kiện vận hành sau được chỉ định, có thể sử dụng (d)+3 đến (d)+7 làm ngõ ra quay thuận/quay nghịch, tốc độ cao/tốc độ thấp/dừng.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509508450-781.png?width=539&amp;height=309&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509508450-781.png?width=539&height=309&rev=1.1)
 
 Bố trí cảm biến phát hiện hai pha (X0, X1) cho chiều quay thuận/nghịch của bàn xoay và công tắc X2 để phát hiện cửa số 0. Thay thế X0 đến X2 bằng các tiếp điểm nội từ (d) đến (d)+2. Số hiệu thiết bị bắt đầu chỉ định tại X hoặc (d) có thể chọn tùy ý.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509570037-881.png?width=535&amp;height=175&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509570037-881.png?width=535&height=175&rev=1.1)
 
 (s) là bộ đếm dùng để đếm vị trí ô hiện tại đang ở cửa số 0.
 
@@ -602,31 +602,31 @@ Có thể thực thi đồng thời tối đa 4 lệnh ROTC.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n1) vượt quá phạm vi 2 đến 32767 |
-| 4084H | Khi giá trị chỉ định tại (n2) vượt quá phạm vi 0 đến 32767 |
-| 4084H | Khi các giá trị chỉ định tại (n1) và (n2) thỏa mãn điều kiện (n1)&lt;(n2) |
-| 4084H | Khi một trong các giá trị (s), (s)+1 và (s)+2 là số âm. |
-| 4084H | Khi một trong các giá trị (s), (s)+1 và (s)+2 lớn hơn hoặc bằng (n1). |
-| 4085H | When thiết bị được chỉ định tại read lệnh ứng dụng (s1), (n1), (n2) and (d) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (s2) and (d) exceeds the corresponding device range |
-| 4089H | Số lượng lệnh thực thi vượt quá giới hạn. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                     |
+| :------------------ | :----------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n1) vượt quá phạm vi 2 đến 32767                                                         |
+| 4084H               | Khi giá trị chỉ định tại (n2) vượt quá phạm vi 0 đến 32767                                                         |
+| 4084H               | Khi các giá trị chỉ định tại (n1) và (n2) thỏa mãn điều kiện (n1)&lt;(n2)                                          |
+| 4084H               | Khi một trong các giá trị (s), (s)+1 và (s)+2 là số âm.                                                            |
+| 4084H               | Khi một trong các giá trị (s), (s)+1 và (s)+2 lớn hơn hoặc bằng (n1).                                              |
+| 4085H               | When thiết bị được chỉ định tại read lệnh ứng dụng (s1), (n1), (n2) and (d) exceeds the corresponding device range |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (s2) and (d) exceeds the corresponding device range        |
+| 4089H               | Số lượng lệnh thực thi vượt quá giới hạn.                                                                          |
 
 #### Ví dụ minh họa
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509772996-222.png?rev=1.1)
 
-| Biến | Đặc tính kỹ thuật | Tập lệnh | Biến | Chức năng và nguyên lý hoạt động | Tập lệnh |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| D200 | Được sử dụng làm thanh ghi đếm | The 3 units are pre-set by the user program | M3 | Chạy theo chiều thuận ở tốc độ cao | When X0 is ON, the result of M3 to M7 could be automatically obtained. |
-| D201 | Cài đặt số hiệu cửa sổ gọi | The 3 units are pre-set by the user program | M4 | Chạy theo chiều thuận ở tốc độ thấp | When X0 is ON, the result of M3 to M7 could be automatically obtained. |
-| D202 | Cài đặt số hiệu phôi cần gọi | The 3 units are pre-set by the user program | M5 | Stop | When X0 is ON, the result of M3 to M7 could be automatically obtained. |
+| Biến | Đặc tính kỹ thuật              | Tập lệnh                                    | Biến | Chức năng và nguyên lý hoạt động    | Tập lệnh                                                               |
+| :--- | :----------------------------- | :------------------------------------------ | :--- | :---------------------------------- | :--------------------------------------------------------------------- |
+| D200 | Được sử dụng làm thanh ghi đếm | The 3 units are pre-set by the user program | M3   | Chạy theo chiều thuận ở tốc độ cao  | When X0 is ON, the result of M3 to M7 could be automatically obtained. |
+| D201 | Cài đặt số hiệu cửa sổ gọi     | The 3 units are pre-set by the user program | M4   | Chạy theo chiều thuận ở tốc độ thấp | When X0 is ON, the result of M3 to M7 could be automatically obtained. |
+| D202 | Cài đặt số hiệu phôi cần gọi   | The 3 units are pre-set by the user program | M5   | Stop                                | When X0 is ON, the result of M3 to M7 could be automatically obtained. |
 
-| M0 | Phase A signal | The user program executes before each scan of this statement:![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509798093-762.png?rev=1.1) | M6 | Run at chiều ngược lại (-) at low velocity | Khi X0 ở trạng thái OFF, M3 to M7 are all OFF. |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| M1 | Phase B signal | The user program executes before each scan of this statement:![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509798093-762.png?rev=1.1) | M7 | Run at chiều ngược lại (-) at high velocity | Khi X0 ở trạng thái OFF, M3 to M7 are all OFF. |
-| M2 | Tín hiệu phát hiện điểm 0 (Zero) | The user program executes before each scan of this statement:![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509798093-762.png?rev=1.1) |  |  | Khi X0 ở trạng thái OFF, M3 to M7 are all OFF. |
+| M0  | Phase A signal                   | The user program executes before each scan of this statement:![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509798093-762.png?rev=1.1) | M6  | Run at chiều ngược lại (-) at low velocity  | Khi X0 ở trạng thái OFF, M3 to M7 are all OFF. |
+| :-- | :------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :-- | :------------------------------------------ | :--------------------------------------------- |
+| M1  | Phase B signal                   | The user program executes before each scan of this statement:![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509798093-762.png?rev=1.1) | M7  | Run at chiều ngược lại (-) at high velocity | Khi X0 ở trạng thái OFF, M3 to M7 are all OFF. |
+| M2  | Tín hiệu phát hiện điểm 0 (Zero) | The user program executes before each scan of this statement:![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509798093-762.png?rev=1.1) |     |                                             | Khi X0 ở trạng thái OFF, M3 to M7 are all OFF. |
 
 ### STMR/Bộ định thời chức năng đặc biệt
 
@@ -638,19 +638,19 @@ Sử dụng 4 điểm bắt đầu từ thiết bị chỉ định tại (d) đ�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Số hiệu bộ định thời sử dụng: T0 đến T511 (bộ định thời 100ms) | - | Device Name | ANY16 |
-| (s2) | Giá trị đặt của bộ định thời | 1-32767 | Signed BIN 16 bit | ANY16 |
-| (d) | Số hiệu bit bắt đầu của ngõ ra (chiếm 4 điểm) | - | Bit | ANYBIT_ARRAY |
+| Tham số | Nội dung mô tả                                                 | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s1)    | Số hiệu bộ định thời sử dụng: T0 đến T511 (bộ định thời 100ms) | -               | Device Name       | ANY16                    |
+| (s2)    | Giá trị đặt của bộ định thời                                   | 1-32767         | Signed BIN 16 bit | ANY16                    |
+| (d)     | Số hiệu bit bắt đầu của ngõ ra (chiếm 4 điểm)                  | -               | Bit               | ANYBIT_ARRAY             |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| STMR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  | ● |  |
-| STMR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| STMR | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| STMR             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |     |     |     |     |     |     |     |     |     |           ●           |                    |
+| STMR             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| STMR             | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -662,13 +662,13 @@ Sử dụng 4 điểm bắt đầu từ thiết bị chỉ định tại (d) đ�
 
 - Giá trị cài đặt được chỉ định tại (S2)
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509857776-789.png?width=545&amp;height=242&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509857776-789.png?width=545&height=242&rev=1.1)
 
 Tín hiệu nhấp nháy sẽ xuất ra (d)+1, (d)+2 thông qua tiếp điểm thường đóng (d)+3 trong chương trình bật/tắt lệnh STMR sau đây (T10 được gán vào (s1), K100 được gán vào (s2) và M0 được gán vào (d)).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509907975-861.png?width=509&amp;height=68&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509907975-861.png?width=509&height=68&rev=1.1)
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509937534-638.png?width=671&amp;height=161&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509937534-638.png?width=671&height=161&rev=1.1)
 
 Giá trị cài đặt của (S2) có thể chỉ định trong phạm vi từ 1 đến 32767 (0,1 đến 3276,7 giây).
 
@@ -686,10 +686,10 @@ Khi tiếp điểm lệnh tắt OFF, (d), (d)+1, (d)+3 sẽ tắt OFF sau khoả
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (s2) nhỏ hơn hoặc bằng 0 |
-| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (s2) and (d) exceeds the corresponding device range |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                             |
+| :------------------ | :--------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (s2) nhỏ hơn hoặc bằng 0                                                          |
+| 4085H               | When thiết bị được chỉ định tại the read lệnh ứng dụng (s2) and (d) exceeds the corresponding device range |
 
 #### Ví dụ minh họa
 
@@ -697,7 +697,7 @@ Khi tiếp điểm lệnh tắt OFF, (d), (d)+1, (d)+3 sẽ tắt OFF sau khoả
 
 Nếu đưa phần tử (d)+3 vào nhánh điều khiển lệnh, có thể dễ dàng tạo ra ngõ ra dao động (chức năng này cũng có thể thực hiện bằng lệnh ALT), như minh họa trong hình dưới đây:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510050255-878.png?width=442&amp;height=243&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510050255-878.png?width=442&height=243&rev=1.1)
 
 ### TTMR/Bộ định thời học lệnh (Teaching Timer)
 
@@ -709,23 +709,23 @@ TTMR
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Thiết bị lưu trữ dữ liệu học (teaching) | - | Signed BIN 16 bit | ANY16 |
-| (s) | Tỷ lệ nhân của dữ liệu học (teaching) | 0-2 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                          | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (d)     | Thiết bị lưu trữ dữ liệu học (teaching) | -               | Signed BIN 16 bit | ANY16                    |
+| (s)     | Tỷ lệ nhân của dữ liệu học (teaching)   | 0-2             | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| TTMR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| TTMR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| TTMR             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| TTMR             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
 Measure the time of the execution instruction (button) in seconds, multiply it by the magnification (10 S ) specified in (s) and store it in thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510131894-214.png?width=525&amp;height=256&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510131894-214.png?width=525&height=256&rev=1.1)
 
 Đối với thời gian lưu trong (d), khi thời gian thực thi là
 
@@ -733,17 +733,17 @@ Measure the time of the execution instruction (button) in seconds, multiply it b
 
 (đơn vị: giây), giá trị thực tế của (d) theo hệ số phóng đại chỉ định tại (s) như sau.
 
-| (s) | Magnification | (D) |
-| :--- | :--- | :--- |
-| K0 | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510154871-780.png?width=29&height=22&rev=1.1) | (D) ×1 |
-| K1 | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510914317-774.png?width=47&height=22&rev=1.1) | (D)×10 |
-| K2 | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510921669-714.png?width=55&height=21&rev=1.1) | (D) ×100 |
+| (s) | Magnification                                                                                                                                                             | (D)      |
+| :-- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------- |
+| K0  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510154871-780.png?width=29&height=22&rev=1.1) | (D) ×1   |
+| K1  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510914317-774.png?width=47&height=22&rev=1.1) | (D)×10   |
+| K2  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510921669-714.png?width=55&height=21&rev=1.1) | (D) ×100 |
 
-| (s) | (d) | (d)+1 (unit: 100 milliseconds) |
-| :--- | :--- | :--- |
-| K0 (unit: second) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510212024-575.png?width=61&height=18&rev=1.1) | (d)+1 =(d)×10 |
-| K1 (unit: 100 milliseconds) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510222300-562.png?width=45&height=18&rev=1.1) | (d)+1 =(d) |
-| K2 (unit: 10 milliseconds) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510229736-378.png?width=56&height=17&rev=1.1) | (d)+1 =(d)/10 |
+| (s)                         | (d)                                                                                                                                                                       | (d)+1 (unit: 100 milliseconds) |
+| :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------------- |
+| K0 (unit: second)           | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510212024-575.png?width=61&height=18&rev=1.1) | (d)+1 =(d)×10                  |
+| K1 (unit: 100 milliseconds) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510222300-562.png?width=45&height=18&rev=1.1) | (d)+1 =(d)                     |
+| K2 (unit: 10 milliseconds)  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510229736-378.png?width=56&height=17&rev=1.1) | (d)+1 =(d)/10                  |
 
 :::tip
 ✎Lưu ý:
@@ -755,11 +755,11 @@ Chiếm 2 điểm thiết bị bắt đầu từ thiết bị thời gian học 
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 2 |
-| 4085H | When thiết bị được chỉ định tại read lệnh ứng dụng (d) and (s) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                        |
+| :------------------ | :---------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 2                                                 |
+| 4085H               | When thiết bị được chỉ định tại read lệnh ứng dụng (d) and (s) exceeds the corresponding device range |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range    |
 
 #### Ví dụ minh họa
 
@@ -769,10 +769,8 @@ Ví dụ 1
 
 Khi X0 đóng, D10=D11; khi X0 mở, giá trị của D10 giữ nguyên không đổi, còn D11 trở thành 0.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760511061963-190.png?width=397&amp;height=224&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760511061963-190.png?width=397&height=224&rev=1.1)
 
 Ví dụ 2
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760511103989-554.png?width=620&amp;height=418&amp;rev=1.1)
-
-0
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760511103989-554.png?width=620&height=418&rev=1.1)

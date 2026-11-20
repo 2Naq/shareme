@@ -3,7 +3,7 @@ id: "07-ethercat"
 title: "07 Mạng truyền thông công nghiệp EtherCAT"
 sidebar_position: 7
 sidebar_label: "07 EtherCAT"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 07 Mạng truyền thông công nghiệp EtherCAT"
 ---
 
@@ -194,32 +194,32 @@ Nếu là bí danh được đặt trong [Chế độ chuyên gia (Expert mode)]
 - 5 thiết bị: A, B, C, D, E. Thứ tự kết nối là E, D, A, C, B, hệ thống sẽ tìm kiếm theo bí danh, và tất cả đều khớp với thứ tự cấu hình. Hệ thống sẽ chạy bình thường.
 
 | Thứ tự cấu hình | Bí danh (Alias) | Thứ tự liên kết | Bí danh (Alias) |
-| :--- | :--- | :--- | :--- |
-| A | 1 | E | 5 |
-| B | 2 | D | 4 |
-| C | 3 | A | 1 |
-| D | 4 | C | 3 |
-| E | 5 | B | 2 |
+| :-------------- | :-------------- | :-------------- | :-------------- |
+| A               | 1               | E               | 5               |
+| B               | 2               | D               | 4               |
+| C               | 3               | A               | 1               |
+| D               | 4               | C               | 3               |
+| E               | 5               | B               | 2               |
 
 - 5 thiết bị: A, B, C, D, E. Tích chọn [Thiết bị tùy chọn (Equipment optional)], và thứ tự kết nối là d, a, c và b. Khi sử dụng e, khối hàm FB tương ứng sẽ báo lỗi, nhưng sẽ không ảnh hưởng đến việc sử dụng và vận hành của các thiết bị khác;
 
 | Thứ tự cấu hình | Bí danh (Alias) | Thứ tự liên kết | Bí danh (Alias) |
-| :--- | :--- | :--- | :--- |
-| A | 1 | D | 4 |
-| B | 2 | A | 1 |
-| C | 3 | C | 3 |
-| D | 4 | B | 2 |
-| E | 5 |  |  |
+| :-------------- | :-------------- | :-------------- | :-------------- |
+| A               | 1               | D               | 4               |
+| B               | 2               | A               | 1               |
+| C               | 3               | C               | 3               |
+| D               | 4               | B               | 2               |
+| E               | 5               |                 |                 |
 
 - 5 thiết bị: A, B, C, D, E. C và E bật [Thiết bị tùy chọn (Device optional)], và thứ tự kết nối là e, d, c, b. Vì a không bật [Thiết bị tùy chọn (Device optional)] và đồng thời không tìm thấy, khi chuyển sang OP sẽ không thể lên OP, và lỗi "Không tìm thấy thiết bị (Device not found)" sẽ được báo.
 
 | Thứ tự cấu hình | Bí danh (Alias) | Thứ tự liên kết | Bí danh (Alias) |
-| :--- | :--- | :--- | :--- |
-| A | 1 | E | 5 |
-| B | 2 | D | 4 |
-| C | 3 | C | 3 |
-| D | 4 | B | 2 |
-| E | 5 |  |  |
+| :-------------- | :-------------- | :-------------- | :-------------- |
+| A               | 1               | E               | 5               |
+| B               | 2               | D               | 4               |
+| C               | 3               | C               | 3               |
+| D               | 4               | B               | 2               |
+| E               | 5               |                 |                 |
 
 Nếu là bí danh được đặt trong chế độ chuyên gia, ngay cả khi không tìm thấy bí danh, thiết bị có mã model tương ứng vẫn có thể chạy bình thường nếu được tìm thấy theo đúng thứ tự.
 
@@ -230,22 +230,22 @@ Nếu là bí danh được đặt trong chế độ chuyên gia, ngay cả khi 
 Các bí danh b, d và e đều khớp tương ứng. Lúc này, a và c sẽ được tìm thấy ngay cả khi chúng không khớp bí danh. (Sau khi b, d và e đã khớp, loại bỏ ba đơn vị này khỏi cả hai phía, khi đó còn lại: thứ tự cấu hình là a, c và tìm trong chuỗi kết nối nên a và c có thể được tìm thấy.)
 
 | Thứ tự cấu hình | Bí danh (Alias) | Thứ tự liên kết | Bí danh (Alias) |
-| :--- | :--- | :--- | :--- |
-| A | 1 | E | 5 |
-| B | 2 | D | 4 |
-| C | 3 | A | 10 |
-| D | 4 | C | 30 |
-| E | 5 | B | 2 |
+| :-------------- | :-------------- | :-------------- | :-------------- |
+| A               | 1               | E               | 5               |
+| B               | 2               | D               | 4               |
+| C               | 3               | A               | 10              |
+| D               | 4               | C               | 30              |
+| E               | 5               | B               | 2               |
 
 Nếu các bí danh của a, d và e khớp tương ứng, thì b và c không thể được tìm thấy nếu chúng không khớp. (Sau khi loại bỏ tương tự, thứ tự cấu hình là b, c, tìm trong chuỗi kết nối là c, b. Do đó, c và b không thể tìm thấy.)
 
 | Thứ tự cấu hình | Bí danh (Alias) | Thứ tự liên kết | Bí danh (Alias) |
-| :--- | :--- | :--- | :--- |
-| A | 1 | E | 5 |
-| B | 2 | D | 4 |
-| C | 3 | A | 1 |
-| D | 4 | C | 30 |
-| E | 5 | B | 20 |
+| :-------------- | :-------------- | :-------------- | :-------------- |
+| A               | 1               | E               | 5               |
+| B               | 2               | D               | 4               |
+| C               | 3               | A               | 1               |
+| D               | 4               | C               | 30              |
+| E               | 5               | B               | 20              |
 
 :::tip
 Ghi chú kỹ thuật
@@ -265,7 +265,7 @@ Ngoại trừ bí danh 0, các bí danh có thể ánh xạ tương ứng bình 
 
 Ở chế độ giám sát, nhấp vào giao diện thiết bị EtherCAT trong giao diện quản lý dự án.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774921706980-630.png?width=320&amp;height=388&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774921706980-630.png?width=320&height=388&rev=1.1)
 
 Lúc này, giao diện sau sẽ xuất hiện. Khác với chế độ không giám sát, nút [Ghi EEprom (Write EEprom)] xuất hiện. Nút này dùng để ghi bí danh vào Servo tương ứng.
 
@@ -295,7 +295,7 @@ Mở giao diện cấu hình EtherCAT, nhấp [Ghi EEprom (Write EEprom)] và gh
 
 Khởi động lại Servo và PLC là có thể khớp nối thông qua bí danh.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774921899334-213.png?width=362&amp;height=228&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774921899334-213.png?width=362&height=228&rev=1.1)
 
 Sau đó tích chọn [Thiết bị tùy chọn (Device optional)] ở chế độ chỉnh sửa.
 
@@ -381,37 +381,37 @@ Hàm này chủ yếu được sử dụng để đọc các tham số SDO của
 
 Nội dung, phạm vi, kiểu dữ liệu
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| ETC_READPARAMETER_COE | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Cho phép đọc SDO Servo |
-| ETC_READPARAMETER_COE | Ngõ vào (Input) | SlaveID | WORD | Không | Từ 0 đến phạm vi các trạm slave EtherCAT có thể liên kết | Cài đặt theo ID đã cấu hình trên giao diện. Nếu thiết bị là tùy chọn, lỗi vẫn sẽ được báo ngay cả khi thiết bị không tồn tại thực tế |
-| ETC_READPARAMETER_COE | Ngõ vào (Input) | Index | WORD | Không | 0 to 65535 | Chỉ mục (Index), điền theo thông tin do servo cung cấp |
-| ETC_READPARAMETER_COE | Ngõ vào (Input) | SubIndex | WORD | Không | 0 to 65535 | Chỉ mục con (Sub-index), điền theo thông tin do servo cung cấp |
-| ETC_READPARAMETER_COE | Ngõ vào (Input) | DstLength | WORD | Không | - | Độ dài dữ liệu, điền theo thông tin do servo cung cấp. |
-| ETC_READPARAMETER_COE | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Khi lấy được giá trị, Done sẽ được đặt thành TRUE; nếu chưa đọc xong, Done sẽ là FALSE |
-| ETC_READPARAMETER_COE | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Busy bằng TRUE trong quá trình đang đọc |
-| ETC_READPARAMETER_COE | Ngõ ra (Output) | RelLength | WORD | Có | - | Độ dài thực tế |
-| ETC_READPARAMETER_COE | Ngõ ra (Output) | Data | DWORD | Có | - | Dữ liệu đọc được |
-| ETC_READPARAMETER_COE | Ngõ ra (Output) | AbrotCode | DWORD | Có | TRUE/FALSE | Mã ngắt (Abort code) do servo trả về, tham khảo tài liệu tiêu chuẩn EtherCAT để biết chi tiết |
-| ETC_READPARAMETER_COE | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Lỗi (Error) |
-| ETC_READPARAMETER_COE | Ngõ ra (Output) | ErrorID | DWORD | Có | Xem mã lỗi để biết chi tiết | Mã lỗi (Error Code) |
+| Khối lệnh / Lệnh      | Kiểu chân       | Tham số   | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị                                          | Mô tả kỹ thuật                                                                                                                       |
+| :-------------------- | :-------------- | :-------- | :----------- | :---------------- | :------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| ETC_READPARAMETER_COE | Ngõ vào (Input) | Enable    | BOOL         | Không             | TRUE/FALSE                                               | Cho phép đọc SDO Servo                                                                                                               |
+| ETC_READPARAMETER_COE | Ngõ vào (Input) | SlaveID   | WORD         | Không             | Từ 0 đến phạm vi các trạm slave EtherCAT có thể liên kết | Cài đặt theo ID đã cấu hình trên giao diện. Nếu thiết bị là tùy chọn, lỗi vẫn sẽ được báo ngay cả khi thiết bị không tồn tại thực tế |
+| ETC_READPARAMETER_COE | Ngõ vào (Input) | Index     | WORD         | Không             | 0 to 65535                                               | Chỉ mục (Index), điền theo thông tin do servo cung cấp                                                                               |
+| ETC_READPARAMETER_COE | Ngõ vào (Input) | SubIndex  | WORD         | Không             | 0 to 65535                                               | Chỉ mục con (Sub-index), điền theo thông tin do servo cung cấp                                                                       |
+| ETC_READPARAMETER_COE | Ngõ vào (Input) | DstLength | WORD         | Không             | -                                                        | Độ dài dữ liệu, điền theo thông tin do servo cung cấp.                                                                               |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | Done      | BOOL         | Có                | TRUE/FALSE                                               | Khi lấy được giá trị, Done sẽ được đặt thành TRUE; nếu chưa đọc xong, Done sẽ là FALSE                                               |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | Busy      | BOOL         | Có                | TRUE/FALSE                                               | Busy bằng TRUE trong quá trình đang đọc                                                                                              |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | RelLength | WORD         | Có                | -                                                        | Độ dài thực tế                                                                                                                       |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | Data      | DWORD        | Có                | -                                                        | Dữ liệu đọc được                                                                                                                     |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | AbrotCode | DWORD        | Có                | TRUE/FALSE                                               | Mã ngắt (Abort code) do servo trả về, tham khảo tài liệu tiêu chuẩn EtherCAT để biết chi tiết                                        |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | Error     | BOOL         | Có                | TRUE/FALSE                                               | Lỗi (Error)                                                                                                                          |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | ErrorID   | DWORD        | Có                | Xem mã lỗi để biết chi tiết                              | Mã lỗi (Error Code)                                                                                                                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Device (T(Bit)) | Device (HSC(Bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Dịch địa chỉ ([D]) | Mở rộng từ kép (DXX) | Mở rộng dạng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ETC_READPARAMETER_COE | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_READPARAMETER_COE | SlaveID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_READPARAMETER_COE | Index |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_READPARAMETER_COE | SubIndex |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_READPARAMETER_COE | DstLength |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_READPARAMETER_COE | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_READPARAMETER_COE | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_READPARAMETER_COE | RelLength |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_READPARAMETER_COE | Data |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_READPARAMETER_COE | AbrotCode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_READPARAMETER_COE | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_READPARAMETER_COE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh      | Tham số   | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Device (T(Bit)) | Device (HSC(Bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Dịch địa chỉ ([D]) | Mở rộng từ kép (DXX) | Mở rộng dạng xung (XXP) |
+| :-------------------- | :-------- | :----------: | :----------: | :----------: | :----------: | :-----------: | :-------------: | :---------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :----------: | :----------: | :----------: | :----------: | :-----------: | :-----------: | :------------: | :----------: | :----------: | :----------: | :----------------: | :------------------: | :---------------------: |
+| ETC_READPARAMETER_COE | Enable    |      ●       |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_READPARAMETER_COE | SlaveID   |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_READPARAMETER_COE | Index     |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_READPARAMETER_COE | SubIndex  |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_READPARAMETER_COE | DstLength |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_READPARAMETER_COE | Done      |              |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_READPARAMETER_COE | Busy      |              |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_READPARAMETER_COE | RelLength |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_READPARAMETER_COE | Data      |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_READPARAMETER_COE | AbrotCode |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_READPARAMETER_COE | Error     |              |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_READPARAMETER_COE | ErrorID   |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
 
 - Được sử dụng để đọc các giá trị địa chỉ theo chỉ mục (Index) và chỉ mục phụ (Subindex) của Servo với độ dài chính xác.
 
@@ -431,12 +431,12 @@ Nội dung, phạm vi, kiểu dữ liệu
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 0x27c3 | Không tìm thấy trục (Kiểm tra xem các tham số đầu vào có đúng không) |
-| 0x27D8 | Lỗi độ dài truy cập SDO (Kiểm tra độ dài sử dụng trong lệnh đọc và ghi SDO) |
-| 0x27CD | Lỗi đọc SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
-| 0x27CC | Lỗi ghi SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 0x27c3              | Không tìm thấy trục (Kiểm tra xem các tham số đầu vào có đúng không)               |
+| 0x27D8              | Lỗi độ dài truy cập SDO (Kiểm tra độ dài sử dụng trong lệnh đọc và ghi SDO)        |
+| 0x27CD              | Lỗi đọc SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
+| 0x27CC              | Lỗi ghi SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
 
 #### Ví dụ minh họa
 
@@ -452,33 +452,33 @@ Hàm này chủ yếu được sử dụng để ghi các tham số SDO vào b�
 
 Nội dung, phạm vi, kiểu dữ liệu
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Cho phép đọc SDO Servo |
-| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | SlaveID | WORD | Không | Từ 0 đến phạm vi các trạm slave EtherCAT có thể liên kết | Cài đặt theo ID đã cấu hình trên giao diện. Nếu thiết bị là tùy chọn, lỗi vẫn sẽ được báo ngay cả khi thiết bị không tồn tại thực tế |
-| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | Index | WORD | Không | 0~65535 | Chỉ mục (Index), điền theo thông tin do servo cung cấp |
-| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | SubIndex | WORD | Không | 0~65535 | Chỉ mục con (Sub-index), điền theo thông tin do servo cung cấp |
-| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | DstLength | WORD | Không | - | Độ dài dữ liệu, điền theo thông tin do servo cung cấp. |
-| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Khi lấy được giá trị, Done sẽ được đặt thành TRUE; nếu chưa đọc xong, Done sẽ là FALSE |
-| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Busy bằng TRUE trong quá trình đang đọc |
-| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | AbrotCode | DWORD | Có | TRUE/FALSE | Mã ngắt (Abort code) do servo trả về, tham khảo tài liệu tiêu chuẩn EtherCAT để biết chi tiết |
-| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Lỗi (Error) |
-| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | ErrorID | DWORD | Có | Xem mã lỗi để biết chi tiết | Mã lỗi (Error Code) |
+| Khối lệnh / Lệnh       | Kiểu chân       | Tham số   | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị                                          | Mô tả kỹ thuật                                                                                                                       |
+| :--------------------- | :-------------- | :-------- | :----------- | :---------------- | :------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | Enable    | BOOL         | Không             | TRUE/FALSE                                               | Cho phép đọc SDO Servo                                                                                                               |
+| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | SlaveID   | WORD         | Không             | Từ 0 đến phạm vi các trạm slave EtherCAT có thể liên kết | Cài đặt theo ID đã cấu hình trên giao diện. Nếu thiết bị là tùy chọn, lỗi vẫn sẽ được báo ngay cả khi thiết bị không tồn tại thực tế |
+| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | Index     | WORD         | Không             | 0~65535                                                  | Chỉ mục (Index), điền theo thông tin do servo cung cấp                                                                               |
+| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | SubIndex  | WORD         | Không             | 0~65535                                                  | Chỉ mục con (Sub-index), điền theo thông tin do servo cung cấp                                                                       |
+| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | DstLength | WORD         | Không             | -                                                        | Độ dài dữ liệu, điền theo thông tin do servo cung cấp.                                                                               |
+| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | Done      | BOOL         | Có                | TRUE/FALSE                                               | Khi lấy được giá trị, Done sẽ được đặt thành TRUE; nếu chưa đọc xong, Done sẽ là FALSE                                               |
+| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | Busy      | BOOL         | Có                | TRUE/FALSE                                               | Busy bằng TRUE trong quá trình đang đọc                                                                                              |
+| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | AbrotCode | DWORD        | Có                | TRUE/FALSE                                               | Mã ngắt (Abort code) do servo trả về, tham khảo tài liệu tiêu chuẩn EtherCAT để biết chi tiết                                        |
+| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | Error     | BOOL         | Có                | TRUE/FALSE                                               | Lỗi (Error)                                                                                                                          |
+| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | ErrorID   | DWORD        | Có                | Xem mã lỗi để biết chi tiết                              | Mã lỗi (Error Code)                                                                                                                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Device (T(Bit)) | Device (HSC(Bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Dịch địa chỉ ([D]) | Mở rộng từ kép (DXX) | Mở rộng dạng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ETC_WRITEPARAMETER_COE | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_WRITEPARAMETER_COE | SlaveID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_WRITEPARAMETER_COE | Index |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_WRITEPARAMETER_COE | SubIndex |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_WRITEPARAMETER_COE | DstLength |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_WRITEPARAMETER_COE | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_WRITEPARAMETER_COE | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_WRITEPARAMETER_COE | AbrotCode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_WRITEPARAMETER_COE | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ETC_WRITEPARAMETER_COE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh       | Tham số   | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Device (T(Bit)) | Device (HSC(Bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Dịch địa chỉ ([D]) | Mở rộng từ kép (DXX) | Mở rộng dạng xung (XXP) |
+| :--------------------- | :-------- | :----------: | :----------: | :----------: | :----------: | :-----------: | :-------------: | :---------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :----------: | :----------: | :----------: | :----------: | :-----------: | :-----------: | :------------: | :----------: | :----------: | :----------: | :----------------: | :------------------: | :---------------------: |
+| ETC_WRITEPARAMETER_COE | Enable    |      ●       |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_WRITEPARAMETER_COE | SlaveID   |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_WRITEPARAMETER_COE | Index     |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_WRITEPARAMETER_COE | SubIndex  |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_WRITEPARAMETER_COE | DstLength |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_WRITEPARAMETER_COE | Done      |              |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_WRITEPARAMETER_COE | Busy      |              |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_WRITEPARAMETER_COE | AbrotCode |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_WRITEPARAMETER_COE | Error     |              |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| ETC_WRITEPARAMETER_COE | ErrorID   |              |              |              |              |               |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
 
 - Được sử dụng để đọc các giá trị địa chỉ theo chỉ mục (Index) và chỉ mục phụ (Subindex) của Servo với độ dài chính xác.
 
@@ -498,12 +498,12 @@ Nội dung, phạm vi, kiểu dữ liệu
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 0x27c3 | Không tìm thấy trạm slave tương ứng (Kiểm tra xem các tham số đầu vào có đúng không) |
-| 0x27D8 | Lỗi độ dài truy cập SDO (Kiểm tra độ dài sử dụng trong lệnh đọc và ghi SDO) |
-| 0x27CD | Lỗi đọc SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
-| 0x27CC | Lỗi ghi SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                       |
+| :------------------ | :----------------------------------------------------------------------------------- |
+| 0x27c3              | Không tìm thấy trạm slave tương ứng (Kiểm tra xem các tham số đầu vào có đúng không) |
+| 0x27D8              | Lỗi độ dài truy cập SDO (Kiểm tra độ dài sử dụng trong lệnh đọc và ghi SDO)          |
+| 0x27CD              | Lỗi đọc SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout).   |
+| 0x27CC              | Lỗi ghi SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout).   |
 
 #### Ví dụ minh họa
 
@@ -519,25 +519,25 @@ Hàm này chủ yếu được sử dụng để khởi động, khởi động 
 
 Nội dung, phạm vi, kiểu dữ liệu
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| IODRVETHERCAT | Ngõ vào (Input) | Restart | BOOL | Không | TRUE/FALSE | Kích hoạt khởi động lại/bắt đầu bus EtherCAT |
-| IODRVETHERCAT | Ngõ vào (Input) | StopBus | BOOL | Không | TRUE/FALSE | Kích hoạt tắt bus EtherCAT |
-| IODRVETHERCAT | Ngõ ra (Output) | ConfigFinished | BOOL | Có | TRUE/FALSE | Cấu hình hoàn tất (TRUE) |
-| IODRVETHERCAT | Ngõ ra (Output) | DistributedClockInSync | BOOL | Có | TRUE/FALSE | Khởi tạo đồng hồ đồng bộ hoàn tất (TRUE) |
-| IODRVETHERCAT | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Đã xảy ra lỗi (TRUE) |
-| IODRVETHERCAT | Ngõ ra (Output) | SyncInWindow | BOOL | Có | Xem mã lỗi để biết chi tiết | Khởi tạo cửa sổ đồng bộ hoàn tất (TRUE) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số                | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị             | Mô tả kỹ thuật                               |
+| :--------------- | :-------------- | :--------------------- | :----------- | :---------------- | :-------------------------- | :------------------------------------------- |
+| IODRVETHERCAT    | Ngõ vào (Input) | Restart                | BOOL         | Không             | TRUE/FALSE                  | Kích hoạt khởi động lại/bắt đầu bus EtherCAT |
+| IODRVETHERCAT    | Ngõ vào (Input) | StopBus                | BOOL         | Không             | TRUE/FALSE                  | Kích hoạt tắt bus EtherCAT                   |
+| IODRVETHERCAT    | Ngõ ra (Output) | ConfigFinished         | BOOL         | Có                | TRUE/FALSE                  | Cấu hình hoàn tất (TRUE)                     |
+| IODRVETHERCAT    | Ngõ ra (Output) | DistributedClockInSync | BOOL         | Có                | TRUE/FALSE                  | Khởi tạo đồng hồ đồng bộ hoàn tất (TRUE)     |
+| IODRVETHERCAT    | Ngõ ra (Output) | Error                  | BOOL         | Có                | TRUE/FALSE                  | Đã xảy ra lỗi (TRUE)                         |
+| IODRVETHERCAT    | Ngõ ra (Output) | SyncInWindow           | BOOL         | Có                | Xem mã lỗi để biết chi tiết | Khởi tạo cửa sổ đồng bộ hoàn tất (TRUE)      |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Device (T(Bit)) | Device (HSC(Bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Dịch địa chỉ ([D]) | Mở rộng từ kép (DXX) | Mở rộng dạng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| IODRVETHERCAT | Restart | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| IODRVETHERCAT | StopBus | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| IODRVETHERCAT | ConfigFinished |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| IODRVETHERCAT | DistributedClockInSync |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| IODRVETHERCAT | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| IODRVETHERCAT | SyncInWindow |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số                | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Device (T(Bit)) | Device (HSC(Bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Dịch địa chỉ ([D]) | Mở rộng từ kép (DXX) | Mở rộng dạng xung (XXP) |
+| :--------------- | :--------------------- | :----------: | :----------: | :----------: | :----------: | :-----------: | :-------------: | :---------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :----------: | :----------: | :----------: | :----------: | :-----------: | :-----------: | :------------: | :----------: | :----------: | :----------: | :----------------: | :------------------: | :---------------------: |
+| IODRVETHERCAT    | Restart                |      ●       |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| IODRVETHERCAT    | StopBus                |      ●       |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| IODRVETHERCAT    | ConfigFinished         |              |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| IODRVETHERCAT    | DistributedClockInSync |              |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| IODRVETHERCAT    | Error                  |              |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
+| IODRVETHERCAT    | SyncInWindow           |              |      ●       |      ●       |      ●       |       ●       |                 |                   |                |                |                |                |                |              |              |              |              |               |               |                |              |              |              |                    |                      |                         |
 
 - Hàm này chủ yếu được sử dụng để khởi động, khởi động lại và ngắt bus EtherCAT.
 
@@ -555,12 +555,12 @@ Nội dung, phạm vi, kiểu dữ liệu
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 0x27c3 | Không tìm thấy trạm slave tương ứng (Kiểm tra xem các tham số đầu vào có đúng không) |
-| 0x27D8 | Lỗi độ dài truy cập SDO (Kiểm tra độ dài sử dụng trong lệnh đọc và ghi SDO) |
-| 0x27CD | Lỗi đọc SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
-| 0x27CC | Lỗi ghi SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                       |
+| :------------------ | :----------------------------------------------------------------------------------- |
+| 0x27c3              | Không tìm thấy trạm slave tương ứng (Kiểm tra xem các tham số đầu vào có đúng không) |
+| 0x27D8              | Lỗi độ dài truy cập SDO (Kiểm tra độ dài sử dụng trong lệnh đọc và ghi SDO)          |
+| 0x27CD              | Lỗi đọc SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout).   |
+| 0x27CC              | Lỗi ghi SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout).   |
 
 #### Ví dụ minh họa
 
@@ -574,37 +574,35 @@ Nội dung, phạm vi, kiểu dữ liệu
 
 Các mã ngoại lệ AbrotCode
 
-| Các mã ngoại lệ AbrotCode | Ngoại lệ tương ứng |
-| :--- | :--- |
-| 0x00000000 | No SDO error |
-| 0x05030000 | Bit chuyển đổi (Toggle bit) không thay đổi |
-| 0x05040000 | SDO timeout |
-| 0x05040001 | Bộ chỉ định lệnh không xác định |
-| 0x05040005 | Giải thích sự kiện không đủ bộ nhớ |
-| 0x06010000 | Truy cập không được hỗ trợ |
-| 0x06010001 | Mục chỉ ghi |
-| 0x06010002 | Mục chỉ đọc |
-| 0x06010003 | Không thể ghi mục vì Subindex 0 khác 0 |
-| 0x06010004 | Không thể truy cập đối tượng |
-| 0x06020000 | Đối tượng không tồn tại |
-| 0x06040041 | Không thể ánh xạ đối tượng vào PDO |
-| 0x06040042 | Đối tượng ánh xạ vượt quá kích thước PDO |
-| 0x06040043 | Tham số không tương thích |
-| 0x06040047 | Thiết bị không tương thích |
-| 0x06060000 | Lỗi phần cứng |
-| 0x06070010 | Lỗi độ dài tham số |
-| 0x06070012 | Tham số quá dài |
-| 0x06070013 | Tham số quá ngắn |
-| 0x06090011 | Chỉ mục con (mục) không tồn tại |
-| 0x06090030 | Giá trị vượt quá giới hạn |
-| 0x06090031 | Giá trị quá lớn |
-| 0x06090032 | Ngưỡng quá nhỏ |
-| 0x06090033 | Danh sách nhận dạng mô-đun phát hiện được (0xF030) không khớp với danh sách nhận dạng mô-đun đã cấu hình |
-| 0x06090036 | Nhỏ hơn giá trị tối thiểu |
-| 0x08000000 | Lỗi chung |
-| 0x08000020 | Giải thích sự kiện không thể đọc/ghi dữ liệu |
-| 0x08000021 | Không thể truy cập dữ liệu do đang điều khiển cục bộ |
-| 0x08000022 | Giải thích sự kiện: không thể đọc hoặc ghi dữ liệu ở trạng thái hiện tại |
-| 0x08000023 | Đối tượng không có trong từ điển đối tượng |
-
-0
+| Các mã ngoại lệ AbrotCode | Ngoại lệ tương ứng                                                                                       |
+| :------------------------ | :------------------------------------------------------------------------------------------------------- |
+| 0x00000000                | No SDO error                                                                                             |
+| 0x05030000                | Bit chuyển đổi (Toggle bit) không thay đổi                                                               |
+| 0x05040000                | SDO timeout                                                                                              |
+| 0x05040001                | Bộ chỉ định lệnh không xác định                                                                          |
+| 0x05040005                | Giải thích sự kiện không đủ bộ nhớ                                                                       |
+| 0x06010000                | Truy cập không được hỗ trợ                                                                               |
+| 0x06010001                | Mục chỉ ghi                                                                                              |
+| 0x06010002                | Mục chỉ đọc                                                                                              |
+| 0x06010003                | Không thể ghi mục vì Subindex 0 khác 0                                                                   |
+| 0x06010004                | Không thể truy cập đối tượng                                                                             |
+| 0x06020000                | Đối tượng không tồn tại                                                                                  |
+| 0x06040041                | Không thể ánh xạ đối tượng vào PDO                                                                       |
+| 0x06040042                | Đối tượng ánh xạ vượt quá kích thước PDO                                                                 |
+| 0x06040043                | Tham số không tương thích                                                                                |
+| 0x06040047                | Thiết bị không tương thích                                                                               |
+| 0x06060000                | Lỗi phần cứng                                                                                            |
+| 0x06070010                | Lỗi độ dài tham số                                                                                       |
+| 0x06070012                | Tham số quá dài                                                                                          |
+| 0x06070013                | Tham số quá ngắn                                                                                         |
+| 0x06090011                | Chỉ mục con (mục) không tồn tại                                                                          |
+| 0x06090030                | Giá trị vượt quá giới hạn                                                                                |
+| 0x06090031                | Giá trị quá lớn                                                                                          |
+| 0x06090032                | Ngưỡng quá nhỏ                                                                                           |
+| 0x06090033                | Danh sách nhận dạng mô-đun phát hiện được (0xF030) không khớp với danh sách nhận dạng mô-đun đã cấu hình |
+| 0x06090036                | Nhỏ hơn giá trị tối thiểu                                                                                |
+| 0x08000000                | Lỗi chung                                                                                                |
+| 0x08000020                | Giải thích sự kiện không thể đọc/ghi dữ liệu                                                             |
+| 0x08000021                | Không thể truy cập dữ liệu do đang điều khiển cục bộ                                                     |
+| 0x08000022                | Giải thích sự kiện: không thể đọc hoặc ghi dữ liệu ở trạng thái hiện tại                                 |
+| 0x08000023                | Đối tượng không có trong từ điển đối tượng                                                               |

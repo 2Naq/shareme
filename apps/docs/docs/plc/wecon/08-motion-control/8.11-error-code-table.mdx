@@ -3,166 +3,164 @@ id: "8.11-error-code-table"
 title: "8.11 Bảng đối chiếu tra cứu mã lỗi toàn diện (Error Code Cross-reference Table)"
 sidebar_position: 12
 sidebar_label: "8.11 Bảng tra cứu mã lỗi (154 Mã)"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.11 Bảng đối chiếu tra cứu mã lỗi toàn diện (Error Code Cross-reference Table)"
 ---
 
 ## Bảng tra cứu chéo mã lỗi
 
-| Mã lỗi (Error Code) | Định nghĩa lỗi | Giải thích |
-| :--- | :--- | :--- |
-| Normal |  |  |
-| 0x00 | MC_ERROR_ID_SUCCESS | Không có lỗi |
-| Run-time error |  |  |
-| 0x00200000 | MC_ERROR_ID_SCURVE_NOTFEASIBLE | Không thể tính toán đường cong chữ S (S-curve) |
-| 0x00200001 | MC_ERROR_ID_SCURVE_MAXVEL_NOTREACHED | Không đạt đến vận tốc tối đa |
-| 0x00200002 | MC_ERROR_ID_SCURVE_MAXACC_NOTREACHED | Không đạt đến gia tốc tối đa |
-| 0x00200003 | MC_ERROR_ID_SCURVE_FINDMAXACC_FAILED | Không tìm thấy vận tốc tối đa |
-| 0x00200004 | MC_ERROR_ID_SCURVE_INVALIDINPUT | Ràng buộc không hợp lệ cho lập quỹ đạo đường cong chữ S (S-curve) |
-| PLCOpen State-machine error |  |  |
-| 0x00300000 | MC_ERROR_ID_AXIS_STATE_VIOLATION | Vi phạm trạng thái trục không hợp lệ |
-| 0x00300001 | MC_ERROR_ID_POWER_ON_OFF_FROM_ERROR_STOP | Cố gắng bật nguồn servo khi đang ở trạng thái ErrorStop |
-| 0x00300002 | MC_ERROR_ID_INVALID_STATE_FROM_STOPPING | Chuyển trạng thái không hợp lệ khi đang ở trạng thái Stopping |
-| 0x00300003 | MC_ERROR_ID_INVALID_STATE_FROM_ERROR_STOP | Chuyển trạng thái không hợp lệ khi đang ở trạng thái ErrorStop |
-| 0x00300004 | MC_ERROR_ID_INVALID_STATE_FROM_DISABLED | Chuyển trạng thái không hợp lệ khi đang ở trạng thái Disabled |
-| 0x00300005 | MC_ERROR_ID_INVALID_STATE_FROM_POWERED | Chuyển trạng thái không hợp lệ khi đang ở trạng thái Powered |
-| 0x00300006 | MC_ERROR_ID_INVALID_STATE_FROM_SYNC | Chuyển trạng thái không hợp lệ khi đang ở trạng thái Sync |
-| 0x00300007 | MC_ERROR_ID_INVALID_STATE_NOT_HOME | Chuyển trạng thái không hợp lệ khi chưa về gốc |
-| 0x00300008 | MC_ERROR_ID_INVALID_STATE_TO_DISABLED | Chuyển sang trạng thái Disabled không hợp lệ |
-| 0x00300009 | MC_ERROR_ID_INVALID_STATE_TO_ERRORSTOP | Chuyển sang trạng thái ErrorStop không hợp lệ |
-| 0x0030000A | MC_ERROR_ID_INVALID_STATE_TO_STANDSTILL | Chuyển sang trạng thái StandStill không hợp lệ |
-| 0x0030000B | MC_ERROR_ID_INVALID_STATE_TO_HOMING | Chuyển sang trạng thái Homing không hợp lệ |
-| 0x0030000C | MC_ERROR_ID_INVALID_STATE_TO_STOPPING | Chuyển sang trạng thái Stopping không hợp lệ |
-| 0x0030000D | MC_ERROR_ID_INVALID_STATE_TO_DISCRETE | Chuyển sang trạng thái DiscreteMotion không hợp lệ |
-| 0x0030000E | MC_ERROR_ID_INVALID_STATE_TO_SYNC | Chuyển sang trạng thái SynchronizedMotion không hợp lệ |
-| 0x0030000F | MC_ERROR_ID_INVALID_STATE_TO_CONTINUOUS | Chuyển sang trạng thái ContinuousMotion không hợp lệ |
-| Error due to user/system limitations |  |  |
-| 0x00400000 | MC_ERROR_ID_MOTION_LIMIT_ERROR | Vận tốc, gia tốc hoặc vị trí vượt quá giới hạn |
-| 0x00400001 | MC_ERROR_ID_INVALID_DIRECTION_POSITIVE | Không cho phép chuyển động theo chiều dương |
-| 0x00400002 | MC_ERROR_ID_INVALID_DIRECTION_NEGATIVE | Không cho phép chuyển động theo chiều âm |
-| 0x00400003 | MC_ERROR_ID_VELOCITY_OVER_LIMIT | Vận tốc vượt quá giới hạn |
-| 0x00400004 | MC_ERROR_ID_ACCELERATION_OVER_LIMIT | Gia tốc vượt quá giới hạn |
-| 0x00400005 | MC_ERROR_ID_POSITION_OVER_POSITIVE_LIMIT | Vị trí vượt quá giới hạn dương |
-| 0x00400006 | MC_ERROR_ID_POSITION_OVER_NEGATIVE_LIMIT | Vị trí vượt quá giới hạn âm |
-| 0x00400007 | MC_ERROR_ID_POSITION_LAG_OVERLIMIT | Sai lệch bám vị trí vượt quá giới hạn |
-| 0x00400008 | MC_ERROR_ID_TORQUE_OVER_LIMIT | Mô-men xoắn vượt quá giới hạn |
-| Error Stop |  |  |
-| 0x00500000 | MC_ERROR_ID_AXIS_ERROR_STOP | Trục đã dừng do lỗi |
-| Error from servo |  |  |
-| 0x00600000 | MC_ERROR_ID_AXIS_ERROR_STOP | Servo không có lỗi |
-| 0x00600001 | MC_ERROR_ID_SERVO_FIELDBUS_INIT_ERROR | Lỗi khởi tạo mạng truyền thông công nghiệp (Fieldbus) của Servo |
-| 0x00600002 | MC_ERROR_ID_SERVO_POWER_ERROR | Lỗi cấp nguồn Servo |
-| 0x00600003 | MC_ERROR_ID_SERVO_POWERING_ON_ERROR | Servo gặp lỗi trong quá trình bật nguồn |
-| 0x00600004 | MC_ERROR_ID_SERVO_ERROR_WHEN_POWERED_ON | Servo gặp lỗi sau khi đã bật nguồn |
-| 0x00600005 | MC_ERROR_ID_SERVO_POWERING_OFF_ERROR | Servo gặp lỗi trong quá trình tắt nguồn |
-| 0x00600006 | MC_ERROR_ID_SERVO_PDO_NOT_MAP | Chưa ánh xạ PDO cho Servo |
-| 0x00600007 | MC_ERROR_ID_SERVO_PDO_READ_ERROR | Lỗi đọc PDO của Servo |
-| 0x00600008 | MC_ERROR_ID_SERVO_PDO_WRITE_ERROR | Lỗi ghi PDO của Servo |
-| 0x00600009 | MC_ERROR_ID_SERVO_POWER_OFF | Servo không thể chạy khi đang tắt nguồn |
-| 0x0060000A | MC_ERROR_ID_SERVO_ERROR_HOME_STATE | Servo gặp lỗi khi đang ở trạng thái về gốc (Homing) |
-| 0x0060000B | MC_ERROR_ID_SERVO_HOME_MODE_SWITCH | Lỗi chuyển đổi chế độ của Servo |
-| 0x0060000C | MC_ERROR_ID_SERVO_HOME_CTRLWORD | Lỗi cài đặt chế độ về gốc cho Servo |
-| 0x0060000D | MC_ERROR_ID_SERVO_HOME | Lỗi về gốc của Servo |
-| 0x0060000E | MC_ERROR_ID_SERVO_PDO_READ_BUSY | Đọc PDO của Servo đang bận |
-| 0x0060000F | MC_ERROR_ID_SERVO_TOUCHPROBE_NOTFIND | Không tìm thấy đầu dò chạm (TouchProbe) của Servo |
-| 0x00600010 | MC_ERROR_ID_SERVO_PARAREAD | Lỗi đọc tham số Servo |
-| 0x00600011 | MC_ERROR_ID_SERVO_PARAWRITE | Lỗi ghi tham số Servo |
-| 0x00600012 | MC_ERROR_ID_LOCAL_PULSE_HOME_TIMEOUT | Quá thời gian (Timeout) khi thực hiện về gốc |
-| 0x00600013 | MC_ERROR_ID_LOCAL_PULSE_HOME_NOT_TOUCH_LIMI | Quá trình thực thi chưa chạm giới hạn |
-| 0x00600014 | MC_ERROR_ID_LOCAL_PULSE_HOME_VELOCITY_OVER_LIMIT | Vận tốc về gốc (HOME) của trục xung vượt quá giới hạn |
-| 0x00600015 | MC_ERROR_ID_LOCAL_PULSE_HOME_ACC_OVER_LIMIT | Gia tốc về gốc (HOME) của trục xung vượt quá giới hạn |
-| 0x00600020 | MC_ERROR_ID_MODE_SWITCH_NEEDPDO_NOTMAP | Không có PDO yêu cầu cho chế độ tương ứng khi chuyển đổi chế độ. |
-| 0x006000FF | MC_ERROR_ID_SERVO_LOST | Mất kết nối Servo |
-| 0x00600040 | MC_ERROR_ID_SERVO_ERROR | Servo báo lỗi |
-| Axis's error |  |  |
-| 0x00700000 | MC_ERROR_ID_AXIS_GENERAL_ERROR | Lỗi chung của trục |
-| 0x00700001 | MC_ERROR_ID_AXIS_ADD_QUEUE_ERROR | Lỗi thêm trục |
-| 0x00700002 | MC_ERROR_ID_AXIS_IS_UNHEALTHY | Trục ở trạng thái không bình thường |
-| 0x00700003 | MC_ERROR_ID_AXIS_IS_OVER_LIMIT | Lệnh chuyển động của trục vượt quá giới hạn |
-| 0x00700004 | MC_ERROR_ID_AXIS_FALLINGEDGE_ERROR | Lỗi trục xảy ra tại sườn xuống |
-| 0x00700005 | MC_ERROR_ID_AXIS_NOTFIND | Không tìm thấy trục |
-| 0x00700006 | MC_ERROR_ID_AXIS_IS_INGROUP | Trục đang thuộc nhóm trục (Group) |
-| 0x00700007 | MC_ERROR_ID_AXIS_CAN_NOT_SETPOS | Không thể đặt vị trí cho trục ở trạng thái hiện tại |
-| 0x00700008 | MC_ERROR_ID_AXIS_NOT_POWER | Trục chưa được bật nguồn |
-| 0x00700009 | MC_ERROR_ID_AXIS_NOT_SUPPORTED_TOUCH | Không hỗ trợ số hiệu đầu dò chạm (Touch probe) đã gán |
-| 0x0070000A | MC_ERROR_ID_AXIS_IS_COMBINED | Trục đã được ghép nối |
-| 0x0070000B | MC_ERROR_ID_AXIS_CAN_NOT_COMBINE_WHILE_RUN | Không thể ghép nối trục khi đang chạy |
-| 0x0070000C | MC_ERROR_ID_AXIS_GROUP_NOTFIND | Không tìm thấy số hiệu nhóm trục |
-| General FB error |  |  |
-| 0x00800000 | MC_ERROR_ID_FB_GENERAL_ERROR | Lỗi chạy khối hàm (FB) của người dùng |
-| 0x00800001 | MC_ERROR_ID_FB_READ_PARAM_ERROR | Lỗi đọc khối hàm (FB) của người dùng |
-| 0x00800002 | MC_ERROR_ID_FB_STOP_ERROR | Lỗi dừng khối hàm (FB) của người dùng |
-| 0x00800003 | MC_ERROR_ID_FB_NOT_BIND_AXIS | Khối hàm (FB) của người dùng chưa gán trục logic |
-| 0x00800004 | MC_ERROR_ID_FB_NOT_SET_PARAMETER_ID | Khối hàm (FB) của người dùng chưa cài đặt tham số đọc |
-| 0x00800005 | MC_ERROR_ID_FB_NOT_IN_QUEUE | Khối hàm (FB) của người dùng đã hoàn thành và không thể cập nhật |
-| 0x00800006 | MC_ERROR_ID_FB_PARAMETER_ERROR | Lỗi tham số khối hàm (FB) của người dùng |
-| 0x00800007 | MC_ERROR_ID_FB_PLAN_FAILED | Lỗi khối hàm (FB) của người dùng do tham số khi thực thi lập quỹ đạo |
-| 0x00800008 | MC_ERROR_ID_FB_REPLACE_AXIS_IN_RUN | Khối hàm (FB) của người dùng thay đổi trục khi đang chạy |
-| 0x00800009 | MC_ERROR_ID_FB_HALTSUPERIMPOSED_ERROR | Lỗi dừng chuyển động chồng lấn ảo |
-| 0x0080000A | MC_ERROR_ID_FB_NOT_BIND_AXIS_GROUP | Khối hàm (FB) của người dùng chưa gán trục vào nhóm trục |
-| 0x0080000B | MC_ERROR_ID_FB_BIND_AXIS_IS_ERROR | Trục được gán đang có lỗi |
-| 0x0080000C | MC_ERROR_ID_FB_MINE_AXIS_IS_ERROR | Trục lập quỹ đạo của khối hàm (FB) đang có lỗi |
-| 0x0080000D | MC_ERROR_ID_FB_NOT_BIND_MASTER | Khối hàm (FB) chưa gán trục chủ (Master) |
-| 0x0080000E | MC_ERROR_ID_FB_NOT_BIND_SLAVE | Khối hàm (FB) chưa gán trục tớ (Slave) |
-| 0x0080000F | MC_ERROR_ID_FB_CAN_NOT_BIND_ENCODERAXIS | Khối hàm (FB) không thể gán trục encoder |
-| 0x00800010 | MC_ERROR_ID_FB_NOT_BIND_TRIGGER_INFO | Khối hàm (FB) chưa gán thông tin kích hoạt (Trigger) |
-| 0x00800011 | MC_ERROR_ID_FB_NOT_SUPPORTED_TRINUM | Số hiệu kích hoạt (Trigger) được gán không được hỗ trợ |
-| 0x00800012 | MC_ERROR_ID_FB_CAN_NOT_CHANGE_WHILE_RUN | Tham số đã gán của khối hàm (FB) không thể thay đổi khi đang chạy |
-| 0x00800013 | MC_ERROR_ID_FB_RANGE_SET_ERROR | Phạm vi tham số của khối hàm (FB) bị lỗi. Giá trị tối đa có thể nhỏ hơn giá trị tối thiểu. |
-| 0x00800014 | MC_ERROR_ID_FB_MASTER_SLAVE_ARE_SAME | Trục chủ (Master) và trục tớ (Slave) của khối hàm (FB) bị trùng nhau |
-| 0x00800015 | MC_ERROR_ID_FB_MASTER_AUXILIARY_ARE_SAME | Trục chủ (Master) và trục phụ của khối hàm (FB) bị trùng nhau |
-| 0x00800016 | MC_ERROR_ID_FB_AUXILIARY_SLAVE_ARE_SAME | Trục phụ và trục tớ (Slave) của khối hàm (FB) bị trùng nhau |
-| 0x00800017 | MC_ERROR_ID_FB_MASTER_SLAVE_NOT_ASCENDING | ID trục chủ (Master) và trục tớ (Slave) của khối hàm (FB) không theo thứ tự tăng dần |
-| General axis group error |  |  |
-| 0x00900000 | MC_ERROR_ID_AXIS_GROUP_GENERAL_ERROR | Lỗi chung của nhóm trục |
-| 0x00900001 | MC_ERROR_ID_AXIS_GROUP_ADD_QUEUE_ERROR | Lỗi thêm trục vào nhóm trục |
-| 0x00900002 | MC_ERROR_ID_AXIS_GROUP_REMOVE_ERROR | Lỗi xóa trục logic khỏi nhóm trục |
-| 0x00900003 | MC_ERROR_ID_AXIS_GROUP_ENABLE_ERROR | Lỗi kích hoạt nhóm trục |
-| 0x00900004 | MC_ERROR_ID_AXIS_GROUP_DISABLE_ERROR | Lỗi hủy kích hoạt nhóm trục |
-| 0x00900005 | MC_ERROR_ID_AXIS_GROUP_STOP_ERROR | Lỗi dừng nhóm trục |
-| 0x00900006 | MC_ERROR_ID_AXIS_GROUP_AXIS_INSINGLEMOVE | Nhóm trục chuẩn bị chạy nhưng trục đang bị điều khiển ở chế độ trục đơn |
-| 0x00900007 | MC_ERROR_ID_AXIS_GROUP_AXIS_INGROUPMOVE | Trục đã được gán vào nhóm trục |
-| 0x00900008 | MC_ERROR_ID_AXIS_GROUP_IS_UNHEALTHY | Một trục bất kỳ trong nhóm bị lỗi hoặc có lỗi trong nhóm trục |
-| 0x00900009 | MC_ERROR_ID_AXIS_GROUP_CAN_NOT_SETPOT | Không thể đặt vị trí cho nhóm trục |
-| 0x0090000A | MC_ERROR_ID_AXIS_GROUP_INVALID_STATE_TRANS | Nhóm trục chuẩn bị chuyển sang trạng thái không được phép |
-| 0x0090000B | MC_ERROR_ID_AXIS_GROUP_NOT_BIND_AXIS | Nhóm trục chưa gán trục |
-| 0x0090000C | MC_ERROR_ID_AXIS_GROUP_IS_DISABLED | Nhóm trục đang bị vô hiệu hóa (Disabled) |
-| Single axis planner error |  |  |
-| 0x00A00000 | MC_ERROR_ID_PLANNER_DIST_IS_ZERO | Vị trí của bộ lập quỹ đạo bằng 0 |
-| 0x00A00001 | MC_ERROR_ID_PLANNER_SPPED_IS_ZERO | Vận tốc của bộ lập quỹ đạo bằng 0 |
-| 0x00A00002 | MC_ERROR_ID_PLANNER_ACC_DES_IS_ZERO | Gia tốc của bộ lập quỹ đạo bằng 0 |
-| 0x00A00003 | MC_ERROR_ID_PLANNER_JERK_IS_ZERO | Lỗi chung của nhóm trục |
-| 0x00A00004 | MC_ERROR_ID_PLANNER_CURRENT_DIFF_LAST | Lỗi đồng bộ bộ lập quỹ đạo, vị trí hiện tại không khớp với vị trí trước đó |
-| 0x00A00005 | MC_ERROR_ID_PLANNER_SPPED_OVER_LIMIT | Vận tốc đầu vào của bộ lập quỹ đạo vượt quá giới hạn |
-| 0x00A00006 | MC_ERROR_ID_PLANNER_ACC_DES_OVER_LIMIT | Gia tốc tăng/giảm tốc đầu vào của bộ lập quỹ đạo vượt quá giới hạn |
-| 0x00A00007 | MC_ERROR_ID_PLANNER_JERK_OVER_LIMIT | Độ giật đường cong S (Jerk) đầu vào của bộ lập quỹ đạo vượt quá giới hạn |
-| 0x00AFFFFF | MC_ERROR_ID_PLANNER_SG_CULCULATE | Lỗi tính toán trục đơn của bộ lập quỹ đạo |
-| Axis group planner error |  |  |
-| 0x00B00000 | MC_ERROR_ID_PLANNER_SP_SAME_START_END | Điểm đầu và điểm cuối của đường cong không gian trong bộ lập quỹ đạo trùng nhau |
-| 0x00B00000 | MC_ERROR_ID_PLANNER_SP_NOT_IN_SAME_PLANE | Đường cong không gian của bộ lập quỹ đạo không nằm trên cùng một mặt phẳng |
-| 0x00BFFFFF | MC_ERROR_ID_PLANNER_SP_CULCULATE | Lỗi tính toán đường cong không gian của bộ lập quỹ đạo |
-| ECAM or EGEAR error |  |  |
-| 0x00C00000 | MC_ERROR_ID_AXIS_MASTER_AND_SLAVE_IS_SAME | Trục chủ (Master) và trục tớ (Slave) của bộ lập quỹ đạo trùng nhau |
-| 0x00C00001 | MC_ERROR_ID_AXIS_MAX_ACC_OR_DEC_OR_VEL_IS_ZERO | Gia tốc tăng/giảm tốc hoặc vận tốc tối đa của trục trong bộ lập quỹ đạo bằng 0 |
-| 0x00C00002 | MC_ERROR_ID_CAM_TABLE_IS_INEXISTENCE | Bảng cam (Cam table) trong bộ lập quỹ đạo không tồn tại |
-| 0x00C00003 | MC_ERROR_ID_CAM_NODENUM_OVER_NODE_SIZE | Số lượng điểm nút cam trong bộ lập quỹ đạo vượt quá kích thước thực tế |
-| 0x00C00004 | MC_ERROR_ID_CAM_NODENUM_OR_NODESIZE_IS_ERROR | Số lượng điểm nút cam hoặc kích thước nút cam trong bộ lập quỹ đạo bị lỗi |
-| 0x00C00005 | MC_ERROR_ID_CAM_FIRST_NODE_POS_NON_ZERO | Vị trí trục chủ hoặc trục tớ tại điểm nút cam đầu tiên trong bộ lập quỹ đạo khác 0 |
-| 0x00C00006 | MC_ERROR_ID_CAM_NODE_PARAMETER_IS_ERROR | Tham số điểm nút cam trong bộ lập quỹ đạo bị lỗi |
-| 0x00C00007 | MC_ERROR_ID_CAM_UPDATE_CAM_TABLE_IS_ERROR | Lỗi cập nhật bảng cam (Cam table) trong bộ lập quỹ đạo |
-| 0x00C00008 | MC_ERROR_ID_CAM_SAVE_CAM_TABLE_IS_ERROR | Lỗi lưu bảng cam (Cam table) trong bộ lập quỹ đạo |
-| 0x00C00009 | MC_ERROR_ID_CAM_GET_AXIS_VEL_AND_POS_ERROR | Lỗi đọc vận tốc/vị trí của trục chủ và trục tớ trong bộ lập quỹ đạo |
-| 0x00C0000A | MC_ERROR_ID_BUFFER_MODE_IS_NOT_ABORTING | Chế độ đệm (Buffer mode) trong bộ lập quỹ đạo không phải là chế độ hủy (Aborting) |
-| 0x00C0000B | MC_ERROR_ID_CAM_AXIS_SCALING_IS_ZERO | Hệ số tỉ lệ trục chủ hoặc trục tớ của cam trong bộ lập quỹ đạo bằng 0 |
-| 0x00C0000C | MC_ERROR_ID_CAM_TABLE_IS_NOT_BIND | Bảng cam (Cam table) trong bộ lập quỹ đạo chưa được gán |
-| 0x00C0000D | MC_ERROR_ID_THE_AXIS_IS_NOT_IN_CAM_STATE | Trục trong bộ lập quỹ đạo không ở trạng thái chạy cam |
-| 0x00C0000E | MC_ERROR_ID_THE_AXIS_IS_NOT_IN_GEAR_STATE | Trục trong bộ lập quỹ đạo không ở trạng thái chạy bánh răng điện tử |
-| 0x00C0000F | MC_ERROR_ID_CAM_IN_PARAMETER_IS_ERROR | Tham số vào cam (CamIn) trong bộ lập quỹ đạo bị lỗi |
-| 0x00C00010 | MC_ERROR_ID_GEAR_IN_PARAMETER_IS_ERROR | Tham số vào bánh răng (GearIn) trong bộ lập quỹ đạo bị lỗi |
-| 0x00C00011 | MC_ERROR_ID_GEAR_IN_POS_PARAMETER_IS_ERROR | Tham số đồng bộ vị trí bánh răng (GearInPos) trong bộ lập quỹ đạo bị lỗi |
-| 0x00C00012 | MC_ERROR_ID_CAM_TABLE_IS_UPDATE | Bảng cam (Cam table) trong bộ lập quỹ đạo đang được cập nhật |
-| 0x00C00013 | MC_ERROR_ID_GET_CAM_TABLE_POS_IS_ERROR | Lỗi đọc vị trí bảng cam (Cam table) trong bộ lập quỹ đạo |
-| 0x00C00014 | MC_ERROR_ID_CAM_TABLE_PHASE_IS_OUT_OF_RANGE | Lỗi đọc vị trí bảng cam (Cam table) trong bộ lập quỹ đạo |
-| 0x00C00015 | MC_ERROR_ID_CAM_TABLE_NODE_IS_NOT_ADJOIN | Các điểm nút bảng cam (Cam table) trong bộ lập quỹ đạo không liền kề nhau |
-
-0
+| Mã lỗi (Error Code)                  | Định nghĩa lỗi                                   | Giải thích                                                                                 |
+| :----------------------------------- | :----------------------------------------------- | :----------------------------------------------------------------------------------------- |
+| Normal                               |                                                  |                                                                                            |
+| 0x00                                 | MC_ERROR_ID_SUCCESS                              | Không có lỗi                                                                               |
+| Run-time error                       |                                                  |                                                                                            |
+| 0x00200000                           | MC_ERROR_ID_SCURVE_NOTFEASIBLE                   | Không thể tính toán đường cong chữ S (S-curve)                                             |
+| 0x00200001                           | MC_ERROR_ID_SCURVE_MAXVEL_NOTREACHED             | Không đạt đến vận tốc tối đa                                                               |
+| 0x00200002                           | MC_ERROR_ID_SCURVE_MAXACC_NOTREACHED             | Không đạt đến gia tốc tối đa                                                               |
+| 0x00200003                           | MC_ERROR_ID_SCURVE_FINDMAXACC_FAILED             | Không tìm thấy vận tốc tối đa                                                              |
+| 0x00200004                           | MC_ERROR_ID_SCURVE_INVALIDINPUT                  | Ràng buộc không hợp lệ cho lập quỹ đạo đường cong chữ S (S-curve)                          |
+| PLCOpen State-machine error          |                                                  |                                                                                            |
+| 0x00300000                           | MC_ERROR_ID_AXIS_STATE_VIOLATION                 | Vi phạm trạng thái trục không hợp lệ                                                       |
+| 0x00300001                           | MC_ERROR_ID_POWER_ON_OFF_FROM_ERROR_STOP         | Cố gắng bật nguồn servo khi đang ở trạng thái ErrorStop                                    |
+| 0x00300002                           | MC_ERROR_ID_INVALID_STATE_FROM_STOPPING          | Chuyển trạng thái không hợp lệ khi đang ở trạng thái Stopping                              |
+| 0x00300003                           | MC_ERROR_ID_INVALID_STATE_FROM_ERROR_STOP        | Chuyển trạng thái không hợp lệ khi đang ở trạng thái ErrorStop                             |
+| 0x00300004                           | MC_ERROR_ID_INVALID_STATE_FROM_DISABLED          | Chuyển trạng thái không hợp lệ khi đang ở trạng thái Disabled                              |
+| 0x00300005                           | MC_ERROR_ID_INVALID_STATE_FROM_POWERED           | Chuyển trạng thái không hợp lệ khi đang ở trạng thái Powered                               |
+| 0x00300006                           | MC_ERROR_ID_INVALID_STATE_FROM_SYNC              | Chuyển trạng thái không hợp lệ khi đang ở trạng thái Sync                                  |
+| 0x00300007                           | MC_ERROR_ID_INVALID_STATE_NOT_HOME               | Chuyển trạng thái không hợp lệ khi chưa về gốc                                             |
+| 0x00300008                           | MC_ERROR_ID_INVALID_STATE_TO_DISABLED            | Chuyển sang trạng thái Disabled không hợp lệ                                               |
+| 0x00300009                           | MC_ERROR_ID_INVALID_STATE_TO_ERRORSTOP           | Chuyển sang trạng thái ErrorStop không hợp lệ                                              |
+| 0x0030000A                           | MC_ERROR_ID_INVALID_STATE_TO_STANDSTILL          | Chuyển sang trạng thái StandStill không hợp lệ                                             |
+| 0x0030000B                           | MC_ERROR_ID_INVALID_STATE_TO_HOMING              | Chuyển sang trạng thái Homing không hợp lệ                                                 |
+| 0x0030000C                           | MC_ERROR_ID_INVALID_STATE_TO_STOPPING            | Chuyển sang trạng thái Stopping không hợp lệ                                               |
+| 0x0030000D                           | MC_ERROR_ID_INVALID_STATE_TO_DISCRETE            | Chuyển sang trạng thái DiscreteMotion không hợp lệ                                         |
+| 0x0030000E                           | MC_ERROR_ID_INVALID_STATE_TO_SYNC                | Chuyển sang trạng thái SynchronizedMotion không hợp lệ                                     |
+| 0x0030000F                           | MC_ERROR_ID_INVALID_STATE_TO_CONTINUOUS          | Chuyển sang trạng thái ContinuousMotion không hợp lệ                                       |
+| Error due to user/system limitations |                                                  |                                                                                            |
+| 0x00400000                           | MC_ERROR_ID_MOTION_LIMIT_ERROR                   | Vận tốc, gia tốc hoặc vị trí vượt quá giới hạn                                             |
+| 0x00400001                           | MC_ERROR_ID_INVALID_DIRECTION_POSITIVE           | Không cho phép chuyển động theo chiều dương                                                |
+| 0x00400002                           | MC_ERROR_ID_INVALID_DIRECTION_NEGATIVE           | Không cho phép chuyển động theo chiều âm                                                   |
+| 0x00400003                           | MC_ERROR_ID_VELOCITY_OVER_LIMIT                  | Vận tốc vượt quá giới hạn                                                                  |
+| 0x00400004                           | MC_ERROR_ID_ACCELERATION_OVER_LIMIT              | Gia tốc vượt quá giới hạn                                                                  |
+| 0x00400005                           | MC_ERROR_ID_POSITION_OVER_POSITIVE_LIMIT         | Vị trí vượt quá giới hạn dương                                                             |
+| 0x00400006                           | MC_ERROR_ID_POSITION_OVER_NEGATIVE_LIMIT         | Vị trí vượt quá giới hạn âm                                                                |
+| 0x00400007                           | MC_ERROR_ID_POSITION_LAG_OVERLIMIT               | Sai lệch bám vị trí vượt quá giới hạn                                                      |
+| 0x00400008                           | MC_ERROR_ID_TORQUE_OVER_LIMIT                    | Mô-men xoắn vượt quá giới hạn                                                              |
+| Error Stop                           |                                                  |                                                                                            |
+| 0x00500000                           | MC_ERROR_ID_AXIS_ERROR_STOP                      | Trục đã dừng do lỗi                                                                        |
+| Error from servo                     |                                                  |                                                                                            |
+| 0x00600000                           | MC_ERROR_ID_AXIS_ERROR_STOP                      | Servo không có lỗi                                                                         |
+| 0x00600001                           | MC_ERROR_ID_SERVO_FIELDBUS_INIT_ERROR            | Lỗi khởi tạo mạng truyền thông công nghiệp (Fieldbus) của Servo                            |
+| 0x00600002                           | MC_ERROR_ID_SERVO_POWER_ERROR                    | Lỗi cấp nguồn Servo                                                                        |
+| 0x00600003                           | MC_ERROR_ID_SERVO_POWERING_ON_ERROR              | Servo gặp lỗi trong quá trình bật nguồn                                                    |
+| 0x00600004                           | MC_ERROR_ID_SERVO_ERROR_WHEN_POWERED_ON          | Servo gặp lỗi sau khi đã bật nguồn                                                         |
+| 0x00600005                           | MC_ERROR_ID_SERVO_POWERING_OFF_ERROR             | Servo gặp lỗi trong quá trình tắt nguồn                                                    |
+| 0x00600006                           | MC_ERROR_ID_SERVO_PDO_NOT_MAP                    | Chưa ánh xạ PDO cho Servo                                                                  |
+| 0x00600007                           | MC_ERROR_ID_SERVO_PDO_READ_ERROR                 | Lỗi đọc PDO của Servo                                                                      |
+| 0x00600008                           | MC_ERROR_ID_SERVO_PDO_WRITE_ERROR                | Lỗi ghi PDO của Servo                                                                      |
+| 0x00600009                           | MC_ERROR_ID_SERVO_POWER_OFF                      | Servo không thể chạy khi đang tắt nguồn                                                    |
+| 0x0060000A                           | MC_ERROR_ID_SERVO_ERROR_HOME_STATE               | Servo gặp lỗi khi đang ở trạng thái về gốc (Homing)                                        |
+| 0x0060000B                           | MC_ERROR_ID_SERVO_HOME_MODE_SWITCH               | Lỗi chuyển đổi chế độ của Servo                                                            |
+| 0x0060000C                           | MC_ERROR_ID_SERVO_HOME_CTRLWORD                  | Lỗi cài đặt chế độ về gốc cho Servo                                                        |
+| 0x0060000D                           | MC_ERROR_ID_SERVO_HOME                           | Lỗi về gốc của Servo                                                                       |
+| 0x0060000E                           | MC_ERROR_ID_SERVO_PDO_READ_BUSY                  | Đọc PDO của Servo đang bận                                                                 |
+| 0x0060000F                           | MC_ERROR_ID_SERVO_TOUCHPROBE_NOTFIND             | Không tìm thấy đầu dò chạm (TouchProbe) của Servo                                          |
+| 0x00600010                           | MC_ERROR_ID_SERVO_PARAREAD                       | Lỗi đọc tham số Servo                                                                      |
+| 0x00600011                           | MC_ERROR_ID_SERVO_PARAWRITE                      | Lỗi ghi tham số Servo                                                                      |
+| 0x00600012                           | MC_ERROR_ID_LOCAL_PULSE_HOME_TIMEOUT             | Quá thời gian (Timeout) khi thực hiện về gốc                                               |
+| 0x00600013                           | MC_ERROR_ID_LOCAL_PULSE_HOME_NOT_TOUCH_LIMI      | Quá trình thực thi chưa chạm giới hạn                                                      |
+| 0x00600014                           | MC_ERROR_ID_LOCAL_PULSE_HOME_VELOCITY_OVER_LIMIT | Vận tốc về gốc (HOME) của trục xung vượt quá giới hạn                                      |
+| 0x00600015                           | MC_ERROR_ID_LOCAL_PULSE_HOME_ACC_OVER_LIMIT      | Gia tốc về gốc (HOME) của trục xung vượt quá giới hạn                                      |
+| 0x00600020                           | MC_ERROR_ID_MODE_SWITCH_NEEDPDO_NOTMAP           | Không có PDO yêu cầu cho chế độ tương ứng khi chuyển đổi chế độ.                           |
+| 0x006000FF                           | MC_ERROR_ID_SERVO_LOST                           | Mất kết nối Servo                                                                          |
+| 0x00600040                           | MC_ERROR_ID_SERVO_ERROR                          | Servo báo lỗi                                                                              |
+| Axis's error                         |                                                  |                                                                                            |
+| 0x00700000                           | MC_ERROR_ID_AXIS_GENERAL_ERROR                   | Lỗi chung của trục                                                                         |
+| 0x00700001                           | MC_ERROR_ID_AXIS_ADD_QUEUE_ERROR                 | Lỗi thêm trục                                                                              |
+| 0x00700002                           | MC_ERROR_ID_AXIS_IS_UNHEALTHY                    | Trục ở trạng thái không bình thường                                                        |
+| 0x00700003                           | MC_ERROR_ID_AXIS_IS_OVER_LIMIT                   | Lệnh chuyển động của trục vượt quá giới hạn                                                |
+| 0x00700004                           | MC_ERROR_ID_AXIS_FALLINGEDGE_ERROR               | Lỗi trục xảy ra tại sườn xuống                                                             |
+| 0x00700005                           | MC_ERROR_ID_AXIS_NOTFIND                         | Không tìm thấy trục                                                                        |
+| 0x00700006                           | MC_ERROR_ID_AXIS_IS_INGROUP                      | Trục đang thuộc nhóm trục (Group)                                                          |
+| 0x00700007                           | MC_ERROR_ID_AXIS_CAN_NOT_SETPOS                  | Không thể đặt vị trí cho trục ở trạng thái hiện tại                                        |
+| 0x00700008                           | MC_ERROR_ID_AXIS_NOT_POWER                       | Trục chưa được bật nguồn                                                                   |
+| 0x00700009                           | MC_ERROR_ID_AXIS_NOT_SUPPORTED_TOUCH             | Không hỗ trợ số hiệu đầu dò chạm (Touch probe) đã gán                                      |
+| 0x0070000A                           | MC_ERROR_ID_AXIS_IS_COMBINED                     | Trục đã được ghép nối                                                                      |
+| 0x0070000B                           | MC_ERROR_ID_AXIS_CAN_NOT_COMBINE_WHILE_RUN       | Không thể ghép nối trục khi đang chạy                                                      |
+| 0x0070000C                           | MC_ERROR_ID_AXIS_GROUP_NOTFIND                   | Không tìm thấy số hiệu nhóm trục                                                           |
+| General FB error                     |                                                  |                                                                                            |
+| 0x00800000                           | MC_ERROR_ID_FB_GENERAL_ERROR                     | Lỗi chạy khối hàm (FB) của người dùng                                                      |
+| 0x00800001                           | MC_ERROR_ID_FB_READ_PARAM_ERROR                  | Lỗi đọc khối hàm (FB) của người dùng                                                       |
+| 0x00800002                           | MC_ERROR_ID_FB_STOP_ERROR                        | Lỗi dừng khối hàm (FB) của người dùng                                                      |
+| 0x00800003                           | MC_ERROR_ID_FB_NOT_BIND_AXIS                     | Khối hàm (FB) của người dùng chưa gán trục logic                                           |
+| 0x00800004                           | MC_ERROR_ID_FB_NOT_SET_PARAMETER_ID              | Khối hàm (FB) của người dùng chưa cài đặt tham số đọc                                      |
+| 0x00800005                           | MC_ERROR_ID_FB_NOT_IN_QUEUE                      | Khối hàm (FB) của người dùng đã hoàn thành và không thể cập nhật                           |
+| 0x00800006                           | MC_ERROR_ID_FB_PARAMETER_ERROR                   | Lỗi tham số khối hàm (FB) của người dùng                                                   |
+| 0x00800007                           | MC_ERROR_ID_FB_PLAN_FAILED                       | Lỗi khối hàm (FB) của người dùng do tham số khi thực thi lập quỹ đạo                       |
+| 0x00800008                           | MC_ERROR_ID_FB_REPLACE_AXIS_IN_RUN               | Khối hàm (FB) của người dùng thay đổi trục khi đang chạy                                   |
+| 0x00800009                           | MC_ERROR_ID_FB_HALTSUPERIMPOSED_ERROR            | Lỗi dừng chuyển động chồng lấn ảo                                                          |
+| 0x0080000A                           | MC_ERROR_ID_FB_NOT_BIND_AXIS_GROUP               | Khối hàm (FB) của người dùng chưa gán trục vào nhóm trục                                   |
+| 0x0080000B                           | MC_ERROR_ID_FB_BIND_AXIS_IS_ERROR                | Trục được gán đang có lỗi                                                                  |
+| 0x0080000C                           | MC_ERROR_ID_FB_MINE_AXIS_IS_ERROR                | Trục lập quỹ đạo của khối hàm (FB) đang có lỗi                                             |
+| 0x0080000D                           | MC_ERROR_ID_FB_NOT_BIND_MASTER                   | Khối hàm (FB) chưa gán trục chủ (Master)                                                   |
+| 0x0080000E                           | MC_ERROR_ID_FB_NOT_BIND_SLAVE                    | Khối hàm (FB) chưa gán trục tớ (Slave)                                                     |
+| 0x0080000F                           | MC_ERROR_ID_FB_CAN_NOT_BIND_ENCODERAXIS          | Khối hàm (FB) không thể gán trục encoder                                                   |
+| 0x00800010                           | MC_ERROR_ID_FB_NOT_BIND_TRIGGER_INFO             | Khối hàm (FB) chưa gán thông tin kích hoạt (Trigger)                                       |
+| 0x00800011                           | MC_ERROR_ID_FB_NOT_SUPPORTED_TRINUM              | Số hiệu kích hoạt (Trigger) được gán không được hỗ trợ                                     |
+| 0x00800012                           | MC_ERROR_ID_FB_CAN_NOT_CHANGE_WHILE_RUN          | Tham số đã gán của khối hàm (FB) không thể thay đổi khi đang chạy                          |
+| 0x00800013                           | MC_ERROR_ID_FB_RANGE_SET_ERROR                   | Phạm vi tham số của khối hàm (FB) bị lỗi. Giá trị tối đa có thể nhỏ hơn giá trị tối thiểu. |
+| 0x00800014                           | MC_ERROR_ID_FB_MASTER_SLAVE_ARE_SAME             | Trục chủ (Master) và trục tớ (Slave) của khối hàm (FB) bị trùng nhau                       |
+| 0x00800015                           | MC_ERROR_ID_FB_MASTER_AUXILIARY_ARE_SAME         | Trục chủ (Master) và trục phụ của khối hàm (FB) bị trùng nhau                              |
+| 0x00800016                           | MC_ERROR_ID_FB_AUXILIARY_SLAVE_ARE_SAME          | Trục phụ và trục tớ (Slave) của khối hàm (FB) bị trùng nhau                                |
+| 0x00800017                           | MC_ERROR_ID_FB_MASTER_SLAVE_NOT_ASCENDING        | ID trục chủ (Master) và trục tớ (Slave) của khối hàm (FB) không theo thứ tự tăng dần       |
+| General axis group error             |                                                  |                                                                                            |
+| 0x00900000                           | MC_ERROR_ID_AXIS_GROUP_GENERAL_ERROR             | Lỗi chung của nhóm trục                                                                    |
+| 0x00900001                           | MC_ERROR_ID_AXIS_GROUP_ADD_QUEUE_ERROR           | Lỗi thêm trục vào nhóm trục                                                                |
+| 0x00900002                           | MC_ERROR_ID_AXIS_GROUP_REMOVE_ERROR              | Lỗi xóa trục logic khỏi nhóm trục                                                          |
+| 0x00900003                           | MC_ERROR_ID_AXIS_GROUP_ENABLE_ERROR              | Lỗi kích hoạt nhóm trục                                                                    |
+| 0x00900004                           | MC_ERROR_ID_AXIS_GROUP_DISABLE_ERROR             | Lỗi hủy kích hoạt nhóm trục                                                                |
+| 0x00900005                           | MC_ERROR_ID_AXIS_GROUP_STOP_ERROR                | Lỗi dừng nhóm trục                                                                         |
+| 0x00900006                           | MC_ERROR_ID_AXIS_GROUP_AXIS_INSINGLEMOVE         | Nhóm trục chuẩn bị chạy nhưng trục đang bị điều khiển ở chế độ trục đơn                    |
+| 0x00900007                           | MC_ERROR_ID_AXIS_GROUP_AXIS_INGROUPMOVE          | Trục đã được gán vào nhóm trục                                                             |
+| 0x00900008                           | MC_ERROR_ID_AXIS_GROUP_IS_UNHEALTHY              | Một trục bất kỳ trong nhóm bị lỗi hoặc có lỗi trong nhóm trục                              |
+| 0x00900009                           | MC_ERROR_ID_AXIS_GROUP_CAN_NOT_SETPOT            | Không thể đặt vị trí cho nhóm trục                                                         |
+| 0x0090000A                           | MC_ERROR_ID_AXIS_GROUP_INVALID_STATE_TRANS       | Nhóm trục chuẩn bị chuyển sang trạng thái không được phép                                  |
+| 0x0090000B                           | MC_ERROR_ID_AXIS_GROUP_NOT_BIND_AXIS             | Nhóm trục chưa gán trục                                                                    |
+| 0x0090000C                           | MC_ERROR_ID_AXIS_GROUP_IS_DISABLED               | Nhóm trục đang bị vô hiệu hóa (Disabled)                                                   |
+| Single axis planner error            |                                                  |                                                                                            |
+| 0x00A00000                           | MC_ERROR_ID_PLANNER_DIST_IS_ZERO                 | Vị trí của bộ lập quỹ đạo bằng 0                                                           |
+| 0x00A00001                           | MC_ERROR_ID_PLANNER_SPPED_IS_ZERO                | Vận tốc của bộ lập quỹ đạo bằng 0                                                          |
+| 0x00A00002                           | MC_ERROR_ID_PLANNER_ACC_DES_IS_ZERO              | Gia tốc của bộ lập quỹ đạo bằng 0                                                          |
+| 0x00A00003                           | MC_ERROR_ID_PLANNER_JERK_IS_ZERO                 | Lỗi chung của nhóm trục                                                                    |
+| 0x00A00004                           | MC_ERROR_ID_PLANNER_CURRENT_DIFF_LAST            | Lỗi đồng bộ bộ lập quỹ đạo, vị trí hiện tại không khớp với vị trí trước đó                 |
+| 0x00A00005                           | MC_ERROR_ID_PLANNER_SPPED_OVER_LIMIT             | Vận tốc đầu vào của bộ lập quỹ đạo vượt quá giới hạn                                       |
+| 0x00A00006                           | MC_ERROR_ID_PLANNER_ACC_DES_OVER_LIMIT           | Gia tốc tăng/giảm tốc đầu vào của bộ lập quỹ đạo vượt quá giới hạn                         |
+| 0x00A00007                           | MC_ERROR_ID_PLANNER_JERK_OVER_LIMIT              | Độ giật đường cong S (Jerk) đầu vào của bộ lập quỹ đạo vượt quá giới hạn                   |
+| 0x00AFFFFF                           | MC_ERROR_ID_PLANNER_SG_CULCULATE                 | Lỗi tính toán trục đơn của bộ lập quỹ đạo                                                  |
+| Axis group planner error             |                                                  |                                                                                            |
+| 0x00B00000                           | MC_ERROR_ID_PLANNER_SP_SAME_START_END            | Điểm đầu và điểm cuối của đường cong không gian trong bộ lập quỹ đạo trùng nhau            |
+| 0x00B00000                           | MC_ERROR_ID_PLANNER_SP_NOT_IN_SAME_PLANE         | Đường cong không gian của bộ lập quỹ đạo không nằm trên cùng một mặt phẳng                 |
+| 0x00BFFFFF                           | MC_ERROR_ID_PLANNER_SP_CULCULATE                 | Lỗi tính toán đường cong không gian của bộ lập quỹ đạo                                     |
+| ECAM or EGEAR error                  |                                                  |                                                                                            |
+| 0x00C00000                           | MC_ERROR_ID_AXIS_MASTER_AND_SLAVE_IS_SAME        | Trục chủ (Master) và trục tớ (Slave) của bộ lập quỹ đạo trùng nhau                         |
+| 0x00C00001                           | MC_ERROR_ID_AXIS_MAX_ACC_OR_DEC_OR_VEL_IS_ZERO   | Gia tốc tăng/giảm tốc hoặc vận tốc tối đa của trục trong bộ lập quỹ đạo bằng 0             |
+| 0x00C00002                           | MC_ERROR_ID_CAM_TABLE_IS_INEXISTENCE             | Bảng cam (Cam table) trong bộ lập quỹ đạo không tồn tại                                    |
+| 0x00C00003                           | MC_ERROR_ID_CAM_NODENUM_OVER_NODE_SIZE           | Số lượng điểm nút cam trong bộ lập quỹ đạo vượt quá kích thước thực tế                     |
+| 0x00C00004                           | MC_ERROR_ID_CAM_NODENUM_OR_NODESIZE_IS_ERROR     | Số lượng điểm nút cam hoặc kích thước nút cam trong bộ lập quỹ đạo bị lỗi                  |
+| 0x00C00005                           | MC_ERROR_ID_CAM_FIRST_NODE_POS_NON_ZERO          | Vị trí trục chủ hoặc trục tớ tại điểm nút cam đầu tiên trong bộ lập quỹ đạo khác 0         |
+| 0x00C00006                           | MC_ERROR_ID_CAM_NODE_PARAMETER_IS_ERROR          | Tham số điểm nút cam trong bộ lập quỹ đạo bị lỗi                                           |
+| 0x00C00007                           | MC_ERROR_ID_CAM_UPDATE_CAM_TABLE_IS_ERROR        | Lỗi cập nhật bảng cam (Cam table) trong bộ lập quỹ đạo                                     |
+| 0x00C00008                           | MC_ERROR_ID_CAM_SAVE_CAM_TABLE_IS_ERROR          | Lỗi lưu bảng cam (Cam table) trong bộ lập quỹ đạo                                          |
+| 0x00C00009                           | MC_ERROR_ID_CAM_GET_AXIS_VEL_AND_POS_ERROR       | Lỗi đọc vận tốc/vị trí của trục chủ và trục tớ trong bộ lập quỹ đạo                        |
+| 0x00C0000A                           | MC_ERROR_ID_BUFFER_MODE_IS_NOT_ABORTING          | Chế độ đệm (Buffer mode) trong bộ lập quỹ đạo không phải là chế độ hủy (Aborting)          |
+| 0x00C0000B                           | MC_ERROR_ID_CAM_AXIS_SCALING_IS_ZERO             | Hệ số tỉ lệ trục chủ hoặc trục tớ của cam trong bộ lập quỹ đạo bằng 0                      |
+| 0x00C0000C                           | MC_ERROR_ID_CAM_TABLE_IS_NOT_BIND                | Bảng cam (Cam table) trong bộ lập quỹ đạo chưa được gán                                    |
+| 0x00C0000D                           | MC_ERROR_ID_THE_AXIS_IS_NOT_IN_CAM_STATE         | Trục trong bộ lập quỹ đạo không ở trạng thái chạy cam                                      |
+| 0x00C0000E                           | MC_ERROR_ID_THE_AXIS_IS_NOT_IN_GEAR_STATE        | Trục trong bộ lập quỹ đạo không ở trạng thái chạy bánh răng điện tử                        |
+| 0x00C0000F                           | MC_ERROR_ID_CAM_IN_PARAMETER_IS_ERROR            | Tham số vào cam (CamIn) trong bộ lập quỹ đạo bị lỗi                                        |
+| 0x00C00010                           | MC_ERROR_ID_GEAR_IN_PARAMETER_IS_ERROR           | Tham số vào bánh răng (GearIn) trong bộ lập quỹ đạo bị lỗi                                 |
+| 0x00C00011                           | MC_ERROR_ID_GEAR_IN_POS_PARAMETER_IS_ERROR       | Tham số đồng bộ vị trí bánh răng (GearInPos) trong bộ lập quỹ đạo bị lỗi                   |
+| 0x00C00012                           | MC_ERROR_ID_CAM_TABLE_IS_UPDATE                  | Bảng cam (Cam table) trong bộ lập quỹ đạo đang được cập nhật                               |
+| 0x00C00013                           | MC_ERROR_ID_GET_CAM_TABLE_POS_IS_ERROR           | Lỗi đọc vị trí bảng cam (Cam table) trong bộ lập quỹ đạo                                   |
+| 0x00C00014                           | MC_ERROR_ID_CAM_TABLE_PHASE_IS_OUT_OF_RANGE      | Lỗi đọc vị trí bảng cam (Cam table) trong bộ lập quỹ đạo                                   |
+| 0x00C00015                           | MC_ERROR_ID_CAM_TABLE_NODE_IS_NOT_ADJOIN         | Các điểm nút bảng cam (Cam table) trong bộ lập quỹ đạo không liền kề nhau                  |

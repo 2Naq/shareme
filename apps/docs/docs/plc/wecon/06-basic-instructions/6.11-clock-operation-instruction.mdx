@@ -3,7 +3,7 @@ id: "6.11-clock-operation-instruction"
 title: "6.11 Lệnh xử lý đồng hồ thời gian thực RTC (Clock Operation Instruction)"
 sidebar_position: 11
 sidebar_label: "6.11 Clock Operation instruction"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.11 Lệnh xử lý đồng hồ thời gian thực RTC (Clock Operation Instruction)"
 ---
 
@@ -17,19 +17,19 @@ Cộng dữ liệu thời gian lưu từ số hiệu thiết bị được chỉ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian bị cộng | - | Signed BIN 16 bit | ANY16_ARRAY (number of elements: 3) |
-| (s2) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian dùng cho phép cộng | - | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
-| (d) | The device start number that stores the time (time) data of the addition kết quả phép toán | - | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
+| Tham số | Nội dung mô tả                                                                             | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến)            |
+| :------ | :----------------------------------------------------------------------------------------- | :-------------- | :---------------- | :---------------------------------- |
+| (s1)    | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian bị cộng                                 | -               | Signed BIN 16 bit | ANY16_ARRAY (number of elements: 3) |
+| (s2)    | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian dùng cho phép cộng                      | -               | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3)  |
+| (d)     | The device start number that stores the time (time) data of the addition kết quả phép toán | -               | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3)  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| TADD | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| TADD | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| TADD | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| TADD             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| TADD             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| TADD             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -53,10 +53,10 @@ Khi cộng 23:59:59 và 1 giây, kết quả tính toán là 0:00:00, đồng th
 
 Các thiết bị liên quan như sau:
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM151 | Cờ nhớ (Carry) | Bật ON khi kết quả của lệnh TADD(P) vượt quá giá trị dữ liệu đồng hồ tối đa là 23:59:59 |
-| SM153 | Cờ giá trị 0 (Zero) | Bật ON khi kết quả của lệnh TADD(P) là 0:00:00 |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung mô tả                                                                          |
+| :-------------------------- | :------------------ | :-------------------------------------------------------------------------------------- |
+| SM151                       | Cờ nhớ (Carry)      | Bật ON khi kết quả của lệnh TADD(P) vượt quá giá trị dữ liệu đồng hồ tối đa là 23:59:59 |
+| SM153                       | Cờ giá trị 0 (Zero) | Bật ON khi kết quả của lệnh TADD(P) là 0:00:00                                          |
 
 :::tip
 ✎Lưu ý
@@ -68,11 +68,11 @@ Khi sử dụng dữ liệu thời gian (giờ, phút, giây) của đồng hồ
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
-| 4086H | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
-| 4084H | Khi giá trị chỉ định tại (s1) và (s2) nằm ngoài phạm vi 0 đến 23; Khi giá trị chỉ định tại (s1)+1, (s2)+1, (s1)+2 và (s2)+2 nằm ngoài phạm vi 0 đến 59 |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                                         |
+| :------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4085H               | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng                                                                         |
+| 4086H               | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng                                                                         |
+| 4084H               | Khi giá trị chỉ định tại (s1) và (s2) nằm ngoài phạm vi 0 đến 23; Khi giá trị chỉ định tại (s1)+1, (s2)+1, (s1)+2 và (s2)+2 nằm ngoài phạm vi 0 đến 59 |
 
 #### Ví dụ minh họa
 
@@ -98,19 +98,19 @@ Trừ dữ liệu thời gian lưu từ số hiệu thiết bị được chỉ 
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian bị trừ | - | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
-| (s2) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian dùng cho phép trừ | - | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
-| (d) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian của kết quả phép trừ | - | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
+| Tham số | Nội dung mô tả                                                          | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến)           |
+| :------ | :---------------------------------------------------------------------- | :-------------- | :---------------- | :--------------------------------- |
+| (s1)    | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian bị trừ               | -               | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
+| (s2)    | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian dùng cho phép trừ    | -               | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
+| (d)     | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian của kết quả phép trừ | -               | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| TSUB | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| TSUB | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| TSUB | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| TSUB             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| TSUB             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| TSUB             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -132,10 +132,10 @@ Khi kết quả tính toán bằng 0 (0 giờ, 0 phút, 0 giây), cờ không (Z
 
 Các thiết bị liên quan như sau:
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM152 | Cờ mượn (Borrow) | Bật ON khi kết quả của lệnh TSUB(P) nhỏ hơn 0:00:00 |
-| SM153 | Cờ giá trị 0 (Zero) | Bật ON khi kết quả của lệnh TSUB(P) bằng 0:00:00 |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung mô tả                                      |
+| :-------------------------- | :------------------ | :-------------------------------------------------- |
+| SM152                       | Cờ mượn (Borrow)    | Bật ON khi kết quả của lệnh TSUB(P) nhỏ hơn 0:00:00 |
+| SM153                       | Cờ giá trị 0 (Zero) | Bật ON khi kết quả của lệnh TSUB(P) bằng 0:00:00    |
 
 :::tip
 ✎Lưu ý
@@ -147,23 +147,23 @@ Các thiết bị liên quan như sau:
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
-| 4086H | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
-| 4084H | Khi giá trị chỉ định tại (s1) và (s2) nằm ngoài phạm vi 0 đến 23; Khi giá trị chỉ định tại (s1)+1, (s2)+1, (s1)+2 và (s2)+2 nằm ngoài phạm vi 0 đến 59 |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                                         |
+| :------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4085H               | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng                                                                         |
+| 4086H               | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng                                                                         |
+| 4084H               | Khi giá trị chỉ định tại (s1) và (s2) nằm ngoài phạm vi 0 đến 23; Khi giá trị chỉ định tại (s1)+1, (s2)+1, (s1)+2 và (s2)+2 nằm ngoài phạm vi 0 đến 59 |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927709496-576.png?width=469&amp;height=53&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927709496-576.png?width=469&height=53&rev=1.1)
 
 Đặt thời gian D0 thành 16:30:00 và thời gian D10 thành 4:30:0
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927735458-764.png?width=708&amp;height=150&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927735458-764.png?width=708&height=150&rev=1.1)
 
 Sau khi cuộn dây được bật ON, thời gian tại D20 là 12:00:00
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927749359-179.png?width=687&amp;height=61&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927749359-179.png?width=687&height=61&rev=1.1)
 
 ### TRD / Đọc dữ liệu đồng hồ thời gian thực (RTC)
 
@@ -175,41 +175,41 @@ TRD(P)
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bắt đầu và đích đọc dữ liệu đồng hồ | - | Signed BIN 16 bit | ANY16_ARRAY (number of elements: 7) |
+| Tham số | Nội dung mô tả                                       | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến)            |
+| :------ | :--------------------------------------------------- | :-------------- | :---------------- | :---------------------------------- |
+| (d)     | Số hiệu thiết bị bắt đầu và đích đọc dữ liệu đồng hồ | -               | Signed BIN 16 bit | ANY16_ARRAY (number of elements: 7) |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| TRD | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| TRD              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Đọc dữ liệu đồng hồ (SD100 đến SD106) của đồng hồ thời gian thực (RTC) tích hợp trong mô-đun CPU vào (d) đến (d)+6 theo định dạng sau.
 
-| Tham số | Element | Hạng mục | Dữ liệu đồng hồ |  | Element | Hạng mục |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Special register | SD105 | Year (Gregorian) | 2000 to 2099 | → | (d) | Year (Gregorian) |
-| Special register | SD104 | Month | 1 to 12 | → | (d)+1 | Month |
-| Special register | SD103 | Day | 1 to 31 | → | (d)+2 | Day |
-| Special register | SD102 | Hour | 0 to 23 | → | (d)+3 | Hour |
-| Special register | SD101 | Minute | 0 to 59 | → | (d)+4 | Minute |
-| Special register | SD100 | Seconds | 0 to 59 | → | (d)+5 | Seconds |
-| Special register | SD106 | Week | 0 (Sun) to 6 (Sat) | → | (d)+6 | Week |
+| Tham số          | Element | Hạng mục         | Dữ liệu đồng hồ    |     | Element | Hạng mục         |
+| :--------------- | :------ | :--------------- | :----------------- | :-- | :------ | :--------------- |
+| Special register | SD105   | Year (Gregorian) | 2000 to 2099       | →   | (d)     | Year (Gregorian) |
+| Special register | SD104   | Month            | 1 to 12            | →   | (d)+1   | Month            |
+| Special register | SD103   | Day              | 1 to 31            | →   | (d)+2   | Day              |
+| Special register | SD102   | Hour             | 0 to 23            | →   | (d)+3   | Hour             |
+| Special register | SD101   | Minute           | 0 to 59            | →   | (d)+4   | Minute           |
+| Special register | SD100   | Seconds          | 0 to 59            | →   | (d)+5   | Seconds          |
+| Special register | SD106   | Week             | 0 (Sun) to 6 (Sat) | →   | (d)+6   | Week             |
 
 • Các thiết bị liên quan được trình bày dưới đây. Dữ liệu đồng hồ của các thanh ghi đặc biệt này được cập nhật thông qua quá trình xử lý lệnh END.
 
-| Vùng nhớ thiết bị (Devices) | Nội dung mô tả |
-| :--- | :--- |
-| SD100 | Dữ liệu giây của dữ liệu đồng hồ được lưu ở mã BIN. |
-| SD101 | Dữ liệu phút của dữ liệu đồng hồ được lưu ở mã BIN. |
-| SD102 | Dữ liệu giờ của dữ liệu đồng hồ được lưu ở mã BIN. |
-| SD103 | Dữ liệu ngày của dữ liệu đồng hồ được lưu ở mã BIN. |
-| SD104 | Dữ liệu tháng của dữ liệu đồng hồ được lưu ở mã BIN. |
-| SD105 | Dữ liệu năm của dữ liệu đồng hồ được lưu ở mã BIN 4 chữ số theo dương lịch. |
-| SD106 | Dữ liệu thứ trong tuần của dữ liệu đồng hồ được lưu ở mã BIN (0: Chủ Nhật, 1: Thứ Hai, ..., 6: Thứ Bảy). |
+| Vùng nhớ thiết bị (Devices) | Nội dung mô tả                                                                                           |
+| :-------------------------- | :------------------------------------------------------------------------------------------------------- |
+| SD100                       | Dữ liệu giây của dữ liệu đồng hồ được lưu ở mã BIN.                                                      |
+| SD101                       | Dữ liệu phút của dữ liệu đồng hồ được lưu ở mã BIN.                                                      |
+| SD102                       | Dữ liệu giờ của dữ liệu đồng hồ được lưu ở mã BIN.                                                       |
+| SD103                       | Dữ liệu ngày của dữ liệu đồng hồ được lưu ở mã BIN.                                                      |
+| SD104                       | Dữ liệu tháng của dữ liệu đồng hồ được lưu ở mã BIN.                                                     |
+| SD105                       | Dữ liệu năm của dữ liệu đồng hồ được lưu ở mã BIN 4 chữ số theo dương lịch.                              |
+| SD106                       | Dữ liệu thứ trong tuần của dữ liệu đồng hồ được lưu ở mã BIN (0: Chủ Nhật, 1: Thứ Hai, ..., 6: Thứ Bảy). |
 
 :::tip
 ✎Lưu ý
@@ -219,13 +219,13 @@ TRD(P)
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4086H | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                 |
+| :------------------ | :----------------------------------------------------------------------------- |
+| 4086H               | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927797876-456.png?width=335&amp;height=80&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927797876-456.png?width=335&height=80&rev=1.1)
 
 Sau khi cuộn dây M0 được bật ON, ngày và giờ hiện tại đọc được là Thứ Tư, 2020-2-19 13:10:38
 
@@ -241,29 +241,29 @@ Ghi dữ liệu đồng hồ cho đồng hồ thời gian thực (RTC) tích h�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Nguồn ghi dữ liệu đồng hồ, số hiệu thiết bị bắt đầu | - | Signed BIN 16 bit | ANY16_ARRAY (number of elements: 7) |
+| Tham số | Nội dung mô tả                                      | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến)            |
+| :------ | :-------------------------------------------------- | :-------------- | :---------------- | :---------------------------------- |
+| (s)     | Nguồn ghi dữ liệu đồng hồ, số hiệu thiết bị bắt đầu | -               | Signed BIN 16 bit | ANY16_ARRAY (number of elements: 7) |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| TWR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| TWR              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Ghi dữ liệu đồng hồ đã cài đặt từ (s) đến (s)+6 vào dữ liệu đồng hồ (SD100 đến SD106) của đồng hồ thời gian thực (RTC) tích hợp trong mô-đun CPU.
 
-| Set data at all times (Element) | Set data at all times (Project) | Dữ liệu cài đặt thời gian (Dữ liệu đồng hồ) |  | thanh ghi đặc biệt (SD) (Element) | thanh ghi đặc biệt (SD) (Project) |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s) | Year (Gregorian) | 2000 to 2099 or 0 to 99 | → | SD105 | Year (Gregorian) |
-| (s)+1 | Month | 1 to 12 | → | SD104 | Month |
-| (s)+2 | Day | 1 to 31 | → | SD103 | Day |
-| (s)+3 | Hour | 0 to 23 | → | SD102 | Hour |
-| (s)+4 | Minute | 0 to 59 | → | SD101 | Minute |
-| (s)+5 | Seconds | 0 to 59 | → | SD100 | Seconds |
-| (s)+6 | Week | 0 (Sun) to 6 (Sat) | → | SD106 | Week |
+| Set data at all times (Element) | Set data at all times (Project) | Dữ liệu cài đặt thời gian (Dữ liệu đồng hồ) |     | thanh ghi đặc biệt (SD) (Element) | thanh ghi đặc biệt (SD) (Project) |
+| :------------------------------ | :------------------------------ | :------------------------------------------ | :-- | :-------------------------------- | :-------------------------------- |
+| (s)                             | Year (Gregorian)                | 2000 to 2099 or 0 to 99                     | →   | SD105                             | Year (Gregorian)                  |
+| (s)+1                           | Month                           | 1 to 12                                     | →   | SD104                             | Month                             |
+| (s)+2                           | Day                             | 1 to 31                                     | →   | SD103                             | Day                               |
+| (s)+3                           | Hour                            | 0 to 23                                     | →   | SD102                             | Hour                              |
+| (s)+4                           | Minute                          | 0 to 59                                     | →   | SD101                             | Minute                            |
+| (s)+5                           | Seconds                         | 0 to 59                                     | →   | SD100                             | Seconds                           |
+| (s)+6                           | Week                            | 0 (Sun) to 6 (Sat)                          | →   | SD106                             | Week                              |
 
 • Nếu lệnh TWR(P) được thực thi, dữ liệu đồng hồ của đồng hồ thời gian thực (RTC) sẽ thay đổi ngay lập tức. Do đó, cần truyền trước dữ liệu thời gian sau đó vài phút vào vùng cài đặt (s) đến (s)+6, và lệnh sẽ được thực thi khi đến đúng thời điểm đó.
 
@@ -275,15 +275,15 @@ Ghi dữ liệu đồng hồ đã cài đặt từ (s) đến (s)+6 vào dữ li
 
 • Các thiết bị liên quan được trình bày dưới đây.
 
-| Vùng nhớ thiết bị (Devices) | Nội dung mô tả |
-| :--- | :--- |
-| SD100 | Dữ liệu giây của dữ liệu đồng hồ được lưu ở mã BIN. |
-| SD101 | Dữ liệu phút của dữ liệu đồng hồ được lưu ở mã BIN. |
-| SD102 | Dữ liệu giờ của dữ liệu đồng hồ được lưu ở mã BIN. |
-| SD103 | Dữ liệu ngày của dữ liệu đồng hồ được lưu ở mã BIN. |
-| SD104 | Dữ liệu tháng của dữ liệu đồng hồ được lưu ở mã BIN. |
-| SD105 | Dữ liệu năm của dữ liệu đồng hồ được lưu ở mã BIN 4 chữ số theo dương lịch. |
-| SD106 | Dữ liệu thứ trong tuần của dữ liệu đồng hồ được lưu ở mã BIN (0: Chủ Nhật, 1: Thứ Hai, ..., 6: Thứ Bảy). |
+| Vùng nhớ thiết bị (Devices) | Nội dung mô tả                                                                                           |
+| :-------------------------- | :------------------------------------------------------------------------------------------------------- |
+| SD100                       | Dữ liệu giây của dữ liệu đồng hồ được lưu ở mã BIN.                                                      |
+| SD101                       | Dữ liệu phút của dữ liệu đồng hồ được lưu ở mã BIN.                                                      |
+| SD102                       | Dữ liệu giờ của dữ liệu đồng hồ được lưu ở mã BIN.                                                       |
+| SD103                       | Dữ liệu ngày của dữ liệu đồng hồ được lưu ở mã BIN.                                                      |
+| SD104                       | Dữ liệu tháng của dữ liệu đồng hồ được lưu ở mã BIN.                                                     |
+| SD105                       | Dữ liệu năm của dữ liệu đồng hồ được lưu ở mã BIN 4 chữ số theo dương lịch.                              |
+| SD106                       | Dữ liệu thứ trong tuần của dữ liệu đồng hồ được lưu ở mã BIN (0: Chủ Nhật, 1: Thứ Hai, ..., 6: Thứ Bảy). |
 
 :::tip
 ✎Lưu ý
@@ -293,19 +293,19 @@ Thiết bị được chỉ định tại (s) chiếm 7 điểm. Lưu ý không 
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                 |
+| :------------------ | :----------------------------------------------------------------------------- |
+| 4085H               | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
 
 #### Ví dụ minh họa
 
 Cài đặt trước ngày giờ tại D0 là 2020-2-19 12:36:00
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927854591-969.png?width=353&amp;height=77&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927854591-969.png?width=353&height=77&rev=1.1)
 
 Vào thời điểm 12:36:00 đến, bật cuộn dây M0 để ghi thời gian.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927879898-954.png?width=635&amp;height=51&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927879898-954.png?width=635&height=51&rev=1.1)
 
 ### HTOS / Chuyển đổi dữ liệu 16-bit của dữ liệu thời gian (giờ, phút, giây → giây)
 
@@ -317,37 +317,37 @@ Chuyển đổi dữ liệu thời gian lưu từ số hiệu thiết bị đư�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian bị trừ | - | Signed BIN 16 bit | ANY16_ARRAY (number of elements: 3) |
-| (d) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đồng hồ sau khi chuyển đổi | - | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                                      | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến)            |
+| :------ | :------------------------------------------------------------------ | :-------------- | :---------------- | :---------------------------------- |
+| (s)     | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian bị trừ           | -               | Signed BIN 16 bit | ANY16_ARRAY (number of elements: 3) |
+| (d)     | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đồng hồ sau khi chuyển đổi | -               | Signed BIN 16 bit | ANY16                               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| HTOS | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| HTOS | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| HTOS             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| HTOS             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Chuyển đổi dữ liệu thời gian lưu từ số hiệu thiết bị được chỉ định tại (s) trở đi thành giây và lưu kết quả chuyển đổi vào thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927931775-654.png?width=476&amp;height=114&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760927931775-654.png?width=476&height=114&rev=1.1)
 
 #### Ví dụ minh họa
 
 Khi chỉ định 4 giờ, 29 phút và 31 giây tại (s)
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760928096349-708.png?width=457&amp;height=125&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760928096349-708.png?width=457&height=125&rev=1.1)
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
-| 4086H | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
-| 4084H | When the kết quả tính toán is not in the range of 0 to 32767When the value specified in (s) is not in the range of 0 to 9When the value specified in (s)+1 and (s)+2 is not in the range of 0 to 59 |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                                                                                      |
+| :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4085H               | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng                                                                                                                      |
+| 4086H               | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng                                                                                                                      |
+| 4084H               | When the kết quả tính toán is not in the range of 0 to 32767When the value specified in (s) is not in the range of 0 to 9When the value specified in (s)+1 and (s)+2 is not in the range of 0 to 59 |
 
 #### Ví dụ minh họa
 
@@ -371,47 +371,47 @@ Chuyển đổi dữ liệu thời gian lưu từ số hiệu thiết bị đư�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian bị trừ | - | Signed BIN 16 bit | ANY16_ARRAY (number of elements: 3) |
-| (d) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đồng hồ sau khi chuyển đổi | - | Signed BIN 32 bit | ANY32 |
+| Tham số | Nội dung mô tả                                                      | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến)            |
+| :------ | :------------------------------------------------------------------ | :-------------- | :---------------- | :---------------------------------- |
+| (s)     | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu thời gian bị trừ           | -               | Signed BIN 16 bit | ANY16_ARRAY (number of elements: 3) |
+| (d)     | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đồng hồ sau khi chuyển đổi | -               | Signed BIN 32 bit | ANY32                               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DHTOS | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| DHTOS | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DHTOS            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| DHTOS            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Chuyển đổi dữ liệu thời gian lưu từ số hiệu thiết bị được chỉ định tại (s) trở đi thành giây và lưu kết quả chuyển đổi vào thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760928460489-414.png?width=514&amp;height=100&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760928460489-414.png?width=514&height=100&rev=1.1)
 
 #### Ví dụ minh họa
 
 Khi chỉ định 35 giờ, 10 phút và 58 giây tại (s)
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760928491563-287.png?width=550&amp;height=137&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760928491563-287.png?width=550&height=137&rev=1.1)
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
-| 4086H | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
-| 4084H | When the kết quả tính toán is not in the range of 0 to 32767When the value specified in (s)+1 and (s)+2 is not in the range of 0 to 59 |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                         |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------- |
+| 4085H               | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng                                                         |
+| 4086H               | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng                                                         |
+| 4084H               | When the kết quả tính toán is not in the range of 0 to 32767When the value specified in (s)+1 and (s)+2 is not in the range of 0 to 59 |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760928506758-485.png?width=373&amp;height=78&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760928506758-485.png?width=373&height=78&rev=1.1)
 
 Thời gian tại D0 được đặt là 15:33:24
 
 Số giây tại D10 sau khi cuộn dây M0 bật ON là
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760928651243-473.png?width=576&amp;height=110&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760928651243-473.png?width=576&height=110&rev=1.1)
 
 ### HOUR / Đo thời gian theo giờ 16-bit
 
@@ -423,19 +423,19 @@ Thời gian tiếp điểm ngõ vào ở trạng thái ON được đo theo đơ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Thời gian khi cảnh báo (d2) bật ON (cài đặt theo giờ) | K0 to K32767 | Signed BIN 16 bit | ANY16 |
-| (d1) | Device that stores the current value of measurement (specified thanh ghi dữ liệu (D) for power failure retention) | - | Unsigned BIN 16 bit | ANY16_ARRAY(Number of elements: 2) |
-| (d2) | Thiết bị bật ON khi hết thời hạn (ngõ ra cảnh báo) | - | Bit | ANY_BOOL |
+| Tham số | Nội dung mô tả                                                                                                    | Phạm vi giá trị | Kiểu dữ liệu        | Kiểu dữ liệu (Nhãn biến)           |
+| :------ | :---------------------------------------------------------------------------------------------------------------- | :-------------- | :------------------ | :--------------------------------- |
+| (s)     | Thời gian khi cảnh báo (d2) bật ON (cài đặt theo giờ)                                                             | K0 to K32767    | Signed BIN 16 bit   | ANY16                              |
+| (d1)    | Device that stores the current value of measurement (specified thanh ghi dữ liệu (D) for power failure retention) | -               | Unsigned BIN 16 bit | ANY16_ARRAY(Number of elements: 2) |
+| (d2)    | Thiết bị bật ON khi hết thời hạn (ngõ ra cảnh báo)                                                                | -               | Bit                 | ANY_BOOL                           |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| HOUR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| HOUR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
-| HOUR | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| HOUR             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| HOUR             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| HOUR             | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -467,11 +467,11 @@ Thời gian ON của tiếp điểm ngõ vào được đo theo đơn vị 1 gi�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
-| 4086H | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
-| 4084H | Khi giá trị của (s) là số âm |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                 |
+| :------------------ | :----------------------------------------------------------------------------- |
+| 4085H               | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
+| 4086H               | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
+| 4084H               | Khi giá trị của (s) là số âm                                                   |
 
 #### Ví dụ minh họa
 
@@ -489,19 +489,19 @@ Thời gian tiếp điểm ngõ vào ở trạng thái ON được đo theo đơ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Thời gian khi cảnh báo (d2) bật ON (cài đặt theo giờ) | 0 to 2147483647 | Signed BIN 32 bit | ANY32 |
-| (d1) | Device that stores the current value of measurement (specified thanh ghi dữ liệu (D) for power failure retention) | - | Unsigned BIN 32 bit | ANY32_ARRAY(Number of elements: 2) |
-| (d2) | Thiết bị bật ON khi hết thời hạn (ngõ ra cảnh báo) | - | Bit | ANY_BOOL |
+| Tham số | Nội dung mô tả                                                                                                    | Phạm vi giá trị | Kiểu dữ liệu        | Kiểu dữ liệu (Nhãn biến)           |
+| :------ | :---------------------------------------------------------------------------------------------------------------- | :-------------- | :------------------ | :--------------------------------- |
+| (s)     | Thời gian khi cảnh báo (d2) bật ON (cài đặt theo giờ)                                                             | 0 to 2147483647 | Signed BIN 32 bit   | ANY32                              |
+| (d1)    | Device that stores the current value of measurement (specified thanh ghi dữ liệu (D) for power failure retention) | -               | Unsigned BIN 32 bit | ANY32_ARRAY(Number of elements: 2) |
+| (d2)    | Thiết bị bật ON khi hết thời hạn (ngõ ra cảnh báo)                                                                | -               | Bit                 | ANY_BOOL                           |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DHOUR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DHOUR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
-| DHOUR | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DHOUR            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DHOUR            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| DHOUR            | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -533,11 +533,11 @@ Thời gian tiếp điểm ngõ vào ở trạng thái ON được đo theo đơ
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
-| 4086H | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
-| 4084H | Khi giá trị của (s) là số âm |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                 |
+| :------------------ | :----------------------------------------------------------------------------- |
+| 4085H               | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
+| 4086H               | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
+| 4084H               | Khi giá trị của (s) là số âm                                                   |
 
 #### Ví dụ minh họa
 
@@ -555,17 +555,17 @@ Chuyển đổi dữ liệu giây 16-bit lưu tại số hiệu thiết bị đ�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đồng hồ trước khi chuyển đổi | 0 to 32767 | Signed BIN 16 bit | ANY16 |
-| (d) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đồng hồ sau khi chuyển đổi | - | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
+| Tham số | Nội dung mô tả                                                        | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến)           |
+| :------ | :-------------------------------------------------------------------- | :-------------- | :---------------- | :--------------------------------- |
+| (s)     | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đồng hồ trước khi chuyển đổi | 0 to 32767      | Signed BIN 16 bit | ANY16                              |
+| (d)     | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đồng hồ sau khi chuyển đổi   | -               | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| STOH | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| STOH | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| STOH             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| STOH             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -581,15 +581,15 @@ Khi chỉ định 29.011 giây tại (s)
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
-| 4086H | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
-| 4084H | Khi giá trị của (s) vượt quá phạm vi |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                 |
+| :------------------ | :----------------------------------------------------------------------------- |
+| 4085H               | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
+| 4086H               | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
+| 4084H               | Khi giá trị của (s) vượt quá phạm vi                                           |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760929434247-673.png?width=348&amp;height=55&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760929434247-673.png?width=348&height=55&rev=1.1)
 
 Đặt số giây tại D0 là 12537
 
@@ -607,41 +607,41 @@ Chuyển đổi dữ liệu giây 32-bit lưu tại số hiệu thiết bị đ�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đồng hồ trước khi chuyển đổi | 0 to 117964799 | Signed BIN 32 bit | ANY32 |
-| (d) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đồng hồ sau khi chuyển đổi | - | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
+| Tham số | Nội dung mô tả                                                        | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến)           |
+| :------ | :-------------------------------------------------------------------- | :-------------- | :---------------- | :--------------------------------- |
+| (s)     | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đồng hồ trước khi chuyển đổi | 0 to 117964799  | Signed BIN 32 bit | ANY32                              |
+| (d)     | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đồng hồ sau khi chuyển đổi   | -               | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DSTOH | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| DSTOH | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DSTOH            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| DSTOH            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Chuyển đổi dữ liệu giây lưu từ số hiệu thiết bị được chỉ định tại (s) trở đi thành giờ, phút và giây, rồi lưu kết quả chuyển đổi từ thiết bị được chỉ định tại (d) trở đi.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760929534366-748.png?width=598&amp;height=107&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760929534366-748.png?width=598&height=107&rev=1.1)
 
 #### Ví dụ minh họa
 
 Khi chỉ định 45.325 giây tại (s)
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760929572751-738.png?width=483&amp;height=120&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760929572751-738.png?width=483&height=120&rev=1.1)
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
-| 4086H | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
-| 4084H | Khi giá trị của (s) vượt quá phạm vi |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                 |
+| :------------------ | :----------------------------------------------------------------------------- |
+| 4085H               | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
+| 4086H               | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
+| 4084H               | Khi giá trị của (s) vượt quá phạm vi                                           |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760929612940-490.png?width=351&amp;height=50&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760929612940-490.png?width=351&height=50&rev=1.1)
 
 Đặt số giây tại D0 là 2152537
 
@@ -659,23 +659,23 @@ So sánh thời gian chuẩn được chỉ định tại (s1), (s2), (s3) với
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Chỉ định "giờ" của thời gian chuẩn so sánh. | 0 to 23 | Signed BIN 16 bit | ANY16 |
-| (s2) | Chỉ định "phút" của thời gian chuẩn so sánh. | 0 to 59 | Signed BIN 16 bit | ANY16 |
-| (s3) | Chỉ định "giây" của thời gian chuẩn so sánh. | 0 to 59 | Signed BIN 16 bit | ANY16 |
-| (s4) | Chỉ định "giờ" của dữ liệu thời gian (giờ, phút, giây). | - | Signed BIN 16 bit | ANY16_ARRAY |
-| (d) | Thiết bị bit được bật ON/OFF theo kết quả so sánh. | - | Bit | ANYBIT_ARRAY |
+| Tham số | Nội dung mô tả                                          | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------ | :-------------- | :---------------- | :----------------------- |
+| (s1)    | Chỉ định "giờ" của thời gian chuẩn so sánh.             | 0 to 23         | Signed BIN 16 bit | ANY16                    |
+| (s2)    | Chỉ định "phút" của thời gian chuẩn so sánh.            | 0 to 59         | Signed BIN 16 bit | ANY16                    |
+| (s3)    | Chỉ định "giây" của thời gian chuẩn so sánh.            | 0 to 59         | Signed BIN 16 bit | ANY16                    |
+| (s4)    | Chỉ định "giờ" của dữ liệu thời gian (giờ, phút, giây). | -               | Signed BIN 16 bit | ANY16_ARRAY              |
+| (d)     | Thiết bị bit được bật ON/OFF theo kết quả so sánh.      | -               | Bit               | ANYBIT_ARRAY             |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| TCMP | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| TCMP | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| TCMP | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| TCMP | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| TCMP | Parameter 5 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| TCMP             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| TCMP             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| TCMP             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| TCMP             | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| TCMP             | Parameter 5 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -693,11 +693,11 @@ Khi sử dụng dữ liệu thời gian (giờ, phút, giây) của đồng hồ
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
-| 4086H | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
-| 4084H | Khi giá trị chỉ định tại (s) và (s4) không nằm trong phạm vi 0 đến 23; Khi giá trị chỉ định tại (s2), (s3), (s4)+1 và (s4)+2 không nằm trong phạm vi 0 đến 59 |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                                                |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 4085H               | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng                                                                                |
+| 4086H               | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng                                                                                |
+| 4084H               | Khi giá trị chỉ định tại (s) và (s4) không nằm trong phạm vi 0 đến 23; Khi giá trị chỉ định tại (s2), (s3), (s4)+1 và (s4)+2 không nằm trong phạm vi 0 đến 59 |
 
 #### Ví dụ minh họa
 
@@ -721,21 +721,21 @@ So sánh khoảng thời gian giới hạn cao và thấp được chỉ định
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Chỉ định "giờ" của thời gian giới hạn dưới (giờ, phút, giây) | - | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
-| (s2) | Chỉ định "giờ" của thời gian giới hạn dưới (giờ, phút, giây) | - | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
-| (s3) | Chỉ định "giờ" của dữ liệu thời gian (giờ, phút, giây) | - | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
-| (d) | Thiết bị bit được bật ON/OFF theo kết quả so sánh. | - | Bit | ANY16_ARRAY(number of elements: 3) |
+| Tham số | Nội dung mô tả                                               | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến)           |
+| :------ | :----------------------------------------------------------- | :-------------- | :---------------- | :--------------------------------- |
+| (s1)    | Chỉ định "giờ" của thời gian giới hạn dưới (giờ, phút, giây) | -               | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
+| (s2)    | Chỉ định "giờ" của thời gian giới hạn dưới (giờ, phút, giây) | -               | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
+| (s3)    | Chỉ định "giờ" của dữ liệu thời gian (giờ, phút, giây)       | -               | Signed BIN 16 bit | ANY16_ARRAY(number of elements: 3) |
+| (d)     | Thiết bị bit được bật ON/OFF theo kết quả so sánh.           | -               | Bit               | ANY16_ARRAY(number of elements: 3) |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| TZCP | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| TZCP | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| TZCP | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| TZCP | Parameter 4 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| TZCP             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| TZCP             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| TZCP             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| TZCP             | Parameter 4 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -755,15 +755,15 @@ So sánh khoảng thời gian giới hạn cao và thấp được chỉ định
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng |
-| 4086H | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng |
-| 4084H | Khi giá trị chỉ định tại (s1), (s2) và (s3) không nằm trong phạm vi 0 đến 23; Khi giá trị chỉ định tại (s1)+1, (s2)+1, (s3)+1, (s1)+2, (s2)+2 và (s3)+2 không nằm trong phạm vi 0 đến 59 |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                                                                           |
+| :------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4085H               | Khi vùng nhớ thiết bị chỉ định để đọc vượt quá giới hạn của thiết bị tương ứng                                                                                                           |
+| 4086H               | Khi vùng nhớ thiết bị chỉ định để ghi vượt quá giới hạn của thiết bị tương ứng                                                                                                           |
+| 4084H               | Khi giá trị chỉ định tại (s1), (s2) và (s3) không nằm trong phạm vi 0 đến 23; Khi giá trị chỉ định tại (s1)+1, (s2)+1, (s3)+1, (s1)+2, (s2)+2 và (s3)+2 không nằm trong phạm vi 0 đến 59 |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760929885092-276.png?width=504&amp;height=62&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760929885092-276.png?width=504&height=62&rev=1.1)
 
 Đặt thời gian D0 thành 16:30:00 và thời gian D10 thành 4:30:0
 
@@ -774,5 +774,3 @@ Sau khi cuộn dây được bật ON, thời gian đọc được tại D20 là
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.11%20Clock%20Operation%20instruction/WebHome/1760929935482-269.png?rev=1.1)
 
 M0/M12 is ON
-
-0

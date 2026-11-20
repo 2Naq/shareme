@@ -3,7 +3,7 @@ id: "6.02-cycle-shift-instruction"
 title: "6.02 Lệnh dịch bit và xoay vòng dữ liệu (Cycle Shift Instruction)"
 sidebar_position: 2
 sidebar_label: "6.02 Cycle Shift instruction"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.02 Lệnh dịch bit và xoay vòng dữ liệu (Cycle Shift Instruction)"
 ---
 
@@ -17,17 +17,17 @@ Dịch vòng phải dữ liệu 32-bit của thiết bị chỉ định tại (d
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bắt đầu để xoay vòng phải | - | Signed BIN 32 bit | ANY32 |
-| (n) | Số lần xoay vòng phải | 0 to 31 | Signed BIN 32 bit | ANY32 |
+| Tham số | Nội dung mô tả                             | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (d)     | Số hiệu thiết bị bắt đầu để xoay vòng phải | -               | Signed BIN 32 bit | ANY32                    |
+| (n)     | Số lần xoay vòng phải                      | 0 to 31         | Signed BIN 32 bit | ANY32                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DROR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DROR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DROR             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DROR             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -39,9 +39,9 @@ Dịch vòng phải dữ liệu 32-bit của thiết bị chỉ định tại (d
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM151 | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit thấp nhất là 1. |
+| Vùng nhớ thiết bị (Device) | Tên            | Nội dung mô tả                                                  |
+| :------------------------- | :------------- | :-------------------------------------------------------------- |
+| SM151                      | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit thấp nhất là 1. |
 
 :::tip
 ✎Lưu ý:
@@ -53,11 +53,11 @@ Trong trường hợp sử dụng lệnh thực thi liên tục (ROR, RCR), phé
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Một giá trị âm đang được gán tại tham số (n). |
-| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4084H               | Một giá trị âm đang được gán tại tham số (n).                                      |
+| 4085H               | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị     |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -73,17 +73,17 @@ Dịch vòng phải dữ liệu 16-bit của thiết bị chỉ định tại (d
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bắt đầu để xoay vòng phải | - | Signed BIN 16 bit | ANY16 |
-| (n) | Số lần xoay vòng phải | 0 to 15 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                             | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (d)     | Số hiệu thiết bị bắt đầu để xoay vòng phải | -               | Signed BIN 16 bit | ANY16                    |
+| (n)     | Số lần xoay vòng phải                      | 0 to 15         | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| RCR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| RCR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| RCR              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| RCR              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -95,9 +95,9 @@ Dịch vòng phải dữ liệu BIN 16-bit của thiết bị chỉ định tạ
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM151 | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit thấp nhất là 1. |
+| Vùng nhớ thiết bị (Device) | Tên            | Nội dung mô tả                                                  |
+| :------------------------- | :------------- | :-------------------------------------------------------------- |
+| SM151                      | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit thấp nhất là 1. |
 
 :::tip
 ✎Lưu ý:
@@ -111,11 +111,11 @@ Khi chỉ định số chữ số để xác định thiết bị tại (d), ch�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Một giá trị âm được chỉ định trong (n) |
-| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4084H               | Một giá trị âm được chỉ định trong (n)                                             |
+| 4085H               | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị     |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -133,17 +133,17 @@ Dịch vòng phải dữ liệu 32-bit của thiết bị chỉ định tại (d
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bắt đầu để xoay vòng phải | - | Signed BIN 32 bit | ANY32 |
-| (n) | Số lần xoay vòng phải | 0 to 31 | Signed BIN 32 bit | ANY32 |
+| Tham số | Nội dung mô tả                             | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (d)     | Số hiệu thiết bị bắt đầu để xoay vòng phải | -               | Signed BIN 32 bit | ANY32                    |
+| (n)     | Số lần xoay vòng phải                      | 0 to 31         | Signed BIN 32 bit | ANY32                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DRCR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DRCR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DRCR             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DRCR             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -155,9 +155,9 @@ Dịch vòng phải dữ liệu 32-bit của thiết bị chỉ định tại (d
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM151 | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit thấp nhất là 1. |
+| Vùng nhớ thiết bị (Devices) | Tên            | Nội dung mô tả                                                  |
+| :-------------------------- | :------------- | :-------------------------------------------------------------- |
+| SM151                       | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit thấp nhất là 1. |
 
 :::tip
 ✎Lưu ý:
@@ -169,11 +169,11 @@ Trong trường hợp sử dụng lệnh thực thi liên tục (DROR, DRCR), ph
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Một giá trị âm đang được gán tại tham số (n). |
-| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4084H               | Một giá trị âm đang được gán tại tham số (n).                                      |
+| 4085H               | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị     |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -189,17 +189,17 @@ Dịch vòng trái dữ liệu 16-bit của thiết bị chỉ định tại (d)
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bắt đầu để xoay vòng trái | - | Signed BIN 16 bit | ANY16 |
-| (n) | Số lần xoay vòng trái | 0 to 15 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                             | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (d)     | Số hiệu thiết bị bắt đầu để xoay vòng trái | -               | Signed BIN 16 bit | ANY16                    |
+| (n)     | Số lần xoay vòng trái                      | 0 to 15         | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ROL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| ROL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| ROL              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| ROL              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -211,9 +211,9 @@ Dịch vòng trái dữ liệu 16-bit của thiết bị chỉ định tại (d)
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM151 | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit cao nhất là 1. |
+| Vùng nhớ thiết bị (Device) | Tên            | Nội dung mô tả                                                 |
+| :------------------------- | :------------- | :------------------------------------------------------------- |
+| SM151                      | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit cao nhất là 1. |
 
 :::tip
 ✎Lưu ý:
@@ -223,11 +223,11 @@ Không đặt số bit dịch trái (n) thành giá trị âm. Trong trường h
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Một giá trị âm đang được gán tại tham số (n). |
-| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4084H               | Một giá trị âm đang được gán tại tham số (n).                                      |
+| 4085H               | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị     |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -245,17 +245,17 @@ Dịch vòng trái dữ liệu 32-bit của thiết bị chỉ định tại (d)
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bắt đầu để xoay vòng trái | - | Signed BIN 32 bit | ANY32 |
-| (n) | Số lần xoay vòng trái | 0 to 31 | Signed BIN 32 bit | ANY32 |
+| Tham số | Nội dung mô tả                             | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (d)     | Số hiệu thiết bị bắt đầu để xoay vòng trái | -               | Signed BIN 32 bit | ANY32                    |
+| (n)     | Số lần xoay vòng trái                      | 0 to 31         | Signed BIN 32 bit | ANY32                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DROL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DROL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DROL             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DROL             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -267,9 +267,9 @@ Dịch vòng trái dữ liệu 32-bit của thiết bị chỉ định tại (d)
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM151 | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit cao nhất là 1. |
+| Vùng nhớ thiết bị (Device) | Tên            | Nội dung mô tả                                                 |
+| :------------------------- | :------------- | :------------------------------------------------------------- |
+| SM151                      | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit cao nhất là 1. |
 
 :::tip
 ✎Lưu ý:
@@ -281,11 +281,11 @@ Trong trường hợp sử dụng lệnh thực thi liên tục (ROL, RCL), phé
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Một giá trị âm đang được gán tại tham số (n). |
-| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4084H               | Một giá trị âm đang được gán tại tham số (n).                                      |
+| 4085H               | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị     |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -303,17 +303,17 @@ Dịch vòng trái dữ liệu 16-bit của thiết bị chỉ định tại (d)
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bắt đầu để xoay vòng trái | - | Signed BIN 16 bit | ANY16 |
-| (n) | Số lần xoay vòng trái | 0 to 15 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                             | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (d)     | Số hiệu thiết bị bắt đầu để xoay vòng trái | -               | Signed BIN 16 bit | ANY16                    |
+| (n)     | Số lần xoay vòng trái                      | 0 to 15         | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| RCL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| RCL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| RCL              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| RCL              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -325,9 +325,9 @@ Dịch vòng trái dữ liệu 16-bit của thiết bị chỉ định tại (d)
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM151 | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit cao nhất là 1. |
+| Vùng nhớ thiết bị (Device) | Tên            | Nội dung mô tả                                                 |
+| :------------------------- | :------------- | :------------------------------------------------------------- |
+| SM151                      | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit cao nhất là 1. |
 
 :::tip
 ✎Lưu ý:
@@ -337,11 +337,11 @@ Không đặt số bit dịch trái (n) thành giá trị âm. Trong trường h
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Một giá trị âm đang được gán tại tham số (n). |
-| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4084H               | Một giá trị âm đang được gán tại tham số (n).                                      |
+| 4085H               | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị     |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -359,17 +359,17 @@ Dịch vòng trái dữ liệu 32-bit của thiết bị chỉ định tại (d)
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu thiết bị bắt đầu để xoay vòng trái | - | Signed BIN 32 bit | ANY32 |
-| (n) | Số lần xoay vòng trái | 0 to 31 | Signed BIN 32 bit | ANY32 |
+| Tham số | Nội dung mô tả                             | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (d)     | Số hiệu thiết bị bắt đầu để xoay vòng trái | -               | Signed BIN 32 bit | ANY32                    |
+| (n)     | Số lần xoay vòng trái                      | 0 to 31         | Signed BIN 32 bit | ANY32                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DRCL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DRCL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DRCL             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DRCL             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -381,9 +381,9 @@ Dữ liệu 32-bit của thiết bị chỉ định tại (d) được dịch v�
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM151 | Cờ nhớ (Carry) | Bật ON khi bit cuối cùng được dịch ra từ bit cao nhất là 1. |
+| Vùng nhớ thiết bị (Devices) | Tên            | Nội dung mô tả                                              |
+| :-------------------------- | :------------- | :---------------------------------------------------------- |
+| SM151                       | Cờ nhớ (Carry) | Bật ON khi bit cuối cùng được dịch ra từ bit cao nhất là 1. |
 
 :::tip
 ✎Lưu ý:
@@ -393,11 +393,11 @@ Không đặt số bit dịch trái (n) thành giá trị âm. Trong trường h
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Một giá trị âm đang được gán tại tham số (n). |
-| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4084H               | Một giá trị âm đang được gán tại tham số (n).                                      |
+| 4085H               | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị     |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -415,21 +415,21 @@ Dịch phải (n2) bit đối với dữ liệu gồm (n1) bit bắt đầu từ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu sau khi dịch | - | Bit | ANY_BOOL |
-| (d) | Số hiệu bắt đầu của thiết bị được dịch | - | Bit | ANY_BOOL |
-| (n1) | Độ dài của dữ liệu được dịch | 0 to 32767 | Signed BIN 16 bit | ANY16 |
-| (n2) | Số lượng bit dịch chuyển | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                            | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s)     | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu sau khi dịch | -               | Bit               | ANY_BOOL                 |
+| (d)     | Số hiệu bắt đầu của thiết bị được dịch                    | -               | Bit               | ANY_BOOL                 |
+| (n1)    | Độ dài của dữ liệu được dịch                              | 0 to 32767      | Signed BIN 16 bit | ANY16                    |
+| (n2)    | Số lượng bit dịch chuyển                                  | 0 to 32767      | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| SFTR | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| SFTR | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| SFTR | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-|  | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| SFTR             | Parameter 1 |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| SFTR             | Parameter 2 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| SFTR             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+|                  | Parameter 4 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -445,12 +445,12 @@ Khi K1 được chỉ định tại (s), (n2) bit bắt đầu từ (d) + (n1 - 
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767 |
-| 4084H | Khi giá trị chỉ định tại (n1) và (n2) thỏa mãn (n1)&lt;(n2) |
-| 4085H | When thiết bị được chỉ định tại read các lệnh ứng dụng (s), (d), (n1) and (n2) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                        |
+| :------------------ | :-------------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767                                                    |
+| 4084H               | Khi giá trị chỉ định tại (n1) và (n2) thỏa mãn (n1)&lt;(n2)                                                           |
+| 4085H               | When thiết bị được chỉ định tại read các lệnh ứng dụng (s), (d), (n1) and (n2) exceeds the corresponding device range |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range                    |
 
 #### Ví dụ minh họa
 
@@ -468,21 +468,21 @@ Dịch trái dữ liệu gồm (n1) bit bắt đầu từ thiết bị chỉ đ�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu sau khi dịch | - | Bit | ANY_BOOL |
-| (d) | Số hiệu bắt đầu của thiết bị được dịch | - | Bit | ANY_BOOL |
-| (n1) | Độ dài của dữ liệu được dịch | 0 to 32767 | Signed BIN 16 bit | ANY16 |
-| (n2) | Số lượng bit dịch chuyển | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                            | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s)     | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu sau khi dịch | -               | Bit               | ANY_BOOL                 |
+| (d)     | Số hiệu bắt đầu của thiết bị được dịch                    | -               | Bit               | ANY_BOOL                 |
+| (n1)    | Độ dài của dữ liệu được dịch                              | 0 to 32767      | Signed BIN 16 bit | ANY16                    |
+| (n2)    | Số lượng bit dịch chuyển                                  | 0 to 32767      | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| SFTL | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| SFTL | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
-| SFTL | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-|  | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| SFTL             | Parameter 1 |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| SFTL             | Parameter 2 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
+| SFTL             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+|                  | Parameter 4 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -492,18 +492,18 @@ Khi K0 được chỉ định tại (s), (n2) bit bắt đầu từ (d) + (n1 - 
 
 Khi K1 được chỉ định tại (s), (n2) bit bắt đầu từ (d) + (n1 - n2) sau khi dịch sẽ được đặt bằng 1.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760424455543-335.png?width=493&amp;height=186&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760424455543-335.png?width=493&height=186&rev=1.1)
 
 (1): Khi (s)=K0, giá trị trở thành 0.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767 |
-| 4084H | Khi giá trị chỉ định tại (n1) và (n2) thỏa mãn (n1)&lt;(n2) |
-| 4085H | When thiết bị được chỉ định tại read các lệnh ứng dụng (s), (d), (n1) and (n2) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                        |
+| :------------------ | :-------------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767                                                    |
+| 4084H               | Khi giá trị chỉ định tại (n1) và (n2) thỏa mãn (n1)&lt;(n2)                                                           |
+| 4085H               | When thiết bị được chỉ định tại read các lệnh ứng dụng (s), (d), (n1) and (n2) exceeds the corresponding device range |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range                    |
 
 #### Ví dụ minh họa
 
@@ -521,21 +521,21 @@ Dịch phải (n2) bit đối với dữ liệu gồm (n1) bit bắt đầu từ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu sau khi dịch | - | word | ANY_BOOL |
-| (d) | Số hiệu bắt đầu của thiết bị được dịch | - | word | ANY_BOOL |
-| (n1) | Độ dài của dữ liệu được dịch | 0 to 32767 | Signed BIN 16 bit | ANY16 |
-| (n2) | Số lượng bit dịch chuyển | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                            | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s)     | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu sau khi dịch | -               | word              | ANY_BOOL                 |
+| (d)     | Số hiệu bắt đầu của thiết bị được dịch                    | -               | word              | ANY_BOOL                 |
+| (n1)    | Độ dài của dữ liệu được dịch                              | 0 to 32767      | Signed BIN 16 bit | ANY16                    |
+| (n2)    | Số lượng bit dịch chuyển                                  | 0 to 32767      | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| SFTR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| SFTR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| SFTR | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-|  | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| SFTR             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| SFTR             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| SFTR             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+|                  | Parameter 4 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -549,13 +549,13 @@ Nếu giá trị chỉ định tại (n1) hoặc (n2) bằng 0, lệnh sẽ khô
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767 |
-| 4084H | Khi giá trị chỉ định tại (n1) và (n2) thỏa mãn (n1)&lt;(n2) |
-| 4084H | Khi (s) và (d) đều chỉ định KnM, KnX và KnS, giá trị của n sẽ thay đổi. |
-| 4085H | When thiết bị được chỉ định tại read các lệnh ứng dụng (s), (d), (n1) and (n2) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                        |
+| :------------------ | :-------------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767                                                    |
+| 4084H               | Khi giá trị chỉ định tại (n1) và (n2) thỏa mãn (n1)&lt;(n2)                                                           |
+| 4084H               | Khi (s) và (d) đều chỉ định KnM, KnX và KnS, giá trị của n sẽ thay đổi.                                               |
+| 4085H               | When thiết bị được chỉ định tại read các lệnh ứng dụng (s), (d), (n1) and (n2) exceeds the corresponding device range |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range                    |
 
 #### Ví dụ minh họa
 
@@ -575,21 +575,21 @@ Dịch trái dữ liệu gồm (n1) bit bắt đầu từ thiết bị chỉ đ�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu sau khi dịch | - | Word | ANY_BOOL |
-| (d) | Số hiệu bắt đầu của thiết bị được dịch | - | Word | ANY_BOOL |
-| (n1) | Độ dài của dữ liệu được dịch | 0 to 32767 | Signed BIN 16 bit | ANY16 |
-| (n2) | Số lượng bit dịch chuyển | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                            | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s)     | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu sau khi dịch | -               | Word              | ANY_BOOL                 |
+| (d)     | Số hiệu bắt đầu của thiết bị được dịch                    | -               | Word              | ANY_BOOL                 |
+| (n1)    | Độ dài của dữ liệu được dịch                              | 0 to 32767      | Signed BIN 16 bit | ANY16                    |
+| (n2)    | Số lượng bit dịch chuyển                                  | 0 to 32767      | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| SFTR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| SFTR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| SFTR | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-|  | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| SFTR             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| SFTR             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| SFTR             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+|                  | Parameter 4 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -601,13 +601,13 @@ Nếu giá trị chỉ định tại (n1) hoặc (n2) bằng 0, lệnh sẽ khô
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767 |
-| 4084H | Khi giá trị chỉ định tại (n1) và (n2) thỏa mãn (n1)&lt;(n2) |
-| 4084H | Khi (s) và (d) đều chỉ định KnM, KnX và KnS, giá trị của n sẽ thay đổi. |
-| 4085H | When thiết bị được chỉ định tại read các lệnh ứng dụng (s), (d), (n1) and (n2) exceeds the corresponding device range |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                        |
+| :------------------ | :-------------------------------------------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767                                                    |
+| 4084H               | Khi giá trị chỉ định tại (n1) và (n2) thỏa mãn (n1)&lt;(n2)                                                           |
+| 4084H               | Khi (s) và (d) đều chỉ định KnM, KnX và KnS, giá trị của n sẽ thay đổi.                                               |
+| 4085H               | When thiết bị được chỉ định tại read các lệnh ứng dụng (s), (d), (n1) and (n2) exceeds the corresponding device range |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range                    |
 
 #### Ví dụ minh họa
 
@@ -627,17 +627,17 @@ Dịch phải dữ liệu 16-bit của thiết bị chỉ định tại (d) đi 
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được dịch | - | Signed BIN 16 bit | ANY16 |
-| (n) | Số lượng bit dịch chuyển | 0-15 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                         | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (d)     | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được dịch | -               | Signed BIN 16 bit | ANY16                    |
+| (n)     | Số lượng bit dịch chuyển                               | 0-15            | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| SFR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| SFR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| SFR              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| SFR              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -657,17 +657,17 @@ Khi thiết bị bit được chỉ định tại (d), phạm vi thiết bị đ
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM151 | Cờ nhớ (Carry) | Set to ON/OFF according to the state of n-1 bit (1/0) |
+| Vùng nhớ thiết bị (Device) | Tên            | Nội dung mô tả                                        |
+| :------------------------- | :------------- | :---------------------------------------------------- |
+| SM151                      | Cờ nhớ (Carry) | Set to ON/OFF according to the state of n-1 bit (1/0) |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Một giá trị âm đang được gán tại tham số (n). |
-| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4084H               | Một giá trị âm đang được gán tại tham số (n).                                      |
+| 4085H               | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị     |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -685,17 +685,17 @@ Dịch phải 1 word đối với dữ liệu gồm (n) điểm bắt đầu t�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được dịch | - | Signed BIN 16 bit | ANY16 |
-| (n) | Số lượng bit dịch chuyển | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                         | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (d)     | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được dịch | -               | Signed BIN 16 bit | ANY16                    |
+| (n)     | Số lượng bit dịch chuyển                               | 0 to 32767      | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DSFR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| DSFR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DSFR             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| DSFR             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -713,11 +713,11 @@ Tại (d), khi chỉ định số hiệu thiết bị bằng cách chỉ định
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 32767 |
-| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 32767                          |
+| 4085H               | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị     |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -731,7 +731,7 @@ Trước khi thực thi:
 
 ### Sau khi thực thi:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425447660-222.png?width=746&amp;height=153&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425447660-222.png?width=746&height=153&rev=1.1)
 
 ### SFL/Dịch trái n bit của dữ liệu 16-bit
 
@@ -743,17 +743,17 @@ Dịch trái dữ liệu 16-bit của thiết bị chỉ định tại (d) đi (
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được dịch | - | Signed BIN 16 bit | ANY16 |
-| (n) | Số lượng bit dịch chuyển | 0 to 15 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                         | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (d)     | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được dịch | -               | Signed BIN 16 bit | ANY16                    |
+| (n)     | Số lượng bit dịch chuyển                               | 0 to 15         | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| SFL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| SFL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| SFL              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| SFL              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -773,17 +773,17 @@ Khi (n)=3, kết quả như sau.
 
 Thiết bị liên quan
 
-| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM151 | Cờ nhớ (Carry) | Turn ON/OFF according to the state of n+1 bit (1/0) |
+| Vùng nhớ thiết bị (Device) | Tên            | Nội dung mô tả                                      |
+| :------------------------- | :------------- | :-------------------------------------------------- |
+| SM151                      | Cờ nhớ (Carry) | Turn ON/OFF according to the state of n+1 bit (1/0) |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Một giá trị âm đang được gán tại tham số (n). |
-| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4084H               | Một giá trị âm đang được gán tại tham số (n).                                      |
+| 4085H               | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị     |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 Example: When M1 is ON, the contents of Y10 to Y17 are shifted to the left by the number of digits specified in D0.
 
@@ -799,17 +799,17 @@ Dịch trái 1 word đối với dữ liệu gồm (n) điểm bắt đầu từ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được dịch | - | Signed BIN 16 bit | ANY16 |
-| (n) | Số lượng bit dịch chuyển | 0 to 32,767 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                         | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (d)     | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được dịch | -               | Signed BIN 16 bit | ANY16                    |
+| (n)     | Số lượng bit dịch chuyển                               | 0 to 32,767     | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DSFL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| DSFL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DSFL             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| DSFL             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -827,11 +827,11 @@ Tại (d), khi chỉ định số hiệu thiết bị bằng cách chỉ định
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 32,767 |
-| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4084H               | Khi giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 32,767                         |
+| 4085H               | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị     |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -846,5 +846,3 @@ Trước khi thực thi:
 Sau khi thực thi:
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425802291-948.png?rev=1.1)
-
-0

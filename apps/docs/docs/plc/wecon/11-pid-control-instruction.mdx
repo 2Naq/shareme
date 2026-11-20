@@ -3,7 +3,7 @@ id: "11-pid-control-instruction"
 title: "11 Tập lệnh điều khiển vòng kín PID (PID Control Instruction)"
 sidebar_position: 11
 sidebar_label: "11 PID Control Instruction"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 11 Tập lệnh điều khiển vòng kín PID (PID Control Instruction)"
 ---
 
@@ -17,49 +17,49 @@ Lệnh này được dùng để thực hiện điều khiển PID nhằm thay �
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Số hiệu thiết bị để lưu trữ giá trị đặt (SV) | -32767 to 32767 | Signed BIN 16 bit | ANY16 |
-| (s2) | Số hiệu thiết bị để lưu trữ giá trị đo (PV) | -32767 to 32767 | Signed BIN 16 bit | ANY16 |
-| (s3) | Số hiệu thiết bị để lưu trữ tham số | 1 to 32767 | Signed BIN 16 bit | ANY16 |
-| (d) | Số hiệu thiết bị để lưu trữ giá trị ngõ ra (MV) | -32767 to 32767 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                  | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s1)    | Số hiệu thiết bị để lưu trữ giá trị đặt (SV)    | -32767 to 32767 | Signed BIN 16 bit | ANY16                    |
+| (s2)    | Số hiệu thiết bị để lưu trữ giá trị đo (PV)     | -32767 to 32767 | Signed BIN 16 bit | ANY16                    |
+| (s3)    | Số hiệu thiết bị để lưu trữ tham số             | 1 to 32767      | Signed BIN 16 bit | ANY16                    |
+| (d)     | Số hiệu thiết bị để lưu trữ giá trị ngõ ra (MV) | -32767 to 32767 | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | D | R | SD | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| PID | Parameter 1 | ● | ● | ● |  |  |
-| PID | Parameter 2 | ● | ● | ● |  |  |
-| PID | Parameter 3 | ● | ● | ● |  |  |
-| PID | Parameter 4 | ● | ● | ● |  |  |
+| Khối lệnh / Lệnh | Tham số     | D   | R   | SD  | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-- | :-- | :-- | :----------------- | :----------------- |
+| PID              | Parameter 1 | ●   | ●   | ●   |                    |                    |
+| PID              | Parameter 2 | ●   | ●   | ●   |                    |                    |
+| PID              | Parameter 3 | ●   | ●   | ●   |                    |                    |
+| PID              | Parameter 4 | ●   | ●   | ●   |                    |                    |
 
 #### Đặc tính kỹ thuật
 
 Lệnh này dùng để hoàn thành phép tính PID và được sử dụng để điều khiển các tham số của hệ thống điều khiển vòng kín. Điều khiển PID được ứng dụng rộng rãi trong thiết bị cơ khí, thiết bị khí nén, cấp nước áp suất không đổi và thiết bị điện tử, v.v., trong đó:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_1c6bb88c06ac24cf.png?width=32&amp;height=18&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_1c6bb88c06ac24cf.png?width=32&height=18&rev=1.1)
 
 là giá trị đặt mục tiêu (SV) của điều khiển PID;
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_fb5122fb6e3a43d5.png?width=34&amp;height=19&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_fb5122fb6e3a43d5.png?width=34&height=19&rev=1.1)
 
 là giá trị đo phản hồi (PV);
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=34&amp;height=19&amp;rev=1.12)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=34&height=19&rev=1.12)
 
 Địa chỉ bắt đầu của vùng đệm để cài đặt các tham số cần thiết cho phép tính PID và lưu kết quả trung gian, chiếm tổng cộng 26 đơn vị biến ở các địa chỉ kế tiếp, dải giá trị từ D0 đến D7974; tốt nhất nên chỉ định vùng lưu giữ khi mất điện (power failure retention) để giữ nguyên giá trị cài đặt sau khi tắt nguồn, nếu không vùng đệm cần được gán giá trị trước khi bắt đầu phép tính lần đầu. Chức năng và mô tả tham số của từng đơn vị được trình bày trong mục này;
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_b126b1b2673dc1f4.png?width=39&amp;height=22&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_b126b1b2673dc1f4.png?width=39&height=22&rev=1.1)
 
 is the storage unit of the PID kết quả tính toán. Please designate
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_d47cd1f59b766ed3.png?width=47&amp;height=24&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_d47cd1f59b766ed3.png?width=47&height=24&rev=1.1)
 
 là vùng nhớ không lưu giữ bằng pin (Non-latched); nếu sử dụng vùng nhớ lưu giữ thì bắt buộc phải khởi tạo và xóa về 0 trước khi bắt đầu tính toán PID lần đầu tiên.
 
 Ví dụ lập trình
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/1758108900843-990.png?width=396&amp;height=24&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/1758108900843-990.png?width=396&height=24&rev=1.1)
 
 Mô tả tham số như sau:
 
@@ -71,28 +71,28 @@ Tổng cộng 26 đơn vị từ D200 đến D225 được dùng để lưu giá
 
 Chức năng và phương pháp cài đặt giá trị tham số của từng thanh ghi bắt đầu từ
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=48&amp;height=27&amp;rev=1.12)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=48&height=27&rev=1.12)
 
 are described in the following table:
 
-| Đơn vị | Đặc tính kỹ thuật | Hướng dẫn cài đặt |
-| :--- | :--- | :--- |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=43&height=24&rev=1.12) | Thời gian lấy mẫu (TS) | Phạm vi cài đặt từ 1 đến 32767 (ms), nhưng cần lớn hơn chu kỳ quét chương trình PLC |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=39&height=22&rev=1.12) +1 | Chiều tác động (ACT) | bit0: 0 = tác động thuận; 1 = tác động nghịch; bit3: 0 = đơn hướng; 1 = hai chiều; bit4: 0 = không chạy tự động chỉnh định; 1 = thực hiện tự động chỉnh định, các bit khác không thể sử dụng. |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=43&height=24&rev=1.12) +2 | Tốc độ tăng tối đa (DeltaT) | Phạm vi cài đặt từ 0 đến 32000 là ngưỡng của lượng tăng tích phân |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=43&height=24&rev=1.12) +3 | Hệ số khuếch đại tỷ lệ (Kp) | Phạm vi cài đặt từ 0 đến 32767, lưu ý giá trị này được phóng đại 256 lần, giá trị thực tế là Kp/256 |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=43&height=24&rev=1.12) +4 | Hệ số tích phân (Ki) | Phạm vi cài đặt từ 0 đến 32767, Ki=16384Ts/Ti, Ti là thời gian tích phân |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=41&height=23&rev=1.12) +5 | Hệ số vi phân (Kd) | Phạm vi cài đặt từ 0 đến 32767, Kd≈Td/Ts, Td là thời gian vi phân |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=41&height=23&rev=1.12) +6 | Filtering (C0) | Phạm vi cài đặt từ 0 đến 1023, lọc thành phần tích phân |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=43&height=24&rev=1.12) +7 | Giới hạn dưới ngõ ra | Phạm vi cài đặt khuyến nghị -2000 đến 2000. Khi bit3 của S3+1=0, đặt thành 0; Khi bit3 của S3+1=1, đặt thành -2000; |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=41&height=23&rev=1.12) +8 | Giới hạn trên ngõ ra | Giá trị cài đặt khuyến nghị 2000 |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=44&height=25&rev=1.12) +9 | Dự phòng | Dự phòng |
-| ︙ | ︙ | ︙ |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=39&height=22&rev=1.12) +25 | Dự phòng | Dự phòng |
+| Đơn vị                                                                                                                                                                                | Đặc tính kỹ thuật           | Hướng dẫn cài đặt                                                                                                                                                                             |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :-------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=43&height=24&rev=1.12)     | Thời gian lấy mẫu (TS)      | Phạm vi cài đặt từ 1 đến 32767 (ms), nhưng cần lớn hơn chu kỳ quét chương trình PLC                                                                                                           |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=39&height=22&rev=1.12) +1  | Chiều tác động (ACT)        | bit0: 0 = tác động thuận; 1 = tác động nghịch; bit3: 0 = đơn hướng; 1 = hai chiều; bit4: 0 = không chạy tự động chỉnh định; 1 = thực hiện tự động chỉnh định, các bit khác không thể sử dụng. |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=43&height=24&rev=1.12) +2  | Tốc độ tăng tối đa (DeltaT) | Phạm vi cài đặt từ 0 đến 32000 là ngưỡng của lượng tăng tích phân                                                                                                                             |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=43&height=24&rev=1.12) +3  | Hệ số khuếch đại tỷ lệ (Kp) | Phạm vi cài đặt từ 0 đến 32767, lưu ý giá trị này được phóng đại 256 lần, giá trị thực tế là Kp/256                                                                                           |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=43&height=24&rev=1.12) +4  | Hệ số tích phân (Ki)        | Phạm vi cài đặt từ 0 đến 32767, Ki=16384Ts/Ti, Ti là thời gian tích phân                                                                                                                      |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=41&height=23&rev=1.12) +5  | Hệ số vi phân (Kd)          | Phạm vi cài đặt từ 0 đến 32767, Kd≈Td/Ts, Td là thời gian vi phân                                                                                                                             |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=41&height=23&rev=1.12) +6  | Filtering (C0)              | Phạm vi cài đặt từ 0 đến 1023, lọc thành phần tích phân                                                                                                                                       |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=43&height=24&rev=1.12) +7  | Giới hạn dưới ngõ ra        | Phạm vi cài đặt khuyến nghị -2000 đến 2000. Khi bit3 của S3+1=0, đặt thành 0; Khi bit3 của S3+1=1, đặt thành -2000;                                                                           |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=41&height=23&rev=1.12) +8  | Giới hạn trên ngõ ra        | Giá trị cài đặt khuyến nghị 2000                                                                                                                                                              |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=44&height=25&rev=1.12) +9  | Dự phòng                    | Dự phòng                                                                                                                                                                                      |
+| ︙                                                                                                                                                                                    | ︙                          | ︙                                                                                                                                                                                            |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6c3fad4a32a3db43.png?width=39&height=22&rev=1.12) +25 | Dự phòng                    | Dự phòng                                                                                                                                                                                      |
 
 Ví dụ tự động dò thông số (Auto tuning)
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_c64303b9c6a47ae9.png?width=567&amp;height=583&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_c64303b9c6a47ae9.png?width=567&height=583&rev=1.1)
 
 :::tip
 ✎Lưu ý:
@@ -110,17 +110,17 @@ Ví dụ tự động dò thông số (Auto tuning)
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s1), (s2), (s3), (d) exceeds the range of the corresponding device. |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (s3) and (d) exceeds the range of the corresponding device. |
-| 4D80H | Thời gian lấy mẫu nằm ngoài phạm vi. (TS≤0) |
-| 4D81H | Hằng số bộ lọc ngõ vào (α) nằm ngoài phạm vi (α&lt;0 hoặc α&gt;1023) |
-| 4D82H | Tốc độ tăng tối đa (△T) nằm ngoài phạm vi. (△T&lt;0 hoặc △T&gt;1023) |
-| 4D83H | Hệ số khuếch đại tỷ lệ (Kp) nằm ngoài phạm vi. (Kp&lt;0) |
-| 4D84H | Hệ số tích phân (Ki) nằm ngoài phạm vi. (Ki&lt;0) |
-| 4D85H | Hệ số vi phân (Kd) nằm ngoài phạm vi. (Kd&lt;0) |
-| 4D86H | Thời gian lấy mẫu (Ts) nhỏ hơn chu kỳ hoạt động. (Ts&lt;Chu kỳ quét) |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                  |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------ |
+| 4085H               | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s1), (s2), (s3), (d) exceeds the range of the corresponding device. |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (s3) and (d) exceeds the range of the corresponding device.             |
+| 4D80H               | Thời gian lấy mẫu nằm ngoài phạm vi. (TS≤0)                                                                                     |
+| 4D81H               | Hằng số bộ lọc ngõ vào (α) nằm ngoài phạm vi (α&lt;0 hoặc α&gt;1023)                                                            |
+| 4D82H               | Tốc độ tăng tối đa (△T) nằm ngoài phạm vi. (△T&lt;0 hoặc △T&gt;1023)                                                            |
+| 4D83H               | Hệ số khuếch đại tỷ lệ (Kp) nằm ngoài phạm vi. (Kp&lt;0)                                                                        |
+| 4D84H               | Hệ số tích phân (Ki) nằm ngoài phạm vi. (Ki&lt;0)                                                                               |
+| 4D85H               | Hệ số vi phân (Kd) nằm ngoài phạm vi. (Kd&lt;0)                                                                                 |
+| 4D86H               | Thời gian lấy mẫu (Ts) nhỏ hơn chu kỳ hoạt động. (Ts&lt;Chu kỳ quét)                                                            |
 
 #### Ví dụ minh họa
 
@@ -134,21 +134,21 @@ Lệnh này được dùng để thực hiện điều khiển PID nhằm thay �
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Số hiệu thiết bị để lưu trữ giá trị đặt (SV) | -32767 to 32767 | Signed BIN 16 bit | ANY16 |
-| (s2) | Số hiệu thiết bị để lưu trữ giá trị đo (PV) | -32767 to 32767 | Signed BIN 16 bit | ANY16 |
-| (s3) | Số hiệu thiết bị để lưu trữ tham số | 1 to 32767 | Signed BIN 16 bit | ANY16 |
-| (d) | Số hiệu thiết bị để lưu trữ giá trị ngõ ra (MV) | -32767 to 32767 | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                  | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s1)    | Số hiệu thiết bị để lưu trữ giá trị đặt (SV)    | -32767 to 32767 | Signed BIN 16 bit | ANY16                    |
+| (s2)    | Số hiệu thiết bị để lưu trữ giá trị đo (PV)     | -32767 to 32767 | Signed BIN 16 bit | ANY16                    |
+| (s3)    | Số hiệu thiết bị để lưu trữ tham số             | 1 to 32767      | Signed BIN 16 bit | ANY16                    |
+| (d)     | Số hiệu thiết bị để lưu trữ giá trị ngõ ra (MV) | -32767 to 32767 | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | D | R | SD | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| CCPID | Parameter 1 | ● | ● | ● |  |  |
-| CCPID | Parameter 2 | ● | ● | ● |  |  |
-| CCPID | Parameter 3 | ● | ● | ● |  |  |
-| CCPID | Parameter 4 | ● | ● | ● |  |  |
+| Khối lệnh / Lệnh | Tham số     | D   | R   | SD  | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-- | :-- | :-- | :----------------- | :----------------- |
+| CCPID            | Parameter 1 | ●   | ●   | ●   |                    |                    |
+| CCPID            | Parameter 2 | ●   | ●   | ●   |                    |                    |
+| CCPID            | Parameter 3 | ●   | ●   | ●   |                    |                    |
+| CCPID            | Parameter 4 | ●   | ●   | ●   |                    |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -166,18 +166,18 @@ Trong quá trình thực hiện tự động dò thông số (auto-tuning), khô
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s1), (s2), (s3), (d) exceeds the range of the corresponding device. |
-| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (s3) and (d) exceeds the range of the corresponding device. |
-| 4D80H | Thời gian lấy mẫu nằm ngoài phạm vi. (TS≤0) |
-| 4D81H | Hằng số bộ lọc ngõ vào (α) nằm ngoài phạm vi (α&lt;0 hoặc α&gt;1023) |
-| 4D82H | Tốc độ tăng tối đa (△T) nằm ngoài phạm vi. (△T&lt;0 hoặc △T&gt;1023) |
-| 4D86H | Thời gian lấy mẫu (Ts) nhỏ hơn chu kỳ hoạt động. (Ts&lt;Chu kỳ quét) |
-| 4D87H | Hệ số khuếch đại tỷ lệ (Kp) nằm ngoài phạm vi. (Kp&lt;1 hoặc Kp&gt;32000) |
-| 4D88H | Hằng số thời gian tích phân (Ti) nằm ngoài phạm vi. (Ki&lt;0 hoặc Ki&gt;3600) |
-| 4D89H | Hằng số thời gian vi phân (Td) nằm ngoài phạm vi. (Kd&lt;0 hoặc Kd&gt;1000) |
-| 4D90H | Giới hạn trên ngõ ra CCPID nhỏ hơn giới hạn dưới. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                  |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------ |
+| 4085H               | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s1), (s2), (s3), (d) exceeds the range of the corresponding device. |
+| 4086H               | When thiết bị được chỉ định tại the write lệnh ứng dụng (s3) and (d) exceeds the range of the corresponding device.             |
+| 4D80H               | Thời gian lấy mẫu nằm ngoài phạm vi. (TS≤0)                                                                                     |
+| 4D81H               | Hằng số bộ lọc ngõ vào (α) nằm ngoài phạm vi (α&lt;0 hoặc α&gt;1023)                                                            |
+| 4D82H               | Tốc độ tăng tối đa (△T) nằm ngoài phạm vi. (△T&lt;0 hoặc △T&gt;1023)                                                            |
+| 4D86H               | Thời gian lấy mẫu (Ts) nhỏ hơn chu kỳ hoạt động. (Ts&lt;Chu kỳ quét)                                                            |
+| 4D87H               | Hệ số khuếch đại tỷ lệ (Kp) nằm ngoài phạm vi. (Kp&lt;1 hoặc Kp&gt;32000)                                                       |
+| 4D88H               | Hằng số thời gian tích phân (Ti) nằm ngoài phạm vi. (Ki&lt;0 hoặc Ki&gt;3600)                                                   |
+| 4D89H               | Hằng số thời gian vi phân (Td) nằm ngoài phạm vi. (Kd&lt;0 hoặc Kd&gt;1000)                                                     |
+| 4D90H               | Giới hạn trên ngõ ra CCPID nhỏ hơn giới hạn dưới.                                                                               |
 
 #### Ví dụ minh họa
 
@@ -193,21 +193,21 @@ Chức năng của lệnh này là điều chỉnh các tham số điều khiể
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu bắt đầu của thiết bị lưu trữ bảng tham số mờ (Fuzzy) (không cần nhập) | - | Signed BIN 16 bit | ANY16 |
-| (d1) | Số hiệu bắt đầu của thiết bị lưu trữ các tham số khởi tạo | - | Signed BIN 16 bit | ANY16 |
-| (d2) | Số hiệu bắt đầu của thiết bị lưu trữ tham số PID ngõ vào | - | Signed BIN 16 bit | ANY16 |
-| (d3) | Số hiệu bắt đầu của thiết bị lưu trữ các tham số PID sau khi hiệu chỉnh | - | Signed BIN 16 bit | ANY16 |
+| Tham số | Nội dung mô tả                                                                | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- |
+| (s)     | Số hiệu bắt đầu của thiết bị lưu trữ bảng tham số mờ (Fuzzy) (không cần nhập) | -               | Signed BIN 16 bit | ANY16                    |
+| (d1)    | Số hiệu bắt đầu của thiết bị lưu trữ các tham số khởi tạo                     | -               | Signed BIN 16 bit | ANY16                    |
+| (d2)    | Số hiệu bắt đầu của thiết bị lưu trữ tham số PID ngõ vào                      | -               | Signed BIN 16 bit | ANY16                    |
+| (d3)    | Số hiệu bắt đầu của thiết bị lưu trữ các tham số PID sau khi hiệu chỉnh       | -               | Signed BIN 16 bit | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | D | R | SD | LC | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| FPID | Parameter 1 | ● | ● | ● | ● |  |  |
-| FPID | Parameter 2 | ● | ● | ● | ● |  |  |
-| FPID | Parameter 3 | ● | ● | ● | ● |  |  |
-| FPID | Parameter 4 | ● | ● | ● | ● |  |  |
+| Khối lệnh / Lệnh | Tham số     | D   | R   | SD  | LC  | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-- | :-- | :-- | :-- | :----------------- | :----------------- |
+| FPID             | Parameter 1 | ●   | ●   | ●   | ●   |                    |                    |
+| FPID             | Parameter 2 | ●   | ●   | ●   | ●   |                    |                    |
+| FPID             | Parameter 3 | ●   | ●   | ●   | ●   |                    |                    |
+| FPID             | Parameter 4 | ●   | ●   | ●   | ●   |                    |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -215,68 +215,68 @@ Lệnh này cần được sử dụng kết hợp với lệnh PID. Nó thực 
 
 Mô tả tham số:
 
-| Cài đặt tham số S | Cài đặt tham số S | Cài đặt tham số S | Cài đặt tham số S | Cài đặt tham số S | Cài đặt tham số S |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Tham số | Địa chỉ lệch (Offset) | Tên | Format | Khối lệnh / Lệnh | Phạm vi giá trị |
-| Tham số 1 | S | - | - | - | - |
+| Cài đặt tham số S | Cài đặt tham số S     | Cài đặt tham số S | Cài đặt tham số S | Cài đặt tham số S | Cài đặt tham số S |
+| :---------------- | :-------------------- | :---------------- | :---------------- | :---------------- | :---------------- |
+| Tham số           | Địa chỉ lệch (Offset) | Tên               | Format            | Khối lệnh / Lệnh  | Phạm vi giá trị   |
+| Tham số 1         | S                     | -                 | -                 | -                 | -                 |
 
-| Cài đặt tham số d1 | Cài đặt tham số d1 | Cài đặt tham số d1 | Cài đặt tham số d1 | Cài đặt tham số d1 | Cài đặt tham số d1 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Tham số | Địa chỉ lệch (Offset) | Tên | Format | Khối lệnh / Lệnh | Phạm vi giá trị |
-| Tham số 1 | d1 | em domain | số thực dấu phẩy động | Chênh lệch nhiệt độ | &gt;0 |
-| Tham số 1 | d1+1 | em domain | số thực dấu phẩy động | Chênh lệch nhiệt độ | &gt;0 |
-| Tham số 2 | d1+2 | ecm domain | số thực dấu phẩy động | Chênh lệch nhiệt độ | &gt;0 |
-| Tham số 2 | d1+3 | ecm domain | số thực dấu phẩy động | Chênh lệch nhiệt độ | &gt;0 |
-| Tham số 3 | d1+4 | kpm coefficient | số thực dấu phẩy động | 0.5 (fixed) (not set) | - |
-| Tham số 3 | d1+5 | kpm coefficient | số thực dấu phẩy động | 0.5 (fixed) (not set) | - |
-| Tham số 4 | d1+6 | kim coefficient | số thực dấu phẩy động | 1 (fixed) (not set) | - |
-| Tham số 4 | d1+7 | kim coefficient | số thực dấu phẩy động | 1 (fixed) (not set) | - |
-| Tham số 5 | d1+8 | kdm coefficient | số thực dấu phẩy động | 1 (fixed) (not set) | - |
-| Tham số 5 | d1+9 | kdm coefficient | số thực dấu phẩy động | 1 (fixed) (not set) | - |
-| Parameter 6 | d1+10 | EM | Số nguyên 32-bit | 6 (fixed) (not set) | - |
-| Parameter 6 | d1+11 | EM | Số nguyên 32-bit | 6 (fixed) (not set) | - |
-| Parameter 7 | d1+12 | ECM | Số nguyên 32-bit | 6 (fixed) (not set) | - |
-| Parameter 7 | d1+13 | ECM | Số nguyên 32-bit | 6 (fixed) (not set) | - |
-| Parameter 8 | d1+14 | UM | Số nguyên 32-bit | 6 (fixed) (not set) | - |
-| Parameter 8 | d1+15 | UM | Số nguyên 32-bit | 6 (fixed) (not set) | - |
-| Parameter 9 | d1+16 | Size_x | Số nguyên 32-bit | 13 (fixed) (not set) | - |
-| Parameter 9 | d1+17 | Size_x | Số nguyên 32-bit | 13 (fixed) (not set) | - |
-| Parameter 10 | d1+18 | Size_y | Số nguyên 32-bit | 13 (fixed) (not set) | - |
-| Parameter 10 | d1+19 | Size_y | Số nguyên 32-bit | 13 (fixed) (not set) | - |
-| Parameter 11 | d1+20 | Kpm được dành riêng cho sử dụng nội bộ | Dự phòng | Dự phòng | - |
-| Parameter 12 | d1+21 | Kim được dành riêng cho sử dụng nội bộ | Dự phòng | Dự phòng | - |
-| Parameter 13 | d1+22 | Kdm được dành riêng cho sử dụng nội bộ | Dự phòng | Dự phòng | - |
-| Parameter 14 | d1+23 | Kukp được dành riêng cho sử dụng nội bộ | Dự phòng | Dự phòng | - |
-| Parameter 15 | d1+24 | Kuki được dành riêng cho sử dụng nội bộ | Dự phòng | Dự phòng | - |
-| Parameter 16 | d1+25 | Kukd được dành riêng cho sử dụng nội bộ | Dự phòng | Dự phòng | - |
-| ︙ | ︙ | ︙ | ︙ | Dự phòng | - |
-| Parameter 20 | d1+37 | Dành riêng cho sử dụng nội bộ | Dự phòng | Dự phòng | - |
+| Cài đặt tham số d1 | Cài đặt tham số d1    | Cài đặt tham số d1                      | Cài đặt tham số d1    | Cài đặt tham số d1    | Cài đặt tham số d1 |
+| :----------------- | :-------------------- | :-------------------------------------- | :-------------------- | :-------------------- | :----------------- |
+| Tham số            | Địa chỉ lệch (Offset) | Tên                                     | Format                | Khối lệnh / Lệnh      | Phạm vi giá trị    |
+| Tham số 1          | d1                    | em domain                               | số thực dấu phẩy động | Chênh lệch nhiệt độ   | &gt;0              |
+| Tham số 1          | d1+1                  | em domain                               | số thực dấu phẩy động | Chênh lệch nhiệt độ   | &gt;0              |
+| Tham số 2          | d1+2                  | ecm domain                              | số thực dấu phẩy động | Chênh lệch nhiệt độ   | &gt;0              |
+| Tham số 2          | d1+3                  | ecm domain                              | số thực dấu phẩy động | Chênh lệch nhiệt độ   | &gt;0              |
+| Tham số 3          | d1+4                  | kpm coefficient                         | số thực dấu phẩy động | 0.5 (fixed) (not set) | -                  |
+| Tham số 3          | d1+5                  | kpm coefficient                         | số thực dấu phẩy động | 0.5 (fixed) (not set) | -                  |
+| Tham số 4          | d1+6                  | kim coefficient                         | số thực dấu phẩy động | 1 (fixed) (not set)   | -                  |
+| Tham số 4          | d1+7                  | kim coefficient                         | số thực dấu phẩy động | 1 (fixed) (not set)   | -                  |
+| Tham số 5          | d1+8                  | kdm coefficient                         | số thực dấu phẩy động | 1 (fixed) (not set)   | -                  |
+| Tham số 5          | d1+9                  | kdm coefficient                         | số thực dấu phẩy động | 1 (fixed) (not set)   | -                  |
+| Parameter 6        | d1+10                 | EM                                      | Số nguyên 32-bit      | 6 (fixed) (not set)   | -                  |
+| Parameter 6        | d1+11                 | EM                                      | Số nguyên 32-bit      | 6 (fixed) (not set)   | -                  |
+| Parameter 7        | d1+12                 | ECM                                     | Số nguyên 32-bit      | 6 (fixed) (not set)   | -                  |
+| Parameter 7        | d1+13                 | ECM                                     | Số nguyên 32-bit      | 6 (fixed) (not set)   | -                  |
+| Parameter 8        | d1+14                 | UM                                      | Số nguyên 32-bit      | 6 (fixed) (not set)   | -                  |
+| Parameter 8        | d1+15                 | UM                                      | Số nguyên 32-bit      | 6 (fixed) (not set)   | -                  |
+| Parameter 9        | d1+16                 | Size_x                                  | Số nguyên 32-bit      | 13 (fixed) (not set)  | -                  |
+| Parameter 9        | d1+17                 | Size_x                                  | Số nguyên 32-bit      | 13 (fixed) (not set)  | -                  |
+| Parameter 10       | d1+18                 | Size_y                                  | Số nguyên 32-bit      | 13 (fixed) (not set)  | -                  |
+| Parameter 10       | d1+19                 | Size_y                                  | Số nguyên 32-bit      | 13 (fixed) (not set)  | -                  |
+| Parameter 11       | d1+20                 | Kpm được dành riêng cho sử dụng nội bộ  | Dự phòng              | Dự phòng              | -                  |
+| Parameter 12       | d1+21                 | Kim được dành riêng cho sử dụng nội bộ  | Dự phòng              | Dự phòng              | -                  |
+| Parameter 13       | d1+22                 | Kdm được dành riêng cho sử dụng nội bộ  | Dự phòng              | Dự phòng              | -                  |
+| Parameter 14       | d1+23                 | Kukp được dành riêng cho sử dụng nội bộ | Dự phòng              | Dự phòng              | -                  |
+| Parameter 15       | d1+24                 | Kuki được dành riêng cho sử dụng nội bộ | Dự phòng              | Dự phòng              | -                  |
+| Parameter 16       | d1+25                 | Kukd được dành riêng cho sử dụng nội bộ | Dự phòng              | Dự phòng              | -                  |
+| ︙                 | ︙                    | ︙                                      | ︙                    | Dự phòng              | -                  |
+| Parameter 20       | d1+37                 | Dành riêng cho sử dụng nội bộ           | Dự phòng              | Dự phòng              | -                  |
 
-| Cài đặt tham số d2 | Cài đặt tham số d2 | Cài đặt tham số d2 | Cài đặt tham số d2 | Cài đặt tham số d2 | Cài đặt tham số d2 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Tham số | Địa chỉ lệch (Offset) | Tên | Format | Khối lệnh / Lệnh | Phạm vi giá trị |
-| Tham số 1 | d2 | Nhiệt độ hiện tại | Số nguyên 16-bit | Nhiệt độ kiểm tra hiện tại | - |
-| Tham số 2 | d2+1 | set temperature | Số nguyên 16-bit | Set temperature | - |
-| Tham số 3 | d2+2 | Chu kỳ tính toán | Số nguyên 16-bit | Lấy bội số nguyên của thời gian lấy mẫu PID, thường bằng nhau | - |
-| Tham số 4 | d2+3 | Kp | Số nguyên 16-bit | PID initial Kp value | - |
-| Tham số 5 | d2+4 | KI | Số nguyên 16-bit | PID initial Ki value | - |
-| Parameter 6 | d2+5 | KD | Số nguyên 16-bit | PID initial Kd value | - |
-| Parameter 7 | d2+6 | Chu kỳ lấy mẫu | Số nguyên 16-bit | No need to enter | - |
-| Parameter 8 | d2+7 | Cờ khởi tạo | Số nguyên 16-bit | Dành riêng cho sử dụng nội bộ | - |
-| Parameter 9 | d2+8 | Thời điểm tính toán gần nhất | Số nguyên 32-bit | Xem mức sử dụng (không thể thao tác) | - |
-| Parameter 9 | d2+9 | Thời điểm tính toán gần nhất | Số nguyên 32-bit | Xem mức sử dụng (không thể thao tác) | - |
-| Parameter 10 | d2+10 | Nhiệt độ gần nhất | Số nguyên 16-bit | Xem mức sử dụng (không thể thao tác) | - |
-| Parameter 11 | d2+11 | Dự phòng | Số nguyên 16-bit | Dự phòng |  |
-| Cài đặt tham số d3 |  |  |  |  |  |
-| Tham số | Địa chỉ lệch (Offset) | Tên | format | Khối lệnh / Lệnh | Phạm vi giá trị |
-| Tham số 1 | d3 | Nhiệt độ hiện tại | Số nguyên 16-bit | Nhiệt độ kiểm tra hiện tại | - |
-| Tham số 2 | d3+1 | set temperature | Số nguyên 16-bit | Set temperature | - |
-| Tham số 3 | d3+2 | Chu kỳ tính toán | Số nguyên 16-bit | Lấy bội số nguyên của thời gian lấy mẫu PID, thường bằng nhau | - |
-| Tham số 4 | d3+3 | Kp | Số nguyên 16-bit | Giá trị Kp của PID sau khi hiệu chỉnh | - |
-| Tham số 5 | d3+4 | KI | Số nguyên 16-bit | Giá trị Ki của PID sau khi hiệu chỉnh | - |
-| Parameter 6 | d3+5 | KD | Số nguyên 16-bit | Giá trị Kd của PID sau khi hiệu chỉnh | - |
-| Parameter 7 | d3+6 | Chu kỳ lấy mẫu | Số nguyên 16-bit | No need to enter | - |
-| Parameter 8 | d3+7 | Dự phòng | Số nguyên 16-bit | Dự phòng | - |
+| Cài đặt tham số d2 | Cài đặt tham số d2    | Cài đặt tham số d2           | Cài đặt tham số d2 | Cài đặt tham số d2                                            | Cài đặt tham số d2 |
+| :----------------- | :-------------------- | :--------------------------- | :----------------- | :------------------------------------------------------------ | :----------------- |
+| Tham số            | Địa chỉ lệch (Offset) | Tên                          | Format             | Khối lệnh / Lệnh                                              | Phạm vi giá trị    |
+| Tham số 1          | d2                    | Nhiệt độ hiện tại            | Số nguyên 16-bit   | Nhiệt độ kiểm tra hiện tại                                    | -                  |
+| Tham số 2          | d2+1                  | set temperature              | Số nguyên 16-bit   | Set temperature                                               | -                  |
+| Tham số 3          | d2+2                  | Chu kỳ tính toán             | Số nguyên 16-bit   | Lấy bội số nguyên của thời gian lấy mẫu PID, thường bằng nhau | -                  |
+| Tham số 4          | d2+3                  | Kp                           | Số nguyên 16-bit   | PID initial Kp value                                          | -                  |
+| Tham số 5          | d2+4                  | KI                           | Số nguyên 16-bit   | PID initial Ki value                                          | -                  |
+| Parameter 6        | d2+5                  | KD                           | Số nguyên 16-bit   | PID initial Kd value                                          | -                  |
+| Parameter 7        | d2+6                  | Chu kỳ lấy mẫu               | Số nguyên 16-bit   | No need to enter                                              | -                  |
+| Parameter 8        | d2+7                  | Cờ khởi tạo                  | Số nguyên 16-bit   | Dành riêng cho sử dụng nội bộ                                 | -                  |
+| Parameter 9        | d2+8                  | Thời điểm tính toán gần nhất | Số nguyên 32-bit   | Xem mức sử dụng (không thể thao tác)                          | -                  |
+| Parameter 9        | d2+9                  | Thời điểm tính toán gần nhất | Số nguyên 32-bit   | Xem mức sử dụng (không thể thao tác)                          | -                  |
+| Parameter 10       | d2+10                 | Nhiệt độ gần nhất            | Số nguyên 16-bit   | Xem mức sử dụng (không thể thao tác)                          | -                  |
+| Parameter 11       | d2+11                 | Dự phòng                     | Số nguyên 16-bit   | Dự phòng                                                      |                    |
+| Cài đặt tham số d3 |                       |                              |                    |                                                               |                    |
+| Tham số            | Địa chỉ lệch (Offset) | Tên                          | format             | Khối lệnh / Lệnh                                              | Phạm vi giá trị    |
+| Tham số 1          | d3                    | Nhiệt độ hiện tại            | Số nguyên 16-bit   | Nhiệt độ kiểm tra hiện tại                                    | -                  |
+| Tham số 2          | d3+1                  | set temperature              | Số nguyên 16-bit   | Set temperature                                               | -                  |
+| Tham số 3          | d3+2                  | Chu kỳ tính toán             | Số nguyên 16-bit   | Lấy bội số nguyên của thời gian lấy mẫu PID, thường bằng nhau | -                  |
+| Tham số 4          | d3+3                  | Kp                           | Số nguyên 16-bit   | Giá trị Kp của PID sau khi hiệu chỉnh                         | -                  |
+| Tham số 5          | d3+4                  | KI                           | Số nguyên 16-bit   | Giá trị Ki của PID sau khi hiệu chỉnh                         | -                  |
+| Parameter 6        | d3+5                  | KD                           | Số nguyên 16-bit   | Giá trị Kd của PID sau khi hiệu chỉnh                         | -                  |
+| Parameter 7        | d3+6                  | Chu kỳ lấy mẫu               | Số nguyên 16-bit   | No need to enter                                              | -                  |
+| Parameter 8        | d3+7                  | Dự phòng                     | Số nguyên 16-bit   | Dự phòng                                                      | -                  |
 
 :::tip
 ✎Lưu ý:
@@ -292,13 +292,13 @@ Lệnh FPID chiếm 58 word. Địa chỉ của mỗi toán hạng phải có kh
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (d1), (d2), (d3) exceeds the range of the corresponding device. |
-| 4086H | When thiết bị được chỉ định tại the write các lệnh ứng dụng (d1), (d2), (d3) exceeds the range of the corresponding device. |
-| 4D91H | Chu kỳ tính toán FPID nhỏ hơn hoặc bằng 0 |
-| 4D92H | Lỗi phạm vi tham số FPID |
-| 4D93H | Lỗi cờ khởi tạo FPID |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                              |
+| :------------------ | :-------------------------------------------------------------------------------------------------------------------------- |
+| 4085H               | When thiết bị được chỉ định tại the read các lệnh ứng dụng (d1), (d2), (d3) exceeds the range of the corresponding device.  |
+| 4086H               | When thiết bị được chỉ định tại the write các lệnh ứng dụng (d1), (d2), (d3) exceeds the range of the corresponding device. |
+| 4D91H               | Chu kỳ tính toán FPID nhỏ hơn hoặc bằng 0                                                                                   |
+| 4D92H               | Lỗi phạm vi tham số FPID                                                                                                    |
+| 4D93H               | Lỗi cờ khởi tạo FPID                                                                                                        |
 
 #### Ví dụ minh họa
 
@@ -332,16 +332,16 @@ Mô tả lệnh
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tên | Đặc tính kỹ thuật | Bits (bits) | Có phải dạng xung hay không | Định dạng lệnh | Số bước lệnh |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| CCPID | PID Operation | 16 | Không | CCPID ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_253eb1176b58e989.png?width=44&height=23&rev=1.1) ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_80fccb1046bf8776.png?width=44&height=25&rev=1.1) ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_8760537828f7beaf.png?width=49&height=26&rev=1.1) ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_8b4fbd61f8ea9808.png?width=51&height=27&rev=1.1) | 9 |
+| Tên   | Đặc tính kỹ thuật | Bits (bits) | Có phải dạng xung hay không | Định dạng lệnh                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Số bước lệnh |
+| :---- | :---------------- | :---------- | :-------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------- |
+| CCPID | PID Operation     | 16          | Không                       | CCPID ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_253eb1176b58e989.png?width=44&height=23&rev=1.1) ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_80fccb1046bf8776.png?width=44&height=25&rev=1.1) ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_8760537828f7beaf.png?width=49&height=26&rev=1.1) ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_8b4fbd61f8ea9808.png?width=51&height=27&rev=1.1) | 9            |
 
-| Khối lệnh / Lệnh | Tham số | D | R | SD | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| CCPID | Parameter 1 | ● | ● | ● |  |  |
-| CCPID | Parameter 2 | ● | ● | ● |  |  |
-| CCPID | Parameter 3 | ● | ● | ● |  |  |
-| CCPID | Parameter 4 | ● | ● | ● |  |  |
+| Khối lệnh / Lệnh | Tham số     | D   | R   | SD  | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-- | :-- | :-- | :----------------- | :----------------- |
+| CCPID            | Parameter 1 | ●   | ●   | ●   |                    |                    |
+| CCPID            | Parameter 2 | ●   | ●   | ●   |                    |                    |
+| CCPID            | Parameter 3 | ●   | ●   | ●   |                    |                    |
+| CCPID            | Parameter 4 | ●   | ●   | ●   |                    |                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
@@ -403,33 +403,33 @@ to
 
 +51 là vùng nhớ tham số phục vụ quá trình tự động dò thông số (Auto-tuning).
 
-| Đơn vị | Đặc tính kỹ thuật | Hướng dẫn cài đặt | Supplement |
-| :--- | :--- | :--- | :--- |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7) | Thời gian lấy mẫu (TS) | Phạm vi cài đặt từ 1 đến 32.767 (ms), nhưng phải lớn hơn chu kỳ quét chương trình PLC. | Đây là tần suất lệnh tính toán và cập nhật giá trị ngõ ra (MV). Khi TS nhỏ hơn một chu kỳ quét, lệnh PID được thực thi theo một chu kỳ quét và báo cảnh báo 4D86H. Khi TS ≤ 0, báo cảnh báo 4D80H và không thực thi. |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+1 | Chiều tác động (ACT) | bit0: 0=tác động thuận; 1=tác động nghịch; bit2: công tắc vùng chuyển tiếp tự động chỉnh định: 0=không mở; 1=mở; bit3: 0=đơn hướng; 1=hai chiều; Bit4: 0=không thực hiện tự động chỉnh định; 1=thực hiện tự động chỉnh định [Bit6: 0=Không thực hiện tự động chỉnh định 2 giai đoạn; 1=Thực hiện tự động chỉnh định 2 giai đoạn (bit4 phải được đặt bằng 1). bit7: 0=Không thực hiện tự động chỉnh định 3 giai đoạn; 1=Thực hiện tự động chỉnh định 3 giai đoạn (bit4 phải được đặt bằng 1)]. Các bit khác không thể sử dụng. | bit0: Tác động thuận: tương tự hệ thống gia nhiệt, khi nhiệt độ thấp hơn giá trị đặt thì tăng ngõ ra; Tác động nghịch: tương tự hệ thống làm mát, khi nhiệt độ lớn hơn giá trị đặt thì tăng ngõ ra. bit2: Công tắc vùng chuyển tiếp tự động chỉnh định. Khi mở sẽ có vùng chuyển tiếp kích thước 1.5℃. bit3: Hai chiều biểu thị xuất các giá trị dương và âm tới hệ thống gia nhiệt hoặc làm mát để điều khiển hai hệ thống bên ngoài bằng một bộ PID. bit4: ✎Khi bit4=1 và bit6, bit7 không bằng 1 thì không thực hiện tự động chỉnh định. ✎Khi bit4=0 và một trong bit6, bit7 bằng 1 thì không thực hiện tự động chỉnh định. ✎Khi bit4=1 và cả bit6, bit7 đều bằng 1 thì thực hiện tự động chỉnh định |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+2 | Hệ số lọc | Bộ lọc quán tính bậc nhất của lượng hồi tiếp (0 đến 100%) có phạm vi từ 0 đến 100 | Khi giá trị lớn hơn hoặc bằng 100, sẽ được thực thi như 0, tức là không thực hiện lọc; |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+3 | Hệ số khuếch đại tỷ lệ (Kp) | Set range: 0 to 30,000[%] | Lỗi vượt giới hạn 4D87H |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+4 | Thời gian tích phân (Ti) | Ti là thời gian tích phân, và phạm vi từ 0 đến 3.600 (s) | Lỗi vượt giới hạn 4D88H |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+5 | Thời gian vi phân (Td) | Td là thời gian vi phân, và phạm vi từ 0 đến 1.000 (s) | Lỗi vượt giới hạn 4D89H |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+6 | Khoảng làm việc | Cài đặt nhiệt độ hoạt động được kích hoạt bởi PID (0 biểu thị không có tác dụng). Phạm vi từ 0 đến 1.000 | Khuyến nghị lớn hơn 5°C, tức là 50 (độ chính xác 0.1°C). Nếu vượt quá phạm vi, giá trị biên sẽ được lấy. |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+7 | Giới hạn dưới ngõ ra | Phạm vi: -10.000 đến 10.000. Phạm vi cài đặt khuyến nghị: -2.000 hoặc 0 (khi S3+1 bit3=0, giới hạn dưới = 0; khi bit3=1, giới hạn dưới = -2.000) | 1. Khởi tạo tự động chỉnh định: ① Điều khiển đơn hướng: giới hạn dưới là 0; ② Điều khiển hai chiều: Nếu giới hạn dưới lớn hơn 0, điều chỉnh giới hạn dưới về 0; nếu giới hạn trên và giới hạn dưới đều bằng 0, giới hạn dưới mặc định là -2.000. ✎Lưu ý: Nếu đặt là -2.000 và giá trị ngõ ra (MV) nhỏ hơn -2.000 thì sẽ xuất ra -2.000. 2. Trong quá trình điều khiển, giới hạn dưới có thể điều chỉnh động. Nếu giới hạn dưới lớn hơn hoặc bằng giới hạn trên, lỗi 4D90H sẽ được báo. |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+8 | Giới hạn trên ngõ ra | Phạm vi giá trị: -10.000 đến 10.000. Giá trị cài đặt khuyến nghị là 2.000 | 1. Khởi tạo tự động chỉnh định: ① Điều khiển đơn hướng: Nếu giới hạn trên nhỏ hơn 0, giới hạn trên mặc định là 2.000; ② Điều khiển hai chiều: Nếu giới hạn trên nhỏ hơn 0, điều chỉnh giới hạn trên về 0; nếu giới hạn trên và giới hạn dưới đều bằng 0, giới hạn trên mặc định là -2.000. ✎Lưu ý: Nếu đặt là -2.000 và giá trị ngõ ra (MV) lớn hơn -2.000 thì sẽ xuất ra 2.000. 2. Trong quá trình điều khiển, giới hạn trên có thể điều chỉnh động. Nếu giới hạn dưới lớn hơn hoặc bằng giới hạn trên, lỗi 4D90H sẽ được báo. |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+9 | Cài đặt chế độ | 0: Cho phép vọt lố; 1: Vọt lố nhẹ hoặc không vọt lố; 2: Cài đặt động | 0: Cho phép vọt lố (ukd = 100); 1: Chế độ vọt lố nhẹ hoặc không vọt lố (ukd = 300) |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+10 | Hệ số tỷ lệ (ukp) | Thường đặt giá trị là 100 (mặc định 100) [được bật khi S3+9 đặt bằng 2]. Phạm vi từ 1 đến 500. | Khi giá trị nhỏ hơn hoặc bằng 0, hoặc lớn hơn 500, giá trị biên sẽ được lấy. |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+11 | Hệ số tích phân (uki) | Thường đặt giá trị là 50 (mặc định 50) [được bật khi S3+9 đặt bằng 2]. Phạm vi từ 1 đến 300. | Khi giá trị nhỏ hơn hoặc bằng 0, hoặc lớn hơn 300, giá trị biên sẽ được lấy. |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+12 | Hệ số vi phân (ukd) | Thường đặt giá trị là 50 (mặc định 100. Có thể đặt 300 đến 400 khi cần vọt lố nhẹ) [Bật khi S3+9 đặt bằng 2]. Phạm vi từ 1 đến 500. | Khi giá trị nhỏ hơn hoặc bằng 0, hoặc lớn hơn 500, giá trị biên sẽ được lấy. |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+13 | Tốc độ tăng tối đa (DeltaT) | Phạm vi từ 0 đến 32.000, là ngưỡng của lượng tăng tích phân | Lỗi vượt giới hạn 4D82H |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+14 | Filtering (C0) | Phạm vi từ 0 đến 1.023, lọc thành phần tích phân | Lỗi vượt giới hạn 4D81H |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+15 | Dành riêng cho điều khiển nội bộ | Vùng nhớ sử dụng cho điều khiển nội bộ |  |
-| ┆ | Dành riêng cho điều khiển nội bộ | Vùng nhớ sử dụng cho điều khiển nội bộ |  |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+21 | Dành riêng cho điều khiển nội bộ | Vùng nhớ sử dụng cho điều khiển nội bộ |  |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+22 | Vùng nhớ sử dụng cho tự động chỉnh định | Vùng nhớ tự động chỉnh định mới dùng cho nội bộ |  |
-| ┆ | Vùng nhớ sử dụng cho tự động chỉnh định | Vùng nhớ tự động chỉnh định mới dùng cho nội bộ |  |
-| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+51 | Vùng nhớ sử dụng cho tự động chỉnh định | Vùng nhớ tự động chỉnh định mới dùng cho nội bộ |  |
+| Đơn vị                                                                                                                                                           | Đặc tính kỹ thuật                       | Hướng dẫn cài đặt                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Supplement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)    | Thời gian lấy mẫu (TS)                  | Phạm vi cài đặt từ 1 đến 32.767 (ms), nhưng phải lớn hơn chu kỳ quét chương trình PLC.                                                                                                                                                                                                                                                                                                                                                                                                                                        | Đây là tần suất lệnh tính toán và cập nhật giá trị ngõ ra (MV). Khi TS nhỏ hơn một chu kỳ quét, lệnh PID được thực thi theo một chu kỳ quét và báo cảnh báo 4D86H. Khi TS ≤ 0, báo cảnh báo 4D80H và không thực thi.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+1  | Chiều tác động (ACT)                    | bit0: 0=tác động thuận; 1=tác động nghịch; bit2: công tắc vùng chuyển tiếp tự động chỉnh định: 0=không mở; 1=mở; bit3: 0=đơn hướng; 1=hai chiều; Bit4: 0=không thực hiện tự động chỉnh định; 1=thực hiện tự động chỉnh định [Bit6: 0=Không thực hiện tự động chỉnh định 2 giai đoạn; 1=Thực hiện tự động chỉnh định 2 giai đoạn (bit4 phải được đặt bằng 1). bit7: 0=Không thực hiện tự động chỉnh định 3 giai đoạn; 1=Thực hiện tự động chỉnh định 3 giai đoạn (bit4 phải được đặt bằng 1)]. Các bit khác không thể sử dụng. | bit0: Tác động thuận: tương tự hệ thống gia nhiệt, khi nhiệt độ thấp hơn giá trị đặt thì tăng ngõ ra; Tác động nghịch: tương tự hệ thống làm mát, khi nhiệt độ lớn hơn giá trị đặt thì tăng ngõ ra. bit2: Công tắc vùng chuyển tiếp tự động chỉnh định. Khi mở sẽ có vùng chuyển tiếp kích thước 1.5℃. bit3: Hai chiều biểu thị xuất các giá trị dương và âm tới hệ thống gia nhiệt hoặc làm mát để điều khiển hai hệ thống bên ngoài bằng một bộ PID. bit4: ✎Khi bit4=1 và bit6, bit7 không bằng 1 thì không thực hiện tự động chỉnh định. ✎Khi bit4=0 và một trong bit6, bit7 bằng 1 thì không thực hiện tự động chỉnh định. ✎Khi bit4=1 và cả bit6, bit7 đều bằng 1 thì thực hiện tự động chỉnh định |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+2  | Hệ số lọc                               | Bộ lọc quán tính bậc nhất của lượng hồi tiếp (0 đến 100%) có phạm vi từ 0 đến 100                                                                                                                                                                                                                                                                                                                                                                                                                                             | Khi giá trị lớn hơn hoặc bằng 100, sẽ được thực thi như 0, tức là không thực hiện lọc;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+3  | Hệ số khuếch đại tỷ lệ (Kp)             | Set range: 0 to 30,000[%]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Lỗi vượt giới hạn 4D87H                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+4  | Thời gian tích phân (Ti)                | Ti là thời gian tích phân, và phạm vi từ 0 đến 3.600 (s)                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Lỗi vượt giới hạn 4D88H                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+5  | Thời gian vi phân (Td)                  | Td là thời gian vi phân, và phạm vi từ 0 đến 1.000 (s)                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Lỗi vượt giới hạn 4D89H                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+6  | Khoảng làm việc                         | Cài đặt nhiệt độ hoạt động được kích hoạt bởi PID (0 biểu thị không có tác dụng). Phạm vi từ 0 đến 1.000                                                                                                                                                                                                                                                                                                                                                                                                                      | Khuyến nghị lớn hơn 5°C, tức là 50 (độ chính xác 0.1°C). Nếu vượt quá phạm vi, giá trị biên sẽ được lấy.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+7  | Giới hạn dưới ngõ ra                    | Phạm vi: -10.000 đến 10.000. Phạm vi cài đặt khuyến nghị: -2.000 hoặc 0 (khi S3+1 bit3=0, giới hạn dưới = 0; khi bit3=1, giới hạn dưới = -2.000)                                                                                                                                                                                                                                                                                                                                                                              | 1. Khởi tạo tự động chỉnh định: ① Điều khiển đơn hướng: giới hạn dưới là 0; ② Điều khiển hai chiều: Nếu giới hạn dưới lớn hơn 0, điều chỉnh giới hạn dưới về 0; nếu giới hạn trên và giới hạn dưới đều bằng 0, giới hạn dưới mặc định là -2.000. ✎Lưu ý: Nếu đặt là -2.000 và giá trị ngõ ra (MV) nhỏ hơn -2.000 thì sẽ xuất ra -2.000. 2. Trong quá trình điều khiển, giới hạn dưới có thể điều chỉnh động. Nếu giới hạn dưới lớn hơn hoặc bằng giới hạn trên, lỗi 4D90H sẽ được báo.                                                                                                                                                                                                                  |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+8  | Giới hạn trên ngõ ra                    | Phạm vi giá trị: -10.000 đến 10.000. Giá trị cài đặt khuyến nghị là 2.000                                                                                                                                                                                                                                                                                                                                                                                                                                                     | 1. Khởi tạo tự động chỉnh định: ① Điều khiển đơn hướng: Nếu giới hạn trên nhỏ hơn 0, giới hạn trên mặc định là 2.000; ② Điều khiển hai chiều: Nếu giới hạn trên nhỏ hơn 0, điều chỉnh giới hạn trên về 0; nếu giới hạn trên và giới hạn dưới đều bằng 0, giới hạn trên mặc định là -2.000. ✎Lưu ý: Nếu đặt là -2.000 và giá trị ngõ ra (MV) lớn hơn -2.000 thì sẽ xuất ra 2.000. 2. Trong quá trình điều khiển, giới hạn trên có thể điều chỉnh động. Nếu giới hạn dưới lớn hơn hoặc bằng giới hạn trên, lỗi 4D90H sẽ được báo.                                                                                                                                                                         |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+9  | Cài đặt chế độ                          | 0: Cho phép vọt lố; 1: Vọt lố nhẹ hoặc không vọt lố; 2: Cài đặt động                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0: Cho phép vọt lố (ukd = 100); 1: Chế độ vọt lố nhẹ hoặc không vọt lố (ukd = 300)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+10 | Hệ số tỷ lệ (ukp)                       | Thường đặt giá trị là 100 (mặc định 100) [được bật khi S3+9 đặt bằng 2]. Phạm vi từ 1 đến 500.                                                                                                                                                                                                                                                                                                                                                                                                                                | Khi giá trị nhỏ hơn hoặc bằng 0, hoặc lớn hơn 500, giá trị biên sẽ được lấy.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+11 | Hệ số tích phân (uki)                   | Thường đặt giá trị là 50 (mặc định 50) [được bật khi S3+9 đặt bằng 2]. Phạm vi từ 1 đến 300.                                                                                                                                                                                                                                                                                                                                                                                                                                  | Khi giá trị nhỏ hơn hoặc bằng 0, hoặc lớn hơn 300, giá trị biên sẽ được lấy.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+12 | Hệ số vi phân (ukd)                     | Thường đặt giá trị là 50 (mặc định 100. Có thể đặt 300 đến 400 khi cần vọt lố nhẹ) [Bật khi S3+9 đặt bằng 2]. Phạm vi từ 1 đến 500.                                                                                                                                                                                                                                                                                                                                                                                           | Khi giá trị nhỏ hơn hoặc bằng 0, hoặc lớn hơn 500, giá trị biên sẽ được lấy.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+13 | Tốc độ tăng tối đa (DeltaT)             | Phạm vi từ 0 đến 32.000, là ngưỡng của lượng tăng tích phân                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Lỗi vượt giới hạn 4D82H                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+14 | Filtering (C0)                          | Phạm vi từ 0 đến 1.023, lọc thành phần tích phân                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Lỗi vượt giới hạn 4D81H                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+15 | Dành riêng cho điều khiển nội bộ        | Vùng nhớ sử dụng cho điều khiển nội bộ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ┆                                                                                                                                                                | Dành riêng cho điều khiển nội bộ        | Vùng nhớ sử dụng cho điều khiển nội bộ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+21 | Dành riêng cho điều khiển nội bộ        | Vùng nhớ sử dụng cho điều khiển nội bộ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+22 | Vùng nhớ sử dụng cho tự động chỉnh định | Vùng nhớ tự động chỉnh định mới dùng cho nội bộ                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ┆                                                                                                                                                                | Vùng nhớ sử dụng cho tự động chỉnh định | Vùng nhớ tự động chỉnh định mới dùng cho nội bộ                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)+51 | Vùng nhớ sử dụng cho tự động chỉnh định | Vùng nhớ tự động chỉnh định mới dùng cho nội bộ                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
-1) Quá trình tự động dò thông số chiếm không gian từ S3+22 đến S3+51. Khi tự động dò thông số thành công, các tham số đã hiệu chỉnh sẽ được ghi vào không gian từ S3+2 đến S3+21.
+1. Quá trình tự động dò thông số chiếm không gian từ S3+22 đến S3+51. Khi tự động dò thông số thành công, các tham số đã hiệu chỉnh sẽ được ghi vào không gian từ S3+2 đến S3+21.
 
-2)
+2.
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)
 
@@ -439,15 +439,15 @@ Formula: T now =(100-α)×T α +α×T old
 
 Trong đó T_α là nhiệt độ đo thực tế hiện tại; T_old là nhiệt độ của chu kỳ tính toán PID trước đó; T_now là nhiệt độ đầu vào cho phép tính PID hiện tại; α là hệ số lọc (khi α = 0 thì không lọc, dải giá trị α từ 0 đến 100; nếu hệ thống có độ vọt lố nhỏ nhưng thời gian ổn định lâu thì có thể đặt khoảng 80 và tinh chỉnh theo thực tế).
 
-3)
+3.
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)
 
 +6 work range: Twork(example: 170 represents 17℃)
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17581105436817.png?width=652&amp;height=197&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17581105436817.png?width=652&height=197&rev=1.1)
 
-4)
+4.
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)
 
@@ -459,19 +459,19 @@ Trong đó T_α là nhiệt độ đo thực tế hiện tại; T_old là nhiệ
 
 2: Custom settings; to achieve by setting
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/1758111151287-920.png?width=28&amp;height=15&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/1758111151287-920.png?width=28&height=15&rev=1.1)
 
 +10,
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/1758111151287-920.png?width=28&amp;height=15&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/1758111151287-920.png?width=28&height=15&rev=1.1)
 
 +11,
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/1758111151287-920.png?width=28&amp;height=15&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/1758111151287-920.png?width=28&height=15&rev=1.1)
 
 +12 three coefficients.
 
-5)
+5.
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_6dcdd8fc88703a47.jpg?rev=1.7)
 
@@ -527,7 +527,7 @@ Cấu hình ứng dụng CCPID
 2. Không giới hạn số lần sử dụng lệnh CCPID, nhưng vùng đến +51 không được trùng lặp.
 
 3. Trước khi thực thi lệnh CCPID, cần cài đặt các tham số CCPID.
-:::
+   :::
 
 Phân tích trường hợp thực tế
 
@@ -543,23 +543,23 @@ Môi trường điều khiển trong ví dụ này là một bình đun nước.
 
 (3) Mô tả tham số
 
-| PLC device | Lệnh điều khiển |
-| :--- | :--- |
-| M0 | Cài đặt tự động chỉnh định |
-| M1 | Bắt đầu tính toán lệnh CCPID |
-| M2 | Trạng thái hoạt động CCPID |
-| Y0 | Ngõ ra xung có độ rộng xung điều chỉnh được (PWM) |
-| D0 | Giá trị đo nhiệt độ |
-| D1 | Giá trị cài đặt nhiệt độ |
-| D100 | Thời gian lấy mẫu |
-| D101 | Cài đặt chi tiết điều khiển |
-| D102 | Hệ số lọc quán tính bậc nhất |
-| D106 | Khoảng làm việc |
-| D109 | Chế độ làm việc |
+| PLC device | Lệnh điều khiển                                   |
+| :--------- | :------------------------------------------------ |
+| M0         | Cài đặt tự động chỉnh định                        |
+| M1         | Bắt đầu tính toán lệnh CCPID                      |
+| M2         | Trạng thái hoạt động CCPID                        |
+| Y0         | Ngõ ra xung có độ rộng xung điều chỉnh được (PWM) |
+| D0         | Giá trị đo nhiệt độ                               |
+| D1         | Giá trị cài đặt nhiệt độ                          |
+| D100       | Thời gian lấy mẫu                                 |
+| D101       | Cài đặt chi tiết điều khiển                       |
+| D102       | Hệ số lọc quán tính bậc nhất                      |
+| D106       | Khoảng làm việc                                   |
+| D109       | Chế độ làm việc                                   |
 
 (4) Mô tả hiệu quả điều khiển của tham số
 
-1) Thí nghiệm đun sôi nước
+1. Thí nghiệm đun sôi nước
 
 ① Quá trình tự động dò thông số và quá trình điều khiển (không cài đặt vùng chuyển tiếp), lấy tự động dò thông số hai giai đoạn làm ví dụ
 
@@ -577,7 +577,7 @@ Hình 2 Đường cong quá trình tự động dò thông số có vùng chuy�
 
 Phù hợp hơn trong hệ thống điều khiển hai chiều với quá trình tự dò có vùng chuyển tiếp. Vùng chuyển tiếp có biên độ 1.5°C. Giới hạn trên là 1°C và giới hạn dưới là 0.5°C.
 
-2) Sự khác biệt khi cài đặt khoảng làm việc
+2. Sự khác biệt khi cài đặt khoảng làm việc
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_4140432ce11883ad.gif?rev=1.1)
 
@@ -589,7 +589,7 @@ Hình 4 Đường cong quá trình khi không có các tham số khoảng làm v
 
 Có thể thấy từ đồ thị phóng to cục bộ rằng các tham số của khoảng làm việc có ảnh hưởng nhất định đến độ vọt lố và thời gian ổn định. Trong trường hợp cho phép vọt lố, việc cài đặt tham số khoảng làm việc có thể giúp giảm độ vọt lố. Điều này là do sai lệch E khi PID bắt đầu làm việc tương đối nhỏ, nên thành phần tích phân (I) tích lũy sẽ không nhanh chóng bị bão hòa.
 
-3) Kết quả cài đặt hệ số lọc
+3. Kết quả cài đặt hệ số lọc
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_815ec6c129ae3891.gif?rev=1.1)
 
@@ -603,7 +603,7 @@ Do đó, việc đưa vào bộ lọc quán tính bậc nhất có thể cải t
 ✎Lưu ý: Tham số hệ số lọc này rất hữu ích cho các hệ thống có độ trễ không quá lớn hoặc cải thiện rõ rệt hiệu quả điều khiển đối với hiện tượng đại lượng điều khiển dao động qua lại.
 :::
 
-4) Sự khác biệt khi chọn chế độ
+4. Sự khác biệt khi chọn chế độ
 
 0: Cho phép vọt lố (ukd = 100)
 
@@ -615,7 +615,7 @@ Hình 6 Đường cong quá trình ở các chế độ làm việc khác nhau
 
 Khi chọn chế độ 1 (vọt lố nhỏ hoặc không vọt lố), nhiệt độ ổn định có thể cao hơn một chút so với nhiệt độ cài đặt (dao động phía trên nhiệt độ cài đặt).
 
-5) Chức năng của hệ số
+5. Chức năng của hệ số
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/11_html_74a7527eace55103.gif?rev=1.1)
 
@@ -629,21 +629,21 @@ Lệnh này hoàn thành việc quy đổi giữa nhiệt độ bầu khô, nhi�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (d1) | Humidity | 0~100 | Single-precision floating point | ANYREAL_32 | REAL |
-| (s) | Nhiệt độ bầu khô | - | Single-precision floating point | ANYREAL_32 | REAL |
-| (d2) | Nhiệt độ bầu ướt | - | Single-precision floating point | ANYREAL_32 | REAL |
-| (n) | Chế độ | 0 to 1 | Signed BIN 32 bit | ANY32 | DINT |
+| Tham số | Nội dung mô tả   | Phạm vi giá trị | Kiểu dữ liệu                    | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :--------------- | :-------------- | :------------------------------ | :----------------------- | :---------------------- |
+| (d1)    | Humidity         | 0~100           | Single-precision floating point | ANYREAL_32               | REAL                    |
+| (s)     | Nhiệt độ bầu khô | -               | Single-precision floating point | ANYREAL_32               | REAL                    |
+| (d2)    | Nhiệt độ bầu ướt | -               | Single-precision floating point | ANYREAL_32               | REAL                    |
+| (n)     | Chế độ           | 0 to 1          | Signed BIN 32 bit               | ANY32                    | DINT                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| TRH | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| TRH | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| TRH | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
-| TRH | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| TRH              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| TRH              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| TRH              | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
+| TRH              | Parameter 4 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -657,7 +657,7 @@ Công thức quy đổi quá trình như sau:
 
 Giả sử nhiệt độ bầu ướt là A, nhiệt độ bầu khô là B, và độ ẩm hiện tại tương ứng là C, thỏa mãn các điều kiện sau:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/1709791199711-348.png?width=342&amp;height=101&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/1709791199711-348.png?width=342&height=101&rev=1.1)
 
 #### Lưu ý kỹ thuật quan trọng
 
@@ -669,14 +669,14 @@ Giả sử nhiệt độ bầu ướt là A, nhiệt độ bầu khô là B, và
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Khi giá trị chỉ định trong (n) vượt quá phạm vi sau: 0 đến 1 |
-| 4084H | Giá trị chỉ định trong (d1) vượt quá phạm vi sau: 0 đến 100 |
-| 4084H | Một giá trị âm được chỉ định trong (s). |
-| 4084H | Giá trị âm được chỉ định trong (d2). |
-| 4085H | The output result of (d1)(s)(d2)(n) in the read application command vượt quá phạm vi vùng nhớ thiết bị. |
-| 4086H | The output result of the write application command (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                          |
+| :------------------ | :------------------------------------------------------------------------------------------------------ |
+| 4084H               | Khi giá trị chỉ định trong (n) vượt quá phạm vi sau: 0 đến 1                                            |
+| 4084H               | Giá trị chỉ định trong (d1) vượt quá phạm vi sau: 0 đến 100                                             |
+| 4084H               | Một giá trị âm được chỉ định trong (s).                                                                 |
+| 4084H               | Giá trị âm được chỉ định trong (d2).                                                                    |
+| 4085H               | The output result of (d1)(s)(d2)(n) in the read application command vượt quá phạm vi vùng nhớ thiết bị. |
+| 4086H               | The output result of the write application command (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị.    |
 
 #### Ví dụ minh họa
 
@@ -685,5 +685,3 @@ Giả sử nhiệt độ bầu ướt là A, nhiệt độ bầu khô là B, và
 Bảng quy đổi nhiệt độ bầu khô và bầu ướt / độ ẩm
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/11%20PID%20Control%20Instruction/WebHome/1709791607332-438.png?rev=1.1)
-
-0

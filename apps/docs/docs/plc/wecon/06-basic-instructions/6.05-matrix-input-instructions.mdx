@@ -3,7 +3,7 @@ id: "6.05-matrix-input-instructions"
 title: "6.05 Lệnh đọc ma trận ngõ vào (Matrix Input Instructions)"
 sidebar_position: 5
 sidebar_label: "6.05 Matrix Input instructions"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.05 Lệnh đọc ma trận ngõ vào (Matrix Input Instructions)"
 ---
 
@@ -17,31 +17,31 @@ Lệnh đọc tín hiệu ngõ vào (công tắc) gồm 8 điểm × n cột the
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu thiết bị bắt đầu (X) X000, X010, X020 của ngõ vào tín hiệu hàng ma trận đến số hiệu X ngõ vào cuối cùng. Chiếm 8 điểm liên tiếp. | Chữ số thấp nhất của số hiệu X chỉ có thể là 0 | Bit | ANY_BOOL |
-| (d1) | Số hiệu thiết bị bắt đầu (Y) của ngõ ra tín hiệu cột ma trận là Y000, Y010, Y020... đến số hiệu Y ngõ ra cuối cùng. Chiếm 8 điểm liên tiếp. | Chữ số thấp nhất của số hiệu Y chỉ có thể là 0 | Bit | ANY_BOOL |
-| (d2) | Số hiệu thiết bị bắt đầu (Y, M, S) của địa chỉ đích xuất ON là Y000, Y010, Y020..., M000, M010, M020..., S000, S010, S020... đến số hiệu Y, M, S cuối cùng. Y chiếm liên tiếp 8*(n) điểm, các thiết bị khác chiếm liên tiếp 10*(n) điểm. | - | Bit | ANY_BOOL |
-| (n) | Cài đặt số cột trong ma trận ngõ vào. | 2 to 8 | Unsigned BIN 16 bit | ANY16_U |
+| Tham số | Nội dung mô tả                                                                                                                                                                                                                           | Phạm vi giá trị                                | Kiểu dữ liệu        | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------- | :------------------ | :----------------------- |
+| (s)     | Số hiệu thiết bị bắt đầu (X) X000, X010, X020 của ngõ vào tín hiệu hàng ma trận đến số hiệu X ngõ vào cuối cùng. Chiếm 8 điểm liên tiếp.                                                                                                 | Chữ số thấp nhất của số hiệu X chỉ có thể là 0 | Bit                 | ANY_BOOL                 |
+| (d1)    | Số hiệu thiết bị bắt đầu (Y) của ngõ ra tín hiệu cột ma trận là Y000, Y010, Y020... đến số hiệu Y ngõ ra cuối cùng. Chiếm 8 điểm liên tiếp.                                                                                              | Chữ số thấp nhất của số hiệu Y chỉ có thể là 0 | Bit                 | ANY_BOOL                 |
+| (d2)    | Số hiệu thiết bị bắt đầu (Y, M, S) của địa chỉ đích xuất ON là Y000, Y010, Y020..., M000, M010, M020..., S000, S010, S020... đến số hiệu Y, M, S cuối cùng. Y chiếm liên tiếp 8*(n) điểm, các thiết bị khác chiếm liên tiếp 10*(n) điểm. | -                                              | Bit                 | ANY_BOOL                 |
+| (n)     | Cài đặt số cột trong ma trận ngõ vào.                                                                                                                                                                                                    | 2 to 8                                         | Unsigned BIN 16 bit | ANY16_U                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MTR | Parameter 1 | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MTR | Parameter 2 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MTR | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MTR | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MTR              | Parameter 1 |  ●  |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MTR              | Parameter 2 |     |  ●  |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MTR              | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MTR              | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |  ●  |  ●  |     |                       |                    |
 
 #### Đặc tính kỹ thuật
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.5%20Matrix%20Input%20instructions/WebHome/1760507570581-819.png?width=607&amp;height=481&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.5%20Matrix%20Input%20instructions/WebHome/1760507570581-819.png?width=607&height=481&rev=1.1)
 
 Lệnh này thường sử dụng tiếp điểm thường đóng/luôn ON là SM100.
 
 Theo ví dụ trong hình:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.5%20Matrix%20Input%20instructions/WebHome/1760507648169-735.png?width=605&amp;height=62&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.5%20Matrix%20Input%20instructions/WebHome/1760507648169-735.png?width=605&height=62&rev=1.1)
 
 M10 sẽ bật ON khi Y30 và X30 kết nối với nhau, M14 sẽ ON khi Y30 và X34 kết nối với nhau, M26 sẽ ON khi Y31 và X36 kết nối với nhau.
 
@@ -49,9 +49,9 @@ M10 sẽ bật ON khi Y30 và X30 kết nối với nhau, M14 sẽ ON khi Y30 v�
 
 Thiết bị đặc biệt được sử dụng
 
-| Vùng nhớ thiết bị (Devices) | Nội dung mô tả |
-| :--- | :--- |
-| SM229 | SM229 sẽ bật ON sau khi hoàn thành một chu kỳ thực thi |
+| Vùng nhớ thiết bị (Devices) | Nội dung mô tả                                         |
+| :-------------------------- | :----------------------------------------------------- |
+| SM229                       | SM229 sẽ bật ON sau khi hoàn thành một chu kỳ thực thi |
 
 :::tip
 ✎Lưu ý:
@@ -61,13 +61,11 @@ Lệnh MTR chỉ có thể chạy một lệnh tại cùng một thời điểm.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The read address of (s) and (n) vượt quá phạm vi vùng nhớ thiết bị |
-| 4085H | (s) sử dụng thiết bị có chữ số thấp nhất khác 0 |
-| 4086HA | The write address of (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086HA | (d2) sử dụng thiết bị có chữ số thấp nhất khác 0 |
-| 4084H | (n) is not in the range of 2 to 8 |
-| 4089H | Nhiều lệnh MTR được thực thi cùng một lúc |
-
-0
+| Mã lỗi (Error Code) | Nội dung mô tả                                                        |
+| :------------------ | :-------------------------------------------------------------------- |
+| 4085H               | The read address of (s) and (n) vượt quá phạm vi vùng nhớ thiết bị    |
+| 4085H               | (s) sử dụng thiết bị có chữ số thấp nhất khác 0                       |
+| 4086HA              | The write address of (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
+| 4086HA              | (d2) sử dụng thiết bị có chữ số thấp nhất khác 0                      |
+| 4084H               | (n) is not in the range of 2 to 8                                     |
+| 4089H               | Nhiều lệnh MTR được thực thi cùng một lúc                             |

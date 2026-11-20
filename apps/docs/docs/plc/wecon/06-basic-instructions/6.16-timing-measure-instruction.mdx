@@ -3,7 +3,7 @@ id: "6.16-timing-measure-instruction"
 title: "6.16 Lệnh đo thời gian chính xác cao (Timing Measure Instruction)"
 sidebar_position: 16
 sidebar_label: "6.16 Timing Measure instruction"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.16 Lệnh đo thời gian chính xác cao (Timing Measure Instruction)"
 ---
 
@@ -17,25 +17,25 @@ DUTY
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (n1) | Số chu kỳ quét đặt ở trạng thái ON | 0 to 32,767 | Unsigned BIN16 | ANY16 |
-| (n2) | Số chu kỳ quét đặt ở trạng thái ON | 0 to 32,767 | Unsigned BIN16 | ANY16 |
-| (d) | thanh ghi đặc biệt (SD) for timing clock output destination | SM340 to SM344 | Bit | ANY_BOOL |
+| Tham số | Nội dung mô tả                                              | Phạm vi giá trị | Kiểu dữ liệu   | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------- | :-------------- | :------------- | :----------------------- |
+| (n1)    | Số chu kỳ quét đặt ở trạng thái ON                          | 0 to 32,767     | Unsigned BIN16 | ANY16                    |
+| (n2)    | Số chu kỳ quét đặt ở trạng thái ON                          | 0 to 32,767     | Unsigned BIN16 | ANY16                    |
+| (d)     | thanh ghi đặc biệt (SD) for timing clock output destination | SM340 to SM344  | Bit            | ANY_BOOL                 |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DUTY | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| DUTY | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
-| DUTY | Parameter 3 |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DUTY             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| DUTY             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |                    |
+| DUTY             | Parameter 3 |     |     |     |     |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
 Đặt đích ngõ ra xung đồng hồ của người dùng (SM340 đến SM344) được chỉ định tại (d) sang ON theo số chu kỳ quét được chỉ định tại (n1), và đặt sang OFF theo số chu kỳ quét được chỉ định tại (n2).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.16%20Timing%20Measure%20instruction/WebHome/1761027466623-618.png?width=581&amp;height=130&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.16%20Timing%20Measure%20instruction/WebHome/1761027466623-618.png?width=581&height=130&rev=1.1)
 
 • Rơ-le đặc biệt đích ngõ ra của xung đồng hồ được chỉ định tại (d) phải từ SM340 đến SM344.
 
@@ -44,39 +44,39 @@ DUTY
 • Giá trị đếm số chu kỳ quét SD340 đến SD344 sẽ trở thành (n1) + (n2) hoặc được đặt lại (reset) khi tín hiệu ngõ vào lệnh bật ON.
 
 | rơ-le đặc biệt (SM) (d) for timing clock output | Thiết bị đếm số chu kỳ quét |
-| :--- | :--- |
-| SM340 | SD340 |
-| SM341 | SD341 |
-| SM342 | SD342 |
-| SM343 | SD343 |
-| SM344 | SD344 |
+| :---------------------------------------------- | :-------------------------- |
+| SM340                                           | SD340                       |
+| SM341                                           | SD341                       |
+| SM342                                           | SD342                       |
+| SM343                                           | SD343                       |
+| SM344                                           | SD344                       |
 
 • Hoạt động bắt đầu tại cạnh lên của tín hiệu ngõ vào lệnh, và rơ-le đặc biệt đích ngõ ra của xung đồng hồ được bật ON/OFF bởi lệnh END. Ngay cả khi ngắt tín hiệu ngõ vào lệnh, hoạt động vẫn không dừng. Nó chỉ dừng khi PLC chuyển sang STOP hoặc mất nguồn.
 
 • Các trường hợp đặt (n1) và (n2) bằng 0 như sau.
 
 | The status of (n1) and (n2) | The ON/OFF status of (d) |
-| :--- | :--- |
-| (n1)=0, (n2)≥0 | Fixed as (d)=OFF |
-| (n1)&gt;0, (n2)=0 | Fixed as (d)=ON |
+| :-------------------------- | :----------------------- |
+| (n1)=0, (n2)≥0              | Fixed as (d)=OFF         |
+| (n1)&gt;0, (n2)=0           | Fixed as (d)=ON          |
 
 • Các thiết bị liên quan được trình bày dưới đây.
 
-| rơ-le đặc biệt (SM) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SM340 | Ngõ ra xung nhịp định thời 1 | Ngõ ra xung nhịp định thời của lệnh DUTY |
-| SM341 | Ngõ ra xung nhịp định thời 2 | Ngõ ra xung nhịp định thời của lệnh DUTY |
-| SM342 | Ngõ ra xung nhịp định thời 3 | Ngõ ra xung nhịp định thời của lệnh DUTY |
-| SM343 | Ngõ ra xung nhịp định thời 4 | Ngõ ra xung nhịp định thời của lệnh DUTY |
-| SM344 | Ngõ ra xung nhịp định thời 5 | Ngõ ra xung nhịp định thời của lệnh DUTY |
+| rơ-le đặc biệt (SM) | Tên                          | Nội dung mô tả                           |
+| :------------------ | :--------------------------- | :--------------------------------------- |
+| SM340               | Ngõ ra xung nhịp định thời 1 | Ngõ ra xung nhịp định thời của lệnh DUTY |
+| SM341               | Ngõ ra xung nhịp định thời 2 | Ngõ ra xung nhịp định thời của lệnh DUTY |
+| SM342               | Ngõ ra xung nhịp định thời 3 | Ngõ ra xung nhịp định thời của lệnh DUTY |
+| SM343               | Ngõ ra xung nhịp định thời 4 | Ngõ ra xung nhịp định thời của lệnh DUTY |
+| SM344               | Ngõ ra xung nhịp định thời 5 | Ngõ ra xung nhịp định thời của lệnh DUTY |
 
-| thanh ghi đặc biệt (SD) | Tên | Nội dung mô tả |
-| :--- | :--- | :--- |
-| SD340 | Bộ đếm số chu kỳ quét của ngõ ra xung nhịp định thời 1 | Giá trị đếm số chu kỳ quét của ngõ ra xung nhịp định thời 1 trong lệnh DUTY |
-| SD341 | Bộ đếm số chu kỳ quét của ngõ ra xung nhịp định thời 2 | Giá trị đếm số chu kỳ quét của ngõ ra xung nhịp định thời 2 trong lệnh DUTY |
-| SD342 | Bộ đếm số chu kỳ quét của ngõ ra xung nhịp định thời 3 | Giá trị đếm số chu kỳ quét của ngõ ra xung nhịp định thời 3 trong lệnh DUTY |
-| SD343 | Bộ đếm số chu kỳ quét của ngõ ra xung nhịp định thời 4 | Giá trị đếm số chu kỳ quét của ngõ ra xung nhịp định thời 4 trong lệnh DUTY |
-| SD344 | Bộ đếm số chu kỳ quét của ngõ ra xung nhịp định thời 5 | Giá trị đếm số chu kỳ quét của ngõ ra xung nhịp định thời 5 trong lệnh DUTY |
+| thanh ghi đặc biệt (SD) | Tên                                                    | Nội dung mô tả                                                              |
+| :---------------------- | :----------------------------------------------------- | :-------------------------------------------------------------------------- |
+| SD340                   | Bộ đếm số chu kỳ quét của ngõ ra xung nhịp định thời 1 | Giá trị đếm số chu kỳ quét của ngõ ra xung nhịp định thời 1 trong lệnh DUTY |
+| SD341                   | Bộ đếm số chu kỳ quét của ngõ ra xung nhịp định thời 2 | Giá trị đếm số chu kỳ quét của ngõ ra xung nhịp định thời 2 trong lệnh DUTY |
+| SD342                   | Bộ đếm số chu kỳ quét của ngõ ra xung nhịp định thời 3 | Giá trị đếm số chu kỳ quét của ngõ ra xung nhịp định thời 3 trong lệnh DUTY |
+| SD343                   | Bộ đếm số chu kỳ quét của ngõ ra xung nhịp định thời 4 | Giá trị đếm số chu kỳ quét của ngõ ra xung nhịp định thời 4 trong lệnh DUTY |
+| SD344                   | Bộ đếm số chu kỳ quét của ngõ ra xung nhịp định thời 5 | Giá trị đếm số chu kỳ quét của ngõ ra xung nhịp định thời 5 trong lệnh DUTY |
 
 :::tip
 ✎Lưu ý:
@@ -86,12 +86,12 @@ Lệnh DUTY có thể được sử dụng tối đa 5 lần (điểm). Tuy nhi�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Giá trị ghi của (n1) và (n2) vượt quá phạm vi |
-| 4085H | Địa chỉ thiết bị của (n1) và (n2) vượt quá phạm vi |
-| 4086H | (d) is not in SM340 to SM344 |
-| 408EH | (d) của nhiều lệnh DUTY sử dụng cùng một thiết bị SM |
+| Mã lỗi (Error Code) | Nội dung mô tả                                       |
+| :------------------ | :--------------------------------------------------- |
+| 4084H               | Giá trị ghi của (n1) và (n2) vượt quá phạm vi        |
+| 4085H               | Địa chỉ thiết bị của (n1) và (n2) vượt quá phạm vi   |
+| 4086H               | (d) is not in SM340 to SM344                         |
+| 408EH               | (d) của nhiều lệnh DUTY sử dụng cùng một thiết bị SM |
 
 #### Ví dụ minh họa
 
@@ -100,5 +100,3 @@ Sử dụng lệnh DUTY để làm cho Y0 đảo trạng thái sau mỗi chu k�
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.16%20Timing%20Measure%20instruction/WebHome/1761027518825-454.png?rev=1.1)
 
 Đặt M0 lên ON, SM340 sẽ ON trong một chu kỳ quét và OFF trong một chu kỳ quét.
-
-0

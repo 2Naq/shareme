@@ -3,7 +3,7 @@ id: "6.01-transfer-comparison-instruction"
 title: "6.01 Lệnh truyền và so sánh dữ liệu (Transfer Comparison Instruction)"
 sidebar_position: 1
 sidebar_label: "6.01 Transfer Comparison Instruction"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.01 Lệnh truyền và so sánh dữ liệu (Transfer Comparison Instruction)"
 ---
 
@@ -17,17 +17,17 @@ Truyền dữ liệu nhị phân (BIN) 16-bit từ vùng nhớ thiết bị ch�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Transmit source data or địa chỉ thiết bị stored data | -32768 to 32767 | Signed BIN16 | ANY16_S |
-| (d) | Số hiệu thiết bị đích truyền | - | Signed BIN16 | ANY16_S |
+| Tham số | Nội dung mô tả                                       | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :--------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | Transmit source data or địa chỉ thiết bị stored data | -32768 to 32767 | Signed BIN16 | ANY16_S                  |
+| (d)     | Số hiệu thiết bị đích truyền                         | -               | Signed BIN16 | ANY16_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| MOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MOV              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| MOV              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -37,10 +37,10 @@ Truyền dữ liệu nhị phân (BIN) 16-bit từ vùng nhớ thiết bị ch�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output result of (s) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4085H               | The output result of (s) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị  |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -58,17 +58,17 @@ Truyền dữ liệu nhị phân (BIN) 32-bit từ vùng nhớ thiết bị ch�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Transmit source data or địa chỉ thiết bị stored data | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
-| (d) | Số hiệu thiết bị đích truyền | - | Signed BIN32 | ANY32_S |
+| Tham số | Nội dung mô tả                                       | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :--------------------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (s)     | Transmit source data or địa chỉ thiết bị stored data | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S                  |
+| (d)     | Số hiệu thiết bị đích truyền                         | -                         | Signed BIN32 | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DMOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| DMOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DMOV             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| DMOV             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -78,10 +78,10 @@ Truyền dữ liệu nhị phân (BIN) 16-bit được chỉ định tại (s) s
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output result of (s) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4085H               | The output result of (s) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị  |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -99,19 +99,19 @@ Dữ liệu nhị phân (BIN) 16-bit gồm (n) điểm bắt đầu từ vùng n
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Thiết bị bắt đầu lưu trữ dữ liệu truyền | - | Signed BIN16 | ANY16_S |
-| (d) | Thiết bị bắt đầu của đích truyền | - | Signed BIN16 | ANY16_S |
-| (n) | Number of transmission | 1 ≤ n ≤ 512 | Signed BIN16 | ANY16_S |
+| Tham số | Nội dung mô tả                          | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | Thiết bị bắt đầu lưu trữ dữ liệu truyền | -               | Signed BIN16 | ANY16_S                  |
+| (d)     | Thiết bị bắt đầu của đích truyền        | -               | Signed BIN16 | ANY16_S                  |
+| (n)     | Number of transmission                  | 1 ≤ n ≤ 512     | Signed BIN16 | ANY16_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| BMOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| BMOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| BMOV | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| BMOV             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| BMOV             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| BMOV             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -125,11 +125,11 @@ Bằng cách điều khiển cờ đảo chiều (SM224) của lệnh BMOV, dữ
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | In lệnh ứng dụng (n) input the data exceeds the specified range |
-| 4085H | The output results of (s) and (n) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                             |
+| :------------------ | :----------------------------------------------------------------------------------------- |
+| 4084H               | In lệnh ứng dụng (n) input the data exceeds the specified range                            |
+| 4085H               | The output results of (s) and (n) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép         |
 
 #### Ví dụ minh họa
 
@@ -149,19 +149,19 @@ Truyền dữ liệu nhị phân (BIN) 16-bit của thiết bị chỉ định t
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Thiết bị bắt đầu lưu trữ dữ liệu truyền | -32768 to 32767 | Signed BIN16 | ANY16_S |
-| (d) | Thiết bị bắt đầu của đích truyền | - | Signed BIN16 | ANY16_S |
-| (n) | Number of transmission | [K1 ≤ n ≤ 512] | Signed BIN16 | ANY16_S |
+| Tham số | Nội dung mô tả                          | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | Thiết bị bắt đầu lưu trữ dữ liệu truyền | -32768 to 32767 | Signed BIN16 | ANY16_S                  |
+| (d)     | Thiết bị bắt đầu của đích truyền        | -               | Signed BIN16 | ANY16_S                  |
+| (n)     | Number of transmission                  | [K1 ≤ n ≤ 512]  | Signed BIN16 | ANY16_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| FMOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| FMOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| FMOV | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| FMOV             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| FMOV             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| FMOV             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -175,11 +175,11 @@ Khi hằng số (K) được chỉ định cho nguồn truyền (s), nó sẽ đ
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | (s) and(n) input the data In lệnh ứng dụng exceed the specified range |
-| 4085H | The output results of (s) and (n) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                             |
+| :------------------ | :----------------------------------------------------------------------------------------- |
+| 4084H               | (s) and(n) input the data In lệnh ứng dụng exceed the specified range                      |
+| 4085H               | The output results of (s) and (n) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép         |
 
 #### Ví dụ minh họa
 
@@ -199,19 +199,19 @@ Truyền dữ liệu nhị phân (BIN) 32-bit của thiết bị chỉ định t
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Dữ liệu truyền hoặc thiết bị bắt đầu lưu trữ dữ liệu truyền | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
-| (d) | Thiết bị bắt đầu của đích truyền | - | Signed BIN32 | ANY32_S |
-| (n) | Number of transfers | [1≤n≤512] | Signed BIN32 | ANY32_S |
+| Tham số | Nội dung mô tả                                              | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (s)     | Dữ liệu truyền hoặc thiết bị bắt đầu lưu trữ dữ liệu truyền | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S                  |
+| (d)     | Thiết bị bắt đầu của đích truyền                            | -                         | Signed BIN32 | ANY32_S                  |
+| (n)     | Number of transfers                                         | [1≤n≤512]                 | Signed BIN32 | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DFMOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DFMOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| DFMOV | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DFMOV            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DFMOV            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| DFMOV            | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -225,11 +225,11 @@ Khi hằng số (K) được chỉ định cho nguồn truyền (s), nó sẽ đ
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | (s) and (n) input the data In lệnh ứng dụng exceed the specified range |
-| 4085H | The output results of (s) and (n) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                             |
+| :------------------ | :----------------------------------------------------------------------------------------- |
+| 4084H               | (s) and (n) input the data In lệnh ứng dụng exceed the specified range                     |
+| 4085H               | The output results of (s) and (n) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép         |
 
 #### Ví dụ minh họa
 
@@ -247,23 +247,23 @@ Lệnh dùng để phân tách và tổng hợp dữ liệu theo đơn vị ch�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu thiết bị word lưu trữ dữ liệu có bit cần dịch chuyển |  | Signed BIN16 | ANY16_S |
-| (n1) | Số hiệu thiết bị đích truyền | 1 to 4 | Signed BIN16 | ANY16_S |
-| (n2) | The number of digits to move | 1 to 4 | Signed BIN16 | ANY16_S |
-| (d) | Số hiệu thiết bị word lưu trữ dữ liệu để dịch chuyển bit |  | Signed BIN16 | ANY16_S |
-| (n3) | Vị trí bắt đầu của đích dịch chuyển | 1 to 4 | Signed BIN16 | ANY16_S |
+| Tham số | Nội dung mô tả                                               | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | Số hiệu thiết bị word lưu trữ dữ liệu có bit cần dịch chuyển |                 | Signed BIN16 | ANY16_S                  |
+| (n1)    | Số hiệu thiết bị đích truyền                                 | 1 to 4          | Signed BIN16 | ANY16_S                  |
+| (n2)    | The number of digits to move                                 | 1 to 4          | Signed BIN16 | ANY16_S                  |
+| (d)     | Số hiệu thiết bị word lưu trữ dữ liệu để dịch chuyển bit     |                 | Signed BIN16 | ANY16_S                  |
+| (n3)    | Vị trí bắt đầu của đích dịch chuyển                          | 1 to 4          | Signed BIN16 | ANY16_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| SMOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| SMOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| SMOV | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| SMOV | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| SMOV | Parameter 5 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| SMOV             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| SMOV             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| SMOV             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| SMOV             | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| SMOV             | Parameter 5 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -273,7 +273,7 @@ Khi đầu vào lệnh ở trạng thái OFF, giá trị tại đích truyền (
 
 Khi đầu vào lệnh ở trạng thái ON, dữ liệu của nguồn truyền (s) và các chữ số không nằm trong phạm vi chỉ định truyền của đích truyền (d) sẽ không thay đổi.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760062699773-996.png?width=932&amp;height=378&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760062699773-996.png?width=932&height=378&rev=1.1)
 
 Chức năng mở rộng
 
@@ -281,11 +281,11 @@ Nếu lệnh SMOV được thực thi sau khi SM168 được bật ON, phép chu
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | (n1), (n2) and (n3) input data that exceed the specified range in the lệnh ứng dụng or does not satisfy the relationship of n2≤n1 and n2≤n3. |
-| 4085H | The output result of (s), (n1) (n2), (d) and (n3) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output result of (d) in write các lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                               |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4084H               | (n1), (n2) and (n3) input data that exceed the specified range in the lệnh ứng dụng or does not satisfy the relationship of n2≤n1 and n2≤n3. |
+| 4085H               | The output result of (s), (n1) (n2), (d) and (n3) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị                               |
+| 4086H               | The output result of (d) in write các lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị                                                       |
 
 #### Ví dụ minh họa
 
@@ -315,17 +315,17 @@ Sau khi đảo từng bit dữ liệu nhị phân (BIN) 16-bit chỉ định t�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Inverted data or địa chỉ thiết bị that stores data | -32768 to 32767 | Signed BIN16 | ANY16_S |
-| (d) | địa chỉ thiết bị that stores the inversion result | - | Signed BIN16 | ANY16_S |
+| Tham số | Nội dung mô tả                                     | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s)     | Inverted data or địa chỉ thiết bị that stores data | -32768 to 32767 | Signed BIN16 | ANY16_S                  |
+| (d)     | địa chỉ thiết bị that stores the inversion result  | -               | Signed BIN16 | ANY16_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| CML | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| CML | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| CML              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| CML              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -337,10 +337,10 @@ Khi số chữ số của thiết bị có chỉ định chữ số là 4 điể
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output result of (s) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4085H               | The output result of (s) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị  |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -366,17 +366,17 @@ Sau khi đảo từng bit dữ liệu nhị phân (BIN) 32-bit chỉ định t�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Inverted data or địa chỉ thiết bị that stores data | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
-| (d) | địa chỉ thiết bị that stores the inversion result | - | Signed BIN32 | ANY32_S |
+| Tham số | Nội dung mô tả                                     | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (s)     | Inverted data or địa chỉ thiết bị that stores data | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S                  |
+| (d)     | địa chỉ thiết bị that stores the inversion result  | -                         | Signed BIN32 | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DCML | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DCML | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DCML             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DCML             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -388,10 +388,10 @@ Khi số chữ số của thiết bị có chỉ định chữ số là 4 điể
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output result of (s) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------- |
+| 4085H               | The output result of (s) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị  |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
@@ -409,19 +409,19 @@ So sánh dữ liệu nhị phân (BIN) 16-bit của thiết bị chỉ định t
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu giá trị so sánh hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -32768 to +32767 | Signed BIN16 | ANY16_S |
-| (s2) | Dữ liệu nguồn so sánh hoặc thiết bị lưu trữ dữ liệu nguồn so sánh | -32768 to 32767 | Signed BIN16 | ANY16_S |
-| (d) | Thiết bị bit bắt đầu xuất kết quả so sánh |  | Bit | ANYBIT_ARRAY |
+| Tham số | Nội dung mô tả                                                        | Phạm vi giá trị  | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------------------- | :--------------- | :----------- | :----------------------- |
+| (s1)    | Dữ liệu giá trị so sánh hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -32768 to +32767 | Signed BIN16 | ANY16_S                  |
+| (s2)    | Dữ liệu nguồn so sánh hoặc thiết bị lưu trữ dữ liệu nguồn so sánh     | -32768 to 32767  | Signed BIN16 | ANY16_S                  |
+| (d)     | Thiết bị bit bắt đầu xuất kết quả so sánh                             |                  | Bit          | ANYBIT_ARRAY             |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| CMP | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| CMP | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| CMP | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| CMP              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| CMP              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| CMP              | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -443,10 +443,10 @@ Chiếm 3 điểm thiết bị bắt đầu từ thiết bị chỉ định tạ
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output results of (s1) and (s2) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                               |
+| :------------------ | :------------------------------------------------------------------------------------------- |
+| 4085H               | The output results of (s1) and (s2) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép           |
 
 #### Ví dụ minh họa
 
@@ -468,19 +468,19 @@ So sánh dữ liệu nhị phân (BIN) 32-bit của thiết bị chỉ định t
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu giá trị so sánh hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
-| (s2) | Dữ liệu nguồn so sánh hoặc thiết bị lưu trữ dữ liệu nguồn so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
-| (d) | Thiết bị bit bắt đầu xuất kết quả so sánh |  | Bit | ANYBIT_ARRAY |
+| Tham số | Nội dung mô tả                                                        | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (s1)    | Dữ liệu giá trị so sánh hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S                  |
+| (s2)    | Dữ liệu nguồn so sánh hoặc thiết bị lưu trữ dữ liệu nguồn so sánh     | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S                  |
+| (d)     | Thiết bị bit bắt đầu xuất kết quả so sánh                             |                           | Bit          | ANYBIT_ARRAY             |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DCMP | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DCMP | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DCMP | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DCMP             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DCMP             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DCMP             | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -502,10 +502,10 @@ Chiếm 3 điểm thiết bị bắt đầu từ thiết bị chỉ định tạ
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output results of (s1) and (s2) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                               |
+| :------------------ | :------------------------------------------------------------------------------------------- |
+| 4085H               | The output results of (s1) and (s2) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H               | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép           |
 
 #### Ví dụ minh họa
 
@@ -521,27 +521,27 @@ Hoán đổi dữ liệu nhị phân (BIN) 16-bit giữa (d1) và (d2).
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d1) | Thiết bị bắt đầu lưu trữ dữ liệu hoán đổi | -32768 to 32767 | Signed BIN16 | ANY16_S |
-| (d2) | Thiết bị bắt đầu lưu trữ dữ liệu hoán đổi | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| Tham số | Nội dung mô tả                            | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (d1)    | Thiết bị bắt đầu lưu trữ dữ liệu hoán đổi | -32768 to 32767 | Signed BIN16 | ANY16_S                  |
+| (d2)    | Thiết bị bắt đầu lưu trữ dữ liệu hoán đổi | -32768 to 32767 | Signed BIN16 | ANY16_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| XCH | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| XCH | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| XCH              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| XCH              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 • Hoán đổi dữ liệu nhị phân (BIN) 16-bit của (d1) và (d2).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063769738-708.png?width=598&amp;height=240&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063769738-708.png?width=598&height=240&rev=1.1)
 
 • Khi thực thi lệnh với SM160 ON, nếu số hiệu thiết bị của (d1) và (d2) giống nhau, lệnh sẽ hoán đổi 8 bit cao (byte cao) và 8 bit thấp (byte thấp) của thiết bị word.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063812058-686.png?width=400&amp;height=233&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063812058-686.png?width=400&height=233&rev=1.1)
 
 :::tip
 ✎ Lưu ý: Nếu sử dụng lệnh thực thi liên tục, quá trình chuyển đổi sẽ được thực hiện ở mọi chu kỳ quét.
@@ -549,11 +549,11 @@ Hoán đổi dữ liệu nhị phân (BIN) 16-bit giữa (d1) và (d2).
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Ở chế độ hoán đổi, các thiết bị trong (d1) và (d2) khác nhau |
-| 4085H | The output results of (d1) and (d2) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output results of (d1) and (d2) in the writing lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                      |
+| :------------------ | :-------------------------------------------------------------------------------------------------- |
+| 4084H               | Ở chế độ hoán đổi, các thiết bị trong (d1) và (d2) khác nhau                                        |
+| 4085H               | The output results of (d1) and (d2) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị    |
+| 4086H               | The output results of (d1) and (d2) in the writing lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
@@ -575,17 +575,17 @@ Hoán đổi dữ liệu nhị phân (BIN) 32-bit giữa (d1) và (d2).
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d1) | Thiết bị bắt đầu lưu trữ dữ liệu hoán đổi | -2147483647 to 2147483647 | Signed BIN32 | ANY32_S |
-| (d2) | Thiết bị bắt đầu lưu trữ dữ liệu hoán đổi | -2147483647 to 2147483647 | Signed BIN32 | ANY32_S |
+| Tham số | Nội dung mô tả                            | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (d1)    | Thiết bị bắt đầu lưu trữ dữ liệu hoán đổi | -2147483647 to 2147483647 | Signed BIN32 | ANY32_S                  |
+| (d2)    | Thiết bị bắt đầu lưu trữ dữ liệu hoán đổi | -2147483647 to 2147483647 | Signed BIN32 | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DXCH | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DXCH | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DXCH             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DXCH             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -605,11 +605,11 @@ với SM160 ON, nếu số hiệu thiết bị của (d1) và (d2) giống nhau,
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Ở chế độ hoán đổi, các thiết bị trong (d1) và (d2) khác nhau |
-| 4085H | The output results of (d1) and (d2) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output results of (d1) and (d2) in the writing lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                      |
+| :------------------ | :-------------------------------------------------------------------------------------------------- |
+| 4084H               | Ở chế độ hoán đổi, các thiết bị trong (d1) và (d2) khác nhau                                        |
+| 4085H               | The output results of (d1) and (d2) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị    |
+| 4086H               | The output results of (d1) and (d2) in the writing lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
 
 Ví dụ:
 
@@ -631,21 +631,21 @@ So sánh dữ liệu BIN 16-bit của thiết bị chỉ định tại nguồn s
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu giá trị so sánh giới hạn dưới hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -32768 to 32767 | Signed BIN16 | ANY16_S |
-| (s2) | Dữ liệu giá trị so sánh giới hạn trên hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -32768 to 32767 | Signed BIN16 | ANY16_S |
-| (s3) | Dữ liệu nguồn so sánh hoặc thiết bị lưu trữ dữ liệu nguồn so sánh | -32768 to 32767 | Signed BIN16 | ANY16_S |
-| (d) | Thiết bị bit bắt đầu xuất kết quả so sánh |  | Bit | ANYBIT_ARRAY |
+| Tham số | Nội dung mô tả                                                                      | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (s1)    | Dữ liệu giá trị so sánh giới hạn dưới hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -32768 to 32767 | Signed BIN16 | ANY16_S                  |
+| (s2)    | Dữ liệu giá trị so sánh giới hạn trên hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -32768 to 32767 | Signed BIN16 | ANY16_S                  |
+| (s3)    | Dữ liệu nguồn so sánh hoặc thiết bị lưu trữ dữ liệu nguồn so sánh                   | -32768 to 32767 | Signed BIN16 | ANY16_S                  |
+| (d)     | Thiết bị bit bắt đầu xuất kết quả so sánh                                           |                 | Bit          | ANYBIT_ARRAY             |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ZCP | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● | ● | ● |
-| ZCP | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● | ● | ● |
-| ZCP | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● | ● | ● |
-| ZCP | Parameter 4 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| ZCP              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |  ●  |           ●           |         ●          |
+| ZCP              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |  ●  |           ●           |         ●          |
+| ZCP              | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |  ●  |           ●           |         ●          |
+| ZCP              | Parameter 4 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -669,10 +669,10 @@ So sánh dữ liệu BIN 16-bit của thiết bị chỉ định tại nguồn s
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output results of (s1), (s2) and (s3) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output result of (d) in write các lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                         |
+| :------------------ | :----------------------------------------------------------------------------------------------------- |
+| 4085H               | The output results of (s1), (s2) and (s3) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H               | The output result of (d) in write các lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị                 |
 
 #### Ví dụ minh họa
 
@@ -696,21 +696,21 @@ So sánh dữ liệu BIN 32-bit của thiết bị chỉ định tại nguồn s
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu giá trị so sánh giới hạn dưới hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
-| (s2) | Dữ liệu giá trị so sánh giới hạn trên hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
-| (s3) | Dữ liệu nguồn so sánh hoặc thiết bị lưu trữ dữ liệu nguồn so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
-| (d) | Thiết bị bit bắt đầu xuất kết quả so sánh |  | Bit | ANYBIT_ARRAY |
+| Tham số | Nội dung mô tả                                                                      | Phạm vi giá trị           | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------------------------------- | :------------------------ | :----------- | :----------------------- |
+| (s1)    | Dữ liệu giá trị so sánh giới hạn dưới hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S                  |
+| (s2)    | Dữ liệu giá trị so sánh giới hạn trên hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S                  |
+| (s3)    | Dữ liệu nguồn so sánh hoặc thiết bị lưu trữ dữ liệu nguồn so sánh                   | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S                  |
+| (d)     | Thiết bị bit bắt đầu xuất kết quả so sánh                                           |                           | Bit          | ANYBIT_ARRAY             |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DZCP | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DZCP | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DZCP | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DZCP | Parameter 4 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DZCP             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DZCP             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DZCP             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DZCP             | Parameter 4 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -734,10 +734,10 @@ So sánh dữ liệu BIN 32-bit của thiết bị chỉ định tại nguồn s
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output results of (s1), (s2) and (s3) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The output results of (d) in the write lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                         |
+| :------------------ | :----------------------------------------------------------------------------------------------------- |
+| 4085H               | The output results of (s1), (s2) and (s3) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H               | The output results of (d) in the write lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị                |
 
 #### Ví dụ minh họa
 
@@ -750,5 +750,3 @@ Nếu (D0) &gt; (100000) thì Y0 ON.
 Nếu (0) ≤ (D0) ≤ (100000) thì Y1 ON.
 
 Nếu (D0) &lt; (0) thì Y2 ON.
-
-0

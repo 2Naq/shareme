@@ -3,7 +3,7 @@ id: "6.17-random-number-instruction"
 title: "6.17 Lệnh sinh số ngẫu nhiên (Random Number Instruction)"
 sidebar_position: 17
 sidebar_label: "6.17 Random Number instruction"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.17 Lệnh sinh số ngẫu nhiên (Random Number Instruction)"
 ---
 
@@ -17,15 +17,15 @@ Một số giả ngẫu nhiên từ 0 đến 32767 được tạo ra và giá tr
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | Số hiệu bắt đầu của thiết bị lưu trữ số ngẫu nhiên | --- | Signed BIN16 | ANY16 |
+| Tham số | Nội dung mô tả                                     | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------- | :-------------- | :----------- | :----------------------- |
+| (d)     | Số hiệu bắt đầu của thiết bị lưu trữ số ngẫu nhiên | ---             | Signed BIN16 | ANY16                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| RND | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| RND              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -33,9 +33,9 @@ Một số giả ngẫu nhiên từ 0 đến 32767 được tạo ra và giá tr
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4086H | The write address of (d) vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                              |
+| :------------------ | :---------------------------------------------------------- |
+| 4086H               | The write address of (d) vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
@@ -44,5 +44,3 @@ Các số giả ngẫu nhiên từ 0 đến 9 sẽ được tạo ra.
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.17%20Random%20Number%20instruction/WebHome/1761027902794-360.png?rev=1.1)
 
 Bật M0 để tạo một số giả ngẫu nhiên trong khoảng 0-9.
-
-0

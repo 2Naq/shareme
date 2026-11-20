@@ -3,7 +3,7 @@ id: "6.09-floating-point-instructions"
 title: "6.09 Lệnh toán học số thực dấu phẩy động (Floating Point Instructions)"
 sidebar_position: 9
 sidebar_label: "6.09 Floating Point instructions"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.09 Lệnh toán học số thực dấu phẩy động (Floating Point Instructions)"
 ---
 
@@ -17,17 +17,17 @@ After calculating the COS -1 (arc cosine) value of the angle specified in (s), t
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | The angle data for COS -1 (arc cosine) calculation or địa chỉ thiết bị bắt đầu that stores the angle data | 0, 2-126 ≤\|(s)\|&lt;1 | Single precision real number | ANYREAL_32 |
-| (d) | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán | 0 to π | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                                            | Phạm vi giá trị        | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------------------------------------------------------- | :--------------------- | :--------------------------- | :----------------------- |
+| (s)     | The angle data for COS -1 (arc cosine) calculation or địa chỉ thiết bị bắt đầu that stores the angle data | 0, 2-126 ≤\|(s)\|&lt;1 | Single precision real number | ANYREAL_32               |
+| (d)     | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán                                                            | 0 to π                 | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DACOS | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DACOS | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DACOS            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DACOS            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -41,18 +41,18 @@ Góc (kết quả tính toán) lưu tại (d) được lưu với giá trị t�
 
 Các thiết bị liên quan như sau:
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán&lt;2 -126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Nội dung (Thao tác xử lý)                                                                         |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán&lt;2 -126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | When the content of thiết bị được chỉ định bởi (s) is an irregular number, a non-number, ±∞ and exceeds -1.0 to 1.0 |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                      |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------ |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                                                        |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép                                                    |
+| 4084H               | When the content of thiết bị được chỉ định bởi (s) is an irregular number, a non-number, ±∞ and exceeds -1.0 to 1.0 |
 
 #### Ví dụ minh họa
 
@@ -72,17 +72,17 @@ Sau khi tính giá trị SIN-1 (arc sin) của góc được chỉ định tại
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | The angle data for SIN -1 (arcsine) calculation or địa chỉ thiết bị bắt đầu that stores the angle data | 0, 2-126 ≤\|(s)\|&lt;1 | Single precision real number | ANYREAL_32 |
-| (d) | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán | -π/2 to π/2 | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                                         | Phạm vi giá trị        | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------------------------------------------------------------------- | :--------------------- | :--------------------------- | :----------------------- |
+| (s)     | The angle data for SIN -1 (arcsine) calculation or địa chỉ thiết bị bắt đầu that stores the angle data | 0, 2-126 ≤\|(s)\|&lt;1 | Single precision real number | ANYREAL_32               |
+| (d)     | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán                                                         | -π/2 to π/2            | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DASIN | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DASIN | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DASIN            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DASIN            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -96,18 +96,18 @@ Góc (kết quả tính toán) lưu tại (d) được lưu theo đơn vị radi
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán&lt;2 -126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Nội dung (Thao tác xử lý)                                                                         |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán&lt;2 -126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | When the content of thiết bị được chỉ định bởi (s) is an irregular number, a non-number, ±∞ and exceeds -1.0 to 1.0 |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                      |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------ |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                                                        |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép                                                    |
+| 4084H               | When the content of thiết bị được chỉ định bởi (s) is an irregular number, a non-number, ±∞ and exceeds -1.0 to 1.0 |
 
 #### Ví dụ minh họa
 
@@ -115,7 +115,7 @@ Góc (kết quả tính toán) lưu tại (d) được lưu theo đơn vị radi
 
 Tính arc sin của 0.4 và kết quả là 0.4115168.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760612664634-320.png?width=402&amp;height=36&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760612664634-320.png?width=402&height=36&rev=1.1)
 
 ### DATAN / Lệnh tính hàm lượng giác ngược Arctan (TAN⁻¹) số thực 32-bit
 
@@ -127,48 +127,48 @@ Sau khi tính giá trị TAN-1 (arc tan) của góc được chỉ định tại
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | The angle data for TAN -1 (arctangent) calculation or địa chỉ thiết bị bắt đầu that stores the angle data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (d) | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán | -π/2 to π/2 | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                                            | Phạm vi giá trị              | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------------------------------------------------------- | :--------------------------- | :--------------------------- | :----------------------- |
+| (s)     | The angle data for TAN -1 (arctangent) calculation or địa chỉ thiết bị bắt đầu that stores the angle data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (d)     | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán                                                            | -π/2 to π/2                  | Single precision real number | ANYREAL_32               |
 
 Thiết bị sử dụng
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DATAN | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DATAN | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DATAN            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DATAN            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Tính giá trị TAN-1 (arc tan) của góc được chỉ định tại (s) và lưu kết quả tính toán vào số hiệu thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760612775662-383.png?width=557&amp;height=118&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760612775662-383.png?width=557&height=118&rev=1.1)
 
 Góc (kết quả tính toán) lưu tại (d) được lưu theo đơn vị radian từ (-π/2) đến (π/2).
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán&lt;2 -126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Nội dung (Thao tác xử lý)                                                                         |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán&lt;2 -126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760612851731-187.png?width=371&amp;height=66&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760612851731-187.png?width=371&height=66&rev=1.1)
 
 Tính giá trị arc tan của 4.6 và kết quả là 1.356736
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760612897290-386.png?width=367&amp;height=38&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760612897290-386.png?width=367&height=38&rev=1.1)
 
 ### DCOS / Phép toán COS số thực độ chính xác đơn
 
@@ -180,48 +180,48 @@ Sau khi tính giá trị COS (cosin) của góc được chỉ định tại (s)
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | The angle data for COS (cosine) calculation or địa chỉ thiết bị bắt đầu that stores the angle data | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
-| (d) | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                                     | Phạm vi giá trị            | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------------------------------------- | :------------------------- | :--------------------------- | :----------------------- |
+| (s)     | The angle data for COS (cosine) calculation or địa chỉ thiết bị bắt đầu that stores the angle data | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32               |
+| (d)     | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán                                                     | -                          | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DCOS | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DCOS | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DCOS             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DCOS             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Sau khi tính giá trị COS (cosin) của góc được chỉ định tại (s), lưu kết quả tính toán vào số hiệu thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760613004789-779.png?width=602&amp;height=114&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760613004789-779.png?width=602&height=114&rev=1.1)
 
 Đối với góc được chỉ định tại (s), hãy cài đặt theo đơn vị radian (góc × π ÷ 180).
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | zero | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán&lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên              | Nội dung (Điều kiện)                             | Nội dung (Thao tác xử lý)                                                                         |
+| :-------------------------- | :--------------- | :----------------------------------------------- | :------------------------------------------------------------------------------------------------ |
+| SM153                       | zero             | Kết quả phép toán bằng 0                         | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow) | The absolute value of kết quả phép toán&lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760613070146-316.png?width=384&amp;height=68&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760613070146-316.png?width=384&height=68&rev=1.1)
 
 Tính giá trị cosin của 1.3 và kết quả là 2.674989E-1
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760613095741-849.png?width=377&amp;height=33&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760613095741-849.png?width=377&height=33&rev=1.1)
 
 ### DCOSH / Phép toán COSH số thực độ chính xác đơn
 
@@ -233,47 +233,47 @@ Sau khi tính giá trị DCOSH (cosin hyperbol) của góc được chỉ địn
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Dữ liệu góc để tính DCOSH (cosin hyperbolic) hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu góc | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
-| (d) | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                                 | Phạm vi giá trị            | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :--------------------------------------------------------------------------------------------- | :------------------------- | :--------------------------- | :----------------------- |
+| (s)     | Dữ liệu góc để tính DCOSH (cosin hyperbolic) hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu góc | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32               |
+| (d)     | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán                                                 | -                          | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DCOSH | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DCOSH | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DCOSH            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DCOSH            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 • Sau khi tính giá trị DCOSH (cosin hyperbol) của góc được chỉ định tại (s), kết quả tính toán được lưu vào số hiệu thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760613146508-186.png?width=626&amp;height=138&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760613146508-186.png?width=626&height=138&rev=1.1)
 
 Lệnh này dùng để lấy giá trị COSH của số thực dấu phẩy động nhị phân. Công thức tính là giá trị cosh = (e^s + e^-s) / 2.
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM151 | carry | The absolute value of the kết quả phép toán&gt;2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên   | Nội dung (Điều kiện)                                | Nội dung (Thao tác xử lý)                                                                       |
+| :-------------------------- | :---- | :-------------------------------------------------- | :---------------------------------------------------------------------------------------------- |
+| SM151                       | carry | The absolute value of the kết quả phép toán&gt;2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi nội dung của thiết bị chỉ định bởi (s) là số phi chuẩn, giá trị không phải số (NaN) hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                  |
+| :------------------ | :---------------------------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                                    |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép                                |
+| 4084H               | Khi nội dung của thiết bị chỉ định bởi (s) là số phi chuẩn, giá trị không phải số (NaN) hoặc ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760613175774-508.png?width=453&amp;height=70&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760613175774-508.png?width=453&height=70&rev=1.1)
 
 Tính giá trị cosin hyperbol của 2.5 và kết quả là 6.132289
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760613241392-853.png?width=467&amp;height=44&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760613241392-853.png?width=467&height=44&rev=1.1)
 
 ### DSIN / Phép toán SIN số thực độ chính xác đơn
 
@@ -285,17 +285,17 @@ Sau khi tính giá trị SIN (sin) của góc được chỉ định tại (s), 
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Dữ liệu góc để tính SIN (sin) hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu góc | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
-| (d) | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                  | Phạm vi giá trị            | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------------------ | :------------------------- | :--------------------------- | :----------------------- |
+| (s)     | Dữ liệu góc để tính SIN (sin) hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu góc | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32               |
+| (d)     | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán                                  | -                          | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DSIN | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DSIN | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DSIN             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DSIN             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -307,26 +307,26 @@ Sau khi tính giá trị SIN (sin) của góc được chỉ định tại (s), 
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2 -126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                               | Nội dung (Thao tác xử lý)                                                                         |
+| :-------------------------- | :------------------ | :------------------------------------------------- | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                           | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2 -126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614082868-713.png?width=444&amp;height=74&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614082868-713.png?width=444&height=74&rev=1.1)
 
 Tính giá trị sin của 1.4 và kết quả là 0.9854497
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614164899-274.png?width=445&amp;height=44&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614164899-274.png?width=445&height=44&rev=1.1)
 
 ### DSINH / Phép toán SINH số thực độ chính xác đơn
 
@@ -338,49 +338,49 @@ Sau khi tính giá trị SINH (sin hyperbol) của góc được chỉ định t
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Dữ liệu góc để tính SINH (sin hyperbolic) hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu góc | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
-| (d) | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                              | Phạm vi giá trị            | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------------------------------ | :------------------------- | :--------------------------- | :----------------------- |
+| (s)     | Dữ liệu góc để tính SINH (sin hyperbolic) hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu góc | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32               |
+| (d)     | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán                                              | -                          | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DSINH | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DSINH | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DSINH            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DSINH            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Sau khi tính giá trị SINH (sin hyperbol) của góc được chỉ định tại (s), kết quả tính toán được lưu vào số hiệu thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614234386-918.png?width=536&amp;height=114&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614234386-918.png?width=536&height=114&rev=1.1)
 
 Lệnh này dùng để lấy giá trị SINH từ số thực dấu phẩy động nhị phân. Công thức tính là giá trị sinh = (e^s - e^-s) / 2.
 
 Các thiết bị liên quan được trình bày dưới đây.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of kết quả phép toán &gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Nội dung (Thao tác xử lý)                                                                         |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of kết quả phép toán &gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON.   |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614326657-767.png?width=487&amp;height=72&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614326657-767.png?width=487&height=72&rev=1.1)
 
 Tính giá trị sin hyperbol của 3.2 và kết quả là 12.24588
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614375883-929.png?width=472&amp;height=43&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614375883-929.png?width=472&height=43&rev=1.1)
 
 ### DTAN / Phép toán TAN số thực độ chính xác đơn
 
@@ -392,49 +392,49 @@ Sau khi tính giá trị TAN (tang) của góc được chỉ định tại (s),
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Dữ liệu góc để tính TAN (tang) hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu góc | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
-| (d) | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                   | Phạm vi giá trị            | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------------------- | :------------------------- | :--------------------------- | :----------------------- |
+| (s)     | Dữ liệu góc để tính TAN (tang) hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu góc | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32               |
+| (d)     | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán                                   | -                          | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DTAN | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DTAN | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DTAN             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DTAN             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Sau khi tính giá trị TAN (tang) của góc được chỉ định tại (s), kết quả tính toán được lưu vào số hiệu thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614438167-671.png?width=564&amp;height=106&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614438167-671.png?width=564&height=106&rev=1.1)
 
 Đối với góc được chỉ định tại (s), hãy cài đặt theo đơn vị radian (góc × π ÷ 180).
 
 Các thiết bị liên quan được trình bày dưới đây.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of kết quả phép toán&gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Nội dung (Thao tác xử lý)                                                                         |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of kết quả phép toán&gt; 2128  | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON.   |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614506621-539.png?width=462&amp;height=71&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614506621-539.png?width=462&height=71&rev=1.1)
 
 Tính giá trị tang của 1.4 và kết quả là 5.797883
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614596926-522.png?width=392&amp;height=29&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614596926-522.png?width=392&height=29&rev=1.1)
 
 ### DATANH / Phép toán TANH số thực độ chính xác đơn
 
@@ -446,17 +446,17 @@ Sau khi tính giá trị DTANH (tang hyperbol) của góc được chỉ định
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Dữ liệu góc để tính DTANH (tang hyperbolic) hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu góc | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
-| (d) | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                                | Phạm vi giá trị            | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------------------------------------------- | :------------------------- | :--------------------------- | :----------------------- |
+| (s)     | Dữ liệu góc để tính DTANH (tang hyperbolic) hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu góc | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32               |
+| (d)     | Địa chỉ thiết bị bắt đầu lưu kết quả phép toán                                                | -                          | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DTANH | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DTANH | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DTANH            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DTANH            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -468,26 +468,26 @@ The instruction is to take the TANH value of a binary số thực dấu phẩy �
 
 Các thiết bị liên quan được trình bày dưới đây.
 
-| Vùng nhớ thiết bị (Device) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2 -126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| Vùng nhớ thiết bị (Device) | Tên                 | Nội dung (Điều kiện)                               | Nội dung (Thao tác xử lý)                                                                         |
+| :------------------------- | :------------------ | :------------------------------------------------- | :------------------------------------------------------------------------------------------------ |
+| SM153                      | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                           | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                      | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2 -126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614752084-234.png?width=377&amp;height=58&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614752084-234.png?width=377&height=58&rev=1.1)
 
 Tính tang hyperbol của 2.5 và kết quả là 0.9866143
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614801188-915.png?width=378&amp;height=28&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614801188-915.png?width=378&height=28&rev=1.1)
 
 ### DDEG / Chuyển đổi Radian → Độ của số thực độ chính xác đơn
 
@@ -499,50 +499,50 @@ Chuyển đổi đơn vị đo góc từ đơn vị radian được chỉ địn
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Góc radian cần chuyển đổi sang đơn vị độ hoặc số hiệu thiết bị bắt đầu lưu trữ góc radian | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (d) | Số hiệu thiết bị bắt đầu lưu trữ giá trị đã chuyển đổi sang đơn vị độ | -π/2 to π/2 | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                            | Phạm vi giá trị              | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------------------------------------- | :--------------------------- | :--------------------------- | :----------------------- |
+| (s)     | Góc radian cần chuyển đổi sang đơn vị độ hoặc số hiệu thiết bị bắt đầu lưu trữ góc radian | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (d)     | Số hiệu thiết bị bắt đầu lưu trữ giá trị đã chuyển đổi sang đơn vị độ                     | -π/2 to π/2                  | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DDEG | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DDEG | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DDEG             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DDEG             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Đơn vị đo góc được chuyển đổi từ đơn vị radian được chỉ định tại (s) sang đơn vị độ (DEG.), sau đó lưu vào số hiệu thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614949763-632.png?width=552&amp;height=114&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614949763-632.png?width=552&height=114&rev=1.1)
 
 Việc chuyển đổi từ đơn vị radian sang đơn vị độ được thực hiện như sau.
 
-Đơn vị độ = đơn vị radian * 180/π
+Đơn vị độ = đơn vị radian \* 180/π
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | The kết quả phép toán of is zero (when the mantissa part is zero) | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of the kết quả phép toán&gt;2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                                              | Nội dung (Thao tác xử lý)                                                                       |
+| :-------------------------- | :------------------ | :---------------------------------------------------------------- | :---------------------------------------------------------------------------------------------- |
+| SM153                       | Cờ giá trị 0 (Zero) | The kết quả phép toán of is zero (when the mantissa part is zero) | Cờ báo giá trị 0 (SM153) bật lên ON.                                                            |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of the kết quả phép toán&gt;2128               | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614990142-312.png?width=349&amp;height=61&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760614990142-312.png?width=349&height=61&rev=1.1)
 
 Kết quả là 194.8057
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760615196229-691.png?width=357&amp;height=30&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760615196229-691.png?width=357&height=30&rev=1.1)
 
 ### DRAD / Chuyển đổi Độ → Radian của số thực độ chính xác đơn
 
@@ -554,17 +554,17 @@ DRAD(P)
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Góc radian cần chuyển đổi sang đơn vị độ hoặc số hiệu thiết bị bắt đầu lưu trữ góc | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
-| (d) | Số hiệu thiết bị bắt đầu lưu trữ giá trị đã chuyển đổi sang đơn vị độ | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                     | Phạm vi giá trị            | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :--------------------------------------------------------------------------------- | :------------------------- | :--------------------------- | :----------------------- |
+| (s)     | Góc radian cần chuyển đổi sang đơn vị độ hoặc số hiệu thiết bị bắt đầu lưu trữ góc | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32               |
+| (d)     | Số hiệu thiết bị bắt đầu lưu trữ giá trị đã chuyển đổi sang đơn vị độ              | -                          | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DRAD | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DRAD | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DRAD             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DRAD             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |                    |
 
 #### Đặc tính kỹ thuật
 
@@ -576,30 +576,30 @@ DRAD(P)
 
 Việc chuyển đổi được thực hiện như sau.
 
-Đơn vị radian = đơn vị độ * π/180
+Đơn vị radian = đơn vị độ \* π/180
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Nội dung (Thao tác xử lý)                                                                         |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616135567-312.png?width=399&amp;height=52&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616135567-312.png?width=399&height=52&rev=1.1)
 
 Kết quả là 1.047197
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616169470-599.png?width=354&amp;height=33&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616169470-599.png?width=354&height=33&rev=1.1)
 
 ### DEADD / Phép cộng số thực độ chính xác đơn
 
@@ -611,19 +611,19 @@ Cộng dữ liệu số thực dấu phẩy động nhị phân được chỉ �
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu bị cộng hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu bị cộng | 0, 2-126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (s2) | Dữ liệu cộng hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu cộng | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
-| (d) | the device start number that stores the kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                        | Phạm vi giá trị             | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------------------- | :-------------------------- | :--------------------------- | :----------------------- |
+| (s1)    | Dữ liệu bị cộng hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu bị cộng | 0, 2-126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (s2)    | Dữ liệu cộng hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu cộng       | 0, 2-126 ≤\|(s)\|&lt; 2128  | Single precision real number | ANYREAL_32               |
+| (d)     | the device start number that stores the kết quả phép toán             | -                           | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DEADD | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DEADD | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DEADD | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DEADD            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DEADD            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DEADD            | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -637,27 +637,27 @@ Khi chỉ định các hằng số (K, H) cho (s1), (s2), giá trị sẽ tự �
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of kết quả phép toán&gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Nội dung (Thao tác xử lý)                                                                         |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of kết quả phép toán&gt; 2128  | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON.   |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The write address in (s1) and (s2) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | When the content of thiết bị được chỉ định bởi (s1) and (s2) is an irregular number, a non-number and ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                           |
+| :------------------ | :------------------------------------------------------------------------------------------------------- |
+| 4085H               | The write address in (s1) and (s2) vượt quá phạm vi vùng nhớ thiết bị                                    |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép                                         |
+| 4084H               | When the content of thiết bị được chỉ định bởi (s1) and (s2) is an irregular number, a non-number and ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616429569-738.png?width=420&amp;height=114&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616429569-738.png?width=420&height=114&rev=1.1)
 
 Kết quả là 1.2 + 63.2 = 64.4
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616471405-298.png?width=463&amp;height=20&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616471405-298.png?width=463&height=20&rev=1.1)
 
 ### DESUB / Phép trừ số thực độ chính xác đơn
 
@@ -669,45 +669,45 @@ Trừ dữ liệu số thực dấu phẩy động nhị phân được chỉ đ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu bị trừ hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu bị trừ | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (s2) | Dữ liệu trừ hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu trừ | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (d) | the device start number that stores the kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                      | Phạm vi giá trị              | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------ | :--------------------------- | :--------------------------- | :----------------------- |
+| (s1)    | Dữ liệu bị trừ hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu bị trừ | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (s2)    | Dữ liệu trừ hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu trừ       | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (d)     | the device start number that stores the kết quả phép toán           | -                            | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DESUB | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DESUB | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DESUB | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DESUB            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DESUB            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DESUB            | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 • Trừ dữ liệu số thực dấu phẩy động nhị phân được chỉ định tại (s1) và dữ liệu số thực dấu phẩy động nhị phân được chỉ định tại (s2), rồi lưu kết quả phép trừ vào thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616602302-461.png?width=672&amp;height=102&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616602302-461.png?width=672&height=102&rev=1.1)
 
 Khi chỉ định các hằng số (K, H) cho (s1), (s2), giá trị sẽ tự động được chuyển đổi thành dữ liệu số thực dấu phẩy động nhị phân.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616641884-735.png?width=649&amp;height=92&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616641884-735.png?width=649&height=92&rev=1.1)
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of kết quả phép toán&gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Nội dung (Thao tác xử lý)                                                                         |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of kết quả phép toán&gt; 2128  | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON.   |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The write address in (s1) and (s2) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | When the content of thiết bị được chỉ định bởi (s1) and (s2) is an irregular number, a non-number and ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                           |
+| :------------------ | :------------------------------------------------------------------------------------------------------- |
+| 4085H               | The write address in (s1) and (s2) vượt quá phạm vi vùng nhớ thiết bị                                    |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép                                         |
+| 4084H               | When the content of thiết bị được chỉ định bởi (s1) and (s2) is an irregular number, a non-number and ±∞ |
 
 #### Ví dụ minh họa
 
@@ -715,7 +715,7 @@ Khi chỉ định các hằng số (K, H) cho (s1), (s2), giá trị sẽ tự �
 
 Kết quả tính toán là 1.2 - 63.2 = -62
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616724456-150.png?width=652&amp;height=31&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616724456-150.png?width=652&height=31&rev=1.1)
 
 ### DEMUL / Phép nhân số thực độ chính xác đơn
 
@@ -727,51 +727,51 @@ Nhân dữ liệu số thực dấu phẩy động nhị phân được chỉ đ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu bị nhân hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu bị nhân | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
-| (s2) | Dữ liệu phép nhân hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu nhân | 0, 2-126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (d) | the device start number that stores the kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                        | Phạm vi giá trị             | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------------------- | :-------------------------- | :--------------------------- | :----------------------- |
+| (s1)    | Dữ liệu bị nhân hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu bị nhân | 0, 2-126 ≤\|(s)\|&lt; 2128  | Single precision real number | ANYREAL_32               |
+| (s2)    | Dữ liệu phép nhân hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu nhân  | 0, 2-126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (d)     | the device start number that stores the kết quả phép toán             | -                           | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DEMUL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DEMUL | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DEMUL | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DEMUL            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DEMUL            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DEMUL            | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Nhân dữ liệu số thực dấu phẩy động nhị phân được chỉ định tại (s1) và dữ liệu số thực dấu phẩy động nhị phân được chỉ định tại (s2), rồi lưu kết quả phép nhân vào thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616791791-275.png?width=536&amp;height=92&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616791791-275.png?width=536&height=92&rev=1.1)
 
 Khi chỉ định các hằng số (K, H) cho (s1), (s2), giá trị sẽ tự động được chuyển đổi thành dữ liệu số thực dấu phẩy động nhị phân.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616844726-538.png?width=600&amp;height=107&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616844726-538.png?width=600&height=107&rev=1.1)
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of kết quả phép toán&gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Nội dung (Thao tác xử lý)                                                                         |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of kết quả phép toán&gt; 2128  | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON.   |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The write address in (s1) and (s2) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | When the content of thiết bị được chỉ định bởi (s1) and (s2) is an irregular number, a non-number and ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                           |
+| :------------------ | :------------------------------------------------------------------------------------------------------- |
+| 4085H               | The write address in (s1) and (s2) vượt quá phạm vi vùng nhớ thiết bị                                    |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép                                         |
+| 4084H               | When the content of thiết bị được chỉ định bởi (s1) and (s2) is an irregular number, a non-number and ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616887998-547.png?width=436&amp;height=132&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616887998-547.png?width=436&height=132&rev=1.1)
 
-Kết quả tính toán: 1.2 * 63.2 = 75.84
+Kết quả tính toán: 1.2 \* 63.2 = 75.84
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760616938802-630.png?rev=1.1)
 
@@ -785,46 +785,46 @@ Chia dữ liệu số thực dấu phẩy động nhị phân được chỉ đ�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu bị chia hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu bị chia | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (s2) | Dữ liệu phép chia hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu phép chia | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (d) | the device start number that stores the kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                            | Phạm vi giá trị              | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------------ | :--------------------------- | :--------------------------- | :----------------------- |
+| (s1)    | Dữ liệu bị chia hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu bị chia     | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (s2)    | Dữ liệu phép chia hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu phép chia | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (d)     | the device start number that stores the kết quả phép toán                 | -                            | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DEDIV | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DEDIV | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DEDIV | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DEDIV            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DEDIV            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DEDIV            | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Chia dữ liệu số thực dấu phẩy động nhị phân được chỉ định tại (s1) cho dữ liệu số thực dấu phẩy động nhị phân được chỉ định tại (s2), rồi lưu kết quả phép chia vào thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617013213-741.png?width=642&amp;height=116&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617013213-741.png?width=642&height=116&rev=1.1)
 
 Khi chỉ định các hằng số (K, H) cho (s1), (s2), giá trị sẽ tự động được chuyển đổi thành dữ liệu số thực dấu phẩy động nhị phân.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617052112-317.png?width=631&amp;height=111&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617052112-317.png?width=631&height=111&rev=1.1)
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Content (Operating) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of kết quả phép toán&gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Content (Operating)                                                                               |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of kết quả phép toán&gt; 2128  | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON.   |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The write address in (s1) and (s2) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | When the content of thiết bị được chỉ định bởi (s1) and (s2) is an irregular number, a non-number and ±∞ |
-| 4080H | (s2) value is 0 |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                           |
+| :------------------ | :------------------------------------------------------------------------------------------------------- |
+| 4085H               | The write address in (s1) and (s2) vượt quá phạm vi vùng nhớ thiết bị                                    |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép                                         |
+| 4084H               | When the content of thiết bị được chỉ định bởi (s1) and (s2) is an irregular number, a non-number and ±∞ |
+| 4080H               | (s2) value is 0                                                                                          |
 
 #### Ví dụ minh họa
 
@@ -844,34 +844,34 @@ Truyền dữ liệu số thực dấu phẩy động nhị phân lưu trong thi
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Dữ liệu truyền hoặc thiết bị lưu trữ dữ liệu truyền | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (d) | địa chỉ thiết bị that stores the transmit destination data | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                             | Phạm vi giá trị              | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :--------------------------------------------------------- | :--------------------------- | :--------------------------- | :----------------------- |
+| (s)     | Dữ liệu truyền hoặc thiết bị lưu trữ dữ liệu truyền        | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (d)     | địa chỉ thiết bị that stores the transmit destination data | -                            | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DEMOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DEMOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DEMOV            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DEMOV            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Truyền dữ liệu số thực dấu phẩy động nhị phân lưu trong thiết bị được chỉ định tại (s) sang thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617171371-995.png?width=609&amp;height=133&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617171371-995.png?width=609&height=133&rev=1.1)
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | (s) read address vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | (d) write address vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                       |
+| :------------------ | :--------------------------------------------------- |
+| 4085H               | (s) read address vượt quá phạm vi vùng nhớ thiết bị  |
+| 4086H               | (d) write address vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617230504-642.png?width=353&amp;height=59&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617230504-642.png?width=353&height=59&rev=1.1)
 
 Gán 3.265 vào R10
 
@@ -887,23 +887,23 @@ Sau khi chuyển đổi số thực dấu phẩy động nhị phân được ch
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | địa chỉ thiết bị that stores the binary số thực dấu phẩy động data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (d) | địa chỉ thiết bị that stores the converted decimal số thực dấu phẩy động data | - | Real number | ANY32 |
+| Tham số | Nội dung mô tả                                                                | Phạm vi giá trị              | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :---------------------------------------------------------------------------- | :--------------------------- | :--------------------------- | :----------------------- |
+| (s)     | địa chỉ thiết bị that stores the binary số thực dấu phẩy động data            | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (d)     | địa chỉ thiết bị that stores the converted decimal số thực dấu phẩy động data | -                            | Real number                  | ANY32                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DEBCD | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DEBCD | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DEBCD            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DEBCD            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Sau khi chuyển đổi số thực dấu phẩy động nhị phân được chỉ định tại (s) sang số thực dấu phẩy động thập phân, giá trị được lưu vào thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617407162-766.png?width=747&amp;height=368&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617407162-766.png?width=747&height=368&rev=1.1)
 
 :::tip
 ✎Lưu ý
@@ -913,11 +913,11 @@ Mọi phép toán dấu phẩy động đều được thực hiện ở dạng 
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
@@ -937,38 +937,38 @@ Chuyển đổi số thực dấu phẩy động thập phân được chỉ đ�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | địa chỉ thiết bị that stores the decimal số thực dấu phẩy động data | - | Real | ANY32 |
-| (d) | địa chỉ thiết bị that stores the converted binary số thực dấu phẩy động data | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                               | Phạm vi giá trị | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :--------------------------------------------------------------------------- | :-------------- | :--------------------------- | :----------------------- |
+| (s)     | địa chỉ thiết bị that stores the decimal số thực dấu phẩy động data          | -               | Real                         | ANY32                    |
+| (d)     | địa chỉ thiết bị that stores the converted binary số thực dấu phẩy động data | -               | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DEBIN | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DEBIN | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DEBIN            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DEBIN            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Chuyển đổi số thực dấu phẩy động thập phân được chỉ định tại (s) sang số thực dấu phẩy động nhị phân và lưu vào thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617541602-394.png?width=615&amp;height=298&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617541602-394.png?width=615&height=298&rev=1.1)
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of kết quả phép toán&gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Nội dung (Thao tác xử lý)                                                                         |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of kết quả phép toán&gt; 2128  | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON.   |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | (s) read address vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | (d) write address vượt quá phạm vi vùng nhớ thiết bị |
+| Mã lỗi (Error Code) | Nội dung mô tả                                       |
+| :------------------ | :--------------------------------------------------- |
+| 4085H               | (s) read address vượt quá phạm vi vùng nhớ thiết bị  |
+| 4086H               | (d) write address vượt quá phạm vi vùng nhớ thiết bị |
 
 #### Ví dụ minh họa
 
@@ -988,33 +988,33 @@ Sau khi đảo dấu của số thực độ chính xác đơn trong thiết b�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (d) | The device start number that stores the sign-inverted binary số thực dấu phẩy động data | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                          | Phạm vi giá trị | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :-------------------------------------------------------------------------------------- | :-------------- | :--------------------------- | :----------------------- |
+| (d)     | The device start number that stores the sign-inverted binary số thực dấu phẩy động data | -               | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DENEG | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DENEG            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Dấu của dữ liệu số thực dấu phẩy động nhị phân trong thiết bị được chỉ định tại (d) được đảo ngược và lưu vào thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617671010-775.png?width=551&amp;height=119&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617671010-775.png?width=551&height=119&rev=1.1)
 
 Được sử dụng khi đảo ngược dấu dương và dấu âm.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                   |
+| :------------------ | :--------------------------------------------------------------- |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617701962-531.png?width=324&amp;height=78&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617701962-531.png?width=324&height=78&rev=1.1)
 
 Sau khi chuyển đổi sẽ trở thành -1.43
 
@@ -1030,25 +1030,25 @@ So sánh hai dữ liệu (dữ liệu số thực dấu phẩy động nhị ph�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Comparison data or địa chỉ thiết bị that stores the comparison data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (s2) | Comparison data or địa chỉ thiết bị that stores the comparison data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (d) | Số hiệu thiết bị bit bắt đầu xuất kết quả so sánh (chiếm 3 điểm) | - | Bit | ANYBIT_ARRAY |
+| Tham số | Nội dung mô tả                                                      | Phạm vi giá trị              | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------ | :--------------------------- | :--------------------------- | :----------------------- |
+| (s1)    | Comparison data or địa chỉ thiết bị that stores the comparison data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (s2)    | Comparison data or địa chỉ thiết bị that stores the comparison data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (d)     | Số hiệu thiết bị bit bắt đầu xuất kết quả so sánh (chiếm 3 điểm)    | -                            | Bit                          | ANYBIT_ARRAY             |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DECMP | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DECMP | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DECMP | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DECMP            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DECMP            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DECMP            | Parameter 3 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 So sánh giá trị so sánh (s1) và nguồn so sánh (s2) theo phép so sánh số thực dấu phẩy động. Tùy theo kết quả nhỏ hơn, bằng nhau hay lớn hơn, một trong các thiết bị (d), (d)+1, (d)+2 sẽ bật ON.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617784903-614.png?width=433&amp;height=306&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617784903-614.png?width=433&height=306&rev=1.1)
 
 - Ngay cả khi tín hiệu ngõ vào lệnh chuyển sang OFF và lệnh DECMP không được thực thi, các điểm từ (d) đến (d)+2 vẫn giữ nguyên trạng thái trước khi X0 chuyển sang OFF.
 
@@ -1060,15 +1060,15 @@ Khi chỉ định hằng số (K, H) cho thiết bị được chỉ định t�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The write address in (s1) or (s2) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | When the content of thiết bị được chỉ định bởi (s) or (s2) is an irregular number, a non-number and ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                         |
+| :------------------ | :----------------------------------------------------------------------------------------------------- |
+| 4085H               | The write address in (s1) or (s2) vượt quá phạm vi vùng nhớ thiết bị                                   |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép                                       |
+| 4084H               | When the content of thiết bị được chỉ định bởi (s) or (s2) is an irregular number, a non-number and ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617849188-861.png?width=540&amp;height=133&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760617849188-861.png?width=540&height=133&rev=1.1)
 
 Vì số thực dấu phẩy động trong R30 lớn hơn số thực dấu phẩy động trong D30 nên M12 bật ON.
 
@@ -1084,21 +1084,21 @@ So sánh vùng giới hạn gồm 2 điểm cao/thấp với dữ liệu (số t
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Comparison data or địa chỉ thiết bị that stores the comparison data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (s2) | Comparison data or địa chỉ thiết bị that stores the comparison data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (s3) | Comparison data or địa chỉ thiết bị that stores the comparison data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (d) | Số hiệu thiết bị bit bắt đầu xuất kết quả so sánh (chiếm 3 điểm) | - | Bit | ANYBIT_ARRAY |
+| Tham số | Nội dung mô tả                                                      | Phạm vi giá trị              | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------ | :--------------------------- | :--------------------------- | :----------------------- |
+| (s1)    | Comparison data or địa chỉ thiết bị that stores the comparison data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (s2)    | Comparison data or địa chỉ thiết bị that stores the comparison data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (s3)    | Comparison data or địa chỉ thiết bị that stores the comparison data | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (d)     | Số hiệu thiết bị bit bắt đầu xuất kết quả so sánh (chiếm 3 điểm)    | -                            | Bit                          | ANYBIT_ARRAY             |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DEZCP | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DEZCP | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DEZCP | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DEZCP | Parameter 4 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DEZCP            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DEZCP            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DEZCP            | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DEZCP            | Parameter 4 |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |  ●  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -1120,11 +1120,11 @@ Vui lòng cài đặt mối quan hệ độ lớn của dữ liệu so sánh sao
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The write address in (s1), (s2) and (s3) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | When the content of thiết bị được chỉ định bởi (s1), (s2) and (s3) is an irregular number, a non-number and ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                 |
+| :------------------ | :------------------------------------------------------------------------------------------------------------- |
+| 4085H               | The write address in (s1), (s2) and (s3) vượt quá phạm vi vùng nhớ thiết bị                                    |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép                                               |
+| 4084H               | When the content of thiết bị được chỉ định bởi (s1), (s2) and (s3) is an irregular number, a non-number and ±∞ |
 
 #### Ví dụ minh họa
 
@@ -1144,17 +1144,17 @@ Sau khi tính căn bậc hai của giá trị được chỉ định tại (s), 
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Dữ liệu để tính căn bậc hai hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (d) | The device start number stores kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                            | Phạm vi giá trị              | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------------ | :--------------------------- | :--------------------------- | :----------------------- |
+| (s)     | Dữ liệu để tính căn bậc hai hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (d)     | The device start number stores kết quả phép toán                          | -                            | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DESQR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
-| DESQR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DESQR            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |           ●           |         ●          |
+| DESQR            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -1166,17 +1166,17 @@ Giá trị được chỉ định tại (s) chỉ có thể cài đặt là số
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)     | Nội dung (Thao tác xử lý)            |
+| :-------------------------- | :------------------ | :----------------------- | :----------------------------------- |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
@@ -1196,19 +1196,19 @@ Chuyển đổi dữ liệu số thực dấu phẩy động nhị phân lưu tr
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu số thực độ chính xác đơn cần chuyển đổi hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (s2) | Display the specified device start number that stores the converted value. thiết bị được chỉ định tại (s1) is used as the start, and (s2)+2 is used | - | Signed BIN 16 bit | ANY16_ARRAY (number of elements: 3) |
-| (d) | Số hiệu bắt đầu của thiết bị lưu trữ chuỗi ký tự sau khi chuyển đổi | - | String | ANYSTRING_SINGLE |
+| Tham số | Nội dung mô tả                                                                                                                                      | Phạm vi giá trị              | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến)            |
+| :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------- | :--------------------------- | :---------------------------------- |
+| (s1)    | Dữ liệu số thực độ chính xác đơn cần chuyển đổi hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu                                                       | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32                          |
+| (s2)    | Display the specified device start number that stores the converted value. thiết bị được chỉ định tại (s1) is used as the start, and (s2)+2 is used | -                            | Signed BIN 16 bit            | ANY16_ARRAY (number of elements: 3) |
+| (d)     | Số hiệu bắt đầu của thiết bị lưu trữ chuỗi ký tự sau khi chuyển đổi                                                                                 | -                            | String                       | ANYSTRING_SINGLE                    |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DESTR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DESTR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| DESTR | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DESTR            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DESTR            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| DESTR            | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -1216,11 +1216,11 @@ Chuyển đổi dữ liệu số thực dấu phẩy động nhị phân lưu tr
 
 • Dữ liệu sau chuyển đổi sẽ khác nhau tùy theo quy cách hiển thị được chỉ định tại (s2).
 
-| Đơn vị | Đặc tính kỹ thuật |
-| :--- | :--- |
-| (s2) | 0: Dạng dấu thập phân; 1: Dạng số mũ |
+| Đơn vị | Đặc tính kỹ thuật                                     |
+| :----- | :---------------------------------------------------- |
+| (s2)   | 0: Dạng dấu thập phân; 1: Dạng số mũ                  |
 | (s2)+1 | Tổng số chữ số (tổng độ dài chuỗi). Phạm vi: 2 đến 24 |
-| (s2)+2 | Số chữ số thập phân. Phạm vi: 0 đến 7 |
+| (s2)+2 | Số chữ số thập phân. Phạm vi: 0 đến 7                 |
 
 Phạm vi trong bảng trên sẽ thay đổi khoảng giá trị tùy theo dạng chuyển đổi và các thông tin khác được sử dụng.
 
@@ -1232,11 +1232,11 @@ Nếu chỉ định 0 tại (s2), kết quả sẽ ở dạng thập phân.
 
 Phạm vi số chữ số tương ứng ở dạng thập phân:
 
-| Đơn vị | Đặc tính kỹ thuật |
-| :--- | :--- |
-| (s2) | 0: Dạng dấu thập phân |
+| Đơn vị | Đặc tính kỹ thuật                                                                                                     |
+| :----- | :-------------------------------------------------------------------------------------------------------------------- |
+| (s2)   | 0: Dạng dấu thập phân                                                                                                 |
 | (s2)+1 | Tổng số chữ số (tổng độ dài chuỗi). Phạm vi: 2 đến 24. Khi (s2)+2 khác 0: tổng số chữ số ≥ (số chữ số thập phân + 3). |
-| (s2)+2 | Số chữ số thập phân. Phạm vi: 0 đến 7. Khi (s2)+2 khác 0: tổng số chữ số ≥ (số chữ số thập phân + 3). |
+| (s2)+2 | Số chữ số thập phân. Phạm vi: 0 đến 7. Khi (s2)+2 khác 0: tổng số chữ số ≥ (số chữ số thập phân + 3).                 |
 
 Ví dụ: Tổng số chữ số là 8, số chữ số thập phân là 3 và khi chỉ định -1.235, (d) sẽ được lưu theo cách sau.
 
@@ -1268,7 +1268,7 @@ Chuỗi ký tự đã chuyển đổi:
 
 Mã ASCII tương ứng là:
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760672887184-248.png?width=789&amp;height=116&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760672887184-248.png?width=789&height=116&rev=1.1)
 
 Trong ví dụ trên: byte thấp của D20 lưu dấu âm 2DH (-). Sau đó, do số chữ số không đủ nên byte cao của D20 và D21 đều là 20H (khoảng trắng). Cuối cùng, D22 đến D23 lưu các ký tự số 1.23.
 
@@ -1280,11 +1280,11 @@ Khi chỉ định 1 tại (s2), kết quả sẽ ở định dạng số mũ.
 
 Phạm vi số chữ số tương ứng ở dạng số mũ:
 
-| Đơn vị | Đặc tính kỹ thuật |
-| :--- | :--- |
-| (s2) | 1: Dạng số mũ |
+| Đơn vị | Đặc tính kỹ thuật                                                                                                    |
+| :----- | :------------------------------------------------------------------------------------------------------------------- |
+| (s2)   | 1: Dạng số mũ                                                                                                        |
 | (s2)+1 | Tổng số chữ số (tổng độ dài chuỗi). Phạm vi: 2 đến 24. Khi (s2)+2 khác 0: tổng số chữ số ≥ (số chữ số thập phân + 7) |
-| (s2)+2 | Số chữ số thập phân. Phạm vi: 0 đến 7. Khi (s2)+2 khác 0: tổng số chữ số ≥ (số chữ số thập phân + 7) |
+| (s2)+2 | Số chữ số thập phân. Phạm vi: 0 đến 7. Khi (s2)+2 khác 0: tổng số chữ số ≥ (số chữ số thập phân + 7)                 |
 
 Ví dụ 3: Tổng số chữ số là 12, số chữ số thập phân là 4 và giá trị chỉ định là 1234.5, các thanh ghi từ (d) trở đi sẽ được lưu như sau.
 
@@ -1358,16 +1358,16 @@ Khi chuyển đổi dữ liệu số thực dấu phẩy động nhị phân, s�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The read address of (s1) and (s2) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The write address of (d) vượt quá phạm vi vùng nhớ thiết bị |
-| 4084H | Khi nội dung của thiết bị chỉ định (s1) và (s2) là số phi chuẩn, giá trị không phải số (NaN) hoặc ±∞ |
-| 4084H | Khi định dạng chỉ định tại (s2) khác 0 hoặc 1 |
-| 4084H | Khi tổng số chữ số chỉ định tại (s1)+1 vượt quá 24 |
-| 4084H | Khi số chữ số thập phân chỉ định tại (s2)+2 vượt quá phạm vi 0 đến 7 |
-| 4084H | Ở dạng thập phân, khi (s2) bằng 0: • Khi số chữ số thập phân là 0: [(s2)+1]&lt;2; • Khi số chữ số thập phân khác 0: [(s2)+1]&lt;(số chữ số thập phân + 3) |
-| 4084H | Ở dạng số mũ, khi (s2) bằng 0: • Khi số chữ số thập phân là 0: [(s2)+1]&lt;6; • Khi số chữ số thập phân khác 0: [(s2)+1]&lt;(số chữ số thập phân + 7) |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                                            |
+| :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4085H               | The read address of (s1) and (s2) vượt quá phạm vi vùng nhớ thiết bị                                                                                      |
+| 4086H               | The write address of (d) vượt quá phạm vi vùng nhớ thiết bị                                                                                               |
+| 4084H               | Khi nội dung của thiết bị chỉ định (s1) và (s2) là số phi chuẩn, giá trị không phải số (NaN) hoặc ±∞                                                      |
+| 4084H               | Khi định dạng chỉ định tại (s2) khác 0 hoặc 1                                                                                                             |
+| 4084H               | Khi tổng số chữ số chỉ định tại (s1)+1 vượt quá 24                                                                                                        |
+| 4084H               | Khi số chữ số thập phân chỉ định tại (s2)+2 vượt quá phạm vi 0 đến 7                                                                                      |
+| 4084H               | Ở dạng thập phân, khi (s2) bằng 0: • Khi số chữ số thập phân là 0: [(s2)+1]&lt;2; • Khi số chữ số thập phân khác 0: [(s2)+1]&lt;(số chữ số thập phân + 3) |
+| 4084H               | Ở dạng số mũ, khi (s2) bằng 0: • Khi số chữ số thập phân là 0: [(s2)+1]&lt;6; • Khi số chữ số thập phân khác 0: [(s2)+1]&lt;(số chữ số thập phân + 7)     |
 
 ### DEVAL / Chuyển đổi chuỗi ký tự → số thực độ chính xác đơn
 
@@ -1379,17 +1379,17 @@ Chuỗi ký tự lưu từ số hiệu thiết bị được chỉ định tại
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Dữ liệu chuỗi cho số thực độ chính xác đơn hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu chuỗi | - | String | ANYSTRING_SINGLE |
-| (d) | Số hiệu thiết bị bắt đầu lưu trữ số thực độ chính xác đơn sau khi chuyển đổi | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                                 | Phạm vi giá trị | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :--------------------------------------------------------------------------------------------- | :-------------- | :--------------------------- | :----------------------- |
+| (s)     | Dữ liệu chuỗi cho số thực độ chính xác đơn hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu chuỗi | -               | String                       | ANYSTRING_SINGLE         |
+| (d)     | Số hiệu thiết bị bắt đầu lưu trữ số thực độ chính xác đơn sau khi chuyển đổi                   | -               | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DEVAL | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| DEVAL | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DEVAL            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| DEVAL            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -1399,27 +1399,27 @@ Dù chuỗi ký tự chỉ định ở dạng thập phân hay dạng số mũ t
 
 Có thể cài đặt tối đa 24 ký tự cho chuỗi ký tự. Các mã 20H (khoảng trắng) và 30H (0) trong chuỗi ký tự cũng được tính là 1 ký tự.
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760680333527-186.png?width=631&amp;height=202&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760680333527-186.png?width=631&height=202&rev=1.1)
 
 (1) Dạng thập phân
 
-1) Khi chuỗi ký tự được chỉ định tại (s) ở định dạng thập phân, trường hợp sẽ như sau.
+1. Khi chuỗi ký tự được chỉ định tại (s) ở định dạng thập phân, trường hợp sẽ như sau.
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760680412607-839.png?rev=1.1)
 
-2) Trong chuỗi ký tự được chỉ định tại (s) để chuyển đổi sang dữ liệu số thực dấu phẩy động nhị phân, 6 chữ số sau dấu, dấu chấm thập phân và phần mũ là hợp lệ, còn từ chữ số thứ 7 trở đi sẽ bị loại bỏ khi chuyển đổi.
+2. Trong chuỗi ký tự được chỉ định tại (s) để chuyển đổi sang dữ liệu số thực dấu phẩy động nhị phân, 6 chữ số sau dấu, dấu chấm thập phân và phần mũ là hợp lệ, còn từ chữ số thứ 7 trở đi sẽ bị loại bỏ khi chuyển đổi.
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760680580940-209.png?rev=1.1)
 
 Khi dấu được chỉ định là 2BH (+) hoặc bị bỏ qua ở định dạng dấu chấm thập phân, giá trị sẽ được chuyển đổi thành số dương. Ngoài ra, khi dấu được chỉ định là 2DH (-), giá trị sẽ được chuyển đổi thành số âm.
 
-3) Nếu có mã 20H (khoảng trắng) hoặc 30H (0) trong chuỗi ký tự được chỉ định tại (s) ngoài số 0 đầu tiên, các mã 20H và 30H này sẽ bị bỏ qua trong quá trình chuyển đổi.
+3. Nếu có mã 20H (khoảng trắng) hoặc 30H (0) trong chuỗi ký tự được chỉ định tại (s) ngoài số 0 đầu tiên, các mã 20H và 30H này sẽ bị bỏ qua trong quá trình chuyển đổi.
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760680697042-483.png?rev=1.1)
 
 (2) Trường hợp dạng số mũ
 
-1) Khi chuỗi ký tự được chỉ định tại (s) ở dạng số mũ, lệnh sẽ thực thi như sau.
+1. Khi chuỗi ký tự được chỉ định tại (s) ở dạng số mũ, lệnh sẽ thực thi như sau.
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760680736588-481.png?rev=1.1)
 
@@ -1429,7 +1429,7 @@ Trong các chuỗi ký tự được chỉ định tại (s) để chuyển đ�
 
 Nếu dấu của phần mũ được chỉ định là 2BH (+) hoặc bị bỏ qua ở dạng số mũ, giá trị sẽ được chuyển đổi thành số dương. Khi dấu của phần mũ được chỉ định là 2DH (-), giá trị sẽ được chuyển đổi thành số âm.
 
-2) Nếu có mã 20H (khoảng trắng) hoặc 30H (0) trong chuỗi ký tự được chỉ định tại (s) ngoài số 0 đầu tiên, các mã 20H và 30H này sẽ bị bỏ qua trong quá trình chuyển đổi.
+2. Nếu có mã 20H (khoảng trắng) hoặc 30H (0) trong chuỗi ký tự được chỉ định tại (s) ngoài số 0 đầu tiên, các mã 20H và 30H này sẽ bị bỏ qua trong quá trình chuyển đổi.
 
 Trong chuỗi ký tự dạng số mũ, nếu mã 30H (0) được lưu giữa "E" và giá trị, mã 30H sẽ bị bỏ qua trong quá trình chuyển đổi.
 
@@ -1437,24 +1437,24 @@ Trong chuỗi ký tự dạng số mũ, nếu mã 30H (0) được lưu giữa "
 
 Các thiết bị liên quan được trình bày dưới đây.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Content (Operating) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of kết quả phép toán&gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Content (Operating)                                                                               |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of kết quả phép toán&gt; 2128  | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON.   |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The read address of (s) vượt quá phạm vi vùng nhớ thiết bị |
-| 4086H | The write address of (d) vượt quá phạm vi vùng nhớ thiết bị |
-| 408AH | Không đọc được chuỗi từ (s), hoặc độ dài chuỗi vượt quá 24 |
-| 408BH | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H |
-| 4084H | Khi có ký tự khác ngoài 2BH (+), 2DH (-), 20H (dấu cách), 2EH (.), 45H (E), 65H (e) và 30H (0) đến 39H (9) trong chuỗi chỉ định tại (s) |
-| 4084H | Khi có từ hai ký tự 2EH (.) trở lên trong chuỗi ký tự chỉ định tại (s). |
-| 4084H | Khi có ký tự khác ngoài 45H (E), 2BH (+), 2DH (-) và 30H (0) đến 39H (9) trong phần số mũ chỉ định tại (s), hoặc có nhiều phần số mũ, hoặc trong phần số mũ có 2BH (+) hoặc 2DH (-) xuất hiện từ hai lần trở lên. |
-| 4084H | 2BH (+) hoặc 2DH (-) xuất hiện từ hai lần trở lên trước chữ số đầu tiên của chuỗi chỉ định tại (s). |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                                                                                                    |
+| :------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4085H               | The read address of (s) vượt quá phạm vi vùng nhớ thiết bị                                                                                                                                                        |
+| 4086H               | The write address of (d) vượt quá phạm vi vùng nhớ thiết bị                                                                                                                                                       |
+| 408AH               | Không đọc được chuỗi từ (s), hoặc độ dài chuỗi vượt quá 24                                                                                                                                                        |
+| 408BH               | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H                                                                                                           |
+| 4084H               | Khi có ký tự khác ngoài 2BH (+), 2DH (-), 20H (dấu cách), 2EH (.), 45H (E), 65H (e) và 30H (0) đến 39H (9) trong chuỗi chỉ định tại (s)                                                                           |
+| 4084H               | Khi có từ hai ký tự 2EH (.) trở lên trong chuỗi ký tự chỉ định tại (s).                                                                                                                                           |
+| 4084H               | Khi có ký tự khác ngoài 45H (E), 2BH (+), 2DH (-) và 30H (0) đến 39H (9) trong phần số mũ chỉ định tại (s), hoặc có nhiều phần số mũ, hoặc trong phần số mũ có 2BH (+) hoặc 2DH (-) xuất hiện từ hai lần trở lên. |
+| 4084H               | 2BH (+) hoặc 2DH (-) xuất hiện từ hai lần trở lên trước chữ số đầu tiên của chuỗi chỉ định tại (s).                                                                                                               |
 
 #### Ví dụ minh họa
 
@@ -1476,17 +1476,17 @@ Sau khi thực hiện phép tính hàm mũ của giá trị được chỉ đị
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Dữ liệu để tính hàm mũ hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32 |
-| (d) | The device start number that stores the kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                       | Phạm vi giá trị              | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------- | :--------------------------- | :--------------------------- | :----------------------- |
+| (s)     | Dữ liệu để tính hàm mũ hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu | 0, 2 -126 ≤\|(s)\|&lt; 2 128 | Single precision real number | ANYREAL_32               |
+| (d)     | The device start number that stores the kết quả phép toán            | -                            | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DEXP | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DEXP | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DEXP             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DEXP             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -1498,19 +1498,19 @@ Trong phép tính hàm mũ, cơ số (e) được tính là "2.71828".
 
 Các thiết bị liên quan được trình bày dưới đây.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Content (Operating) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of kết quả phép toán&gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Content (Operating)                                                                               |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of kết quả phép toán&gt; 2128  | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON.   |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
@@ -1530,17 +1530,17 @@ Chuyển đổi số thực độ chính xác đơn được chỉ định thàn
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số thực độ chính xác đơn hoặc thiết bị bắt đầu lưu trữ số thực độ chính xác đơn | -32768 to 32767 | Single precision real number | ANYREAL_32 |
-| (d) | Thiết bị có dấu lưu trữ dữ liệu BIN | - | BIN16 bit | ANY16_S |
+| Tham số | Nội dung mô tả                                                                  | Phạm vi giá trị | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------------------ | :-------------- | :--------------------------- | :----------------------- |
+| (s)     | Số thực độ chính xác đơn hoặc thiết bị bắt đầu lưu trữ số thực độ chính xác đơn | -32768 to 32767 | Single precision real number | ANYREAL_32               |
+| (d)     | Thiết bị có dấu lưu trữ dữ liệu BIN                                             | -               | BIN16 bit                    | ANY16_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| INT | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| INT | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| INT              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| INT              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -1552,19 +1552,19 @@ Chuyển đổi số thực độ chính xác đơn được chỉ định thàn
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Nội dung (Thao tác xử lý) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | Phần thập phân được làm tròn bỏ đi khi chuyển đổi | Trong quá trình chuyển đổi, nếu ((s) – (d)) &gt; (2^-126), cờ mượn (SM152) bật ON |
-| SM151 | Cờ nhớ (Carry) | Kết quả chuyển đổi nằm ngoài phạm vi | Giá trị của (s) nằm ngoài phạm vi -32768 đến 32767 hoặc giá trị của (s) nhỏ hơn giá trị nhỏ nhất của số thực 32-bit (2^-126), và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Nội dung (Thao tác xử lý)                                                                                                                               |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                                                                                    |
+| SM152                       | Cờ mượn (Borrow)    | Phần thập phân được làm tròn bỏ đi khi chuyển đổi | Trong quá trình chuyển đổi, nếu ((s) – (d)) &gt; (2^-126), cờ mượn (SM152) bật ON                                                                       |
+| SM151                       | Cờ nhớ (Carry)      | Kết quả chuyển đổi nằm ngoài phạm vi              | Giá trị của (s) nằm ngoài phạm vi -32768 đến 32767 hoặc giá trị của (s) nhỏ hơn giá trị nhỏ nhất của số thực 32-bit (2^-126), và cờ nhớ (SM151) bật ON. |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760681150804-873.png?rev=1.1)
 
@@ -1586,17 +1586,17 @@ Chuyển đổi số thực độ chính xác đơn được chỉ định thàn
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Số thực độ chính xác đơn hoặc thiết bị bắt đầu lưu trữ số thực độ chính xác đơn | -2147483648 to 2147483647 | Single precision real number | ANYREAL_32 |
-| (d) | Thiết bị bắt đầu lưu trữ dữ liệu BIN | - | Signed BIN 32 bit | ANY32_S |
+| Tham số | Nội dung mô tả                                                                  | Phạm vi giá trị           | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------------------ | :------------------------ | :--------------------------- | :----------------------- |
+| (s)     | Số thực độ chính xác đơn hoặc thiết bị bắt đầu lưu trữ số thực độ chính xác đơn | -2147483648 to 2147483647 | Single precision real number | ANYREAL_32               |
+| (d)     | Thiết bị bắt đầu lưu trữ dữ liệu BIN                                            | -                         | Signed BIN 32 bit            | ANY32_S                  |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DINT | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
-| DINT | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DINT             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
+| DINT             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -1608,23 +1608,23 @@ Chuyển đổi số thực độ chính xác đơn được chỉ định thàn
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Content (Operating) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of kết quả phép toán&gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Content (Operating)                                                                               |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of kết quả phép toán&gt; 2128  | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON.   |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760681228531-451.png?width=384&amp;height=104&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760681228531-451.png?width=384&height=104&rev=1.1)
 
 Thu được kết quả chuyển đổi:
 
@@ -1644,41 +1644,41 @@ Tính logarit thập phân (logarit cơ số 10) của giá trị được chỉ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Dữ liệu cho phép toán logarit thập phân hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
-| (d) | The device start number storing kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                        | Phạm vi giá trị            | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :------------------------------------------------------------------------------------ | :------------------------- | :--------------------------- | :----------------------- |
+| (s)     | Dữ liệu cho phép toán logarit thập phân hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32               |
+| (d)     | The device start number storing kết quả phép toán                                     | -                          | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DLOG10 | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DLOG10 | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DLOG10           | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DLOG10           | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
 Tính logarit thập phân (logarit cơ số 10) của giá trị được chỉ định tại (s) và lưu kết quả tính toán vào số hiệu thiết bị được chỉ định tại (d).
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760681924500-707.png?width=650&amp;height=113&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760681924500-707.png?width=650&height=113&rev=1.1)
 
 Giá trị được chỉ định tại (s) chỉ có thể cài đặt là số dương. (Không thể thực hiện phép toán với số âm.)
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Content (Operating) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of kết quả phép toán&gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Content (Operating)                                                                               |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of kết quả phép toán&gt; 2128  | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON.   |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
@@ -1698,17 +1698,17 @@ Sau khi tính logarit với cơ số tự nhiên e của giá trị được ch�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
-| :--- | :--- | :--- | :--- | :--- |
-| (s) | Dữ liệu cho phép toán logarit tự nhiên hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32 |
-| (d) | the device start number storing kết quả phép toán | - | Single precision real number | ANYREAL_32 |
+| Tham số | Nội dung mô tả                                                                       | Phạm vi giá trị            | Kiểu dữ liệu                 | Kiểu dữ liệu (Nhãn biến) |
+| :------ | :----------------------------------------------------------------------------------- | :------------------------- | :--------------------------- | :----------------------- |
+| (s)     | Dữ liệu cho phép toán logarit tự nhiên hoặc số hiệu thiết bị bắt đầu lưu trữ dữ liệu | 0, 2-126 ≤\|(s)\|&lt; 2128 | Single precision real number | ANYREAL_32               |
+| (d)     | the device start number storing kết quả phép toán                                    | -                          | Single precision real number | ANYREAL_32               |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DLOGE | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● |
-| DLOGE | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DLOGE            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |           ●           |         ●          |
+| DLOGE            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |           ●           |         ●          |
 
 #### Đặc tính kỹ thuật
 
@@ -1720,19 +1720,19 @@ Sau khi tính logarit với cơ số tự nhiên e của giá trị được ch�
 
 • Các thiết bị liên quan như sau.
 
-| Vùng nhớ thiết bị (Devices) | Tên | Nội dung (Điều kiện) | Content (Operating) |
-| :--- | :--- | :--- | :--- |
-| SM153 | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0 | Cờ báo giá trị 0 (SM153) bật lên ON. |
-| SM152 | Cờ mượn (Borrow) | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
-| SM151 | Cờ nhớ (Carry) | The absolute value of kết quả phép toán&gt; 2128 | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON. |
+| Vùng nhớ thiết bị (Devices) | Tên                 | Nội dung (Điều kiện)                              | Content (Operating)                                                                               |
+| :-------------------------- | :------------------ | :------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| SM153                       | Cờ giá trị 0 (Zero) | Kết quả phép toán bằng 0                          | Cờ báo giá trị 0 (SM153) bật lên ON.                                                              |
+| SM152                       | Cờ mượn (Borrow)    | The absolute value of kết quả phép toán &lt;2-126 | Giá trị của (d) trở thành giá trị nhỏ nhất của số thực 32-bit (2^-126) và cờ mượn (SM152) bật ON. |
+| SM151                       | Cờ nhớ (Carry)      | The absolute value of kết quả phép toán&gt; 2128  | Giá trị của (d) trở thành giá trị lớn nhất của số thực 32-bit (2^128) và cờ nhớ (SM151) bật ON.   |
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4086H | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép |
-| 4084H | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                              |
+| :------------------ | :-------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ tại (s) vượt quá giới hạn vùng nhớ thiết bị cho phép                |
+| 4086H               | Địa chỉ ghi tại (d) vượt quá giới hạn vùng nhớ thiết bị cho phép            |
+| 4084H               | Khi giá trị trong thiết bị chỉ định bởi (s) là số không hợp lệ, NaN hoặc ±∞ |
 
 #### Ví dụ minh họa
 
@@ -1741,5 +1741,3 @@ Sau khi tính logarit với cơ số tự nhiên e của giá trị được ch�
 Kết quả như dưới đây:
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.9%20Floating%20Point%20instructions/WebHome/1760682164022-121.png?rev=1.1)
-
-0

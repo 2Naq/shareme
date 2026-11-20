@@ -3,7 +3,7 @@ id: "12-character-string-instruction"
 title: "12 Tập lệnh xử lý chuỗi ký tự (Character String Instruction)"
 sidebar_position: 12
 sidebar_label: "12 Character String Instruction"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 12 Tập lệnh xử lý chuỗi ký tự (Character String Instruction)"
 ---
 
@@ -19,17 +19,17 @@ Dữ liệu từ số hiệu phần tử được chỉ định trong (s) đến
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s) | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi | - | String | ANYSTRING_SINGLE | -- |
-| (d) | Số hiệu thiết bị lưu trữ độ dài chuỗi được phát hiện | - | Signed BIN16 bits | ANY16 | INT |
+| Tham số | Nội dung mô tả                                              | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :---------------------------------------------------------- | :-------------- | :---------------- | :----------------------- | :---------------------- |
+| (s)     | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi | -               | String            | ANYSTRING_SINGLE         | --                      |
+| (d)     | Số hiệu thiết bị lưu trữ độ dài chuỗi được phát hiện        | -               | Signed BIN16 bits | ANY16                    | INT                     |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| LEN | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| LEN | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| LEN              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| LEN              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -41,12 +41,12 @@ Dữ liệu từ số hiệu phần tử được chỉ định trong (s) đến
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | (s) read address vượt quá phạm vi vùng nhớ thiết bị. |
-| 408AH | Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
-| 408BH | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
-| 4086H | When using offset, the offset address of (d) vượt quá phạm vi vùng nhớ thiết bị. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                           |
+| :------------------ | :------------------------------------------------------------------------------------------------------- |
+| 4085H               | (s) read address vượt quá phạm vi vùng nhớ thiết bị.                                                     |
+| 408AH               | Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự.             |
+| 408BH               | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4086H               | When using offset, the offset address of (d) vượt quá phạm vi vùng nhớ thiết bị.                         |
 
 #### Ví dụ minh họa
 
@@ -68,19 +68,19 @@ LEFT(P)
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s) | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi | - | String | ANYSTRING_SINGLE | -- |
-| (d) | Lưu số hiệu bắt đầu của thiết bị chứa chuỗi gồm (n) ký tự tính từ phía bên trái của (s) | - | String | ANYSTRING_SINGLE | -- |
-| (n) | Số lượng ký tự được trích xuất | 1 to 400 | Signed BIN16 bits | ANY16 | INT |
+| Tham số | Nội dung mô tả                                                                          | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :-------------------------------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- | :---------------------- |
+| (s)     | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi                             | -               | String            | ANYSTRING_SINGLE         | --                      |
+| (d)     | Lưu số hiệu bắt đầu của thiết bị chứa chuỗi gồm (n) ký tự tính từ phía bên trái của (s) | -               | String            | ANYSTRING_SINGLE         | --                      |
+| (n)     | Số lượng ký tự được trích xuất                                                          | 1 to 400        | Signed BIN16 bits | ANY16                    | INT                     |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| LEFT | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| LEFT | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| LEFT | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| LEFT             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| LEFT             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| LEFT             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -110,13 +110,13 @@ Khi trích xuất chuỗi ký tự từ chuỗi mà mã ký tự của 1 ký t�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | (s) read address vượt quá phạm vi vùng nhớ thiết bị. |
-| 408AH | Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
-| 408BH | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
-| 4084H | (n)&lt;1 hoặc (n)&gt; độ dài chuỗi |
-| 4086H | (d) write address vượt quá phạm vi vùng nhớ thiết bị. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                           |
+| :------------------ | :------------------------------------------------------------------------------------------------------- |
+| 4085H               | (s) read address vượt quá phạm vi vùng nhớ thiết bị.                                                     |
+| 408AH               | Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự.             |
+| 408BH               | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4084H               | (n)&lt;1 hoặc (n)&gt; độ dài chuỗi                                                                       |
+| 4086H               | (d) write address vượt quá phạm vi vùng nhớ thiết bị.                                                    |
 
 #### Ví dụ minh họa
 
@@ -136,19 +136,19 @@ RIGHT(P)
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s) | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi | - | String | ANYSTRING_SINGLE | -- |
-| (d) | Lưu số hiệu bắt đầu của thiết bị chứa chuỗi gồm (n) ký tự tính từ phía bên phải của (s) | - | String | ANYSTRING_SINGLE | -- |
-| (n) | Số lượng ký tự được trích xuất | 1 to 400 | Signed BIN16 bits | ANY16 | INT |
+| Tham số | Nội dung mô tả                                                                          | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :-------------------------------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- | :---------------------- |
+| (s)     | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi                             | -               | String            | ANYSTRING_SINGLE         | --                      |
+| (d)     | Lưu số hiệu bắt đầu của thiết bị chứa chuỗi gồm (n) ký tự tính từ phía bên phải của (s) | -               | String            | ANYSTRING_SINGLE         | --                      |
+| (n)     | Số lượng ký tự được trích xuất                                                          | 1 to 400        | Signed BIN16 bits | ANY16                    | INT                     |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| RIGHT | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| RIGHT | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| RIGHT | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| RIGHT            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| RIGHT            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| RIGHT            | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -178,13 +178,13 @@ Khi trích xuất chuỗi ký tự từ chuỗi mà mã ký tự của 1 ký t�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The read address of (s) and (n) vượt quá phạm vi vùng nhớ thiết bị. |
-| 408AH | Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
-| 408BH | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
-| 4084H | (n)&lt;1 hoặc (n)&gt; độ dài chuỗi |
-| 4086H | (d) write address vượt quá phạm vi vùng nhớ thiết bị. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                           |
+| :------------------ | :------------------------------------------------------------------------------------------------------- |
+| 4085H               | The read address of (s) and (n) vượt quá phạm vi vùng nhớ thiết bị.                                      |
+| 408AH               | Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự.             |
+| 408BH               | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4084H               | (n)&lt;1 hoặc (n)&gt; độ dài chuỗi                                                                       |
+| 4086H               | (d) write address vượt quá phạm vi vùng nhớ thiết bị.                                                    |
 
 #### Ví dụ minh họa
 
@@ -204,19 +204,19 @@ Lưu dữ liệu tại vị trí bất kỳ trong dữ liệu chuỗi ký tự v
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s1) | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi | - | String | ANYSTRING_SINGLE | -- |
-| (d) | The start number of device that stores kết quả phép toán string data | - | String | ANYSTRING_SINGLE | -- |
-| (s2) | Số hiệu bắt đầu của thiết bị lưu trữ vị trí ký tự bắt đầu và số lượng ký tự: (s2)+0: Vị trí của ký tự bắt đầu, (s2)+1: số lượng ký tự có dấu | - | Signed BIN16 bits | ANY16_ARRAY | -- |
+| Tham số | Nội dung mô tả                                                                                                                               | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- | :---------------------- |
+| (s1)    | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi                                                                                  | -               | String            | ANYSTRING_SINGLE         | --                      |
+| (d)     | The start number of device that stores kết quả phép toán string data                                                                         | -               | String            | ANYSTRING_SINGLE         | --                      |
+| (s2)    | Số hiệu bắt đầu của thiết bị lưu trữ vị trí ký tự bắt đầu và số lượng ký tự: (s2)+0: Vị trí của ký tự bắt đầu, (s2)+1: số lượng ký tự có dấu | -               | Signed BIN16 bits | ANY16_ARRAY              | --                      |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MIDR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| MIDR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| MIDR | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MIDR             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| MIDR             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| MIDR             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -246,13 +246,13 @@ Cần chú ý các điểm sau khi xử lý các mã ký tự khác ngoài mã A
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ đọc của (s1) và (s2) vượt quá phạm vi của thiết bị. |
-| 408AH | (s1) Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
-| 408BH | Khi (s1) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
-| 4084H | Giá trị của (s2)+1 nhỏ hơn -2 (bao gồm -2); Giá trị của (s2) vượt quá số ký tự của (s1); Giá trị của (s2) là số âm; Giá trị của (s2)+1 vượt quá số ký tự của (s1); Giá trị thu được từ phép cộng của (s2) và (s2)+1 vượt quá số ký tự của (s1). |
-| 4086H | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                                                                                                                                  |
+| :------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ đọc của (s1) và (s2) vượt quá phạm vi của thiết bị.                                                                                                                                                                                     |
+| 408AH               | (s1) Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự.                                                                                                                                               |
+| 408BH               | Khi (s1) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H.                                                                                                                                       |
+| 4084H               | Giá trị của (s2)+1 nhỏ hơn -2 (bao gồm -2); Giá trị của (s2) vượt quá số ký tự của (s1); Giá trị của (s2) là số âm; Giá trị của (s2)+1 vượt quá số ký tự của (s1); Giá trị thu được từ phép cộng của (s2) và (s2)+1 vượt quá số ký tự của (s1). |
+| 4086H               | (d) Write address vượt quá phạm vi vùng nhớ thiết bị.                                                                                                                                                                                           |
 
 #### Ví dụ minh họa
 
@@ -272,17 +272,17 @@ Truyền dữ liệu chuỗi ký tự được chỉ định trong (s) tới s�
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s) | Số hiệu bắt đầu của thiết bị truyền chuỗi (tối đa 255 ký tự) hoặc lưu trữ chuỗi | - | String | ANYSTRING_SINGLE | -- |
-| (d) | Số hiệu bắt đầu của thiết bị lưu trữ và truyền chuỗi | - | String | ANYSTRING_SINGLE | -- |
+| Tham số | Nội dung mô tả                                                                  | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :------------------------------------------------------------------------------ | :-------------- | :----------- | :----------------------- | :---------------------- |
+| (s)     | Số hiệu bắt đầu của thiết bị truyền chuỗi (tối đa 255 ký tự) hoặc lưu trữ chuỗi | -               | String       | ANYSTRING_SINGLE         | --                      |
+| (d)     | Số hiệu bắt đầu của thiết bị lưu trữ và truyền chuỗi                            | -               | String       | ANYSTRING_SINGLE         | --                      |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| \$MOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-|  | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| \$MOV            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+|                  | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -308,12 +308,12 @@ Nếu 00H được lưu ở byte thấp của (s) + n, 00H sẽ được lưu v�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | (s) read address vượt quá phạm vi vùng nhớ thiết bị. |
-| 408AH | Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
-| 408BH | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
-| 4086H | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                           |
+| :------------------ | :------------------------------------------------------------------------------------------------------- |
+| 4085H               | (s) read address vượt quá phạm vi vùng nhớ thiết bị.                                                     |
+| 408AH               | Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự.             |
+| 408BH               | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4086H               | (d) Write address vượt quá phạm vi vùng nhớ thiết bị.                                                    |
 
 #### Ví dụ minh họa
 
@@ -333,19 +333,19 @@ MIDW(P)
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s1) | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi | - | String | ANYSTRING_SINGLE | -- |
-| (d) | The start number of device that stores kết quả phép toán string data | - | String | ANYSTRING_SINGLE | -- |
-| (s2) | Số hiệu bắt đầu của thiết bị lưu trữ vị trí ký tự bắt đầu và số lượng ký tự: (s2)+0: Vị trí của ký tự bắt đầu, (s2)+1: Số lượng ký tự có dấu | - | Signed BIN16 bits | ANY16_ARRAY | -- |
+| Tham số | Nội dung mô tả                                                                                                                               | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- | :---------------------- |
+| (s1)    | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi                                                                                  | -               | String            | ANYSTRING_SINGLE         | --                      |
+| (d)     | The start number of device that stores kết quả phép toán string data                                                                         | -               | String            | ANYSTRING_SINGLE         | --                      |
+| (s2)    | Số hiệu bắt đầu của thiết bị lưu trữ vị trí ký tự bắt đầu và số lượng ký tự: (s2)+0: Vị trí của ký tự bắt đầu, (s2)+1: Số lượng ký tự có dấu | -               | Signed BIN16 bits | ANY16_ARRAY              | --                      |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MIDW | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| MIDW | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| MIDW | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MIDW             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| MIDW             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| MIDW             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -377,13 +377,13 @@ Khi trích xuất chuỗi ký tự từ chuỗi mà mã ký tự của 1 ký t�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ đọc của (s1), (s2), (d) vượt quá phạm vi của thiết bị. |
-| 408AH | Độ dài chuỗi đọc của (s1), (d) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
-| 408BH | Khi (s1), (d) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
-| 4084H | Giá trị của (s2)+1 nhỏ hơn -2 (bao gồm -2); Giá trị của (s2) vượt quá số ký tự của (d); Giá trị của (s2) là số âm; Giá trị của (s2)+1 vượt quá số ký tự của (s1). |
-| 4086H | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                                                    |
+| :------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ đọc của (s1), (s2), (d) vượt quá phạm vi của thiết bị.                                                                                                    |
+| 408AH               | Độ dài chuỗi đọc của (s1), (d) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự.                                                                |
+| 408BH               | Khi (s1), (d) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H.                                                    |
+| 4084H               | Giá trị của (s2)+1 nhỏ hơn -2 (bao gồm -2); Giá trị của (s2) vượt quá số ký tự của (d); Giá trị của (s2) là số âm; Giá trị của (s2)+1 vượt quá số ký tự của (s1). |
+| 4086H               | (d) Write address vượt quá phạm vi vùng nhớ thiết bị.                                                                                                             |
 
 #### Ví dụ minh họa
 
@@ -405,19 +405,19 @@ Dữ liệu BIN 16-bit được chỉ định trong (s2) được chuyển đổ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s1) | Số hiệu bắt đầu của thiết bị lưu trữ số chữ số (bit) của dữ liệu được chuyển đổi | - | Signed BIN16 bits | ANY16_S_ARRAY | -- |
-| (s2) | Dữ liệu BIN được chuyển đổi | -32768~+32767 | Signed BIN16 bits | ANY16_S | INT |
-| (d) | Số hiệu bắt đầu của thiết bị lưu trữ chuỗi sau khi chuyển đổi | - | String | ANYSTRING_SINGLE | -- |
+| Tham số | Nội dung mô tả                                                                   | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :------------------------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- | :---------------------- |
+| (s1)    | Số hiệu bắt đầu của thiết bị lưu trữ số chữ số (bit) của dữ liệu được chuyển đổi | -               | Signed BIN16 bits | ANY16_S_ARRAY            | --                      |
+| (s2)    | Dữ liệu BIN được chuyển đổi                                                      | -32768~+32767   | Signed BIN16 bits | ANY16_S                  | INT                     |
+| (d)     | Số hiệu bắt đầu của thiết bị lưu trữ chuỗi sau khi chuyển đổi                    | -               | String            | ANYSTRING_SINGLE         | --                      |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| STR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| STR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
-| STR | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| STR              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| STR              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
+| STR              | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -437,7 +437,7 @@ Khi số chữ số thập phân được đặt thành giá trị bất kỳ kh
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709796286469-559.png?rev=1.1)
 
-Nếu giá trị số chữ số thập phân lớn hơn số chữ số của dữ liệu BIN 16-bit, hệ thống sẽ tự động thêm 0 rồi căn lề phải và chuyển đổi thành dạng “0.***”.
+Nếu giá trị số chữ số thập phân lớn hơn số chữ số của dữ liệu BIN 16-bit, hệ thống sẽ tự động thêm 0 rồi căn lề phải và chuyển đổi thành dạng “0.\*\*\*”.
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709796308066-809.png?rev=1.1)
 
@@ -451,11 +451,11 @@ Nếu loại bỏ ký tự dấu khỏi tổng số chữ số và giá trị s�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ đọc của (s1) và (s2) vượt quá phạm vi của thiết bị. |
-| 4084H | Giá trị cài đặt tham số (s1) hoặc (s1+1) vượt quá phạm vi. Ví dụ: 1. Giá trị của (s1) không nằm trong phạm vi 2-8. 1. Giá trị của (s1+1) không nằm trong phạm vi 0-5. 3. Giá trị của (s1+1) lớn hơn giá trị của (s1) trừ 3. 4. Khi (s1+1) bằng 0, số chữ số được chỉ định trong (s1) nhỏ hơn số chữ số của dữ liệu BIN 16-bit được chỉ định trong (s2)+1. 4. Khi (s1+1) khác 0, số chữ số được chỉ định trong (s1) nhỏ hơn số chữ số của dữ liệu BIN 16-bit được chỉ định trong (s2)+2. (Số chữ số của (s1)) &lt; số chữ số không dấu của dữ liệu BIN 16-bit của (s2) + số ký tự dấu (+ hoặc -) + số ký tự dấu thập phân (.) |
-| 4086H | When using offset, the offset address of (d) vượt quá phạm vi vùng nhớ thiết bị. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| :------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ đọc của (s1) và (s2) vượt quá phạm vi của thiết bị.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| 4084H               | Giá trị cài đặt tham số (s1) hoặc (s1+1) vượt quá phạm vi. Ví dụ: 1. Giá trị của (s1) không nằm trong phạm vi 2-8. 1. Giá trị của (s1+1) không nằm trong phạm vi 0-5. 3. Giá trị của (s1+1) lớn hơn giá trị của (s1) trừ 3. 4. Khi (s1+1) bằng 0, số chữ số được chỉ định trong (s1) nhỏ hơn số chữ số của dữ liệu BIN 16-bit được chỉ định trong (s2)+1. 4. Khi (s1+1) khác 0, số chữ số được chỉ định trong (s1) nhỏ hơn số chữ số của dữ liệu BIN 16-bit được chỉ định trong (s2)+2. (Số chữ số của (s1)) &lt; số chữ số không dấu của dữ liệu BIN 16-bit của (s2) + số ký tự dấu (+ hoặc -) + số ký tự dấu thập phân (.) |
+| 4086H               | When using offset, the offset address of (d) vượt quá phạm vi vùng nhớ thiết bị.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 #### Ví dụ minh họa
 
@@ -475,19 +475,19 @@ Dữ liệu BIN 32-bit được chỉ định trong (s2) được chuyển đổ
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s1) | Số hiệu bắt đầu của thiết bị lưu trữ số chữ số (bit) của dữ liệu được chuyển đổi | - | Signed BIN16 bits | ANY16_S_ARRAY | -- |
-| (s2) | Dữ liệu BIN được chuyển đổi | -2147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S | DINT |
-| (d) | Số hiệu bắt đầu của thiết bị lưu trữ chuỗi sau khi chuyển đổi | - | String | ANYSTRING_SINGLE | -- |
+| Tham số | Nội dung mô tả                                                                   | Phạm vi giá trị           | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :------------------------------------------------------------------------------- | :------------------------ | :---------------- | :----------------------- | :---------------------- |
+| (s1)    | Số hiệu bắt đầu của thiết bị lưu trữ số chữ số (bit) của dữ liệu được chuyển đổi | -                         | Signed BIN16 bits | ANY16_S_ARRAY            | --                      |
+| (s2)    | Dữ liệu BIN được chuyển đổi                                                      | -2147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S                  | DINT                    |
+| (d)     | Số hiệu bắt đầu của thiết bị lưu trữ chuỗi sau khi chuyển đổi                    | -                         | String            | ANYSTRING_SINGLE         | --                      |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| DSTR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| DSTR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
-| DSTR | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| DSTR             | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| DSTR             | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |           ●           |         ●          |
+| DSTR             | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -509,7 +509,7 @@ Dữ liệu chuỗi ký tự sau khi chuyển đổi sẽ được lưu vào cá
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797248127-726.png?rev=1.1)
 
-• Nếu giá trị số chữ số thập phân lớn hơn số chữ số của dữ liệu BIN 32-bit, hệ thống sẽ tự động thêm 0 rồi căn lề phải và chuyển đổi thành dạng “0.***”.
+• Nếu giá trị số chữ số thập phân lớn hơn số chữ số của dữ liệu BIN 32-bit, hệ thống sẽ tự động thêm 0 rồi căn lề phải và chuyển đổi thành dạng “0.\*\*\*”.
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797265792-274.png?rev=1.1)
 
@@ -523,11 +523,11 @@ Dữ liệu chuỗi ký tự sau khi chuyển đổi sẽ được lưu vào cá
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | Địa chỉ đọc của (s1) và (s2) vượt quá phạm vi của thiết bị. |
-| 4084H | Giá trị cài đặt tham số (s1) hoặc (s1+1) vượt quá phạm vi. Ví dụ: 1. Giá trị của (s1) không nằm trong phạm vi 2-13. 2. Giá trị của (s1+1) không nằm trong phạm vi 0-10. 3. Giá trị của (s1+1) lớn hơn giá trị của (S1) trừ 3. 4. Khi (s1+1) bằng 0, số chữ số được chỉ định trong (s1) nhỏ hơn số chữ số của dữ liệu BIN 16-bit được chỉ định trong (s2)+1. 4. Khi (s1+1) khác 0, số chữ số được chỉ định trong (s1) nhỏ hơn số chữ số của dữ liệu BIN 16-bit được chỉ định trong (s2)+2. (Số chữ số của (s1)) &lt; số chữ số không dấu của dữ liệu BIN 16-bit của (s2) + số ký tự dấu (+ hoặc -) + số ký tự dấu thập phân (.) |
-| 4086H | When using offset, the offset address of (d) vượt quá phạm vi vùng nhớ thiết bị. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| :------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4085H               | Địa chỉ đọc của (s1) và (s2) vượt quá phạm vi của thiết bị.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| 4084H               | Giá trị cài đặt tham số (s1) hoặc (s1+1) vượt quá phạm vi. Ví dụ: 1. Giá trị của (s1) không nằm trong phạm vi 2-13. 2. Giá trị của (s1+1) không nằm trong phạm vi 0-10. 3. Giá trị của (s1+1) lớn hơn giá trị của (S1) trừ 3. 4. Khi (s1+1) bằng 0, số chữ số được chỉ định trong (s1) nhỏ hơn số chữ số của dữ liệu BIN 16-bit được chỉ định trong (s2)+1. 4. Khi (s1+1) khác 0, số chữ số được chỉ định trong (s1) nhỏ hơn số chữ số của dữ liệu BIN 16-bit được chỉ định trong (s2)+2. (Số chữ số của (s1)) &lt; số chữ số không dấu của dữ liệu BIN 16-bit của (s2) + số ký tự dấu (+ hoặc -) + số ký tự dấu thập phân (.) |
+| 4086H               | When using offset, the offset address of (d) vượt quá phạm vi vùng nhớ thiết bị.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 
 #### Ví dụ minh họa
 
@@ -535,7 +535,7 @@ Dữ liệu chuỗi ký tự sau khi chuyển đổi sẽ được lưu vào cá
 
 Như minh họa trong ví dụ, chúng ta cần chuyển đổi 123456 thành chuỗi ký tự số thực dấu phẩy động với tổng 9 chữ số và 3 chữ số thập phân.
 
-Kết quả chuyển đổi phải là:  123.456, và giá trị phía trước sẽ có hai khoảng trắng để bù cho số chữ số còn thiếu.
+Kết quả chuyển đổi phải là: 123.456, và giá trị phía trước sẽ có hai khoảng trắng để bù cho số chữ số còn thiếu.
 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797367228-320.png?rev=1.1)
 
@@ -549,19 +549,19 @@ Nối chuỗi ký tự được lưu sau số hiệu phần tử chỉ định t
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s1) | Dữ liệu nối hoặc số hiệu bắt đầu của thiết bị lưu trữ dữ liệu hoặc chuỗi được chỉ định trực tiếp | - | String | ANYSTRING_SINGLE | -- |
-| (s2) | Dữ liệu được nối hoặc số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được nối hoặc chuỗi được chỉ định trực tiếp | - | String | ANYSTRING_SINGLE | -- |
-| (d) | Số hiệu bắt đầu của thiết bị lưu trữ kết quả nối chuỗi | - | String | ANYSTRING_SINGLE | -- |
+| Tham số | Nội dung mô tả                                                                                                 | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :------------------------------------------------------------------------------------------------------------- | :-------------- | :----------- | :----------------------- | :---------------------- |
+| (s1)    | Dữ liệu nối hoặc số hiệu bắt đầu của thiết bị lưu trữ dữ liệu hoặc chuỗi được chỉ định trực tiếp               | -               | String       | ANYSTRING_SINGLE         | --                      |
+| (s2)    | Dữ liệu được nối hoặc số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được nối hoặc chuỗi được chỉ định trực tiếp | -               | String       | ANYSTRING_SINGLE         | --                      |
+| (d)     | Số hiệu bắt đầu của thiết bị lưu trữ kết quả nối chuỗi                                                         | -               | String       | ANYSTRING_SINGLE         | --                      |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| \$+ | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| \$+ | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| \$+ | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| \$+              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| \$+              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| \$+              | Parameter 3 |     |     |     |     |     |        |        |         |          |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -577,16 +577,16 @@ Khi các chuỗi ký tự được ghép nối, 00H sẽ tự động được g
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The read address of (s1) or (s2) vượt quá phạm vi vùng nhớ thiết bị. |
-| 408AH | Độ dài chuỗi đọc của (s1) hoặc (s2) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
-| 408BH | Khi (s1) hoặc (s2) đọc chuỗi, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
-| 4086H | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                                |
+| :------------------ | :------------------------------------------------------------------------------------------------------------ |
+| 4085H               | The read address of (s1) or (s2) vượt quá phạm vi vùng nhớ thiết bị.                                          |
+| 408AH               | Độ dài chuỗi đọc của (s1) hoặc (s2) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự.       |
+| 408BH               | Khi (s1) hoặc (s2) đọc chuỗi, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4086H               | (d) Write address vượt quá phạm vi vùng nhớ thiết bị.                                                         |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797544078-674.png?width=273&amp;height=58&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797544078-674.png?width=273&height=58&rev=1.1)
 
 Sau khi ghép chuỗi ký tự “12345” và chuỗi ký tự “abcde”, kết quả là “12345abcde”.
 
@@ -602,21 +602,21 @@ Bắt đầu từ ký tự thứ (s3) tính từ bên trái của dữ liệu ch
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s1) | Chuỗi tìm kiếm hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi tìm kiếm | - | String | ANYSTRING_SINGLE | -- |
-| (s2) | Chuỗi được tìm kiếm hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi được tìm kiếm | - | String | ANYSTRING_SINGLE | -- |
-| (d) | Số hiệu bắt đầu của thiết bị lưu trữ kết quả tìm kiếm | - | Signed BIN16 bits | ANY16 | -- |
-| (s3) | Vị trí bắt đầu tìm kiếm | 1 to 400 | Signed BIN16 bits | ANY16 | INT |
+| Tham số | Nội dung mô tả                                                                    | Phạm vi giá trị | Kiểu dữ liệu      | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :-------------------------------------------------------------------------------- | :-------------- | :---------------- | :----------------------- | :---------------------- |
+| (s1)    | Chuỗi tìm kiếm hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi tìm kiếm           | -               | String            | ANYSTRING_SINGLE         | --                      |
+| (s2)    | Chuỗi được tìm kiếm hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi được tìm kiếm | -               | String            | ANYSTRING_SINGLE         | --                      |
+| (d)     | Số hiệu bắt đầu của thiết bị lưu trữ kết quả tìm kiếm                             | -               | Signed BIN16 bits | ANY16                    | --                      |
+| (s3)    | Vị trí bắt đầu tìm kiếm                                                           | 1 to 400        | Signed BIN16 bits | ANY16                    | INT                     |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| INSTR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| INSTR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| INSTR | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
-| INSTR | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| INSTR            | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| INSTR            | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| INSTR            | Parameter 3 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |         ●          |
+| INSTR            | Parameter 4 |     |     |     |     |     |        |        |         |          |     |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |  ●  |  ●  |     |           ●           |         ●          |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -632,13 +632,13 @@ Khi vị trí bắt đầu tìm kiếm (s3) là “0”, không thực hiện x�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The write address in (s1), (s2) and (s3) vượt quá phạm vi vùng nhớ thiết bị. |
-| 408AH | Độ dài chuỗi đọc của (s1) và (s2) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
-| 408BH | Khi (s1) và (s2) đọc chuỗi, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
-| 4086H | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
-| 4084H | (s3) &lt;0 hoặc (s3)&gt;= độ dài chuỗi |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                                              |
+| :------------------ | :---------------------------------------------------------------------------------------------------------- |
+| 4085H               | The write address in (s1), (s2) and (s3) vượt quá phạm vi vùng nhớ thiết bị.                                |
+| 408AH               | Độ dài chuỗi đọc của (s1) và (s2) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự.       |
+| 408BH               | Khi (s1) và (s2) đọc chuỗi, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4086H               | (d) Write address vượt quá phạm vi vùng nhớ thiết bị.                                                       |
+| 4084H               | (s3) &lt;0 hoặc (s3)&gt;= độ dài chuỗi                                                                      |
 
 #### Ví dụ minh họa
 
@@ -656,17 +656,17 @@ Lệnh dùng để chuyển đổi các chuỗi ký tự số/chữ tiếng Anh 
 
 #### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| (s) | 32 ký tự chữ và số tiếng Anh nửa độ rộng (half-width) do máy tính nhập vào | - | String (only ASCI code) | ANY_ASC | -- |
-| (d) | Số hiệu thiết bị ký tự bắt đầu lưu dữ liệu ASCII | - | BIN16 bit | ANY16_S | -- |
+| Tham số | Nội dung mô tả                                                             | Phạm vi giá trị | Kiểu dữ liệu            | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :------ | :------------------------------------------------------------------------- | :-------------- | :---------------------- | :----------------------- | :---------------------- |
+| (s)     | 32 ký tự chữ và số tiếng Anh nửa độ rộng (half-width) do máy tính nhập vào | -               | String (only ASCI code) | ANY_ASC                  | --                      |
+| (d)     | Số hiệu thiết bị ký tự bắt đầu lưu dữ liệu ASCII                           | -               | BIN16 bit               | ANY16_S                  | --                      |
 
 #### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ASC | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ASC | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
+| Khối lệnh / Lệnh | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| ASC              | Parameter 1 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| ASC              | Parameter 2 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |  ●  |     |     |     |     |     |           ●           |                    |
 
 #### Chức năng và nguyên lý hoạt động
 
@@ -696,27 +696,27 @@ Khi sử dụng các lệnh trên và lệnh ASC, xin lưu ý viết lệnh đ�
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4085H | The output result of the read application command (s) vượt quá phạm vi vùng nhớ thiết bị. |
-| 4086H | The output result of the write application command (d) vượt quá phạm vi vùng nhớ thiết bị. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                                                             |
+| :------------------ | :----------------------------------------------------------------------------------------- |
+| 4085H               | The output result of the read application command (s) vượt quá phạm vi vùng nhớ thiết bị.  |
+| 4086H               | The output result of the write application command (d) vượt quá phạm vi vùng nhớ thiết bị. |
 
 #### Ví dụ minh họa
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709798266790-989.png?width=314&amp;height=29&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709798266790-989.png?width=314&height=29&rev=1.1)
 
 Như minh họa trong hình dưới đây, byte cao của mỗi biến được điền bằng 0 (hệ thập lục phân):
 
-|  | D• ((High 8 bits)) | D• ((Low 8 bits)) | S (String) |
-| :--- | :--- | :--- | :--- |
-|  | 00 | 41 | A |
-| +1 | 00 | 42 | B |
-| +2 | 00 | 43 | C |
-| +3 | 00 | 44 | D |
-| +4 | 00 | 45 | E |
-| +5 | 00 | 46 | F |
-| +6 | 00 | 47 | G |
-| +7 | 00 | 48 | H |
+|     | D• ((High 8 bits)) | D• ((Low 8 bits)) | S (String) |
+| :-- | :----------------- | :---------------- | :--------- |
+|     | 00                 | 41                | A          |
+| +1  | 00                 | 42                | B          |
+| +2  | 00                 | 43                | C          |
+| +3  | 00                 | 44                | D          |
+| +4  | 00                 | 45                | E          |
+| +5  | 00                 | 46                | F          |
+| +6  | 00                 | 47                | G          |
+| +7  | 00                 | 48                | H          |
 
 Khi X20=ON, phép gán giá trị của D200~D203 được trình bày như sau:
 
@@ -725,5 +725,3 @@ Khi X20=ON, phép gán giá trị của D200~D203 được trình bày như sau:
 Khi thanh ghi đặc biệt SM161 được đặt lên ON,
 
 mỗi ký tự ASCII chiếm một biến 16-bit sau khi chuyển đổi.
-
-0

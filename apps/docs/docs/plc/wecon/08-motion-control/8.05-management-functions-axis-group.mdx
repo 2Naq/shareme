@@ -3,7 +3,7 @@ id: "8.05-management-functions-axis-group"
 title: "8.05 Khối hàm quản trị điều khiển nhóm trục (Management Functions of Axis Group)"
 sidebar_position: 6
 sidebar_label: "8.05 Quản trị nhóm trục (10 FBs)"
-tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+tags: ["wecon", "lx6v", "lx6a", "plc-editor-2", "manual"]
 description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.05 Khối hàm quản trị điều khiển nhóm trục (Management Functions of Axis Group)"
 ---
 
@@ -15,15 +15,15 @@ Khối hàm này dùng để thêm trục vào nhóm trục.
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_ADDAXISTOGROUP | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_ADDAXISTOGROUP | IdentInGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_ADDAXISTOGROUP | AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_ADDAXISTOGROUP | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_ADDAXISTOGROUP | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_ADDAXISTOGROUP | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_ADDAXISTOGROUP | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh  | Tham số      |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :---------------- | :----------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_ADDAXISTOGROUP | Execute      |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_ADDAXISTOGROUP | IdentInGroup |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_ADDAXISTOGROUP | AxesGroup    |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_ADDAXISTOGROUP | Axis         |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_ADDAXISTOGROUP | Done         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_ADDAXISTOGROUP | Busy         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_ADDAXISTOGROUP | Error        |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -33,16 +33,16 @@ Khối hàm này dùng để thêm trục vào nhóm trục.
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_ADDAXISTOGROUP | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_ADDAXISTOGROUP | Ngõ vào (Input) | IdentInGroup | WORD | Không | [0 to 2] | Cờ thứ tự trục |
-| MC_ADDAXISTOGROUP | Ngõ vào (Input) | AxesGroup | WORD | Không | [0 to 65535] | Số hiệu định danh nhóm trục (AxesGroup ID) |
-| MC_ADDAXISTOGROUP | Ngõ vào (Input) | Axis | WORD | Không | [0 to 65535] | Số hiệu định danh trục (Axis ID) |
-| MC_ADDAXISTOGROUP | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_ADDAXISTOGROUP | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_ADDAXISTOGROUP | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_ADDAXISTOGROUP | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra【8.10 Mã lỗi】) |
+| Khối lệnh / Lệnh  | Kiểu chân       | Tham số      | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                             |
+| :---------------- | :-------------- | :----------- | :----------- | :---------------- | :-------------- | :----------------------------------------- |
+| MC_ADDAXISTOGROUP | Ngõ vào (Input) | Execute      | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                |
+| MC_ADDAXISTOGROUP | Ngõ vào (Input) | IdentInGroup | WORD         | Không             | [0 to 2]        | Cờ thứ tự trục                             |
+| MC_ADDAXISTOGROUP | Ngõ vào (Input) | AxesGroup    | WORD         | Không             | [0 to 65535]    | Số hiệu định danh nhóm trục (AxesGroup ID) |
+| MC_ADDAXISTOGROUP | Ngõ vào (Input) | Axis         | WORD         | Không             | [0 to 65535]    | Số hiệu định danh trục (Axis ID)           |
+| MC_ADDAXISTOGROUP | Ngõ ra (Output) | Done         | BOOL         | Có                | TRUE/FALSE      | Cờ báo hoàn thành (Done)                   |
+| MC_ADDAXISTOGROUP | Ngõ ra (Output) | Busy         | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)   |
+| MC_ADDAXISTOGROUP | Ngõ ra (Output) | Error        | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)  |
+| MC_ADDAXISTOGROUP | Ngõ ra (Output) | ErrorID      | DWORD        | Có                | -               | Mã lỗi (Vui lòng kiểm tra【8.10 Mã lỗi】)  |
 
 #### Đặc tính kỹ thuật
 
@@ -62,9 +62,9 @@ Khối hàm này dùng để thêm trục vào nhóm trục.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                    |
+| :------------------ | :------------------------------------------------ |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định. |
 
 #### Giản đồ thời gian (Sequence Diagram)
 
@@ -78,15 +78,15 @@ Khối hàm này xóa một trục khỏi nhóm trục.
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_REMOVEAXISFROMGROUP | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_REMOVEAXISFROMGROUP | IdentInGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_REMOVEAXISFROMGROUP | AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_REMOVEAXISFROMGROUP | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_REMOVEAXISFROMGROUP | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_REMOVEAXISFROMGROUP | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_REMOVEAXISFROMGROUP | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh       | Tham số      |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------------- | :----------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_REMOVEAXISFROMGROUP | Execute      |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_REMOVEAXISFROMGROUP | IdentInGroup |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_REMOVEAXISFROMGROUP | AxesGroup    |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_REMOVEAXISFROMGROUP | Done         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_REMOVEAXISFROMGROUP | Busy         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_REMOVEAXISFROMGROUP | Error        |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_REMOVEAXISFROMGROUP | ErrorID      |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -96,15 +96,15 @@ Khối hàm này xóa một trục khỏi nhóm trục.
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_REMOVEAXISFROMGROUP | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_REMOVEAXISFROMGROUP | Ngõ vào (Input) | IdentInGroup | WORD | Không | [0 to 2] | Cờ thứ tự trục |
-| MC_REMOVEAXISFROMGROUP | Ngõ vào (Input) | AxesGroup | WORD | Không | [0 to 65535] | Số hiệu định danh nhóm trục (AxesGroup ID) |
-| MC_REMOVEAXISFROMGROUP | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_REMOVEAXISFROMGROUP | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_REMOVEAXISFROMGROUP | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_REMOVEAXISFROMGROUP | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra【8.10 Bảng tra cứu mã lỗi】) |
+| Khối lệnh / Lệnh       | Kiểu chân       | Tham số      | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                                         |
+| :--------------------- | :-------------- | :----------- | :----------- | :---------------- | :-------------- | :----------------------------------------------------- |
+| MC_REMOVEAXISFROMGROUP | Ngõ vào (Input) | Execute      | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                            |
+| MC_REMOVEAXISFROMGROUP | Ngõ vào (Input) | IdentInGroup | WORD         | Không             | [0 to 2]        | Cờ thứ tự trục                                         |
+| MC_REMOVEAXISFROMGROUP | Ngõ vào (Input) | AxesGroup    | WORD         | Không             | [0 to 65535]    | Số hiệu định danh nhóm trục (AxesGroup ID)             |
+| MC_REMOVEAXISFROMGROUP | Ngõ ra (Output) | Done         | BOOL         | Có                | TRUE/FALSE      | Cờ báo hoàn thành (Done)                               |
+| MC_REMOVEAXISFROMGROUP | Ngõ ra (Output) | Busy         | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)               |
+| MC_REMOVEAXISFROMGROUP | Ngõ ra (Output) | Error        | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)              |
+| MC_REMOVEAXISFROMGROUP | Ngõ ra (Output) | ErrorID      | DWORD        | Có                | -               | Mã lỗi (Vui lòng kiểm tra【8.10 Bảng tra cứu mã lỗi】) |
 
 #### Đặc tính kỹ thuật
 
@@ -120,9 +120,9 @@ Khối hàm này xóa một trục khỏi nhóm trục.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                    |
+| :------------------ | :------------------------------------------------ |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định. |
 
 #### Giản đồ thời gian (Sequence Diagram)
 
@@ -136,14 +136,14 @@ Khối hàm này xóa tất cả các trục khỏi một nhóm trục.
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_UNGROUPALLAXES | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_UNGROUPALLAXES | AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_UNGROUPALLAXES | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_UNGROUPALLAXES | BusY |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_UNGROUPALLAXES | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_UNGROUPALLAXES | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh  | Tham số   |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :---------------- | :-------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_UNGROUPALLAXES | Execute   |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_UNGROUPALLAXES | AxesGroup |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_UNGROUPALLAXES | Done      |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_UNGROUPALLAXES | BusY      |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_UNGROUPALLAXES | Error     |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_UNGROUPALLAXES | ErrorID   |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -153,14 +153,14 @@ Khối hàm này xóa tất cả các trục khỏi một nhóm trục.
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_UNGROUPALLAXES | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_UNGROUPALLAXES | Ngõ vào (Input) | AxesGroup | WORD | Không | [0 to 65535] | Số hiệu định danh nhóm trục (AxesGroup ID) |
-| MC_UNGROUPALLAXES | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_UNGROUPALLAXES | Ngõ ra (Output) | BusY | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_UNGROUPALLAXES | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_UNGROUPALLAXES | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra【8.10 Mã lỗi】) |
+| Khối lệnh / Lệnh  | Kiểu chân       | Tham số   | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                             |
+| :---------------- | :-------------- | :-------- | :----------- | :---------------- | :-------------- | :----------------------------------------- |
+| MC_UNGROUPALLAXES | Ngõ vào (Input) | Execute   | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                |
+| MC_UNGROUPALLAXES | Ngõ vào (Input) | AxesGroup | WORD         | Không             | [0 to 65535]    | Số hiệu định danh nhóm trục (AxesGroup ID) |
+| MC_UNGROUPALLAXES | Ngõ ra (Output) | Done      | BOOL         | Có                | TRUE/FALSE      | Cờ báo hoàn thành (Done)                   |
+| MC_UNGROUPALLAXES | Ngõ ra (Output) | BusY      | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)   |
+| MC_UNGROUPALLAXES | Ngõ ra (Output) | Error     | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)  |
+| MC_UNGROUPALLAXES | Ngõ ra (Output) | ErrorID   | DWORD        | Có                | -               | Mã lỗi (Vui lòng kiểm tra【8.10 Mã lỗi】)  |
 
 #### Đặc tính kỹ thuật
 
@@ -176,9 +176,9 @@ Khối hàm này xóa tất cả các trục khỏi một nhóm trục.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
+| Mã lỗi (Error Code) | Nội dung mô tả                                   |
+| :------------------ | :----------------------------------------------- |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
 
 ### MC_GROUPENABLE
 
@@ -188,14 +188,14 @@ Khối hàm này dùng để bật (Enable) nhóm trục.
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_SAVECAMTABLE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SAVECAMTABLE | AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SAVECAMTABLE | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SAVECAMTABLE | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SAVECAMTABLE | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_SAVECAMTABLE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số   |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :-------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_SAVECAMTABLE  | Execute   |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SAVECAMTABLE  | AxesGroup |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SAVECAMTABLE  | Done      |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SAVECAMTABLE  | Busy      |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SAVECAMTABLE  | Error     |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_SAVECAMTABLE  | ErrorID   |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -205,14 +205,14 @@ Khối hàm này dùng để bật (Enable) nhóm trục.
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_GROUPENABLE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_GROUPENABLE | Ngõ vào (Input) | AxesGroup | WORD | Không | [0 to 65535] | Số hiệu định danh nhóm trục (AxesGroup ID) |
-| MC_GROUPENABLE | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_GROUPENABLE | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_GROUPENABLE | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_GROUPENABLE | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra【8.10 Mã lỗi】) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số   | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                             |
+| :--------------- | :-------------- | :-------- | :----------- | :---------------- | :-------------- | :----------------------------------------- |
+| MC_GROUPENABLE   | Ngõ vào (Input) | Execute   | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                |
+| MC_GROUPENABLE   | Ngõ vào (Input) | AxesGroup | WORD         | Không             | [0 to 65535]    | Số hiệu định danh nhóm trục (AxesGroup ID) |
+| MC_GROUPENABLE   | Ngõ ra (Output) | Done      | BOOL         | Có                | TRUE/FALSE      | Cờ báo hoàn thành (Done)                   |
+| MC_GROUPENABLE   | Ngõ ra (Output) | Busy      | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)   |
+| MC_GROUPENABLE   | Ngõ ra (Output) | Error     | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)  |
+| MC_GROUPENABLE   | Ngõ ra (Output) | ErrorID   | DWORD        | Có                | -               | Mã lỗi (Vui lòng kiểm tra【8.10 Mã lỗi】)  |
 
 #### Đặc tính kỹ thuật
 
@@ -226,13 +226,13 @@ Khối hàm này dùng để bật (Enable) nhóm trục.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
+| Mã lỗi (Error Code) | Nội dung mô tả                                   |
+| :------------------ | :----------------------------------------------- |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
 
 #### Giản đồ thời gian (Sequence Diagram)
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.05%20Management%20functions%20of%20axis%20group%20motion%20control/WebHome/1781614371861-808.png?width=460&amp;height=140&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.05%20Management%20functions%20of%20axis%20group%20motion%20control/WebHome/1781614371861-808.png?width=460&height=140&rev=1.1)
 
 ### MC_GROUPDISABLE
 
@@ -242,14 +242,14 @@ Khối hàm này dùng để tắt (Disable) nhóm trục.
 
 #### Thiết bị (thanh ghi) sử dụng (Chỉ sử dụng được một thiết bị đơn lẻ, không hỗ trợ ghép nối thiết bị và thanh ghi chỉ mục (Index))
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_GROUPDISABLE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPDISABLE | AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPDISABLE | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPDISABLE | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPDISABLE | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPDISABLE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số   |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :-------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_GROUPDISABLE  | Execute   |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPDISABLE  | AxesGroup |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPDISABLE  | Done      |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPDISABLE  | Busy      |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPDISABLE  | Error     |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPDISABLE  | ErrorID   |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -259,14 +259,14 @@ Khối hàm này dùng để tắt (Disable) nhóm trục.
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu dữ liệu | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_GROUPDISABLE | Input | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_GROUPDISABLE | Input | AxesGroup | WORD | Không | [0 to 65535] | Số hiệu định danh nhóm trục (AxesGroup ID) |
-| MC_GROUPDISABLE | Output | Done | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_GROUPDISABLE | Output | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_GROUPDISABLE | Output | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_GROUPDISABLE | Output | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra【8.10 Mã lỗi】) |
+| Khối lệnh / Lệnh | Kiểu dữ liệu | Tham số   | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                             |
+| :--------------- | :----------- | :-------- | :----------- | :---------------- | :-------------- | :----------------------------------------- |
+| MC_GROUPDISABLE  | Input        | Execute   | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                |
+| MC_GROUPDISABLE  | Input        | AxesGroup | WORD         | Không             | [0 to 65535]    | Số hiệu định danh nhóm trục (AxesGroup ID) |
+| MC_GROUPDISABLE  | Output       | Done      | BOOL         | Có                | TRUE/FALSE      | Cờ báo hoàn thành (Done)                   |
+| MC_GROUPDISABLE  | Output       | Busy      | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)   |
+| MC_GROUPDISABLE  | Output       | Error     | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)  |
+| MC_GROUPDISABLE  | Output       | ErrorID   | DWORD        | Có                | -               | Mã lỗi (Vui lòng kiểm tra【8.10 Mã lỗi】)  |
 
 #### Đặc tính kỹ thuật
 
@@ -282,9 +282,9 @@ Khối hàm này dùng để tắt (Disable) nhóm trục.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
+| Mã lỗi (Error Code) | Nội dung mô tả                                   |
+| :------------------ | :----------------------------------------------- |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
 
 ### MC_GROUPREDACTUALPOSITION
 
@@ -294,16 +294,16 @@ Khối hàm này dùng để đọc vị trí thực tế của từng trục tr
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_GROUPREADA CTUALPOSITION | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADA CTUALPOSITION | CoordSystem |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADA CTUALPOSITION | AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADA CTUALPOSITION | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADA CTUALPOSITION | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADA CTUALPOSITION | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADA CTUALPOSITION | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADA CTUALPOSITION | Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh            | Tham số     |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :-------------------------- | :---------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_GROUPREADA CTUALPOSITION | Enable      |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADA CTUALPOSITION | CoordSystem |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADA CTUALPOSITION | AxesGroup   |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADA CTUALPOSITION | Valid       |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADA CTUALPOSITION | Busy        |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADA CTUALPOSITION | Error       |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADA CTUALPOSITION | ErrorID     |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADA CTUALPOSITION | Position    |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -313,16 +313,16 @@ Khối hàm này dùng để đọc vị trí thực tế của từng trục tr
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_GROUPREADACTUALPOSITION | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_GROUPREADACTUALPOSITION | Ngõ vào (Input) | CoordSystem | WORD | Có | 0 | Hệ tọa độ |
-| MC_GROUPREADACTUALPOSITION | Ngõ vào (Input) | AxesGroup | WORD | Không | [0 to 65535] | Số hiệu định danh nhóm trục (AxesGroup ID) |
-| MC_GROUPREADACTUALPOSITION | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_GROUPREADACTUALPOSITION | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_GROUPREADACTUALPOSITION | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_GROUPREADACTUALPOSITION | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra【8.11 Mã lỗi】) |
-| MC_GROUPREADACTUALPOSITION | Ngõ ra (Output) | Position | LREAL array | Có |  | Tọa độ vị trí (Position) |
+| Khối lệnh / Lệnh           | Kiểu chân       | Tham số     | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                             |
+| :------------------------- | :-------------- | :---------- | :----------- | :---------------- | :-------------- | :----------------------------------------- |
+| MC_GROUPREADACTUALPOSITION | Ngõ vào (Input) | Enable      | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                |
+| MC_GROUPREADACTUALPOSITION | Ngõ vào (Input) | CoordSystem | WORD         | Có                | 0               | Hệ tọa độ                                  |
+| MC_GROUPREADACTUALPOSITION | Ngõ vào (Input) | AxesGroup   | WORD         | Không             | [0 to 65535]    | Số hiệu định danh nhóm trục (AxesGroup ID) |
+| MC_GROUPREADACTUALPOSITION | Ngõ ra (Output) | Valid       | BOOL         | Có                | TRUE/FALSE      | Cờ báo hoàn thành (Done)                   |
+| MC_GROUPREADACTUALPOSITION | Ngõ ra (Output) | Busy        | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)   |
+| MC_GROUPREADACTUALPOSITION | Ngõ ra (Output) | Error       | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)  |
+| MC_GROUPREADACTUALPOSITION | Ngõ ra (Output) | ErrorID     | DWORD        | Có                | -               | Mã lỗi (Vui lòng kiểm tra【8.11 Mã lỗi】)  |
+| MC_GROUPREADACTUALPOSITION | Ngõ ra (Output) | Position    | LREAL array  | Có                |                 | Tọa độ vị trí (Position)                   |
 
 #### Đặc tính kỹ thuật
 
@@ -330,9 +330,9 @@ Khối hàm này dùng để đọc vị trí thực tế của từng trục tr
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
+| Mã lỗi (Error Code) | Nội dung mô tả                                   |
+| :------------------ | :----------------------------------------------- |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
 
 ### MC_GROUPREADACTUALVELOCITY
 
@@ -344,17 +344,17 @@ Khối hàm này dùng để đọc vận tốc thực tế của từng trục 
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_GROUPREADACTUALVELOCITY | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALVELOCITY | CoordSystem |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALVELOCITY | AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALVELOCITY | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALVELOCITY | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALVELOCITY | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALVELOCITY | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALVELOCITY | Velocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALVELOCITY | PathVelocity |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh           | Tham số      |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :------------------------- | :----------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_GROUPREADACTUALVELOCITY | Enable       |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALVELOCITY | CoordSystem  |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALVELOCITY | AxesGroup    |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALVELOCITY | Valid        |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALVELOCITY | Busy         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALVELOCITY | Error        |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALVELOCITY | ErrorID      |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALVELOCITY | Velocity     |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALVELOCITY | PathVelocity |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -364,17 +364,17 @@ Khối hàm này dùng để đọc vận tốc thực tế của từng trục 
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_GROUPREADACTUALVELOCITY | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_GROUPREADACTUALVELOCITY | Ngõ vào (Input) | CoordSystem | WORD | Có | 0 | Hệ tọa độ |
-| MC_GROUPREADACTUALVELOCITY | Ngõ vào (Input) | AxesGroup | WORD | Không | [0 to 65535] | Số hiệu định danh nhóm trục (AxesGroup ID) |
-| MC_GROUPREADACTUALVELOCITY | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_GROUPREADACTUALVELOCITY | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_GROUPREADACTUALVELOCITY | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_GROUPREADACTUALVELOCITY | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra【8.11 Mã lỗi】) |
-| MC_GROUPREADACTUALVELOCITY | Ngõ ra (Output) | Velocity | LREAL array | Có |  | Vận tốc cài đặt (Velocity) |
-| MC_GROUPREADACTUALVELOCITY | Ngõ ra (Output) | PathVelocity | LREAL | Có |  | Vận tốc đường chạy (Path velocity) |
+| Khối lệnh / Lệnh           | Kiểu chân       | Tham số      | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                             |
+| :------------------------- | :-------------- | :----------- | :----------- | :---------------- | :-------------- | :----------------------------------------- |
+| MC_GROUPREADACTUALVELOCITY | Ngõ vào (Input) | Enable       | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                |
+| MC_GROUPREADACTUALVELOCITY | Ngõ vào (Input) | CoordSystem  | WORD         | Có                | 0               | Hệ tọa độ                                  |
+| MC_GROUPREADACTUALVELOCITY | Ngõ vào (Input) | AxesGroup    | WORD         | Không             | [0 to 65535]    | Số hiệu định danh nhóm trục (AxesGroup ID) |
+| MC_GROUPREADACTUALVELOCITY | Ngõ ra (Output) | Valid        | BOOL         | Có                | TRUE/FALSE      | Cờ báo hoàn thành (Done)                   |
+| MC_GROUPREADACTUALVELOCITY | Ngõ ra (Output) | Busy         | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)   |
+| MC_GROUPREADACTUALVELOCITY | Ngõ ra (Output) | Error        | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)  |
+| MC_GROUPREADACTUALVELOCITY | Ngõ ra (Output) | ErrorID      | DWORD        | Có                | -               | Mã lỗi (Vui lòng kiểm tra【8.11 Mã lỗi】)  |
+| MC_GROUPREADACTUALVELOCITY | Ngõ ra (Output) | Velocity     | LREAL array  | Có                |                 | Vận tốc cài đặt (Velocity)                 |
+| MC_GROUPREADACTUALVELOCITY | Ngõ ra (Output) | PathVelocity | LREAL        | Có                |                 | Vận tốc đường chạy (Path velocity)         |
 
 #### Đặc tính kỹ thuật
 
@@ -382,9 +382,9 @@ Khối hàm này dùng để đọc vận tốc thực tế của từng trục 
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                    |
+| :------------------ | :------------------------------------------------ |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định. |
 
 ### MC_GROUPREADERROR
 
@@ -396,15 +396,15 @@ Khối hàm này dùng để đọc lỗi của nhóm trục.
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_GROUPREADERROR | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADERROR | AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADERROR | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADERROR | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADERROR | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADERROR | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADERROR | GroupErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh  | Tham số      |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :---------------- | :----------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_GROUPREADERROR | Enable       |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADERROR | AxesGroup    |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADERROR | Valid        |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADERROR | Busy         |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADERROR | Error        |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADERROR | ErrorID      |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADERROR | GroupErrorID |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -414,15 +414,15 @@ Khối hàm này dùng để đọc lỗi của nhóm trục.
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_GROUPREADERROR | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_GROUPREADERROR | Ngõ vào (Input) | AxesGroup | WORD | Không | [0 to 65535] | Số hiệu định danh nhóm trục (AxesGroup ID) |
-| MC_GROUPREADERROR | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_GROUPREADERROR | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_GROUPREADERROR | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_GROUPREADERROR | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra【8.11 Mã lỗi】) |
-| MC_GROUPREADERROR | Ngõ ra (Output) | GroupErrorID | DWROD | Có |  | Mã lỗi nhóm trục |
+| Khối lệnh / Lệnh  | Kiểu chân       | Tham số      | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                             |
+| :---------------- | :-------------- | :----------- | :----------- | :---------------- | :-------------- | :----------------------------------------- |
+| MC_GROUPREADERROR | Ngõ vào (Input) | Enable       | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                |
+| MC_GROUPREADERROR | Ngõ vào (Input) | AxesGroup    | WORD         | Không             | [0 to 65535]    | Số hiệu định danh nhóm trục (AxesGroup ID) |
+| MC_GROUPREADERROR | Ngõ ra (Output) | Valid        | BOOL         | Có                | TRUE/FALSE      | Cờ báo hoàn thành (Done)                   |
+| MC_GROUPREADERROR | Ngõ ra (Output) | Busy         | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)   |
+| MC_GROUPREADERROR | Ngõ ra (Output) | Error        | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)  |
+| MC_GROUPREADERROR | Ngõ ra (Output) | ErrorID      | DWORD        | Có                | -               | Mã lỗi (Vui lòng kiểm tra【8.11 Mã lỗi】)  |
+| MC_GROUPREADERROR | Ngõ ra (Output) | GroupErrorID | DWROD        | Có                |                 | Mã lỗi nhóm trục                           |
 
 #### Đặc tính kỹ thuật
 
@@ -430,9 +430,9 @@ Khối hàm này dùng để đọc lỗi của nhóm trục.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
+| Mã lỗi (Error Code) | Nội dung mô tả                                   |
+| :------------------ | :----------------------------------------------- |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
 
 ### MC_GROUPREADSTATUS
 
@@ -442,24 +442,24 @@ Khối hàm này đọc trạng thái của nhóm trục hiện đang được k
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_GROUPREADSTATUS | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | GroupMoving |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | GroupHoming |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | GroupErrorStop |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | GroupStandby |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | GroupStopping |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | GroupDisabled |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | ConstantVelocity |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | Accelerating |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | Decelerating |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | InPosition |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADSTATUS | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh   | Tham số          |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :----------------- | :--------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_GROUPREADSTATUS | Enable           |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | AxesGroup        |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | Valid            |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | Busy             |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | GroupMoving      |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | GroupHoming      |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | GroupErrorStop   |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | GroupStandby     |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | GroupStopping    |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | GroupDisabled    |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | ConstantVelocity |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | Accelerating     |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | Decelerating     |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | InPosition       |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | Error            |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADSTATUS | ErrorID          |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -469,24 +469,24 @@ Khối hàm này đọc trạng thái của nhóm trục hiện đang được k
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_GROUPREADERROR | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_GROUPREADERROR | Ngõ vào (Input) | AxesGroup | WORD | Không | [0,65535] | Số hiệu định danh nhóm trục (AxesGroup ID) |
-| MC_GROUPREADERROR | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Đầu ra có hợp lệ hay không |
-| MC_GROUPREADERROR | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_GROUPREADERROR | Ngõ ra (Output) | GroupMoving | BOOL | Có | TRUE/FALSE | Cờ báo nhóm trục đang di chuyển |
-| MC_GROUPREADERROR | Ngõ ra (Output) | GroupHoming | BOOL | Có | TRUE/FALSE | Cờ báo nhóm trục đang về gốc (Zero) |
-| MC_GROUPREADERROR | Ngõ ra (Output) | GroupErrorStop | BOOL | Có | TRUE/FALSE | Cờ báo nhóm trục dừng do lỗi |
-| MC_GROUPREADERROR | Ngõ ra (Output) | GroupStandby | BOOL | Có | TRUE/FALSE | Cờ báo nhóm trục đang đứng yên |
-| MC_GROUPREADERROR | Ngõ ra (Output) | GroupStopping | BOOL | Có | TRUE/FALSE | Cờ báo nhóm trục đang trong trạng thái dừng |
-| MC_GROUPREADERROR | Ngõ ra (Output) | GroupDisabled | BOOL | Có | TRUE/FALSE | Cờ báo nhóm trục chưa được kích hoạt |
-| MC_GROUPREADERROR | Ngõ ra (Output) | ConstantVelocity | BOOL | Có | TRUE/FALSE | Tốc độ không đổi |
-| MC_GROUPREADERROR | Ngõ ra (Output) | Accelerating | BOOL | Có | TRUE/FALSE | Tăng tốc |
-| MC_GROUPREADERROR | Ngõ ra (Output) | Decelerating | BOOL | Có | TRUE/FALSE | Giảm tốc |
-| MC_GROUPREADERROR | Ngõ ra (Output) | InPosition | BOOL | Có | TRUE/FALSE | Đạt đến vị trí mục tiêu |
-| MC_GROUPREADERROR | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_GROUPREADERROR | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra【8.11 Bảng tra cứu mã lỗi】) |
+| Khối lệnh / Lệnh  | Kiểu chân       | Tham số          | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                                         |
+| :---------------- | :-------------- | :--------------- | :----------- | :---------------- | :-------------- | :----------------------------------------------------- |
+| MC_GROUPREADERROR | Ngõ vào (Input) | Enable           | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                            |
+| MC_GROUPREADERROR | Ngõ vào (Input) | AxesGroup        | WORD         | Không             | [0,65535]       | Số hiệu định danh nhóm trục (AxesGroup ID)             |
+| MC_GROUPREADERROR | Ngõ ra (Output) | Valid            | BOOL         | Có                | TRUE/FALSE      | Đầu ra có hợp lệ hay không                             |
+| MC_GROUPREADERROR | Ngõ ra (Output) | Busy             | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)               |
+| MC_GROUPREADERROR | Ngõ ra (Output) | GroupMoving      | BOOL         | Có                | TRUE/FALSE      | Cờ báo nhóm trục đang di chuyển                        |
+| MC_GROUPREADERROR | Ngõ ra (Output) | GroupHoming      | BOOL         | Có                | TRUE/FALSE      | Cờ báo nhóm trục đang về gốc (Zero)                    |
+| MC_GROUPREADERROR | Ngõ ra (Output) | GroupErrorStop   | BOOL         | Có                | TRUE/FALSE      | Cờ báo nhóm trục dừng do lỗi                           |
+| MC_GROUPREADERROR | Ngõ ra (Output) | GroupStandby     | BOOL         | Có                | TRUE/FALSE      | Cờ báo nhóm trục đang đứng yên                         |
+| MC_GROUPREADERROR | Ngõ ra (Output) | GroupStopping    | BOOL         | Có                | TRUE/FALSE      | Cờ báo nhóm trục đang trong trạng thái dừng            |
+| MC_GROUPREADERROR | Ngõ ra (Output) | GroupDisabled    | BOOL         | Có                | TRUE/FALSE      | Cờ báo nhóm trục chưa được kích hoạt                   |
+| MC_GROUPREADERROR | Ngõ ra (Output) | ConstantVelocity | BOOL         | Có                | TRUE/FALSE      | Tốc độ không đổi                                       |
+| MC_GROUPREADERROR | Ngõ ra (Output) | Accelerating     | BOOL         | Có                | TRUE/FALSE      | Tăng tốc                                               |
+| MC_GROUPREADERROR | Ngõ ra (Output) | Decelerating     | BOOL         | Có                | TRUE/FALSE      | Giảm tốc                                               |
+| MC_GROUPREADERROR | Ngõ ra (Output) | InPosition       | BOOL         | Có                | TRUE/FALSE      | Đạt đến vị trí mục tiêu                                |
+| MC_GROUPREADERROR | Ngõ ra (Output) | Error            | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)              |
+| MC_GROUPREADERROR | Ngõ ra (Output) | ErrorID          | DWORD        | Có                | -               | Mã lỗi (Vui lòng kiểm tra【8.11 Bảng tra cứu mã lỗi】) |
 
 #### Đặc tính kỹ thuật
 
@@ -502,9 +502,9 @@ Accelerating and decelerating is set to ON when the velocity increases or decrea
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
+| Mã lỗi (Error Code) | Nội dung mô tả                                   |
+| :------------------ | :----------------------------------------------- |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
 
 ### MC_GROUPRESET
 
@@ -514,14 +514,14 @@ Khối hàm này dùng để đặt lại (Reset) nhóm trục.
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_GROUPRESET | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPRESET | AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPRESET | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPRESET | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPRESET | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPRESET | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh | Tham số   |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--------------- | :-------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_GROUPRESET    | Execute   |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPRESET    | AxesGroup |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPRESET    | Done      |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPRESET    | Busy      |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPRESET    | Error     |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPRESET    | ErrorID   |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -531,14 +531,14 @@ Khối hàm này dùng để đặt lại (Reset) nhóm trục.
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_GROUPRESET | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_GROUPRESET | Ngõ vào (Input) | AxesGroup | WORD | Không | [0 to 65535] | Số hiệu định danh nhóm trục (AxesGroup ID) |
-| MC_GROUPRESET | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
-| MC_GROUPRESET | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_GROUPRESET | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_GROUPRESET | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra【8.10 Bảng tra cứu mã lỗi】) |
+| Khối lệnh / Lệnh | Kiểu chân       | Tham số   | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                                         |
+| :--------------- | :-------------- | :-------- | :----------- | :---------------- | :-------------- | :----------------------------------------------------- |
+| MC_GROUPRESET    | Ngõ vào (Input) | Execute   | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                            |
+| MC_GROUPRESET    | Ngõ vào (Input) | AxesGroup | WORD         | Không             | [0 to 65535]    | Số hiệu định danh nhóm trục (AxesGroup ID)             |
+| MC_GROUPRESET    | Ngõ ra (Output) | Done      | BOOL         | Có                | TRUE/FALSE      | Cờ báo hoàn thành (Done)                               |
+| MC_GROUPRESET    | Ngõ ra (Output) | Busy      | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)               |
+| MC_GROUPRESET    | Ngõ ra (Output) | Error     | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)              |
+| MC_GROUPRESET    | Ngõ ra (Output) | ErrorID   | DWORD        | Có                | -               | Mã lỗi (Vui lòng kiểm tra【8.10 Bảng tra cứu mã lỗi】) |
 
 #### Đặc tính kỹ thuật
 
@@ -546,11 +546,11 @@ Khối hàm này dùng để đặt lại (Reset) nhóm trục.
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
+| Mã lỗi (Error Code) | Nội dung mô tả                                   |
+| :------------------ | :----------------------------------------------- |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định |
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.05%20Management%20functions%20of%20axis%20group%20motion%20control/WebHome/1782094658775-732.png?width=600&amp;height=203&amp;rev=1.1)
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.05%20Management%20functions%20of%20axis%20group%20motion%20control/WebHome/1782094658775-732.png?width=600&height=203&rev=1.1)
 
 ### MC_GROUPREADACTUALACCELERATION
 
@@ -560,17 +560,17 @@ Khối hàm này dùng để đọc gia tốc thực tế của từng trục tr
 
 #### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc chỉ mục)
 
-| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| MC_GROUPREADACTUALACCELERATION | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALACCELERATION | CoordSystem |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALACCELERATION | AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALACCELERATION | Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALACCELERATION | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALACCELERATION | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALACCELERATION | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALACCELERATION | Acceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MC_GROUPREADACTUALACCELERATION | PathAcceleration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnh / Lệnh               | Tham số          |  X  |  Y  |  M  |  S  | SM  | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS |  T  |  C  |  D  |  R  | SD  | LC  | HSC |  K  |  H  |  E  | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :----------------------------- | :--------------- | :-: | :-: | :-: | :-: | :-: | :----: | :----: | :-----: | :------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-------------------: | :----------------: |
+| MC_GROUPREADACTUALACCELERATION | Enable           |  ●  |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALACCELERATION | CoordSystem      |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALACCELERATION | AxesGroup        |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALACCELERATION | Valid            |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALACCELERATION | Busy             |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALACCELERATION | Error            |     |  ●  |  ●  |  ●  |  ●  |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALACCELERATION | ErrorID          |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALACCELERATION | Acceleration     |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
+| MC_GROUPREADACTUALACCELERATION | PathAcceleration |     |     |     |     |     |        |        |         |          |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |                       |                    |
 
 #### Lưu ý khi sử dụng vùng nhớ thiết bị
 
@@ -580,17 +580,17 @@ Khối hàm này dùng để đọc gia tốc thực tế của từng trục tr
 
 #### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MC_GROUPREADACTUALACCELERATION | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
-| MC_GROUPREADACTUALACCELERATION | Ngõ vào (Input) | CoordSystem | WORD | Có | 0 | Hệ tọa độ |
-| MC_GROUPREADACTUALACCELERATION | Ngõ vào (Input) | AxesGroup | WORD | Không | [0 to 65535] | Số hiệu định danh nhóm trục (AxesGroup ID) |
-| MC_GROUPREADACTUALACCELERATION | Ngõ ra (Output) | Valid | BOOL | Có | TRUE/FALSE | Đầu vào có hợp lệ hay không |
-| MC_GROUPREADACTUALACCELERATION | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| MC_GROUPREADACTUALACCELERATION | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
-| MC_GROUPREADACTUALACCELERATION | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng kiểm tra【8.11 Mã lỗi】) |
-| MC_GROUPREADACTUALACCELERATION | Ngõ ra (Output) | Acceleration | LREAL array | Có |  | Gia tốc tăng tốc (Acceleration) |
-| MC_GROUPREADACTUALACCELERATION | Ngõ ra (Output) | PathAcceleration | LREAL | Có |  | Gia tốc đường chạy (Path acceleration) |
+| Khối lệnh / Lệnh               | Kiểu chân       | Tham số          | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật                             |
+| :----------------------------- | :-------------- | :--------------- | :----------- | :---------------- | :-------------- | :----------------------------------------- |
+| MC_GROUPREADACTUALACCELERATION | Ngõ vào (Input) | Enable           | BOOL         | Không             | TRUE/FALSE      | Kích hoạt khối hàm (Enable)                |
+| MC_GROUPREADACTUALACCELERATION | Ngõ vào (Input) | CoordSystem      | WORD         | Có                | 0               | Hệ tọa độ                                  |
+| MC_GROUPREADACTUALACCELERATION | Ngõ vào (Input) | AxesGroup        | WORD         | Không             | [0 to 65535]    | Số hiệu định danh nhóm trục (AxesGroup ID) |
+| MC_GROUPREADACTUALACCELERATION | Ngõ ra (Output) | Valid            | BOOL         | Có                | TRUE/FALSE      | Đầu vào có hợp lệ hay không                |
+| MC_GROUPREADACTUALACCELERATION | Ngõ ra (Output) | Busy             | BOOL         | Có                | TRUE/FALSE      | Cờ báo khối hàm đang bận thực thi (Busy)   |
+| MC_GROUPREADACTUALACCELERATION | Ngõ ra (Output) | Error            | BOOL         | Có                | TRUE/FALSE      | Cờ báo có phát sinh lỗi hay không (Error)  |
+| MC_GROUPREADACTUALACCELERATION | Ngõ ra (Output) | ErrorID          | DWORD        | Có                | -               | Mã lỗi (Vui lòng kiểm tra【8.11 Mã lỗi】)  |
+| MC_GROUPREADACTUALACCELERATION | Ngõ ra (Output) | Acceleration     | LREAL array  | Có                |                 | Gia tốc tăng tốc (Acceleration)            |
+| MC_GROUPREADACTUALACCELERATION | Ngõ ra (Output) | PathAcceleration | LREAL        | Có                |                 | Gia tốc đường chạy (Path acceleration)     |
 
 #### Đặc tính kỹ thuật
 
@@ -598,10 +598,8 @@ Khối hàm này dùng để đọc gia tốc thực tế của từng trục tr
 
 #### Mã lỗi (Error Code)
 
-| Mã lỗi (Error Code) | Nội dung mô tả |
-| :--- | :--- |
-| 4084H | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định. |
+| Mã lỗi (Error Code) | Nội dung mô tả                                    |
+| :------------------ | :------------------------------------------------ |
+| 4084H               | Dữ liệu đầu vào vượt quá phạm vi có thể chỉ định. |
 
-![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.05%20Management%20functions%20of%20axis%20group%20motion%20control/WebHome/1782095063803-707.png?width=671&amp;height=206&amp;rev=1.1)
-
-0
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.05%20Management%20functions%20of%20axis%20group%20motion%20control/WebHome/1782095063803-707.png?width=671&height=206&rev=1.1)
