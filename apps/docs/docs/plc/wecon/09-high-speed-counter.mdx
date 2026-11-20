@@ -71,7 +71,7 @@ Ví dụ: Động cơ servo dẫn động bàn máy di chuyển qua hộp giảm
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/09%20%20High%20Speed%20Counter/WebHome/1709187760060-141.png?rev=1.1)
 
 :::tip
-✎Lưu ý: Bên cạnh tỷ số giảm tốc và tỷ số truyền hộp số, công suất của động cơ servo phải được xác định dựa trên các thông số hiệu năng của động cơ servo và đặc tính tải của bàn máy, đồng thời cần tính toán tốc độ và mô-men xoắn động cơ yêu cầu theo tỷ số giảm tốc và tỷ số truyền hộp số để đảm bảo hệ thống hoạt động ổn định.
+Bên cạnh tỷ số giảm tốc và tỷ số truyền hộp số, công suất của động cơ servo phải được xác định dựa trên các thông số hiệu năng của động cơ servo và đặc tính tải của bàn máy, đồng thời cần tính toán tốc độ và mô-men xoắn động cơ yêu cầu theo tỷ số giảm tốc và tỷ số truyền hộp số để đảm bảo hệ thống hoạt động ổn định.
 :::
 
 Điều kiện làm việc điển hình ở chế độ quay (Rotation mode) được minh họa trong hình dưới đây:
@@ -271,7 +271,6 @@ Khối hàm HC_COUNTER có thể đếm vị trí trục bộ đếm hiện tạ
 Vị trí trục bộ đếm chỉ được thiết lập theo chế độ đếm hiện tại và thay đổi trong phạm vi chế độ của trục bộ đếm, đơn vị vị trí là Unit.
 
 :::tip
-✎Lưu ý:
 
 (1) Chỉ cập nhật vị trí trục, vận tốc và chiều đếm hiện tại khi và chỉ khi ngõ vào Enable của khối hàm được bật.
 
@@ -563,7 +562,6 @@ Giá trị đếm bộ đếm đầu dò chạm đạt tới giá trị chỉ đ
 Bật HC_COMPARE để thực hiện so sánh một vị trí của trục bộ đếm.
 
 :::tip
-✎Lưu ý:
 
 - Khi sử dụng khối hàm này, nếu tham số InterruptMap chỉ định tên chương trình ánh xạ ngắt, lệnh EI phải được bật trong chương trình quét. Nếu không, chương trình ngắt không thể thực thi.
 
@@ -648,7 +646,6 @@ Khi chân Enable của khối hàm hợp lệ, vị trí trục bộ đếm đư
 Tham số ngõ ra NextIndex biểu thị chỉ số vị trí so sánh tiếp theo, tức là số lần so sánh bằng nhau đã hoàn thành.
 
 :::tip
-✎Lưu ý:
 
 - Khi sử dụng khối hàm này, nếu tham số InterruptMap chỉ định tên chương trình ánh xạ ngắt, lệnh EI phải được bật trong chương trình quét. Nếu không, chương trình ngắt không thể thực thi.
 

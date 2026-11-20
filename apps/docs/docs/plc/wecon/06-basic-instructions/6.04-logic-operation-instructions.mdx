@@ -97,7 +97,6 @@ Sau khi đảo dấu giá trị BIN 32-bit của thiết bị chỉ định tạ
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760596600811-808.png?width=641&height=206&rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Nếu bạn sử dụng lệnh thực thi liên tục (DNEG), việc đảo dấu sẽ diễn ra ở mỗi chu kỳ quét, do đó cần lưu ý.
 :::
@@ -486,7 +485,6 @@ Thiết bị liên quan
 | SD249                       | Số hiệu nhỏ nhất của trạng thái cảnh báo tín hiệu đang ON | Lưu số hiệu nhỏ nhất đang hoạt động trong khoảng S900 đến S999.                                |
 
 :::tip
-✎Lưu ý:
 
 Nếu sử dụng lệnh ANR, việc reset sẽ thực hiện tuần tự ở mỗi chu kỳ quét.
 
@@ -778,7 +776,6 @@ Khi dữ liệu BIN 32-bit của thiết bị chỉ định tại (s) toàn là 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600647593-724.png?rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Khi đầu vào lệnh OFF, lệnh sẽ không được thực thi và giá trị ngõ ra số bit ON vẫn giữ nguyên như trước.
 :::
@@ -879,7 +876,6 @@ Phần dư được bỏ đi (làm tròn xuống phần nguyên).
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600767517-781.png?rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Khi số hiệu thiết bị vượt quá phạm vi, (n) được xử lý theo giá trị nhỏ hơn nằm trong phạm vi cho phép.
 :::
@@ -927,7 +923,6 @@ Tính căn bậc hai của dữ liệu BIN 16-bit chỉ định tại (s) và l�
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600855132-607.png?rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Phần thập phân của kết quả phép toán sẽ bị bỏ đi để thành số nguyên. Nếu có việc làm tròn bỏ phần thập phân, cờ mượn (Borrow Flag) SM152 sẽ bật ON.
 
@@ -977,7 +972,6 @@ Tính căn bậc hai của dữ liệu BIN 32-bit chỉ định tại (s) và l�
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600909796-325.png?rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Phần thập phân của kết quả phép toán sẽ bị bỏ đi để thành số nguyên. Nếu có việc làm tròn bỏ phần thập phân, cờ mượn (Borrow Flag) SM152 sẽ bật ON.
 
@@ -1073,7 +1067,6 @@ Cộng toàn bộ dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thi
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760601663631-292.png?rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Khi chỉ định số chữ số tại (d), giá trị của n nằm trong khoảng từ 1 đến 8, chẳng hạn K8 (lệnh 32-bit, ví dụ K8M0), không hỗ trợ K16 (lệnh 64-bit).
 :::
@@ -1182,7 +1175,6 @@ Kết quả thực thi sắp xếp theo (n3)=K3 (cột số 3).
 | Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | 3                                             | 160                                           | 70                                            | 30                                            |
 
 :::tip
-✎Lưu ý:
 
 Lệnh SORT chỉ hỗ trợ sắp xếp theo thứ tự tăng dần.
 
@@ -1312,7 +1304,6 @@ Kết quả thực thi sắp xếp theo (n3)=K3 (cột số 3) (SM165=ON trong t
 | Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | 4                                       | 100                                     | 20                                      | 8                                       |
 
 :::tip
-✎Lưu ý:
 
 Không thay đổi toán hạng và nội dung dữ liệu trong quá trình thực thi.
 
@@ -1443,7 +1434,6 @@ Kết quả thực thi sắp xếp theo (n3)=K3 (cột số 3) (SM165=ON trong t
 | Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | 4                                       | 100                                     | 20                                      | 8                                       |
 
 :::tip
-✎Lưu ý:
 
 Không thay đổi toán hạng và nội dung dữ liệu trong quá trình thực thi.
 
@@ -1541,7 +1531,6 @@ Các thiết bị chỉ định tại (d) và (d)+1 sẽ lần lượt được 
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760602558671-764.png?rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Nếu sử dụng lệnh thực thi liên tục, phép hoán đổi sẽ được thực hiện ở mỗi chu kỳ quét.
 :::
@@ -1857,7 +1846,6 @@ Lệnh ghi hằng số hàng loạt (ví dụ: K0) có lệnh FMOV(P), có thể
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605459315-437.png?width=474&height=53&rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Vui lòng chỉ định cùng loại thiết bị cho (d1) và (d2), và đảm bảo số hiệu (d1) &lt; số hiệu (d2). Khi số hiệu (d1) ≥ số hiệu (d2), chỉ 1 điểm tại thiết bị chỉ định trong (d1) được reset.
 
@@ -1913,7 +1901,6 @@ Thực hiện SET hàng loạt trong khoảng giữa các thiết bị cùng lo�
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605791510-474.png?width=375&height=100&rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Vui lòng chỉ định cùng loại thiết bị cho (d1) và (d2), và đảm bảo số hiệu (d1) &lt; số hiệu (d2). Khi số hiệu (d1) ≥ số hiệu (d2), chỉ 1 điểm tại thiết bị chỉ định trong (d1) được SET.
 :::
@@ -2019,7 +2006,6 @@ Trong lệnh CRC(P), đa thức sinh của giá trị CRC (CRC-16) sử dụng "
 | CRC-CCITT | X16+X12+X5+1                                       |
 
 :::tip
-✎Lưu ý:
 
 Khi (s1) sử dụng KnX, KnY, KnM, KnS, giá trị n bắt buộc phải chỉ định là 4.
 :::

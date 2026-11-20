@@ -57,7 +57,6 @@ Nếu đầu vào lệnh được đặt thành ON, mẫu ngõ ra gồm (n) đi�
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760508000382-302.png?rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Khi chỉ định số chữ số của thiết bị bit tại (s1), số hiệu thiết bị phải là bội số của 16 (0, 16, 32, 64...) và chỉ được chỉ định K4 cho số chữ số.
 
@@ -128,7 +127,6 @@ Nếu đầu vào lệnh được đặt thành ON, mẫu ngõ ra gồm (n) đi�
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509660891-169.png?rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Có thể chỉ định bộ đếm tốc độ cao trong lệnh DABSD. Khi chỉ định bộ đếm tốc độ cao, giá trị hiện tại của bộ đếm sẽ có độ trễ đáp ứng trong mẫu ngõ ra do chu kỳ quét.
 
@@ -211,7 +209,6 @@ Nếu không có dữ liệu giống nhau, số lượng dữ liệu giống nha
 | (d) +4           | 8              | Vị trí cuối cùng của giá trị lớn nhất         |
 
 :::tip
-✎Lưu ý:
 
 Thực hiện so sánh độ lớn theo đại số (có dấu). (-10 &lt; 2)
 
@@ -292,7 +289,6 @@ Trong trường hợp không có dữ liệu giống nhau, số lượng dữ li
 | (d) +9, (d) +8   | 8              | Vị trí cuối cùng của giá trị lớn nhất         |
 
 :::tip
-✎Lưu ý:
 
 Thực hiện so sánh độ lớn theo đại số (có dấu). (-10 &lt; 2)
 
@@ -348,7 +344,6 @@ Kết hợp nhiều lệnh ALTP để thực hiện ngõ ra chia tần số.
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760508608411-793.png?width=547&height=350&rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Nếu lập trình bằng lệnh ALT, trạng thái sẽ bị đảo ở mỗi chu kỳ quét. Để chỉ đảo trạng thái khi đầu vào lệnh chuyển từ OFF→ON, hãy sử dụng lệnh ALTP (loại thực thi theo xung) hoặc đặt tiếp điểm lệnh là LDP (loại thực thi theo xung).
 :::
@@ -445,7 +440,6 @@ Sau khi công đoạn cuối cùng chỉ định tại (n) hoàn thành, cờ k�
 Quay trở lại ban đầu và lặp lại ngõ ra.
 
 :::tip
-✎Lưu ý:
 
 Tại (s1), khi chỉ định số hiệu thiết bị bằng cách chỉ định số chữ số của thiết bị bit, số hiệu thiết bị phải là bội số của 16 (0, 16, 32, 64...).
 
@@ -516,7 +510,6 @@ Tùy theo trạng thái ON/OFF của cờ chế độ SM226, nội dung của (d
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760509407185-267.png?rev=1.1)
 
 :::tip
-✎Lưu ý:
 
 Khi thiết bị lưu giữ khi mất điện (vùng nhớ lưu giữ) được chỉ định tại (d) mà đầu vào lệnh vẫn giữ ON, cần xóa trước giá trị (d) khi chuyển mô-đun CPU sang RUN (khởi động).
 :::
@@ -589,7 +582,6 @@ Bố trí cảm biến phát hiện hai pha (X0, X1) cho chiều quay thuận/ng
 Chỉ định số phần chia (n1) và vùng vận hành tốc độ thấp (n2) của bàn xoay.
 
 :::tip
-✎Lưu ý:
 
 Nếu đầu vào lệnh bật ON để chạy lệnh, kết quả từ (d)+3 đến (d)+7 sẽ được xuất ra tự động. Nếu đầu vào lệnh tắt OFF, (d)+3 đến (d)+7 sẽ tắt OFF.
 
@@ -673,7 +665,6 @@ Tín hiệu nhấp nháy sẽ xuất ra (d)+1, (d)+2 thông qua tiếp điểm t
 Giá trị cài đặt của (S2) có thể chỉ định trong phạm vi từ 1 đến 32767 (0,1 đến 3276,7 giây).
 
 :::tip
-✎Lưu ý:
 
 Số hiệu bộ định thời chỉ định bởi lệnh này không thể dùng lại ở các mạch thông thường khác (lệnh OUT, v.v.). Nếu bị trùng lặp, bộ định thời sẽ không hoạt động chính xác.
 
@@ -746,7 +737,6 @@ Measure the time of the execution instruction (button) in seconds, multiply it b
 | K2 (unit: 10 milliseconds)  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.6%20/WebHome/1760510229736-378.png?width=56&height=17&rev=1.1) | (d)+1 =(d)/10                  |
 
 :::tip
-✎Lưu ý:
 
 Nếu tiếp điểm lệnh chuyển từ ON→OFF, giá trị hiện tại của thời gian thực thi (d)+1 bị xóa về 0, còn thời gian học (d) không thay đổi.
 
