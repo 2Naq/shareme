@@ -1,0 +1,1034 @@
+---
+id: "6.12-data-control-instructions"
+title: "6.12 Lệnh điều khiển và giới hạn dữ liệu (Data Control Instructions)"
+sidebar_position: 12
+sidebar_label: "6.12 Data Control instructions"
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.12 Lệnh điều khiển và giới hạn dữ liệu (Data Control Instructions)"
+---
+
+### BAND / Điều khiển vùng chết dữ liệu BIN 16-bit
+
+BAND(P)
+
+Giá trị ngõ vào (giá trị BIN 16-bit) được chỉ định tại (s3) điều khiển giá trị ngõ ra lưu trong thiết bị được chỉ định tại (d) theo các giới hạn trên và dưới của vùng chết được chỉ định tại (s1) và (s2).
+
+-[BAND (s1) (s2) (S3) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Giới hạn dưới của vùng chết (vùng không xuất ngõ ra) | -32,768 to +32,767 | Signed BIN 16 bit | ANY16_S |
+| (s2) | Giới hạn trên của vùng chết (vùng không xuất ngõ ra) | -32,768 to +32,767 | Signed BIN 16 bit | ANY16_S |
+| (S3) | Giá trị đầu vào được điều khiển theo vùng chết | -32768 to +32,767 | Signed BIN 16 bit | ANY16_S |
+| (D) | Số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu ra được điều khiển theo vùng chết | - | Signed BIN 16 bit | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| BAND | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| BAND | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| BAND | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| BAND | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Giá trị ngõ vào (giá trị BIN 16-bit) được chỉ định tại (s3) điều khiển giá trị ngõ ra lưu trong thiết bị được chỉ định tại (d) theo các giới hạn trên và dưới của vùng chết được chỉ định tại (s1) và (s2). Giá trị ngõ ra được điều khiển như sau.
+
+| Điều kiện | Giá trị được lưu vào giá trị đầu ra |
+| :--- | :--- |
+| Khi giới hạn dưới vùng chết (s1) &gt; giá trị đầu vào (s3) | Giá trị đầu vào (s3) - Giới hạn dưới vùng chết (s1) |
+| Khi giới hạn trên vùng chết (s1) &lt; giá trị đầu vào (s3) | Giá trị đầu vào (s3) - Giới hạn trên vùng chết (s2) |
+| Khi giới hạn dưới vùng chết (s1) ≤ giá trị đầu vào (s3) ≤ giới hạn trên vùng chết (s2) | 0 |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760930786019-991.png?width=819&amp;height=142&amp;rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá phạm vi của thiết bị tương ứng. |
+| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá phạm vi của thiết bị tương ứng. |
+| 4084H | Khi giới hạn dưới chỉ định tại (s1) lớn hơn giới hạn trên chỉ định tại (s2). |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760930832474-514.png?rev=1.1)
+
+Khi X000 đang ON, nếu D0 &lt; (-1.000), giá trị của (D0) - (-1.000) được lưu vào (D1).
+
+• Khi -1.000 ≦ D0 ≦ 1.000, giá trị 0 được lưu vào D1.
+
+• Khi D0 &gt; 1.000 (hoặc theo nguồn gốc: D0 &lt; 1.000), giá trị của (D0) - 1.000 được lưu vào D1.
+
+### DBAND / Điều khiển vùng chết dữ liệu BIN 32-bit
+
+DBAND(P)
+
+Giá trị ngõ vào (giá trị BIN 32-bit) được chỉ định tại (s3) điều khiển giá trị ngõ ra lưu trong thiết bị được chỉ định tại (d) theo các giới hạn trên và dưới của vùng chết được chỉ định tại (s1) và (s2).
+
+-[DBAND (s1) (s2) (S3) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Giới hạn dưới vùng chết (vùng không xuất ngõ ra) | -2,147,483,648 to +2,147,483,647 | Signed BIN 32 bit | ANY32_S |
+| (s2) | Giới hạn trên vùng chết (vùng không xuất ngõ ra) | -2,147,483,648 to +2,147,483,647 | Signed BIN 32 bit | ANY32_S |
+| (S3) | Giá trị đầu vào được điều khiển theo vùng chết | -2,147,483,648 to +2,147,483,647 | Signed BIN 32 bit | ANY32_S |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu ra được điều khiển theo vùng chết | - | Signed BIN 32 bit | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DBAND | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DBAND | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DBAND | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DBAND | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Giá trị ngõ vào (giá trị BIN 32-bit) được chỉ định tại (s3) điều khiển giá trị ngõ ra lưu trong thiết bị được chỉ định tại (d) theo các giới hạn trên và dưới của vùng chết được chỉ định tại (s1) và (s2). Giá trị ngõ ra được điều khiển như sau.
+
+| Điều kiện | Giá trị được lưu vào giá trị đầu ra |
+| :--- | :--- |
+| Khi giới hạn dưới vùng chết ((s1), (s1)+1) &gt; giá trị đầu vào ((s3), (s3)+1) | Giá trị đầu vào ((s3), (s3)+1) - Giới hạn dưới vùng chết ((s1), (s1)+1) |
+| Khi giới hạn trên vùng chết ((s1), (s1)+1) &lt; giá trị đầu vào ((s3), (s3)+1) | Giá trị đầu vào ((s3), (s3)+1) - Giới hạn trên vùng chết ((s2), (s2)+1) |
+| Khi giới hạn dưới vùng chết ((s1), (s1)+1) ≤ giá trị đầu vào ((s3), (s3)+1) ≤ giới hạn trên vùng chết ((s2), (s2)+1) | 0 |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760931192678-197.png?rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá phạm vi của thiết bị tương ứng. |
+| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá phạm vi của thiết bị tương ứng. |
+| 4084H | Khi giới hạn dưới chỉ định tại (s1) lớn hơn giới hạn trên chỉ định tại (s2). |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760931217931-855.png?width=504&amp;height=55&amp;rev=1.1)
+
+• Khi (D1, D0) &lt; (-10.000), giá trị của (D1, D0) - (-10.000) được lưu vào (D11, D10).
+
+• Khi -10.000 ≦ (D1, D0) ≦ 10.000, giá trị 0 được lưu vào (D11, D10).
+
+• Khi 10.000 &lt; (D1, D0), giá trị của (D1, D0) - 10.000 được lưu vào D1 (D11, D10).
+
+### BINDA / Chuyển đổi dữ liệu BIN 16-bit → ASCII thập phân
+
+BINDA(P)
+
+Chuyển đổi dữ liệu BIN 16-bit được chỉ định tại (s) và giá trị của từng chữ số ở hệ thập phân thành mã ASCII, rồi lưu từ số hiệu thiết bị được chỉ định tại (d) trở đi.
+
+-[BINDA(s)(d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Dữ liệu BIN để chuyển đổi sang ASCII | -32768 to +32767 | Signed BIN 16 bit | ANY16_S |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ kết quả chuyển đổi | - | String | ANYSTRING_SINGLE |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| BINDA | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| BINDA | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Chuyển đổi dữ liệu BIN 16-bit được chỉ định tại (s) và giá trị của từng chữ số ở hệ thập phân thành mã ASCII, rồi lưu từ số hiệu thiết bị được chỉ định tại (d) trở đi.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760931321203-303.png?rev=1.1)
+
+Ví dụ, khi -12.345 được chỉ định tại (s) (trong trường hợp chỉ định có dấu)
+
+Kết quả tính toán lưu tại (d) sẽ như dưới đây.
+
+• Tại vị trí "Dấu" (Sign), mã 20H được lưu khi dữ liệu BIN dương và mã 2DH được lưu khi dữ liệu âm.
+
+• Ở các số 0 bên trái chữ số có nghĩa, mã 20H được lưu vào. (Triệt tiêu số 0 vô nghĩa.) Ví dụ, trong trường hợp "00325", "00" trở thành 20H và "325" trở thành các chữ số có nghĩa.
+
+• Khi lưu dữ liệu vào thiết bị được chỉ định tại (d)+3, nếu SM191 (tín hiệu chuyển đổi số lượng ký tự xuất) đang OFF thì giá trị 0 được lưu, và không thay đổi khi SM191 đang ON.
+
+:::tip
+✎Note: The number of occupied points of (d) is 3 when SM191 is ON, and it is 4 when SM191 is OFF.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The read address of (s) vượt quá phạm vi vùng nhớ thiết bị. |
+| 4086H | The write address of (d) vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760931405812-345.png?rev=1.1)
+
+### DBINDA / Chuyển đổi dữ liệu BIN 32-bit → ASCII thập phân
+
+DBINDA(P)
+
+Chuyển đổi dữ liệu BIN 32-bit được chỉ định tại (s) và giá trị của từng chữ số ở hệ thập phân thành mã ASCII, rồi lưu từ số hiệu thiết bị được chỉ định tại (d) trở đi.
+
+-[DBINDA(s)(d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Dữ liệu BIN để chuyển đổi sang ASCII | -2,147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ kết quả chuyển đổi | - | String | ANYSTRING_SINGLE |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DBINDA | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DBINDA | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Chuyển đổi dữ liệu BIN 32-bit được chỉ định tại (s) và giá trị của từng chữ số khi biểu diễn ở hệ thập phân thành mã ASCII, rồi lưu từ số hiệu thiết bị được chỉ định tại (d) trở đi.
+
+Ví dụ, khi -12345678 được chỉ định tại (s). (trong trường hợp chỉ định có dấu)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760931491777-491.png?rev=1.1)
+
+Kết quả tính toán lưu tại (d) sẽ như dưới đây.
+
+• Tại vị trí "Dấu" (Sign), mã 20H được lưu khi dữ liệu BIN dương và mã 2DH được lưu khi dữ liệu âm.
+
+• Mã 20H được lưu ở các số 0 bên trái số lượng chữ số có nghĩa. (Triệt tiêu số 0 vô nghĩa.) Ví dụ, trong trường hợp "0012034560", "00" trở thành 20H và "12034560" trở thành các chữ số có nghĩa.
+
+• Đối với dữ liệu lưu trong 8 bit cao của thiết bị được chỉ định tại (d)+5, giá trị 0 sẽ được lưu khi SM191 (tín hiệu chuyển đổi số lượng ký tự xuất) đang OFF, và 20H sẽ được lưu khi đang ON.
+
+:::tip
+✎Note: (d) Occupies 6 points.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | (s) read address vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | (d) write address vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760931794054-184.png?rev=1.1)
+
+Khi X000 đang ON, chuyển đổi giá trị dữ liệu 32-bit (BIN) D1000 sang mã ASCII thập phân, sau đó dùng lệnh PR (FNC 77) để xuất mã ASCII đã chuyển đổi từng ký tự một ra Y040 đến Y051 theo phương thức phân chia thời gian.
+
+### DABIN / Chuyển đổi ASCII thập phân → BIN
+
+DABIN(P)
+
+Lệnh chuyển đổi dữ liệu mã ASCII số (30H đến 39H) thành dữ liệu BIN.
+
+-[DABIN (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu (mã ASCII) cần chuyển đổi sang giá trị BIN | - | String | ANYSTRING_SINGLE |
+| (d) | địa chỉ thiết bị for storing conversion result | - | BIN16 bit | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DABIN | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
+| DABIN | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dữ liệu ASCII thập phân lưu từ số hiệu thiết bị được chỉ định tại (s) trở đi được chuyển đổi thành dữ liệu BIN 16-bit và lưu vào thiết bị được chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760931855764-517.png?width=573&amp;height=101&amp;rev=1.1)
+
+| ASCII S | ASCII 100 | ASCII 101 | ASCII 102 | ASCII 103 | ASCII 104 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Mã ASCII | Hàng đơn vị của mã ASCII | Hàng chục của mã ASCII | Hàng trăm của mã ASCII | Hàng nghìn của mã ASCII | Hàng chục nghìn của mã ASCII |
+
+Ví dụ, khi -25.108 được chỉ định tại (s)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760931883725-930.png?rev=1.1)
+
+• Dữ liệu ASCII được chỉ định từ (s) đến (s)+2 nằm trong phạm vi từ -32.768 đến +32.767.
+
+• Tại vị trí “Dấu” (Sign), đặt 20H khi dữ liệu chuyển đổi là số dương và đặt 2DH khi là số âm. (Khi đặt giá trị khác 20H hoặc 2DH, nó sẽ được xử lý như dữ liệu dương. (DABIN(P))
+
+• Phạm vi mã ASCII cài đặt trong mỗi chữ số là từ 30H đến 39H.
+
+• Khi mã ASCII cài đặt trong mỗi chữ số là 20H hoặc 00H, nó sẽ được xử lý như 30H.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi dữ liệu dấu vượt quá phạm vi 30H đến 39H, 20H, 00H, 2DH; Khi mã ASCII của từng chữ số chỉ định từ (s) đến (s)+2 vượt quá phạm vi 30H đến 39H, 20H, 00H; Khi dữ liệu ASCII chỉ định từ (s) đến (s)+2 nằm ngoài phạm vi -32,768 đến +32,767. |
+| 4085H | The read address of (s) vượt quá phạm vi vùng nhớ thiết bị. |
+| 4086H | The write address of (d) vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+​​​​
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760931999976-812.png?rev=1.1)
+
+### DDABIN / Chuyển đổi ASCII thập phân → dữ liệu BIN 32-bit
+
+DDABIN(P)
+
+Dữ liệu ASCII thập phân lưu từ số hiệu thiết bị được chỉ định tại (s) trở đi được chuyển đổi thành dữ liệu BIN 32-bit và lưu vào số hiệu thiết bị được chỉ định tại (d).
+
+-[DDABIN (s) (d) ]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu (mã ASCII) cần chuyển đổi sang giá trị BIN | - | String | ANYSTRING_SINGLE |
+| (d) | địa chỉ thiết bị for storing conversion result | - | Signed BIN 32 bit | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DDABIN | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
+| DDABIN | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dữ liệu ASCII thập phân lưu từ số hiệu thiết bị được chỉ định tại (s) trở đi được chuyển đổi thành dữ liệu BIN 32-bit và lưu vào thiết bị được chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760932250613-906.png?rev=1.1)
+
+| ASCII S | Mã ASCII | ASCII S | Mã ASCII |
+| :--- | :--- | :--- | :--- |
+| ASCII 100 | Hàng đơn vị của mã ASCII | ASCII 105 | Hàng trăm nghìn của mã ASCII |
+| ASCII 101 | Hàng chục của mã ASCII | ASCII 106 | Hàng triệu của mã ASCII |
+| ASCII 102 | Hàng trăm của mã ASCII | ASCII 107 | Hàng chục triệu của mã ASCII |
+| ASCII 103 | Hàng nghìn của mã ASCII | ASCII 108 | Hàng trăm triệu của mã ASCII |
+| ASCII 104 | Hàng chục nghìn của mã ASCII | ASCII 109 | Hàng tỷ của mã ASCII |
+
+Khi -1234543210 được chỉ định tại (s) (khi chỉ định có dấu)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760932317097-611.png?width=589&amp;height=180&amp;rev=1.1)
+
+• Dữ liệu ASCII được chỉ định từ (s) đến (s)+5 nằm trong phạm vi từ -2.147.483.648 đến +2.147.483.647. Ngoài ra, dữ liệu lưu trong byte cao của (s)+5 sẽ bị bỏ qua.
+
+• Trong dữ liệu Dấu (Sign), đặt 20H khi dữ liệu chuyển đổi là số dương và đặt 2DH khi là số âm. (Khi đặt giá trị khác 20H hoặc 2DH, nó sẽ được xử lý như dữ liệu dương. (DABIN(P))
+
+• Phạm vi mã ASCII cài đặt trong mỗi chữ số là từ 30H đến 39H.
+
+• Khi mã ASCII cài đặt trong mỗi chữ số là 20H hoặc 00H, nó sẽ được xử lý như 30H.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi dữ liệu dấu vượt quá phạm vi 30H đến 39H, 20H, 00H và 2DH; Khi mã ASCII của từng chữ số chỉ định từ (s) đến (s)+5 vượt quá phạm vi 30H đến 39H, 20H và 00H; Khi dữ liệu ASCII chỉ định từ (s) đến (s)+5 vượt quá phạm vi -2,147,483,648 đến +2,147,483,647 |
+| 4085H | The read address of (s) vượt quá phạm vi vùng nhớ thiết bị. |
+| 4086H | The write address of (d) vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760932340856-686.png?width=404&amp;height=54&amp;rev=1.1)
+
+Khi X000 đang ON, dấu được cài đặt từ D20 đến D25 và dữ liệu mã ASCII của số thập phân 10 chữ số được chuyển đổi thành giá trị BIN rồi lưu vào D0 đến D1 trong chương trình.
+
+### LIMIT / Điều khiển giới hạn trên và dưới dữ liệu BIN 16-bit
+
+LIMIT(P)
+
+Giá trị ngõ vào (giá trị BIN 16-bit) được chỉ định tại (s3) điều khiển giá trị ngõ ra lưu trong thiết bị được chỉ định tại (d) theo dải giá trị giới hạn trên và dưới được chỉ định tại (s1) và (s2).
+
+-[LIMIT (s1) (s2) (s3) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| s1 | Giá trị giới hạn dưới (giá trị giới hạn đầu ra nhỏ nhất) | -32,768 to 32,767 | BIN16 bit | ANY16_S |
+| s2 | Giá trị giới hạn trên (giá trị giới hạn đầu ra lớn nhất) | -32,768 to 32,767 | BIN16 bit | ANY16_S |
+| s3 | Giá trị đầu vào được điều khiển giới hạn trên và giới hạn dưới | -32,768 to 32,767 | BIN16 bit | ANY16_S |
+| d | Số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu ra được điều khiển giới hạn trên và giới hạn dưới | - | BIN16 bit | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| LIMIT | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| LIMIT | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| LIMIT | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| LIMIT | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Giá trị ngõ vào (giá trị BIN 16-bit) được chỉ định tại (s3) điều khiển giá trị ngõ ra lưu trong thiết bị được chỉ định tại (d) theo dải giá trị giới hạn cao và thấp được chỉ định tại (s1) và (s2). Giá trị ngõ ra được điều khiển như sau.
+
+| Điều kiện | Giá trị được lưu vào giá trị đầu ra |
+| :--- | :--- |
+| Giá trị giới hạn dưới (s1) &gt; giá trị đầu vào (s3) | Giá trị giới hạn dưới (s1) |
+| Giá trị giới hạn trên (s1) &lt; giá trị đầu vào (s3) | Giá trị giới hạn trên (s2) |
+| Giá trị giới hạn dưới (s1) ≤ giá trị đầu vào (s3) ≤ giá trị giới hạn trên (s2) | Giá trị đầu vào (s3) |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760932452536-125.png?rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The read address vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The write address vượt quá phạm vi vùng nhớ thiết bị |
+| 4084H | Giới hạn trên &lt; giới hạn dưới |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760932468449-340.png?width=471&amp;height=57&amp;rev=1.1)
+
+Khi X000 đang ON
+
+• Khi D0 &lt; 500, D1 bằng 500.
+
+• Khi 500 ≤ D0 ≤ 5.000, D1 bằng giá trị của D0.
+
+• Khi 5.000 &lt; D0, D1 bằng 5.000.
+
+### DLIMIT / Điều khiển giới hạn trên và dưới dữ liệu BIN 32-bit
+
+DLIMIT(P)
+
+Giá trị ngõ vào (giá trị BIN 32-bit) được chỉ định tại (s3) điều khiển giá trị ngõ ra lưu trong thiết bị được chỉ định tại (d) theo dải giá trị giới hạn cao và thấp được chỉ định tại (s1) và (s2).
+
+-[DLIMIT (s1) (s2) (s3) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| s1 | Giá trị giới hạn dưới (giá trị giới hạn đầu ra nhỏ nhất) | -2,147,483,648 to 2,147,483,647 | BIN32 bit | ANY32_S |
+| s2 | Giá trị giới hạn trên (giá trị giới hạn đầu ra lớn nhất) | -2,147,483,648 to 2,147,483,647 | BIN32 bit | ANY32_S |
+| s3 | Giá trị đầu vào được điều khiển giới hạn trên và giới hạn dưới | -2,147,483,648 to 2,147,483,647 | BIN32 bit | ANY32_S |
+| d | Số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu ra được điều khiển giới hạn trên và giới hạn dưới | - | BIN32 bit | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DLIMIT | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DLIMIT | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DLIMIT | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DLIMIT | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Giá trị ngõ vào (giá trị BIN 32-bit) được chỉ định tại (s3) điều khiển giá trị ngõ ra lưu trong thiết bị được chỉ định tại (d) theo dải giá trị giới hạn cao và thấp được chỉ định tại (s1) và (s2). Giá trị ngõ ra được điều khiển như sau.
+
+| Điều kiện | Giá trị được lưu vào giá trị đầu ra |
+| :--- | :--- |
+| Giá trị giới hạn dưới ((s1), (s1)+1) &gt; giá trị đầu vào ((s3), (s3)+1) | Giá trị giới hạn dưới ((s1), (s1)+1) |
+| Giá trị giới hạn trên ((s2), (s2)+1) &lt; giá trị đầu vào ((s3), (s3)+1) | Giá trị giới hạn trên ((s2), (s2)+1) |
+| Giá trị giới hạn dưới ((s1), (s1)+1) ≤ giá trị đầu vào ((s3), (s3)+1) ≤ giá trị giới hạn trên ((s2), (s2)+1) | Giá trị đầu vào ((s3), (s3)+1) |
+
+• Chỉ trong trường hợp điều khiển giá trị giới hạn trên, hãy cài đặt giá trị nhỏ nhất của dải dữ liệu vào giá trị giới hạn dưới được chỉ định tại (s1).
+
+• Chỉ trong trường hợp điều khiển giá trị giới hạn dưới, hãy cài đặt giá trị lớn nhất của dải dữ liệu vào giá trị giới hạn trên được chỉ định tại (s2).
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The read address vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The write address vượt quá phạm vi vùng nhớ thiết bị |
+| 4084H | Giới hạn trên &lt; giới hạn dưới |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939189977-977.png?rev=1.1)
+
+Hoạt động:
+
+• Khi (D1, D0) &lt; 10.000, (D11, D10) bằng 10.000.
+
+• Khi 10.000 ≤ (D1, D0) ≤ 1.000.000, (D11, D10) bằng giá trị của (D1, D0).
+
+• Khi 1.000.000 &lt; (D1, D0), (D11, D10) bằng 1.000.000.
+
+SCL / Quy đổi tỷ lệ (Scale) đơn vị BIN 16-bit (Dữ liệu tọa độ từng điểm)
+
+SCL(P)
+
+Dữ liệu chuyển đổi tỷ lệ (đơn vị dữ liệu 16-bit) được chỉ định tại (s2) được quy đổi tỷ lệ từ giá trị ngõ vào được chỉ định tại (s1), và kết quả tính toán được lưu vào thiết bị được chỉ định tại (d).
+
+-[SCL (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Giá trị đầu vào để chia tỷ lệ hoặc số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu vào | -32,768 to 32,767 | Signed BIN 16 bit | ANY16_S |
+| (s2) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu chuyển đổi để chia tỷ lệ | - | Signed BIN 16 bit | ANY16_S |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu ra được điều khiển chia tỷ lệ | - | Signed BIN 16 bit | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SCL | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| SCL | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
+| SCL | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Đối với dữ liệu chuyển đổi tỷ lệ (đơn vị dữ liệu 16-bit) được chỉ định tại (s2), thực hiện quy đổi tỷ lệ theo giá trị ngõ vào được chỉ định tại (s1) và lưu kết quả phép toán vào thiết bị được chỉ định tại (d). Việc chuyển đổi tỷ lệ được thực hiện dựa trên dữ liệu chuyển đổi tỷ lệ lưu từ thiết bị được chỉ định tại (s2) trở đi.
+
+| Các mục cài đặt (n biểu thị số điểm tọa độ được chỉ định tại (s2)) | Các mục cài đặt (n biểu thị số điểm tọa độ được chỉ định tại (s2)) | Phân bổ thiết bị |
+| :--- | :--- | :--- |
+| Các điểm tọa độ |  | (s2) |
+| Điểm tọa độ 1 | Tọa độ X | (s2)+1 |
+| Điểm tọa độ 1 | Tọa độ Y | (s2)+2 |
+| Điểm tọa độ 2 | Tọa độ X | (s2)+3 |
+| Điểm tọa độ 2 | Tọa độ Y | (s2)+4 |
+| ........ |  |  |
+| Điểm tọa độ n | Tọa độ X | (s2)+2n-1 |
+| Điểm tọa độ n | Tọa độ Y | (s2)+2n |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939352773-256.png?width=648&amp;height=385&amp;rev=1.1)
+
+• Nếu kết quả phép toán không phải là giá trị nguyên, làm tròn ở chữ số đầu tiên sau dấu chấm thập phân.
+
+• Dữ liệu tọa độ X của dữ liệu chuyển đổi tỷ lệ phải được cài đặt theo thứ tự tăng dần.
+
+• (s1) phải được cài đặt trong phạm vi của dữ liệu chuyển đổi tỷ lệ (giá trị thiết bị của (s2)).
+
+• Nếu cùng một tọa độ X được chỉ định cho nhiều điểm, giá trị tọa độ Y của điểm thứ hai sẽ được xuất ra.
+
+• Cài đặt số lượng điểm tọa độ của dữ liệu chuyển đổi tỷ lệ trong phạm vi từ 1 đến 32.767.
+
+• Ví dụ cài đặt bảng chuyển đổi cho phép quy đổi tỷ lệ.
+
+Trong trường hợp đặc tính chuyển đổi tỷ lệ như minh họa trong hình dưới đây, hãy cài đặt theo bảng dữ liệu sau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939386272-346.png?width=572&amp;height=166&amp;rev=1.1)
+
+| Hạng mục cài đặt | Hạng mục cài đặt | Thiết bị cài đặt và nội dung (Khi R0 được chỉ định tại (s2)) | Thiết bị cài đặt và nội dung | Thiết bị cài đặt và nội dung (Nội dung cài đặt) | Ghi chú |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Các điểm tọa độ |  | (s2) | R0 | K10 |  |
+| Điểm tọa độ 1 | Tọa độ X | (s2)+1 | R1 | K5 |  |
+| Điểm tọa độ 1 | Tọa độ Y | (s2)+2 | R2 | K20 |  |
+| Điểm tọa độ 2 | Tọa độ X | (s2)+3 | R3 | K30 |  |
+| Điểm tọa độ 2 | Tọa độ Y | (s2)+4 | R4 | K50 |  |
+| Điểm tọa độ 3 | Tọa độ X | (s2)+5 | R5 | K100 |  |
+| Điểm tọa độ 3 | Tọa độ Y | (s2)+6 | R6 | K200 |  |
+| Điểm tọa độ 4 | Tọa độ X | (s2)+7 | R7 | K25 | Nếu tọa độ được chỉ định bởi 3 điểm, giá trị trung gian có thể là giá trị đầu ra. Trong ví dụ này, giá trị đầu ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5. Khi tọa độ X giống nhau tại từ 3 điểm trở lên, giá trị của điểm thứ 2 cũng được xuất ra. |
+| Điểm tọa độ 4 | Tọa độ Y | (s2)+8 | R8 | K200 | Nếu tọa độ được chỉ định bởi 3 điểm, giá trị trung gian có thể là giá trị đầu ra. Trong ví dụ này, giá trị đầu ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5. Khi tọa độ X giống nhau tại từ 3 điểm trở lên, giá trị của điểm thứ 2 cũng được xuất ra. |
+| Điểm tọa độ 5 | Tọa độ X | (s2)+9 | R9 | K70 | Nếu tọa độ được chỉ định bởi 3 điểm, giá trị trung gian có thể là giá trị đầu ra. Trong ví dụ này, giá trị đầu ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5. Khi tọa độ X giống nhau tại từ 3 điểm trở lên, giá trị của điểm thứ 2 cũng được xuất ra. |
+| Điểm tọa độ 5 | Tọa độ Y | (s2)+10 | R10 | K200 | Nếu tọa độ được chỉ định bởi 3 điểm, giá trị trung gian có thể là giá trị đầu ra. Trong ví dụ này, giá trị đầu ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5. Khi tọa độ X giống nhau tại từ 3 điểm trở lên, giá trị của điểm thứ 2 cũng được xuất ra. |
+| Điểm tọa độ 6 | Tọa độ X | (s2)+11 | R11 | K250 | Nếu tọa độ được chỉ định bởi 3 điểm, giá trị trung gian có thể là giá trị đầu ra. Trong ví dụ này, giá trị đầu ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5. Khi tọa độ X giống nhau tại từ 3 điểm trở lên, giá trị của điểm thứ 2 cũng được xuất ra. |
+| Điểm tọa độ 6 | Tọa độ Y | (s2)+12 | R12 | K250 | Nếu tọa độ được chỉ định bởi 3 điểm, giá trị trung gian có thể là giá trị đầu ra. Trong ví dụ này, giá trị đầu ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5. Khi tọa độ X giống nhau tại từ 3 điểm trở lên, giá trị của điểm thứ 2 cũng được xuất ra. |
+| Điểm tọa độ 7 | Tọa độ X | (s2)+13 | R13 | K250 |  |
+| Điểm tọa độ 7 | Tọa độ Y | (s2)+14 | R14 | K90 |  |
+| Điểm tọa độ 8 | Tọa độ X | (s2)+15 | R15 | K350 | Nếu tọa độ được chỉ định bởi hai điểm, giá trị đầu ra là giá trị tọa độ Y của điểm kế tiếp. Trong ví dụ này, giá trị đầu ra được chỉ định bởi tọa độ Y của điểm 9. |
+| Điểm tọa độ 8 | Tọa độ Y | (s2)+16 | R16 | K90 | Nếu tọa độ được chỉ định bởi hai điểm, giá trị đầu ra là giá trị tọa độ Y của điểm kế tiếp. Trong ví dụ này, giá trị đầu ra được chỉ định bởi tọa độ Y của điểm 9. |
+| Điểm tọa độ 9 | Tọa độ X | (s2)+17 | R17 | K350 | Nếu tọa độ được chỉ định bởi hai điểm, giá trị đầu ra là giá trị tọa độ Y của điểm kế tiếp. Trong ví dụ này, giá trị đầu ra được chỉ định bởi tọa độ Y của điểm 9. |
+| Điểm tọa độ 9 | Tọa độ Y | (s2)+18 | R18 | K30 | Nếu tọa độ được chỉ định bởi hai điểm, giá trị đầu ra là giá trị tọa độ Y của điểm kế tiếp. Trong ví dụ này, giá trị đầu ra được chỉ định bởi tọa độ Y của điểm 9. |
+| Điểm tọa độ 10 | Tọa độ X | (s2)+19 | R19 | K400 |  |
+| Điểm tọa độ 10 | Tọa độ Y | (s2)+20 | R20 | K7 |  |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá phạm vi của thiết bị tương ứng. |
+| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá phạm vi của thiết bị tương ứng. |
+| 4084H | Khi dữ liệu Xn của bảng dữ liệu không được sắp xếp theo thứ tự tăng dần (tuy nhiên lệnh vẫn thực thi đến vị trí xảy ra lỗi); Khi giá trị đầu vào chỉ định tại (s1) vượt quá phạm vi dữ liệu chuyển đổi tỷ lệ đã cài đặt; Khi số điểm tọa độ bắt đầu của thiết bị (s2) nhỏ hơn 0. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939531555-793.png?width=466&amp;height=385&amp;rev=1.1)
+
+Khi -100 ≤ D0(X) &lt; 0, D100(Y) =
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939559151-148.png?rev=1.1)
+
+khi D0(X) = 0, D100(Y) = 0;
+
+khi 0 &lt; D0(X) ≤ 100, D100(Y) =
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939568520-356.png?width=100&amp;height=42&amp;rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939584000-598.png?width=449&amp;height=301&amp;rev=1.1)
+
+### DSCL / Quy đổi tỷ lệ (Scale) đơn vị 32-bit (Dữ liệu tọa độ từng điểm)
+
+DSCL(P)
+
+Dữ liệu chuyển đổi cho phép quy đổi tỷ lệ (đơn vị dữ liệu 32-bit) được chỉ định tại (s2) được quy đổi theo giá trị ngõ vào được chỉ định tại (s1), và kết quả phép toán được lưu vào thiết bị được chỉ định tại (d).
+
+-[DSCL (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Giá trị đầu vào để chia tỷ lệ hoặc số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu vào | -2,147,483,648 to 2,147,483,647 | Signed BIN 32 bit | ANY32_S |
+| (s2) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu chuyển đổi để chia tỷ lệ | - | Signed BIN 32 bit | ANY32_S |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu ra được điều khiển chia tỷ lệ | - | Signed BIN 32 bit | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DSCL | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DSCL | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
+| DSCL | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dữ liệu chuyển đổi cho phép quy đổi tỷ lệ (đơn vị dữ liệu 32-bit) được chỉ định tại (s2) được quy đổi theo giá trị ngõ vào được chỉ định tại (s1), và kết quả phép toán được lưu vào số hiệu thiết bị được chỉ định tại (d). Việc chuyển đổi tỷ lệ được thực hiện dựa trên dữ liệu chuyển đổi tỷ lệ lưu từ thiết bị được chỉ định tại (s2) trở đi.
+
+| Các mục cài đặt (n biểu thị số điểm tọa độ được chỉ định tại (s2)) | Các mục cài đặt (n biểu thị số điểm tọa độ được chỉ định tại (s2)) | Phân bổ thiết bị |
+| :--- | :--- | :--- |
+| Các điểm tọa độ |  | (s2)+1, (s2) |
+| Điểm tọa độ 1 | Tọa độ X | (s2)+3, (s2)+2 |
+| Điểm tọa độ 1 | Tọa độ Y | (s2)+5, (s2)+4 |
+| Điểm tọa độ 2 | Tọa độ X | (s2)+7, (s2)+6 |
+| Điểm tọa độ 2 | Tọa độ Y | (s2)+9, (s2)+8 |
+| ........ |  |  |
+| Điểm tọa độ n | Tọa độ X | (s2)+4n-1, (s2)+4n-2 |
+| Điểm tọa độ n | Tọa độ Y | (s2)+4n+1, (s2)+4n |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939662219-313.png?rev=1.1)
+
+• Nếu kết quả tính toán không phải là giá trị nguyên, làm tròn ở chữ số đầu tiên sau dấu chấm thập phân.
+
+• Dữ liệu tọa độ X của dữ liệu chuyển đổi tỷ lệ phải được cài đặt theo thứ tự tăng dần.
+
+• Đối với (s1), hãy cài đặt trong phạm vi của dữ liệu chuyển đổi cho phép quy đổi tỷ lệ (giá trị thiết bị (s2), (s2) + 1).
+
+• Nếu cùng một tọa độ X được chỉ định cho nhiều điểm, giá trị tọa độ Y của điểm thứ hai sẽ được xuất ra.
+
+• Cài đặt số lượng điểm tọa độ của dữ liệu chuyển đổi tỷ lệ trong phạm vi từ 1 đến 2.147.483.647.
+
+• Ví dụ cài đặt bảng chuyển đổi cho phép quy đổi tỷ lệ.
+
+Trong trường hợp đặc tính chuyển đổi tỷ lệ như minh họa trong hình dưới đây, hãy cài đặt theo bảng dữ liệu sau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939704718-349.png?rev=1.1)
+
+| Hạng mục cài đặt | Hạng mục cài đặt | Thiết bị cài đặt và nội dung (Khi R0 được chỉ định tại (s2)) | Thiết bị cài đặt và nội dung | Thiết bị cài đặt và nội dung (Nội dung cài đặt) | Ghi chú |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Các điểm tọa độ |  | (s2)+1, (s2) | R1, R0 | K10 |  |
+| Điểm tọa độ 1 | Tọa độ X | (s2)+3, (s2)+2 | R3, R2 | K5 |  |
+| Điểm tọa độ 1 | Tọa độ Y | (s2)+5, (s2)+4 | R5, R4 | K7 |  |
+| Điểm tọa độ 2 | Tọa độ X | (s2)+7, (s2)+6 | R7, R6 | K20 |  |
+| Điểm tọa độ 2 | Tọa độ Y | (s2)+9, (s2)+8 | R9, R8 | K30 |  |
+| Điểm tọa độ 3 | Tọa độ X | (s2)+11, (s2)+10 | R10, R11 | K50 |  |
+| Điểm tọa độ 3 | Tọa độ Y | (s2)+13, (s2)+12 | R13, R12 | K100 |  |
+| Điểm tọa độ 4 | Tọa độ X | (s2)+15, (s2)+14 | R15, R14 | K200 | Nếu tọa độ được chỉ định bởi 3 điểm, giá trị trung gian có thể là giá trị đầu ra. Trong ví dụ này, giá trị đầu ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5. Khi tọa độ X giống nhau tại từ 3 điểm trở lên, giá trị của điểm thứ 2 cũng được xuất ra. |
+| Điểm tọa độ 4 | Tọa độ Y | (s2)+17, (s2)+16 | R17, R16 | K25 | Nếu tọa độ được chỉ định bởi 3 điểm, giá trị trung gian có thể là giá trị đầu ra. Trong ví dụ này, giá trị đầu ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5. Khi tọa độ X giống nhau tại từ 3 điểm trở lên, giá trị của điểm thứ 2 cũng được xuất ra. |
+| Điểm tọa độ 5 | Tọa độ X | (s2)+19, (s2)+18 | R19, R18 | K200 | Nếu tọa độ được chỉ định bởi 3 điểm, giá trị trung gian có thể là giá trị đầu ra. Trong ví dụ này, giá trị đầu ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5. Khi tọa độ X giống nhau tại từ 3 điểm trở lên, giá trị của điểm thứ 2 cũng được xuất ra. |
+| Điểm tọa độ 5 | Tọa độ Y | (s2)+21, (s2)+20 | R21, R20 | K70 | Nếu tọa độ được chỉ định bởi 3 điểm, giá trị trung gian có thể là giá trị đầu ra. Trong ví dụ này, giá trị đầu ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5. Khi tọa độ X giống nhau tại từ 3 điểm trở lên, giá trị của điểm thứ 2 cũng được xuất ra. |
+| Điểm tọa độ 6 | Tọa độ X | (s2)+23, (s2)+22 | R23, R22 | K200 | Nếu tọa độ được chỉ định bởi 3 điểm, giá trị trung gian có thể là giá trị đầu ra. Trong ví dụ này, giá trị đầu ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5. Khi tọa độ X giống nhau tại từ 3 điểm trở lên, giá trị của điểm thứ 2 cũng được xuất ra. |
+| Điểm tọa độ 6 | Tọa độ Y | (s2)+25, (s2)+24 | R25, R24 | K250 | Nếu tọa độ được chỉ định bởi 3 điểm, giá trị trung gian có thể là giá trị đầu ra. Trong ví dụ này, giá trị đầu ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5. Khi tọa độ X giống nhau tại từ 3 điểm trở lên, giá trị của điểm thứ 2 cũng được xuất ra. |
+| Điểm tọa độ 7 | Tọa độ X | (s2)+27, (s2)+26 | R27, R26 | K250 |  |
+| Điểm tọa độ 7 | Tọa độ Y | (s2)+29, (s2)+28 | R29, R28 | K90 |  |
+| Điểm tọa độ 8 | Tọa độ X | (s2)+31, (s2)+30 | R31, R30 | K350 | Nếu tọa độ được chỉ định bởi hai điểm, giá trị đầu ra là giá trị tọa độ Y của điểm kế tiếp. Trong ví dụ này, giá trị đầu ra được chỉ định bởi tọa độ Y của điểm 9. |
+| Điểm tọa độ 8 | Tọa độ Y | (s2)+33, (s2)+32 | R33, R32 | K90 | Nếu tọa độ được chỉ định bởi hai điểm, giá trị đầu ra là giá trị tọa độ Y của điểm kế tiếp. Trong ví dụ này, giá trị đầu ra được chỉ định bởi tọa độ Y của điểm 9. |
+| Điểm tọa độ 9 | Tọa độ X | (s2)+35, (s2)+34 | R35, R34 | K350 | Nếu tọa độ được chỉ định bởi hai điểm, giá trị đầu ra là giá trị tọa độ Y của điểm kế tiếp. Trong ví dụ này, giá trị đầu ra được chỉ định bởi tọa độ Y của điểm 9. |
+| Điểm tọa độ 9 | Tọa độ Y | (s2)+37, (s2)+36 | R37, R36 | K30 | Nếu tọa độ được chỉ định bởi hai điểm, giá trị đầu ra là giá trị tọa độ Y của điểm kế tiếp. Trong ví dụ này, giá trị đầu ra được chỉ định bởi tọa độ Y của điểm 9. |
+| Điểm tọa độ 10 | Tọa độ X | (s2)+39, (s2)+38 | R39, R38 | K400 |  |
+| Điểm tọa độ 10 | Tọa độ Y | (s2)+41, (s2)+40 | R41, R40 | K7 |  |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá phạm vi của thiết bị tương ứng. |
+| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá phạm vi của thiết bị tương ứng. |
+| 4084H | Khi dữ liệu Xn của bảng dữ liệu không được sắp xếp theo thứ tự tăng dần (tuy nhiên lệnh vẫn thực thi đến vị trí xảy ra lỗi); Khi giá trị đầu vào chỉ định tại (s1) vượt quá phạm vi dữ liệu chuyển đổi tỷ lệ đã cài đặt; Khi số điểm tọa độ bắt đầu của thiết bị (s2) nhỏ hơn 0. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939736832-378.png?width=506&amp;height=340&amp;rev=1.1)
+
+Khi -100 ≤ D0(X) &lt; 0, D100(Y) =
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939756349-426.png?rev=1.1)
+
+Khi D0(X) = 0, D100(Y) = 0;
+
+Khi 0 &lt; D0(X) ≤ 100, D100(Y) =
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939764523-326.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939787275-966.png?width=532&amp;height=348&amp;rev=1.1)
+
+### SCL2 / Quy đổi tỷ lệ (Scale) đơn vị BIN 16-bit (Dữ liệu tọa độ X/Y)
+
+SCL2(P)
+
+Dữ liệu chuyển đổi cho phép quy đổi tỷ lệ (đơn vị dữ liệu 16-bit) được chỉ định tại (s2) được quy đổi theo giá trị ngõ vào được chỉ định tại (s1), và kết quả phép toán được lưu vào thiết bị được chỉ định tại (d).
+
+-[SCL2 (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Giá trị đầu vào để chia tỷ lệ hoặc số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu vào | -32,768 to 32,767 | Signed BIN 16 bit | ANY16_S |
+| (s2) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu chuyển đổi để chia tỷ lệ | - | Signed BIN 16 bit | ANY16_S |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu ra được điều khiển chia tỷ lệ | - | Signed BIN 16 bit | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SCL2 | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| SCL2 | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
+| SCL2 | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dữ liệu chuyển đổi cho phép quy đổi tỷ lệ (đơn vị dữ liệu 16-bit) được chỉ định tại (s2) được quy đổi theo giá trị ngõ vào được chỉ định tại (s1), và kết quả phép toán được lưu vào số hiệu thiết bị được chỉ định tại (d). Việc chuyển đổi tỷ lệ được thực hiện dựa trên dữ liệu chuyển đổi tỷ lệ lưu từ thiết bị được chỉ định tại (s2) trở đi.
+
+| Các mục cài đặt (n biểu thị số điểm tọa độ được chỉ định tại (s2)) | Các mục cài đặt (n biểu thị số điểm tọa độ được chỉ định tại (s2)) | Phân bổ thiết bị |
+| :--- | :--- | :--- |
+| Các điểm tọa độ |  | (s2) |
+| Tọa độ X | Điểm tọa độ 1 | (s2)+1 |
+| Tọa độ X | Điểm tọa độ 2 | (s2)+2 |
+| Tọa độ X | ..... | ...... |
+| Tọa độ X | Điểm tọa độ n | (s2)+n |
+| Tọa độ Y | Điểm tọa độ 1 | (s2)+n+1 |
+| Tọa độ Y | Điểm tọa độ 2 | (s2)+n+2 |
+| Tọa độ Y | ..... | ..... |
+| Tọa độ Y | Điểm tọa độ n | (s2)+2n |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939907644-397.png?width=584&amp;height=345&amp;rev=1.1)
+
+• Nếu kết quả phép toán không phải là giá trị nguyên, làm tròn ở chữ số đầu tiên sau dấu chấm thập phân.
+
+• Dữ liệu tọa độ X của dữ liệu chuyển đổi tỷ lệ phải được cài đặt theo thứ tự tăng dần.
+
+• Đối với (s1), hãy cài đặt trong phạm vi của dữ liệu chuyển đổi cho phép quy đổi tỷ lệ (giá trị thiết bị (s2), (s2) + 1).
+
+• Nếu cùng một tọa độ X được chỉ định cho nhiều điểm, giá trị tọa độ Y của điểm thứ hai sẽ được xuất ra.
+
+• Cài đặt số lượng điểm tọa độ của dữ liệu chuyển đổi tỷ lệ trong phạm vi từ 1 đến 32.767.
+
+• Ví dụ cài đặt bảng chuyển đổi cho phép quy đổi tỷ lệ.
+
+Trong trường hợp đặc tính chuyển đổi tỷ lệ như minh họa trong hình dưới đây, hãy cài đặt theo bảng dữ liệu sau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760939946906-818.png?rev=1.1)
+
+| Hạng mục cài đặt | Hạng mục cài đặt | Thiết bị cài đặt và nội dung (Khi R0 được chỉ định tại (s2)) | Thiết bị cài đặt và nội dung | Thiết bị cài đặt và nội dung (Nội dung cài đặt) | Ghi chú |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Các điểm tọa độ |  | (s2) | R0 | K10 |  |
+| Tọa độ X | Điểm tọa độ 1 | (s2)+1 | R1 | K5 |  |
+| Tọa độ X | Điểm tọa độ 2 | (s2)+2 | R2 | K20 |  |
+| Tọa độ X | Điểm tọa độ 3 | (s2)+3 | R3 | K50 |  |
+| Tọa độ X | Điểm tọa độ 4 | (s2)+4 | R4 | K200 | Xem chú thích ✎1 |
+| Tọa độ X | Điểm tọa độ 5 | (s2)+5 | R5 | K200 | Xem chú thích ✎1 |
+| Tọa độ X | Điểm tọa độ 6 | (s2)+6 | R6 | K200 | Xem chú thích ✎1 |
+| Tọa độ X | Điểm tọa độ 7 | (s2)+7 | R7 | K250 |  |
+| Tọa độ X | Điểm tọa độ 8 | (s2)+8 | R8 | K350 | Xem chú thích ✎2 |
+| Tọa độ X | Điểm tọa độ 9 | (s2)+9 | R9 | K350 | Xem chú thích ✎2 |
+| Tọa độ X | Điểm tọa độ 10 | (s2)+10 | R10 | K400 |  |
+| Tọa độ Y | Điểm tọa độ 1 | (s2)+11 | R11 | K7 |  |
+| Tọa độ Y | Điểm tọa độ 2 | (s2)+12 | R12 | K30 |  |
+| Tọa độ Y | Điểm tọa độ 3 | (s2)+13 | R13 | K100 |  |
+| Tọa độ Y | Điểm tọa độ 4 | (s2)+14 | R14 | K25 | Refer to✎1 |
+| Tọa độ Y | Điểm tọa độ 5 | (s2)+15 | R15 | K70 | Refer to✎1 |
+| Tọa độ Y | Điểm tọa độ 6 | (s2)+16 | R16 | K250 | Refer to✎1 |
+| Tọa độ Y | Điểm tọa độ 7 | (s2)+17 | R17 | K90 |  |
+| Tọa độ Y | Điểm tọa độ 8 | (s2)+18 | R18 | K90 | Xem chú thích ✎2 |
+| Tọa độ Y | Điểm tọa độ 9 | (s2)+19 | R19 | K30 | Xem chú thích ✎2 |
+| Tọa độ Y | Điểm tọa độ 10 | (s2)+20 | R20 | K7 |  |
+
+:::tip
+✎1 Tương tự các điểm 4, 5 và 6: Nếu tọa độ được xác định bởi 3 điểm thì giá trị trung gian sẽ được lấy làm giá trị ngõ ra.
+
+Trong ví dụ này, giá trị ngõ ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5.
+
+Khi tọa độ X giống nhau tại 3 điểm trở lên, giá trị của điểm thứ hai cũng được xuất ra.
+:::
+
+:::tip
+✎2 Like points 8 and 9, if the coordinates are specified by 2 points, the output value is the value of the Y coordinate of next point.
+
+Trong ví dụ này, giá trị ngõ ra được chỉ định bởi tọa độ Y của điểm 9.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá phạm vi của thiết bị tương ứng. |
+| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá phạm vi của thiết bị tương ứng. |
+| 4084H | Khi dữ liệu Xn của bảng dữ liệu không được sắp xếp theo thứ tự tăng dần (tuy nhiên lệnh vẫn thực thi đến vị trí xảy ra lỗi); Khi giá trị đầu vào chỉ định tại (s1) vượt quá phạm vi dữ liệu chuyển đổi tỷ lệ đã cài đặt; Khi số điểm tọa độ bắt đầu của thiết bị (s2) nhỏ hơn 0. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760940118121-188.png?width=511&amp;height=414&amp;rev=1.1)
+
+Khi -100 ≤ D0(X) &lt; 0, D100(Y) =
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760940245663-545.png?width=80&amp;height=41&amp;rev=1.1)
+
+khi D0(X) = 0, D100(Y) = 0;
+
+khi 0 &lt; D0(X) ≤ 100, D100(Y) =
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760940275719-965.png?width=79&amp;height=40&amp;rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760940341735-709.png?rev=1.1)
+
+### DSCL2 / Quy đổi tỷ lệ (Scale) đơn vị BIN 32-bit (Dữ liệu tọa độ X/Y)
+
+DSCL2(P)
+
+Dữ liệu chuyển đổi cho phép quy đổi tỷ lệ (đơn vị dữ liệu 32-bit) được chỉ định tại (s2) được quy đổi theo giá trị ngõ vào được chỉ định tại (s1), và kết quả phép toán được lưu vào thiết bị được chỉ định tại (d).
+
+-[DSCL2 (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Giá trị đầu vào để chia tỷ lệ hoặc số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu vào | -2,147,483,648 to +2,147,483,647 | Signed BIN 32 bit | ANY32_S |
+| (s2) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu chuyển đổi để chia tỷ lệ | - | Signed BIN 32 bit | ANY32_S |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu ra được điều khiển chia tỷ lệ | - | Signed BIN 32 bit | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DSCL2 | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DSCL2 | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
+| DSCL2 | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dữ liệu chuyển đổi cho phép quy đổi tỷ lệ (đơn vị dữ liệu 32-bit) được chỉ định tại (s2) được quy đổi theo giá trị ngõ vào được chỉ định tại (s1), và kết quả phép toán được lưu vào số hiệu thiết bị được chỉ định tại (d). Việc chuyển đổi tỷ lệ được thực hiện dựa trên dữ liệu chuyển đổi tỷ lệ lưu từ thiết bị được chỉ định tại (s2) trở đi.
+
+| Các mục cài đặt (n biểu thị số điểm tọa độ được chỉ định tại (s2)) | Các mục cài đặt (n biểu thị số điểm tọa độ được chỉ định tại (s2)) | Phân bổ thiết bị |
+| :--- | :--- | :--- |
+| Các điểm tọa độ |  | (s2)+1, (s2) |
+| Tọa độ X | Điểm tọa độ 1 | (s2)+3, (s2)+2 |
+| Tọa độ X | Điểm tọa độ 2 | (s2)+5, (s2)+4 |
+| Tọa độ X | ..... | ...... |
+| Tọa độ X | Điểm tọa độ n | (s2)+2n+1, (s2)+2n |
+| Tọa độ Y | Điểm tọa độ 1 | (s2)+2n+3, (s2)+2n+2 |
+| Tọa độ Y | Điểm tọa độ 2 | (s2)+2n+5, (s2)+2n+4 |
+| Tọa độ Y | ..... | ..... |
+| Tọa độ Y | Điểm tọa độ n | (s2)+4n+1, (s2)+4n |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760940406397-782.png?width=658&amp;height=344&amp;rev=1.1)
+
+• Nếu kết quả phép toán không phải là giá trị nguyên, làm tròn ở chữ số đầu tiên sau dấu chấm thập phân.
+
+• Dữ liệu tọa độ X của dữ liệu chuyển đổi tỷ lệ phải được cài đặt theo thứ tự tăng dần.
+
+• Đối với (s1), hãy cài đặt trong phạm vi của dữ liệu chuyển đổi cho phép quy đổi tỷ lệ (giá trị thiết bị (s2), (s2) + 1).
+
+• Nếu cùng một tọa độ X được chỉ định cho nhiều điểm, giá trị tọa độ Y của điểm thứ hai sẽ được xuất ra.
+
+• Cài đặt số lượng điểm tọa độ của dữ liệu chuyển đổi tỷ lệ trong phạm vi từ 1 đến 2.147.483.647.
+
+• Ví dụ cài đặt bảng chuyển đổi cho phép quy đổi tỷ lệ.
+
+Trong trường hợp đặc tính chuyển đổi tỷ lệ như minh họa trong hình dưới đây, hãy cài đặt theo bảng dữ liệu sau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760940443303-890.png?width=610&amp;height=182&amp;rev=1.1)
+
+| Hạng mục cài đặt | Hạng mục cài đặt | Thiết bị cài đặt và nội dung (Khi R0 được chỉ định tại (s2)) | Thiết bị cài đặt và nội dung | Thiết bị cài đặt và nội dung (Nội dung cài đặt) | Ghi chú |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Các điểm tọa độ |  | (s2)+1, (s2) | R1, R0 | K10 |  |
+| X | Điểm tọa độ 1 | (s2)+3, (s2)+2 | R3, R2 | K5 |  |
+| X | Điểm tọa độ 2 | (s2)+5, (s2)+4 | R5, R4 | K20 |  |
+| X | Điểm tọa độ 3 | (s2)+7, (s2)+6 | R7, R6 | K50 |  |
+| X | Điểm tọa độ 4 | (s2)+9, (s2)+8 | R9, R8 | K200 | Xem chú thích ✎1 |
+| X | Điểm tọa độ 5 | (s2)+11, (s2)+10 | R10, R11 | K200 | Xem chú thích ✎1 |
+| X | Điểm tọa độ 6 | (s2)+13, (s2)+12 | R13, R12 | K200 | Xem chú thích ✎1 |
+| X | Điểm tọa độ 7 | (s2)+15, (s2)+14 | R15, R14 | K250 |  |
+| X | Điểm tọa độ 8 | (s2)+17, (s2)+16 | R17, R16 | K350 | Xem chú thích ✎2 |
+| X | Điểm tọa độ 9 | (s2)+19, (s2)+18 | R19, R18 | K350 | Xem chú thích ✎2 |
+| X | Điểm tọa độ 10 | (s2)+21, (s2)+20 | R21, R20 | K400 |  |
+| Tọa độ Y | Điểm tọa độ 1 | (s2)+23, (s2)+22 | R23, R22 | K7 |  |
+| Tọa độ Y | Điểm tọa độ 2 | (s2)+25, (s2)+24 | R25, R24 | K30 |  |
+| Tọa độ Y | Điểm tọa độ 3 | (s2)+27, (s2)+26 | R27, R26 | K100 |  |
+| Tọa độ Y | Điểm tọa độ 4 | (s2)+29, (s2)+28 | R29, R28 | K25 | Xem chú thích ✎1 |
+| Tọa độ Y | Điểm tọa độ 5 | (s2)+31, (s2)+30 | R31, R30 | K70 | Xem chú thích ✎1 |
+| Tọa độ Y | Điểm tọa độ 6 | (s2)+33, (s2)+32 | R33, R32 | K250 | Xem chú thích ✎1 |
+| Tọa độ Y | Điểm tọa độ 7 | (s2)+35, (s2)+34 | R35, R34 | K90 |  |
+| Tọa độ Y | Điểm tọa độ 8 | (s2)+37, (s2)+36 | R37, R36 | K90 | Xem chú thích ✎2 |
+| Tọa độ Y | Điểm tọa độ 9 | (s2)+39, (s2)+38 | R39, R38 | K30 | Xem chú thích ✎2 |
+| Tọa độ Y | Điểm tọa độ 10 | (s2)+41, (s2)+40 | R41, R40 | K7 |  |
+
+:::tip
+✎1 Tương tự các điểm 4, 5 và 6: Nếu tọa độ được xác định bởi 3 điểm thì giá trị trung gian sẽ được lấy làm giá trị ngõ ra.
+
+Trong ví dụ này, giá trị ngõ ra (giá trị trung vị) được chỉ định bởi tọa độ Y của điểm 5.
+
+Khi tọa độ X giống nhau tại 3 điểm trở lên, giá trị của điểm thứ hai cũng được xuất ra.
+:::
+
+:::tip
+✎2 Like points 8 and 9, if the coordinates are specified by 2 points, the output value is the value of the Y coordinate of the next point.
+
+Trong ví dụ này, giá trị ngõ ra được chỉ định bởi tọa độ Y của điểm 9.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá phạm vi của thiết bị tương ứng. |
+| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá phạm vi của thiết bị tương ứng. |
+| 4084H | Khi dữ liệu Xn của bảng dữ liệu không được sắp xếp theo thứ tự tăng dần (tuy nhiên lệnh vẫn thực thi đến vị trí xảy ra lỗi); Khi giá trị đầu vào chỉ định tại (s1) vượt quá phạm vi dữ liệu chuyển đổi tỷ lệ đã cài đặt; Khi số điểm tọa độ bắt đầu của thiết bị (s2) nhỏ hơn 0. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760940473119-430.png?width=466&amp;height=330&amp;rev=1.1)
+
+Khi -100 ≤ D0(X) &lt; 0, D100(Y) =
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760940658622-882.png?rev=1.1)
+
+;
+
+khi D0(X) = 0, D100(Y) = 0;
+
+khi 0 &lt; D0(X) ≤ 100, D100(Y) =
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760940683006-949.png?rev=1.1)
+
+,
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760940708125-297.png?width=553&amp;height=355&amp;rev=1.1)
+
+### ZONE / Điều khiển vùng dữ liệu BIN 16-bit
+
+ZONE(P)
+
+Sau khi cộng giá trị bù (offset) được chỉ định tại (s1) hoặc (s2) vào giá trị ngõ vào được chỉ định tại (s3), kết quả được lưu vào số hiệu thiết bị được chỉ định tại (d).
+
+-[ZONE (s1) (s2) (s3) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| s1 | Giá trị bù âm (offset âm) để cộng vào giá trị đầu vào | -32,768 to 32,767 | BIN16 bit | ANY16_S |
+| s2 | Giá trị bù dương (offset dương) để cộng vào giá trị đầu vào | -32,768 to 32,767 | BIN16 bit | ANY16_S |
+| s3 | Giá trị đầu vào cho điều khiển vùng | -32,768 to 32,767 | BIN16 bit | ANY16_S |
+| d | Số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu ra được điều khiển theo vùng | - | BIN16 bit | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ZONE | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| ZONE | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| ZONE | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| ZONE | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Sau khi cộng giá trị bù (offset) được chỉ định tại (s1) hoặc (s2) vào giá trị ngõ vào (giá trị BIN 16-bit) được chỉ định tại (s3), kết quả được lưu vào số hiệu thiết bị được chỉ định tại (d). Giá trị bù được điều khiển như sau.
+
+| Điều kiện | Giá trị được lưu vào giá trị đầu ra |
+| :--- | :--- |
+| Khi giá trị đầu vào (s3) &lt; 0 | Giá trị đầu vào (s3) + giá trị bù âm (s1) |
+| Khi giá trị đầu vào (s3) = 0 | 0 |
+| Khi giá trị đầu vào (s3) &gt; 0 | Giá trị đầu vào (s3) + giá trị bù dương (s2) |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760940951707-484.png?width=705&amp;height=153&amp;rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760940981587-968.png?width=399&amp;height=50&amp;rev=1.1)
+
+Khi X000 đang ON
+
+• Khi D0 &lt; 0, giá trị của (D0) + (-1.000) được lưu vào D1.
+
+• Khi D0 = 0, giá trị 0 được lưu vào D1.
+
+• Khi 0 &lt; D0, giá trị của (D0) + (1.000) được lưu vào D1.
+
+### DZONE / Điều khiển vùng dữ liệu BIN 32-bit
+
+DZONE(P)
+
+Sau khi cộng giá trị bù (offset) được chỉ định tại (s1) hoặc (s2) vào giá trị ngõ vào được chỉ định tại (s3), kết quả được lưu vào số hiệu thiết bị được chỉ định tại (d).
+
+-[DZONE (s1) (s2) (s3) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Giá trị bù âm (offset âm) để cộng vào giá trị đầu vào | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
+| (s2) | Giá trị bù dương (offset dương) để cộng vào giá trị đầu vào | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
+| (s3) | Giá trị đầu vào cho điều khiển vùng | -2147483648 to 2147483647 | BIN32 bit | ANY32_S |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ giá trị đầu ra được điều khiển theo vùng | - | BIN32 bit | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DZONE | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DZONE | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DZONE | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DZONE | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Sau khi cộng giá trị bù (offset) được chỉ định tại (s1) hoặc (s2) vào giá trị ngõ vào (giá trị BIN 32-bit) được chỉ định tại (s3), kết quả được lưu vào số hiệu thiết bị được chỉ định tại (d). Giá trị bù được điều khiển như sau.
+
+| Điều kiện | Giá trị được lưu vào giá trị đầu ra |
+| :--- | :--- |
+| Khi giá trị đầu vào ((s3), (s3)+1) &lt; 0 | Giá trị đầu vào ((s3), (s3)+1) + giá trị bù âm (s1), (s1)+1 |
+| Khi giá trị đầu vào ((s3), (s3)+1) = 0 | 0 |
+| Khi giá trị đầu vào ((s3), (s3)+1) &gt; 0 | Giá trị đầu vào ((s3), (s3)+1) + giá trị bù dương (s2), (s2)+1 |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760941232073-523.png?rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Khi phạm vi thiết bị chỉ định để đọc vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+| 4086H | Khi phạm vi thiết bị chỉ định để ghi vượt quá giới hạn vùng nhớ của thiết bị tương ứng |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.12%20Data%20Control%20instructions/WebHome/1760941266690-701.png?width=449&amp;height=61&amp;rev=1.1)
+
+• Khi (D1, D0) &lt; 0, giá trị của (D1, D0) + (-10.000) được lưu vào (D11, D10).
+
+• Khi (D1, D0) = 0, giá trị 0 được lưu vào (D11, D10).
+
+• Khi 0 &lt; (D1, D0), giá trị của (D1, D0) + 10.000 được lưu vào (D11, D10).
+
+0

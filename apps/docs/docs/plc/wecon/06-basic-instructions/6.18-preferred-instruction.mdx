@@ -1,0 +1,217 @@
+---
+id: "6.18-preferred-instruction"
+title: "6.18 Các lệnh chuyên biệt mở rộng (Preferred Instruction)"
+sidebar_position: 18
+sidebar_label: "6.18 Preferred instruction"
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.18 Các lệnh chuyên biệt mở rộng (Preferred Instruction)"
+---
+
+### DEXMN / Lệnh chọn tổ hợp tối ưu
+
+DEXMN(P)
+
+Vị trí của các giá trị cho trước có tổng gần nhất với giá trị mục tiêu trong nhiều giá trị cho trước được lựa chọn thông qua tính toán.
+
+-[DEXMN (s1) (s2) (s3) (d1) (d2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Số hiệu thiết bị bắt đầu mảng tham số dữ liệu đầu vào |  | Form type | LIST |
+| (s2) | Select the maximum number of data and địa chỉ thiết bị bắt đầu of the output mode |  | Form type | LIST |
+| (s3) | Giá trị mục tiêu | 0 to 16777215 | Unsigned BIN32 | ANY32_U |
+| (d1) | Số hiệu thiết bị bắt đầu mảng kết quả lựa chọn |  | Form type | LIST |
+| (d2) | kết quả phép toán array start device number |  | Form type | LIST |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DEXMN | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  | ● |
+| DEXMN | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  | ● |
+| DEXMN | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  | ● |
+| DEXMN | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  | ● |
+| DEXMN | Parameter 5 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  | ● |
+
+Đặc tính kỹ thuật
+
+- mô tả chức năng lệnh
+
+Từ tập dữ liệu cho bởi S1, chọn tổ hợp dữ liệu có số phần tử nhỏ hơn hoặc bằng S2 (chọn số lượng dữ liệu tối đa) và có giá trị tổng gần nhất với S3 (giá trị mục tiêu). Kết quả được chọn được lưu vào mảng D1 theo vị trí tương ứng với mảng S1.
+
+Mã lỗi thực thi lệnh được lưu tại D2, số lượng phần tử được chọn lưu tại D2+2, và độ lệch giữa mảng được chọn với giá trị mục tiêu lưu tại D2+4.
+
+- Mô tả tham số chi tiết
+
+| Tham số đầu vào S1 | Tham số đầu vào S1 | Tham số đầu vào S1 | Tham số đầu vào S1 | Tham số đầu vào S1 |
+| :--- | :--- | :--- | :--- | :--- |
+| Đơn vị | Số lượng byte | Đặc tính kỹ thuật | Mô tả kỹ thuật | Phạm vi giá trị |
+| s1 | Từ kép (Double Word - 32-bit) | Số lượng dữ liệu đầu vào | Chỉ định số lượng dữ liệu đầu vào | 1 to 32 |
+| s1+1 | Từ kép (Double Word - 32-bit) | Số lượng dữ liệu đầu vào | Chỉ định số lượng dữ liệu đầu vào | 1 to 32 |
+| s1+2 | Từ kép (Double Word - 32-bit) | Dữ liệu thứ nhất | Dữ liệu đầu vào | 0 to 16777215 |
+| s1+3 | Từ kép (Double Word - 32-bit) | Dữ liệu thứ nhất | Dữ liệu đầu vào | 0 to 16777215 |
+| s1+4 | Từ kép (Double Word - 32-bit) | Dữ liệu thứ hai | Dữ liệu đầu vào | 0 to 16777215 |
+| s1+5 | Từ kép (Double Word - 32-bit) | Dữ liệu thứ hai | Dữ liệu đầu vào | 0 to 16777215 |
+| . . . | . . . | . . . | Dữ liệu đầu vào | 0 to 16777215 |
+| s1+64 | Từ kép (Double Word - 32-bit) | The 32nd data | Dữ liệu đầu vào | 0 to 16777215 |
+| s1+65 | Từ kép (Double Word - 32-bit) | The 32nd data | Dữ liệu đầu vào | 0 to 16777215 |
+
+| Tham số ngõ vào S3 | Tham số ngõ vào S3 | Tham số ngõ vào S3 | Tham số ngõ vào S3 | Tham số ngõ vào S3 |
+| :--- | :--- | :--- | :--- | :--- |
+| Đơn vị | Số lượng byte | Đặc tính kỹ thuật | Mô tả tham số | Phạm vi giá trị |
+| s2 | Từ kép (Double Word - 32-bit) | Chỉ định số lượng tối đa dữ liệu được chọn | Chỉ định số lượng tối đa dữ liệu được chọn | 1 đến s1. Do giới hạn thời gian, vui lòng tham khảo phần ghi chú. |
+| s2+1 | Từ kép (Double Word - 32-bit) | Chỉ định số lượng tối đa dữ liệu được chọn | Chỉ định số lượng tối đa dữ liệu được chọn | 1 đến s1. Do giới hạn thời gian, vui lòng tham khảo phần ghi chú. |
+| s2+2 | Từ kép (Double Word - 32-bit) | Chế độ xuất | Lựa chọn chế độ xuất: 0: Giá trị 0 trong mảng đầu vào không được thêm vào tổ hợp đầu ra; 1: Thêm giá trị 0 trong mảng đầu vào vào tổ hợp đầu ra |  |
+| s2+3 | Từ kép (Double Word - 32-bit) | Chế độ xuất | Lựa chọn chế độ xuất: 0: Giá trị 0 trong mảng đầu vào không được thêm vào tổ hợp đầu ra; 1: Thêm giá trị 0 trong mảng đầu vào vào tổ hợp đầu ra |  |
+
+| Tham số ngõ vào S3 | Tham số ngõ vào S3 | Tham số ngõ vào S3 | Tham số ngõ vào S3 | Tham số ngõ vào S3 |
+| :--- | :--- | :--- | :--- | :--- |
+| Đơn vị | Số lượng byte | Đặc tính kỹ thuật | Mô tả tham số | Phạm vi giá trị |
+| s3 | Từ kép (Double Word - 32-bit) | Chỉ định dữ liệu mục tiêu | Chỉ định dữ liệu mục tiêu được chọn | 0 to 16777215 |
+| s3+1 | Từ kép (Double Word - 32-bit) | Chỉ định dữ liệu mục tiêu | Chỉ định dữ liệu mục tiêu được chọn | 0 to 16777215 |
+
+| Parameter d1 | Parameter d1 | Parameter d1 | Parameter d1 | Parameter d1 |
+| :--- | :--- | :--- | :--- | :--- |
+| Đơn vị | Số lượng byte | Đặc tính kỹ thuật | Mô tả tham số | Phạm vi giá trị |
+| d1 | Từ kép (Double Word - 32-bit) | Kết quả lựa chọn, mỗi bit đại diện cho một dữ liệu | Sử dụng các bit để biểu thị vị trí dữ liệu: Bit 0 tương ứng với S1+2; Bit 1 tương ứng với S1+4 | Chỉ đọc (Read-only) |
+| d1+1 | Từ kép (Double Word - 32-bit) | Kết quả lựa chọn, mỗi bit đại diện cho một dữ liệu | Sử dụng các bit để biểu thị vị trí dữ liệu: Bit 0 tương ứng với S1+2; Bit 1 tương ứng với S1+4 | Chỉ đọc (Read-only) |
+| d1+2 | Từ kép (Double Word - 32-bit) | Vị trí của dữ liệu được chọn thứ 1 | Vị trí của dữ liệu tính theo độ lệch so với S1+2: 0 nghĩa là dữ liệu ở S1+2; 3 nghĩa là dữ liệu ở S1+8; v.v. | Chỉ đọc (Read-only) |
+| d1+3 | Từ kép (Double Word - 32-bit) | Vị trí của dữ liệu được chọn thứ 1 | Vị trí của dữ liệu tính theo độ lệch so với S1+2: 0 nghĩa là dữ liệu ở S1+2; 3 nghĩa là dữ liệu ở S1+8; v.v. | Chỉ đọc (Read-only) |
+| d1+4 | Từ kép (Double Word - 32-bit) | Vị trí của dữ liệu được chọn thứ 2 | Vị trí của dữ liệu tính theo độ lệch so với S1+2: 0 nghĩa là dữ liệu ở S1+2; 3 nghĩa là dữ liệu ở S1+8; v.v. | Chỉ đọc (Read-only) |
+| d1+5 | Từ kép (Double Word - 32-bit) | Vị trí của dữ liệu được chọn thứ 2 | Vị trí của dữ liệu tính theo độ lệch so với S1+2: 0 nghĩa là dữ liệu ở S1+2; 3 nghĩa là dữ liệu ở S1+8; v.v. | Chỉ đọc (Read-only) |
+| d1+N*2+2 | Từ kép (Double Word - 32-bit) | Vị trí của dữ liệu được chọn thứ N | Vị trí của dữ liệu tính theo độ lệch so với S1+2: 0 nghĩa là dữ liệu ở S1+2; 3 nghĩa là dữ liệu ở S1+8; v.v. | Chỉ đọc (Read-only) |
+| d1+N*2+3 | Từ kép (Double Word - 32-bit) | Vị trí của dữ liệu được chọn thứ N | Vị trí của dữ liệu tính theo độ lệch so với S1+2: 0 nghĩa là dữ liệu ở S1+2; 3 nghĩa là dữ liệu ở S1+8; v.v. | Chỉ đọc (Read-only) |
+| d1+64 | Từ kép (Double Word - 32-bit) | Vị trí của dữ liệu được chọn thứ 32 | Vị trí của dữ liệu tính theo độ lệch so với S1+2: 0 nghĩa là dữ liệu ở S1+2; 3 nghĩa là dữ liệu ở S1+8; v.v. | Chỉ đọc (Read-only) |
+| d1+65 | Từ kép (Double Word - 32-bit) | Vị trí của dữ liệu được chọn thứ 32 | Vị trí của dữ liệu tính theo độ lệch so với S1+2: 0 nghĩa là dữ liệu ở S1+2; 3 nghĩa là dữ liệu ở S1+8; v.v. | Chỉ đọc (Read-only) |
+
+| Parameter d2 (Unit) | Parameter d2 (Number of bytes) | Parameter d2 (Features) | Tham số d2 (Mô tả tham số) | Ghi chú | Ghi chú |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| d2 | Từ kép (Double Word - 32-bit) | Kết quả thực thi lựa chọn HOẶC Mã lỗi | Mã lỗi (Error Code) | ≥0: Thực thi đúng; &lt;0: Mã lỗi | -1: Số lượng nhập vào ngoài phạm vi; -2: Số lượng dữ liệu được chọn ngoài phạm vi; -3: Dữ liệu mục tiêu ngoài phạm vi; -4: Dữ liệu đầu vào ngoài phạm vi (Nếu có nhiều lỗi trùng lặp, lỗi ở trên cùng sẽ được báo cáo trước. Ví dụ: số lượng đầu vào là 0 và dữ liệu mục tiêu là -30 thì lúc này sẽ báo lỗi -1) |
+| d2+1 | Từ kép (Double Word - 32-bit) | Kết quả thực thi lựa chọn HOẶC Mã lỗi | Mã lỗi (Error Code) | ≥0: Thực thi đúng; &lt;0: Mã lỗi | -1: Số lượng nhập vào ngoài phạm vi; -2: Số lượng dữ liệu được chọn ngoài phạm vi; -3: Dữ liệu mục tiêu ngoài phạm vi; -4: Dữ liệu đầu vào ngoài phạm vi (Nếu có nhiều lỗi trùng lặp, lỗi ở trên cùng sẽ được báo cáo trước. Ví dụ: số lượng đầu vào là 0 và dữ liệu mục tiêu là -30 thì lúc này sẽ báo lỗi -1) |
+| d2+2 | Từ kép (Double Word - 32-bit) | Số lượng đã chọn | Số lượng dữ liệu thực tế đã được chọn | Chỉ đọc (Read-only) |  |
+| d2+3 | Từ kép (Double Word - 32-bit) | Số lượng đã chọn | Số lượng dữ liệu thực tế đã được chọn | Chỉ đọc (Read-only) |  |
+| d2+4 | Từ kép (Double Word - 32-bit) | Độ lệch nhỏ nhất | Kết quả hiện tại trừ đi giá trị mục tiêu | Chỉ đọc (Read-only) |  |
+| d2+5 | Từ kép (Double Word - 32-bit) | Độ lệch nhỏ nhất | Kết quả hiện tại trừ đi giá trị mục tiêu | Chỉ đọc (Read-only) |  |
+| d2+6 | Từ kép (Double Word - 32-bit) | Thời gian tính toán | Tổng thời gian sử dụng (ms) | Chỉ đọc (Read-only) |  |
+| d2+7 | Từ kép (Double Word - 32-bit) | Thời gian tính toán | Tổng thời gian sử dụng (ms) | Chỉ đọc (Read-only) |  |
+| d2+8 | Từ kép (Double Word - 32-bit) | Dự phòng | Số lượng tổ hợp (chứa kết quả) | Chỉ đọc (Read-only) |  |
+| d2+9 | Từ kép (Double Word - 32-bit) | Dự phòng | Số lượng tổ hợp (chứa kết quả) | Chỉ đọc (Read-only) |  |
+| d2+10 to d1+73 | Từ kép (Double Word - 32-bit) | Sử dụng nội bộ | Bộ nhớ đệm cho tính toán nội bộ | Chỉ đọc (Read-only) |  |
+| d2+10 to d1+73 | Từ kép (Double Word - 32-bit) | Sử dụng nội bộ | Bộ nhớ đệm cho tính toán nội bộ | Chỉ đọc (Read-only) |  |
+
+:::tip
+✎Lưu ý:
+
+Trong trường hợp số lượng dữ liệu lớn, có thể xảy ra lỗi quá thời gian giám sát (Watchdog Timeout). Nguyên nhân là do phép tính tốn nhiều thời gian.
+
+Bảng thời gian thực thi hiện tại của lệnh này như dưới đây. Vui lòng sử dụng số lượng dữ liệu được chọn tối đa theo bảng thời gian.
+
+| The number of arrays | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| The number of selected | Đơn vị thời gian (ms) |  |  |  |  |  |  |  |
+| 1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 |
+| 2 |  | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 |
+| 3 |  |  | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 |
+| 4 |  |  |  | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 |
+| 5 |  |  |  |  | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 |
+| 6 |  |  |  |  |  | &lt;0.1 | &lt;0.2 | &lt;0.2 |
+| 7 |  |  |  |  |  |  | &lt;0.2 | &lt;0.2 |
+| 8 |  |  |  |  |  |  |  | &lt;0.2 |
+
+| The number of arrays | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| The number of selected | Đơn vị thời gian (ms) |  |  |  |  |  |  |  |
+| 1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 |
+| 2 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 |
+| 3 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.2 | &lt;0.2 |
+| 4 | &lt;0.1 | &lt;0.1 | &lt;0.2 | &lt;0.2 | &lt;0.2 | &lt;0.4 | &lt;0.4 | &lt;0.4 |
+| 5 | &lt;0.2 | &lt;0.2 | &lt;0.3 | &lt;0.4 | &lt;0.5 | &lt;0.6 | &lt;0.9 | 1.1 |
+| 6 | &lt;0.2 | &lt;0.3 | &lt;0.3 | &lt;0.6 | &lt;0.9 | 1.2 | 1.8 | 2.5 |
+| 7 | &lt;0.2 | &lt;0.4 | &lt;0.6 | &lt;0.9 | 1.4 | 2.2 | 3.4 | 5.9 |
+| 8 | &lt;0.3 | &lt;0.4 | &lt;0.7 | 1.4 | 2.0 | 3.3 | 5.5 | 8.9 |
+| 9 | &lt;0.3 | &lt;0.5 | &lt;0.9 | 1.5 | 2.6 | 4.6 | 7.9 | 13.4 |
+| 10 |  | &lt;0.6 | &lt;1.0 | 1.7 | 3.2 | 5.8 | 10.4 | 18.4 |
+| 11 |  |  | 1.1 | 2.2 | 3.7 | 6.9 | 12.8 | 23.3 |
+| 12 |  |  |  | 2.3 | 4.4 | 8.2 | 15.2 | 28.8 |
+| 13 |  |  |  |  | 4.9 | 9.3 | 17.5 | 32.8 |
+| 14 |  |  |  |  |  | 10.5 | 19.8 | 37.5 |
+| 15 |  |  |  |  |  |  | 23.0 | 43.0 |
+| 16 |  |  |  |  |  |  |  | 46.8 |
+| The number of arrays | 17 | 18 | 19 | 20 | 211 | 22 | 23 | 24 |
+| The number of selected | Đơn vị thời gian (ms) |  |  |  |  |  |  |  |
+| 1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 |
+| 2 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 |
+| 3 | &lt;0.3 | &lt;0.3 | &lt;0.3 | &lt;0.3 | &lt;0.3 | &lt;0.3 | &lt;0.3 | &lt;0.3 |
+| 4 | &lt;0.5 | &lt;0.6 | &lt;0.7 | &lt;0.8 | &lt;0.9 | 1.2 | 1.3 | 1.5 |
+| 5 | 1.4 | 1.8 | 2.3 | 2.9 | 3.7 | 4.6 | 5.7 | 6.9 |
+| 6 | 3.6 | 5.0 | 6.8 | 9.9 | 12.2 | 15.9 | 20.8 | 26.8 |
+| 7 | 7.7 | 11.4 | 16.5 | 23.5 | 32.9 | 45.7 | 62.5 | 84.4 |
+| 8 | 14.2 | 22.9 | 33.4 | 51.2 | 75.8 | 110.6 | 158.9 | 225.1 |
+| 9 | 22.6 | 37.2 | 60.2 | 95.3 | 148.6 | 227.6 | 342.9 |  |
+| 10 | 32.2 | 55.4 | 93.8 | 156.9 | 255.2 |  |  |  |
+| 11 | 42.4 | 75.3 | 132.2 | 222.8 |  |  |  |  |
+| 12 | 51.8 | 94.9 | 171.9 |  |  |  |  |  |
+| 13 | 61.4 | 114.3 | 221.2 |  |  |  |  |  |
+| 14 | 70.7 | 133.2 |  |  |  |  |  |  |
+| 15 | 80.6 | 151.9 |  |  |  |  |  |  |
+| 16 | 89.4 | 170.5 |  |  |  |  |  |  |
+| 17 | 98.6 | 189.7 |  |  |  |  |  |  |
+| 18 |  | 207.7 |  |  |  |  |  |  |
+
+| The number of arrays | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| The number of selected | Đơn vị thời gian (ms) |  |  |  |  |  |  |  |
+| 1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 |
+| 2 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 | &lt;0.1 |
+| 3 | &lt;0.3 | &lt;0.3 | &lt;0.4 | &lt;0.4 | &lt;0.5 | &lt;0.5 | &lt;0.6 | &lt;0.6 |
+| 4 | 1.7 | 1.9 | 2.3 | 2.6 | 3.0 | 3.5 | 3.8 | 4.4 |
+| 5 | 8.4 | 10.2 | 12.3 | 14.7 | 17.5 | 20.6 | 24.2 | 28.3 |
+| 6 | 34.2 | 43.3 | 54.2 | 15.9 | 83.3 | 102.2 | 124.3 | 150.5 |
+| 7 | 112.6 | 148.6 | 194.2 | 251.4 | 322.6 | 410.5 | 515.4 | 649.8 |
+| 8 | 314.4 | 433.7 | 591.6 |  |  |  |  |  |
+| 9 |  |  |  |  |  |  |  |  |
+:::
+
+:::tip
+✎ Lưu ý: Phần chữ màu đỏ biểu thị giới hạn vượt quá thời gian chu kỳ quét mặc định.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Lỗi phạm vi dữ liệu. Để biết chi tiết, xem mã lỗi của tham số d2 |
+| 4085H | Địa chỉ thiết bị của (s1), (s2) và (s3) nằm ngoài phạm vi |
+| 4086H | Địa chỉ thiết bị của (d1) và (d2) nằm ngoài phạm vi |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.18%20Preferred%20instruction/WebHome/1761028107154-377.png?rev=1.1)
+
+Khi D200 = 8, D4 = 2, nghĩa là lấy ra 2 dữ liệu từ 8 nhóm dữ liệu sao cho tổng của hai dữ liệu đó gần nhất với dữ liệu trong D8.
+
+Dữ liệu mảng của D200 (S1):
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.18%20Preferred%20instruction/WebHome/1761028136147-355.png?rev=1.1)
+
+Chọn một tổ hợp có tổng gần với 300 từ dữ liệu trên, kết quả được chọn tại D300 (D1) như dưới đây:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.18%20Preferred%20instruction/WebHome/1761028158726-181.png?rev=1.1)
+
+Bit 1 và Bit 3 của D300 bằng 1, tương ứng với các vị trí dữ liệu 1 và 3 hiện đang được chọn. Các vị trí được chỉ định là D204 (99) và D208 (200).
+
+Kết quả chạy tại D400 (D2) như dưới đây:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.18%20Preferred%20instruction/WebHome/1761028177795-296.png?rev=1.1)
+
+Nếu D400 bằng 0, quá trình thực thi là chính xác.
+
+Nếu D402 bằng 2, số lượng phần tử được chọn là 2.
+
+Nếu D404 bằng -1, hiệu số giữa tổng tổ hợp dữ liệu được chọn trừ đi giá trị mục tiêu là -1.
+
+Nếu D406 bằng 2, thời gian sử dụng là 2ms.
+
+0

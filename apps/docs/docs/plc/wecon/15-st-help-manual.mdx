@@ -1,16 +1,875 @@
 ---
 id: "15-st-help-manual"
-title: "15 ST Help Manual: Sổ tay ngôn ngữ Structured Text (ST)"
+title: "15 Hướng dẫn lập trình ngôn ngữ Structured Text (ST Help Manual)"
 sidebar_position: 15
 sidebar_label: "15 ST Help Manual"
-tags: [wecon, lx6v, lx6a, manual]
-description: "Cẩm nang cú pháp, toán tử và cấu trúc lập trình ngôn ngữ Structured Text IEC 61131-3."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 15 Hướng dẫn lập trình ngôn ngữ Structured Text (ST Help Manual)"
 ---
 
-## 15 ST Help Manual: Sổ tay ngôn ngữ Structured Text (ST)
+## Giới thiệu
 
-Ngôn ngữ lập trình dạng văn bản cấu trúc bậc cao theo chuẩn IEC 61131-3:
-- Cú pháp khai báo biến cục bộ (VAR), ngõ vào (VAR_INPUT), ngõ ra (VAR_OUTPUT).
-- Cấu trúc điều kiện rẽ nhánh: `IF ... THEN ... ELSIF ... ELSE ... END_IF`.
-- Cấu trúc lựa chọn trạng thái máy: `CASE ... OF ... END_CASE`.
-- Các vòng lặp thuật toán: `FOR ... TO ... DO`, `WHILE ... DO`, `REPEAT ... UNTIL`.
+Ngôn ngữ văn bản có cấu trúc (Structured Text - ST) là một ngôn ngữ lập trình dạng văn bản bậc cao, có thể dùng để định nghĩa hành vi logic của các hàm, khối hàm (FB) và chương trình, đồng thời cũng có thể mô tả hành vi của các bước, hành động và chuyển tiếp trong biểu đồ chức năng tuần tự (SFC).
+
+Ngôn ngữ văn bản có cấu trúc (Structured Text - ST) có cú pháp tương tự Pascal. Đây là ngôn ngữ được phát triển chuyên biệt cho các ứng dụng điều khiển công nghiệp. Đối với những người đã quen thuộc với các ngôn ngữ lập trình máy tính bậc cao, ngôn ngữ văn bản có cấu trúc cực kỳ dễ học và dễ sử dụng. Ngôn ngữ này hỗ trợ các chức năng như câu lệnh lựa chọn, câu lệnh vòng lặp và câu lệnh nhảy. Ngoài ra, ngôn ngữ văn bản có cấu trúc rất dễ đọc và dễ hiểu, đặc biệt khi được chú thích bằng các định danh (Identifier) có ý nghĩa và các dòng chú thích. Trong các hệ thống điều khiển phức tạp, ngôn ngữ văn bản có cấu trúc có thể giảm đáng kể lượng mã nguồn và đơn giản hóa các bài toán hệ thống phức tạp. Nhược điểm của nó là việc gỡ lỗi không trực quan và tốc độ biên dịch tương đối chậm.
+
+## Thứ tự thực thi chương trình ngôn ngữ văn bản có cấu trúc (ST)
+
+### Thứ tự thực thi chương trình
+
+Thứ tự thực thi của các chương trình sử dụng ngôn ngữ văn bản có cấu trúc được thực hiện tuần tự từ trên xuống dưới theo "số dòng".
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203145336-464.png?width=271&amp;height=115&amp;rev=1.1)
+
+### Thứ tự thực thi biểu thức
+
+Biểu thức bao gồm các toán tử và toán hạng. Các toán hạng được tính toán theo quy tắc do toán tử quy định, sau đó thu được kết quả và trả về. Toán hạng có thể là biến, hằng số, thiết bị, hàm, v.v.
+
+Nếu có nhiều toán tử trong một biểu thức, các toán tử sẽ được thực thi theo thứ tự ưu tiên quy định: các phép toán có toán tử ưu tiên cao hơn được thực thi trước, sau đó các phép toán có toán tử ưu tiên thấp hơn được thực thi tuần tự. Nếu trong biểu thức có các toán tử cùng mức ưu tiên, chúng sẽ được thực thi từ trái sang phải theo thứ tự viết.
+
+### Giới thiệu các câu lệnh cơ bản
+
+Bảng các câu lệnh ngôn ngữ văn bản có cấu trúc (ST) được trình bày trong bảng dưới đây.
+
+| Loại lệnh | Câu lệnh | Ví dụ minh họa |
+| :--- | :--- | :--- |
+| Câu lệnh gán | := | bFan:= TRUE; |
+| khối hàm (FB)/function call | khối hàm (FB)/function name(); | COS(); |
+| Câu lệnh rẽ nhánh chọn | IF | IF var1 = 1 THENvar1: = 2;END_IF |
+| Câu lệnh rẽ nhánh chọn | CASE | CASE var1 OF0: var1: = 10;1: var1: = 20;2: var1: = 30;END_CASE |
+| Câu lệnh lặp | FOR | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;END_FOR |
+| Câu lệnh lặp | WHILE | WHILE var1 = 2 DOvar1: = 123;END_WHILE |
+| Câu lệnh lặp | REPEAT | REPEATvar3: = 234;UNTIL var1 = 2END_REPEAT |
+| Câu lệnh nhảy | EXIT | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;IF var1 = 5 THENEXITEND_IFEND_FOR |
+| Câu lệnh nhảy | CONTINUE | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;IF var1 = 5 THENCONTINUEEND_IFEND_FOR |
+| Câu lệnh trả về (Return) | RETURN | IF var1 = 1 THENRETURN 1;ELSERETURN 0;END_IF |
+| Câu lệnh rỗng (NULL) | : | N/A |
+
+## Biểu diễn và khai báo biến
+
+Biến có thể được sử dụng để biểu diễn giá trị số, giá trị chuỗi ký tự hoặc mảng, v.v.
+
+### Biến
+
+Biến là dữ liệu trừu tượng được lưu trữ trong bộ nhớ để xử lý. Chúng là các tên dùng để nhận diện đầu vào/đầu ra của PLC và vùng lưu trữ bên trong PLC, có thể thay thế việc sử dụng địa chỉ vật lý trong chương trình.
+
+Giá trị của dữ liệu lưu trong biến có thể thay đổi bất cứ lúc nào khi cần thiết. Trong quá trình thực thi chương trình, giá trị của biến có thể thay đổi. Biến phải được khai báo trước khi sử dụng, đồng thời phải chỉ định kiểu dữ liệu và tên biến. Biến có tên, kiểu dữ liệu và giá trị. Kiểu dữ liệu của biến quyết định kích thước và loại vùng nhớ mà nó đại diện. Tên biến chính là định danh (Identifier) trong mã nguồn chương trình.
+
+### Định danh (Identifier)
+
+Định danh (Identifier) là tên của biến. Khi định nghĩa định danh theo tiêu chuẩn IEC 61131-3, nó phải bao gồm các chữ cái, chữ số và ký tự gạch dưới. Ngoài ra, cần tuân thủ các quy tắc sau:
+
+Ký tự đầu tiên của định danh (Identifier) phải là chữ cái, ký tự tiếng Trung hoặc dấu gạch dưới.
+
+Định danh (Identifier) không phân biệt chữ hoa và chữ thường
+
+Không được chứa khoảng trắng.
+
+Ví dụ: ab_c, AB_de và _AbC là các định danh hợp lệ, trong khi 1abc không được phép.
+
+### Khai báo biến
+
+Khai báo biến là việc xác định tên, kiểu dữ liệu và gán giá trị ban đầu cho một biến cụ thể.
+
+Việc khai báo biến rất quan trọng. Các biến chưa khai báo không thể biên dịch, do đó không thể sử dụng trong chương trình. Người dùng có thể khai báo biến trong đơn vị tổ chức chương trình (POU), danh sách biến toàn cục (GVL) và hộp thoại khai báo tự động.
+
+Cách khai báo biến thông dụng nhất — đối với các biến không cần liên kết với thiết bị ngoại vi phần cứng hoặc truyền thông mà chỉ dùng cho logic nội bộ của dự án — là khai báo thông thường, phải tuân theo quy tắc sau:
+
+&lt;Identifier&gt;:&lt;Data type&gt;\{:=&lt;Initial value&gt;\}
+
+\{\} is optional. For example: nTest: BOOL; nTest: BOOL: = TRUE;
+
+## Giới thiệu các câu lệnh cơ bản
+
+Bảng các câu lệnh ngôn ngữ văn bản có cấu trúc (ST) được trình bày trong bảng dưới đây.
+
+| Loại lệnh | Câu lệnh | Ví dụ minh họa |
+| :--- | :--- | :--- |
+| Câu lệnh gán | := | bFan:= TRUE; |
+| khối hàm (FB)/function call | khối hàm (FB)/function name(); | COS(); |
+| Câu lệnh rẽ nhánh chọn | IF | IF var1 = 1 THENvar1: = 2;END_IF |
+| Câu lệnh rẽ nhánh chọn | CASE | CASE var1 OF0: var1: = 10;1: var1: = 20;2: var1: = 30;END_CASE |
+| Câu lệnh lặp | FOR | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;END_FOR |
+| Câu lệnh lặp | WHILE | WHILE var1 = 2 DOvar1: = 123;END_WHILE |
+| Câu lệnh lặp | REPEAT | REPEATvar3: = 234;UNTIL var1 = 2END_REPEAT |
+| Câu lệnh nhảy | EXIT | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;IF var1 = 5 THENEXITEND_IFEND_FOR |
+| Câu lệnh nhảy | CONTINUE | FOR var1: = 1 TO 10 DOvar2: = var2 + 1;IF var1 = 5 THENCONTINUEEND_IFEND_FOR |
+| Câu lệnh trả về (Return) | RETURN | IF var1 = 1 THENRETURN 1;ELSERETURN 0;END_IF |
+| Câu lệnh rỗng (NULL) | : | N/A |
+
+### Câu lệnh gán
+
+Câu lệnh gán là một trong những câu lệnh được sử dụng phổ biến nhất trong ngôn ngữ văn bản có cấu trúc (ST). Chức năng của nó là gán giá trị do biểu thức ở vế phải tạo ra cho toán hạng (biến hoặc địa chỉ) ở vế trái, được biểu diễn bằng toán tử ":= ". Cú pháp cụ thể như sau:
+
+&lt;Biến&gt; :=&lt;Biểu thức&gt;;
+
+Ví dụ: Lần lượt gán giá trị cho hai biến kiểu Boolean, đặt TRUE cho bFan và đặt FALSE cho bHeater.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203251045-400.png?width=291&amp;height=166&amp;rev=1.1)
+
+### Gọi hàm và khối hàm (FB)
+
+Câu lệnh gọi hàm
+
+Sau khi hàm được gọi, giá trị trả về được gán trực tiếp cho biến như giá trị của biểu thức. Ví dụ: trong câu lệnh "rVar1: = SIN (rData1);", hàm sin SIN được gọi và giá trị trả về được gán cho biến rVar1. Cú pháp câu lệnh gọi hàm như sau: Biến = Tên hàm (bảng tham số);
+
+Ví dụ về câu lệnh gọi hàm:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203311488-510.png?rev=1.1)
+
+Câu lệnh gọi khối hàm (FB)
+
+Khi gọi khối hàm (FB), tên khối hàm được khởi tạo thành một thể hiện (instance) để thực hiện lời gọi, ví dụ: Timer là tên thể hiện của khối hàm TON. Cú pháp cụ thể như sau:
+
+Tên thể hiện khối hàm (tham số khối hàm);
+
+Nếu cần gọi một khối hàm (FB) trong ngôn ngữ ST, có thể nhập trực tiếp tên thể hiện của khối hàm và gán giá trị hoặc biến cho từng tham số của khối hàm trong cặp ngoặc đơn theo sau, các tham số cách nhau bằng dấu phẩy; câu lệnh gọi khối hàm kết thúc bằng dấu chấm phẩy.
+
+Ví dụ: nếu gọi khối hàm bộ định thời TON trong ngôn ngữ văn bản có cấu trúc (ST), giả sử tên thể hiện của nó là TON1, cách viết cụ thể như sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203336140-297.png?width=333&amp;height=133&amp;rev=1.1)
+
+### Câu lệnh lựa chọn
+
+Câu lệnh IF
+
+Sử dụng "câu lệnh IF" để thực hiện cấu trúc lựa chọn đơn nhánh. Cú pháp cơ bản như sau:
+
+IF&lt;Biểu thức Boolean&gt;THEN
+
+&lt;Nội dung câu lệnh&gt;;
+
+END_IF
+
+Khi sử dụng cú pháp trên, chỉ khi &lt;Biểu thức Boolean&gt; có giá trị TRUE thì nội dung câu lệnh mới được thực thi; ngược lại sẽ không thực thi &lt;Nội dung câu lệnh&gt; trong câu lệnh IF.
+
+Nội dung câu lệnh có thể là một câu lệnh, một câu lệnh rỗng hoặc nhiều câu lệnh được đặt nối tiếp nhau.
+
+#### Ví dụ minh họa
+
+Ví dụ: Sử dụng PLC để kiểm tra xem nhiệt độ hiện tại có vượt quá 60 độ C hay không. Nếu vượt quá, luôn bật quạt để tản nhiệt. Đoạn mã thực hiện cụ thể như sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761203376837-726.png?width=524&amp;height=202&amp;rev=1.1)
+
+Câu lệnh IF.... ELSE
+
+Sử dụng câu lệnh IF....ELSE để thực hiện cơ chế lựa chọn hai nhánh. Cú pháp cơ bản như sau:
+
+IF&lt;Biểu thức Boolean&gt;THEN
+
+&lt;Nội dung câu lệnh 1&gt;;
+
+ELSE
+
+&lt;Nội dung câu lệnh 2&gt;;
+
+END_IF
+
+Biểu thức trên trước tiên kiểm tra giá trị của &lt;Biểu thức Boolean&gt;. Nếu là TRUE, &lt;Nội dung câu lệnh 1&gt; được thực thi; nếu là FALSE, &lt;Nội dung câu lệnh 2&gt; được thực thi.
+
+Ví dụ: Sử dụng PLC để kiểm tra khi nhiệt độ nhỏ hơn 20 độ C thì bật thiết bị gia nhiệt, ngược lại (nhiệt độ lớn hơn hoặc bằng 20 độ C) thì ngắt thiết bị gia nhiệt.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204252732-660.png?rev=1.1)
+
+Khi chương trình có nhiều hơn một biểu thức kiểm tra điều kiện, cần sử dụng thêm câu lệnh IF... ELSE lồng nhau, tức là cấu trúc lựa chọn đa nhánh. Cú pháp cơ bản như sau:
+
+IF&lt;Biểu thức Boolean 1&gt;THEN
+
+IF&lt;Biểu thức Boolean 2&gt;THEN
+
+&lt;Nội dung câu lệnh 1&gt;;
+
+ELSE
+
+&lt;Nội dung câu lệnh 2&gt;;
+
+END_IF
+
+ELSE
+
+&lt;Nội dung câu lệnh 3&gt;;
+
+END_IF
+
+Như đã nêu ở trên, đặt một câu lệnh IF... ELSE bên trong một câu lệnh IF... ELSE để thực hiện cấu trúc lồng nhau. Dưới đây là ví dụ minh họa cách sử dụng lồng nhau.
+
+#### Ví dụ minh họa
+
+Đối với biểu thức trên, trước tiên kiểm tra giá trị trong &lt;Biểu thức Boolean 1&gt;:
+
+- If it is TRUE, continue to judge the value within ;
+
+- If the value of is FALSE, execute , return to judgment;
+
+- If the value of is TRUE, execute , otherwise execute 。
+
+Khi thiết bị vào chế độ tự động, nếu nhiệt độ thực tế lớn hơn 50 độ C thì bật quạt và tắt bộ gia nhiệt;
+
+Khi nhiệt độ nhỏ hơn hoặc bằng 50 độ C thì tắt quạt và bật bộ gia nhiệt. Ví dụ: ở chế độ thủ công, cả bộ gia nhiệt và quạt đều không hoạt động.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204286411-772.png?rev=1.1)
+
+Câu lệnh IF.. ELSIF.. ELSE
+
+Ngoài ra, cấu trúc lựa chọn đa nhánh cũng có thể được viết theo cách sau. Cú pháp cụ thể như sau:
+
+IF &lt;Biểu thức Boolean 1&gt;THEN
+
+&lt;Nội dung câu lệnh 1&gt;;
+
+ELSIF &lt;Biểu thức Boolean 2&gt;THEN
+
+&lt;Nội dung câu lệnh 2&gt;;
+
+ELSIF &lt;Biểu thức Boolean 3&gt;THEN
+
+&lt;Nội dung câu lệnh 3&gt;;
+
+. . .
+
+. . .
+
+ELSE
+
+&lt;Nội dung câu lệnh n&gt;;
+
+END_IF
+
+- If the expression is TRUE, then only the instruction is executed, and no other instructions are executed;
+
+- Ngược lại, hệ thống sẽ kiểm tra lần lượt từng biểu thức điều kiện tiếp theo cho đến khi gặp một biểu thức Boolean có giá trị TRUE và thực thi khối lệnh tương ứng;
+
+- If none of the values of the Boolean expression is TRUE, only the instruction is executed.
+
+#### Ví dụ minh họa
+
+Ví dụ: Khi giá trị của newVar là 10, newVar1 được gán giá trị 10;
+
+Khi giá trị của newVar là 100, newVar1 được gán giá trị 100;
+
+Nếu giá trị của newVar không phải 10 cũng không phải 100, newVar1 được gán giá trị 1000.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204317314-802.png?rev=1.1)
+
+Câu lệnh CASE
+
+Câu lệnh CASE là câu lệnh lựa chọn đa nhánh, cho phép chương trình chọn một nhánh để thực thi trong số nhiều nhánh dựa theo giá trị của biểu thức. Cú pháp cơ bản như sau:
+
+CASE&lt;Biến điều kiện&gt;OF
+
+&lt;Giá trị 1&gt;: &lt;Nội dung câu lệnh 1&gt;;
+
+&lt;Giá trị 2&gt;: &lt;Nội dung câu lệnh 2&gt;;
+
+&lt;Giá trị 3, Giá trị 4, Giá trị 5&gt;: &lt;Nội dung câu lệnh 3&gt;;
+
+&lt;Giá trị 6..Giá trị 10&gt;: &lt;Nội dung câu lệnh 4&gt;;
+
+...
+
+&lt;Giá trị n&gt;: &lt;Nội dung câu lệnh n&gt;;
+
+ELSE
+
+&lt;Nội dung câu lệnh ELSE&gt;;
+
+END_CASE;
+
+Câu lệnh CASE thực thi theo chế độ sau:
+
+- If the value of is , execute the instruction 。
+
+- If doesn’t have any specified value, the instruction is executed.
+
+- Nếu nhiều giá trị của biến điều kiện cần thực thi cùng một lệnh, các giá trị đó có thể được viết liền nhau và phân tách bằng dấu phẩy. Nhờ vậy, lệnh chung sẽ được thực thi, như ở dòng thứ tư của chương trình trên.
+
+- Nếu biến điều kiện cần thực thi cùng một lệnh trong một khoảng giá trị nhất định, có thể viết giá trị đầu và giá trị cuối cách nhau bởi hai dấu chấm (..). Nhờ vậy, lệnh chung sẽ được thực thi, như ở dòng thứ năm của chương trình trên.
+
+#### Ví dụ minh họa
+
+Ví dụ: Khi trạng thái hiện tại là 1 hoặc 5, thiết bị 1 hoạt động và thiết bị 3 dừng;
+
+Khi trạng thái hiện tại là 2, thiết bị 2 dừng và thiết bị 3 hoạt động;
+
+Khi trạng thái hiện tại nằm trong khoảng từ 10 đến 20, cả thiết bị 1 và thiết bị 3 đều hoạt động;
+
+Trong các trường hợp khác, các thiết bị 1, 2 và 3 đều phải dừng. Đoạn mã thực hiện cụ thể như sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204374003-536.png?rev=1.1)
+
+### Câu lệnh vòng lặp
+
+Câu lệnh vòng lặp chủ yếu được sử dụng cho các đoạn chương trình cần thực thi lặp đi lặp lại. Các câu lệnh vòng lặp phổ biến bao gồm câu lệnh FOR, REPEAT và WHILE. Các câu lệnh này được giải thích chi tiết dưới đây.
+
+Vòng lặp FOR
+
+Câu lệnh vòng lặp FOR được dùng để đánh giá một chuỗi khởi tạo. Khi điều kiện là TRUE, câu lệnh lồng bên trong được thực thi lặp đi lặp lại và giá trị bước lặp tiếp theo được tính toán. Nếu điều kiện là FALSE, vòng lặp kết thúc. Cú pháp cụ thể như sau:
+
+Trước khi thực thi vòng lặp, hệ thống sẽ tính toán trước xem &lt;biến&gt; có nằm trong khoảng từ &lt;giá trị đầu&gt; đến &lt;giá trị đích&gt; hay không
+
+- When the step size is positive, is executed only if is less than or equal to , and if is greater than , it will not enter the loop;
+
+- Khi bước nhảy (Step) là số âm, vòng lặp chỉ thực thi khi giá trị khởi tạo lớn hơn hoặc bằng giá trị đích; nếu nhỏ hơn thì không vào vòng lặp.
+
+Sau mỗi lần thực thi &lt;Nội dung câu lệnh&gt;, &lt;Biến&gt; thay đổi theo bước nhảy đã chỉ định:
+
+- Nếu không chỉ định bước nhảy, bước nhảy mặc định là 1 (tăng thêm 1);
+
+- Khi bước nhảy (Step) là số dương, vòng lặp kết thúc khi biến đếm vượt quá giá trị đích;
+
+- Khi bước nhảy (Step) là số âm, vòng lặp kết thúc khi biến đếm nhỏ hơn giá trị đích;
+
+#### Ví dụ minh họa
+
+Dưới đây là ví dụ minh họa cách sử dụng vòng lặp FOR.
+
+Ví dụ: Sử dụng vòng lặp FOR để thực hiện phép tính 2 lũy thừa bậc 5.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204416519-677.png?width=435&amp;height=265&amp;rev=1.1)
+
+Giả sử giá trị ban đầu của Var1 là 1, sau khi vòng lặp kết thúc, giá trị của Var1 là 32.
+
+:::tip
+✎Lưu ý:
+
+- If equal the limit value of , it will enter an infinite loop. Assuming that the type of in the above example is SINT (-128 to 127), When is set to 127, the controller enters an infinite loop. Therefore, cannot be set the limit value.
+:::
+
+Vòng lặp WHILE
+
+Vòng lặp WHILE được sử dụng tương tự như vòng lặp FOR. Điểm khác biệt giữa hai loại là điều kiện kết thúc của vòng lặp WHILE có thể là bất kỳ biểu thức logic nào. Nghĩa là người dùng có thể chỉ định một điều kiện, và khi điều kiện được thỏa mãn thì vòng lặp sẽ được thực thi. Cú pháp cụ thể như sau:
+
+WHILE &lt;Biểu thức Boolean&gt; DO
+
+&lt;Nội dung câu lệnh&gt;;
+
+END_WHILE;
+
+Vòng lặp WHILE được thực thi theo thứ tự sau:
+
+Tính toán giá trị trả về của &lt;Biểu thức Boolean&gt;.
+
+Khi giá trị của &lt;Biểu thức Boolean&gt; là TRUE, thực thi lặp lại &lt;Nội dung câu lệnh&gt;;
+
+Khi giá trị ban đầu của &lt;Biểu thức Boolean&gt; là FALSE, lệnh &lt;Nội dung câu lệnh&gt; sẽ không được thực thi mà nhảy thẳng đến cuối câu lệnh WHILE.
+
+:::tip
+✎Lưu ý:
+
+Nếu giá trị của &lt;Biểu thức Boolean&gt; luôn là TRUE thì sẽ xảy ra vòng lặp vô hạn và cần phải tránh tình trạng này. Có thể tránh vòng lặp vô hạn bằng cách thay đổi điều kiện của câu lệnh vòng lặp. Ví dụ: sử dụng bộ đếm tăng hoặc giảm để tránh vòng lặp vô hạn.
+:::
+
+#### Ví dụ minh họa
+
+Dưới đây là ví dụ minh họa cách sử dụng vòng lặp WHILE. Ví dụ:
+
+Miễn là giá trị của biến i khác 0, chương trình sẽ luôn thực thi vòng lặp.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204447286-982.png?rev=1.1)
+
+Vòng lặp REPEAT
+
+Vòng lặp REPEAT khác với vòng lặp WHILE ở chỗ vòng lặp REPEAT chỉ kiểm tra điều kiện kết thúc sau khi đã thực thi câu lệnh. Điều này có nghĩa là vòng lặp luôn được thực thi ít nhất một lần, bất kể điều kiện kết thúc như thế nào. Cú pháp cụ thể như sau:
+
+REPEAT
+
+&lt;Nội dung câu lệnh&gt;
+
+UNTIL&lt;Biểu thức Boolean&gt;
+
+END_REPEAT;
+
+Vòng lặp REPEAT được thực thi theo thứ tự sau:
+
+Khi giá trị của &lt;Biểu thức Boolean&gt; là FALSE, thực thi &lt;Nội dung câu lệnh&gt;;
+
+Khi giá trị của &lt;Biểu thức Boolean&gt; là TRUE, dừng thực thi &lt;Nội dung câu lệnh&gt;;
+
+Sau lần thực thi &lt;Nội dung câu lệnh&gt; đầu tiên, nếu giá trị của &lt;Biểu thức Boolean&gt; là TRUE thì &lt;Nội dung câu lệnh&gt; chỉ được thực thi đúng một lần.
+
+:::tip
+Lưu ý
+
+- Nếu biểu thức điều kiện luôn luôn là TRUE, vòng lặp vô hạn sẽ xảy ra (cần tuyệt đối tránh để không gây lỗi Watchdog). Có thể ngăn ngừa vòng lặp vô hạn bằng cách cập nhật biến đếm tăng/giảm trong thân vòng lặp.
+:::
+
+#### Ví dụ minh họa
+
+Dưới đây là ví dụ minh họa cách sử dụng vòng lặp REPEAT.
+
+Ví dụ: vòng lặp REPEAT dừng khi bộ đếm đạt 100.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204483781-346.png?rev=1.1)
+
+Kết quả của ví dụ này là trong mỗi chu kỳ chương trình đi vào vòng lặp REPEAT, và i có kiểu BYTE (0-255), tức là thực hiện 256 phép tính tự tăng thêm 1 trong mỗi chu kỳ.
+
+Do đặc điểm đã đề cập trước đó "vòng lặp luôn được thực thi ít nhất một lần bất kể điều kiện kết thúc", nên mỗi khi đi vào câu lệnh REPEAT, i ban đầu là 1 và câu lệnh i := i+1 được thực thi 256 lần trong mỗi chu kỳ cho đến khi biến i cộng dồn bị tràn về 0 thì mới thoát khỏi vòng lặp. Sau đó lại tiếp tục cộng đến khi tràn, cứ lặp lại như vậy.
+
+### Câu lệnh nhảy
+
+Câu lệnh EXIT
+
+Nếu lệnh EXIT được sử dụng trong các vòng lặp FOR, WHILE và REPEAT, vòng lặp bên trong sẽ dừng ngay lập tức bất kể điều kiện kết thúc. Cú pháp cụ thể như sau:
+
+EXIT;
+
+Ví dụ: Sử dụng lệnh EXIT để tránh lỗi chia cho 0 khi dùng câu lệnh vòng lặp.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204508831-656.png?rev=1.1)
+
+Khi Var1 bằng 0, vòng lặp FOR kết thúc.
+
+Câu lệnh CONTINUE
+
+Lệnh này là lệnh mở rộng của tiêu chuẩn IEC 61131-3, và lệnh CONTINUE có thể được sử dụng trong ba loại vòng lặp: FOR, WHILE và REPEAT.
+
+Câu lệnh CONTINUE ngắt lượt lặp hiện tại, bỏ qua đoạn mã phía sau nó và bắt đầu ngay một lượt lặp mới. Khi nhiều vòng lặp lồng nhau, câu lệnh CONTINUE chỉ tác động đến vòng lặp chứa trực tiếp nó để bắt đầu một lượt lặp mới. Cú pháp cụ thể như sau:
+
+CONTINUE
+
+Ví dụ: Sử dụng chỉ thị CONTINUE để tránh lỗi chia cho 0 khi dùng câu lệnh vòng lặp.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204535644-867.png?rev=1.1)
+
+### Câu lệnh RETURN
+
+Lệnh RETURN được sử dụng để thoát khỏi đơn vị tổ chức chương trình (POU). Cú pháp cụ thể như sau:
+
+RETURN;
+
+Ví dụ: Sử dụng câu lệnh IF để kiểm tra điều kiện, và khi điều kiện được thỏa mãn, việc thực thi chương trình này sẽ kết thúc ngay lập tức.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204593809-544.png?rev=1.1)
+
+Khi bSwitch là FALSE, nCounter luôn tự tăng thêm 1. Khi bSwitch là TRUE, nCounter giữ nguyên giá trị của chu kỳ trước và thoát ngay khỏi đơn vị tổ chức chương trình (POU).
+
+### Câu lệnh rỗng
+
+không thực thi. Ví dụ như sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204619984-647.png?rev=1.1)
+
+### Câu lệnh chú thích
+
+Chú thích là một phần rất quan trọng của chương trình, giúp chương trình dễ đọc hơn mà không ảnh hưởng đến việc thực thi chương trình. Có thể thêm chú thích ở bất kỳ đâu trong phần khai báo hoặc phần thực thi của trình soạn thảo ST.
+
+Trong ngôn ngữ ST, có hai phương pháp chú thích:
+
+Chú thích nhiều dòng bắt đầu bằng (* và kết thúc bằng *). Ví dụ:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204636003-272.png?rev=1.1)
+
+Chú thích một dòng bắt đầu bằng "//" và kết thúc ở cuối dòng đó.
+
+:::tip
+✎Lưu ý: Vùng khai báo biến chỉ hỗ trợ chú thích trên các biến.
+:::
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1761204650795-174.png?rev=1.1)
+
+Tuy nhiên, cách sử dụng chú thích trong vùng khai báo biến dưới đây không được hỗ trợ.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774858402208-119.png?rev=1.1)
+
+## Giới thiệu dòng lệnh REF
+
+Dòng lệnh REF được thiết kế chuyên biệt cho các thiết bị, dùng để truy cập dữ liệu lưu trong thiết bị theo từng kiểu dữ liệu cụ thể. Bảng dưới đây liệt kê các thiết bị được hỗ trợ bởi từng lệnh REF (không hỗ trợ thiết bị V và Z).
+
+| Khối lệnh / Lệnh | Thiết bị áp dụng | Mô tả cách sử dụng |
+| :--- | :--- | :--- |
+| REFBOOL | S/M/SM/X/Y | Lấy giá trị của thiết bị kiểu bit tương ứng |
+| REFBOOL | C/LC/HSC/T | Lấy giá trị của thiết bị kiểu bit tương ứng |
+| REFBOOL | D/R/SD | Lấy giá trị byte thấp của thiết bị tương ứng |
+| REFBYTE | C/LC/HSC/T | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu BYTE |
+| REFBYTE | D/R/SD | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu BYTE |
+| REFWORD | C/LC/HSC/T | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu WORD. |
+| REFWORD | D/R/SD | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu WORD. |
+| REFDWORD | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DWORD. |
+| REFDWORD | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DWORD. |
+| REFLWORD | C/LC/HSC/T | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LWORD. |
+| REFLWORD | D/R/SD | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LWORD. |
+| REFSINT | C/LC/HSC/T | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu SINT |
+| REFSINT | D/R/SD | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu SINT |
+| REFUSINT | C/LC/HSC/T | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu USINT |
+| REFUSINT | D/R/SD | Truy cập dữ liệu byte thấp của thiết bị kiểu từ (Word) tương ứng dưới dạng kiểu USINT |
+| REFINT | C/LC/HSC/T | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu INT |
+| REFINT | D/R/SD | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu INT |
+| REFUINT | C/LC/HSC/T | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu UINT |
+| REFUINT | D/R/SD | Truy cập dữ liệu 2 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu UINT |
+| REFDINT | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DINT. |
+| REFDINT | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DINT. |
+| REFUDINT | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu UDINT. |
+| REFUDINT | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu UDINT. |
+| REFLINT | C/LC/HSC/T | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LINT |
+| REFLINT | D/R/SD | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LINT |
+| REFREAL | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu REAL |
+| REFREAL | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu REAL |
+| REFLREAL | C/LC/HSC/T | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LREAL |
+| REFLREAL | D/R/SD | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LREAL |
+| REFTIME | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu TIME |
+| REFTIME | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu TIME |
+| REFTOD | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu TOD |
+| REFTOD | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu TOD |
+| REFDATE | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DATE |
+| REFDATE | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DATE |
+| REFDT | C/LC/HSC/T | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DT |
+| REFDT | D/R/SD | Truy cập dữ liệu 4 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu DT |
+| REFLTIME | C/LC/HSC/T | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LTIME |
+| REFLTIME | D/R/SD | Truy cập dữ liệu 8 byte bắt đầu từ thiết bị tương ứng dưới dạng kiểu LTIME |
+
+Ví dụ mã nguồn đơn giản cho câu lệnh REF như sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774858456789-401.png?rev=1.1)
+
+## Lệnh ứng dụng ST
+
+OUT T / Ngõ ra bộ định thời (Timer)
+
+Khi kết quả phép toán trước lệnh OUT là ON, cuộn dây của bộ định thời / bộ định thời tích lũy được chỉ định bởi (d) chuyển sang ON và bắt đầu đếm thời gian cho đến giá trị đặt. Khi đạt đến thời gian giới hạn, tiếp điểm thường hở chuyển sang ON và tiếp điểm thường đóng chuyển sang OFF.
+
+[OUT (d, value)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bộ định thời | - | Counter | ANY | - |
+| (value) | Giá trị đặt của bộ định thời | - | Unsigned BIN16 bits | ANY16 | ANY_INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| OUT T | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |
+| OUT T | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  | ● |  |  |  |  |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khi kết quả trước lệnh OUT là ON, cuộn dây của bộ định thời được chỉ định trong (d) chuyển sang ON và đếm cho đến khi đạt giá trị đặt. Nếu giá trị đếm đạt đến (giá trị hiện tại ≥ giá trị đặt), tiếp điểm thường hở chuyển sang ON và tiếp điểm thường đóng chuyển sang OFF.
+
+- Khi kết quả trước lệnh OUT chuyển từ ON sang OFF, trạng thái được thể hiện như bên dưới.
+
+| Loại bộ định thời | Cuộn dây bộ định thời | Giá trị hiện tại của bộ định thời (Timer) | Before the time limit is reached (tiếp điểm thường mở (NO)) | Before the time limit is reached (tiếp điểm thường đóng (NC)) | After the time limit is reached (tiếp điểm thường mở (NO)) | After the time limit is reached (tiếp điểm thường đóng (NC)) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Timer | OFF | 0 | Non-conducting | conducting | Non-conducting | conducting |
+| Bộ định thời tích lũy | OFF | Giữ nguyên giá trị hiện tại | Non-conducting | conducting | conducting | Non-conducting |
+
+- Sau khi đạt thời gian giới hạn, giá trị hiện tại của bộ định thời tích lũy được xóa về 0 và tiếp điểm được ngắt về OFF bằng lệnh RST.
+
+- Khi giá trị đặt bằng 0, bộ định thời sẽ đạt đến thời gian giới hạn ngay khi lệnh OUT được thực thi.
+
+- Khi cùng một lệnh OUT T được thực thi từ hai lần trở lên trong cùng một chu kỳ quét, giá trị hiện tại sẽ được cập nhật tương ứng theo số lần thực thi.
+
+- Mô tả từng loại bộ định thời:
+
+| Số hiệu thiết bị | Thông số kỹ thuật bộ định thời | Số hiệu thiết bị | Thông số kỹ thuật bộ định thời |
+| :--- | :--- | :--- | :--- |
+| QPS vượt quá giới hạn tối đa 5 | 100ms timer | T246 to T249 | Bộ định thời tích lũy 1ms |
+| T192 to T199 | Bộ định thời chương trình con 100ms (kiểu tích lũy, dùng trong chương trình con, vẫn được cập nhật ngay cả khi chương trình con không được gọi) | T250 to T255 | Bộ định thời tích lũy 10ms |
+| T192 to T199 | Bộ định thời chương trình con 100ms (kiểu tích lũy, dùng trong chương trình con, vẫn được cập nhật ngay cả khi chương trình con không được gọi) | T256 to T383 | 1ms timer |
+| T200 to T245 | 10ms timer | T384 to T511 | 0.1ms timer |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Cài đặt tham số trong (value) nằm ngoài phạm vi. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774858558945-829.png)
+
+Theo thời gian đếm, giá trị của D1 sau 10 giây là 1234.
+
+### OUT C / Ngõ ra bộ đếm (Counter)
+
+Lệnh bộ đếm 16-bit: Khi kết quả phép toán trước lệnh OUT chuyển từ OFF sang ON, giá trị hiện tại của bộ đếm được chỉ định trong (d) tăng thêm 1. Nếu đạt đến giá trị đặt, tiếp điểm thường hở dẫn điện (ON) và tiếp điểm thường đóng ngắt điện (OFF).
+
+[OUT (d, value)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thành phần bộ đếm (Counter) | - | Counter | ANY | - |
+| (value) | Giá trị đặt bộ đếm (Counter) | [0,32767] | Unsigned BIN16 bits | ANY_INT | INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| OUT C | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |
+| OUT C | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  | ● | ● | ● |  |  | ● | ● |  |  |  |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khi kết quả phép toán trước lệnh OUT chuyển từ OFF → ON, giá trị hiện tại (giá trị đếm) của bộ đếm được chỉ định trong (d) được tăng thêm +1. Nếu giá trị đếm đạt đến (giá trị hiện tại ≥ giá trị đặt), tiếp điểm thường hở dẫn điện và tiếp điểm thường đóng ngắt điện.
+
+- Việc đếm không được thực hiện khi kết quả phép toán giữ nguyên trạng thái ON. (Ngõ vào đếm không cần phải là xung.)
+
+- Sau khi đạt giá trị đếm, giá trị đếm và trạng thái tiếp điểm không thay đổi cho đến khi lệnh RST được thực thi.
+
+- Khi giá trị đặt là 0, cách xử lý giống như khi giá trị đặt là 1.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Cài đặt tham số trong (value) nằm ngoài phạm vi. |
+| 4085H | The (value) parameter is out of the range of devices. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774863010763-959.png?rev=1.1)
+
+Mỗi lần biến BOOL_CHECK chuyển từ FALSE sang TRUE, giá trị của LC0 tăng thêm 1 cho đến khi LC0 bằng giá trị của tham số thứ hai.
+
+### OUT LC / Ngõ ra bộ đếm dài (Long counter)
+
+Lệnh bộ đếm 32-bit: Khi kết quả phép toán trước lệnh OUT chuyển từ OFF sang ON, giá trị hiện tại của bộ đếm dài được chỉ định trong (d) tăng thêm 1. Nếu đạt đến giá trị đặt, tiếp điểm thường hở dẫn điện và tiếp điểm thường đóng ngắt điện.
+
+- [OUT (d, value)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bộ đếm dài (32-bit) | - | Counter | ANY | - |
+| (value) | Giá trị đặt của bộ đếm dài (32-bit) | [0,4294967295] | Unsigned BIN32 bits | ANY_INT | UDINT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| OUT LC | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |
+| OUT LC | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  | ● | ● | ● |  |  | ● | ● |  |  |  |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khi kết quả tính toán trước lệnh OUT chuyển từ OFF → ON, giá trị hiện tại (giá trị đếm) của bộ đếm dài được chỉ định trong (d) được tăng thêm +1. Nếu giá trị đếm đạt đến (giá trị hiện tại ≥ giá trị đặt), tiếp điểm thường hở dẫn điện và tiếp điểm thường đóng ngắt điện.
+
+- Việc đếm không được thực hiện khi kết quả phép toán giữ nguyên trạng thái ON. (Ngõ vào đếm không cần phải là xung.)
+
+- Sau khi đạt giá trị đếm, giá trị đếm và trạng thái tiếp điểm không thay đổi cho đến khi lệnh RST được thực thi.
+
+- Khi giá trị đặt là 0, cách xử lý giống như khi giá trị đặt là 1.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The (value) parameter is out of the range of devices. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774863032533-678.png?rev=1.1)
+
+Khi M0 được đặt lên ON, giá trị của LC0 sẽ thành 10, giá trị giám sát bởi REFBOOL (LC0) sẽ chuyển thành TRUE và giá trị của Y0 sẽ được đặt thành TRUE.
+
+### DI, EI / Cấm ngắt, Cho phép ngắt
+
+Mô-đun CPU thông thường ở trạng thái cấm ngắt. Lệnh này có thể chuyển mô-đun CPU sang trạng thái cho phép ngắt (lệnh EI) và sau đó chuyển trở lại trạng thái cấm ngắt (lệnh DI).
+
+- ▪DI: Cấm thực thi các chương trình ngắt.
+
+- ▪EI: Giải phóng trạng thái cấm ngắt.
+
+- [DI () /DI (s)]
+
+- [EI ()]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Mức ưu tiên cấm ngắt | [0,2] | Signed BIN16 bits | ANY16 | INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DI | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+
+#### Chức năng và nguyên lý hoạt động
+
+■ DI
+
+- Ngay cả khi điều kiện thực thi ngắt được kích hoạt trong chương trình, việc thực thi các chương trình ngắt vẫn bị cấm cho đến khi lệnh EI được thực thi.
+
+- Khi cấp nguồn cho PLC hoặc sau khi PLC chuyển sang trạng thái STOP, hệ thống sẽ ở trạng thái sau khi thực thi lệnh DI và các chương trình ngắt không thể thực thi.
+
+- Lệnh DI có thể tùy chọn sử dụng tham số: nếu không chỉ định tham số, tất cả các chương trình ngắt đều bị cấm; nếu sử dụng tham số, căn cứ vào giá trị trong tham số s1, các chương trình ngắt có mức ưu tiên này và các mức ưu tiên thấp hơn sẽ bị cấm.
+
+- Phạm vi mức ưu tiên của ngắt là [0,2]. Giá trị càng nhỏ thì mức ưu tiên phản hồi ngắt càng cao (ngắt có mức ưu tiên 0 được phản hồi nhanh nhất).
+
+- Nếu không có lệnh EI nào được thực thi trước lệnh DI thì lệnh DI sẽ không có hiệu lực.
+
+■ EI
+
+- Giải phóng trạng thái cấm ngắt đã được thiết lập bởi việc thực thi lệnh DI và cho phép các chương trình ngắt chạy.
+
+- Khi các lệnh EI và DI không được kích hoạt, trạng thái cho phép hoặc cấm thực thi chương trình ngắt ban đầu được duy trì, và các mức ưu tiên ngắt đang bị cấm hiện tại có thể được xem trong thanh ghi SD151.
+
+Để biết chi tiết về cấu trúc lồng nhau của các lệnh DI và EI, vui lòng tham khảo mục 4.3 Cấm ngắt và cho phép ngắt.
+
+### ZRST / Đặt lại dữ liệu hàng loạt
+
+Thực hiện đặt lại (reset) hàng loạt giữa các thiết bị cùng loại được chỉ định trong (d1) và (d2). Được sử dụng trong quá trình xử lý ngắt, vận hành khởi tạo hoặc khi đặt lại dữ liệu điều khiển.
+
+[ZRST (d1, d2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (d1) | Số hiệu thiết bị bit/word bắt đầu để đặt lại (Reset) hàng loạt | - | Bits/Signed BIN16 Bits | ANY_ELEMENTARY | - |
+| (d2) | Số hiệu thiết bị bit/word bắt đầu để đặt lại (Reset) hàng loạt | - | Bits/Signed BIN16 Bits | ANY_ELEMENTARY | - |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ZRST | Parameter 1 |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● |  |
+| ZRST | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● |  |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Thực hiện đặt lại hàng loạt giữa các thiết bị cùng loại được chỉ định trong (d1) và (d2).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774858691008-841.png)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774864018965-998.png?rev=1.1)
+
+- Là lệnh ứng dụng đặt lại đơn lẻ cho một thiết bị, lệnh RST có thể được dùng cho thiết bị bit hoặc thiết bị word.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774864006206-229.png?rev=1.1)
+
+Các lệnh trong hình sẽ đặt lại M0, D0, C0.
+
+:::tip
+✎Lưu ý
+
+- Vui lòng gán cùng địa chỉ thiết bị cho (d1) và (d2), đồng thời đảm bảo số hiệu thiết bị (d1)
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi loại thiết bị chỉ định tại (d1) khác với loại thiết bị chỉ định tại (d2). |
+| 4085H | When the devices specified in the read các lệnh ứng dụng (d1) and (d2) exceed the range of the corresponding device. |
+| 4086H | When the devices specified in the write lệnh ứng dụng (d1) excceed the range of the corresponding device. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774863998483-569.png?rev=1.1)
+
+Chức năng của lệnh ứng dụng này là đặt giá trị của các thiết bị từ M0 đến M7999 về 0.
+
+### ZSET / Đặt dữ liệu hàng loạt
+
+Đặt (set) hàng loạt giữa các thiết bị bit cùng loại được chỉ định trong (d1) và (d2).
+
+[ZSET (d1, d2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (d1) | Số hiệu thiết bị bit bắt đầu để đặt (Set) hàng loạt | - | Bit | ANY_BOOL | - |
+| (d2) | Số hiệu thiết bị bit bắt đầu để đặt (Set) hàng loạt | - | Bit | ANY_BOOL | - |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ZSET | Parameter 1 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| ZSET | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Đặt (set) hàng loạt giữa các thiết bị bit cùng loại được chỉ định trong (d1) và (d2).
+
+- Ghi trạng thái ON (đặt) trên toàn bộ dải thiết bị từ (d1) đến (d2).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774862630368-690.png?rev=1.1)
+
+:::tip
+✎Lưu ý
+
+- Please specify the same type of number for (d1), (d2) and make (d1) number
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi loại thiết bị chỉ định tại (d1) khác với loại thiết bị chỉ định tại (d2). |
+| 4085H | When the devices specified in the read các lệnh ứng dụng (d1) and (d2) exceed the range of the corresponding device. |
+| 4086H | When the devices specified in the write lệnh ứng dụng (d1) excceed the range of the corresponding device. |
+| 4087H | Khi loại thiết bị chỉ định tại (d1) khác với loại thiết bị chỉ định tại (d2). |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774862806157-669.png?rev=1.1)
+
+Chức năng của lệnh ứng dụng này là đặt giá trị của các thiết bị từ M0 đến M100 (theo tài liệu gốc là về 0/đặt trạng thái).
+
+### RST / Đặt lại dữ liệu
+
+Khi ngõ vào RST chuyển sang ON, phần tử mềm được chỉ định trong (d) sẽ chuyển sang trạng thái sau.
+
+- Thiết bị bit: Đặt cuộn dây và tiếp điểm về OFF.
+
+- Bộ định thời, bộ đếm: Đặt giá trị hiện tại về 0 và đặt cuộn dây, tiếp điểm về OFF.
+
+- Chỉ định bit của thiết bị word: Đặt bit được chỉ định về 0.
+
+- Thiết bị word, thiết bị truy cập mô-đun, thanh ghi chỉ số: Đặt nội dung về 0.
+
+[RST (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bit để đặt lại (Reset) / Chỉ định bit của thiết bị word / Số hiệu thiết bị word để đặt lại (Reset) | - | Bit/word/double word | ANY_ELEMENTARY | - |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| RST | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  | ● |  |  |  |  | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Khi điều kiện thực thi lệnh là ON, thiết bị được chỉ định sẽ chuyển sang trạng thái sau.
+
+| Vùng nhớ thiết bị (Devices) | Trạng thái thiết bị |
+| :--- | :--- |
+| Bit device | Đặt cuộn dây (Coil) và tiếp điểm về OFF. |
+| Timer, counter | Đặt giá trị hiện tại về 0 và đặt các cuộn dây (Coil) và tiếp điểm về OFF |
+| Chỉ định bit của thiết bị word | Đặt bit được chỉ định về 0. |
+| Thiết bị word | Set content to 0 |
+
+- Khi điều kiện thực thi lệnh là OFF, trạng thái của phần tử mềm không thay đổi.
+
+:::tip
+✎Lưu ý
+
+Đối với bộ định thời và bộ đếm, nếu lệnh RST được thực thi trong chương trình nhảy (jump), chương trình con hoặc chương trình ngắt, bộ định thời và bộ đếm có thể duy trì ở trạng thái đặt lại và ngừng hoạt động.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4086H | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/15%20ST%20Help%20Manual/WebHome/1774862859206-747.png?rev=1.1)
+
+Trong ví dụ này, lệnh RST đặt lại các thiết bị C1, T1 và LC1.
+
+0

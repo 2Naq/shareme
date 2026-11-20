@@ -1,186 +1,216 @@
 ---
 id: "8.10-others"
-title: "8.10 Sơ đồ trạng thái, Chế độ cung tròn & Vùng đệm BufferMode"
+title: "8.10 Sơ đồ trạng thái PLCopen, Chế độ cung tròn & Vùng đệm BufferMode"
 sidebar_position: 11
 sidebar_label: "8.10 Máy trạng thái & BufferMode"
-tags: [wecon, lx6v, lx6a, motion-control, plcopen, manual]
-description: "Tài liệu kỹ thuật chi tiết chuẩn hãng 8.10 Sơ đồ trạng thái, Chế độ cung tròn & Vùng đệm BufferMode trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.10 Sơ đồ trạng thái PLCopen, Chế độ cung tròn & Vùng đệm BufferMode"
 ---
 
-# Others
+## Khác
 
-### Single axis motion control status diagram
+### Sơ đồ trạng thái điều khiển chuyển động đơn trục
 
-✎Note: Continuous line arrows indicate transitions via command. Dashed line arrows indicate automatic transitions, which occur when a command on an axis ends or a related system transition occurs (e.g., a related error).
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/123.png?width=621&amp;height=659&amp;rev=1.1)
 
-① The transition condition for any state to fault stop or deceleration stop is: a fault occurs on the axis.
+:::tip
+✎ Lưu ý: Mũi tên nét liền biểu thị chuyển đổi trạng thái thông qua lệnh điều khiển. Mũi tên nét đứt biểu thị chuyển đổi tự động khi lệnh trên trục kết thúc hoặc khi xảy ra sự kiện hệ thống liên quan (ví dụ: phát sinh lỗi).
+:::
 
-② The transition condition for any state to off is: MC_Power.Enable = FALSE and there is no fault on the axis.
+① Điều kiện chuyển từ bất kỳ trạng thái nào sang dừng do lỗi (ErrorStop) hoặc dừng giảm tốc là: xảy ra lỗi trên trục.
 
-③ MC_Reset = FALSE and MC_Power.Status = FALSE.
+② Điều kiện chuyển từ bất kỳ trạng thái nào sang tắt (Disabled) là: MC_Power.Enable = FALSE và không có lỗi trên trục.
 
-④ MC_Reset = TRUE, MC_Power.Status = TRUE, and MC_Power.Enable = TRUE.
+③ MC_Reset = FALSE và MC_Power.Status = FALSE.
 
-⑤ MC_Power.Enable = TRUE and MC_Power.Status = TRUE.
+④ MC_Reset = TRUE, MC_Power.Status = TRUE, và MC_Power.Enable = TRUE.
 
-⑥ MC_Stop.Done = TRUE and MC_Stop.Execute = FALSE.
+⑤ MC_Power.Enable = TRUE và MC_Power.Status = TRUE.
 
-### Axis group motion control status diagram
+⑥ MC_Stop.Done = TRUE và MC_Stop.Execute = FALSE.
 
-✎Note: For all states in the diagram could be transitioned to GroupDisabled state by MC_GroupDisable or MC_UngroupAllAxes.
+### Sơ đồ trạng thái điều khiển chuyển động nhóm trục
 
-① Applies to all non-administrative (i.e., motion control) function blocks.
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/234.png?width=669&amp;height=405&amp;rev=1.1)
 
-② In the GroupErrorStop or GroupStopping state, all function blocks can be invoked, although they are not executed (except that MC_GroupReset is executed in the GroupErrorStop state and any other errors are generated). In exceptional cases, GroupErrorStop or GroupStopping will transition to GroupStandby or GroupErrorStop accordingly.
+:::tip
+✎Note : For all states in the diagram could be transitioned to GroupDisabled state by MC_GroupDisable or MC_UngroupAllAxes.
+:::
 
-③ MC_GroupStop.Done = TRUE and MC_GroupStop.Execute = FALSE.
+① Áp dụng cho tất cả các khối hàm không phải quản trị (tức là các khối hàm điều khiển chuyển động).
 
-④ The state transition is available if the last axis is removed from the axis group.
+② Ở trạng thái GroupErrorStop hoặc GroupStopping, mọi khối hàm đều có thể được gọi nhưng không được thực thi (ngoại trừ MC_GroupReset được thực thi ở trạng thái GroupErrorStop và bất kỳ lỗi nào khác được tạo ra). Trong các trường hợp ngoại lệ, GroupErrorStop hoặc GroupStopping sẽ chuyển sang GroupStandby hoặc GroupErrorStop tương ứng.
 
-⑤ The transition is available when the axis group is non-empty.
+③ MC_GroupStop.Done = TRUE và MC_GroupStop.Execute = FALSE.
 
-### Arc mode description
+④ Chuyển đổi trạng thái khả dụng nếu trục cuối cùng bị loại bỏ khỏi nhóm trục.
 
-| Mode | Border (CircMode=0) | Circle center (Circmode=1) | Diameter (CircMode=2) |
-| Đặc tính kỹ thuật | The arc path consists of the starting point, auxiliary points, and ending point. | The arc path consists of the starting point, the center point, and theending point. | The arc is determined by its starting point, ending point, and the normal vector of the plane containing the circle. The direction of the vector determines the direction of CW and CCW circles. The vector length is the radius of the arc. |
-| Mô tả kỹ thuật |  |  |  |
-| Auxpoint | Arc path point | Center point of arc | Normal vector of the plane where the space arc lies |
-| Path choice | Invalid | CW and CCW circles CCW mode CW mode | Major and minor arcs 1: Minor arc 0: Major arc |
-| Characteristics | Restriction of angle less than 2π for single instruction | Restriction of angle less than 2π and nor equal to π for single instruction | Restriction of angle less than 2π for single instruction The vector perpendicular to the circular plane must be calculated. |
+⑤ Chuyển đổi khả dụng khi nhóm trục không rỗng.
 
-### Transition mode description
+### Mô tả chế độ cung tròn
 
-Detailed explanation of transition mode: Transition parameters are additional parameters of transition modes, which take effect according to different transition modes.
+| Chế độ | Điểm biên (CircMode=0) | Tâm đường tròn (CircMode=1) | Đường kính (CircMode=2) |
+| :--- | :--- | :--- | :--- |
+| Đặc tính kỹ thuật | Quỹ đạo cung tròn được xác định bởi điểm đầu, điểm phụ trợ và điểm cuối. | Quỹ đạo cung tròn được xác định bởi điểm đầu, điểm tâm và điểm cuối. | Cung tròn được xác định bởi điểm đầu, điểm cuối và vectơ pháp tuyến của mặt phẳng chứa đường tròn. Hướng của vectơ xác định chiều quay CW và CCW của đường tròn. Độ dài của vectơ là bán kính của cung tròn. |
+| Mô tả kỹ thuật | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016369357-809.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016369360-366.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016369361-660.png?rev=1.1) |
+| Auxpoint | Điểm nằm trên quỹ đạo cung tròn | Điểm tâm của cung tròn | Vectơ pháp tuyến của mặt phẳng chứa cung tròn không gian |
+| Lựa chọn đường đi | Không hợp lệ | Đường tròn theo chiều CW và CCW: Chế độ CCW / Chế độ CW | Cung lớn và cung nhỏ: 1: Cung nhỏ; 0: Cung lớn |
+| Đặc điểm | Giới hạn góc nhỏ hơn 2π cho một lệnh đơn | Giới hạn góc nhỏ hơn 2π và khác π cho một lệnh đơn | Giới hạn góc nhỏ hơn 2π cho một lệnh đơn. Phải tính toán vectơ vuông góc với mặt phẳng đường tròn. |
 
-| TransitionMode | 0 (No buffer mode) | 1 (Largest velocity to buffer) | 2 (Specified velocity buffer) |
-| TransitionTham số | Invalid | Invalid | Specified velocity |
+### Mô tả chế độ chuyển tiếp
 
-### Mode selection instructions
+Giải thích chi tiết về chế độ chuyển tiếp: Tham số chuyển tiếp là các tham số bổ sung của chế độ chuyển tiếp, có hiệu lực tùy theo các chế độ chuyển tiếp khác nhau.
 
-| Cảnh báo an toàn kỹ thuật |
-| It should be noted that if the moving function block is interrupted by another function block, the following error will occur: braking distance is insufficient due to the limitation of deceleration; Note that in all the sequence diagrams explained below, some of the sequence diagrams for the status word feedback are incorrect. For example, in Figure 8-2, the start signal is not automatically set by the system after triggering, but controlled by the user. Chức năng và nguyên lý hoạt động block triggers execution logic when on the rising edge. Likewise, the Done signal is not set automatically. When the function block ends, Done will be set until the falling edge of Execute is generated! |
- (1) mcAborting
+| TransitionMode | 0 (Không dùng chế độ chuyển tiếp đệm) | 1 (Đệm với vận tốc lớn nhất) | 2 (Đệm với vận tốc chỉ định) |
+| :--- | :--- | :--- | :--- |
+| TransitionParameter | Không hợp lệ | Không hợp lệ | Vận tốc chỉ định |
 
-It is an agreed pattern without buffering. When the status of the application axis is changed to "ErrorStop", all motion control function blocks with buffer mode will enter mcAborting.
+### Hướng dẫn chọn chế độ
 
-At this time, the function block output "Error" in mcAborting is set. Its subsequent commands are rejected because the output Error is set, so Active is reset.
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016491129-791.png?rev=1.1)
 
-The following figure illustrates the function connection of the front and back function block instances in mcAborting.
+| Cảnh báo kỹ thuật |
+| :--- |
+| Cần lưu ý rằng nếu khối hàm đang chuyển động bị ngắt bởi một khối hàm khác, lỗi sau có thể xảy ra: quãng đường phanh không đủ do giới hạn của gia tốc giảm tốc; Lưu ý rằng trong tất cả các giản đồ thời gian được giải thích dưới đây, một số giản đồ về phản hồi từ trạng thái chưa chính xác. Ví dụ, trong Hình 8-2, tín hiệu khởi động không được hệ thống tự động đặt sau khi kích hoạt mà do người dùng điều khiển. Khối hàm kích hoạt logic thực thi tại sườn lên. Tương tự, tín hiệu Done không được đặt tự động. Khi khối hàm kết thúc, Done sẽ được giữ ở mức cao cho đến khi xuất hiện sườn xuống của tín hiệu Execute! |
 
-                                                                                     Figure8-1
+(1) mcAborting
 
-As shown in Figure 8-1, the previous and next motion control function blocks are MC_MoveAbsolute, and both adopt mcAborting.
+Đây là chế độ quy ước không có bộ đệm. Khi trạng thái của trục ứng dụng chuyển sang "ErrorStop", tất cả các khối hàm điều khiển chuyển động có chế độ bộ đệm sẽ đi vào mcAborting.
 
-The following Figure 8-2 shows the sequence diagrams of function block instances FB1 and FB2. Figure 8-2(a) shows the sequence diagram of two absolute position motion function blocks under normal working conditions, i.e., the motion controlled by FB2 is carried out after the motion controlled by FB1 is completed.
+Tại thời điểm này, ngõ ra "Error" của khối hàm trong mcAborting được đặt (set). Các lệnh tiếp theo bị từ chối vì ngõ ra Error đã được đặt, do đó Active bị xóa (reset).
 
-When on the Start_1=TRUE rising edge, the function block instance FB1 is activated. At the same time, the outputs Busy_1 and Active_1 are set. The motion process of the axis is as follows: the velocity increases to 100u/s according to the acceleration of 100u/s2, and keep the axis move at constant velocity. Then the velocity decreases to 0 with deceleration of 100u/s2, thus moving the axis to 1000u.
+Hình dưới đây minh họa kết nối chức năng của các thực thể khối hàm trước và sau trong chế độ mcAborting.
 
-Then the output Done 1 is set, and Busy 1 and Active 1 are reset.
+Hình 8-1
 
-Axis position is 1000u.
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016579583-740.png?rev=1.1)
 
-                                                                 Figure8-2 The sequence diagram of normal working condition and mcAborting
+Như thể hiện trong Hình 8-1, khối hàm điều khiển chuyển động trước và sau đều là MC_MoveAbsolute, và cả hai đều áp dụng mcAborting.
 
-When on the Start_2=TRUE rising edge, the second function block instance FB2 is activated. The output Busy_2 and Active 2 are set. According to the acceleration of 50u/s2, the axis velocity increases to the constant velocity of 50u/s. Then the axis velocity decreases to 0 at the deceleration of 50u/s. The axis position is from 1000u to 2000u.
+Hình 8-2 dưới đây trình bày giản đồ thời gian của các thực thể khối hàm FB1 và FB2. Hình 8-2(a) trình bày giản đồ thời gian của hai khối hàm chuyển động vị trí tuyệt đối trong điều kiện làm việc bình thường, tức là chuyển động do FB2 điều khiển được thực hiện sau khi chuyển động do FB1 điều khiển hoàn tất.
 
-Since the absolute position has been reached, output Done_2 is set and Busy_2 and Active_2 are reset. Axis position is 2000u.
+Tại cạnh lên Start_1=TRUE, thực thể khối hàm FB1 được kích hoạt. Đồng thời, các ngõ ra Busy_1 và Active_1 được đặt. Quá trình chuyển động của trục như sau: vận tốc tăng lên 100u/s theo gia tốc 100u/s2 và giữ trục chuyển động ở vận tốc không đổi. Sau đó vận tốc giảm về 0 với giảm tốc 100u/s2, qua đó di chuyển trục đến vị trí 1000u.
 
-Figure 8-2(b) shows the sequence diagrams of two absolute position motion function blocks in mcAborting. On the rising edge of start1 = TRUE, the function block instanceFB1is activated.
+Sau đó ngõ ra Done 1 được đặt, còn Busy 1 và Active 1 được xóa (reset).
 
-At the same time, the output Busy_2 and Active_1 are set. The axis motion velocity increases according to the acceleration of 100u/s2. But in this process, the output start 2 of the function block instance FB2 is set, which abort the motion of the previous function block instance FB1. At this time, the axis dose not reach the required position 1000u and is aborted to stop.
+Vị trí trục là 1000u.
 
-As the function block instance FB2 is activated, Busy_2 and Active_2 are set. According to the requirement of the function block instance FB2, the velocity of the axis decreases to the input value of 50u/s2 according to its deceleration of 50u/s2. Keep it move at the constant velocity of 50u/s so that it will finally reach the position 2000u.
+Hình 8-2 Giản đồ thời gian của điều kiện làm việc bình thường và mcAborting
 
-It can be seen that the activation of the next function block causes the previous function block to stop its motion, and the aborting command immediately affects the motion of the axis.
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016808830-880.png?rev=1.1)
 
-This buffer mode is called mcAborting.
+Tại cạnh lên Start_2=TRUE, thực thể khối hàm thứ hai FB2 được kích hoạt. Ngõ ra Busy_2 và Active 2 được đặt. Theo gia tốc 50u/s2, vận tốc trục tăng lên vận tốc không đổi 50u/s. Sau đó vận tốc trục giảm về 0 với giảm tốc 50u/s. Vị trí trục đi từ 1000u đến 2000u.
+
+Vì đã đạt tới vị trí tuyệt đối, ngõ ra Done_2 được đặt còn Busy_2 và Active_2 được xóa. Vị trí trục là 2000u.
+
+Hình 8-2(b) trình bày giản đồ thời gian của hai khối hàm chuyển động vị trí tuyệt đối trong chế độ mcAborting. Tại cạnh lên của start1 = TRUE, thực thể khối hàm FB1 được kích hoạt.
+
+Đồng thời, ngõ ra Busy_2 và Active_1 được đặt. Vận tốc chuyển động của trục tăng theo gia tốc 100u/s2. Nhưng trong quá trình này, tín hiệu start 2 của thực thể khối hàm FB2 được đặt, làm hủy bỏ chuyển động của thực thể khối hàm trước đó FB1. Lúc này, trục chưa đạt tới vị trí yêu cầu 1000u và bị hủy để dừng.
+
+Khi thực thể khối hàm FB2 được kích hoạt, Busy_2 và Active_2 được đặt. Theo yêu cầu của thực thể khối hàm FB2, vận tốc của trục giảm xuống giá trị đầu vào 50u/s theo mức giảm tốc 50u/s2 của nó. Duy trì trục chuyển động ở vận tốc không đổi 50u/s để cuối cùng đạt tới vị trí 2000u.
+
+Có thể thấy rằng việc kích hoạt khối hàm tiếp theo khiến khối hàm trước đó ngừng chuyển động, và lệnh hủy bỏ (aborting) tác động ngay lập tức đến chuyển động của trục.
+
+Chế độ bộ đệm này được gọi là mcAborting.
 
 (2) mcBuffered
 
-The command of the next function block is stored in the buffer area. The command of the buffer area is executed only after the motion of the previous function block is completed. Therefore, this mode is called mcBuffered.
+Lệnh của khối hàm tiếp theo được lưu trong vùng bộ đệm. Lệnh trong vùng bộ đệm chỉ được thực thi sau khi chuyển động của khối hàm trước đó hoàn tất. Do đó, chế độ này được gọi là mcBuffered.
 
-The BufferMode input for the next function block is set to be buffered mode (mcBuffered). Figure 8-3shows the setting for the connection of two function blocks.
+Ngõ vào BufferMode của khối hàm tiếp theo được đặt ở chế độ đệm (mcBuffered). Hình 8-3 trình bày cài đặt kết nối của hai khối hàm.
 
-The sequence diagram of mcBuffered is shown in Figure 8-4. In the figure, FB1 is activated when the input start 1=TRUE of the previous function block instance is on the rising edge. When this function block instance FB1 control the axis to move, the start 2 of the next function block instance FB2 is set. Due to the FB2 buffer mode is set to mcBuffered, the activation of FB2 does not abort the control of FB1 to the axis. Although the output Busy_2 of FB2 is set, the function block is not activated, namely, the output Active_2 is still FALSE.
+Giản đồ thời gian của mcBuffered được trình bày trong Hình 8-4. Trong hình, FB1 được kích hoạt khi ngõ vào start 1=TRUE của thực thể khối hàm trước ở cạnh lên. Khi thực thể khối hàm FB1 này điều khiển trục di chuyển, start 2 của thực thể khối hàm tiếp theo FB2 được đặt. Do chế độ bộ đệm của FB2 được đặt là mcBuffered, việc kích hoạt FB2 không hủy bỏ quyền điều khiển trục của FB1. Mặc dù ngõ ra Busy_2 của FB2 được đặt, khối hàm vẫn chưa được kích hoạt hoạt động, tức là ngõ ra Active_2 vẫn ở trạng thái FALSE.
 
-Therefore, FB1 continues to control the motion of the axis until the axis reaches the set position 1000u. Then FB2 is immediately activated to work, and the velocity of the axis is not delayed. Increase the velocity to 50u/s based on the acceleration of 50u/s2 directly and then keep it move at the constant velocity of 50u/s, so that it will finally reach the position of 2000.
+Do đó, FB1 tiếp tục điều khiển chuyển động của trục cho đến khi trục đạt vị trí cài đặt 1000u. Sau đó FB2 được kích hoạt làm việc ngay lập tức và vận tốc của trục không bị trễ. Trực tiếp tăng vận tốc lên 50u/s dựa trên gia tốc 50u/s2 rồi duy trì chuyển động ở vận tốc không đổi 50u/s, để cuối cùng đạt tới vị trí 2000.
 
-                                                                                     Figure8-3 Connections in mcBuffered
+Hình 8-3 Kết nối trong mcBuffered
 
-It can be seen from the figure that the buffer mode of the rear function block is set to mcBuffered, which means that the rear function block cannot interrupt the motion of the previous function block. And once the previous function block completes its task.
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016841335-589.png?rev=1.1)
 
-and Done_1 is set, the work of the next function block will start immediately.
+Từ hình vẽ có thể thấy chế độ bộ đệm của khối hàm phía sau được đặt là mcBuffered, nghĩa là khối hàm phía sau không thể ngắt chuyển động của khối hàm trước đó. Và ngay khi khối hàm trước đó hoàn thành tác vụ của mình,
 
-The mcBuffered indicates that the motion command of the next function block has been stored in the buffer area, which does not affect the control and operation of previous motion control function block over the axis. It can execute subsequent commands after the executed function block outputs Done or Inxxx becomes TRUE.
+và Done_1 được đặt, công việc của khối hàm tiếp theo sẽ bắt đầu ngay lập tức.
 
-                                                                                     Figure 8-4 
+mcBuffered cho biết lệnh chuyển động của khối hàm tiếp theo đã được lưu trong vùng bộ đệm, không ảnh hưởng đến việc điều khiển và vận hành của khối hàm điều khiển chuyển động trước đó đối với trục. Nó có thể thực thi các lệnh tiếp theo sau khi ngõ ra Done hoặc Inxxx của khối hàm đang thực thi chuyển sang TRUE.
+
+Hình 8-4
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016882878-958.png?rev=1.1)
 
 mcBlending
 
-There are four options for mcBlending of the previous and next function blocks. The mcBlending represents the blending of the velocity of the previous and next functional blocks. In this case, the previous function block interrupts its motion, and the next function block controls the subsequent motion, but its initial velocity is called blending velocity or mixing velocity.
+Có bốn tùy chọn cho mcBlending giữa khối hàm trước và khối hàm sau. mcBlending biểu thị việc hòa trộn vận tốc của khối hàm trước và khối hàm sau. Trong trường hợp này, khối hàm trước ngắt chuyển động của nó và khối hàm sau điều khiển chuyển động tiếp theo, nhưng vận tốc ban đầu của nó được gọi là vận tốc hòa trộn (blending velocity hay mixing velocity).
 
-The mixing velocity can adopt the velocity of two function blocks (whichever is lower or higher) or it can be directly specified that the velocity of the previous function block or the velocity of the next function block is adopted.
+Vận tốc hòa trộn có thể lấy theo vận tốc của hai khối hàm (giá trị thấp hơn hoặc cao hơn) hoặc có thể chỉ định trực tiếp lấy theo vận tốc của khối hàm trước hoặc vận tốc của khối hàm sau.
 
-Therefore, the mcBlending is divided into four types.
+Do đó, mcBlending được chia thành bốn loại.
 
 (1) mcBlendingLow.
 
-The blending velocity is the lower of the set velocity of the two function blocks. This mcBlending can be random. If the set velocity of the previous function block is lower than that of the next function block, the blending velocity adopts the velocity of the previous function block.
+Vận tốc hòa trộn là giá trị nhỏ hơn trong hai vận tốc cài đặt của hai khối hàm. Chế độ mcBlending này có thể tùy chọn. Nếu vận tốc cài đặt của khối hàm trước thấp hơn vận tốc của khối hàm sau, vận tốc hòa trộn sẽ lấy theo vận tốc của khối hàm trước.
 
-On the contrary, if the set velocity of the previous function block is higher than that of the next function block, the blending velocity adopts the velocity of the next function block.
+Ngược lại, nếu vận tốc cài đặt của khối hàm trước cao hơn vận tốc của khối hàm sau, vận tốc hòa trộn sẽ lấy theo vận tốc của khối hàm sau.
 
-When the buffer mode of the next function block is set to be mcBlendingLow, it means that the next function block will not interrupt the work of previous function block if the work of the previous function block is not completed; when the velocity of the previous function block decreases to the lower velocity of the previous and next function blocks, the next function block can continue to control the motion of the axis.
+Khi chế độ bộ đệm của khối hàm tiếp theo được đặt là mcBlendingLow, điều đó có nghĩa là khối hàm tiếp theo sẽ không ngắt công việc của khối hàm trước nếu công việc của khối hàm trước chưa hoàn thành; khi vận tốc của khối hàm trước giảm xuống bằng vận tốc thấp hơn giữa hai khối hàm trước và sau, khối hàm tiếp theo có thể tiếp tục điều khiển chuyển động của trục.
 
-Figure 8-5 shows the connection diagram of three motion blocks, and the mode of latter two function blocks are set to be mcBlendingLow.
+Hình 8-5 trình bày sơ đồ kết nối của ba khối chuyển động, trong đó chế độ của hai khối hàm sau được đặt là mcBlendingLow.
 
-                                                                                     Figure 8-5 The connection of mcBlendingLow
+Hình 8-5 Kết nối của mcBlendingLow
 
-Figure 8-6 shows the sequence diagram of mcBlendingLow. To illustrate maBlendingLow, two subsequent function block instance FB2 and FB3 are used in the figure. In the figure, FB1 is activated when start_1 is set on the rising edge and then its BusY_1 is set. When FB1 controls the axis to move, start=2 of the FB2 instance is also set on the rising edge. FB1 does not complete the axis motion, so the Buffer-Mode of FB2 is set to mcBlendingLow.
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016915405-788.png?rev=1.1)
 
-Therefore, FB1 adopts the minimum velocity after blending FB1 and FB2, namely, the set velocity of FB2 of 50u/s.
+Hình 8-6 trình bày giản đồ thời gian của mcBlendingLow. Để minh họa mcBlendingLow, hai thực thể khối hàm tiếp theo FB2 và FB3 được sử dụng trong hình. Trong hình, FB1 được kích hoạt khi start_1 được đặt ở cạnh lên và sau đó Busy_1 của nó được đặt. Khi FB1 điều khiển trục di chuyển, start_2 của thực thể FB2 cũng được đặt ở cạnh lên. FB1 chưa hoàn thành chuyển động của trục, nên BufferMode của FB2 được đặt là mcBlendingLow.
 
-It means that in the subsequent motion of FB1, the velocity of the axis is reduced to 50u/s according to the deceleration of FB2. When the axis velocity drops to the mixed low velocity, the FB1 control axis moves to the set position of 1000u, and the output Done_1 of FB1 is set, which indicates the end of its controlled motion.
+Do đó, FB1 áp dụng vận tốc nhỏ nhất sau khi hòa trộn FB1 và FB2, tức là vận tốc cài đặt của FB2 bằng 50u/s.
 
-FB2 immediately controls the axis to move at a constant velocity of 50u/s, and the axis is moving to specified position of 2000u.
+Điều này có nghĩa là trong chuyển động tiếp theo của FB1, vận tốc của trục được giảm xuống 50u/s theo mức giảm tốc của FB2. Khi vận tốc trục giảm xuống mức vận tốc hòa trộn thấp, FB1 điều khiển trục di chuyển đến vị trí cài đặt 1000u, và ngõ ra Done_1 của FB1 được đặt, biểu thị kết thúc chuyển động do nó điều khiển.
 
-At this time, if the Start_3 of the function block instance FB3 is set, since FB2 has not reached its position of 2000u, and the Buffer-Mode of FB3 is set to be mcBlendingLow, when the Start_3 of FB3 is set, the moving axis will control the axis according to the set velocity of FB2 and FB3 (whichever is lower) until the position of the axis reaches the set position of 2000u, then the output Active_2 is reset when FB2 is activated.
+FB2 ngay lập tức điều khiển trục di chuyển ở vận tốc không đổi 50u/s, và trục di chuyển đến vị trí chỉ định 2000u.
 
-At this time, if the Start_3 of the function block instance FB3 is set, since FB2 has not reached its position of 2000u, and the Buffer-Mode of FB3 is set to be mcBlendingLow, when the Start_3 of FB3 is set, the moving axis will control the axis according to the set velocity of FB2 and FB3 (whichever is lower) until the position of the axis reaches the set position of 2000u, then the output Active_2 is reset when FB2 is activated. Then under the control of the FB3 function block instance, increase the velocity of the axis to 100u/s; then keep the axis move at constant velocity, and finally reduce the velocity to 0u/s; at this time the axis reaches the set position of 3000u.
+Tại thời điểm này, nếu Start_3 của thực thể khối hàm FB3 được đặt, do FB2 chưa đạt vị trí 2000u và BufferMode của FB3 được đặt là mcBlendingLow, nên khi Start_3 của FB3 được đặt, trục đang chuyển động sẽ được điều khiển theo vận tốc cài đặt của FB2 và FB3 (giá trị nào nhỏ hơn) cho đến khi vị trí trục đạt tới vị trí cài đặt 2000u, sau đó ngõ ra Active_2 của FB2 được xóa.
 
-                                                                                      Figure 8-6 The sequence diagram of mcBlendingLow
+Tại thời điểm này, nếu Start_3 của thực thể khối hàm FB3 được đặt, do FB2 chưa đạt vị trí 2000u và BufferMode của FB3 được đặt là mcBlendingLow, nên khi Start_3 của FB3 được đặt, trục đang chuyển động sẽ được điều khiển theo vận tốc cài đặt của FB2 và FB3 (giá trị nào nhỏ hơn) cho đến khi vị trí trục đạt tới vị trí cài đặt 2000u, sau đó ngõ ra Active_2 của FB2 được xóa. Tiếp theo dưới sự điều khiển của thực thể khối hàm FB3, vận tốc trục tăng lên 100u/s; sau đó giữ trục chuyển động ở vận tốc không đổi, và cuối cùng giảm vận tốc về 0u/s; lúc này trục đạt tới vị trí cài đặt 3000u.
 
-mcBlending means that due to the difference in the set velocity of the previous and next function blocks, when the Execute rising edge input of the next function block is set, the system will determine what velocity should be adopted to control the axis according to the BufferMode parameter set by the next function block.
+Hình 8-6 Giản đồ thời gian của mcBlendingLow
 
-The aforesaid mcBlendingLow adopts the set velocity of the two function blocks (whichever is lower).
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709016951924-811.png?rev=1.1)
 
-The previous function block will complete the subsequent motion under the control of blending velocity until it reaches the set position, and the subsequent function block will continue to control the axis. mcBlendingPrevious: the blending velocity adopts the velocity set by the previous function block.
+mcBlending có nghĩa là do sự khác biệt về vận tốc cài đặt của khối hàm trước và sau, khi ngõ vào cạnh lên Execute của khối hàm tiếp theo được đặt, hệ thống sẽ xác định vận tốc nào cần áp dụng để điều khiển trục theo tham số BufferMode do khối hàm tiếp theo cài đặt.
+
+Chế độ mcBlendingLow nêu trên áp dụng giá trị thấp hơn trong hai vận tốc cài đặt của hai khối hàm.
+
+Khối hàm trước sẽ hoàn tất chuyển động tiếp theo dưới sự điều khiển của vận tốc hòa trộn cho đến khi đạt vị trí cài đặt, và khối hàm tiếp theo sẽ tiếp tục điều khiển trục. mcBlendingPrevious: vận tốc hòa trộn áp dụng vận tốc do khối hàm trước cài đặt.
 
 mcBlendingPrevious
 
-As shown in Figure 8-5, if the BufferMode parameter of FB2 and FB3 is set to be mcBlendingPrevious, the blending velocity directly adopts the velocity of the previous function block.
+Như thể hiện trong Hình 8-5, nếu tham số BufferMode của FB2 và FB3 được đặt là mcBlendingPrevious, vận tốc hòa trộn sẽ áp dụng trực tiếp vận tốc của khối hàm trước đó.
 
-Figure 8-7 shows the timing diagram of the mcBlendingPrevious.
+Hình 8-7 trình bày giản đồ thời gian của mcBlendingPrevious.
 
-When analyzing the sequence diagram, pay attention to the change of blending velocity. As shown in Figure 8-7, in the timing diagram of the mcBlendingPrevious, when FB1 is in buffer mode, the axis moves according to the velocity of the previous function block FB1, i.e., 100u/s, until it reaches the set position of 1000u.
+Khi phân tích giản đồ thời gian, cần chú ý đến sự thay đổi của vận tốc hòa trộn. Như thể hiện trong Hình 8-7, trong giản đồ thời gian của mcBlendingPrevious, khi FB1 ở chế độ bộ đệm, trục di chuyển theo vận tốc của khối hàm trước FB1, tức là 100u/s, cho đến khi đạt vị trí cài đặt 1000u.
 
-When FB2 is in buffer mode, the axis moves according to the velocity of the previous function block FB2, i.e., 50u/s, until it reaches the set position of 2000u.
+Khi FB2 ở chế độ bộ đệm, trục di chuyển theo vận tốc của khối hàm trước FB2, tức là 50u/s, cho đến khi đạt vị trí cài đặt 2000u.
 
-Therefore, the axis velocity is100u/s when FB1 output Active is reset, and the axis velocity is 50u/s when FB2 output Active is reset.
+Do đó, vận tốc trục là 100u/s khi ngõ ra Active của FB1 được xóa, và vận tốc trục là 50u/s khi ngõ ra Active của FB2 được xóa.
 
-                                                                                Figure 8-7 Giản đồ thời gian thực thi (Sequence Diagram) of mcBlendingPrevious
+Hình 8-7 Giản đồ thời gian của mcBlendingPrevious
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.10%20Others/WebHome/1709017101626-838.png?rev=1.1)
 
 mcBlendingNext
 
-As shown in Figure 8-5, if the BufferMode parameter of FB2 and FB3 is set to be mcBlendingNext, the blending velocity directly adopts the velocity of the next function block.
+Như thể hiện trong Hình 8-5, nếu tham số BufferMode của FB2 và FB3 được đặt là mcBlendingNext, vận tốc hòa trộn sẽ áp dụng trực tiếp vận tốc của khối hàm tiếp theo.
 
-Figure 8-8 shows the timing diagram of the mcBlendingNext.
+Hình 8-8 trình bày giản đồ thời gian của mcBlendingNext.
 
-As shown in Figure 8-8, in the timing diagram of the mcBlendingNext, when FB1 is in buffer mode, the axis moves according to the velocity of the next function block FB2, i.e., 50u/s,
+Như thể hiện trong Hình 8-8, trong giản đồ thời gian của mcBlendingNext, khi FB1 ở chế độ bộ đệm, trục di chuyển theo vận tốc của khối hàm tiếp theo FB2, tức là 50u/s,
 
-until it reaches the set position of 1000u. When FB2 is in buffer mode, the axis moves at 100U/S according to the velocity of the next function block FB3, until it reaches the set position of 2000U. Therefore, the axis velocity is 50u/s when the FB1 output Active is reset, and the axis velocity is 50u/s when FB2 output Active is reset.
+cho đến khi đạt vị trí cài đặt 1000u. Khi FB2 ở chế độ bộ đệm, trục di chuyển ở tốc độ 100u/s theo vận tốc của khối hàm tiếp theo FB3, cho đến khi đạt vị trí cài đặt 2000u. Do đó, vận tốc trục là 50u/s khi ngõ ra Active của FB1 được xóa, và vận tốc trục là 50u/s khi ngõ ra Active của FB2 được xóa.
 
-As shown in Figure 8-6 of the sequence diagram of the mcBlendingLow, when FB1 is in buffer mode, the axis buffers at the low blending velocity and moves at 50U/S according to the velocity of FB2, until it reaches the set position of 1000U.
+Như thể hiện trong Hình 8-6 của giản đồ thời gian mcBlendingLow, khi FB1 ở chế độ bộ đệm, trục đệm ở vận tốc hòa trộn thấp và di chuyển ở tốc độ 50u/s theo vận tốc của FB2, cho đến khi đạt vị trí cài đặt 1000u.
 
-When FB2 is in buffer mode, the axis buffers at the low blending velocity and moves at 50U/S according to the velocity of the FB2, until it reaches the set position of 2000U.
+Khi FB2 ở chế độ bộ đệm, trục đệm ở vận tốc hòa trộn thấp và di chuyển ở tốc độ 50u/s theo vận tốc của FB2, cho đến khi đạt vị trí cài đặt 2000u.
 
-Therefore, the axis velocity is 50u/s when the FB1 output Active is reset, and the axis velocity is 50u/s when FB2 output Active is reset.
+Do đó, vận tốc trục là 50u/s khi ngõ ra Active của FB1 được xóa, và vận tốc trục là 50u/s khi ngõ ra Active của FB2 được xóa.
+
+0

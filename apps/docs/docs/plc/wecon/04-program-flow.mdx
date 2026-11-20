@@ -1,16 +1,614 @@
 ---
 id: "04-program-flow"
-title: "04 Program Flow: Điều khiển luồng chương trình"
+title: "04 Tập lệnh điều khiển luồng chương trình (Program Flow)"
 sidebar_position: 4
 sidebar_label: "04 Program Flow"
-tags: [wecon, lx6v, lx6a, manual]
-description: "Các lệnh rẽ nhánh có điều kiện, gọi chương trình con và vòng lặp trong PLC Editor 2."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 04 Tập lệnh điều khiển luồng chương trình (Program Flow)"
 ---
 
-## 04 Program Flow: Điều khiển luồng chương trình
+## Nhảy chương trình
 
-Bao gồm các lệnh điều hướng luồng thực thi:
-- **CJ (Conditional Jump):** Nhảy có điều kiện qua một đoạn logic để tối ưu thời gian quét scan time.
-- **CALL / SRET:** Gọi chương trình con (Subroutine) và quay trở về chương trình chính.
-- **FOR / NEXT:** Vòng lặp cưỡng bức số lần lặp lại cho các thuật toán tính toán mảng dữ liệu.
-- **EI / DI / IRET:** Cho phép hoặc vô hiệu hóa các chương trình xử lý ngắt phần cứng tốc độ cao.
+### CJ / Nhảy có điều kiện
+
+Khi lệnh nhảy ở trạng thái ON, chương trình tại số hiệu con trỏ được chỉ định trong cùng tệp chương trình sẽ được thực thi.
+
+-[CJ (P) (P)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (P) | Số hiệu con trỏ (pointer) đích nhảy | P0 to P4095 | Device name | POINTER |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) | other (P) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| CJ | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+- CJ(P)
+
+Khi lệnh thực thi ở trạng thái ON, chương trình tại số hiệu con trỏ được chỉ định sẽ được thực thi.
+
+Khi lệnh thực thi ở trạng thái OFF, thực thi chương trình tiếp theo.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/88.png?width=367&amp;height=170&amp;rev=1.1)
+
+- Thực thi các lệnh.
+
+- Thực thi mỗi chu kỳ quét.
+
+- Thực thi một chu kỳ quét.
+
+:::tip
+✎Lưu ý: Sau khi bật ON cuộn dây của bộ định thời, nếu bộ định thời có cuộn dây đang ON bị nhảy qua bởi lệnh CJ(P), việc đo thời gian sẽ không được thực hiện bình thường.
+:::
+
+Khi lệnh OUT bị nhảy qua bởi lệnh CJ(P), chu kỳ quét (Scan Time) sẽ ngắn hơn.
+
+Khi lệnh CJ(P) được sử dụng để nhảy ngược về phía trước, chu kỳ quét (Scan Time) sẽ dài hơn.
+
+Đối với lệnh CJ(P), bạn có thể nhảy đến một bước nhỏ hơn số bước đang được thực thi. Tuy nhiên, để tránh vượt quá giới hạn thời gian của bộ định thời giám sát (Watchdog Timer), cần cân nhắc phương pháp thoát khỏi vòng lặp trong khoảng thời gian này.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/89.png?width=1177&amp;height=238&amp;rev=1.1)
+
+• Thiết bị bị nhảy qua bởi lệnh CJ(P) không thay đổi trạng thái.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/90.png?width=1168&amp;height=255&amp;rev=1.1)
+
+• Nhãn (P□) chiếm 1 bước.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/91.png?width=343&amp;height=193&amp;rev=1.1)
+
+Lệnh nhảy chỉ có thể chỉ định số hiệu con trỏ trong cùng một tệp chương trình.
+
+Khi nhảy đến số hiệu con trỏ nằm trong phạm vi nhảy trong quá trình thực hiện nhảy, chương trình sau số hiệu con trỏ đích nhảy sẽ được thực thi.
+
+Quy trình gắn nhãn được trình bày dưới đây. Khi tạo chương trình vòng lặp, di chuyển con trỏ chuột sang bên trái thanh cái (Bus bar) của giản đồ thang (Ladder) và nhập nhãn (P) tại điểm đầu của khối vòng lặp.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/92.png?width=361&amp;height=253&amp;rev=1.1)
+
+Cũng có thể lập trình nhãn tại vị trí có số bước nhỏ hơn lệnh CJ, nhưng nếu chu kỳ quét (Scan Time) vượt quá 200ms (cài đặt mặc định), lỗi bộ định thời giám sát (Watchdog Timer) sẽ xảy ra, cần lưu ý điều này.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/93.png?width=749&amp;height=186&amp;rev=1.1)
+
+Khi số hiệu con trỏ trong toán hạng giống nhau và chỉ có một nhãn, hoạt động diễn ra như sau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/94.png?rev=1.1)
+
+Nếu số hiệu nhãn bị dùng trùng lặp, hệ thống sẽ chuyển sang trạng thái lỗi.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/95.png?width=323&amp;height=226&amp;rev=1.1)
+
+SM100 luôn ở trạng thái ON trong suốt quá trình vận hành của mô-đun CPU, do đó cách sử dụng minh họa dưới đây sẽ thực hiện nhảy không điều kiện.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/96.png?width=353&amp;height=221&amp;rev=1.1)
+
+Số hiệu con trỏ P63 của dòng LX3V biểu thị lệnh nhảy đến lệnh END. Con trỏ P63 của dòng LX5V không còn cung cấp chức năng này nữa. Nếu bạn cần sử dụng chức năng này, vui lòng dùng lệnh GOEND.
+
+#### Mã lỗi (Error Code)
+
+Không có thông báo lỗi
+
+#### Ví dụ minh họa
+
+1) Trường hợp nhảy sau khi xử lý OFF
+
+Sau một chu kỳ vận hành khi X023 chuyển từ OFF sang ON, lệnh CJ P7 có hiệu lực.
+
+Với phương pháp này, ngõ ra nằm giữa lệnh CJ P7 và nhãn P7 có thể được tắt OFF trước khi nhảy.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/97.png?width=377&amp;height=251&amp;rev=1.1)
+
+2) Lệnh CJ và tác động của cuộn dây tiếp điểm
+
+Trong ví dụ chương trình sau, khi X000 ON, nhảy từ lệnh CJ ở nhánh đầu tiên đến nhãn P8. Khi X000 OFF, không thực hiện nhảy mà chương trình được thực thi tuần tự từ bước 1, và lệnh CJ ở nhánh thứ 11 nhảy đến nhãn P9. Các lệnh bị nhảy qua sẽ không được thực thi.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/98.png?width=323&amp;height=432&amp;rev=1.1)
+
+Tác động cuộn dây kép của ngõ ra Y001:
+
+Khi X000=OFF, ngõ ra sẽ tác động thông qua X001.
+
+Khi X000=ON, ngõ ra sẽ tác động thông qua X012.
+
+Ngay cả khi chương trình được phân nhánh bằng lệnh nhảy có điều kiện, nếu cùng một cuộn dây (Y000) được lập trình từ hai lần trở lên bên trong hoặc bên ngoài đoạn nhảy, nó vẫn được xử lý như cuộn dây kép thông thường.
+
+Hoạt động của bộ định thời chương trình con (T192 đến T199):
+
+Sau khi cuộn dây được kích hoạt, hoạt động vẫn tiếp tục ngay cả khi bị nhảy qua, và tiếp điểm ngõ ra cũng tác động.
+
+Nếu sử dụng hoạt động của bộ đếm tốc độ cao (HSC0 đến HSC7)
+
+Sau khi cuộn dây được kích hoạt, hoạt động vẫn tiếp tục ngay cả khi bị nhảy qua, và tiếp điểm ngõ ra cũng tác động.
+
+Trong chương trình trên, nếu mỗi ngõ vào thay đổi trong quá trình nhảy, tác động của từng cuộn dây được thể hiện trong bảng sau.
+
+| Nội dung mô tả | Trạng thái tiếp điểm trước khi nhảy | Hoạt động của cuộn dây trong vùng nhảy |
+| :--- | :--- | :--- |
+| Y,M,S(Y1, M1, S1) | X1, X2, X3 OFF | Y1, M1, S1 OFF |
+| Y,M,S(Y1, M1, S1) | X1, X2, X3 ON | Y1, M1, S1 ON |
+| 1ms, 10ms, 100ms timer(T0) | X4 OFF | Bộ định thời không hoạt động |
+| 1ms, 10ms, 100ms timer(T0) | X4 ON | Gián đoạn định thời (tiếp tục sau khi X0 OFF) |
+| Bộ định thời chương trình (T192) | X5 OFF, X6 OFF | Bộ định thời không hoạt động, nhưng bộ định thời được đặt lại (reset) khi X13 ON |
+| Bộ định thời chương trình (T192) | X5 OFF, X6 ON | Định thời tiếp tục (tiếp điểm tác động sau khi X0 OFF) |
+| Counter(C0) | X7 OFF, X10 OFF | Gián đoạn đếm, nhưng được đặt lại (reset) khi X13 ON |
+| Counter(C0) | X7 OFF, X10 ON | Gián đoạn đếm (tiếp tục sau khi X0 OFF) |
+| các lệnh ứng dụng(MOV) | X11 OFF | Single-cycle các lệnh ứng dụng are not executed in the jumpMulti-cycle các lệnh ứng dụng are partially executable (such as high-speed pulse instructions) |
+| các lệnh ứng dụng(MOV) | X11 ON | Single-cycle các lệnh ứng dụng are not executed in the jumpMulti-cycle các lệnh ứng dụng are partially executable (such as high-speed pulse instructions) |
+
+3) Mối quan hệ giữa lệnh CJ và đoạn nhảy MC đến MCR
+
+Mối quan hệ giữa lệnh điều khiển chính (Master Control) và lệnh nhảy cùng nội dung tác động như sau.
+
+Tuy nhiên, vì hoạt động của ②, ④ và ⑤ sẽ trở nên phức tạp, vui lòng tránh sử dụng chúng.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/99.png?width=690&amp;height=461&amp;rev=1.1)
+
+## Nhảy đến chương trình con
+
+### CALL / Gọi chương trình con
+
+Khi lệnh nhảy ở trạng thái ON, chương trình tại số hiệu con trỏ được chỉ định trong cùng tệp chương trình sẽ được thực thi.
+
+-[CALL (P) (P)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (P) | Tên chương trình con | - | Pointer | POINTER |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) | other (Subroutinename) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| CALL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+
+Tham số 1 chỉ có thể sử dụng tên chương trình con.
+
+#### Đặc tính kỹ thuật
+
+Khi lệnh CALL(P) được thực thi, chương trình con của con trỏ (P) sẽ được thực thi. (P) chỉ có thể viết bằng tên của chương trình con vừa tạo; nếu tên chương trình không tồn tại, việc biên dịch giản đồ thang (Ladder) sẽ thất bại.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/100.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/101.png?width=397&amp;height=203&amp;rev=1.1)
+
+Các lệnh CALL(P) có thể lồng nhau tối đa 32 cấp.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/102.png?width=517&amp;height=180&amp;rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+• Nhiều lệnh CALL(P) có thể gọi cùng một chương trình con, nhưng không cho phép các chương trình con có cùng tên chương trình.
+
+• Sử dụng bộ định thời chương trình trong chương trình con (tương tự đối với chương trình ngắt). Bộ định thời này đếm khi lệnh cuộn dây hoặc lệnh END được thực thi. Nếu đạt giá trị cài đặt của bộ định thời, tiếp điểm ngõ ra sẽ tác động khi lệnh cuộn dây hoặc lệnh END được thực thi. Thông thường, bộ định thời chỉ đếm khi lệnh cuộn dây được thực thi, vì vậy nếu nó được dùng trong một chương trình con chỉ thực thi lệnh cuộn dây dưới những điều kiện nhất định, nó sẽ không đếm.
+
+• Nếu bộ định thời tích lũy 1ms được dùng trong chương trình con (tương tự trong chương trình ngắt), khi đạt đến giá trị cài đặt, tiếp điểm ngõ ra sẽ tác động khi lệnh cuộn dây đầu tiên được thực thi (khi chương trình con được thực thi), do đó hãy cẩn thận.
+
+• Các thiết bị được bật ON trong chương trình con (tương tự trong chương trình ngắt) sẽ được giữ nguyên trạng thái sau khi chương trình kết thúc. Do đó, các thiết bị này cần được đặt lại (Reset) trong chương trình chính sau khi kết thúc chương trình con.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4102H | Lệnh CALL(P) vượt quá cấu trúc lồng nhau 32 cấp |
+
+#### Ví dụ minh họa
+
+1) Tạo chương trình con mới
+
+Quản lý dự án → Chương trình con → Quét → Nhấp chuột phải để tạo
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/103.png?width=254&amp;height=316&amp;rev=1.1)
+
+2) Gọi chương trình con
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/104.png?width=531&amp;height=360&amp;rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/105.png?width=798&amp;height=342&amp;rev=1.1)
+
+Trong chương trình quét, bật M10 để gọi chương trình con SUB0, thực thi giản đồ thang (Ladder) trong chương trình con SUB0, cho đến khi thực thi lệnh END của chương trình con thì quay về chương trình quét MAIN để thực thi LD M11.
+
+3Z) Lồng chương trình con
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/106.png?width=346&amp;height=156&amp;rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/107.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/108.png?width=346&amp;height=164&amp;rev=1.1)
+
+Trong hình trên, chương trình con SUB0 được gọi trong chương trình quét, và chương trình con SUB1 được gọi trong SUB0. Vì vậy khi M10 của chương trình quét bật ON, sau khi lệnh CALL được thực thi, chương trình con SUB0 sẽ được thực thi trước. Và sau khi lệnh CALL của SUB0 được thực thi, SUB1 sẽ được thực thi trước. Sau khi thực thi lệnh END của SUB1, quay lại SUB0 để thực thi tiếp. Sau khi thực thi lệnh END của SUB0, quay lại chương trình quét MAIN. Chương trình chỉ có 2 cấp lồng nhau, và số cấp lồng nhau không được lớn hơn 32.
+
+## Cấm ngắt, cho phép ngắt
+
+### DI và EI / Cấm và cho phép ngắt
+
+Mô-đun CPU thường ở trạng thái cấm ngắt. Lệnh này có thể đưa mô-đun CPU vào trạng thái cho phép ngắt (lệnh EI), và sau đó đưa về trạng thái cấm ngắt trở lại (lệnh DI).
+
+• DI: Cấm thực thi chương trình ngắt.
+
+• EI: Giải phóng trạng thái cấm ngắt.
+
+-[DI (s)]
+
+-[EI]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (P) | Tên chương trình con | - | Pointer | POINTER |
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DI | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+
+#### Đặc tính kỹ thuật
+
+- DI
+
+• Ngay cả khi điều kiện thực thi ngắt được kích hoạt trong chương trình, việc thực thi chương trình ngắt vẫn bị cấm trước khi thực thi lệnh EI.
+
+• Khi cấp nguồn PLC hoặc sau khi STOP, PLC sẽ chuyển về trạng thái như sau khi thực thi lệnh DI và chương trình ngắt không thể thực thi.
+
+• Lệnh DI có thể chọn có sử dụng tham số hay không. Khi không có tham số, nghĩa là cấm tất cả các chương trình ngắt. Khi có tham số, theo giá trị trong tham số s1, các chương trình ngắt có mức ưu tiên này và mức ưu tiên thấp hơn sẽ bị cấm.
+
+• Mức độ ưu tiên của ngắt nằm trong dải từ 0 đến 2. Giá trị càng nhỏ thì mức ưu tiên đáp ứng của ngắt càng cao. Tức là ngắt có mức ưu tiên 0 được đáp ứng nhanh nhất.
+
+• Nếu không có lệnh EI trước lệnh DI, lệnh DI sẽ không có hiệu lực.
+
+- EI
+
+• Giải phóng trạng thái cấm ngắt khi lệnh EI được thực thi (theo ngữ cảnh tài liệu gốc ghi DI là nhầm lẫn từ EI), và cho phép chương trình ngắt chạy.
+
+• Khi các lệnh EI và DI không được kích hoạt, tất cả đều duy trì trạng thái cho phép hoặc cấm thực thi chương trình ngắt ban đầu. Mức ưu tiên ngắt đang bị cấm hiện tại có thể xem trong SD151.
+
+| SD151 | Mức ưu tiên ngắt hiện đang bị cấm | Theo lệnh cấm ngắt (lệnh DI), lệnh cấm ngắt dưới mức ưu tiên chỉ định và lệnh cho phép ngắt (lệnh EI), mức ưu tiên của việc cấm ngắt sẽ được lưu. 0: Cấm tất cả các mức ưu tiên ngắt (mặc định); 1: Cấm ngắt mức ưu tiên 1 và 2; 2: Cấm ngắt mức ưu tiên 2; 3: Cho phép tất cả các mức ưu tiên ngắt | R (chỉ đọc) |
+| :--- | :--- | :--- | :--- |
+
+- Cấu trúc lồng nhau của DI, EI
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/109.png?width=391&amp;height=290&amp;rev=1.1)
+
+A: Chương trình điều khiển trình tự
+
+(1) Khoảng cho phép ngắt của tất cả các mức ưu tiên;
+
+(2) Vùng cấm ngắt dưới mức ưu tiên 2 (vùng cho phép ngắt từ mức ưu tiên 1 trở lên);
+
+(3) Khoảng cấm ngắt dưới mức ưu tiên 1 (khoảng cho phép ngắt từ mức ưu tiên 0 trở lên);
+
+(4) Vùng cấm ngắt dưới mức ưu tiên 2 (vùng cho phép ngắt từ mức ưu tiên 1 trở lên);
+
+(5) Khoảng cho phép ngắt của tất cả các mức ưu tiên;
+
+(6) EI ghép cặp với [DI K1];
+
+(7) EI ghép cặp với [DI K2].
+
+• Các ngắt (yêu cầu) xảy ra sau lệnh DI sẽ được xử lý sau khi lệnh EI được thực thi.
+
+• Khi lệnh DI được thực thi nhiều lần và mức ưu tiên của đối số được chỉ định cao hơn mức ưu tiên đang bị cấm hiện tại, các ngắt dưới mức ưu tiên của đối số sẽ bị vô hiệu hóa.
+
+• Khi lệnh DI được thực thi nhiều lần và mức ưu tiên của đối số được chỉ định thấp hơn mức ưu tiên đang bị cấm hiện tại, trạng thái cấm ngắt sẽ không thay đổi.
+
+• Việc lồng nhau các lệnh DI có thể tối đa 16 cấp.
+
+• Mức ưu tiên ngắt của con trỏ ngắt có thể được thiết lập qua thuộc tính của chương trình ngắt. Tham khảo mô tả về chương trình ngắt để biết chi tiết.
+
+• Khoảng cấm ngắt khi lệnh DI và lệnh EI được thực thi như sau.
+
+1) Khi lệnh DI được thực thi nhiều lần (khi ngắt có mức ưu tiên cao hơn mức ưu tiên ngắt đang bị cấm hiện tại được chỉ định cấm)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/110.png?rev=1.1)
+
+Chương trình thực thi theo chu kỳ quét
+
+- Khoảng cho phép ngắt của tất cả các mức ưu tiên;
+
+- Khoảng cấm ngắt dưới mức ưu tiên 2 (khoảng cho phép ngắt từ mức ưu tiên 1 trở lên);
+
+- Đoạn cấm ngắt dưới mức ưu tiên 1 (đoạn cho phép ngắt từ mức ưu tiên 0 trở lên).
+
+2) Khi lệnh DI được thực thi nhiều lần (khi mức ưu tiên ngắt thấp hơn mức ưu tiên ngắt đang bị cấm hiện tại được chỉ định cấm)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/111.png?rev=1.1)
+
+Chương trình thực thi theo chu kỳ quét
+
+- Khoảng cho phép ngắt của tất cả các mức ưu tiên;
+
+- Khoảng cấm ngắt dưới mức ưu tiên 1 (khoảng cho phép ngắt từ mức ưu tiên 0 trở lên);
+
+- Các ngắt dưới mức ưu tiên 1 đã ở trạng thái bị vô hiệu hóa, do đó mức ưu tiên cấm ngắt sẽ không thay đổi.
+
+3) Khi lệnh DI được thực thi thông qua chương trình ngắt
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/112.png?width=517&amp;height=155&amp;rev=1.1)
+
+A: Chương trình thực thi theo chu kỳ quét
+
+B: Chương trình ngắt
+
+- Khoảng cho phép ngắt của tất cả các mức ưu tiên;
+
+- Khoảng cấm ngắt dưới mức ưu tiên 3 (khoảng cho phép ngắt từ mức ưu tiên 1 trở lên);
+
+- Đoạn cấm ngắt dưới mức ưu tiên 2 (đoạn cho phép ngắt từ mức ưu tiên 0 trở lên).
+
+4) Khi chỉ thực thi các lệnh DI không có đối số
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/113.png?rev=1.1)
+
+A: Chương trình thực thi theo chu kỳ quét
+
+- Khoảng cho phép ngắt của tất cả các mức ưu tiên;
+
+- Khoảng cấm ngắt dưới mức ưu tiên 1 (toàn bộ khoảng cấm ngắt);
+
+- Vì lệnh DI không có đối số đặt chế độ cấm toàn bộ ngắt, nên bằng cách thực thi lệnh EI một lần, tất cả các mức ưu tiên ngắt đều được chuyển sang cho phép.
+
+5) Trường hợp thực thi lệnh DI có đối số và lệnh DI không có đối số (khi thực thi theo thứ tự lệnh DI có đối số → lệnh DI không có đối số)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/114.png?rev=1.1)
+
+A: Chương trình thực thi theo chu kỳ quét
+
+- Khoảng cho phép ngắt của tất cả các mức ưu tiên;
+
+- Khoảng cấm ngắt dưới mức ưu tiên 2 (khoảng cho phép ngắt từ mức ưu tiên 1 trở lên);
+
+- Đoạn cấm ngắt dưới mức ưu tiên 1 (toàn bộ đoạn cấm ngắt)
+
+6) Trường hợp thực thi lệnh DI có đối số và lệnh DI không có đối số (khi thực thi theo thứ tự lệnh DI không có đối số → lệnh DI có đối số)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/115.png?rev=1.1)
+
+A: Chương trình thực thi theo chu kỳ quét
+
+- Khoảng cho phép ngắt của tất cả các mức ưu tiên;
+
+- Đoạn cấm ngắt dưới mức ưu tiên 1 (toàn bộ đoạn cấm ngắt).
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | (S) read address vượt quá phạm vi vùng nhớ thiết bị |
+| 4084H | Dữ liệu cài đặt trong (S) vượt quá phạm vi 0 đến 2 |
+| 4185H | Khi số cấp lồng nhau của lệnh DI vượt quá 16 cấp |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/116.png?rev=1.1)
+
+Tất cả các chương trình ngắt đều có thể được kích hoạt
+
+Có thể kích hoạt các chương trình ngắt có mức ưu tiên 0 và mức ưu tiên 1
+
+Có thể kích hoạt các ngắt có mức ưu tiên 0
+
+Không thể kích hoạt bất kỳ ngắt nào
+
+Có thể kích hoạt chương trình ngắt có mức ưu tiên là 0
+
+Có thể kích hoạt các chương trình ngắt có mức ưu tiên 0 và mức ưu tiên 1
+
+### SIMASK / Mặt nạ ngắt
+
+Đặt số hiệu con trỏ ngắt được chỉ định trong (I) sang trạng thái cho phép thực thi/trạng thái cấm thực thi theo giá trị của (s).
+
+-[SIMASK (I) (s)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (I) | Tên chương trình ngắt | - | Program name | POINTER |
+| (s) | Chỉ định cho phép/cấm ngắt | 0: Allow. 1: Prohibited | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SIMASK | Parameter 1 | Only support interrupt program name |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SIMASK | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● | ● |  |
+
+#### Đặc tính kỹ thuật
+
+• Chương trình ngắt có tên chương trình ngắt được chỉ định trong (I) được đặt sang trạng thái cho phép thực thi/trạng thái cấm thực thi theo dữ liệu được chỉ định trong (s).
+
+• Khi (s) bằng 0: Trạng thái cho phép thực thi chương trình ngắt
+
+• Khi (s) bằng 1, việc thực thi chương trình ngắt bị cấm
+
+• Đối với chương trình ngắt khi cấp nguồn hoặc sau STOP→RUN, tất cả các chương trình ngắt sẽ được thực thi.
+
+• Sau khi thiết lập cấm ngắt, trạng thái cấm sẽ được lưu giữ ngay cả khi lệnh bị ngắt kết nối. Để khôi phục, ghi 0 vào (S), bật lại lệnh, hoặc thực hiện STOP→RUN.
+
+• Trạng thái cho phép thực thi ngắt/cấm thực thi ngắt sẽ được lưu trong SM hoặc SD, chi tiết như sau:
+
+(1) Ngắt ngoài
+
+| Register | Nội dung mô tả | Register | Nội dung mô tả | Register | Nội dung mô tả | Register | Nội dung mô tả |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SM352 | X0 sườn lên (cạnh lên) interrupt | SM356 | X2 sườn lên (cạnh lên) interrupt | SM360 | X4 sườn lên (cạnh lên) interrupt | SM364 | X6 sườn lên (cạnh lên) interrupt |
+| SM353 | X0 sườn xuống (cạnh xuống) interrupt | SM357 | X2 sườn xuống (cạnh xuống) interrupt | SM361 | X4 sườn xuống (cạnh xuống) interrupt | SM365 | X6 sườn xuống (cạnh xuống) interrupt |
+| SM354 | X1 sườn lên (cạnh lên) interrupt | SM358 | X3 sườn lên (cạnh lên) interrupt | SM362 | X5 sườn lên (cạnh lên) interrupt | SM366 | X7 sườn lên (cạnh lên) interrupt |
+| SM355 | X1 sườn xuống (cạnh xuống) interrupt | SM359 | X3 sườn xuống (cạnh xuống) interrupt | SM363 | X5 sườn xuống (cạnh xuống) interrupt | SM367 | X7 sườn xuống (cạnh xuống) interrupt |
+
+(2) Ngắt bộ định thời
+
+| Register | Nội dung mô tả |
+| :--- | :--- |
+| SD350 to SD356 | Mặt nạ ngắt định thời, mỗi bit đại diện cho một ngắt, tổng cộng 100 ngắt |
+
+(3) Ngắt bộ đếm tốc độ cao
+
+| Register | Nội dung mô tả |
+| :--- | :--- |
+| SD382 to SD388 | bộ đếm tốc độ cao (HSC) interrupt mask, each bit represents an interrupt, a total of 100 |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Data beyond 0 and 1 is input in the lệnh ứng dụng(s) |
+| 4085H | (S) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4189H | Lệnh SIMASK chỉ định một tên chương trình ngắt chưa được cài đặt |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/117.png?rev=1.1)
+
+Như minh họa trong hình: khi M10 được bật ON, ba chương trình ngắt INT10, INT91 và INT70 bị cấm chạy.
+
+## Các lệnh vòng lặp
+
+### FOR đến NEXT / Vòng lặp
+
+Khi quá trình xử lý giữa lệnh FOR đến NEXT được thực thi không điều kiện (n) lần, quá trình xử lý tiếp theo sau lệnh NEXT sẽ được thực hiện.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/118.png?rev=1.1)
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (n) | Số lần lặp giữa lệnh FOR và NEXT | 1 to 32767 | Signed BIN 16 bit | ANY16 |
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| FOR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● | ● |  |
+
+#### Đặc tính kỹ thuật
+
+• Khi quá trình xử lý giữa lệnh FOR đến NEXT được thực thi không điều kiện (n) lần, quá trình xử lý tiếp theo sau lệnh NEXT sẽ được thực hiện.
+
+• (n) có thể được chỉ định trong dải từ 1 đến 32767. Khi chỉ định -32768 đến 0, quá trình xử lý sẽ được thực hiện giống như khi (n)=1.
+
+• Nếu bạn không muốn thực thi quá trình xử lý giữa các lệnh FOR và NEXT, hãy sử dụng lệnh CJ để nhảy qua.
+
+• Lệnh FOR có thể lồng nhau tối đa 5 cấp.
+
+:::tip
+✎Lưu ý: Trong trường hợp lập trình lệnh FOR đến NEXT có lồng nhau giữa các lệnh FOR đến NEXT, có thể đạt tối đa 5 cấp.
+:::
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/119.png?width=583&amp;height=225&amp;rev=1.1)
+
+• Không sử dụng các lệnh IRET, SRET, RET, FEND, END và các lệnh tương tự để chặn giữa các lệnh FOR đến NEXT.
+
+• Nếu số lần lặp quá lớn, thời gian chu kỳ (chu kỳ vận hành) trở nên dài hơn và xảy ra lỗi bộ định thời giám sát (Watchdog Timer), bạn cần thay đổi thời gian bộ định thời giám sát hoặc đặt lại bộ định thời giám sát.
+
+• Chương trình sau đây sẽ trở thành lỗi.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/120.png?width=836&amp;height=403&amp;rev=1.1)
+
+• Nếu lệnh FOR đến NEXT đang thực thi lặp lại và muốn kết thúc giữa chừng, hãy sử dụng lệnh BREAK.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | (s) read address vượt quá phạm vi vùng nhớ thiết bị |
+| 4100H | Khi số cấp lồng nhau của lệnh FOR và NEXT vượt quá 5 cấp hoặc số lượng FOR và NEXT không tương ứng |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/121.png?rev=1.1)
+
+Chương trình INC D0 sẽ được thực thi 10 lần và INC D1 sẽ được thực thi 100 lần.
+
+Sau khi thực thi, D0 sẽ bằng 10 và D1 sẽ bằng 100.
+
+### BREAK / Thoát vòng lặp
+
+Khi quá trình xử lý giữa lệnh FOR đến NEXT được thực thi không điều kiện (n) lần, quá trình xử lý tiếp theo sau lệnh NEXT sẽ được thực hiện.
+
+-[BREAK]
+
+#### Đặc tính kỹ thuật
+
+• Cưỡng bức kết thúc quá trình xử lý lặp lại của các lệnh FOR đến NEXT.
+
+• Lệnh này chỉ có thể nằm giữa FOR đến NEXT, nếu không sẽ báo lỗi vận hành.
+
+• Lệnh BREAK chỉ có thể thoát khỏi cấu trúc vòng lặp lồng nhau mà chính lệnh đó đang nằm bên trong.
+
+• Khi tiếp điểm được nối, cấu trúc vòng lặp của lệnh FOR đến NEXT chứa nó bị cưỡng bức kết thúc, như minh họa trong hình bên dưới.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/122.png?rev=1.1)
+
+Khi M0 được đặt sang ON, bất kể còn lại bao nhiêu vòng lặp, chương trình sẽ nhảy thẳng đến nhánh thứ bảy để thực thi.
+
+Khi M4 được đặt sang ON, bất kể còn lại bao nhiêu vòng lặp, chương trình sẽ nhảy thẳng đến nhánh thứ mười để thực thi.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4186H | Lệnh BREAK không được sử dụng trong phạm vi giữa lệnh FOR và NEXT |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/123.png?rev=1.1)
+
+Chương trình INC D0 sẽ được thực thi 10 lần và INC D1 sẽ được thực thi 100 lần.
+
+Khi M0 OFF, sau khi thực thi, D0 sẽ bằng 10 và D1 sẽ bằng 100.
+
+Khi M0 ON, lệnh BREAK được thực thi và thoát khỏi vòng lặp hiện tại. Lệnh INC D1 sẽ không được thực thi, và kết quả D1=0.
+
+## Đặt lại bộ định thời giám sát (Watchdog)
+
+### WDT / Bộ định thời giám sát (Watchdog Timer)
+
+Bộ định thời giám sát (Watchdog Timer) được đặt lại bằng chương trình.
+
+-[WDT]
+
+#### Đặc tính kỹ thuật
+
+• Đặt lại bộ định thời giám sát (Watchdog Timer) thông qua chương trình.
+
+• Sử dụng khi chu kỳ quét (Scan Time) vượt quá giá trị cài đặt của bộ định thời giám sát tùy theo các điều kiện.
+
+• Đối với t1 từ bước 0 đến lệnh WDT, và từ lệnh WDT đến lệnh END, không được vượt quá giá trị cài đặt của bộ định thời giám sát.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/124.png?width=631&amp;height=200&amp;rev=1.1)
+
+• Lệnh WDT có thể được sử dụng nhiều hơn hai lần trong một chu kỳ quét.
+
+:::tip
+✎Lưu ý:
+
+• Thời gian quá hạn giám sát (Watchdog timeout) có thể được cài đặt trong thanh ghi đặc biệt SD122. Mặc định là 200ms.
+
+• Sử dụng rơ-le đặc biệt SM122 để điều khiển việc có bật chức năng bộ định thời giám sát hay không. Lệnh WDT sẽ vô hiệu sau khi đóng chức năng này.
+:::
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/125.png?width=368&amp;height=97&amp;rev=1.1)
+
+- Thời gian bộ định thời giám sát được đặt thành 300ms;
+
+- Làm mới bộ định thời giám sát.
+
+#### Mã lỗi (Error Code)
+
+Không có lỗi vận hành.
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/04%20Program%20Flow%20Instructions/WebHome/126.png?rev=1.1)
+
+Vòng lặp lệnh FOR đến NEXT tốn chu kỳ quét dài khi lặp nhiều lần, có thể vượt quá thời gian bộ định thời giám sát cài đặt 300ms, khiến PLC báo lỗi và không thể tiếp tục chạy. Sau khi bật M0, lệnh WDT sẽ chạy và bộ định thời giám sát được cập nhật sau mỗi chu kỳ, nhờ đó không báo lỗi và thực thi chương trình bình thường.
+
+0

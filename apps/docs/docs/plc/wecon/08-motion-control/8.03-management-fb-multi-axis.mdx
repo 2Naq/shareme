@@ -1,159 +1,201 @@
 ---
 id: "8.03-management-fb-multi-axis"
-title: "8.03 Khối hàm quản trị cho điều khiển đa trục"
+title: "8.03 Khối hàm quản trị cho điều khiển đa trục (Management FBs for Multi-axis)"
 sidebar_position: 4
 sidebar_label: "8.03 Quản trị Cam đa trục (3 FBs)"
-tags: [wecon, lx6v, lx6a, motion-control, plcopen, manual]
-description: "Tài liệu kỹ thuật chi tiết chuẩn hãng 8.03 Khối hàm quản trị cho điều khiển đa trục trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.03 Khối hàm quản trị cho điều khiển đa trục (Management FBs for Multi-axis)"
 ---
 
-## Management Chức năng và nguyên lý hoạt động Blocks for Multi-axis Motion Control
+## Các khối hàm quản lý cho điều khiển chuyển động đa trục
 
 ### MC_CAMTABLESELECT
 
 MC_CAMTABLESELECT
 
-This function block is used to bind the cam table.
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937013155-415.png?rev=1.1)
 
-### Vùng nhớ thiết bị hỗ trợ (Devices Used)
-*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
+Khối hàm này được sử dụng để liên kết (gán) bảng cam.
 
-| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
-| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | MC_CAMTABLESELECT | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Periodic | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| MasterAbsolute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| SlaveAbsolute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Master |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| CamTable |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |
-| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| CamTableID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-### Lưu ý khi sử dụng vùng nhớ thiết bị
+| MC_CAMTABLESELECT | Periodic | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_CAMTABLESELECT | MasterAbsolute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_CAMTABLESELECT | SlaveAbsolute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_CAMTABLESELECT | Master |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_CAMTABLESELECT | Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_CAMTABLESELECT | CamTable |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |
+| MC_CAMTABLESELECT | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_CAMTABLESELECT | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_CAMTABLESELECT | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_CAMTABLESELECT | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_CAMTABLESELECT | CamTableID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 
-- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
-- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
-### Bảng thông số chân và kiểu biến (Variable Type Used)
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
 
-| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| MC_CAMTABLESELECT | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
-| Periodic | BOOL | Không | TRUE / FALSE | Cyclic mode setting |
-| MasterAbsolute | BOOL | Không | TRUE / FALSE | Master axis position mode setting |
-| SlaveAbsolute | BOOL | Không | TRUE / FALSE | Slave axis position mode setting |
-| Master | WORD | Không | - | Master axis |
-| Slave | WORD | Không | - | Slave axis |
-| CamTable | Cam table (INT type variable) | Không | - | Cam table |
-| Ngõ ra (Output) | Done | BOOL | Không | TRUE / FALSE | Completion sign |
-| Busy | BOOL | Không | TRUE / FALSE | Busy sign |
-| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
-| ErrorID | DWORD | Không | - | Error code |
-| CamTableID | WORD | Không | - | Cam table identification number |
-Chức năng và nguyên lý hoạt động
+- LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
 
-- When MasterAbsolute is true, it means the master axis is under the absolute mode; when MasterAbsolute is false, it means the master axis is under the relative mode;
-- When SlaveAbsolute is true, it means the slave axis is under the absolute mode; when SlaveAbsolute is false, it means the slave axis is under the relative mode;
-- This function block is used to bind the cam table, that is, to bind the input master axis, slave axis and cam table. When calling MC_CAMIN function block, only the cam table bound by this function block can be used.
-Lưu ý kỹ thuật quan trọng
+- T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit);
 
-- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
-Error code
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Error code | Content |
-| 4084H | Data beyond the specifiable range was entered. |
-Giản đồ thời gian thực thi (Sequence Diagram) 
+| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| MC_CAMTABLESELECT | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
+| MC_CAMTABLESELECT | Ngõ vào (Input) | Periodic | BOOL | Không | TRUE/FALSE | Cài đặt chế độ chu kỳ |
+| MC_CAMTABLESELECT | Ngõ vào (Input) | MasterAbsolute | BOOL | Không | TRUE/FALSE | Cài đặt chế độ vị trí trục chủ (Master) |
+| MC_CAMTABLESELECT | Ngõ vào (Input) | SlaveAbsolute | BOOL | Không | TRUE/FALSE | Cài đặt chế độ vị trí trục tớ (Slave) |
+| MC_CAMTABLESELECT | Ngõ vào (Input) | Master | WORD | Không | - | Trục chủ (Master Axis) |
+| MC_CAMTABLESELECT | Ngõ vào (Input) | Slave | WORD | Không | - | Trục tớ (Slave Axis) |
+| MC_CAMTABLESELECT | Ngõ vào (Input) | CamTable | Cam table (INT type variable) | Không | - | Bảng Cam điện tử |
+| MC_CAMTABLESELECT | Ngõ ra (Output) | Done | BOOL | Không | TRUE/FALSE | Dấu hiệu hoàn tất |
+| MC_CAMTABLESELECT | Ngõ ra (Output) | Busy | BOOL | Không | TRUE/FALSE | Dấu hiệu bận (Busy) |
+| MC_CAMTABLESELECT | Ngõ ra (Output) | Error | BOOL | Không | TRUE/FALSE | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_CAMTABLESELECT | Ngõ ra (Output) | ErrorID | DWORD | Không | - | Mã lỗi (Error Code) |
+| MC_CAMTABLESELECT | Ngõ ra (Output) | CamTableID | WORD | Không | - | Số nhận dạng bảng Cam điện tử |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khi MasterAbsolute có giá trị true, nghĩa là trục chính (Master) đang ở chế độ tuyệt đối; khi MasterAbsolute có giá trị false, nghĩa là trục chính (Master) đang ở chế độ tương đối;
+
+- Khi SlaveAbsolute có giá trị true, nghĩa là trục tớ (Slave) đang ở chế độ tuyệt đối; khi SlaveAbsolute có giá trị false, nghĩa là trục tớ (Slave) đang ở chế độ tương đối;
+
+- Khối hàm này được dùng để liên kết bảng cam, tức là liên kết trục chính (Master), trục tớ (Slave) và bảng cam đầu vào. Khi gọi khối hàm MC_CAMIN, chỉ có thể sử dụng bảng cam đã được liên kết bởi khối hàm này.
+
+#### Lưu ý kỹ thuật quan trọng
+
+- Khối hàm này không khả dụng khi trục không tồn tại.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
+
+#### Giản đồ thời gian (Sequence Diagram)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937230885-390.png?rev=1.1)
 
 ### MC_GENERATECAMTABLE
 
 MC_GENERATECAMTABLE
 
-This function block is used to update the cam table.
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937316371-993.png?rev=1.1)
 
-### Vùng nhớ thiết bị hỗ trợ (Devices Used) (Only a single device can be used, and device splicing and offset are not supported)
+Khối hàm này được sử dụng để cập nhật bảng cam.
 
-| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
-|  |  | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
-| MC_GENERATECAMTABLE | Execute |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| CamTableID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| CamNode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| NodeNum |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Generatecam TableMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Done |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Busy |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Khối lệnhAborted |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Error |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-### Lưu ý khi sử dụng vùng nhớ thiết bị
+#### Thiết bị (thanh ghi) sử dụng (Chỉ sử dụng được một thiết bị đơn lẻ, không hỗ trợ ghép nối thiết bị và địa chỉ lệch (offset))
 
-- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
-- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
-### Bảng thông số chân và kiểu biến (Variable Type Used)
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| MC_GENERATECAMTABLE | Execute | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346410-601.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346412-566.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346413-140.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346413-653.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346414-925.png?rev=1.1) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_GENERATECAMTABLE | CamTableID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_GENERATECAMTABLE | CamNode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_GENERATECAMTABLE | NodeNum |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346415-218.png?rev=1.1) |  |  |  |  |  |  |  |  |  |
+| MC_GENERATECAMTABLE | GeneratecamTableMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346415-626.png?rev=1.1) |  |  |  |  |  |  |  |  |  |
+| MC_GENERATECAMTABLE | Done |  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346416-119.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346417-650.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346418-420.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346419-124.png?rev=1.1) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_GENERATECAMTABLE | Busy |  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346421-759.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346423-907.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346423-338.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346424-801.png?rev=1.1) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_GENERATECAMTABLE | InstructionAborted |  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346425-166.png?rev=1.1)![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346425-794.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346426-497.png?rev=1.1)![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346427-332.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346427-282.png?rev=1.1)![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346428-957.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346429-449.png?rev=1.1) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_GENERATECAMTABLE | Error |  |  |  |  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937346429-635.png?rev=1.1) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_GENERATECAMTABLE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 
-| Khối lệnh | Pin | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| MC_GENERATECAMTABLE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
-| CamTableID | INT | Không |  | Cam tableID |
-| CamNode | ARRAY (CAMNODET) | Không | - | Array of cam nodes |
-| NodeNum | INT | Không | 2 ～361 | Number of cam nodes |
-| GeneratecamTable Mode | INT | Không |  | Effective mode 0： Effective in the next cam cycle; Others: Reserved |
-| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| BusY | BOOL | Có | TRUE / FALSE | Aborted flag |
-| Khối lệnhAborted | BOOL | Có | TRUE / FALSE | Abortion flag |
-| ReadyUpdate | BOOL | Có | TRUE / FALSE | Cam table update comp flag |
-| Error | BOOL | Có |  | Cờ báo có phát sinh lỗi hay không |
-| ErrorID | DWORD | Có |  | Error Code (Please check [8.10 Error Code Cross-reference Table] ) |
-Chức năng và nguyên lý hoạt động
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
 
-- This function block is used to update cam table. At the rising edge of startup, the cam data is calculated based on values of input variables camNode and NodeNum. The data is updated to the cam table specified by camTable, which is will be effective in the next cam cycle.
-✎Note:
+- LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
 
-1. This function block is not available when the Cam table does not exist.
+- T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit);
 
-2. The data written to ECAM table needs to be accurate to six decimal places, otherwise PLC will report error 16x00000C
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
 
- Giản đồ thời gian thực thi (Sequence Diagram)
+| Khối lệnh / Lệnh | Chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| MC_GENERATECAMTABLE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
+| MC_GENERATECAMTABLE | Ngõ vào (Input) | CamTableID | INT | Không |  | ID bảng Cam điện tử |
+| MC_GENERATECAMTABLE | Ngõ vào (Input) | CamNode | ARRAY(CAMNODET) | Không | - | Mảng các nút Cam |
+| MC_GENERATECAMTABLE | Ngõ vào (Input) | NodeNum | INT | Không | 2 ～361 | Số lượng nút Cam |
+| MC_GENERATECAMTABLE | Ngõ vào (Input) | GeneratecamTableMode | INT | Không |  | Chế độ hiệu lực: 0: Có hiệu lực trong chu kỳ Cam tiếp theo; Khác: Dự phòng |
+| MC_GENERATECAMTABLE | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| MC_GENERATECAMTABLE | Ngõ ra (Output) | BusY | BOOL | Có | TRUE/FALSE | Cờ hủy bỏ |
+| MC_GENERATECAMTABLE | Ngõ ra (Output) | InstructionAborted | BOOL | Có | TRUE/FALSE | Cờ hủy bỏ |
+| MC_GENERATECAMTABLE | Ngõ ra (Output) | ReadyUpdate | BOOL | Có | TRUE/FALSE | Cờ hoàn tất cập nhật bảng Cam điện tử |
+| MC_GENERATECAMTABLE | Ngõ ra (Output) | Error | BOOL | Có |  | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_GENERATECAMTABLE | Ngõ ra (Output) | ErrorID | DWORD | Có |  | Mã lỗi (Vui lòng xem [8.10 Bảng tra cứu chéo mã lỗi]) |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khối hàm này được dùng để cập nhật bảng cam. Tại cạnh lên khi khởi động (Execute), dữ liệu cam được tính toán dựa trên giá trị của các biến ngõ vào camNode và NodeNum. Dữ liệu được cập nhật vào bảng cam chỉ định bởi camTable và sẽ có hiệu lực trong chu kỳ cam tiếp theo.
+
+:::tip
+✎Lưu ý:
+
+1. Khối hàm này không khả dụng khi bảng Cam không tồn tại.
+
+2. Dữ liệu ghi vào bảng ECAM cần chính xác đến 6 chữ số thập phân, nếu không PLC sẽ báo lỗi 16x00000C
+:::
+
+#### Giản đồ thời gian (Sequence Diagram)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/Picture12.png?width=733&amp;height=553&amp;rev=1.1)
 
 ### MC_SAVECAMTABLE
 
 MC_SAVECAMTABLE
 
-This function block is used to save the cam table.
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937631240-106.png?rev=1.1)
 
-### Vùng nhớ thiết bị hỗ trợ (Devices Used) (Only a single device can be used, and device splicing and offset are not supported)
+Khối hàm này được sử dụng để lưu bảng cam.
 
-| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
-| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
-| MC_SAVECAMTABLE | Execute |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| CamTableID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Done |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Busy |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Khối lệnhAborted |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Error |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
- ### Lưu ý khi sử dụng vùng nhớ thiết bị
+#### Thiết bị (thanh ghi) sử dụng (Chỉ sử dụng được một thiết bị đơn lẻ, không hỗ trợ ghép nối thiết bị và địa chỉ lệch (offset))
 
-- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
-- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
-### Bảng thông số chân và kiểu biến (Variable Type Used)
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| MC_SAVECAMTABLE | Execute | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655104-706.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655106-671.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655107-449.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655108-356.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655108-481.png?rev=1.1) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_SAVECAMTABLE | CamTableID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_SAVECAMTABLE | Done |  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655109-459.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655110-668.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655111-873.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655111-699.png?rev=1.1) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_SAVECAMTABLE | Busy |  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655112-723.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655113-511.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655113-220.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655114-762.png?rev=1.1) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_SAVECAMTABLE | InstructionAborted |  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655115-940.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655116-761.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655116-242.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655117-517.png?rev=1.1) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_SAVECAMTABLE | Error |  | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655118-872.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655121-206.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655122-669.png?rev=1.1) | ![Sơ đồ](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937655123-657.png?rev=1.1) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MC_SAVECAMTABLE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 
-| Khối lệnh | Pin | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
-| MC_SAVECAMTABLE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
-| CamTableID | INT | Không | - | Cam tableID |
-| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
-| BusY | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
-| Khối lệnhAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
-| Error | BOOL | Có | - | Cờ báo có phát sinh lỗi hay không |
-| ErrorID | DWORD | Có | - | Error Code (Please check [8.10 Error Code Cross-reference Table] |
-Chức năng và nguyên lý hoạt động
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
 
-- This function block is used to save the specified cam table.
- ✎Note:This function block is not available when the Cam table does not exist.
+- LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
 
-In the process of executing this instruction, the controller cannot be powered off. Otherwise, the data will fail to be saved and the cam data will be lost.
+- T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit);
 
-Error code 
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-| Error code | Content |
-| 4084H | Data beyond the specifiable range was entered. |
-Giản đồ thời gian thực thi (Sequence Diagram)
+| Khối lệnh / Lệnh | Chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| MC_SAVECAMTABLE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
+| MC_SAVECAMTABLE | Ngõ vào (Input) | CamTableID | INT | Không | - | ID bảng Cam điện tử |
+| MC_SAVECAMTABLE | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Cờ báo hoàn thành (Done) |
+| MC_SAVECAMTABLE | Ngõ ra (Output) | BusY | BOOL | Có | TRUE/FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| MC_SAVECAMTABLE | Ngõ ra (Output) | InstructionAborted | BOOL | Có | TRUE/FALSE | Cờ báo lệnh bị hủy / ngắt quyền (CommandAborted) |
+| MC_SAVECAMTABLE | Ngõ ra (Output) | Error | BOOL | Có | - | Cờ báo có phát sinh lỗi hay không (Error) |
+| MC_SAVECAMTABLE | Ngõ ra (Output) | ErrorID | DWORD | Có | - | Mã lỗi (Vui lòng xem [8.10 Bảng tra cứu chéo mã lỗi]) |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khối hàm này được sử dụng để lưu bảng cam được chỉ định.
+
+:::tip
+✎Note: This khối hàm (FB) is not available when the Cam table does not exist.
+
+Trong quá trình thực thi lệnh này, không được tắt nguồn bộ điều khiển. Nếu không, việc lưu dữ liệu sẽ thất bại và dữ liệu cam sẽ bị mất.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Đã nhập dữ liệu vượt quá phạm vi có thể chỉ định. |
+
+#### Giản đồ thời gian (Sequence Diagram)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/08%20Motion%20Control/8.03%20Management%20Function%20Blocks%20for%20Multi-axis%20Motion%20Control/WebHome/1708937834226-438.png?rev=1.1)
+
+0

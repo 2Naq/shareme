@@ -1,0 +1,754 @@
+---
+id: "6.01-transfer-comparison-instruction"
+title: "6.01 Lệnh truyền và so sánh dữ liệu (Transfer Comparison Instruction)"
+sidebar_position: 1
+sidebar_label: "6.01 Transfer Comparison Instruction"
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.01 Lệnh truyền và so sánh dữ liệu (Transfer Comparison Instruction)"
+---
+
+## MOV/Truyền dữ liệu 16-bit
+
+MOV(P)
+
+Truyền dữ liệu nhị phân (BIN) 16-bit từ vùng nhớ thiết bị chỉ định tại (s) sang vùng nhớ thiết bị chỉ định tại (d).
+
+-[MOV (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Transmit source data or địa chỉ thiết bị stored data | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (d) | Số hiệu thiết bị đích truyền | - | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| MOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| MOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+• Truyền dữ liệu nhị phân (BIN) 16-bit được chỉ định tại (s) sang vùng nhớ thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760061441070-467.png?rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output result of (s) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760061467032-552.png?rev=1.1)
+
+Khi M0 được SET (ON), giá trị của D0 được truyền sang giá trị của D2: (D0)→(D2).
+
+### DMOV/Truyền dữ liệu 32-bit
+
+DMOV(P)
+
+Truyền dữ liệu nhị phân (BIN) 32-bit từ vùng nhớ thiết bị chỉ định tại (s) sang vùng nhớ thiết bị chỉ định tại (d).
+
+-[DMOV (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Transmit source data or địa chỉ thiết bị stored data | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (d) | Số hiệu thiết bị đích truyền | - | Signed BIN32 | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DMOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| DMOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Truyền dữ liệu nhị phân (BIN) 16-bit được chỉ định tại (s) sang vùng nhớ thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760061546073-364.png?rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output result of (s) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760061616100-650.png?rev=1.1)
+
+Khi M0 được SET (ON), giá trị của (D1, D0) được truyền sang giá trị của (D3, D2): (D1, D0) → (D3, D2).
+
+### BMOV/Truyền dữ liệu hàng loạt (khối)
+
+BMOV(P)
+
+Dữ liệu nhị phân (BIN) 16-bit gồm (n) điểm bắt đầu từ vùng nhớ thiết bị chỉ định tại (s) được truyền tuần tự sang vùng nhớ thiết bị chỉ định tại (d).
+
+-[BMOV (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị bắt đầu lưu trữ dữ liệu truyền | - | Signed BIN16 | ANY16_S |
+| (d) | Thiết bị bắt đầu của đích truyền | - | Signed BIN16 | ANY16_S |
+| (n) | Number of transmission | 1 ≤ n ≤ 512 | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| BMOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| BMOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| BMOV | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Truyền hàng loạt (khối) dữ liệu nhị phân (BIN) 16-bit gồm (n) điểm bắt đầu từ vùng nhớ thiết bị chỉ định tại (s) sang vùng nhớ thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760061766238-444.png?rev=1.1)
+
+Khi số hiệu thiết bị vượt quá phạm vi, việc truyền dữ liệu sẽ chỉ được thực hiện trong phạm vi cho phép.
+
+Bằng cách điều khiển cờ đảo chiều (SM224) của lệnh BMOV, dữ liệu nhị phân (BIN) 16-bit gồm (n) điểm bắt đầu từ thiết bị chỉ định tại (d) có thể được truyền hàng loạt sang thiết bị chỉ định tại (s).
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | In lệnh ứng dụng (n) input the data exceeds the specified range |
+| 4085H | The output results of (s) and (n) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760061792170-804.png?rev=1.1)
+
+Khi M0 được SET (ON), SET M1, khi đó (D5)→(D10); (D6)→(D11); (D7)→(D12);
+
+Khi M0 được RESET (OFF), SET M1, khi đó (D10)→(D5); (D11)→(D6); (D12)→(D7).
+
+### FMOV/Truyền đa điểm (điền đồng loạt) 16-bit
+
+FMOV(P)
+
+Truyền dữ liệu nhị phân (BIN) 16-bit của thiết bị chỉ định tại (s1) đến (n) điểm bắt đầu từ thiết bị chỉ định tại (d) (tức là truyền cùng một dữ liệu đến nhiều địa chỉ).
+
+-[FMOV (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị bắt đầu lưu trữ dữ liệu truyền | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (d) | Thiết bị bắt đầu của đích truyền | - | Signed BIN16 | ANY16_S |
+| (n) | Number of transmission | [K1 ≤ n ≤ 512] | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| FMOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| FMOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| FMOV | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Cùng một dữ liệu nhị phân (BIN) 16-bit của thiết bị chỉ định tại (s) được truyền đến (n) điểm bắt đầu từ thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760061884787-438.png?rev=1.1)
+
+Khi số điểm chỉ định tại (n) vượt quá phạm vi số hiệu thiết bị, việc truyền sẽ được thực hiện trong phạm vi cho phép.
+
+Khi hằng số (K) được chỉ định cho nguồn truyền (s), nó sẽ được tự động chuyển đổi sang định dạng BIN.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | (s) and(n) input the data In lệnh ứng dụng exceed the specified range |
+| 4085H | The output results of (s) and (n) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760061905407-255.png?rev=1.1)
+
+Khi M0 được SET (ON), giá trị của D0 đến D4 được đặt bằng 0.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760061944467-447.png?rev=1.1)
+
+### DFMOV/Truyền đa điểm (điền đồng loạt) 32-bit
+
+DFMOV(P)
+
+Truyền dữ liệu nhị phân (BIN) 32-bit của thiết bị chỉ định tại (s1) đến (n) điểm bắt đầu từ thiết bị chỉ định tại (d) (tức là truyền cùng một dữ liệu đến nhiều địa chỉ).
+
+-[FMOV (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Dữ liệu truyền hoặc thiết bị bắt đầu lưu trữ dữ liệu truyền | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (d) | Thiết bị bắt đầu của đích truyền | - | Signed BIN32 | ANY32_S |
+| (n) | Number of transfers | [1≤n≤512] | Signed BIN32 | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DFMOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DFMOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| DFMOV | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Cùng một dữ liệu nhị phân (BIN) 32-bit của thiết bị chỉ định tại (s) được truyền đến (n) điểm bắt đầu từ thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760062161284-205.png?rev=1.1)
+
+Khi số điểm chỉ định tại (n) vượt quá phạm vi số hiệu thiết bị, việc truyền sẽ được thực hiện trong phạm vi cho phép.
+
+Khi hằng số (K) được chỉ định cho nguồn truyền (s), nó sẽ được tự động chuyển đổi sang định dạng BIN.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | (s) and (n) input the data In lệnh ứng dụng exceed the specified range |
+| 4085H | The output results of (s) and (n) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760062312234-173.png?rev=1.1)
+
+Khi M0 được SET (ON), giá trị của (D1, D0), (D3, D2), (D5, D4), (D7, D6), (D9, D8) được đặt bằng 0.
+
+### SMOV/Dịch chuyển dữ liệu theo chữ số (4-bit)
+
+SMOV(P)
+
+Lệnh dùng để phân tách và tổng hợp dữ liệu theo đơn vị chữ số (digit, 4 bit).
+
+-[SMOV (s) (n1) (n2) (d) (n3)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị word lưu trữ dữ liệu có bit cần dịch chuyển |  | Signed BIN16 | ANY16_S |
+| (n1) | Số hiệu thiết bị đích truyền | 1 to 4 | Signed BIN16 | ANY16_S |
+| (n2) | The number of digits to move | 1 to 4 | Signed BIN16 | ANY16_S |
+| (d) | Số hiệu thiết bị word lưu trữ dữ liệu để dịch chuyển bit |  | Signed BIN16 | ANY16_S |
+| (n3) | Vị trí bắt đầu của đích dịch chuyển | 1 to 4 | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SMOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| SMOV | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| SMOV | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| SMOV | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| SMOV | Parameter 5 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dữ liệu được phân tách/tổng hợp theo đơn vị chữ số (4 bit). Nội dung của nguồn truyền (s) và đích truyền (d) được chuyển đổi sang mã BCD 4 chữ số (0000 đến 9999), chuyển (n2) chữ số bắt đầu từ vị trí (n1) của nguồn truyền (s) sang vị trí bắt đầu (n3) của đích truyền (d) (tổng hợp lại), sau đó chuyển đổi sang BIN và lưu vào đích truyền (d).
+
+Khi đầu vào lệnh ở trạng thái OFF, giá trị tại đích truyền (d) không thay đổi.
+
+Khi đầu vào lệnh ở trạng thái ON, dữ liệu của nguồn truyền (s) và các chữ số không nằm trong phạm vi chỉ định truyền của đích truyền (d) sẽ không thay đổi.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760062699773-996.png?width=932&amp;height=378&amp;rev=1.1)
+
+Chức năng mở rộng
+
+Nếu lệnh SMOV được thực thi sau khi SM168 được bật ON, phép chuyển đổi BIN→BCD sẽ không được thực hiện. Việc dịch chuyển bit sẽ được thực hiện theo đơn vị 4-bit.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | (n1), (n2) and (n3) input data that exceed the specified range in the lệnh ứng dụng or does not satisfy the relationship of n2≤n1 and n2≤n3. |
+| 4085H | The output result of (s), (n1) (n2), (d) and (n3) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output result of (d) in write các lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+Sau khi tổng hợp dữ liệu của công tắc số 3 chữ số, kết quả được lưu vào D2 ở dạng nhị phân.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760062896161-613.png?rev=1.1)
+
+Tổng hợp dữ liệu của 3 công tắc số được kết nối vào các ngõ vào không liên tiếp.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760062912952-247.png?rev=1.1)
+
+Khi M0 được SET (ON),
+
+(X020 đến X027) 2 chữ số BCD → D2 (nhị phân);
+
+(X000 đến X003) 1 chữ số BCD → D1 (nhị phân);
+
+Lưu 1 chữ số của D1 vào vị trí chữ số thứ 3 của D2 để tổng hợp thành một giá trị 3 chữ số.
+
+### CML/Truyền đảo bit 16-bit
+
+CML(P)
+
+Sau khi đảo từng bit dữ liệu nhị phân (BIN) 16-bit chỉ định tại (s), kết quả được truyền sang vùng nhớ thiết bị chỉ định tại (d).
+
+-[CML (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Inverted data or địa chỉ thiết bị that stores data | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (d) | địa chỉ thiết bị that stores the inversion result | - | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| CML | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| CML | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Sau khi đảo từng bit dữ liệu nhị phân (BIN) 16-bit chỉ định tại (s), kết quả được truyền sang vùng nhớ thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760062980939-359.png?rev=1.1)
+
+Khi số chữ số của thiết bị có chỉ định chữ số là 4 điểm, các chữ số khác sẽ không bị ảnh hưởng.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output result of (s) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+Ví dụ 1:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063029329-928.png?rev=1.1)
+
+Khi M0 được SET (ON), giá trị của D0 được đảo bit và truyền sang giá trị của D2.
+
+Ví dụ 2:
+
+Thu thập dữ liệu ngõ vào đảo:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063069049-548.png?rev=1.1)
+
+### DCML/Truyền đảo bit 32-bit
+
+DCML(P)
+
+Sau khi đảo từng bit dữ liệu nhị phân (BIN) 32-bit chỉ định tại (s), kết quả được truyền sang vùng nhớ thiết bị chỉ định tại (d).
+
+-[CML (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Inverted data or địa chỉ thiết bị that stores data | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (d) | địa chỉ thiết bị that stores the inversion result | - | Signed BIN32 | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DCML | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DCML | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Sau khi đảo từng bit dữ liệu nhị phân (BIN) 32-bit chỉ định tại (s), kết quả được truyền sang vùng nhớ thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063243173-625.png?rev=1.1)
+
+Khi số chữ số của thiết bị có chỉ định chữ số là 4 điểm, các chữ số khác sẽ không bị ảnh hưởng.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output result of (s) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063302577-184.png?rev=1.1)
+
+Khi M0 được SET (ON), giá trị của (D1, D0) được đảo bit và truyền sang giá trị của (D3, D2).
+
+### CMP/So sánh và xuất kết quả dữ liệu 16-bit
+
+CMP(P)
+
+So sánh dữ liệu nhị phân (BIN) 16-bit của thiết bị chỉ định tại (s1) và (s2).
+
+-[CML (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu giá trị so sánh hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -32768 to +32767 | Signed BIN16 | ANY16_S |
+| (s2) | Dữ liệu nguồn so sánh hoặc thiết bị lưu trữ dữ liệu nguồn so sánh | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (d) | Thiết bị bit bắt đầu xuất kết quả so sánh |  | Bit | ANYBIT_ARRAY |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| CMP | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| CMP | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| CMP | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+
+#### Đặc tính kỹ thuật
+
+So sánh dữ liệu BIN 16-bit của thiết bị chỉ định tại (s1) với dữ liệu BIN 16-bit của thiết bị chỉ định tại (s2). Tùy theo kết quả (lớn hơn, bằng nhau, nhỏ hơn), một trong các thiết bị (d), (d)+1, (d)+2 sẽ bật ON.
+
+(s1) và (s2) được xử lý như các giá trị BIN trong phạm vi dữ liệu cài đặt nêu trên.
+
+Sử dụng phương pháp đại số (có dấu) để so sánh độ lớn.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063351428-349.png?rev=1.1)
+
+(1): Ngay cả khi đầu vào lệnh OFF và lệnh CMP không được thực thi, các thiết bị từ (d) đến (d)+2 vẫn giữ nguyên trạng thái trước khi đầu vào lệnh chuyển từ ON sang OFF.
+
+:::tip
+✎Lưu ý:
+
+Chiếm 3 điểm thiết bị bắt đầu từ thiết bị chỉ định tại (d), vui lòng cẩn thận không để trùng lặp với các thiết bị dùng cho mục đích điều khiển khác.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output results of (s1) and (s2) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063364939-571.png?rev=1.1)
+
+Khi M0 được SET (ON), so sánh giá trị của D0 và D2:
+
+Nếu (D0) &gt; (D2) thì Y0 ON.
+
+Nếu (D0) = (D2) thì Y1 ON. Nếu (D0) &lt; (D2) thì Y2 ON.
+
+### DCMP/So sánh và xuất kết quả dữ liệu 32-bit
+
+DCMP(P)
+
+So sánh dữ liệu nhị phân (BIN) 32-bit của thiết bị chỉ định tại (s1) và (s2).
+
+-[DCML (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu giá trị so sánh hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (s2) | Dữ liệu nguồn so sánh hoặc thiết bị lưu trữ dữ liệu nguồn so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (d) | Thiết bị bit bắt đầu xuất kết quả so sánh |  | Bit | ANYBIT_ARRAY |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DCMP | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DCMP | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DCMP | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+
+#### Đặc tính kỹ thuật
+
+• So sánh dữ liệu BIN 16-bit của thiết bị chỉ định tại (s1) với dữ liệu BIN 16-bit của thiết bị chỉ định tại (s2). Tùy theo kết quả (lớn hơn, bằng nhau, nhỏ hơn), một trong các thiết bị (d), (d)+1, (d)+2 sẽ bật ON.
+
+• (s1) và (s2) được xử lý như các giá trị BIN trong phạm vi dữ liệu cài đặt nêu trên.
+
+• Sử dụng phương pháp đại số (có dấu) để so sánh độ lớn.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063470444-240.png?rev=1.1)
+
+(1): Ngay cả khi đầu vào lệnh OFF và lệnh DCMP không được thực thi, các thiết bị từ (d) đến (d)+2 vẫn giữ nguyên trạng thái trước khi đầu vào lệnh chuyển từ ON sang OFF.
+
+:::tip
+✎Lưu ý:
+
+Chiếm 3 điểm thiết bị bắt đầu từ thiết bị chỉ định tại (d). Vui lòng cẩn thận không để trùng lặp với các thiết bị điều khiển khác.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output results of (s1) and (s2) in read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063518634-128.png?rev=1.1)
+
+### XCH/Hoán đổi dữ liệu 16-bit
+
+XCH(P)
+
+Hoán đổi dữ liệu nhị phân (BIN) 16-bit giữa (d1) và (d2).
+
+-[XCH (d1) (d2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d1) | Thiết bị bắt đầu lưu trữ dữ liệu hoán đổi | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (d2) | Thiết bị bắt đầu lưu trữ dữ liệu hoán đổi | -32768 to 32767 | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| XCH | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| XCH | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+• Hoán đổi dữ liệu nhị phân (BIN) 16-bit của (d1) và (d2).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063769738-708.png?width=598&amp;height=240&amp;rev=1.1)
+
+• Khi thực thi lệnh với SM160 ON, nếu số hiệu thiết bị của (d1) và (d2) giống nhau, lệnh sẽ hoán đổi 8 bit cao (byte cao) và 8 bit thấp (byte thấp) của thiết bị word.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063812058-686.png?width=400&amp;height=233&amp;rev=1.1)
+
+:::tip
+✎ Lưu ý: Nếu sử dụng lệnh thực thi liên tục, quá trình chuyển đổi sẽ được thực hiện ở mọi chu kỳ quét.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Ở chế độ hoán đổi, các thiết bị trong (d1) và (d2) khác nhau |
+| 4085H | The output results of (d1) and (d2) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output results of (d1) and (d2) in the writing lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+Khi M0 được RESET (OFF) và SET M1: giá trị của D0 và giá trị của D2 được hoán đổi cho nhau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063869315-925.png?rev=1.1)
+
+Khi M0 được SET (ON) và M1 được SET: 8 bit cao (byte cao) và 8 bit thấp (byte thấp) của D0 được hoán đổi cho nhau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063884115-929.png?rev=1.1)
+
+### DXCH/Hoán đổi dữ liệu 32-bit
+
+DXCH(P)
+
+Hoán đổi dữ liệu nhị phân (BIN) 32-bit giữa (d1) và (d2).
+
+-[DXCH (d1) (d2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d1) | Thiết bị bắt đầu lưu trữ dữ liệu hoán đổi | -2147483647 to 2147483647 | Signed BIN32 | ANY32_S |
+| (d2) | Thiết bị bắt đầu lưu trữ dữ liệu hoán đổi | -2147483647 to 2147483647 | Signed BIN32 | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DXCH | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DXCH | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+• Hoán đổi dữ liệu nhị phân (BIN) 32-bit của (d1), (d1)+1 và (d2), (d2)+1.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063918127-366.png?rev=1.1)
+
+• Khi thực thi lệnh
+
+với SM160 ON, nếu số hiệu thiết bị của (d1) và (d2) giống nhau, lệnh sẽ hoán đổi 8 bit cao (byte cao) và 8 bit thấp (byte thấp) của thiết bị word (d1) và (d1+1).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063943544-560.png?rev=1.1)
+
+:::tip
+✎ Lưu ý: Nếu sử dụng lệnh thực thi liên tục, quá trình chuyển đổi sẽ được thực hiện ở mọi chu kỳ quét.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Ở chế độ hoán đổi, các thiết bị trong (d1) và (d2) khác nhau |
+| 4085H | The output results of (d1) and (d2) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output results of (d1) and (d2) in the writing lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+
+Ví dụ:
+
+Khi M0 được SET (ON), M1 được SET: 8 bit cao (byte cao) và 8 bit thấp (byte thấp) của thiết bị D0 được hoán đổi cho nhau, và 8 bit cao (byte cao) và 8 bit thấp (byte thấp) của thiết bị D1 được hoán đổi cho nhau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063964094-801.png?rev=1.1)
+
+Khi M0 được RESET (OFF), SET M1: giá trị của (D1, D0) và giá trị của (D3, D2) được hoán đổi cho nhau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760063976312-950.png?rev=1.1)
+
+### ZCP/So sánh khoảng (vùng) dữ liệu 16-bit
+
+ZCP(P)
+
+So sánh dữ liệu BIN 16-bit của thiết bị chỉ định tại nguồn so sánh (s3) với khoảng giá trị (dải giới hạn) tạo bởi dữ liệu BIN 16-bit của thiết bị chỉ định tại (s1) và (s2), xuất kết quả (nhỏ hơn khoảng, nằm trong khoảng, lớn hơn khoảng) ra thiết bị chỉ định tại (d) trở đi.
+
+-[ZCP (s1) (s2) (s3) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu giá trị so sánh giới hạn dưới hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (s2) | Dữ liệu giá trị so sánh giới hạn trên hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (s3) | Dữ liệu nguồn so sánh hoặc thiết bị lưu trữ dữ liệu nguồn so sánh | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (d) | Thiết bị bit bắt đầu xuất kết quả so sánh |  | Bit | ANYBIT_ARRAY |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ZCP | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● | ● | ● |
+| ZCP | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● | ● | ● |
+| ZCP | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● | ● | ● | ● |
+| ZCP | Parameter 4 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+
+#### Đặc tính kỹ thuật
+
+• So sánh dữ liệu BIN 16-bit của thiết bị chỉ định tại nguồn so sánh (s3) với khoảng giá trị của dữ liệu BIN 16-bit tại (s1) và (s2); tùy theo kết quả (dưới khoảng, trong khoảng, trên khoảng), một trong các thiết bị (d), (d)+1, (d)+2 sẽ bật ON. (s1), (s2), (s3) được xử lý như các giá trị BIN trong phạm vi dữ liệu cài đặt nêu trên. Sử dụng phương pháp đại số (có dấu) để so sánh độ lớn.
+
+• Sử dụng phương pháp đại số (có dấu) để so sánh độ lớn.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760064010580-282.png?rev=1.1)
+
+(1): Ngay cả khi đầu vào lệnh OFF và lệnh ZCP không được thực thi, các thiết bị từ (d) đến (d)+2 vẫn giữ nguyên trạng thái trước khi đầu vào lệnh chuyển từ ON sang OFF.
+
+:::tip
+✎Lưu ý:
+
+• Vui lòng đặt giá trị so sánh dưới (s1) nhỏ hơn giá trị so sánh trên (s2).
+
+• Khi (s1) lớn hơn (s2), hệ thống sẽ xử lý như (s2) = (s1).
+
+• Chiếm 3 điểm thiết bị bắt đầu từ thiết bị chỉ định tại (d). Vui lòng cẩn thận không để trùng lặp với các thiết bị điều khiển khác.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output results of (s1), (s2) and (s3) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output result of (d) in write các lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760064034636-628.png?rev=1.1)
+
+Khi M0 được SET (ON), so sánh xem giá trị D0 có nằm trong khoảng từ 0 đến 1000 hay không:
+
+Nếu (D0) &gt; (1000) thì Y0 ON.
+
+Nếu (0) ≤ (D0) ≤ (1000) thì Y1 ON.
+
+Nếu (D0) &lt; (0) thì Y2 ON.
+
+### DZCP/So sánh khoảng (vùng) dữ liệu 32-bit
+
+DZCP(P)
+
+So sánh dữ liệu BIN 32-bit của thiết bị chỉ định tại nguồn so sánh (s3) với khoảng giá trị (dải giới hạn) tạo bởi dữ liệu BIN 32-bit của thiết bị chỉ định tại (s1) và (s2), xuất kết quả (nhỏ hơn khoảng, nằm trong khoảng, lớn hơn khoảng) ra thiết bị chỉ định tại (d) trở đi.
+
+-[DZCP (s1) (s2) (s3) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu giá trị so sánh giới hạn dưới hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (s2) | Dữ liệu giá trị so sánh giới hạn trên hoặc thiết bị lưu trữ dữ liệu giá trị so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (s3) | Dữ liệu nguồn so sánh hoặc thiết bị lưu trữ dữ liệu nguồn so sánh | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (d) | Thiết bị bit bắt đầu xuất kết quả so sánh |  | Bit | ANYBIT_ARRAY |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DZCP | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
+| DZCP | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
+| DZCP | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |
+| DZCP | Parameter 4 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+
+#### Đặc tính kỹ thuật
+
+• So sánh dữ liệu BIN 32-bit của thiết bị chỉ định tại nguồn so sánh (s3) với khoảng giá trị của dữ liệu BIN 32-bit tại (s1) và (s2); tùy theo kết quả (dưới khoảng, trong khoảng, trên khoảng), một trong các thiết bị (d), (d)+1, (d)+2 sẽ bật ON. (s1), (s2), (s3) được xử lý như các giá trị BIN trong phạm vi dữ liệu cài đặt nêu trên. Sử dụng phương pháp đại số (có dấu) để so sánh độ lớn.
+
+• Sử dụng phương pháp đại số (có dấu) để so sánh độ lớn.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760064103637-582.png?rev=1.1)
+
+(1): Ngay cả khi đầu vào lệnh OFF và lệnh ZCP không được thực thi, các thiết bị từ (d) đến (d)+2 vẫn giữ nguyên trạng thái trước khi đầu vào lệnh chuyển từ ON sang OFF.
+
+:::tip
+✎Lưu ý:
+
+• Vui lòng đặt giá trị so sánh dưới (s1) nhỏ hơn giá trị so sánh trên (s2).
+
+• Khi (s1) lớn hơn (s2), hệ thống sẽ xử lý như (s2) = (s1).
+
+• Chiếm 3 điểm thiết bị bắt đầu từ thiết bị chỉ định tại (d). Vui lòng cẩn thận không để trùng lặp với các thiết bị điều khiển khác.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output results of (s1), (s2) and (s3) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output results of (d) in the write lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Cycle%20Shift%20instruction/WebHome/1760064124218-650.png?rev=1.1)
+
+Khi M0 được SET (ON), so sánh xem D0 có nằm trong khoảng từ 0 đến 100000 hay không:
+
+Nếu (D0) &gt; (100000) thì Y0 ON.
+
+Nếu (0) ≤ (D0) ≤ (100000) thì Y1 ON.
+
+Nếu (D0) &lt; (0) thì Y2 ON.
+
+0

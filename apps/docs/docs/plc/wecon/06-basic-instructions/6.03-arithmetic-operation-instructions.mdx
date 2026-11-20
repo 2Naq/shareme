@@ -1,0 +1,736 @@
+---
+id: "6.03-arithmetic-operation-instructions"
+title: "6.03 Lệnh phép toán số học (Arithmetic Operation Instructions)"
+sidebar_position: 3
+sidebar_label: "6.03 Arithmetic Operation instructions"
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.03 Lệnh phép toán số học (Arithmetic Operation Instructions)"
+---
+
+### ADD/Phép toán cộng 16-bit
+
+ADD(P)
+
+Cộng dữ liệu BIN 16-bit chỉ định tại (s1) và dữ liệu BIN 16-bit chỉ định tại (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[ADD (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu phép cộng hoặc thiết bị lưu trữ dữ liệu cộng | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (s2) | Dữ liệu phép cộng hoặc thiết bị lưu trữ dữ liệu cộng | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (d) | Thiết bị lưu trữ kết quả phép toán |  | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ADD | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| ADD | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| ADD | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Cộng dữ liệu BIN 16-bit chỉ định tại (s1) và dữ liệu BIN 16-bit chỉ định tại (s2), sau đó lưu kết quả phép cộng vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760426723528-178.png?rev=1.1)
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | When the kết quả phép toán exceeds 32,767, the carry flag will be (ON). |
+| SM152 | Cờ mượn (Borrow) | When the kết quả phép toán is less than -32,768, the borrow flag will be (ON). |
+| SM153 | Điểm không (Zero) | When the kết quả phép toán is 0, the zero flag will be (ON). |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427227810-245.png?rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+- Khi toán hạng nguồn và toán hạng đích được chỉ định là cùng một thiết bị:
+
+Toán hạng nguồn và toán hạng đích cũng có thể được chỉ định cùng một số hiệu thiết bị.
+
+Trong trường hợp này, nếu sử dụng lệnh thực thi liên tục (ADD, DADD), kết quả của phép toán cộng sẽ thay đổi sau mỗi chu kỳ quét.
+
+- Sự khác biệt giữa lệnh ADD và lệnh INC khi sử dụng chương trình thực hiện phép cộng +1:
+
+ADD[P] có nghĩa là mỗi khi X001 chuyển từ OFF sang ON, nội dung của D0 được cộng thêm 1.
+
+Mặc dù lệnh này rất giống với lệnh INCP được mô tả ở phần sau, nhưng có một số điểm khác biệt như sau.
+
+|  |  |  | Các lệnh ADD/ADDP/DADD/DADDP | Các lệnh INC/INCP/DINC/DINCP |
+| :--- | :--- | :--- | :--- | :--- |
+| bit cờ (bằng 0, mượn, nhớ) |  |  | Hành động thực thi | No action |
+| Kết quả tính toán | Kết quả phép toán 16-bit | (S) + (+1) = (d) | 32767 → 0 → +1 → +2 → | 32767→-32768→-32767 |
+| Kết quả tính toán | Kết quả phép toán 16-bit | (S) + (-1) = (d) | ← -2 ← -1 ← 0 ← -32768 | —— |
+| Kết quả tính toán | • Kết quả phép toán bit | (S) + (+1) = (d) | 2147483647 → 0 → +1 → +2 → | 2147483647 → -2147483648→ -2147483647 |
+| Kết quả tính toán | • Kết quả phép toán bit | (S) + (-1) = (d) | ← -2 ← -1 ← 0 ← -2147483648 | —— |
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427259641-287.png?rev=1.1)
+
+Cộng 10 vào dữ liệu trong (D0) và lưu kết quả phép toán vào (D2), tức là (D0) + 10 → (D2).
+
+### DADD/Phép toán cộng 32-bit
+
+DADD(P)
+
+Cộng dữ liệu BIN 32-bit chỉ định tại (s1) và dữ liệu BIN 32-bit chỉ định tại (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[DADD (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu cộng hoặc thiết bị lưu trữ dữ liệu cộng | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (s2) | Dữ liệu cộng hoặc thiết bị lưu trữ dữ liệu cộng | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (d) | Thiết bị lưu trữ kết quả phép toán |  | Signed BIN32 | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DADD | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DADD | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DADD | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Cộng dữ liệu BIN 32-bit chỉ định tại (s1) và dữ liệu BIN 32-bit chỉ định tại (s2), sau đó lưu kết quả phép cộng vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427306738-617.png?rev=1.1)
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | When the kết quả phép toán exceeds 32,767, the carry flag will be (ON). |
+| SM152 | Cờ mượn (Borrow) | When the kết quả phép toán is less than -32,768, the borrow flag will be (ON). |
+| SM153 | Điểm không (Zero) | When the kết quả phép toán is 0, the zero flag will be (ON). |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427338258-685.png?rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+- Khi toán hạng nguồn và toán hạng đích được chỉ định là cùng một thiết bị:
+
+Toán hạng nguồn và toán hạng đích cũng có thể được chỉ định cùng một số hiệu thiết bị.
+
+Trong trường hợp này, nếu sử dụng lệnh thực thi liên tục (ADD, DADD), kết quả của phép toán cộng sẽ thay đổi sau mỗi chu kỳ quét. Xin lưu ý.
+
+- Sự khác biệt giữa lệnh ADD và lệnh INC khi sử dụng chương trình thực hiện phép cộng +1:
+
+ADD[P] có nghĩa là mỗi khi X001 chuyển từ OFF sang ON, nội dung của D0 được cộng thêm 1.
+
+Mặc dù lệnh này rất giống với lệnh INCP được mô tả ở phần sau, nhưng có một số điểm khác biệt như sau.
+
+|  |  |  | Các lệnh ADD/ADDP/DADD/DADDP | Các lệnh INC/INCP/DINC/DINCP |
+| :--- | :--- | :--- | :--- | :--- |
+| bit cờ (bằng 0, mượn, nhớ) |  |  | Hành động thực thi | No action |
+| Kết quả tính toán | • Kết quả phép toán bit | (S) + (+1) = (d) | 32767→0→+1→+2→ | 32767→-32768→-32767 |
+| Kết quả tính toán | • Kết quả phép toán bit | (S) + (-1) = (d) | ←-2←-1←0←-32768 | —— |
+| Kết quả tính toán | • Kết quả phép toán bit | (S) + (+1) = (d) | 2147483647→0→+1→+2→ | 2147483647→-2147483648→-2147483647 |
+| Kết quả tính toán | • Kết quả phép toán bit | (S) + (-1) = (d) | ←-2←-1←0←-2147483648 | —— |
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427373649-238.png?rev=1.1)
+
+Cộng 100000 vào dữ liệu trong (D1, D0) và lưu kết quả phép toán vào (D3, D2), tức là (D1, D0) + 100000 → (D3, D2).
+
+### SUB/Phép toán trừ 16-bit
+
+SUB(P)
+
+Lấy dữ liệu BIN 16-bit chỉ định tại (s1) trừ đi dữ liệu BIN 16-bit chỉ định tại (s2), và lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[SUB (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu phép trừ hoặc thiết bị lưu trữ dữ liệu trừ | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (s2) | Dữ liệu phép trừ hoặc thiết bị lưu trữ dữ liệu trừ | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (d) | Thiết bị lưu trữ kết quả tính toán |  | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SUB | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| SUB | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| SUB | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Lấy dữ liệu BIN 16-bit chỉ định tại (s1) trừ đi dữ liệu BIN 16-bit chỉ định tại (s2), và lưu kết quả phép toán vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427428074-988.png?rev=1.1)
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | When the kết quả phép toán exceeds 32,767, the carry flag will be (ON). |
+| SM152 | Cờ mượn (Borrow) | When the kết quả phép toán is less than -32,768, the borrow flag will be (ON). |
+| SM153 | Điểm không (Zero) | When the kết quả phép toán is 0, the zero flag will be (ON). |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427456351-403.png?rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+- Khi toán hạng nguồn và toán hạng đích được chỉ định là cùng một thiết bị:
+
+Toán hạng nguồn và toán hạng đích cũng có thể được chỉ định cùng một số hiệu thiết bị.
+
+Trong trường hợp này, nếu sử dụng lệnh thực thi liên tục (SUB, DSUB), kết quả của phép toán trừ sẽ thay đổi sau mỗi chu kỳ quét. Vui lòng cẩn thận.
+
+- Sự khác biệt giữa lệnh SUB(P) với lệnh -(P) và lệnh DEC(P) khi thực hiện chương trình trừ -1
+
+Lệnh SUB(P) mỗi khi X1 chuyển từ OFF sang ON sẽ trừ 1 vào nội dung D0, tương tự như lệnh -(P) và lệnh DEC(P) được mô tả ở phần sau, nhưng có các điểm khác biệt sau.
+
+|  |  |  | Các lệnh SUB/SUBP/DSUB/DSUBP | Các lệnh DEC/DECP/DDEC/DDECP |
+| :--- | :--- | :--- | :--- | :--- |
+| Bit cờ (bằng 0, mượn, nhớ) |  |  | Hành động thực thi | No action |
+| Kết quả tính toán | 16-bit kết quả phép toán | (S)-(+1)=(d) | ←-2←-1←0←-32768 | -32768→+32767→32766 |
+| Kết quả tính toán | 16-bit kết quả phép toán | (S)-(-1)=(d) | +32767→0→+1→+2→ | —— |
+| Kết quả tính toán | 32-bit kết quả phép toán | (S)-(+1)=(d) | ←-2←-1←0←-2147483648 | -2147483648→2147483647→2147483646 |
+| Kết quả tính toán | 32-bit kết quả phép toán | (S)-(-1)=(d) | 2147483647→0→+1→+2→ | —— |
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427487045-313.png?rev=1.1)
+
+Trừ 10 khỏi dữ liệu trong D0 và lưu kết quả tính toán vào D2, tức là (D0) - 10 → (D2).
+
+### DSUB/Phép toán trừ 32-bit
+
+DSUB(P)
+
+Lấy dữ liệu BIN 32-bit chỉ định tại (s1) trừ đi dữ liệu BIN 32-bit chỉ định tại (s2), và lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[DSUB (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu phép trừ hoặc thiết bị lưu trữ dữ liệu trừ | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (s2) | Dữ liệu phép trừ hoặc thiết bị lưu trữ dữ liệu trừ | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (d) | Thiết bị lưu trữ kết quả tính toán |  | Signed BIN32 | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DSUB | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DSUB | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DSUB | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Lấy dữ liệu BIN 32-bit chỉ định tại (s1) trừ đi dữ liệu BIN 32-bit chỉ định tại (s2), và lưu kết quả phép toán vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427520970-838.png?rev=1.1)
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | When the kết quả phép toán exceeds 2,147,483,647, the carry flag will be ON. |
+| SM152 | Cờ mượn (Borrow) | When the kết quả phép toán is less than -2,147,483,648, the borrow flag will be ON. |
+| SM153 | Điểm không (Zero) | When the kết quả phép toán is 0, the zero flag will be ON. |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427558541-150.png?rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+- Khi toán hạng nguồn và toán hạng đích được chỉ định là cùng một thiết bị:
+
+Toán hạng nguồn và toán hạng đích cũng có thể được chỉ định cùng một số hiệu thiết bị.
+
+Trong trường hợp này, nếu sử dụng lệnh thực thi liên tục (SUB, DSUB), kết quả của phép toán trừ sẽ thay đổi sau mỗi chu kỳ quét. Vui lòng cẩn thận.
+
+- Sự khác biệt giữa lệnh SUB(P) với lệnh -(P) và lệnh DEC(P) khi thực hiện chương trình trừ -1
+
+Lệnh SUB(P) mỗi khi X1 chuyển từ OFF sang ON sẽ trừ 1 vào nội dung D0, tương tự như lệnh -(P) và lệnh DEC(P) được mô tả ở phần sau, nhưng có các điểm khác biệt sau.
+
+|  |  |  | Các lệnh SUB/SUBP/DSUB/DSUBP | Các lệnh DEC/DECP/DDEC/DDECP |
+| :--- | :--- | :--- | :--- | :--- |
+| Bit cờ (bằng 0, mượn, nhớ) |  |  | Hành động thực thi | No action |
+| Kết quả tính toán | 16-bit kết quả phép toán | (S)-(+1)=(d) | ←-2←-1←0←-32768 | -32768→32767→32766 |
+| Kết quả tính toán | 16-bit kết quả phép toán | (S)-(-1)=(d) | +32767→0→+1→+2→ | —— |
+| Kết quả tính toán | 32-bit kết quả phép toán | (S)-(+1)=(d) | ←-2←-1←0←-2147483648 | -2147483648→2147483647→2147483646 |
+| Kết quả tính toán | 32-bit kết quả phép toán | (S)-(-1)=(d) | +2147483647→0→+1→+2→ | —— |
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427576560-796.png?rev=1.1)
+
+Trừ 100000 khỏi dữ liệu trong (D1,D0) và lưu kết quả phép toán vào (D3,D2), tức là (D1,D0) - 100000 → (D3,D2).
+
+### MUL/Phép toán nhân 16-bit
+
+MUL(P)
+
+Nhân dữ liệu BIN 16-bit chỉ định tại (s1) với dữ liệu BIN 16-bit chỉ định tại (s2), và lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[MUL (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu phép nhân hoặc thiết bị lưu trữ dữ liệu phép nhân | -32768 to 32767 | Signed BIN 16 bit | ANY16_S |
+| (s2) | Dữ liệu phép nhân hoặc thiết bị lưu trữ dữ liệu phép nhân | -32768 to 32767 | Signed BIN 16 bit | ANY16_S |
+| (d) | Thiết bị lưu trữ kết quả tính toán |  | Signed BIN 32 bit | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| MUL | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| MUL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| MUL | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Nhân dữ liệu BIN 16-bit chỉ định tại (s1) với dữ liệu BIN 16-bit chỉ định tại (s2), và lưu kết quả phép toán vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427618415-968.png?rev=1.1)
+
+Kết quả phép nhân khi (d) là thiết bị bit
+
+• K1: 4 bit thấp (b0 đến b3)
+
+• K4: 16 bit thấp (b0 đến b15)
+
+• K8: 32 bit thấp (b0 đến b31)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427636310-170.png?rev=1.1)
+
+Nhân dữ liệu trong (D0) với (D2) và lưu kết quả phép toán vào (D5, D4), tức là (D0) × (D2) → (D5, D4).
+
+### DMUL/Phép toán nhân 32-bit
+
+DMUL(P)
+
+Nhân dữ liệu BIN 32-bit chỉ định tại (s1) với dữ liệu BIN 32-bit chỉ định tại (s2), và lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[DMUL (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu phép nhân hoặc thiết bị lưu trữ dữ liệu phép nhân | -2147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S |
+| (s2) | Dữ liệu phép nhân hoặc thiết bị lưu trữ dữ liệu phép nhân | -2147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S |
+| (d) | Thiết bị lưu trữ kết quả tính toán |  | Signed BIN64 bit | ANY64_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DMUL | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DMUL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DMUL | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Nhân dữ liệu BIN 32-bit chỉ định tại (s1) với dữ liệu BIN 32-bit chỉ định tại (s2), và lưu kết quả phép toán vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427688189-699.png?rev=1.1)
+
+Kết quả phép nhân khi (d) là thiết bị bit
+
+• K1: 4 bit thấp (b0 đến b3)
+
+• K4: 16 bit thấp (b0 đến b15)
+
+• K8: 32 bit thấp (b0 đến b31)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427708437-175.png?rev=1.1)
+
+Nhân dữ liệu trong (D1, D0) với (D3, D2) và lưu kết quả phép toán vào ((D7, D6), (D5, D4)), tức là (D1, D0) × (D3, D2) → ((D7, D6), (D5, D4)).
+
+### DIV/Phép toán chia 16-bit
+
+DIV(P)
+
+Chia dữ liệu BIN 16-bit chỉ định tại (s1) cho dữ liệu BIN 16-bit chỉ định tại (s2), và lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[DIV (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu phép chia hoặc thiết bị lưu trữ dữ liệu phép chia | -32768 to 32767 | Signed BIN 16 bit | ANY16_S |
+| (s2) | Dữ liệu phép chia hoặc thiết bị lưu trữ dữ liệu phép chia | -32768 to 32767 | Signed BIN 16 bit | ANY16_S |
+| (d) | Thiết bị lưu trữ kết quả tính toán |  | Signed BIN 32 bit | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DIV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| DIV | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| DIV | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Chia dữ liệu BIN 16-bit chỉ định tại (s1) cho dữ liệu BIN 16-bit chỉ định tại (s2), và lưu kết quả phép toán vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427775186-294.png?rev=1.1)
+
+Trong trường hợp thiết bị word, kết quả phép chia sử dụng 32 bit để lưu thương số và số dư; trong trường hợp thiết bị bit, chỉ sử dụng 16 bit để lưu thương số.
+
+• Thương số được lưu trong 16 bit thấp.
+
+• Số dư được lưu trong 16 bit cao. (Chỉ có thể lưu trong trường hợp thiết bị word.)
+
+:::tip
+✎Lưu ý
+
+- Về kết quả phép toán
+
+• Bit cao nhất của thương số và số dư biểu thị dấu dương (0) và âm (1).
+
+• Khi một trong hai giá trị (s1) hoặc (s2) âm, thương số sẽ mang dấu âm. Khi (s1) âm, số dư sẽ mang dấu âm.
+
+- Thiết bị được chỉ định bởi (d)
+
+• Với chức năng chỉ định chữ số, khi chỉ định thiết bị bit thì không thể lấy được số dư.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4080H | The input of divisor (s2) is 0 |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427801104-838.png?rev=1.1)
+
+Chia dữ liệu trong (D0) cho (D2) và lưu kết quả tính toán: thương số lưu vào (D4) và số dư lưu vào (D5), tức là (D0)/(D2) → (D4 (thương số)) (D5 (số dư)).
+
+### DDIV/Phép toán chia 32-bit
+
+DDIV(P)
+
+Chia dữ liệu BIN 32-bit chỉ định tại (s1) cho dữ liệu BIN 32-bit chỉ định tại (s2), và lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[DDIV (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu phép chia hoặc thiết bị lưu trữ dữ liệu phép chia | -2147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S |
+| (s2) | Dữ liệu phép chia hoặc thiết bị lưu trữ dữ liệu phép chia | -2147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S |
+| (d) | Thiết bị lưu trữ kết quả tính toán |  | Signed BIN64 bit | ANY64_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DDIV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DDIV | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DDIV | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Chia dữ liệu BIN 32-bit chỉ định tại (s1) cho dữ liệu BIN 32-bit chỉ định tại (s2), và lưu kết quả phép toán vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427855492-362.png?rev=1.1)
+
+Trong trường hợp thiết bị word, kết quả phép chia sử dụng BIN 64-bit để lưu thương số và số dư. Trong trường hợp thiết bị bit, chỉ sử dụng BIN 32-bit để lưu thương số.
+
+:::tip
+✎Lưu ý:
+
+- Về kết quả phép toán
+
+• Bit cao nhất của thương số và số dư biểu thị dấu dương (0) và âm (1).
+
+• Khi một trong hai giá trị (s1) hoặc (s2) âm, thương số sẽ mang dấu âm. Khi (s1) âm, số dư sẽ mang dấu âm.
+
+- Thiết bị được chỉ định của (d)
+
+• Với chức năng chỉ định chữ số, khi chỉ định thiết bị bit thì không thể lấy được số dư.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4080H | The input of divisor (s2) is 0 |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427878768-598.png?rev=1.1)
+
+Chia dữ liệu trong (D1, D0) cho (D3, D2) và lưu kết quả tính toán: thương số lưu vào (D5, D4) và số dư lưu vào (D7, D6), tức là (D1, D0)/(D3, D2) → (D5, D4) (thương số) (D7, D6) (số dư).
+
+### INC/Tăng giá trị dữ liệu 16-bit (+1)
+
+INC(P)
+
+Cộng thêm 1 vào thiết bị (dữ liệu BIN 16-bit) được chỉ định tại (d).
+
+-[INC (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị word lưu trữ dữ liệu được tăng thêm 1 | -32768 to 32767 | Signed BIN 16 bit | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| INC | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Cộng thêm 1 vào thiết bị (dữ liệu BIN 16-bit) được chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427914265-481.png?rev=1.1)
+
+• Nếu lệnh INC(P) được thực thi khi nội dung của thiết bị chỉ định tại (d) là 32767, giá trị -32768 sẽ được lưu vào thiết bị chỉ định tại (d).
+
+• Các cờ (zero, borrow, carry) không thay đổi trạng thái.
+
+:::tip
+✎Lưu ý:
+
+Nếu sử dụng lệnh thực thi liên tục (INC), phép cộng sẽ được thực hiện ở mỗi chu kỳ quét, do đó cần lưu ý.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output results of (d) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760427937080-754.png?rev=1.1)
+
+Cộng thêm 1 vào giá trị thiết bị chỉ định tại D0, tức là (D0) + 1 → (D0).
+
+### DINC/Tăng giá trị dữ liệu 32-bit (+1)
+
+DINC(P)
+
+Cộng thêm 1 vào thiết bị (dữ liệu BIN 32-bit) được chỉ định tại (d).
+
+-[DINC (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị word lưu trữ dữ liệu được tăng thêm 1 | -2147483648 to 2147493647 | Signed BIN 32 bit | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DINC | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Cộng thêm 1 vào thiết bị (dữ liệu BIN 32-bit) được chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760428031970-315.png?rev=1.1)
+
+• Nếu lệnh DINC(P) được thực thi khi nội dung của thiết bị chỉ định tại (d) là 2147483647, giá trị -2147483648 sẽ được lưu vào thiết bị chỉ định tại (d).
+
+• Các cờ (zero, borrow, carry) không thay đổi trạng thái.
+
+:::tip
+✎Lưu ý:
+
+Nếu sử dụng lệnh thực thi liên tục (INC), phép cộng sẽ được thực hiện ở mỗi chu kỳ quét, do đó cần lưu ý.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output results of (d) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+Cộng thêm 1 vào giá trị thiết bị chỉ định tại (D1, D0), tức là (D1, D0) + 1 → (D1, D0).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760428074496-558.png?rev=1.1)
+
+### DEC/Giảm giá trị dữ liệu 16-bit (-1)
+
+DEC(P)
+
+Trừ đi 1 đối với thiết bị (dữ liệu BIN 16-bit) được chỉ định tại (d).
+
+-[DEC (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị word lưu trữ dữ liệu được giảm đi 1 | -32768 to 32767 | Signed BIN 16 bit | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DEC | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Trừ đi 1 đối với thiết bị (dữ liệu BIN 16-bit) được chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760428128967-170.png?rev=1.1)
+
+• Nếu lệnh DEC(P) được thực thi khi nội dung của thiết bị chỉ định tại (d) là -32768, giá trị 32767 sẽ được lưu vào thiết bị chỉ định tại (d).
+
+• Các cờ (zero, borrow, carry) không thay đổi trạng thái.
+
+:::tip
+✎Lưu ý:
+
+Nếu sử dụng lệnh thực thi liên tục (DEC), phép trừ sẽ được thực hiện ở mỗi chu kỳ quét, do đó cần lưu ý.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output results of (d) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760428150835-101.png?rev=1.1)
+
+Mỗi lần M0 được SET (ON), giá trị của thiết bị chỉ định tại D0 sẽ giảm 1: (D0) - 1 → (D0).
+
+### DDEC/Giảm giá trị dữ liệu 32-bit (-1)
+
+DDEC(P)
+
+Trừ đi 1 đối với thiết bị (dữ liệu BIN 32-bit) được chỉ định tại (d).
+
+-[DDEC (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị word lưu trữ dữ liệu được giảm đi 1 | -2147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DDEC | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Trừ đi 1 đối với thiết bị (dữ liệu BIN 32-bit) được chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760428195945-578.png?rev=1.1)
+
+Nếu lệnh DDEC(P) được thực thi khi nội dung của thiết bị chỉ định tại (d) là 0, giá trị -1 sẽ được lưu vào thiết bị chỉ định tại (d).
+
+• Các cờ (zero, borrow, carry) không thay đổi trạng thái.
+
+:::tip
+✎Lưu ý:
+
+Nếu sử dụng lệnh thực thi liên tục (DEC), phép trừ sẽ được thực hiện ở mỗi chu kỳ quét.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output results of (d) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Arithmetic%20Operation%20instructions/WebHome/1760428215432-623.png?rev=1.1)
+
+Trừ đi 1 đối với giá trị thiết bị chỉ định tại (D1, D0), tức là (D1, D0) - 1 → (D1, D0).
+
+0

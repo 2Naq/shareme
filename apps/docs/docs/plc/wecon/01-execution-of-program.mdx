@@ -1,16 +1,509 @@
 ---
 id: "01-execution-of-program"
-title: "01 Execution of the Program: Chu kỳ quét & Thứ tự thực thi"
+title: "01 Thực thi chương trình và Chu kỳ quét (Execution of the Program)"
 sidebar_position: 1
 sidebar_label: "01 Execution of the Program"
-tags: [wecon, lx6v, lx6a, manual]
-description: "Nguyên lý chu kỳ quét (Scan Cycle), thời gian xử lý vòng lặp và thứ tự thực thi chương trình trong PLC Wecon LX6V."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 01 Thực thi chương trình và Chu kỳ quét (Execution of the Program)"
 ---
 
-## 01 Execution of the Program: Chu kỳ quét & Thứ tự thực thi
+## Cấu trúc của chu kỳ quét
 
-Hệ thống PLC Wecon thực thi chương trình người dùng theo chu kỳ quét lặp tuần hoàn (Cyclic Scan Execution) bao gồm 4 giai đoạn nối tiếp:
-1. **Đọc ngõ vào vật lý (Input Process Image):** Quét trạng thái từ các chân đấu nối bên ngoài (X0, X1...) vào vùng đệm bộ nhớ.
-2. **Thực thi logic chương trình (Program Execution):** Thực thi tuần tự các lệnh Ladder/ST từ đầu đến cuối chương trình chính.
-3. **Cập nhật ngõ ra (Output Process Image):** Xuất các giá trị tính toán từ bộ nhớ ra chân transistor/relay vật lý (Y0, Y1...).
-4. **Xử lý truyền thông & Giám sát hệ thống (Housekeeping & Communication):** Xử lý gói tin EtherCAT, Ethernet, RS-485 và kiểm tra watchdog timer.
+Cấu hình quét của mô-đun CPU như sau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/1.png?rev=1.1)
+
+### Khởi tạo
+
+Quá trình khởi tạo dựa trên trạng thái của mô-đun CPU như sau.
+
+√ : Execute. × : Not execute
+
+| Hạng mục xử lý | Trạng thái của mô-đun CPU (Khi bật nguồn ON) | Status of the CPU module (STOP) | Trạng thái của mô-đun CPU (Khi chuyển từ STOP sang RUN) |
+| :--- | :--- | :--- | :--- |
+| Khởi tạo các mô-đun ngõ vào và ngõ ra | √ | × | × |
+| Kiểm tra tham số CPU | √ | × | × |
+| Kiểm tra tham số hệ thống | √ | × | × |
+| Khởi tạo thiết bị | √ | × | √ |
+| Xóa lỗi | √ | × | √ |
+
+### Làm mới điểm ngõ vào và ngõ ra
+
+Thực hiện các thao tác sau trước khi bắt đầu tính toán chương trình.
+
+Cập nhật điểm ngõ vào thực tế của PLC vào rơ-le ngõ vào X.
+
+Thao tác sau được thực hiện sau khi lệnh END được thực thi.
+
+Cập nhật rơ-le ngõ ra Y của PLC ra điểm ngõ ra thực tế.
+
+:::tip
+Điểm chính
+
+Khi thực hiện quét chu kỳ không đổi, việc làm mới I/O được thực hiện sau thời gian chờ của chu kỳ quét không đổi.
+:::
+
+### Vận hành chương trình
+
+Theo cài đặt chương trình, quá trình thực thi bắt đầu từ bước 0 của mỗi chương trình đến lệnh END. Chương trình này được gọi là chương trình chính.
+
+### Xử lý END
+
+Thực hiện các xử lý sau.
+
+- Xử lý hoàn tất các lệnh cục bộ
+
+- Đặt lại bộ định thời giám sát (Watchdog Timer)
+
+- Xử lý truyền thông
+
+- Thiết lập giá trị của rơ-le đặc biệt/thanh ghi đặc biệt (khi thời điểm thiết lập là xử lý END)
+
+## Chu kỳ quét (Scan Time)
+
+Mô-đun CPU lặp lại các xử lý sau, và chu kỳ quét (Scan Time) là tổng thời gian xử lý và thực thi của các bước sau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/2.png?rev=1.1)
+
+Chu kỳ quét ban đầu biểu thị thời gian bao gồm cả xử lý này.
+
+### Chu kỳ quét ban đầu
+
+Đây là chu kỳ quét (Scan Time) đầu tiên của mô-đun CPU khi chuyển sang trạng thái RUN.
+
+Xử lý theo cách sau:
+
+Giá trị được lưu trong SD134 (chu kỳ quét ban đầu (đơn vị ms)) và SD135 (chu kỳ quét ban đầu (đơn vị s)).
+
+## Lưu đồ của từng quy trình
+
+Khi mô-đun CPU chuyển sang trạng thái RUN, các chương trình được thực thi tuần tự theo loại thực thi chương trình và cài đặt thứ tự thực thi.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/1775460314418-471.png?width=482&amp;height=333)
+
+:::tip
+Điểm chính
+
+Khi các chương trình có cùng loại thực thi, chúng được thực thi theo thứ tự đã thiết lập trong thứ tự thực thi.
+:::
+
+:::tip
+✎Lưu ý:
+
+Khi thực thi các lệnh có thể hoàn thành trong nhiều chu kỳ (như OUT T, RAMP, RS, v.v.), chúng phải được lập trình trong chương trình quét. Nếu sử dụng trong các chương trình thực thi theo sự kiện và chương trình thực thi giữa giai đoạn, các lệnh này có thể không được thực thi qua nhiều chu kỳ quét, dẫn đến kết quả thực tế khác với kết quả lý tưởng. Do đó, trừ khi sự kiện, ngắt và chương trình con có thể được thực thi trong mỗi chu kỳ quét, không khuyến nghị sử dụng các lệnh thực thi đa chu kỳ trong các trường hợp khác.
+:::
+
+## Các loại thực thi chương trình
+
+### Chương trình thực thi theo chu kỳ quét
+
+Mỗi chu kỳ quét chỉ thực thi một lần kể từ chu kỳ quét tiếp theo sau chương trình thực thi khởi tạo.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/5.png?rev=1.1)
+
+Khi thực thi nhiều chương trình thực thi theo chu kỳ quét, thời gian thực thi của chương trình thực thi theo chu kỳ quét là thời gian cho đến khi toàn bộ các chương trình thực thi theo chu kỳ quét được thực thi xong. Ngoài ra, trước khi hoàn tất thực thi chương trình thực thi theo chu kỳ quét, nếu có chương trình ngắt/chương trình thực thi theo sự kiện/chương trình con được thực thi, thời gian thực thi đó cũng sẽ được tính vào.
+
+Tạo nhiều chương trình quét
+
+"Quản lý dự án" → "Chương trình" → "Quét" → "Nhấp chuột phải để tạo"
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/6.png?rev=1.1)
+
+- Tên chương trình quét: tên chương trình phân biệt chữ hoa/thường và không được sử dụng cùng tên với tên thiết bị (tên thiết bị không phân biệt chữ hoa/thường).
+
+- The input of /%\$@&=~`^&lt;&gt;?:\{\}[],;!*.\\'" is not supported. It cannot exceed 64 characters. The default name is MAINx.
+
+- Số lượng chương trình quét có thể tạo được giới hạn tối đa là 100.
+
+- Thứ tự thực thi chạy từ trên xuống dưới theo thứ tự tạo.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/7.png?rev=1.1)
+
+### Chương trình thực thi theo sự kiện
+
+Sử dụng sự kiện do người dùng chỉ định làm điều kiện để kích hoạt chương trình bắt đầu thực thi.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/8.png?rev=1.1)
+
+Loại kích hoạt
+
+Điều kiện kích hoạt của chương trình thực thi theo sự kiện như sau.
+
+(1) Sự kiện ON của dữ liệu bit (TRUE)
+
+- Sau khi sự kiện ON được chỉ định, nếu tiếp điểm thiết lập điều kiện kích hoạt trong sự kiện ON chuyển sang ON trong quá trình chạy chương trình quét, chương trình sự kiện ON sẽ được thực thi tại phân trang chương trình quét*1 hoặc trước khi lệnh END được thực thi.
+
+- Chương trình sự kiện ON chỉ được thực thi một lần trong một chu kỳ quét.
+
+- Sau khi sự kiện ON được thực thi, bạn có thể cài đặt có xóa giá trị hiện tại của ngõ ra (Y) và bộ định thời (T) được sử dụng trong chương trình hay không.
+
+*1: Phân trang chương trình quét: nhiều chương trình quét được thiết lập và mỗi chương trình quét được gọi là một trang. Sau khi chương trình quét A được thực thi, trước khi chương trình quét B được thực thi, hệ thống sẽ xét xem có cần thực thi chương trình sự kiện hay không.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/9.png?rev=1.1)
+
+Khi đến lượt thứ tự thực thi của chương trình thực thi theo sự kiện C và Y50 đang ON, chương trình sẽ được thực thi.
+
+Các thiết bị có thể chỉ định như sau.
+
+| Hạng mục | Hạng mục | Nội dung mô tả |
+| :--- | :--- | :--- |
+| Device *1 | Bit device | X, Y, M, SM |
+| Device *1 | Chỉ định bit của thiết bị word | D.b |
+
+*1 Không thể chỉ định thiết bị có chỉ số (Index).
+
+(2) Sự kiện TIME
+
+Sau khi chương trình chuyển sang trạng thái RUN và khoảng thời gian chỉ định đã trôi qua, sự kiện được thực thi một lần khi đến thứ tự thực thi của chương trình tương ứng đầu tiên. Đối với lần thực thi thứ hai và các lần tiếp theo, thời gian được đo lại từ thời điểm bắt đầu chương trình thực thi theo sự kiện gần nhất. Sau khi khoảng thời gian chỉ định trôi qua, chương trình được thực thi lặp lại khi đến thứ tự thực thi của chương trình tương ứng đầu tiên. Ngoài ra, trong chu kỳ quét tiếp theo sau khi chương trình tương ứng được thực thi, giá trị hiện tại của ngõ ra (Y) và bộ định thời (T) sử dụng trong chương trình đó có thể được xóa. Tính năng này có thể dùng cho các chương trình không yêu cầu đáp ứng theo chu kỳ thời gian cố định.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/1775461360680-630.png)
+
+Sau khi khoảng thời gian chỉ định đã trôi qua, khi đến thứ tự thực thi đầu tiên, chương trình thực thi theo sự kiện C sẽ được thực thi.
+
+:::tip
+Điểm chính
+
+Khi cài đặt xóa giá trị hiện tại của ngõ ra và bộ định thời, nếu chu kỳ quét (Scan Time) dài hơn giá trị cài đặt của thời gian trôi qua, giá trị hiện tại của ngõ ra và bộ định thời sẽ không bị xóa.
+:::
+
+Các bước thao tác
+
+(1) Tạo sự kiện mới
+
+Quản lý dự án → Chương trình → Sự kiện → Nhấp chuột phải để tạo.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/11.png?rev=1.1)
+
+Tên chương trình sự kiện:
+
+- Tên chương trình phân biệt chữ hoa/thường và không được sử dụng tên trùng với tên thiết bị (tên thiết bị không phân biệt chữ hoa/thường).
+
+- Tên chương trình không hỗ trợ nhập các ký tự đặc biệt: /%\$@&=~`^&lt;&gt;?:\{\}[],;!*.\\'".
+
+- Độ dài tên chương trình không được vượt quá 64 ký tự. Tên mặc định là EVENTx.
+
+Có thể tạo tối đa 100 chương trình sự kiện mới.
+
+(2) Loại thực thi
+
+Có hai cách để cấu hình loại thực thi sự kiện:
+
+- Cấu hình khi tạo chương trình sự kiện mới, như minh họa trong hình trên.
+
+- Quản lý dự án → Chương trình → Tham số → Tham số chương trình → Cấu hình
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/12.png?width=510&amp;height=427&amp;rev=1.1)
+
+Hướng dẫn cấu hình:
+
+1) Giao diện cấu hình:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/13.png?rev=1.1)
+
+2) Nội dung tham số:
+
+| Hạng mục | Hạng mục | Nội dung mô tả | Phạm vi cài đặt | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| Loại thực thi |  | Chọn loại sự kiện | Không cài đặt/Sự kiện ON/Sự kiện TIME | Not set |
+| ON event | Contact | Loại sự kiện có thể cài đặt khi chọn sự kiện ON. Đặt thiết bị bit làm điều kiện kích hoạt. | X/Y/M/SM/D.b |  |
+| ON event | Whether to clear | Khi thiết bị bit của điều kiện kích hoạt do sự kiện ON thiết lập chuyển sang OFF, chọn có xóa giá trị hiện tại của ngõ ra (Y) và bộ định thời (T) dùng trong chương trình thực thi sự kiện ON ở chu kỳ tiếp theo hay không. | TrueFalse | False |
+| Sự kiện TIME | Time | Cài đặt chu kỳ thời gian thực thi chương trình sự kiện một lần. | 1 to 2147483647 (100us unit) |  |
+| Sự kiện TIME | Whether to clear | Khi sự kiện TIME được thực thi, nếu sự kiện không được thực thi trong chu kỳ quét tiếp theo, chọn có xóa ngõ ra (Y) và giá trị hiện tại của bộ định thời (T) dùng trong chương trình thực thi sự kiện TIME hay không. | TrueFalse | False |
+
+:::tip
+Điểm chính
+
+Khi chỉ định "Sự kiện ON" hoặc "Sự kiện TIME", nếu mục "Xóa hay không" được đặt thành "Xóa", chương trình sự kiện sẽ không được thực thi trong một chu kỳ quét và toàn bộ ngõ ra nội bộ (Y) cùng giá trị hiện tại của bộ định thời (T) sẽ bị xóa sạch (ngoại trừ loại tích lũy và loại chương trình con T). Nếu thời gian cài đặt bởi sự kiện TIME nhỏ hơn chu kỳ quét, điều này tương đương với việc thực thi sự kiện TIME ở mỗi chu kỳ quét. Ngay cả khi cài đặt xóa ngõ ra, dữ liệu ngõ ra và bộ định thời trong chương trình sự kiện sẽ không bị xóa.
+:::
+
+### Chương trình thực thi theo ngắt
+
+Trong quá trình thực thi chương trình quét, chương trình có thể ngắt để thực thi ưu tiên thay cho chương trình quét được gọi là chương trình thực thi theo ngắt.
+
+- Khi một nguyên nhân ngắt xảy ra, chương trình ngắt tương ứng với số hiệu con trỏ ngắt sẽ được thực thi. Tuy nhiên, việc thực thi cần phải được đặt ở trạng thái cho phép ngắt bằng lệnh EI.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/14.png?width=700&amp;height=295&amp;rev=1.1)
+
+- Một tên ngắt tương ứng với một chương trình ngắt và tên ngắt không được lặp lại. Mỗi ngắt có điều kiện kích hoạt và chương trình thực thi riêng, và mỗi chương trình ngắt kết thúc bằng lệnh END.
+
+- Ngắt có đặc điểm là tạm dừng chương trình thực thi ban đầu để thực thi ngắt trước, nhưng không thể ngắt một chương trình ngắt đang thực thi.
+
+- Chương trình ngắt có khái niệm mức độ ưu tiên. Giá trị ưu tiên càng nhỏ thì mức độ ưu tiên đáp ứng càng cao. Dải cài đặt ưu tiên là từ 0 đến 2.
+
+Các hoạt động khi nguyên nhân ngắt xảy ra như sau:
+
+1) Khi nguyên nhân ngắt xảy ra trong trạng thái cấm ngắt (DI).
+
+Nếu điều kiện thực thi ngắt được kích hoạt trong chương trình bị cấm bởi lệnh DI, ngắt sẽ không được thực thi. Ngay cả khi chương trình tiếp theo sử dụng lệnh EI để cho phép ngắt, chương trình ngắt bị che chắn trước đó cũng sẽ không được thực thi. Chỉ khi điều kiện thực thi ngắt được kích hoạt lại, chương trình ngắt mới được thực thi.
+
+2) Khi nhiều nguyên nhân ngắt xảy ra đồng thời trong trạng thái cho phép ngắt.
+
+Chương trình ngắt có mức độ ưu tiên cao hơn sẽ được thực thi tuần tự trước. Ngoài ra, khi nhiều ngắt có cùng mức độ ưu tiên xảy ra cùng lúc, các thao tác được thực thi theo thứ tự ưu tiên ngắt.
+
+Nếu tạo ba chương trình ngắt I0, I10, I16, mức ưu tiên của I0 là 1, mức ưu tiên của I10 là 0 và mức ưu tiên của I16 là 1. Logic thực thi như hình bên dưới: I10 có giá trị ưu tiên nhỏ nhất nên được thực thi trước; I0 và I16 có cùng mức ưu tiên nên được thực thi theo thứ tự khởi tạo chương trình.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/15.png?rev=1.1)
+
+3) Khi xảy ra ngắt trong thời gian chờ khi thực hiện quét chu kỳ không đổi.
+
+Thực thi chương trình ngắt cho ngắt này.
+
+4) Khi các ngắt khác xảy ra trong quá trình thực thi chương trình ngắt.
+
+Trong chương trình ngắt (bao gồm cả trường hợp ngắt xảy ra trong chương trình thực thi theo sự kiện), khi các ngắt khác xảy ra, chương trình thực thi ngắt ban đầu sẽ không bị gián đoạn. Sau khi chương trình thực thi ngắt ban đầu hoàn tất, chương trình ngắt mới sẽ được thực thi. Sau khi thực thi xong sẽ quay trở lại quy trình quét.
+
+5) Trong quá trình thực thi chương trình ngắt, khi xảy ra nguyên nhân ngắt có mức ưu tiên thấp hoặc cùng mức ưu tiên.
+
+Nguyên nhân ngắt đã xảy ra được lưu lại và sau khi chương trình ngắt đang thực thi kết thúc, chương trình ngắt tương ứng với nguyên nhân ngắt đã lưu sẽ được thực thi. Ngay cả khi cùng một nguyên nhân ngắt xảy ra nhiều lần, nguyên nhân ngắt đó cũng chỉ được lưu một lần.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/16.png?rev=1.1)
+
+6) Khi cùng một nguyên nhân ngắt xảy ra trong quá trình thực thi chương trình ngắt;
+
+Nguyên nhân ngắt đã xảy ra được lưu lại và sau khi chương trình ngắt đang thực thi kết thúc, chương trình ngắt tương ứng với nguyên nhân ngắt đã lưu sẽ được thực thi. Ngay cả khi cùng một nguyên nhân ngắt xảy ra nhiều lần, nguyên nhân ngắt đó cũng chỉ được lưu một lần.
+
+Phân loại điều kiện kích hoạt ngắt
+
+(1) Ngắt ngõ vào ngoài (X)
+
+1) Mô tả ngắt ngõ vào ngoài
+
+- Ngắt ngõ vào ngoài được kích hoạt bởi cạnh lên hoặc cạnh xuống của ngõ vào điểm X cố định.
+
+- Hỗ trợ ngắt cạnh lên và cạnh xuống cho tổng cộng 8 điểm ngõ vào từ X0 đến X7, hỗ trợ tổng cộng 16 ngắt ngõ vào ngoài.
+
+- Cùng một điều kiện kích hoạt ngắt không thể tạo nhiều chương trình ngắt.
+
+- Ngắt ngõ vào ngoài và bộ đếm tốc độ cao không thể sử dụng cùng một điểm X.
+
+- Bạn phải sử dụng lệnh EI trong chương trình quét để cho phép ngắt trước khi chương trình thực thi ngắt được thực thi.
+
+2) Các bước tạo ngắt ngõ vào ngoài.
+
+Quản lý dự án → Chương trình → Ngắt → Nhấp chuột phải để tạo
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/17.png?rev=1.1)
+
+- Tên chương trình ngắt phân biệt chữ hoa/thường và không được sử dụng tên trùng với tên thiết bị (tên thiết bị không phân biệt chữ hoa/thường),
+
+- Tên chương trình ngắt không hỗ trợ nhập các ký tự đặc biệt: /%\$@&=~`^&lt;&gt;?:\{\}[],;!*.\\'",
+
+- Độ dài tên chương trình ngắt không được vượt quá 64 ký tự và không thể nhập vượt quá giới hạn. Tên mặc định là INTx.
+
+- Nhấp vào Cấu hình và chọn ngắt ngoài cho loại thực thi, như minh họa trong hình bên dưới (cũng có thể cấu hình trong mục "Tham số chương trình" thuộc "Tham số" trong quản lý dự án):
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/18.png?rev=1.1)
+
+| Hạng mục | Hạng mục | Nội dung mô tả | Phạm vi cài đặt | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| Loại thực thi |  | Chọn loại ngắt | Not set, External input interrupt, Timer event, bộ đếm tốc độ cao (HSC) interrupt | Not set |
+| Ngắt ngõ vào ngoài | channel | Chọn kênh cho ngắt ngõ vào ngoài | X0 to X7 | X0 |
+| Ngắt ngõ vào ngoài | Loại cạnh kích hoạt | Choose to trigger on sườn lên (cạnh lên) or sườn xuống (cạnh xuống) | sườn lên (cạnh lên); sườn xuống (cạnh xuống) | sườn lên (cạnh lên) |
+| Ngắt ngõ vào ngoài | priority | Khi nhiều ngắt đến cùng lúc, thứ tự thực thi ưu tiên là giá trị nhỏ nhất được thực thi trước | 0 to 2 | 0 |
+| Ngắt ngõ vào ngoài | Thời gian lọc (0.01μs) | Set the filter time of X point, the unit is 0.01μs.Note: X sườn lên (cạnh lên) interrupt and X sườn xuống (cạnh xuống) interrupt use the same X filter, so after the filter setting is changed in the X sườn lên (cạnh lên) configuration, the X sườn xuống (cạnh xuống) will also change. If the filter time is set to 1000, you must ensure that the high level and low level of the input signal are maintained for more than 10 us before the interrupt can be triggered. | 0 to 1700 | 1 |
+
+3) Viết chương trình thực thi ngắt
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/19.png?rev=1.1)
+
+Nhấp đúp vào chương trình ngắt vừa tạo trong quản lý dự án để bắt đầu viết chương trình thực thi ngắt. Như minh họa trong hình trên, chương trình ngắt vừa tạo là INT_X0_UP, và điều kiện kích hoạt được cấu hình để thực thi chương trình ngắt khi có cạnh lên của X0. Nếu lệnh EI được sử dụng trong chương trình chính để cho phép ngắt, toàn bộ chương trình trong INT_X0_UP sẽ được thực thi bất cứ khi nào X0 chuyển từ OFF sang ON, tức là D0 sẽ tăng lên 1 lần.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/20.png?width=317&amp;height=138&amp;rev=1.1)
+
+(2) Ngắt bộ định thời
+
+1) Mô tả ngắt bộ định thời
+
+- Ngắt bộ định thời dựa trên thời gian cài đặt, thực thi chương trình ngắt mỗi lần đến hạn, khoảng thời gian tối thiểu có thể đạt 100μs.
+
+- Có thể tạo tối đa 100 chương trình thực thi ngắt bộ định thời.
+
+- Mỗi chương trình ngắt bộ định thời độc lập với nhau và không ảnh hưởng lẫn nhau.
+
+- Mỗi chương trình ngắt bộ định thời phải được cấu hình mức độ ưu tiên. Khi được kích hoạt cùng lúc, chúng thực thi theo thứ tự ưu tiên; nhưng khi cùng mức ưu tiên, chúng thực thi theo thứ tự chương trình đã thiết lập.
+
+- Chương trình thực thi ngắt chỉ được thực thi sau khi sử dụng EI trong chương trình quét để cho phép ngắt.
+
+2) Các bước tạo ngắt bộ định thời
+
+Quản lý dự án → [Chương trình] → [Ngắt] → [Nhấp chuột phải để tạo]. Nhấp vào Cấu hình và chọn Ngắt bộ định thời làm loại thực thi, như minh họa trong hình dưới đây (cũng có thể cấu hình trong "tham số chương trình" thuộc "tham số" trong quản lý dự án).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/21.png?rev=1.1)
+
+| Hạng mục | Hạng mục | Nội dung mô tả | Phạm vi cài đặt | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| Loại thực thi |  | Chọn loại ngắt | Not set/External input interrupt/Timer event/bộ đếm tốc độ cao (HSC) interrupt | Not set |
+| Ngắt định thời (Timer interrupt) | Time | Cài đặt khoảng thời gian kích hoạt ngắt | 1 to 2147483647 (100μs unit) |  |
+| Ngắt định thời (Timer interrupt) | Priority | Khi nhiều ngắt xảy ra đồng thời, chúng được thực thi theo thứ tự ưu tiên, giá trị nhỏ nhất được thực thi trước | 0 to 2 | 0 |
+
+3) Viết chương trình thực thi ngắt
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/22.png?rev=1.1)
+
+Nhấp đúp vào chương trình ngắt bộ định thời vừa tạo trong quản lý dự án để bắt đầu viết chương trình thực thi ngắt. Như minh họa trong hình trên, chương trình ngắt bộ định thời vừa tạo là INT0, và điều kiện kích hoạt được cấu hình để thực thi chương trình ngắt mỗi 10ms. Nếu chương trình chính sử dụng EI để cho phép ngắt, toàn bộ các lệnh trong INT0 sẽ được thực thi mỗi 10ms, tức là D0 sẽ cộng thêm 1 mỗi 10ms.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/23.png?width=558&amp;height=190&amp;rev=1.1)
+
+Che chắn ngắt (Mask)
+
+(1) Che chắn thông qua lệnh ứng dụng
+
+Ngắt của PLC ở trạng thái bị che chắn mặc định khi cấp nguồn và chỉ có thể sử dụng sau khi cho phép ngắt thông qua lệnh EI.
+
+Lệnh che chắn ngắt DI che tất cả các ngắt khi không có tham số, và che một số ngắt theo mức ưu tiên khi có tham số (tham khảo lệnh điều khiển luồng chương trình DI/EI để biết chi tiết).
+
+(2) Che chắn thông qua các thanh ghi đặc biệt SM và SD
+
+1) Thanh ghi che ngắt ngõ vào ngoài
+
+| Thanh ghi mặt nạ ngắt ngõ vào ngoài | Thanh ghi mặt nạ ngắt ngõ vào ngoài | Thanh ghi mặt nạ ngắt ngõ vào ngoài | Thanh ghi mặt nạ ngắt ngõ vào ngoài |
+| :--- | :--- | :--- | :--- |
+| thanh ghi đặc biệt (SD) number | Type of interrupt | Khối lệnh / Lệnh | Defaults |
+| SM352 | X0 sườn lên (cạnh lên) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM353 | X0 sườn xuống (cạnh xuống) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM354 | X1 sườn lên (cạnh lên) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM355 | X1 sườn xuống (cạnh xuống) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM356 | X2 sườn lên (cạnh lên) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM357 | X2 sườn xuống (cạnh xuống) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM358 | X3 sườn lên (cạnh lên) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM359 | X3 sườn xuống (cạnh xuống) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM360 | X4 sườn lên (cạnh lên) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM361 | X4 sườn xuống (cạnh xuống) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM362 | X5 sườn lên (cạnh lên) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM363 | X5 sườn xuống (cạnh xuống) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM364 | X6 sườn lên (cạnh lên) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM365 | X6 sườn xuống (cạnh xuống) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM366 | X7 sườn lên (cạnh lên) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+| SM367 | X7 sườn xuống (cạnh xuống) interrupt | ON: Che (cấm) ngắt; OFF: Cho phép ngắt | OFF |
+
+2) Thanh ghi che ngắt bộ định thời
+
+| Thanh ghi mặt nạ ngắt định thời | Thanh ghi mặt nạ ngắt định thời | Thanh ghi mặt nạ ngắt định thời | Thanh ghi mặt nạ ngắt định thời |
+| :--- | :--- | :--- | :--- |
+| thanh ghi đặc biệt (SD) number | Type of interrupt | Khối lệnh / Lệnh | Default |
+| SD350 | Ngắt định thời thứ 1 đến thứ 16 | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+| SD351 | Ngắt định thời thứ 17 đến thứ 32 | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+| SD352 | Ngắt định thời thứ 33 đến thứ 48 | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+| SD353 | Ngắt định thời thứ 49 đến thứ 64 | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+| SD354 | Ngắt định thời thứ 65 đến thứ 80 | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+| SD355 | Ngắt định thời thứ 81 đến thứ 96 | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+| SD356 | Ngắt định thời thứ 97 đến thứ 100 | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+
+3） Thanh ghi che ngắt bộ đếm tốc độ cao
+
+| bộ đếm tốc độ cao (HSC) interrupt mask register | bộ đếm tốc độ cao (HSC) interrupt mask register | bộ đếm tốc độ cao (HSC) interrupt mask register | bộ đếm tốc độ cao (HSC) interrupt mask register |
+| :--- | :--- | :--- | :--- |
+| thanh ghi đặc biệt (SD) number | Type of interrupt | Khối lệnh / Lệnh | Default |
+| SD382 | 1st to 16th bộ đếm tốc độ cao (HSC) interrupt | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+| SD383 | 17th to 32nd bộ đếm tốc độ cao (HSC) interrupt | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+| SD384 | 33th to 48th bộ đếm tốc độ cao (HSC) interrupt | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+| SD385 | 49th to 64th bộ đếm tốc độ cao (HSC) interrupt | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+| SD386 | 65th to 80th bộ đếm tốc độ cao (HSC) interrupt | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+| SD387 | 81st to 96th bộ đếm tốc độ cao (HSC) interrupt | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+| SD388 | 97th to 100th bộ đếm tốc độ cao (HSC) interrupt | Mỗi bit điều khiển mặt nạ che của một ngắt tương ứng. ON: Cấm ngắt; OFF: Cho phép ngắt | 0 |
+
+### Chương trình con
+
+Trong quá trình thực thi chương trình quét, chương trình được thực thi có thể được gọi bằng lệnh CALL. Bạn có thể tạo tối đa 100 chương trình con mới.
+
+Chương trình con là tách một mô-đun nhất định trong chương trình chính để chương trình chính gọi tới, giúp thuận tiện cho việc mô-đun hóa chương trình. Tương tự như các hàm trong ngôn ngữ lập trình bậc cao, nhưng hàm này không có tham số và không có giá trị trả về.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/28.png?rev=1.1)
+
+(1) Lệnh gọi chương trình con
+
+Sau khi tạo mới một chương trình con, nội dung của chương trình sẽ không tự thực thi. Nó chỉ được thực thi khi sử dụng lệnh CALL(P) để gọi chương trình con trong các chương trình quét, sự kiện và ngắt, và mỗi lần gọi sẽ thực thi một lần. Ba chương trình con mới SUB0, SUB1, SUB2 được tạo như minh họa trong hình dưới đây. Trong chương trình chính MAIN, chương trình con có thể được gọi bằng cách sử dụng lệnh CALL(P) kèm tên chương trình con.
+
+Thông qua phương pháp lập trình này, việc dùng cùng một chương trình logic cho các điều kiện khác nhau có thể giảm số bước của giản đồ thang và cải thiện khả năng đọc hiểu của giản đồ thang.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/01%20Program%20execution/WebHome/29.png?rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+1) Khi sử dụng bộ định thời (OUT T), lưu ý rằng ngõ ra sẽ không được đặt lại khi chương trình con không được gọi, và phải sử dụng thanh ghi chuyên dụng cho chương trình con.
+
+2) Không được phép gọi đệ quy lẫn nhau giữa các chương trình con, tức là gọi SUB1 trong SUB0 rồi lại gọi SUB0 trong SUB1. Điều này không được phép.
+
+3) Chương trình con có thể lồng nhau tối đa 32 cấp. Nếu vượt quá 32 cấp, lỗi nghiêm trọng sẽ được báo và hoạt động của giản đồ thang sẽ bị dừng cưỡng bức.
+:::
+
+### Các lệnh định vị
+
+(1) Sự kiện
+
+1) Sự kiện ON
+
+Nếu lệnh phát xung tốc độ cao được cho phép trong sự kiện ON, lệnh phát xung tốc độ cao sẽ phát xung bình thường. Nếu tiếp điểm ON của sự kiện kích hoạt trong chu kỳ quét chuyển sang OFF trong lúc đang phát xung, việc tiếp tục phát xung hay dừng xung sẽ được chọn dựa theo bit cờ xử lý khi không quét.
+
+| Trục xuất xung | Y0 | Y1 | Y2 | Y3 | Y4 | Y5 | Y6 | Y7 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Cờ bit không được quét | SM899 | SM959 | SM1019 | SM1079 | SM1139 | SM1199 | SM1259 | SM1319 |
+
+Khi bit cờ bằng 0 (tiếp tục phát xung), nếu lệnh không được quét trong chu kỳ quét hiện tại, xung vẫn tiếp tục được phát cho đến khi dừng. Lúc này, cần lưu ý rằng nếu tiếp điểm OFF của sự kiện kích hoạt chuyển sang ON sau khi phát xung xong, xung sẽ được phát lại.
+
+Khi bit cờ bằng 1 (dừng phát xung), nếu tiếp điểm ON của sự kiện kích hoạt chuyển sang OFF trong một chu kỳ quét nào đó, nó sẽ giảm tốc và dừng.
+
+2) Sự kiện TIME
+
+Nếu lệnh phát xung tốc độ cao được cho phép trong sự kiện TIME, lệnh phát xung tốc độ cao sẽ phát xung bình thường. Nếu lệnh không được quét trong một chu kỳ quét nào đó trong quá trình truyền xung, việc tiếp tục phát xung hay dừng xung sẽ được chọn theo bit cờ khi không quét.
+
+| Trục xuất xung | Y0 | Y1 | Y2 | Y3 | Y4 | Y5 | Y6 | Y7 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Cờ bit không được quét | SM899 | SM959 | SM1019 | SM1079 | SM1139 | SM1199 | SM1259 | SM1319 |
+
+Khi bit cờ bằng 0 (tiếp tục phát xung), nếu lệnh không được quét trong chu kỳ quét hiện tại, xung sẽ tiếp tục được phát cho đến khi dừng. Trong sự kiện TIME, không thể đảm bảo lệnh được quét ở mọi chu kỳ quét, do đó cần tránh sử dụng lệnh phát xung tốc độ cao trong sự kiện TIME, nếu không xung sẽ được phát lại sau khi phát xong.
+
+Khi bit cờ bằng 1 (dừng phát xung), nếu lệnh không được quét trong chu kỳ quét hiện tại, nó sẽ giảm tốc và dừng. Trong sự kiện TIME, nếu bit cờ được đặt thành 1 (dừng phát xung), sẽ không có xung nào được phát ra.
+
+(2) Chương trình con
+
+Nếu lệnh phát xung tốc độ cao được bật trong chương trình con, lệnh phát xung tốc độ cao sẽ phát xung bình thường. Nếu chu kỳ quét đóng lại trong lúc đang phát xung, việc tiếp tục phát hay dừng xung sẽ được chọn theo bit cờ khi không quét.
+
+| Trục xuất xung | Y0 | Y1 | Y2 | Y3 | Y4 | Y5 | Y6 | Y7 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Cờ bit không được quét | SM899 | SM959 | SM1019 | SM1079 | SM1139 | SM1199 | SM1259 | SM1319 |
+
+Khi bit cờ bằng 0 (tiếp tục phát xung), nếu lệnh không được quét trong chu kỳ quét hiện tại, xung sẽ tiếp tục được phát cho đến khi dừng. Lúc này, cần lưu ý rằng nếu chương trình con được gọi lại sau khi phát xung xong, xung sẽ được phát lại.
+
+Khi bit cờ bằng 1 (dừng phát xung), nếu chương trình con bị đóng trong khi đang phát xung tốc độ cao, tốc độ sẽ giảm tốc và dừng. Nếu chương trình con bị đóng trước khi phát xung, sẽ không có xung nào được phát ra.
+
+（3） Ngắt
+
+1） Ngắt ngoài
+
+Nếu lệnh phát xung tốc độ cao được cho phép trong ngắt ngoài, lệnh phát xung tốc độ cao sẽ chọn tiếp tục phát xung hay dừng xung theo bit cờ khi không quét.
+
+| Trục xuất xung | Y0 | Y1 | Y2 | Y3 | Y4 | Y5 | Y6 | Y7 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Cờ bit không được quét | SM899 | SM959 | SM1019 | SM1079 | SM1139 | SM1199 | SM1259 | SM1319 |
+
+Khi bit cờ bằng 0 (tiếp tục phát xung), tiếp tục phát xung tốc độ cao cho đến khi dừng.
+
+Khi bit cờ bằng 1 (dừng phát xung), xung tốc độ cao giảm tốc và dừng.
+
+2) Ngắt bộ định thời
+
+Nếu lệnh phát xung tốc độ cao được cho phép trong ngắt bộ định thời, lệnh phát xung tốc độ cao sẽ được phát bình thường. Nếu lệnh không được quét trong một chu kỳ quét nào đó trong quá trình truyền xung, việc tiếp tục phát xung hay dừng xung sẽ được chọn theo bit cờ khi không quét.
+
+| Trục xuất xung | Y0 | Y1 | Y2 | Y3 | Y4 | Y5 | Y6 | Y7 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Bit dấu không được quét | SM899 | SM959 | SM1019 | SM1079 | SM1139 | SM1199 | SM1259 | SM1319 |
+
+Khi bit cờ bằng 0 (tiếp tục phát xung), nếu lệnh không được quét trong chu kỳ quét hiện tại, tiếp tục phát xung cho đến khi dừng. Trong ngắt bộ định thời, không thể đảm bảo lệnh được quét ở mọi chu kỳ quét, do đó cần tránh sử dụng lệnh phát xung tốc độ cao trong ngắt bộ định thời T. Nếu không, sau khi truyền xung xong, xung sẽ được phát lại.
+
+Khi bit cờ bằng 1 (dừng phát xung), nếu lệnh không được quét trong chu kỳ quét hiện tại, nó sẽ giảm tốc và dừng. Trong sự kiện TIME, nếu bit cờ được đặt thành 1 (dừng phát xung), sẽ không có xung nào được phát ra.
+
+3) Ngắt so sánh tốc độ cao
+
+Nếu lệnh phát xung tốc độ cao được cho phép trong ngắt so sánh tốc độ cao, lệnh phát xung tốc độ cao sẽ chọn tiếp tục phát xung hay dừng xung theo bit cờ khi không quét.
+
+| Trục xuất xung | Y0 | Y1 | Y2 | Y3 | Y4 | Y5 | Y6 | Y7 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Bit dấu không được quét | SM899 | SM959 | SM1019 | SM1079 | SM1139 | SM1199 | SM1259 | SM1319 |
+
+Khi bit cờ bằng 0 (tiếp tục phát xung), tiếp tục phát xung tốc độ cao cho đến khi dừng.
+
+Khi bit cờ bằng 1 (dừng phát xung), xung tốc độ cao giảm tốc và dừng.
+
+0

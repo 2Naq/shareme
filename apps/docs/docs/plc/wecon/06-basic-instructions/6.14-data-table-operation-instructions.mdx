@@ -1,0 +1,374 @@
+---
+id: "6.14-data-table-operation-instructions"
+title: "6.14 Lệnh thao tác bảng dữ liệu FIFO/LIFO (Data Table Operation Instructions)"
+sidebar_position: 14
+sidebar_label: "6.14 Data Table Operation instructions"
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.14 Lệnh thao tác bảng dữ liệu FIFO/LIFO (Data Table Operation Instructions)"
+---
+
+### SFRD / Đọc dịch chuyển (Shift Read)
+
+SFRD(P)
+
+Lệnh đọc dữ liệu cho điều khiển vào trước ra trước (FIFO).
+
+-[SFRD (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị word bắt đầu lưu trữ dữ liệu (ô đầu tiên là con trỏ, dữ liệu bắt đầu từ (s)+1) | - | Signed BIN 16 bit | ANY16 |
+| (d) | Số hiệu thiết bị word lưu trữ dữ liệu được đọc ra đầu tiên (FIFO) | - | Signed BIN 16 bit | ANY16 |
+| (n) | Phải được chỉ định bằng số điểm dữ liệu lưu trữ + 1 (+1 dành cho con trỏ) | 2 to 512 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SFRD | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| SFRD | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| SFRD | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Truyền dữ liệu tại (s)+1 đã được ghi tuần tự bằng lệnh SFWR sang (d), đồng thời dịch lên 1 word cho từng điểm trong (n)-1 điểm từ (s)+1 trở đi. Số lượng dữ liệu đã lưu tại (s) giảm đi 1.
+
+Nội dung của (s)+1 được truyền (đọc) sang (d). Đồng thời, nội dung của con trỏ (s) giảm đi 1 và dữ liệu được dịch lên 1 word. (Trong lệnh thực thi liên tục SFRD, mỗi chu kỳ quét sẽ dịch chuyển một lần, vì vậy nên sử dụng lệnh thực thi theo xung SFRDP để lập trình).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761018188037-771.png?width=984&amp;height=579&amp;rev=1.1)
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM153 | Bit báo bằng 0 (Zero bit) | Việc đọc dữ liệu thường bắt đầu từ (s)+1, nhưng khi con trỏ (s) bằng 0, bit báo bằng 0 SM153 sẽ hoạt động. |
+
+:::tip
+✎Lưu ý:
+
+Dữ liệu sau khi đọc sẽ không làm thay đổi nội dung của (s)+(n) do việc đọc.
+
+Trong trường hợp lệnh thực thi liên tục (SFRD), mỗi thời gian quét (chu kỳ quét) sẽ đọc tuần tự một lần, nhưng nội dung của (s)+(n) không thay đổi. Khi con trỏ (s) bằng 0, lệnh trở thành không xử lý và nội dung của (d) không thay đổi.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị cài đặt tại (n) nằm ngoài phạm vi sau: 2≤(n)≤512 |
+| 4084H | Một giá trị âm được chỉ định trong (s). |
+| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (s) and (n) exceeds the corresponding device range. |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (s) and (d) exceeds the corresponding device range. |
+
+#### Ví dụ minh họa
+
+Các ví dụ sau minh họa việc sử dụng lệnh ghi dịch chuyển (SFWR) và đọc dịch chuyển (SFRD).
+
+(1) Nội dung hoạt động
+
+1) Trong khi đăng ký mã sản phẩm, để thực hiện nguyên lý vào trước ra trước (FIFO), dưới đây giới thiệu ví dụ về sơ đồ bậc thang (Ladder) xuất ra mã sản phẩm hiện tại.
+
+2) Mã sản phẩm là số thập lục phân có 4 chữ số trở xuống và số lượng lưu kho tối đa dưới 99 điểm.
+
+(2) Chương trình
+
+1) Chương trình 1
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761018361678-654.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761018410107-778.png?width=593&amp;height=437&amp;rev=1.1)
+
+2) Chương trình 2
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761018480645-416.png?rev=1.1)
+
+Chuyển X0 từ OFF sang ON, lệnh này hoạt động theo các bước 1 đến 3 sau đây. (Nội dung của D10 giữ nguyên không đổi),
+
+- Nội dung của D2 được đọc ra và gửi vào D20.
+
+- Từ D10 đến D3 tất cả đều dịch sang phải một thanh ghi.
+
+- Nội dung của con trỏ D1 giảm đi 1.
+
+### POP / Đọc từ cuối bảng dữ liệu
+
+POP(P)
+
+Đọc dữ liệu cuối cùng được ghi bởi lệnh ghi dịch chuyển (SFWR) dùng cho điều khiển vào trước ra trước (FIFO) / vào trước ra sau (LIFO).
+
+-[POP (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | địa chỉ thiết bị bắt đầu that stores the first-in data (including pointer data) (the start word device number that stores data) | - | Signed BIN 16 bit | ANY16 |
+| (d) | địa chỉ thiết bị that stores the last-out data | - | Signed BIN 16 bit | ANY16 |
+| (n) | Số điểm dữ liệu được lưu trữ | 2 to 512 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | parameter | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| POP | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| POP | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| POP | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Đối với thiết bị từ của "(s) đến (s)+(n)-1", thiết bị "(s) + dữ liệu con trỏ (s)" sẽ được đọc sang (d) (dữ liệu cuối cùng được ghi bởi lệnh ghi dịch chuyển (SFWR) dùng cho điều khiển vào trước ra sau sẽ được đọc sang (d)). (n) chỉ định từ 2 đến 512.
+
+Giá trị của dữ liệu con trỏ (s) giảm đi 1.
+
+Dữ liệu điều khiển vào trước ra sau (LIFO)
+
+|  | Nội dung mô tả |
+| :--- | :--- |
+| (S) | Dữ liệu con trỏ (số lượng dữ liệu đã lưu) |
+| (S)+1 | Vùng dữ liệu (Dữ liệu được ghi vào bởi lệnh ghi dịch chuyển (SFWR)) |
+| (S) +2 | Vùng dữ liệu (Dữ liệu được ghi vào bởi lệnh ghi dịch chuyển (SFWR)) |
+| (S) +3 | Vùng dữ liệu (Dữ liệu được ghi vào bởi lệnh ghi dịch chuyển (SFWR)) |
+| ...... | Vùng dữ liệu (Dữ liệu được ghi vào bởi lệnh ghi dịch chuyển (SFWR)) |
+| (S)+(n)-3 | Vùng dữ liệu (Dữ liệu được ghi vào bởi lệnh ghi dịch chuyển (SFWR)) |
+| (S)+(n)-2 | Vùng dữ liệu (Dữ liệu được ghi vào bởi lệnh ghi dịch chuyển (SFWR)) |
+| (S)+(n)-1 | Vùng dữ liệu (Dữ liệu được ghi vào bởi lệnh ghi dịch chuyển (SFWR)) |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761018592821-392.png?width=932&amp;height=454&amp;rev=1.1)
+
+:::tip
+✎ Lưu ý: Nếu lệnh POP(P) được lập trình ở chế độ thực thi liên tục, lệnh sẽ rút dữ liệu ở mọi chu kỳ quét và có thể gây sai lệch. Thông thường, lệnh POP(P) nên được sử dụng ở chế độ thực thi xung (POPP) hoặc kích hoạt bằng tiếp điểm sườn xung.
+
+✎ When the current value of pointer (s) is 0, the zero flag SM153 turns on, and the POP(P) instruction becomes no processing.
+
+✎ When the current value of pointer (s) is 1, write 0 to (s), and the zero flag SM153 turns on.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | (s)&gt;(n)-1 |
+| 4084H | (s)&lt;0 |
+| 4084H | Dữ liệu nằm ngoài phạm vi quy định được nhập vào (n): 2≤(n)≤512 |
+| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (s) and (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761018612253-455.png?rev=1.1)
+
+Mỗi lần M1 bật ON, đối với các giá trị D20 được nhập trước vào D101 đến D106, giá trị được lưu cuối cùng sẽ được lưu vào D10, sau đó số lượng dữ liệu đã lưu (con trỏ D100) sẽ giảm đi 1.
+
+Khi dữ liệu được nhập vào trước là nội dung trong bảng dưới đây.
+
+| Con trỏ | D100 | K3 |
+| :--- | :--- | :--- |
+| Data | D101 | H1234 |
+| Data | D102 | H5678 |
+| Data | D103 | HABCD |
+| Data | D104 | H0000 |
+| Data | D105 | H0000 |
+| Data | D106 | H0000 |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761018751619-514.png?width=620&amp;height=262&amp;rev=1.1)
+
+### SFWR / Ghi dịch chuyển (Shift Write)
+
+SFWR(P)
+
+Lệnh ghi dữ liệu cho điều khiển vào trước ra trước (FIFO).
+
+-[SFWR (s) ( d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị word lưu trữ dữ liệu muốn ghi vào đầu tiên | - | Signed BIN 16 bit | ANY16 |
+| (d) | Số hiệu thiết bị word bắt đầu để lưu trữ và dịch chuyển dữ liệu (ô đầu tiên là con trỏ, dữ liệu bắt đầu từ (d)+1) | - | Signed BIN 16 bit | ANY16 |
+| (n) | Phải chỉ định giá trị bằng số điểm dữ liệu lưu trữ + 1 | 2 to 512 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SFWR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| SFWR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| SFWR | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Bắt đầu từ (d)+1, ghi nội dung của (s) vào các vị trí đến (n)-1, và số lượng dữ liệu đã lưu tại (d) cộng thêm 1. Ví dụ, nếu (d)=0 thì ghi vào (d)+1; nếu (d)=1 thì ghi vào (d)+2.
+
+Qua lần thực thi đầu tiên, nội dung của (s) được lưu vào (d)+1 và trở thành giá trị của (s).
+
+Nếu nội dung của (s) thay đổi và thực thi lần thứ hai, nội dung của (s) được lưu vào (d)+2 và nội dung của (d)+2 trở thành (s) (trong lệnh thực thi liên tục SFWR, mỗi chu kỳ quét sẽ lưu tuần tự một lần, nên cần dùng lệnh thực thi theo xung SFWRP để lập trình). Sau đó, dữ liệu sẽ được điền tuần tự từ bên phải và số lượng điểm lưu trữ dữ liệu được hiển thị qua nội dung của con trỏ (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761026706482-870.png?rev=1.1)
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | carry | Khi nội dung của con trỏ (s) vượt quá (n)-1, lệnh không xử lý (không ghi) và cờ nhớ SM151 bật ON. |
+
+:::tip
+✎Lưu ý:
+
+Trong lệnh dạng thực thi liên tục (SFWR), cần lưu ý rằng mỗi thời gian quét (chu kỳ quét) dữ liệu sẽ được lưu (ghi đè) tuần tự.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị cài đặt tại (n) nằm ngoài phạm vi sau: 2≤(n)≤512 |
+| 4084H | Một giá trị âm được chỉ định trong (d). |
+| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (s), (d) and (n) exceeds the corresponding device range. |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range. |
+
+#### Ví dụ minh họa
+
+Các ví dụ sau minh họa việc sử dụng lệnh ghi dịch chuyển (SFWR) và đọc dịch chuyển (SFRD).
+
+(1) Nội dung hoạt động
+
+1) Trong khi đăng ký mã sản phẩm, để thực hiện nguyên lý vào trước ra trước (FIFO), dưới đây giới thiệu ví dụ về sơ đồ bậc thang (Ladder) xuất ra mã sản phẩm hiện tại.
+
+2) Mã sản phẩm là số thập lục phân có 4 chữ số trở xuống và số lượng lưu kho tối đa dưới 99 điểm.
+
+(2) Chương trình
+
+1) Chương trình 1
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761025772517-240.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761025809106-559.png?width=528&amp;height=382&amp;rev=1.1)
+
+2) Chương trình 2
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761025894776-671.png?width=570&amp;height=130&amp;rev=1.1)
+
+Khi X0=1, nội dung của D0 được lưu vào D2 và nội dung của D1 trở thành 1. Khi X0 chuyển từ OFF sang ON một lần nữa, nội dung của D0 được lưu vào D3, nội dung của D1 trở thành 2, và tiếp tục như vậy. Nếu nội dung của D1 vượt quá n-1, lệnh không được xử lý và cờ nhớ (Carry) M8022 sẽ được đặt bằng 1.
+
+### FINS / Chèn dữ liệu vào bảng dữ liệu
+
+FINS(P)
+
+Chèn dữ liệu BIN 16-bit được chỉ định tại (s) vào vị trí thứ (n) của bảng dữ liệu được chỉ định tại (d). Sau khi lệnh được thực thi, dữ liệu bắt đầu từ vị trí thứ (n) trong bảng dữ liệu sẽ được dời lùi xuống từng vị trí một.
+
+-[FINS (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được chèn | - | Signed BIN 16 bit | ANY16 |
+| (d) | Số hiệu bắt đầu của bảng | - | word | ANY16 |
+| (n) | Vị trí chèn trong bảng | 1-512 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| FINS | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| FINS | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| FINS | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Chèn dữ liệu BIN 16-bit được chỉ định tại (s) vào vị trí thứ (n) của bảng dữ liệu được chỉ định tại (d). Sau khi lệnh được thực thi, dữ liệu bắt đầu từ vị trí thứ (n) trong bảng dữ liệu sẽ được dời lùi xuống từng vị trí một.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761025985201-177.png?width=556&amp;height=245&amp;rev=1.1)
+
+- N: số lượng dữ liệu đang lưu trữ;
+
+- DTr: phạm vi bảng dữ liệu;
+
+- Khi (n)=2, dữ liệu sẽ được chèn vào (d)+2.
+
+:::tip
+✎ Phạm vi thiết bị sử dụng trong bảng dữ liệu do người dùng tự quản lý.
+
+✎ Phạm vi của bảng dữ liệu là phần từ thiết bị (d)+1 trở đi sau số lượng dữ liệu lưu tại (d).
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Lệnh FINS(P) được thực thi khi giá trị của (d) bằng 0. |
+| 4084H | Dữ liệu lưu trữ của bảng tại (d) vượt quá 512. |
+| 4084H | Khi dữ liệu cài đặt tại (n) nằm ngoài phạm vi sau: 1≤(n)≤512. |
+| 4084H | Khi lệnh FINS(P) được thực thi, vị trí bảng (n) của dữ liệu chèn lớn hơn số lượng dữ liệu đang lưu trữ. |
+| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (s), (d) and (n) exceeds the corresponding device range. |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761026072396-253.png?width=604&amp;height=80&amp;rev=1.1)
+
+Khi X10=ON, chèn dữ liệu của D100 vào vị trí số 3 của bảng dữ liệu từ D0 đến D4.
+
+Tuy nhiên, khi số lượng dữ liệu đã lưu vượt quá 7, lệnh FINS(P) không được thực thi (phạm vi thiết bị sử dụng trong bảng dữ liệu là D0 đến D7).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761026760721-571.png?rev=1.1)
+
+### FDEL / Xóa dữ liệu khỏi bảng dữ liệu
+
+FDEL(P)
+
+Xóa dữ liệu thứ (n) của bảng dữ liệu được chỉ định tại (d) và lưu vào thiết bị được chỉ định tại (s). Sau khi lệnh được thực thi, dữ liệu từ (n)+1 trở đi trong bảng dữ liệu sẽ được dồn tiến lên từng vị trí một.
+
+-[FDEL (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu bị xóa | - | Signed BIN 16 bit | ANY16 |
+| (d) | Số hiệu bắt đầu của bảng | - | word | ANY16 |
+| (n) | Vị trí xóa trong bảng | 1-512 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| FDEL | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| FDEL | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| FDEL | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Xóa dữ liệu thứ (n) của bảng dữ liệu được chỉ định tại (d) và lưu vào thiết bị được chỉ định tại (s). Sau khi lệnh được thực thi, dữ liệu từ (n)+1 trở đi trong bảng dữ liệu sẽ được dồn tiến lên từng vị trí một.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761026280809-833.png?width=659&amp;height=271&amp;rev=1.1)
+
+:::tip
+✎ Lưu ý: Người lập trình chịu trách nhiệm quản lý phạm vi vùng nhớ thiết bị được sử dụng trong bảng dữ liệu.
+
+✎ Lưu ý: Phạm vi lưu trữ dữ liệu thực tế của bảng bắt đầu từ địa chỉ ((d) + 1) ngay sau thanh ghi (d) lưu số lượng phần tử.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Code | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Lệnh FDEL(P) được thực thi khi giá trị của (d) bằng 0. |
+| 4084H | Dữ liệu lưu trữ của bảng tại (d) vượt quá 512. |
+| 4084H | Khi dữ liệu cài đặt tại (n) nằm ngoài phạm vi sau: 1≤(n)≤512. |
+| 4084H | Khi lệnh FDEL(P) được thực thi, vị trí bảng (n) của dữ liệu xóa lớn hơn số lượng dữ liệu đang lưu trữ. |
+| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (d) and (n) exceeds the corresponding device range. |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (s) and (d) exceeds the corresponding device range. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761026499270-138.png?width=670&amp;height=60&amp;rev=1.1)
+
+Khi X10 đang ON, xóa dữ liệu thứ hai trong bảng dữ liệu từ D100 đến D105 và lưu dữ liệu đã xóa vào D0. Tuy nhiên, khi số lượng dữ liệu đã lưu bằng 0, không thực thi lệnh FDEL. (Phạm vi thiết bị sử dụng trong bảng dữ liệu là D100 đến D107)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761026454338-354.png?width=801&amp;height=306&amp;rev=1.1)
+
+0

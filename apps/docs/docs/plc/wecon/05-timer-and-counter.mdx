@@ -1,15 +1,163 @@
 ---
 id: "05-timer-and-counter"
-title: "05 Timer and Counter: Bộ định thời & Bộ đếm"
+title: "05 Bộ định thời và Bộ đếm (Timer and Counter)"
 sidebar_position: 5
 sidebar_label: "05 Timer and Counter"
-tags: [wecon, lx6v, lx6a, manual]
-description: "Hướng dẫn sử dụng Timer và Counter độ chính xác cao trên PLC Wecon."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 05 Bộ định thời và Bộ đếm (Timer and Counter)"
 ---
 
-## 05 Timer and Counter: Bộ định thời & Bộ đếm
+## Lệnh ngõ ra bộ định thời
 
-Cung cấp các khối đếm thời gian và sự kiện:
-- Timer thường và Timer nhớ trạng thái (Retentive Timer) khi mất nguồn.
-- Độ phân giải linh hoạt từ 1ms (siêu nhanh), 10ms đến 100ms.
-- Counter đếm lên (Up-counter), đếm xuống (Down-counter) và counter 32-bit mở rộng.
+### OUT T / Ngõ ra bộ định thời
+
+Khi kết quả tính toán trước lệnh OUT là ON, cuộn dây của bộ định thời/bộ định thời lưu giữ khi mất điện (Retentive) được chỉ định trong (d) sẽ ON và thực hiện đo thời gian cho đến khi đạt giá trị cài đặt. Nếu hết thời gian giới hạn, tiếp điểm thường mở (NO) sẽ dẫn và tiếp điểm thường đóng (NC) sẽ trở nên không dẫn.
+
+-[OUT (d) (value)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bộ định thời | - | Counter | ANY |
+| (value) | Giá trị đặt của bộ định thời | 0 to 32767 | Unsigned BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| OUT T | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |
+| OUT T | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  | ● | ● | ● | ● |  |  | ● | ● |  |  |  |
+
+#### Đặc tính kỹ thuật
+
+Khi kết quả phép toán trước lệnh OUT là ON, cuộn dây của bộ định thời được chỉ định trong (d) sẽ ON và thực hiện đo thời gian cho đến khi đạt giá trị cài đặt. Nếu giá trị đếm đạt tới (giá trị hiện tại ≥ giá trị cài đặt), tiếp điểm thường mở (NO) sẽ dẫn và tiếp điểm thường đóng (NC) sẽ trở nên không dẫn.
+
+Khi kết quả phép toán trước lệnh OUT chuyển từ ON sang OFF, tình huống diễn ra như sau.
+
+| Loại bộ định thời | Cuộn dây bộ định thời | Giá trị hiện tại của bộ định thời | Before the time limit (tiếp điểm thường mở (NO)) | Before the time limit (tiếp điểm thường đóng (NC)) | After the time limit (tiếp điểm thường mở (NO)) | After the time limit (tiếp điểm thường đóng (NC)) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Timer | OFF | 0 | Non-conductive | Conduction | Non-conductive | Conduction |
+| Bộ định thời tích lũy | OFF | Giữ nguyên giá trị hiện tại | Non-conductive | Conduction | Conduction | Non-conductive |
+
+• Sau khi hết thời gian giới hạn, xóa giá trị hiện tại của bộ định thời tích lũy và tắt tiếp điểm bằng lệnh RST.
+
+• Khi giá trị cài đặt bằng 0, thời gian giới hạn sẽ hết ngay khi lệnh OUT được thực thi.
+
+• Trong khi lệnh OUT T đang ON, nếu lệnh OUT T bị bỏ qua bởi lệnh CJ, v.v., việc cập nhật giá trị hiện tại và bật/tắt (ON/OFF) tiếp điểm sẽ không được thực hiện.
+
+• Nếu cùng một lệnh OUT T được thực thi nhiều hơn hai lần trong cùng một chu kỳ quét, giá trị hiện tại sẽ được cập nhật theo số lần thực thi.
+
+• Mô tả từng loại bộ định thời:
+
+| Số hiệu thiết bị | Thông số kỹ thuật bộ định thời | Số hiệu thiết bị | Thông số kỹ thuật bộ định thời |
+| :--- | :--- | :--- | :--- |
+| T0 to T191 | 100ms timer | T246 to T249 | Bộ định thời tích lũy 1ms |
+| T192 to T199 | Bộ định thời chương trình con 100ms (dùng trong chương trình con; ngay cả khi chương trình con không được gọi, nó vẫn được cập nhật) | T250 to T255 | Bộ định thời tích lũy 10ms |
+| T192 to T199 | Bộ định thời chương trình con 100ms (dùng trong chương trình con; ngay cả khi chương trình con không được gọi, nó vẫn được cập nhật) | T256 to T383 | 1ms timer |
+| T200 to T245 | 10ms timer | T384 to T511 | 0.1ms timer |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Tham số cài đặt trong (value) nằm ngoài phạm vi |
+
+#### Ví dụ minh họa
+
+Sử dụng định thời, D0 tăng thêm 1 sau mỗi 1s:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/05%20Timer%20and%20Counter%20Output%20Instructions/WebHome/127.png?rev=1.1)
+
+## Các lệnh ngõ ra bộ đếm
+
+### OUT C / Ngõ ra bộ đếm
+
+Lệnh bộ đếm 16-bit: Khi kết quả phép toán trước lệnh OUT chuyển từ OFF sang ON, giá trị hiện tại của bộ đếm được chỉ định trong (d) sẽ tăng +1. Nếu đạt đến giá trị đếm, tiếp điểm thường mở (NO) sẽ bật và tiếp điểm thường đóng (NC) sẽ trở nên không dẫn.
+
+-[OUT (d) (value)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bộ đếm | - | Counter | ANY |
+| (value) | Giá trị đặt của bộ đếm | 0 to 32767 | Unsigned BIN 16 bit | ANY_INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| OUT C | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |
+| OUT C | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  | ● | ● | ● |  |  | ● | ● | ● |  |  |
+
+#### Đặc tính kỹ thuật
+
+• Khi kết quả tính toán trước lệnh OUT chuyển từ OFF sang ON, giá trị hiện tại (giá trị đếm) của bộ đếm được chỉ định trong (d) sẽ tăng +1. Nếu giá trị đếm đạt tới (giá trị hiện tại ≥ giá trị cài đặt), tiếp điểm thường mở (NO) sẽ bật, tiếp điểm thường đóng (NC) trở nên không dẫn.
+
+• Nếu kết quả tính toán giữ nguyên ON, không thực hiện đếm. (Ngõ vào đếm không cần phải ở dạng xung.)
+
+• Sau khi đạt đến giá trị đếm, giá trị đếm và trạng thái tiếp điểm không thay đổi trước khi lệnh RST được thực thi.
+
+• Khi giá trị cài đặt bằng 0, quá trình xử lý giống như khi giá trị bằng 1.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Tham số cài đặt trong (value) nằm ngoài phạm vi |
+| 4085H | The (value) parameter vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/05%20Timer%20and%20Counter%20Output%20Instructions/WebHome/128.png?rev=1.1)
+
+Mỗi lần M0 chuyển từ OFF→ON, C0 sẽ tăng thêm 1. Khi giá trị của C0 cộng đến K10, tiếp điểm thường mở (NO) của C0 đóng lại và Y0 xuất ngõ ra. Lúc này, M0 tiếp tục chuyển từ OFF→ON, giá trị của C0 sẽ không thay đổi nữa.
+
+Tiếp điểm của C0 chỉ có thể được tắt OFF bằng lệnh RST/ZRST và qua truyền thông.
+
+### Lệnh OUT LC / Ngõ ra bộ đếm dài
+
+Lệnh bộ đếm 32-bit: Khi kết quả phép toán trước lệnh OUT chuyển từ OFF sang ON, giá trị hiện tại của bộ đếm dài được chỉ định trong (d) sẽ tăng +1. Nếu đếm đủ, tiếp điểm thường mở (NO) sẽ bật và tiếp điểm thường đóng (NC) sẽ trở nên không dẫn.
+
+-[OUT (d) (value)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bộ đếm dài (32-bit) | - | Counter | ANY |
+| (value) | Giá trị đặt của bộ đếm dài (32-bit) | 0 to 4294967295 | Unsigned BIN 32 bit | ANY_INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| OUT LC | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |
+| OUT LC | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  | ● | ● | ● |  |  | ● | ● | ● |  |  |
+
+#### Đặc tính kỹ thuật
+
+• Khi kết quả tính toán trước lệnh OUT chuyển từ OFF sang ON, giá trị hiện tại (giá trị đếm) của bộ đếm dài được chỉ định trong (d) sẽ tăng +1. Nếu giá trị đếm đạt tới (giá trị hiện tại ≥ giá trị cài đặt), tiếp điểm thường mở (NO) sẽ bật ON, tiếp điểm thường đóng (NC) trở nên không dẫn.
+
+• Nếu kết quả tính toán giữ nguyên ON, không thực hiện đếm. (Ngõ vào đếm không cần phải ở dạng xung.)
+
+• Sau khi đạt đến giá trị đếm, giá trị đếm và trạng thái tiếp điểm sẽ không thay đổi trước khi lệnh RST hoặc lệnh ZRST được thực thi.
+
+• Khi giá trị cài đặt bằng 0, quá trình xử lý giống như khi giá trị bằng 1.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The (value) parameter vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/05%20Timer%20and%20Counter%20Output%20Instructions/WebHome/129.png?rev=1.1)
+
+Mỗi lần M0 chuyển từ OFF sang ON, LC0 sẽ tăng thêm 1. Khi giá trị của LC0 cộng đến K10, tiếp điểm thường mở (NO) của LC0 đóng lại và Y0 xuất ngõ ra. Lúc này, M0 tiếp tục chuyển từ OFF→ON, giá trị của LC0 sẽ không thay đổi nữa.
+
+Tiếp điểm của LC0 chỉ có thể được tắt OFF bằng lệnh RST/ZRST và qua truyền thông.
+
+0

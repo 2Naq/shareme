@@ -1,0 +1,1060 @@
+---
+id: "19-plc-editor2-help-lx6"
+title: "19 Hướng dẫn sử dụng phần mềm PLC Editor 2 (LX6)"
+sidebar_position: 19
+sidebar_label: "PLC Editor2 Help (LX6)"
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 19 Hướng dẫn sử dụng phần mềm PLC Editor 2 (LX6)"
+---
+
+## Tổng quan
+
+So với dòng LX5CPU, dòng LX6CPU được bổ sung chức năng FB/FC mới. Phần nội dung sau mô tả các phần mới hoặc đã thay đổi của phần mềm để hỗ trợ chức năng FB/FC. Đối với các chức năng khác, vui lòng tham khảo "Tài liệu hướng dẫn phần mềm dòng LX6V" trong phần mềm PLC Editor2.
+
+## Lập trình
+
+## Giới thiệu tổng thể
+
+### Thanh công cụ
+
+Thêm menu biểu tượng giản đồ bậc thang để chèn các khối phép toán nối tiếp/song song:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%87108.png?rev=1.1)
+
+### Quản lý dự án
+
+Thêm khối hàm (FB), hàm (FC), cấu trúc tùy chỉnh, kiểu union tùy chỉnh và biến toàn cục:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%871.png?rev=1.1)
+
+### Chỉnh sửa giản đồ bậc thang
+
+Trang chương trình được chia thành vùng trên là bảng biến và vùng dưới là khu vực chỉnh sửa giản đồ bậc thang:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%872.png?rev=1.1)
+
+Có thể tạo mới, xóa và di chuyển thứ tự các biến lên/xuống trong vùng soạn thảo biến (xem chi tiết tại mục 4. Biến).
+
+Người dùng có thể viết chương trình trong khu vực chỉnh sửa giản đồ bậc thang. Sau khi chọn một nút trong mạng (network), có thể chèn các phần tử như tiếp điểm, khối phép toán và cuộn dây thông qua các biểu tượng giản đồ bậc thang, cửa sổ chỉnh sửa lệnh và phím tắt trên thanh công cụ, hoặc sửa đổi và xóa các phần tử hiện có.
+
+1) Chỉnh sửa lệnh
+
+Cách 1: Chèn biểu tượng giản đồ bậc thang;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%873.png?rev=1.1)
+
+Cách 2: Chèn bằng phím tắt;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%874.png?rev=1.1)
+
+Cách 3: Nhấn Enter hoặc nhập trực tiếp ký tự.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%875.png?rev=1.1)
+
+2) Chỉnh sửa hàng và cột / chỉnh sửa mạng (network)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%876.png?rev=1.1)
+
+### Mô tả các giới hạn lập trình
+
+- FC không hỗ trợ sử dụng FB;
+
+- Chỉ mục mảng hỗ trợ sử dụng biến, nhưng không hỗ trợ lồng mảng. Ví dụ: array[var] được phép, array[array[var]] không được phép;
+
+FB/FC không hỗ trợ sử dụng thiết bị tổ hợp làm biến;
+
+- FB/FC, cấu trúc/union hỗ trợ tối đa 6 cấp lồng nhau;
+
+- Hỗ trợ sử dụng biến cho tiếp điểm, cuộn dây, FB/FC và các lệnh ứng dụng;
+
+- Tên biến không phân biệt chữ hoa và chữ thường, do đó A1 và a1 là cùng một biến;
+
+Không hỗ trợ sử dụng thiết bị T/C/HSC/LC làm tham số ngõ vào và ngõ ra kiểu BOOL của FB/FC.
+
+## Khối hàm (FB) và Hàm (FC)
+
+## Khối hàm (FB)
+
+Khối hàm (FB) có thể đóng gói một phần chương trình được tái sử dụng thành một khối chương trình chung, có thể gọi lặp lại nhiều lần trong chương trình. Việc sử dụng khối hàm khi lập trình giúp nâng cao hiệu quả phát triển chương trình, giảm lỗi lập trình và nâng cao chất lượng chương trình.
+
+Khối hàm (FB) có thể tạo ra một hoặc nhiều giá trị khi thực thi và lưu giữ các biến nội bộ riêng biệt của nó. Hệ thống thực thi của bộ điều khiển cấp phát bộ nhớ cho các biến trạng thái nội bộ của khối hàm, và các biến nội bộ này tạo nên đặc tính trạng thái riêng của khối hàm. Với cùng một giá trị biến ngõ vào của tham số, có thể tồn tại các biến trạng thái nội bộ khác nhau và cho ra các kết quả tính toán khác nhau.
+
+Các bước cơ bản để sử dụng khối hàm (FB) là: tạo khối hàm mới -&gt; lập trình khối hàm -&gt; khởi tạo thể hiện khối hàm -&gt; chạy khối hàm.
+
+### Tạo khối hàm (FB) mới
+
+Tạo khối hàm (FB) mới thông qua phần mềm PLC Editor2.
+
+Nhấp chuột phải vào nút "Function Block" (Khối hàm) trong khu vực quản lý dự án, chọn New (Mới), nhập tên khối hàm và các thông tin khác trong hộp thoại bật lên, rồi nhấn "OK" để hoàn tất việc tạo khối hàm.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%877.png?rev=1.1)
+
+### Lập trình khối hàm (FB)
+
+Khối hàm (FB) chỉ hỗ trợ lập trình bằng giản đồ bậc thang. Nhấp đúp vào khối hàm vừa tạo dưới nút "Function Block" để vào giao diện chỉnh sửa chương trình khối hàm.
+
+Giao diện chỉnh sửa chương trình khối hàm không khác biệt so với giao diện chỉnh sửa chương trình thông thường, và cả hai đều có cửa sổ định nghĩa biến cục bộ.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%878.png?rev=1.1)
+
+① Category (Danh mục): Thuộc tính của các biến khối hàm.
+
+| Category | Mô tả phân loại | Mô tả kỹ thuật |
+| :--- | :--- | :--- |
+| VAR | Biến cục bộ | Chỉ có hiệu lực trong khối logic này và không thể truy cập từ bên ngoài |
+| VAR_IN_OUT | Biến đầu vào và đầu ra (IN_OUT) | Biến đầu vào và đầu ra không chỉ có thể được truyền vào khối logic được gọi, mà còn có thể được sửa đổi bên trong khối logic được gọi đó |
+| VAR_INPUT | Biến đầu vào | Tham số này được cung cấp bởi khối logic gọi nó và dữ liệu/lệnh truyền vào khối logic sẽ được nhập qua đây |
+| VAR_OUTPUT | Biến đầu ra | Cung cấp tham số trả về cho khối logic gọi nó, xuất dữ liệu cấu trúc từ khối logic |
+| VAR_TEMP | Biến tạm thời | Variables used for program and khối hàm (FB) internal storage, and when the block is called each time, temporary variables are initialized |
+
+② Symbol (Ký hiệu)
+
+| Category | Mô tả phân loại | Mô tả kỹ thuật |
+| :--- | :--- | :--- |
+| CONSTANT | Hằng số | Trong quá trình chạy chương trình, dữ liệu này chỉ có thể đọc mà không thể sửa đổi |
+| RETAIN | Dự phòng | Biến này sẽ được lưu giữ sau khi mất nguồn và thao tác khởi tạo sẽ được thực hiện khi giá trị ban đầu được thiết lập. |
+| PRESISTENT | Save | Biến này sẽ được lưu giữ sau khi mất nguồn và thao tác khởi tạo sẽ không được thực hiện khi giá trị ban đầu được thiết lập. Biến này chỉ bị xóa khi bộ nhớ PLC được xóa |
+
+③ Name (Tên): Tên của biến. Tham khảo các ràng buộc nhập liệu của biến để biết quy tắc đặt tên.
+
+④ Data type (Kiểu dữ liệu): Kiểu dữ liệu biến hỗ trợ BOOL, BYTE, INT, DINT, REAL, v.v., và người dùng cũng có thể định nghĩa biến mảng, cấu trúc và kiểu union. Khi sử dụng biến cấu trúc, người dùng cần tạo các thành phần cấu trúc trong mục cấu trúc của biến toàn cục.
+
+⑤ Initial value (Giá trị ban đầu): Thiết lập dữ liệu ban đầu khi bắt đầu thực thi biến.
+
+Chương trình khối hàm (FB) sử dụng lập trình giản đồ bậc thang. Trong chương trình khối hàm, có thể gọi các hàm (FC) hoặc khối hàm (FB), và hỗ trợ lồng nhau tối đa 6 cấp.
+
+Ngoài biến, chương trình khối hàm (FB) cũng có thể sử dụng các thiết bị như biến toàn cục. Giản đồ bậc thang hiện tại có thể sử dụng tiếp điểm biến, cuộn dây, khối hàm/hàm và một số lệnh dòng 5V. (Để biết chi tiết, vui lòng tham khảo "Tài liệu hướng dẫn lập trình PLC LX6V")
+
+### Ví dụ: Đóng gói phép toán AND bằng FB
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%879.png?rev=1.1)
+
+Khởi tạo thể hiện và gọi khối hàm (FB)
+
+Sau khi viết xong chương trình FB, cần khởi tạo thể hiện và gọi thì mới sử dụng được khối hàm trong chương trình ứng dụng. Trên thanh menu phía trên của phần mềm, nhấn nút "Insert Operation Block" (Chèn khối phép toán) trong mục "Ladder Diagram Symbol" hoặc nhấn phím tắt F2.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8710.png?rev=1.1)
+
+Sau khi chèn khối hàm, nhập tên khối hàm vào vị trí "???" bên trong khối hàm và nhấn phím "Enter" trên bàn phím.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8711.png?rev=1.1)
+
+Sau khi nhập tên khối hàm, dấu "???" sẽ xuất hiện ở phía trên lệnh khối hàm. Nhập tên biến (tên thể hiện) vào vị trí "???", nhấn phím "Enter" và nhấn "OK" trong hộp thoại bật lên để hoàn tất việc khởi tạo thể hiện khối hàm.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8712.png?rev=1.1)
+
+## Hàm (FC)
+
+Hàm (FC) là một khối chương trình được đóng gói độc lập. Khối chương trình này có thể định nghĩa kiểu tham số ngõ vào/ngõ ra và các biến nội bộ không lưu trạng thái, do đó khi hàm được gọi với cùng một tham số ngõ vào thì kết quả ngõ ra luôn giống nhau. Đặc điểm quan trọng của hàm là không có bộ nhớ lưu trạng thái nội bộ; cùng tham số ngõ vào sẽ cho ra cùng kết quả ngõ ra, và đây là điểm khác biệt chính giữa hàm (FC) và khối hàm (FB). Hàm (FC) thường được dùng trong các phép toán học như một đơn vị thuật toán cơ bản, chẳng hạn sin(x) và sqrt(x) là các dạng hàm điển hình.
+
+Các bước cơ bản để sử dụng hàm (FC) là: Tạo hàm mới -&gt; Lập trình hàm -&gt; Gọi hàm.
+
+### Tạo hàm mới
+
+Tạo một hàm mới thông qua phần mềm PLC Editor2.
+
+Nhấp chuột phải vào nút "Function" (hoặc nút tương ứng) trong khu vực quản lý dự án, chọn New (Mới), nhập tên hàm và các thông tin khác trong hộp thoại bật lên, rồi nhấn "OK" để hoàn tất việc tạo hàm.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8713.png?rev=1.1)
+
+### Lập trình hàm (FC)
+
+Hàm (FC) chỉ hỗ trợ lập trình giản đồ bậc thang. Nhấp vào hàm vừa tạo dưới nút "Function" để vào giao diện chỉnh sửa chương trình hàm. Giao diện chỉnh sửa chương trình hàm tương tự như giao diện của khối hàm (FB).
+
+- So với biến của khối hàm (FB), biến của hàm (FC) là biến không lưu giữ (non-retentive) và không thể lưu lại sau khi mất điện;
+
+- Chương trình hàm sử dụng lập trình giản đồ bậc thang, và trong chương trình hàm có thể gọi các hàm khác. Bản thân hàm cũng có thể được gọi bởi các hàm khác, khối hàm (FB) và chương trình;
+
+- Ngoài biến cục bộ, chương trình hàm có thể sử dụng biến toàn cục và các thiết bị;
+
+- Trong chương trình hàm, không thể sử dụng các lệnh liên quan đến trạng thái hoặc các lệnh thực thi qua nhiều chu kỳ.
+
+### Ví dụ: Đóng gói phép toán OR bằng FC
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8714.png?rev=1.1)
+
+Gọi hàm (FC)
+
+Sau khi viết xong chương trình FC, có thể sử dụng nó trong khối hàm (FB) hoặc chương trình.
+
+Nhấn nút "Insert Operation Block" (Chèn khối phép toán) trong mục "Ladder Diagram Symbol" và nhập tên hàm.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8715.png?rev=1.1)
+
+### Giá trị trả về của hàm
+
+Tạo một hàm mới hoặc chọn hàm trong mục quản lý dự án và nhấp chuột phải để thiết lập, nhấn "..." trong hộp thoại bật lên, hộp thoại trợ lý nhập liệu sẽ xuất hiện để người dùng chọn kiểu dữ liệu của giá trị trả về.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8716.png?rev=1.1)
+
+Trong giao diện chỉnh sửa của mô-đun hàm, tên hàm (FC1 trong hình dưới) có thể được lập trình như biến chứa giá trị trả về.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8717.png?rev=1.1)
+
+Khi giá trị trả về là một khối hàm (FB) hoặc cấu trúc tùy chỉnh, tên hàm có thể được dùng như tên thể hiện của khối hàm (FB), đóng vai trò biến cấp một để gọi các biến ngõ vào và ngõ ra bên dưới FB. Như minh họa ở hình dưới, giá trị trả về của FC1 là khối hàm FB1, và biến newVar của FB1 có thể được gán thông qua FC1.newVar.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8718.png?rev=1.1)
+
+Khi sử dụng hàm tùy chỉnh trong giao diện mạng (network view), sẽ có thêm một chân so với hàm tích hợp sẵn với phần mô tả chân để trống, theo sau là một biến có cùng kiểu dữ liệu với giá trị trả về của hàm (FC0_return trong hình dưới), dùng để lưu giá trị trả về của hàm (hỗ trợ để trống).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8719.png?rev=1.1)
+
+## Hỗ trợ nhập hằng số
+
+### Quy tắc sử dụng
+
+Tất cả các chân ngõ vào của khối phép toán (ngoại trừ loại vào-ra / ngõ ra) đều có thể đặt là hằng số; kiểu hằng số hỗ trợ hệ nhị phân, bát phân và thập lục phân. Hằng số nguyên có độ dài 64 bit.
+
+### Định dạng nhập liệu
+
+Hằng số dấu phẩy động: -10.0, 1.2E+34
+
+Hằng số thập phân: 10, -10
+
+Hằng số nhị phân: 2#10111001
+
+Hằng số bát phân: 28#0007, 8#1777
+
+Hằng số thập lục phân: 16#FF, 16#FFFF, 16#FFFFFFFF
+
+Hằng số BOOL: TRUE và FALSE
+
+Hằng số thời gian: TIME#0ms, phạm vi hợp lệ: 0ms đến 4294967295ms
+
+TOD#0:0:0.001, phạm vi hợp lệ: 0:0:0 đến 23:59:59
+
+DATE#1970-1-1, phạm vi hợp lệ: 1970-01-01 đến 2106-02-07
+
+DT#1970-01-01:0:0:0, phạm vi hợp lệ: 1970-01-01:0:0:0 đến 2106-02-07-06:28:15
+
+LTIME#0ns, phạm vi hợp lệ: 0ns đến (2^64-1)ns
+
+### Ví dụ minh họa
+
+Cách sử dụng số nguyên hệ bát phân và hệ thập phân:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8720.png?rev=1.1)
+
+## Hỗ trợ bỏ trống ngõ vào và ngõ ra
+
+### Quy tắc sử dụng
+
+① FC tích hợp sẵn không được phép bỏ trống
+
+② Ngõ vào của FC tùy chỉnh không được phép bỏ trống, nhưng ngõ ra có thể bỏ trống;
+
+③ Ngõ vào và ngõ ra của FB tùy chỉnh đều có thể bỏ trống;
+
+④ FB tích hợp sẵn có thể bỏ trống trừ khi có quy định khác (để biết chi tiết, vui lòng tham khảo mô tả về FB tích hợp sẵn trong "Tài liệu hướng dẫn lập trình PLC dòng LX6V").
+
+### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8721.png?rev=1.1)
+
+## Hỗ trợ mở rộng ngõ vào
+
+Nhập một khối phép toán có hỗ trợ mở rộng ngõ vào, chọn vùng khối phép toán, nhấp chuột phải --&gt; chọn Add Input (Thêm ngõ vào) hoặc nhấn phím tắt Shift+I để thêm các điểm ngõ vào bổ sung, ví dụ:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8722.png?rev=1.1)
+
+Để xóa điểm ngõ vào đã thêm, người dùng có thể chọn điểm ngõ vào đó và nhấn phím "Delete" để xóa.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8723.png?rev=1.1)
+
+## Biến
+
+## Biến tùy chỉnh
+
+Khi lập trình trong PLC Editor2, ngoài việc sử dụng trực tiếp các địa chỉ như thiết bị M, D, S, X, Y và các thiết bị khác, người dùng còn có thể lập trình dưới dạng [biến] không gắn địa chỉ lưu trữ cụ thể, giúp tăng tính thuận tiện và khả năng tái sử dụng mã nguồn. Các kiểu biến tùy chỉnh được phần mềm này hỗ trợ như sau:
+
+| Kiểu dữ liệu | Keyword | Length (bits) | Phạm vi giá trị |
+| :--- | :--- | :--- | :--- |
+| BOOL | BOOL | 1 | FALSE (0) or TRUE (1) |
+| Byte | BYTE | 8 | 0 to 255 |
+| Word | WORD | 16 | 0 to 65535 |
+| Double Word | DWORD | 32 | 0 to 4294967295 |
+| Long Word | LWORD | 64 | 0-(2^64-1) |
+| Short Int | SINT | 8 | -128-127 |
+| Unsigned Short Int | USINT | 8 | 0 to 255 |
+| Int | INT | 16 | -32768 to 32767 |
+| Unsigned Int | UINT | 16 | 0 to 65535 |
+| Double Int | DINT | 32 | -2147483648 to 2147483647 |
+| Unsigned Double Int | UDINT | 32 | 0 to 4294967295 |
+| Long Int | LINT | 64 | -2^63 -(2^63-1) |
+| Real Number | REAL | 32 | ±1.175495E-38 to ±3.402823E+38 |
+| Long Real Number | LREAL | 64 | ±2.225073858507202E-308 to ±1.797693134862315E+308 |
+| Time | TIME | 32 | 0ms - 4294967295ms |
+| Time | TIME_OF_DAY | 32 | 0:0:0 - 23:59:59 |
+| Time | DATE | 32 | 1970-01-01 - 2106-02-07 |
+| Time | DATE_AND_TIME | 32 | 1970-01-01 : 0 : 0 : 0 - 2106-02-07-06 : 28 : 15 |
+| Time | LTIME | 64 | 0ns - (2^64-1)ns |
+
+## Biến tùy chỉnh
+
+PLC Editor2 hỗ trợ biến tùy chỉnh; người dùng có thể sử dụng trực tiếp tên biến trong chương trình bằng cách định nghĩa biến toàn cục/biến cục bộ. Khi định nghĩa tên biến toàn cục cần tuân thủ các quy tắc sau:
+
+① Chỉ được bao gồm "chữ số, chữ cái và dấu gạch dưới" và không được bắt đầu bằng "chữ số";
+
+② Không được trùng tên với "lệnh, thiết bị, hằng số, kiểu dữ liệu chuẩn";
+
+③ Không được trùng tên với "chương trình, khối hàm, hàm, cấu trúc tùy chỉnh, kiểu union tùy chỉnh";
+
+④ Không được là các từ khóa như "struct, union, GVL";
+
+⑤ Không được bắt đầu bằng "tên thiết bị + chữ số";
+
+⑥ Độ dài không được vượt quá 32 ký tự.
+
+:::tip
+Lưu ý: Tên biến không phân biệt chữ hoa và chữ thường, tức là A1 và a1 là cùng một biến.
+:::
+
+### Kiểu dữ liệu của biến
+
+Định nghĩa biến hỗ trợ cấu trúc và mảng; các kiểu dữ liệu biến được hỗ trợ được trình bày trong 【Bảng 1 Các kiểu biến tùy chỉnh được phần mềm này hỗ trợ】
+
+### Định nghĩa biến toàn cục
+
+Bảng "Program" -&gt; "Global Variables" -&gt; "GVL" trong cột quản lý dự án của phần mềm lập trình PLC Editor2 được sử dụng để quản lý biến, cho phép thêm, xóa và chỉnh sửa biến.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8724.png?rev=1.1)
+
+Add variable : Click the New button
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/image-20230721113024-1.png?rev=1.1)
+
+ở góc trên bên trái bảng biến toàn cục (GVL) để thêm một biến toàn cục mới.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8725.png?rev=1.1)
+
+① Có thể thiết lập các cờ của biến (loại hằng số constant và loại lưu giữ retain) trong cột Category (Danh mục), và các thiết lập ở cột giá trị ban đầu chỉ có hiệu lực đối với biến không lưu giữ;
+
+② Nhấp đúp vào cột tên biến trong bảng biến để nhập tên biến tùy chỉnh, sau đó bạn có thể sử dụng trực tiếp tên biến đó để lập trình
+
+③ Cột kiểu dữ liệu có thể chọn các kiểu dữ liệu cơ bản, mảng, cấu trúc và kiểu union được hỗ trợ (cần định nghĩa cấu trúc và union trước). Khi chọn mảng làm kiểu dữ liệu, thiết lập kiểu phần tử mảng và độ dài khoảng chỉ số trong hộp thoại (độ dài khoảng tối đa là [0,49]). Khi chọn cấu trúc hoặc union đã định nghĩa trước, người dùng có thể định nghĩa biến cấu trúc hoặc biến union;
+
+④ Nhấp đúp vào cột giá trị ban đầu để định nghĩa giá trị ban đầu cho biến; đối với mảng, cấu trúc và union, có thể định nghĩa riêng giá trị ban đầu cho từng phần tử;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8726.png?rev=1.1)
+
+⑤ Người dùng có thể nhập thông tin chú thích của biến trong cột chú thích.
+
+Delete variable : Click the delete button
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/image-20230721113115-2.png?rev=1.1)
+
+ở góc trên bên trái bảng biến toàn cục (GVL) để xóa biến đang chọn.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8727.png?rev=1.1)
+
+### Định nghĩa biến cục bộ
+
+Điểm khác biệt giữa biến cục bộ và biến toàn cục là biến cục bộ được định nghĩa trong trang chương trình / khối hàm (FB) / hàm (FC), và phạm vi hoạt động chỉ giới hạn trong cửa sổ đã định nghĩa.
+
+Trong cột danh mục của cửa sổ biến cục bộ, biến có thể được thiết lập làm biến ngõ vào, biến ngõ ra, biến vào-ra và biến tạm thời.
+
+### Định nghĩa Cấu trúc (Structure) / Kiểu hợp (Union)
+
+Nếu cần định nghĩa một biến cấu trúc/union trong phần định nghĩa biến, bạn cần định nghĩa trước cấu trúc dữ liệu của cấu trúc/union đó.
+
+Trong "Program" -&gt; nhấp chuột phải vào "Custom structure" / "Custom union" -&gt; chọn "New" -&gt; nhập tên vào hộp thoại bật lên -&gt; nhấn "OK", nhấp đúp vào tên cấu trúc dữ liệu để mở cửa sổ định nghĩa cấu trúc dữ liệu nhằm định nghĩa cấu trúc/union.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8728.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8729.png?rev=1.1)
+
+Sau khi thiết lập cấu trúc/union và các biến thành viên trong cửa sổ định nghĩa cấu trúc dữ liệu, người dùng có thể chọn cấu trúc đó tại mục kiểu dữ liệu khi định nghĩa biến để tạo biến cấu trúc/union. Các bước thực hiện như sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8730.png?rev=1.1)
+
+① Tạo một biến mới;
+
+② Thiết lập kiểu dữ liệu và chọn trình hỗ trợ nhập liệu (input helper);
+
+③ Nhấp vào kiểu dữ liệu cấu trúc, chọn tên cấu trúc tùy chỉnh STRUCT0 và nhấn "OK";
+
+④ Sử dụng các cách sau để tham chiếu biến dữ liệu cấu trúc stu đã định nghĩa trong giản đồ bậc thang.
+
+Cách 1: Nhấp đúp vào tên biến thiết bị, nhấn nút ở bên phải và chọn biến trong cây thông tin biến hiển thị ở cửa sổ bật lên.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8731.png?rev=1.1)
+
+Cách 2: Viết giản đồ bậc thang và nhập trực tiếp stu.stu_a.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8732.png?rev=1.1)
+
+### Cách sử dụng biến
+
+Sau khi biến được định nghĩa, có thể sử dụng trực tiếp tên biến để lập trình mà không cần cấp phát lại địa chỉ thiết bị.
+
+- Thực hiện trực tiếp các thao tác lập trình với biến;
+
+- Khi sử dụng biến mảng, dùng "[Chỉ số]" trong lập trình để chỉ phần tử mảng, và chỉ số bắt đầu từ 0;
+
+- Khi sử dụng biến cấu trúc, dùng "Tên biến cấu trúc.Tên biến thành viên" trong lập trình để chỉ một thành phần của cấu trúc;
+
+- Khi sử dụng biến toàn cục, dùng "GVL.Tên biến" trong lập trình để chỉ một biến toàn cục.
+
+## Sử dụng biến làm chỉ số mảng
+
+### Quy tắc sử dụng
+
+Quy tắc chung khi sử dụng biến làm chỉ số mảng: trong toàn bộ biểu thức biến, tối đa chỉ được dùng một biến làm chỉ số, và định dạng được quy định là array[index] hoặc stu.var[index], trong đó array là mảng hoặc mảng cấu trúc, index là biến chỉ số và stu đại diện cho cấu trúc.
+
+### Các kiểu kết hợp cơ bản
+
+1) Biến mảng, với tư cách là mảng chứa phần tử, chỉ hỗ trợ các kiểu BOOL, BYTE, DATE, DATE_AND_TIME, DINT, DWORD, INT, LINT, LREAL, LTIME, LWORD, REAL, SINT, TIME, TIME_OF_DAY, LDINT, UINT, USINT, WORD; không hỗ trợ biến con trỏ, v.v.;
+
+(2) Biến index, với tư cách là biến chỉ số mảng, hỗ trợ các thiết bị C, D, HSC, LC, R, SD, T, V, Z và không cho phép độ lệch (offset); hỗ trợ các kiểu biến BYTE, WORD, DWORD, LWORD, SINT, USINT, INT, UINT, DINT, UDINT, LINT; không hỗ trợ lồng mảng, ví dụ như array[index[5]];
+
+(3) Không hỗ trợ mảng cấu trúc có hai biến trở lên làm chỉ số;
+
+### Ví dụ minh họa
+
+Tạo biến mảng array[10] trong bảng biến và khai báo array[1] để tham chiếu trong giản đồ bậc thang.
+
+(4) Không hỗ trợ mảng hai chiều hoặc mảng nhiều chiều dạng array[index1][index2].
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8733.png?rev=1.1)
+
+Nếu mảng được định nghĩa trong bảng biến toàn cục, trong giản đồ bậc thang sẽ dùng dưới dạng GVL.array[1];
+
+Nếu mảng được định nghĩa trong cấu trúc/union tùy chỉnh, trong giản đồ bậc thang sẽ dùng dưới dạng stu.array[1].
+
+## Gắn địa chỉ cho biến
+
+Trong chương trình hoặc biến toàn cục, phần mềm hỗ trợ gắn biến tùy chỉnh với địa chỉ phần tử mềm. Sau khi gắn, địa chỉ của biến tùy chỉnh sẽ được liên kết với địa chỉ của phần tử mềm đó. Phương pháp gắn là nhập một địa chỉ ánh xạ hợp lệ vào bảng định nghĩa biến. Trong trang chương trình hoặc biến toàn cục chỉ có thể ánh xạ đến các phần tử mềm D hoặc R
+
+## Biên dịch
+
+Chức năng biên dịch giản đồ bậc thang vẫn giữ nguyên như dòng 5V, bao gồm biên dịch từng trang và biên dịch toàn bộ, hiển thị kết quả biên dịch và nhấp đúp vào báo lỗi biên dịch để nhảy đến vị trí lỗi. Trình biên dịch hiện tại sẽ kiểm tra các lỗi sau:
+
+(1) Biên dịch từng trang chỉ biên dịch chương trình của trang hiện tại, còn biên dịch toàn bộ sẽ biên dịch chương trình của tất cả các trang trong mục quản lý dự án.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8734.png?rev=1.1)
+
+(2) Biên dịch nhanh
+
+Đánh dấu chọn Quick Compilation (Biên dịch nhanh) trong [Toolbar] --&gt; [View] --&gt; [Experiment]; sau khi bật Biên dịch nhanh, nhấn Compile hoặc Quick Compile để bỏ qua các mạng (network) đã biên dịch trước đó và tăng tốc quá trình biên dịch.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8735.png?rev=1.1)
+
+(3) Chương trình bình thường không có lỗi
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8736.png?rev=1.1)
+
+(4) Lỗi biên dịch
+
+① Sử dụng biến chưa được định nghĩa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8737.png?rev=1.1)
+
+② Kiểu biến khi gọi khối hàm (FB) không khớp
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8738.png?rev=1.1)
+
+③ Quá nhiều cấp lồng cấu trúc (vượt quá 6 cấp)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8739.png?rev=1.1)
+
+④ Kiểu khởi tạo thể hiện không khớp
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8740.png?rev=1.1)
+
+(5) Nhảy đến vị trí lỗi: nhấp đúp vào thông báo lỗi để nhảy đến thiết bị bị lỗi và hiển thị nổi bật.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8741.png?rev=1.1)
+
+## Truyền thông và Giám sát
+
+## Kiểm tra truyền thông
+
+(1) Chức năng: Mục đích chính của kiểm tra truyền thông là kiểm tra xem model dự án được tạo bởi phần mềm PLC Editor2 hiện tại có khớp với model của PLC cấp dưới hay không và có thể kết nối để truyền thông bình thường hay không.
+
+(2) Các bước thực hiện:
+
+① Mở và chạy phần mềm PLC Editor2;
+
+② Di chuyển con trỏ chuột đến mục [Online] phía trên bảng chương trình;
+
+③ Di chuyển con trỏ chuột đến nút [Transfer Settings] (Thiết lập truyền) và nhấp chuột trái;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8742.png?rev=1.1)
+
+④ Chờ phần mềm phản hồi, hộp thoại [Communication Settings] (Cài đặt truyền thông) sẽ bật lên;
+
+⑤ Hộp thoại [Communication Settings] bật lên. Nếu ô [Detailed Settings] (Cài đặt chi tiết) không được chọn, hãy chọn cổng tương ứng, bảng điều khiển hiển thị như bên dưới;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8743.png?rev=1.1)
+
+⑥ Hiện có ba kênh hỗ trợ truyền thông với PLC. Chọn kênh truyền thông tương ứng và cấu hình các tham số liên quan (cách sử dụng từng kênh sẽ được giới thiệu bên dưới), sau đó nhấn nút [Communication Test] (Kiểm tra truyền thông). Nếu model PLC không khớp với model dự án, cửa sổ sau sẽ bật lên.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8744.png?rev=1.1)
+
+Nếu kênh đã chọn gặp sự cố và không thể kết nối, cửa sổ sau sẽ bật lên.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8745.png?rev=1.1)
+
+Nếu có thể truyền thông bình thường với PLC, cửa sổ sau sẽ bật lên.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8746.png?rev=1.1)
+
+(3) Cách sử dụng ba kênh truyền thông
+
+① Kết nối USB: Kênh USB của PLC dòng 6V sử dụng giao diện USB-C (Type-C), chỉ hỗ trợ cáp USB-C để kết nối. Nếu máy tính hiện tại dùng cáp USB-C kết nối với cổng USB-C của PLC, phần mềm sẽ mặc định chọn nút [USB connection].
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8747.png?rev=1.1)
+
+② Kết nối cổng nối tiếp (Serial): Kênh cổng nối tiếp của thiết bị PLC 6V sử dụng giao diện RS485. Sau khi kết nối máy tính với PLC bằng cáp RS485, bạn có thể chọn tốc độ baud mong muốn qua hộp thả xuống [Baud Rate] và đánh dấu vào nút [Detailed Settings] để cấu hình các tham số cổng nối tiếp tương ứng. (Lưu ý: Các tham số mặc định của kết nối cổng nối tiếp trong dự án 6V mới cũng chính là các tham số mặc định của cổng nối tiếp RS485 trên PLC 6V.)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8749.png?rev=1.1)
+
+③ Cấu hình Ethernet: PLC 6V hỗ trợ truyền thông qua kết nối Ethernet. Cắm cáp mạng vào cổng Ethernet trên thiết bị PLC 6V để hỗ trợ truyền thông Ethernet. Nhấp vào hộp thả xuống [NIC selection] để chọn card mạng và nhập địa chỉ IP của thiết bị PLC vào ô nhập [IP Address] để bắt đầu kết nối truyền thông.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8750.png?rev=1.1)
+
+Nếu người dùng không biết địa chỉ IP của PLC, trước tiên hãy tải lên thông tin tham số thông qua cổng USB-C hoặc cổng nối tiếp, sau đó xem cấu hình thông tin liên quan đến Ethernet trên giao diện tham số; hoặc người dùng có thể nhấn nút [Device Search] (Tìm kiếm thiết bị) để tìm kiếm các thiết bị PLC đang kết nối trong cùng phân đoạn mạng.
+
+Tìm kiếm thiết bị (Device Search): Dùng để quét tất cả các PLC hỗ trợ Ethernet trong cùng dải mạng (Subnet Mask) với máy tính. Ví dụ: Nếu IP máy tính là 192.168.56.237 và Subnet Mask là 255.255.255.0 thì phần mềm sẽ quét các PLC trong lớp mạng 192.168.56.x; nếu IP là 172.16.56.1 (Mask 255.255.0.0) sẽ quét dải 172.16.x.x.
+
+Cách sử dụng chức năng tìm kiếm thiết bị: Nhấn [Device Search] để mở giao diện tìm kiếm, nhấn nút tìm kiếm để quét các thiết bị trong phân đoạn mạng liên quan. Chọn dòng thông tin thiết bị cần kết nối, sau đó nhấn OK. Địa chỉ IP đã chọn sẽ tự động được điền vào ô nhập địa chỉ IP của giao diện [Communication Settings].
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8751.png?rev=1.1)
+
+(4) Thông tin thiết bị (Device Info)
+
+① Chức năng: Dùng để xem các thông tin liên quan của PLC đang kết nối, chẳng hạn như model PLC, ngày sản xuất và các thông tin khác.
+
+② Các bước sử dụng: Sau khi thiết lập kết nối truyền thông với thiết bị PLC qua các bước trên, người dùng có thể nhấn nút [Device Information] (Thông tin thiết bị) để mở giao diện thông tin thiết bị tương ứng.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8752.png?rev=1.1)
+
+## Giám sát giản đồ bậc thang
+
+Function :Monitor the value of the devices and FB/FC parameters on the ladder diagram, modify and debug the program.
+
+Các bước thực hiện:
+
+① Kết nối với PLC và chuyển sang chế độ giám sát;
+
+② Sửa đổi giá trị thiết bị: sửa đổi giá trị thiết bị đang sử dụng trong cửa sổ bật lên dành cho việc thay đổi giá trị thiết bị.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8753.png?rev=1.1)
+
+Cửa sổ sửa đổi giá trị thiết bị có hỗ trợ sửa đổi các biến.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8754.png?rev=1.1)
+
+③ Giám sát giá trị biến: Ở chế độ giám sát, trong cửa sổ bảng biến cục bộ, chọn một biến, nhấp chuột phải để mở menu, chọn "Add to variable window" (Thêm vào cửa sổ biến) để đưa biến vào cửa sổ giám sát biến bên dưới và theo dõi giá trị của biến.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8755.png?rev=1.1)
+
+Sửa đổi giá trị biến: sau khi thêm biến vào cửa sổ giám sát biến, thực hiện sửa đổi giá trị theo các bước sau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8756.png?rev=1.1)
+
+## Tìm kiếm và Thay thế
+
+Tìm kiếm / Thay thế (Search/Replace): Tương tự chức năng tìm kiếm và thay thế trong bộ công cụ Office, giúp định vị nhanh vùng nhớ hoặc thay thế hàng loạt địa chỉ thiết bị trong dự án lớn.
+
+Usage method : Open the main program, after creating a new project, click [Ctrl] + [F] on the keyboard to pop up the search/replace interface, như minh họa trong hình dưới đây:.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8757.png?rev=1.1)
+
+Các nút được chia thành bốn nhóm: thiết bị (device), lệnh (instruction), chuỗi ký tự (string) và kết quả (result) như hình trên. Nhấn vào từng nút để chuyển sang giao diện thao tác tương ứng.
+
+Thiết bị (Device): Có thể tìm kiếm/thay thế các nội dung sau.
+
+① Tất cả các thiết bị
+
+② Các biến tùy chỉnh hợp lệ, bao gồm biến kiểu mảng và biến đa cấp
+
+③ Số thực ở định dạng ký hiệu khoa học
+
+④ Chuỗi ký tự có dấu ngoặc kép
+
+⑤ Tên FC tùy chỉnh
+
+⑥ Tên thể hiện FB
+
+:::tip
+Lưu ý: Không hỗ trợ tìm kiếm lệnh, không hỗ trợ tùy chọn thiết lập số điểm thiết bị, không hỗ trợ thay thế tên biến trong danh sách biến bằng thiết bị, và không hỗ trợ thay thế tên biến trong danh sách biến bằng tên biến đã tồn tại
+:::
+
+Lệnh (Instruction): Có thể tìm kiếm/thay thế các nội dung sau.
+
+① Tất cả các lệnh
+
+② FB/FC tích hợp sẵn
+
+③ FB/FC tùy chỉnh
+
+## Danh sách sử dụng thiết bị
+
+Danh sách sử dụng thiết bị chủ yếu hiển thị loại thiết bị được chỉ định. Bạn có thể kiểm tra tình trạng sử dụng và chú thích tương ứng của thiết bị. Các thiết bị được dùng trong các trang chương trình như quét vòng (scan), sự kiện, chương trình con, ngắt, khối hàm (FB) và hàm (FC) đều có thể được hiển thị.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8758.png?rev=1.1)
+
+Hướng dẫn sử dụng danh sách sử dụng thiết bị:
+
+① Hộp thả xuống chọn thiết bị: chọn một loại thiết bị, tìm kiếm và hiển thị tình trạng sử dụng của loại thiết bị tương ứng (bắt đầu từ số thứ tự 0);
+
+② Hộp thả xuống thiết bị bắt đầu: Bạn có thể nhập tên đầy đủ hoặc số thứ tự của thiết bị bắt đầu, nhấn phím Enter hoặc nhấn nút "Search" (Tìm kiếm) để tìm kiếm tình trạng sử dụng của loại thiết bị được chỉ định (tính từ thiết bị bắt đầu, tìm kiếm và hiển thị số thứ tự). Lịch sử tìm kiếm được lưu trong hộp thả xuống; sau khi chọn lại một bản ghi, bạn có thể thực hiện tìm kiếm lại.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8759.png?rev=1.1)
+
+③ Nút Search (Tìm kiếm): thực hiện thao tác tìm kiếm. Khi ô thiết bị bắt đầu để trống, hệ thống sẽ nhắc nhập thiết bị.
+
+④ Phạm vi tìm kiếm: chỉ định phạm vi tìm kiếm thiết bị;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8760.png?rev=1.1)
+
+Toàn bộ dự án (Whole project): tìm trên tất cả các trang chương trình của dự án hiện tại;
+
+Trang chương trình hiện tại (Current program page): chỉ tìm kiếm trong trang chương trình đang kích hoạt hiện tại.
+
+Loại chương trình hiện tại (Current program type): chỉ tìm kiếm trên tất cả các trang chương trình cùng loại với trang chương trình đang mở. (Các loại trang chương trình gồm: quét vòng, sự kiện, chương trình con, ngắt, khối hàm, hàm.)
+
+⑤ Tùy chọn hiển thị
+
+Tất cả thiết bị (All devices): sau khi chọn, tìm kiếm và hiển thị toàn bộ thiết bị thuộc loại này;
+
+Thiết bị đã sử dụng (Used devices): sau khi chọn, tìm kiếm và hiển thị các thiết bị thuộc loại này đã được sử dụng theo tùy chọn tiếp điểm và cuộn dây;
+
+Nếu không chọn cả tiếp điểm lẫn cuộn dây, tất cả các thiết bị thuộc loại này đã được dùng trong chương trình sẽ được hiển thị;
+
+Chọn tiếp điểm (hoặc cuộn dây) để hiển thị các thiết bị thuộc loại này được dùng làm tiếp điểm (hoặc cuộn dây) trong chương trình.
+
+Chọn cả tiếp điểm và cuộn dây để hiển thị các thiết bị thuộc loại này được dùng làm tiếp điểm và cuộn dây trong chương trình.
+
+Thiết bị chưa sử dụng (Unused devices): sau khi chọn, hiển thị tất cả các thiết bị thuộc loại này chưa được sử dụng trong chương trình.
+
+⑥ Mở rộng và thu gọn mục con trong danh sách sử dụng thiết bị, bao gồm lệnh, số bước, loại và các thông tin khác của thiết bị trong chương trình. Nhấp đúp vào nội dung mục con để định vị đến vị trí tương ứng trong chương trình.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8761.png?rev=1.1)
+
+Chú thích thiết bị: (nền màu trắng) hiển thị chú thích của thiết bị.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8762.png?rev=1.1)
+
+## Mô-đun mở rộng
+
+## Mô tả kỹ thuật
+
+Mô-đun mở rộng được dùng để mở rộng chức năng cho PLC. Việc lắp đặt dễ dàng và số lượng mô-đun có thể tăng hoặc giảm linh hoạt. Các loại mô-đun bao gồm mô-đun I/O, mô-đun tương tự (analog), mô-đun truyền thông, v.v. (PLC dòng LX6V hiện tại chỉ hỗ trợ mô-đun I/O). Máy tính chủ có thể tải thông tin tham số mô-đun xuống mô-đun mở rộng thông qua chức năng cấu hình mô-đun mở rộng.
+
+## Cách sử dụng chức năng
+
+(1) Hiển thị giao diện cấu hình mô-đun mở rộng
+
+[Expansion module configuration] (Cấu hình mô-đun mở rộng) nằm dưới mục [Extended function] (Chức năng mở rộng) trong cây quản lý dự án; nhấp đúp để mở giao diện cấu hình mô-đun mở rộng.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8763.png?rev=1.1)
+
+(2) Chức năng của từng phần trong giao diện cấu hình mô-đun mở rộng
+
+① Giao diện thông tin thiết bị: thông tin dưới nút PLC host lưu các cấu hình số điểm của bộ chủ được model hiện tại hỗ trợ. Người dùng có thể chọn hoặc chuyển đổi thủ công các số điểm khác nhau; số lượng mô-đun mở rộng tối đa mà PLC có số điểm khác nhau hỗ trợ cũng khác nhau. Thông tin dưới nút mô-đun mở rộng lưu các model mô-đun mở rộng được model hiện tại hỗ trợ và người dùng có thể chọn thêm mô-đun tương ứng;
+
+② Giao diện hiển thị thông tin chi tiết của các mô-đun hiện đã thêm: số khe (slot) hiển thị vị trí cấu hình mô-đun hiện tại (vị trí thứ 0 mặc định hiển thị thông tin PLC với số điểm tương ứng); tên thiết bị cấu hình hiển thị model của mô-đun mở rộng; mô tả thiết bị hiển thị giới thiệu ngắn gọn về mô-đun mở rộng; vùng chiếm dụng thiết bị hiển thị dải địa chỉ thiết bị được ánh xạ bởi mô-đun hiện tại (lưu ý: khi thêm mô-đun, mặc định sẽ cấp phát tuần tự một địa chỉ chưa sử dụng); loại lắp đặt thực tế hiển thị model mô-đun mở rộng thực tế tại vị trí tương ứng ở PLC cấp dưới (lưu ý: thông tin này chỉ hiển thị ở chế độ giám sát); số phiên bản thiết bị hiển thị phiên bản phần cứng/firmware thực tế của mô-đun mở rộng tại vị trí tương ứng ở PLC cấp dưới (lưu ý: cũng chỉ hiển thị ở chế độ giám sát);
+
+③ Giao diện cấu hình mô-đun mở rộng: cấu hình mô-đun mở rộng một cách trực quan bằng hình ảnh! Các thao tác như di chuyển vị trí mô-đun mở rộng, xóa mô-đun mở rộng và hoán đổi vị trí giữa các mô-đun giúp nâng cao hiệu quả tương tác người-máy.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8764.png?rev=1.1)
+
+(3) Thao tác cơ bản trong cấu hình mô-đun mở rộng
+
+① Thêm mô-đun mở rộng: trước tiên chọn số điểm của PLC chủ tương ứng, sau đó chọn model mô-đun mở rộng cần dùng và nhấp đúp; hình ảnh của mô-đun mở rộng đã cấu hình sẽ xuất hiện trong giao diện cấu hình, đồng thời thông tin thiết bị tương ứng cũng xuất hiện ở góc dưới bên trái giao diện, báo hiệu thêm mô-đun mở rộng thành công.
+
+Khi thêm mô-đun mở rộng, hệ thống mặc định sẽ gán một địa chỉ thiết bị chưa sử dụng cho phần ánh xạ I/O của mô-đun mở rộng, và người dùng cũng có thể vào giao diện cấu hình để sửa đổi thủ công dải địa chỉ ánh xạ I/O.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8765.png?rev=1.1)
+
+② Người dùng có thể kéo thả vị trí của mô-đun mở rộng để đặt vào các vị trí khe cắm khác nhau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8766.png?rev=1.1)
+
+③ Cấu hình tham số mô-đun mở rộng: Cách 1: nhấp chuột phải vào mô-đun mở rộng tương ứng trong giao diện cấu hình để chọn tham số cấu hình hoặc nhấp đúp để bật trực tiếp giao diện cấu hình tham số; Cách 2: trong danh sách cấu hình mô-đun mở rộng, nhấp đúp vào dòng cấu hình của mô-đun tương ứng để mở giao diện cấu hình tham số.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8767.png?rev=1.1)
+
+④ Thông tin cần cấu hình sẽ khác nhau tùy theo từng model mô-đun mở rộng, nhưng thông tin cấu hình mặc định sẽ được tạo sẵn khi thêm mô-đun. Hiện tại chủ yếu có 3 giao diện cấu hình.
+
+- Thông tin thiết bị (Device Info): Hiển thị các thông tin định danh cơ bản của mô-đun mở rộng hiện tại.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8768.png?width=862&amp;height=701&amp;rev=1.1)
+
+- Giao diện ánh xạ I/O (I/O Mapping Interface): Dùng để cấp phát địa chỉ vùng nhớ ngõ vào/ra tương ứng cho mô-đun mở rộng. Nhập địa chỉ bắt đầu vào ô thiết lập, phần mềm sẽ tự động gán dải địa chỉ liên tiếp và lưu lại khi nhấn OK (Nhấn Reset sẽ tự động gán lại các địa chỉ chưa sử dụng theo thứ tự).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8769.png?width=905&amp;height=736&amp;rev=1.1)
+
+:::tip
+Lưu ý 1: Các phần tử mềm (địa chỉ) đã được ánh xạ không được phép ánh xạ trùng lại, nếu không hệ thống sẽ báo lỗi khi lưu cấu hình.
+
+Lưu ý 2: Không được phép gán địa chỉ ánh xạ I/O không được hỗ trợ. (Để biết loại địa chỉ ánh xạ I/O mà mô-đun mở rộng hỗ trợ, vui lòng tham khảo tài liệu hướng dẫn của model mô-đun mở rộng tương ứng.)
+
+Lưu ý 3: Đối với thiết bị X và Y thuộc hệ bát phân, địa chỉ ánh xạ I/O phải là X0~X7, X10~X17 (các dải địa chỉ liên tiếp là bội số của 8), không cho phép các dải địa chỉ không liên tục theo bội 8 như X1~X10, X2~X11.
+:::
+
+- Giao diện cấu hình mô-đun (Module Configuration Interface): Dùng để thiết lập thông số hoạt động cho mô-đun mở rộng (chi tiết từng tham số vui lòng tham khảo tài liệu phần cứng của mô-đun tương ứng).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8770.png?width=823&amp;height=669&amp;rev=1.1)
+
+(4) Sau khi hoàn tất cấu hình trên giao diện mô-đun mở rộng, có thể tải thông tin cấu hình mô-đun tương ứng xuống PLC thông qua giao diện tải xuống (Download). Cũng có thể tải cấu hình mô-đun mở rộng từ PLC lên máy tính thông qua giao diện tải lên (Upload).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8771.png?width=931&amp;height=842&amp;rev=1.1)
+
+:::tip
+Lưu ý 1: Khi tải cấu hình mô-đun mở rộng xuống PLC, thứ tự cấu hình các mô-đun phải liên tiếp nhau để đảm bảo quá trình tải xuống diễn ra bình thường. Như minh họa ở hình bên trái dưới đây, nếu mô-đun mở rộng được đặt cách quãng (bỏ trống khe), cấu hình sẽ không thể tải xuống bình thường. Cần điều chỉnh lại vị trí mô-đun sao cho các mô-đun được sắp xếp liên tiếp nhau thì mới có thể tải xuống bình thường.
+:::
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8772.png?width=1024&amp;height=412&amp;rev=1.1)
+
+:::tip
+Lưu ý 2: Khi tải cấu hình mô-đun mở rộng xuống PLC, số điểm của PLC chủ được cấu hình phải trùng khớp với số điểm thực tế của PLC chủ để đảm bảo quá trình tải xuống diễn ra bình thường.
+:::
+
+(5) Sau khi tải xuống hoàn tất, chuyển sang chế độ giám sát. Trên giao diện hiển thị thông tin chi tiết của các mô-đun đã thêm, cột loại lắp đặt thực tế và cột số phiên bản thiết bị sẽ hiển thị model và số phiên bản tương ứng với loại mô-đun thực tế đang kết nối tại vị trí tương ứng của PLC.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8773.png?width=1650&amp;height=501&amp;rev=1.1)
+
+(6) Người dùng có thể xem các địa chỉ thiết bị đang bị chiếm dụng do mô-đun mở rộng cấu hình thông qua giao diện danh sách sử dụng thiết bị.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8774.png?width=1699&amp;height=557&amp;rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8775.png?width=1699&amp;height=643&amp;rev=1.1)
+
+## EtherCAT
+
+## Mô tả kỹ thuật
+
+EtherCAT là một công nghệ truyền thông trường công nghiệp mở dựa trên nền tảng Ethernet, có đặc điểm chu kỳ làm mới truyền thông ngắn, độ trễ/dao động đồng bộ (jitter) nhỏ và chi phí phần cứng thấp.
+
+## Cấu hình trạm chủ (Master)
+
+Nhấp đúp vào nút EtherCAT trên cây quản lý dự án để mở cấu hình EtherCAT, sửa đổi cấu hình và lưu lại.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8776.png?width=1295&amp;height=729&amp;rev=1.1)
+
+## Nhập tệp cấu hình và Thêm trạm tớ (Slave)
+
+### Nhập tệp cấu hình
+
+Nhấp chuột phải vào nút EtherCAT trên cây quản lý dự án, chọn New, nhấn nút Import trong cửa sổ Add Slave bật lên và chọn tệp XML EtherCAT của nhà sản xuất tương ứng để nhập vào.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8777.png?width=1332&amp;height=748&amp;rev=1.1)
+
+### Thêm trạm tớ (Slave)
+
+Nhấp chuột phải vào nút EtherCAT trên cây quản lý dự án, chọn New, chọn một loại trạm tớ rồi nhấn Add; một nút trạm tớ mới sẽ được thêm vào dưới nút EtherCAT trên cây quản lý dự án, sau đó nhấn Close để kết thúc thao tác thêm trạm tớ.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8778.png?width=1699&amp;height=955&amp;rev=1.1)
+
+## Cấu hình trạm tớ (Slave)
+
+### Xóa
+
+① Nhấp chuột phải vào nút EtherCAT, chọn Delete All để xóa toàn bộ cấu hình trạm tớ hiện đã tạo.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8779.png?rev=1.1)
+
+② Nhấp chuột phải vào trạm tớ dưới nút EtherCAT, chọn Delete để xóa cấu hình trạm tớ hiện tại.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8780.png?rev=1.1)
+
+### Cập nhật thiết bị
+
+① Nhấp chuột phải vào nút EtherCAT và chọn Update All Devices để cập nhật thông tin cấu hình của nút EtherCAT hiện tại theo thông tin tệp cấu hình EtherCAT mới nhập.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8781.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8782.png?rev=1.1)
+
+② Nhấp chuột phải vào trạm tớ dưới nút EtherCAT, chọn Update equipment để cập nhật thông tin cấu hình của nút trạm tớ tương ứng theo thông tin tệp cấu hình EtherCAT mới nhập.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8783.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8784.png?rev=1.1)
+
+### Tham số trạm tớ (Slave)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8785.png?rev=1.1)
+
+Nhấp đúp vào trạm tớ dưới nút EtherCAT để mở hộp thoại cấu hình EtherCAT. Trong giao diện tham số trạm tớ, đánh dấu chọn bật tham số chuyên gia (enable expert parameter) để sử dụng giao diện dữ liệu quá trình chuyên gia cùng các hộp kiểm và ô nhập liệu bên dưới.
+
+- Kiểm tra Vendor ID (Check Vendor ID): Kiểm tra mã nhà sản xuất trong cấu hình trạm tớ đã nạp có khớp với thiết bị thực tế kết nối vào PLC khi kích hoạt mạng hay không;
+
+- Kiểm tra Product ID (Check Product ID): Kiểm tra mã sản phẩm trong cấu hình trạm tớ đã nạp có khớp với thiết bị thực tế kết nối vào PLC khi kích hoạt mạng hay không;
+
+- Kiểm tra số phiên bản (Check Version Number): Kiểm tra phiên bản phần cứng/firmware của trạm tớ có khớp khi kích hoạt mạng hay không;
+
+- Thời gian chờ truy cập SDO (SDO access timeout): thiết lập thời gian chờ truy cập SDO.
+
+### Tham số chuyên gia (Expert Parameters)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8786.png?rev=1.1)
+
+- Chọn ① vùng bảng trình quản lý đồng bộ (Sync Manager), chọn ngõ vào hoặc ngõ ra, khi đó ② vùng bảng phân bổ PDO sẽ được cập nhật danh sách phân bổ PDO tương ứng với ngõ ra hoặc ngõ vào của trình quản lý đồng bộ;
+
+- Đánh dấu hoặc bỏ chọn để bật/tắt vùng ② danh sách phân bổ PDO, trạng thái này sẽ được phản ánh sang ③ danh sách PDO;
+
+- Chọn hàng đã đánh dấu trong ③ danh sách PDO, nội dung của ④ bảng nội dung PDO sẽ được cập nhật;
+
+- Trong ④ bảng nội dung PDO, nhấp chuột phải mở menu và chọn Add hoặc nhấn nút ⑤ Add, chọn nội dung cần thêm trong giao diện Add PDO content, rồi nhấn Add;
+
+- Sau khi chọn nội dung cần xóa trong ④ bảng nội dung PDO, nhấp chuột phải mở menu và chọn Delete hoặc nhấn trực tiếp nút ⑥ Delete để xóa.
+
+### Dữ liệu quá trình (Process Data)
+
+Ngoại trừ việc giao diện dữ liệu quá trình không thể tùy chỉnh nội dung PDO, các chức năng khác về cơ bản giống với tham số quá trình chuyên gia.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8787.png?rev=1.1)
+
+### Ánh xạ I/O
+
+Đối với nội dung PDO được thiết lập bởi các tham số quá trình, người dùng có thể chọn thiết bị hoặc biến để thực hiện ánh xạ.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8788.png?rev=1.1)
+
+### Tham số khởi động (Start-up Parameters)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8789.png?rev=1.1)
+
+① Thêm (Add)
+
+Nhấp chuột phải mở menu để chọn Add hoặc nhấn trực tiếp nút Add để vào giao diện thêm tham số khởi động, chọn mục tương ứng và thêm tham số khởi động.
+
+② Xóa (Delete)
+
+Sau khi chọn nội dung tham số cần xóa, nhấp chuột phải mở menu và chọn Delete hoặc nhấn trực tiếp nút Delete để xóa.
+
+### Thông tin trạm tớ (Slave Information)
+
+Hiển thị thông tin của trạm tớ.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8790.png?rev=1.1)
+
+## Kích hoạt, Tải xuống và Tải lên
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8791.png?rev=1.1)
+
+① Tải xuống (Download)
+
+Chọn nút EtherCAT trên cây quản lý dự án và nhấp chuột phải, chọn Download EtherCAT configuration hoặc tải xuống thông qua giao diện tải xuống PLC.
+
+② Tải lên (Upload)
+
+Chọn nút EtherCAT trên cây quản lý dự án và nhấp chuột phải, chọn Upload EtherCAT configuration hoặc tải lên thông qua giao diện tải lên PLC.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8792.png?rev=1.1)
+
+③ Kích hoạt (Activate)
+
+Chọn nút EtherCAT trên cây quản lý dự án và nhấp chuột phải, chọn Activate EtherCAT configuration. (Lưu ý: Thiết bị servo kết nối với PLC phải khớp với trạm tớ trong cấu hình đã tải xuống khi kích hoạt, nếu không sẽ xảy ra lỗi kích hoạt.)
+
+## Điều khiển chuyển động (Motion Control)
+
+## Mô tả kỹ thuật
+
+Trong hệ thống điều khiển chuyển động LX6V, đối tượng điều khiển chuyển động được gọi là "trục logic" (logic axis). Trục là cầu nối giữa các khối hàm (FB) điều khiển chuyển động được ánh xạ và bộ truyền động servo. Trục logic của LX6V được dùng để điều khiển bộ điều khiển bus EtherCAT tuân theo giao thức CiA402, và cũng có thể được cấu hình làm ngõ ra và ngõ vào xung tốc độ cao cục bộ (phiên bản hiện tại chưa hỗ trợ ngõ vào và ngõ ra xung tốc độ cao).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8794.png?rev=1.1)
+
+Bên trong PLC, cấu trúc cơ bản và logic xử lý của trục logic như sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8795.png?rev=1.1)
+
+## Thao tác với trục điều khiển chuyển động
+
+### Tạo mới (New)
+
+Cách 1: Khi tạo mới một trạm tớ EtherCAT, hệ thống sẽ tự động tạo một trục điều khiển chuyển động. Trục điều khiển chuyển động mới tạo sẽ được gắn kết với trạm tớ EtherCAT mới đó.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8796.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8797.png?rev=1.1)
+
+Cách 2: Tạo trực tiếp một trục điều khiển chuyển động mới. Thiết bị ngõ ra của trục điều khiển chuyển động được tạo theo cách này mặc định là chưa được gán.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8798.png?rev=1.1)
+
+### Thiết lập thiết bị ngõ ra
+
+Chỉ có thể chọn trục tớ EtherCAT đang rảnh trong hộp thả xuống; nhấn OK sau khi chọn, các trục khác sẽ không thể chọn lại thiết bị ngõ ra đã gán đó.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%8799.png?rev=1.1)
+
+### Tải lên và Tải xuống
+
+Đi theo quá trình tải lên và tải xuống của EtherCAT, không có giao diện tải lên và tải xuống riêng biệt.
+
+## Giao diện cấu hình
+
+### Cài đặt cơ bản
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%87100.png?rev=1.1)
+
+① Số trục (Axis number): được hệ thống tạo tự động và là duy nhất. Phiên bản phần mềm hiện tại chỉ hỗ trợ liên kết các khối hàm (FB) điều khiển chuyển động thông qua số trục;
+
+② Loại trục (Axis type): phiên bản hiện tại chỉ hỗ trợ chức năng điều khiển chuyển động cho trục servo bus;
+
+③ Thiết bị ngõ vào (Input device): phiên bản hiện tại chưa hỗ trợ;
+
+④ Thiết bị ngõ ra (Output device): dùng để chọn và liên kết trục servo vật lý trên bus EtherCAT;
+
+⑤ Chế độ trục ảo (Virtual axis mode): cung cấp chế độ trục ảo để hỗ trợ sử dụng khi không có trục vật lý, phục vụ mục đích gỡ lỗi hoặc các phương pháp lập trình nâng cao khác;
+
+⑥ Ánh xạ tự động (Automatic mapping): TxPDO và RxPDO trong trục servo vật lý bus EtherCAT đã liên kết sẽ tự động được ánh xạ sang ngõ ra và ngõ vào được điều khiển chuyển động hỗ trợ.
+
+### Cài đặt chuyển đổi đơn vị
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%87101.png?rev=1.1)
+
+① Đảo chiều (Reverse): ngược với chiều quay động cơ đã đặt (ví dụ: sau khi chọn tùy chọn đảo chiều, đặt vị trí đích là giá trị dương thì động cơ sẽ chạy theo chiều ngược lại);
+
+② Hiển thị số xung ở hệ thập phân: hiển thị giá trị số xung theo hệ thập phân;
+
+③ Số xung lệnh cho một vòng quay của động cơ/bộ mã hóa (encoder): độ phân giải encoder thực tế của bộ truyền động servo được liên kết;
+
+④ Quãng đường di chuyển của bàn máy trong một vòng quay: đây là đại lượng quy đổi giữa đơn vị người dùng và đơn vị xung;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%87102.png?rev=1.1)
+
+Ví dụ: Độ phân giải encoder của trục servo người dùng là 17 bit, khi đó đặt "Số xung lệnh cho một vòng quay của động cơ/encoder" là 131072. Nếu động cơ quay đủ một vòng và tải (trục vít me) tiến được 20 mm, thì có thể đặt "Quãng đường di chuyển của bàn máy trong một vòng quay" là 20. Lúc này, nếu tốc độ đích trong khối hàm (FB) chuyển động được đặt là 5, nghĩa là tải sẽ di chuyển với tốc độ 5 mm/s.
+
+⑤ Bật hộp số (gearbox);
+
+⑥ Quãng đường di chuyển của bàn máy trong một vòng quay: thiết lập lượng dịch chuyển của bàn máy cho một vòng quay
+
+⑦⑧ tương ứng là mục (5) và (6) trong mô hình tuyến tính.
+
+Cài đặt chế độ/tham số
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%87103.png?rev=1.1)
+
+① Chế độ bộ mã hóa (Encoder mode): có thể chọn chế độ tương đối (incremental) và chế độ tuyệt đối (absolute). Với thiết lập phần mềm hiện tại, chỉ hỗ trợ chế độ tương đối;
+
+② Cài đặt chế độ (Mode setting): có thể chọn chế độ tuyến tính (linear) và chế độ quay (rotary). Phần mềm hiện tại chỉ hỗ trợ chế độ tuyến tính;
+
+③ Cài đặt chu kỳ (Cycle setting): không thể sửa đổi, được điều khiển bởi chu kỳ tác vụ EtherCAT;
+
+④ Kiểu tăng tốc và giảm tốc vận tốc: hiện hỗ trợ đường cong chữ S (S-curve) và đường cong hình thang (T-curve). Trong đó, đường cong chữ S là đường cong thích ứng 7 đoạn và 5 đoạn;
+
+⑤ Giới hạn phần mềm (Software limit): có thể tùy chọn bật giới hạn phần mềm. Khi được bật, hệ thống sẽ kiểm tra định kỳ xem vị trí đích trong hàm điều khiển chuyển động có vượt quá giới hạn hay không;
+
+⑥ Phản hồi lỗi phần mềm: có thể cài đặt giảm tốc theo giới hạn và giảm tốc theo lỗi trục; hiện tại chỉ hỗ trợ giảm tốc theo giới hạn;
+
+⑦ Sai số bám (Tracking error): có thể cài đặt ngưỡng sai số bám tối đa mà hệ thống cho phép (theo đơn vị người dùng);
+
+⑧ Cài đặt tốc độ trục: chức năng giới hạn tốc độ trục được bật mặc định. Người dùng có thể lần lượt cài đặt tốc độ tối đa (Vel), độ giật tối đa (Jerk) và tốc độ chạy nhấp tối đa (JogVel);
+
+⑨ Cài đặt mô-men xoắn: đặt giới hạn cho mô-men xoắn dương và mô-men xoắn âm. Chức năng điều khiển chuyển động sẽ kiểm tra xem giá trị mô-men xoắn do servo phản hồi về có vượt quá giới hạn tương ứng trong mỗi chu kỳ hay không; nếu vượt quá sẽ báo lỗi;
+
+Logic giới hạn phần cứng, đầu dò (probe), chế độ ngõ ra, cài đặt chế độ bộ đếm, cài đặt giá trị đặt trước và cài đặt ngõ ra so sánh: trục servo bus không hỗ trợ các cài đặt này.
+
+## Cam điện tử (E-CAM)
+
+## Mô tả kỹ thuật
+
+Cam điện tử (E-CAM) về bản chất là chuyển động của trục tớ bám theo trục chủ, và mối quan hệ chuyển động giữa trục chủ và trục tớ có thể được biểu diễn bằng dữ liệu bảng cam hoặc tỷ số bánh răng điện tử.
+
+## Hướng dẫn sử dụng bảng Cam điện tử (E-CAM)
+
+(1) Trong cửa sổ quản lý dự án, nhấp chuột phải vào [Electronic Cam Table] (Bảng cam điện tử), chọn [New], nhập tên bảng và nhấn [OK] để tạo một bảng cam điện tử.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%87104.png?rev=1.1)
+
+(2) Mở bảng cam điện tử vừa tạo và vào giao diện cấu hình liên quan.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%87105.png?rev=1.1)
+
+(3) Mô tả đường cong: ① SPos: đường cong dịch chuyển; ② PU Speed: đường cong tốc độ; ③ S-Acc: đường cong gia tốc.
+
+(4) Điểm chính ở giữa của đường cong dịch chuyển cho phép kéo lên, xuống, trái và phải, còn điểm chính ngoài cùng bên phải cho phép kéo lên và xuống; đường cong tốc độ chỉ cho phép kéo điểm chính ở giữa lên và xuống; đường cong gia tốc không cho phép kéo.
+
+## Cấu hình dữ liệu
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%87106.png?rev=1.1)
+
+① MPos: pha trục chủ, thiết lập pha của trục chủ, dải dữ liệu từ 0 đến 9999999;
+
+② SPos: độ dịch chuyển trục tớ, thiết lập vị trí bù của trục tớ, dải dữ liệu: -9999999 đến 9999999;
+
+③ PU Speed: tốc độ nối tiếp/kết nối, dải dữ liệu: -9999999 đến 9999999;
+
+④ Type: loại đường cong; Line: đường thẳng; Spline: đường cong bậc 5;
+
+⑤ Mô tả cấu hình dữ liệu bảng: pha trục chủ và độ lệch trục tớ của điểm đầu tiên mặc định bằng 0 và không thể thay đổi; giá trị pha trục chủ của điểm tiếp theo phải lớn hơn giá trị của điểm trước đó; điểm cuối cùng của trục chủ quyết định chu kỳ của trục chủ nên không cần thiết lập chu kỳ riêng.
+
+## Tải xuống bảng Cam điện tử (E-CAM)
+
+Trên trang tải xuống PLC, đánh dấu chọn tên bảng cam điện tử cần tải xuống, nhấn "Execute" (Thực thi) và chờ ghi dữ liệu vào PLC; khi có bảng cam điện tử, trang tải xuống sẽ hiển thị hộp kiểm bảng cam điện tử, ngược lại sẽ không hiển thị; sau khi đánh dấu, toàn bộ các bảng cam điện tử sẽ được tải xuống.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/PLC%20Editor2%20Help%20%28LX6%29/WebHome/%E5%9B%BE%E7%89%87107.png?rev=1.1)
+
+## Cảnh báo kỹ thuật
+
+Mô tả các lệnh vô hiệu hóa chức năng
+
+| Quản lý dự án | Chức năng mở rộng | Bảng cam điện tử (E-CAM) | Không |
+| :--- | :--- | :--- | :--- |
+| Chức năng chỉnh sửa | Chỉnh sửa chú thích |  | Không |
+| Chức năng chỉnh sửa | Trình soạn thảo câu lệnh |  | Không |
+| Chức năng chỉnh sửa | Switch |  | Không |
+| Liên quan đến truyền thông | PLC checksum | Kiểm tra chi tiết | Không |
+| Liên quan đến truyền thông | Tải xuống qua USB (U-disk) |  | Không |
+| Liên quan đến truyền thông | Tạo tệp tải xuống |  | Không |
+| Liên quan đến truyền thông | Tính toán tổng số bước chương trình |  | Không |
+| Liên quan đến truyền thông | Chỉnh sửa trong chế độ giám sát (W) |  | Không |
+| Liên quan đến truyền thông | Giám sát mô-đun |  | Không |
+
+## Phím tắt
+
+Đối với các phím tắt chung, vui lòng tham khảo mục "Software Help" (Trợ giúp phần mềm) trong phần mềm PLC Editor2. Bảng dưới đây trình bày các phím tắt có sẵn trong Trình soạn thảo giản đồ bậc thang.
+
+| Phím tắt | Summary |
+| :--- | :--- |
+| F5 | tiếp điểm thường mở (NO) |
+| Shift+F5 | tiếp điểm thường mở (NO) OR |
+| F6 | tiếp điểm thường đóng (NC) |
+| Shift+F6 | tiếp điểm thường đóng (NC) OR |
+| F7 | Coil |
+| F8 | lệnh ứng dụng |
+| F9 | Nhập đường ngang |
+| F11 | Nhập đường dọc |
+| Ctrl+F9 | Xóa đường ngang |
+| Ctrl+F11 | Xóa đường dọc |
+| Shift+F7 | sườn lên (cạnh lên) pulse |
+| Shift+F8 | sườn xuống (cạnh xuống) pulse |
+| Ctrl+Alt+F7 | Parallel sườn lên (cạnh lên) pulse |
+| Ctrl+Alt+F8 | Parallel sườn xuống (cạnh xuống) pulse |
+| Ctrl+Alt+F11 | Đảo ngược kết quả phép toán |
+| Shift+F9 | Đường ngang liên tiếp |
+| Shift+F11 | Đường gạch ngang liên tiếp |
+| Alt+F5 | MEP |
+| Ctrl+Alt+F5 | MEF |
+| Shift+Insert | Chèn dòng chương trình |
+| Shift+Delete | Xóa hàng |
+| Ctrl+Insert | Chèn cột |
+| Ctrl+Delete | Xóa cột |
+| Ctrl + → | Underline |
+| Ctrl + ← | Underline |
+| Ctrl + ↓ | Underline |
+| Ctrl + ↑ | Underline |
+| Ctrl+/ | Normally open/normally closed/sườn lên (cạnh lên)/sườn xuống (cạnh xuống) contact switching |
+| Ctrl+F5 | Hiển thị chú thích |
+| F1 | Mở trợ giúp lệnh |
+| HOME | Beginning of line |
+| Ctrl+HOME | Dòng đầu tiên |
+| END | End of line |
+| Ctrl+END | End of program |
+| PAGE UP | Trang trước |
+| PAGE DOWN (Trang sau) | Trang sau |
+| Backspace | Xóa |
+| Xóa | Xóa |
+| Shift+N | Chèn mạng (Network) |
+| Shift+Ctrl+N | Chèn mạng (Network) bên dưới |
+| Shift+D | Xóa mạng (Network) |
+| F2 | Chèn khối phép toán nối tiếp |
+| Shift+F2 | Chèn khối phép toán song song |
+
+0

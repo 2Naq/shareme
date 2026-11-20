@@ -1,65 +1,38 @@
 ---
 id: "tong-quan-plc-wecon-lx6v-lx6a"
-title: "Tài liệu kỹ thuật PLC Wecon LX6V / LX6A (PLC Editor 2)"
+title: "Tài liệu kỹ thuật PLC Wecon LX6V / LX6A500 (PLC Editor 2)"
 sidebar_position: 0
 sidebar_label: "00. Tổng quan tài liệu Wecon"
-tags: [wecon, lx6v, lx6a, plc-editor-2, manual]
-description: "Sổ tay hướng dẫn kỹ thuật toàn diện cho dòng PLC Wecon LX6V / LX6A500 lập trình trên phần mềm PLC Editor 2 chuẩn quốc tế IEC 61131-3."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: Tài liệu kỹ thuật PLC Wecon LX6V / LX6A500 (PLC Editor 2)"
 ---
 
 ## Giới thiệu tổng quan hệ thống PLC Wecon LX6V / LX6A500
 
-Dòng controller **WECON LX6V / LX6A500** là thế hệ PLC điều khiển công nghiệp hiệu năng cao của hãng WECON, hỗ trợ lập trình bằng phần mềm hiện đại **PLC Editor 2** tuân thủ hoàn toàn tiêu chuẩn quốc tế **IEC 61131-3** và tiêu chuẩn chuyển động **PLCopen**.
+Dòng bộ điều khiển khả trình **WECON LX6V / LX6A500** là thế hệ PLC điều khiển công nghiệp hiệu năng cao của hãng WECON, lập trình trên phần mềm **PLC Editor 2** tuân thủ tiêu chuẩn quốc tế **IEC 61131-3** và tiêu chuẩn điều khiển chuyển động **PLCopen**.
 
-Hệ thống kết hợp khả năng xử lý logic tốc độ cao, điều khiển bus truyền thông thời gian thực **EtherCAT** lên tới hàng chục trục servo đồng bộ, cùng các ngõ ra phát xung nội bộ tốc độ cao trên phần cứng CPU.
-
----
-
-## Bản đồ điều hướng tài liệu kỹ thuật (Navigation Map)
-
-Hệ thống tài liệu hướng dẫn sử dụng của WECON được cấu trúc thành các chương chuyên đề bám sát cây thư mục Navigation chính thức của hãng:
-
-```mermaid
-mindmap
-  root((PLC Editor 2 - LX6A500))
-    HeThong["Hệ Thống Cơ Bản"]
-      01["01 Execution of the Program"]
-      02["02 Devices & Memory Area"]
-      03["03 Sequence Control"]
-      04["04 Program Flow"]
-      05["05 Timer and Counter"]
-    TapLenh["Tập Lệnh & Truyền Thông"]
-      06["06 Basic Instructions"]
-      07["07 EtherCAT Bus Network"]
-      09["09 High Speed Counter (HSC)"]
-      10["10 Communication Instruction"]
-      11["11 PID Control Instruction"]
-      12["12 Character String Instruction"]
-      13["13 Ethernet Communication"]
-    ChuyenSau["Điều Khiển Chuyên Sâu"]
-      08["08 Motion Control (Trọng tâm giáo trình)"]
-      14["14 Built-in FC / FB"]
-      15["15 ST Help Manual (Ngôn ngữ ST)"]
-      16["Appendixes & Hardware Specs"]
-```
+Hệ thống tài liệu kỹ thuật dưới đây được biên soạn đầy đủ sang tiếng Việt kỹ thuật từ toàn bộ 19 chuyên mục trên hệ thống **WECON Wiki (PLC Editor2 - LX6A500)**, giữ nguyên cấu trúc bảng vùng nhớ thiết bị (Devices Used), bảng thông số chân biến (Variable Type Used), giản đồ thời gian (Sequence Diagram) và sơ đồ nguyên lý chính hãng.
 
 ---
 
-## Chi tiết các chương chuyên đề
+## Cấu trúc toàn bộ 19 chuyên mục theo Navigation của hãng WECON
 
-1. **[01 Execution of the Program](./01-execution-of-program.mdx):** Cơ chế quét vòng lặp (Scan Cycle), thứ tự thực thi chương trình và xử lý ngắt.
-2. **[02 Devices](./02-devices.mdx):** Bản đồ vùng nhớ thiết bị (X, Y, M, S, SM, T, C, D, R, SD) và cách đánh địa chỉ.
-3. **[03 Sequence Control](./03-sequence-control.mdx):** Điều khiển tuần tự và ngôn ngữ biểu đồ chức năng tuần tự (SFC / STL).
-4. **[04 Program Flow](./04-program-flow.mdx):** Cấu trúc rẽ nhánh, vòng lặp điều kiện, lệnh gọi chương trình con (CALL, CJ, FOR/NEXT).
-5. **[05 Timer and Counter](./05-timer-and-counter.mdx):** Bộ định thời gian (Timer) và bộ đếm sự kiện (Counter) thường và tốc độ cao.
-6. **[06 Basic instructions](./06-basic-instructions.mdx):** Tập lệnh logic tiếp điểm cơ bản (LD, LDI, AND, ANI, OR, ORI, OUT, SET, RST).
-7. **[07 EtherCAT](./07-ethercat.mdx):** Hướng dẫn cấu hình mạng truyền thông thời gian thực EtherCAT và quét trạm Servo Drive.
-8. **[08 Motion Control](./08-motion-control/index.mdx):** **Chuyên mục trọng tâm** - Toàn bộ 11 phân mục điều khiển chuyển động đơn trục, đa trục (Cam/Gear), nhóm trục nội suy và 154 mã lỗi PLCopen.
-9. **[09 High Speed Counter](./09-high-speed-counter.mdx):** Bộ đếm xung tốc độ cao phần cứng CPU (HSC) dùng cho Encoder hồi tiếp vị trí.
-10. **[10 Communication Instruction](./10-communication-instruction.mdx):** Lệnh truyền thông nối tiếp RS-485 / RS-422 qua Modbus RTU / ASCII.
-11. **[11 PID Control Instruction](./11-pid-control-instruction.mdx):** Thuật toán điều khiển vòng kín PID nhiệt độ và áp suất với tính năng tự dò thông số (Auto-tuning).
-12. **[12 Character String Instruction](./12-character-string-instruction.mdx):** Tập lệnh xử lý chuỗi ký tự ASCII, mã vạch và máy quét barcode.
-13. **[13 Ethernet Communication](./13-ethernet-communication.mdx):** Truyền thông Ethernet mạng LAN: Modbus TCP, Socket TCP/IP, kết nối HMI và SCADA.
-14. **[14 Built-in FC/FB](./14-builtin-fc-fb.mdx):** Các hàm chức năng (FC) và khối hàm (FB) tích hợp sẵn của phần mềm PLC Editor 2.
-15. **[15 ST Help Manual](./15-st-help-manual.mdx):** Hướng dẫn lập trình ngôn ngữ văn bản có cấu trúc (Structured Text - ST) theo chuẩn IEC 61131-3.
-16. **[Appendixes](./16-appendixes.mdx):** Phụ lục kỹ thuật, bảng đối chiếu thông số phần cứng giữa các dòng LX6V, LX6S và A500.
+1. **[01 Execution of the Program](./01-execution-of-program.mdx):** Cơ chế quét vòng lặp (Scan Cycle), khởi tạo CPU, làm mới I/O, xử lý lệnh END và luồng thực thi chương trình.
+2. **[02 Devices](./02-devices.mdx):** Bản đồ vùng nhớ thiết bị người dùng và hệ thống (X, Y, M, S, SM, T, C, LC, HSC, D, R, SD), vùng nhớ lưu giữ khi mất điện (Latch) và thanh ghi chỉ mục (Z/V).
+3. **[03 Sequence Control](./03-sequence-control.mdx):** Tập lệnh điều khiển logic tuần tự (LD, LDI, AND, ANI, OR, ORI, LDP, LDF, ANB, ORB, MPS, MRD, MPP, INV, MEP, MEF, OUT, SET, RST, PLS, PLF, MC, MCR).
+4. **[04 Program Flow](./04-program-flow.mdx):** Tập lệnh điều khiển luồng chương trình, nhảy có điều kiện, chương trình con, ngắt và vòng lặp (CJ, SCJ, JMP, CALL, RET, IRET, EI, DI, SIMASK, FOR, NEXT, BREAK, WDT, END).
+5. **[05 Timer and Counter](./05-timer-and-counter.mdx):** Bộ định thời gian (Timer) và bộ đếm (Counter) 16-bit, 32-bit và bộ định thời tích lũy (STMR).
+6. **[06 Basic instructions](./06-basic-instructions/6.01-transfer-comparison-instruction.mdx):** Toàn bộ 18 phân mục lệnh ứng dụng cơ bản từ **6.01** đến **6.18** (Truyền dữ liệu, dịch vòng, số học, logic, ma trận, ngoại vi, chuyển đổi kiểu dữ liệu, số thực dấu phẩy động, so sánh tiếp điểm, đồng hồ thời gian thực RTC, khối dữ liệu, bảng FIFO/LIFO...).
+7. **[07 EtherCAT](./07-ethercat.mdx):** Cấu hình trạm chủ EtherCAT Master, PDO/SDO, chu kỳ đồng bộ và các khối hàm đọc/ghi tham số CoE.
+8. **[08 Motion Control](./08-motion-control/index.mdx):** Toàn bộ 11 phân mục điều khiển chuyển động chuẩn PLCopen từ **8.01** đến **8.11** (Đơn trục, Đa trục Cam/Gear điện tử, Nhóm trục nội suy Linear/Circular, Khối hàm chuyên dụng, Lệnh SDO, Biến hệ thống trục xung, Sơ đồ trạng thái & BufferMode, Bảng 154 mã lỗi) và chương trình mẫu giảng dạy **8.12**.
+9. **[09 High Speed Counter](./09-high-speed-counter.mdx):** Cấu hình trục đếm xung tốc độ cao (Encoder Axis), chuyển đổi đơn vị người dùng (User Unit), chế độ đếm tuyến tính/vòng tròn và các khối hàm HSC.
+10. **[10 Communication Instruction](./10-communication-instruction.mdx):** Tập lệnh truyền thông nối tiếp RS-485/RS-422, giao thức không định dạng (RS2) và tập lệnh Modbus RTU/ASCII (ADPRW,IVCK, IVDR, IVRD, IVWR, IVBWR).
+11. **[11 PID Control Instruction](./11-pid-control-instruction.mdx):** Thuật toán và tập lệnh điều khiển vòng kín PID kèm tự động dò tham số (Auto-tuning).
+12. **[12 Character String Instruction](./12-character-string-instruction.mdx):** Tập lệnh xử lý và chuyển đổi chuỗi ký tự ASCII (ESTR, EVAL, EADD, ESUB, EMUL, EDIV,STR, VAL, LEN, INSTR, MIDR, MIDW...).
+13. **[13 Ethernet Communication](./13-ethernet-communication.mdx):** Cấu hình truyền thông mạng Ethernet, Modbus TCP và kết nối Socket.
+14. **[14 Built-in FC/FB](./14-builtin-fc-fb/14.1-builtin-fc-function.mdx):** Toàn bộ thư viện Hàm (14.1 Built-in FC Function) và Khối hàm (14.2 Built-in Function Block) chuẩn IEC 61131-3.
+15. **[15 ST Help Manual](./15-st-help-manual.mdx):** Sổ tay hướng dẫn lập trình ngôn ngữ Văn bản có cấu trúc (Structured Text - ST): biểu thức, toán tử, khai báo biến, câu lệnh rẽ nhánh và vòng lặp.
+16. **[Appendixes](./16-appendixes.mdx):** Phụ lục danh sách thanh ghi đặc biệt (SD), rơ-le đặc biệt (SM) và bảng mã lỗi hệ thống.
+17. **[Download](./17-download.mdx):** Tổng hợp tài liệu hướng dẫn (Manual), phần mềm (Software), chương trình mẫu (Demos) và tài liệu phần cứng (Hardware).
+18. **[LX6V/LX6S/A500 Comparsion](./18-lx6v-lx6s-a500-comparison.mdx):** Bảng so sánh chi tiết thông số kỹ thuật giữa các dòng PLC LX6V, LX6S và A500.
+19. **[PLC Editor2 Help (LX6)](./19-plc-editor2-help-lx6.mdx):** Hướng dẫn thao tác giao diện, quản lý dự án, cấu hình phần cứng và gỡ lỗi trực tuyến trên phần mềm PLC Editor 2.

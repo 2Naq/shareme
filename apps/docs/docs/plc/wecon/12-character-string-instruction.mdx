@@ -1,14 +1,729 @@
 ---
 id: "12-character-string-instruction"
-title: "12 Character String Instruction: Xử lý chuỗi ký tự ASCII"
+title: "12 Tập lệnh xử lý chuỗi ký tự (Character String Instruction)"
 sidebar_position: 12
 sidebar_label: "12 Character String Instruction"
-tags: [wecon, lx6v, lx6a, manual]
-description: "Tập lệnh thao tác chuỗi ký tự, ghép chuỗi, tách chuỗi và chuyển đổi kiểu dữ liệu."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 12 Tập lệnh xử lý chuỗi ký tự (Character String Instruction)"
 ---
 
-## 12 Character String Instruction: Xử lý chuỗi ký tự ASCII
+## LEN / Kiểm tra độ dài chuỗi ký tự
 
-Ứng dụng trong việc đọc dữ liệu từ máy quét mã vạch (Barcode / QR Code), máy in date và thẻ RFID:
-- Ghép chuỗi, cắt chuỗi con (LEFT, RIGHT, MID).
-- So sánh chuỗi ký tự và chuyển đổi giữa số nguyên/số thực sang chuỗi ký tự ASCII và ngược lại.
+LEN(P)
+
+Kiểm tra độ dài của chuỗi ký tự được chỉ định trong (S) và lưu kết quả sau số hiệu phần tử được chỉ định trong (d).
+
+Dữ liệu từ số hiệu phần tử được chỉ định trong (s) đến số hiệu phần tử lưu giá trị 00H được xem như một chuỗi ký tự.
+
+-[LEN (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi | - | String | ANYSTRING_SINGLE | -- |
+| (d) | Số hiệu thiết bị lưu trữ độ dài chuỗi được phát hiện | - | Signed BIN16 bits | ANY16 | INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| LEN | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| LEN | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Kiểm tra độ dài của chuỗi ký tự được chỉ định trong (S) và lưu kết quả sau số hiệu phần tử được chỉ định trong (d).
+
+Dữ liệu từ số hiệu phần tử được chỉ định trong (s) đến số hiệu phần tử lưu giá trị 00H được xem như một chuỗi ký tự.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709791788019-797.png?rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | (s) read address vượt quá phạm vi vùng nhớ thiết bị. |
+| 408AH | Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
+| 408BH | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4086H | When using offset, the offset address of (d) vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709791829364-862.png?rev=1.1)
+
+Như minh họa trong chương trình giản đồ thang (ladder) ở trên:
+
+Sử dụng lệnh ASC để ghi chuỗi ký tự abcdef vào địa chỉ bắt đầu từ R0.
+
+Sau đó sử dụng lệnh LEN để xác định độ dài. Lúc này, D0 sẽ hiển thị 6.
+
+## LEFT / Trích xuất từ phía bên trái của chuỗi ký tự
+
+LEFT(P)
+
+Đối với dữ liệu chuỗi ký tự được lưu sau số hiệu phần tử được chỉ định trong (s), (n) dữ liệu ký tự bắt đầu từ phía bên trái của chuỗi ký tự (phần đầu chuỗi) được lưu sau số hiệu phần tử được chỉ định trong (d).
+
+-[LEFT (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi | - | String | ANYSTRING_SINGLE | -- |
+| (d) | Lưu số hiệu bắt đầu của thiết bị chứa chuỗi gồm (n) ký tự tính từ phía bên trái của (s) | - | String | ANYSTRING_SINGLE | -- |
+| (n) | Số lượng ký tự được trích xuất | 1 to 400 | Signed BIN16 bits | ANY16 | INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| LEFT | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| LEFT | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| LEFT | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Đối với dữ liệu chuỗi ký tự được lưu sau số hiệu phần tử được chỉ định trong (s), (n) dữ liệu ký tự bắt đầu từ phía bên trái của chuỗi ký tự (phần đầu chuỗi) được lưu sau số hiệu phần tử được chỉ định trong (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709791965970-422.png?rev=1.1)
+
+Chuỗi ký tự được chỉ định trong (s) là dữ liệu tính theo byte từ phần tử được chỉ định đến vị trí đầu tiên phát hiện được "00H".
+
+(N)=7:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709791985538-114.png?rev=1.1)
+
+Mã NULL kết thúc (00H) biểu thị chuỗi ký tự sẽ tự động được gắn vào cuối dữ liệu chuỗi ký tự.
+
+Nếu số lượng ký tự được trích xuất là số lẻ, “00H” sẽ được lưu vào byte cao của phần tử lưu ký tự cuối cùng. Nếu số lượng ký tự được trích xuất là số chẵn, “0000H” sẽ được lưu vào byte thấp (phần tử kế tiếp) của phần tử lưu ký tự cuối cùng.
+
+Nếu số lượng ký tự được chỉ định trong (n) là 0, mã NULL (00H) được lưu vào (d).
+
+#### Lưu ý kỹ thuật quan trọng
+
+Cần chú ý các điểm sau khi xử lý các mã ký tự khác ngoài mã ASCII.
+
+Số lượng ký tự được xử lý theo byte (8 bit). Do đó, giống như mã Shift-JIS, mã ký tự của 1 ký tự được biểu diễn bằng 2 byte và số lượng ký tự của 1 ký tự là “2”.
+
+Khi trích xuất chuỗi ký tự từ chuỗi mà mã ký tự của 1 ký tự được biểu diễn bằng 2 byte như mã Shift-JIS, số lượng ký tự trích xuất phải được xác định lấy mã ký tự của 1 ký tự làm đơn vị. Xin lưu ý rằng nếu chỉ trích xuất 1 byte của mã ký tự 2 byte, kết quả sẽ không phải là mã ký tự mong muốn.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | (s) read address vượt quá phạm vi vùng nhớ thiết bị. |
+| 408AH | Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
+| 408BH | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4084H | (n)&lt;1 hoặc (n)&gt; độ dài chuỗi |
+| 4086H | (d) write address vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709794836459-700.png?rev=1.1)
+
+Lấy năm ký tự từ bên trái của “abcdef” bắt đầu từ D0 đưa vào R0, và chuỗi ký tự của R0 là “abcde”.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709794861767-226.png?rev=1.1)
+
+## RIGHT / Trích xuất từ phía bên phải của chuỗi ký tự
+
+RIGHT(P)
+
+Đối với dữ liệu chuỗi ký tự được lưu sau số hiệu phần tử được chỉ định trong (s), (n) dữ liệu ký tự bắt đầu từ phía bên phải của chuỗi ký tự (phần cuối chuỗi) được lưu sau số hiệu phần tử được chỉ định trong (d).
+
+-[RIGHT (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi | - | String | ANYSTRING_SINGLE | -- |
+| (d) | Lưu số hiệu bắt đầu của thiết bị chứa chuỗi gồm (n) ký tự tính từ phía bên phải của (s) | - | String | ANYSTRING_SINGLE | -- |
+| (n) | Số lượng ký tự được trích xuất | 1 to 400 | Signed BIN16 bits | ANY16 | INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| RIGHT | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| RIGHT | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| RIGHT | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Đối với dữ liệu chuỗi ký tự được lưu sau số hiệu phần tử được chỉ định trong (s), (n) dữ liệu ký tự bắt đầu từ phía bên phải của chuỗi ký tự (phần cuối chuỗi) được lưu sau số hiệu phần tử được chỉ định trong (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795048946-260.png?rev=1.1)
+
+Chuỗi ký tự được chỉ định trong (s) là dữ liệu tính theo byte từ phần tử được chỉ định đến vị trí đầu tiên phát hiện được "00H".
+
+(n)=5:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795067861-165.png?rev=1.1)
+
+Mã NULL kết thúc (00H) biểu thị chuỗi ký tự sẽ tự động được gắn vào cuối dữ liệu chuỗi ký tự.
+
+Nếu số lượng ký tự được trích xuất là số lẻ, “00H” sẽ được lưu vào byte cao của phần tử lưu ký tự cuối cùng. Nếu số lượng ký tự được trích xuất là số chẵn, “0000H” sẽ được lưu vào phần tử đứng sau phần tử lưu ký tự cuối cùng.
+
+Nếu số lượng ký tự được chỉ định trong (n) là 0, mã NULL (00H) được lưu vào (d).
+
+#### Lưu ý kỹ thuật quan trọng
+
+Cần chú ý các điểm sau khi xử lý các mã ký tự khác ngoài mã ASCII.
+
+Số lượng ký tự được xử lý theo byte (8 bit). Do đó, giống như mã Shift-JIS, mã ký tự của 1 ký tự được biểu diễn bằng 2 byte và số lượng ký tự của 1 ký tự là “2”.
+
+Khi trích xuất chuỗi ký tự từ chuỗi mà mã ký tự của 1 ký tự được biểu diễn bằng 2 byte như mã Shift-JIS, số lượng ký tự trích xuất phải được xác định lấy mã ký tự của 1 ký tự làm đơn vị. Xin lưu ý rằng nếu chỉ trích xuất 1 byte của mã ký tự 2 byte, kết quả sẽ không phải là mã ký tự mong muốn.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The read address of (s) and (n) vượt quá phạm vi vùng nhớ thiết bị. |
+| 408AH | Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
+| 408BH | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4084H | (n)&lt;1 hoặc (n)&gt; độ dài chuỗi |
+| 4086H | (d) write address vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795109353-288.png?rev=1.1)
+
+Từ chuỗi ký tự “1234567890”, lấy ba ký tự “890” từ bên phải và lưu vào R0.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795133306-391.png?rev=1.1)
+
+## MIDR / Trích xuất tùy ý trong chuỗi ký tự
+
+MIDR(P)
+
+Lưu dữ liệu tại vị trí bất kỳ trong dữ liệu chuỗi ký tự vào số hiệu phần tử được chỉ định trong (d).
+
+-[MIDR (s1) (d) (s2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s1) | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi | - | String | ANYSTRING_SINGLE | -- |
+| (d) | The start number of device that stores kết quả phép toán string data | - | String | ANYSTRING_SINGLE | -- |
+| (s2) | Số hiệu bắt đầu của thiết bị lưu trữ vị trí ký tự bắt đầu và số lượng ký tự: (s2)+0: Vị trí của ký tự bắt đầu, (s2)+1: số lượng ký tự có dấu | - | Signed BIN16 bits | ANY16_ARRAY | -- |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| MIDR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| MIDR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| MIDR | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Đối với dữ liệu chuỗi ký tự được lưu sau số hiệu phần tử được chỉ định trong (s1), dữ liệu ký tự được chỉ định trong (s2)+1 bắt đầu từ vị trí chỉ định của (s2) được lưu sau số hiệu phần tử được chỉ định trong (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795237617-165.png?rev=1.1)
+
+Chuỗi ký tự được chỉ định trong (s1) là dữ liệu tính theo byte từ phần tử được chỉ định đến vị trí đầu tiên phát hiện được “00H”.
+
+Mã NULL kết thúc (00H) biểu thị chuỗi ký tự sẽ tự động được gắn vào cuối dữ liệu chuỗi ký tự.
+
+Nếu số lượng ký tự được trích xuất “(s2)+1” là số lẻ, “00H” sẽ được lưu vào byte cao của phần tử lưu ký tự cuối cùng. Nếu số lượng ký tự được trích xuất “(s2)+1” là số chẵn, “0000H” sẽ được lưu vào phần tử đứng sau phần tử lưu ký tự cuối cùng.
+
+Khi số lượng ký tự được chỉ định trong (s2)+1 là 0, không thực hiện xử lý nào.
+
+Nếu số ký tự được chỉ định trong (s2)+1 là -1, dữ liệu kết thúc tại vị trí của dữ liệu ký tự cuối cùng được chỉ định trong (s1) sẽ được lưu sau số hiệu phần tử được chỉ định trong (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795256090-716.png?rev=1.1)
+
+#### Lưu ý kỹ thuật quan trọng
+
+Cần chú ý các điểm sau khi xử lý các mã ký tự khác ngoài mã ASCII:
+
+① Số lượng ký tự được xử lý theo byte (8 bit). Do đó, giống như mã Shift-JIS, mã ký tự của 1 ký tự được biểu diễn bằng 2 byte và số lượng ký tự của 1 ký tự là “2”.
+
+② Khi trích xuất chuỗi ký tự từ chuỗi mà mã ký tự của 1 ký tự được biểu diễn bằng 2 byte như mã Shift-JIS, số lượng ký tự trích xuất phải được xác định lấy mã ký tự của 1 ký tự làm đơn vị. Xin lưu ý rằng nếu chỉ trích xuất 1 byte của mã ký tự 2 byte, kết quả sẽ không phải là mã ký tự mong muốn.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Địa chỉ đọc của (s1) và (s2) vượt quá phạm vi của thiết bị. |
+| 408AH | (s1) Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
+| 408BH | Khi (s1) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4084H | Giá trị của (s2)+1 nhỏ hơn -2 (bao gồm -2); Giá trị của (s2) vượt quá số ký tự của (s1); Giá trị của (s2) là số âm; Giá trị của (s2)+1 vượt quá số ký tự của (s1); Giá trị thu được từ phép cộng của (s2) và (s2)+1 vượt quá số ký tự của (s1). |
+| 4086H | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795348030-138.png?rev=1.1)
+
+Từ chuỗi ký tự “123456”, lấy ba ký tự “234” tính từ ký tự thứ hai và lưu vào R0.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795366043-264.png?rev=1.1)
+
+## \$MOV / Truyền chuỗi ký tự
+
+\$MOV(P)
+
+Truyền dữ liệu chuỗi ký tự được chỉ định trong (s) tới số hiệu phần tử được chỉ định trong (d).
+
+-[\$MOV (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu bắt đầu của thiết bị truyền chuỗi (tối đa 255 ký tự) hoặc lưu trữ chuỗi | - | String | ANYSTRING_SINGLE | -- |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ và truyền chuỗi | - | String | ANYSTRING_SINGLE | -- |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| \$MOV | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+|  | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Truyền dữ liệu chuỗi ký tự được chỉ định trong (s) tới số hiệu phần tử được chỉ định trong (d). Khi truyền chuỗi ký tự, một chuỗi được đặt trong dấu ngoặc kép “” chỉ định trong (s) hoặc một chuỗi bắt đầu từ số hiệu phần tử đến phần tử lưu 00H được truyền một lần.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795537426-309.png?rev=1.1)
+
+Ngay cả khi dải phần tử (s)~(s)+n lưu trữ dữ liệu chuỗi ký tự nguồn trùng lặp với dải phần tử (d)~(d)+n lưu trữ dữ liệu chuỗi ký tự sau khi truyền, lệnh vẫn có thể xử lý bình thường. Ví dụ, khi chuỗi lưu trong D10~D13 được truyền sang D11~D14, tình huống được minh họa như sau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795558124-623.png?rev=1.1)
+
+(1): Thay đổi trực tiếp thành chuỗi trước khi truyền.
+
+Nếu 00H được lưu ở byte thấp của (s) + n, 00H sẽ được lưu vào cả byte cao và byte thấp của (d) + n.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795574324-599.png?rev=1.1)
+
+(1): Byte cao không thể truyền được.
+
+(2): Thay đổi trực tiếp thành chuỗi trước khi truyền.
+
+(3): 00H được tự động lưu vào byte cao.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | (s) read address vượt quá phạm vi vùng nhớ thiết bị. |
+| 408AH | Độ dài chuỗi đọc của (s) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
+| 408BH | Khi (s) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4086H | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795780595-873.png?rev=1.1)
+
+Sao chép chuỗi ký tự “abcde” trong D0 sang R0.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795800868-894.png?rev=1.1)
+
+## MIDW / Thay thế tùy ý trong chuỗi ký tự
+
+MIDW(P)
+
+Đối với dữ liệu chuỗi ký tự được lưu sau số hiệu phần tử được chỉ định trong (s1), lưu dữ liệu của số ký tự được chỉ định trong (s2)+1 vào vị trí được chỉ định trong (s2) của dữ liệu chuỗi ký tự được lưu sau số hiệu phần tử được chỉ định trong (d).
+
+-[MIDW (s1) (d) (s2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s1) | Chuỗi ký tự hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi | - | String | ANYSTRING_SINGLE | -- |
+| (d) | The start number of device that stores kết quả phép toán string data | - | String | ANYSTRING_SINGLE | -- |
+| (s2) | Số hiệu bắt đầu của thiết bị lưu trữ vị trí ký tự bắt đầu và số lượng ký tự: (s2)+0: Vị trí của ký tự bắt đầu, (s2)+1: Số lượng ký tự có dấu | - | Signed BIN16 bits | ANY16_ARRAY | -- |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| MIDW | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| MIDW | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| MIDW | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Đối với dữ liệu chuỗi ký tự được lưu sau số hiệu phần tử được chỉ định trong (s1), lưu dữ liệu của số ký tự được chỉ định trong (s2)+1 vào vị trí được chỉ định trong (s2) của dữ liệu chuỗi ký tự được lưu sau số hiệu phần tử được chỉ định trong (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709795999167-809.png?rev=1.1)
+
+Chuỗi ký tự được chỉ định trong (s1) hoặc (d) là dữ liệu tính theo byte từ phần tử được chỉ định đến vị trí đầu tiên phát hiện được “00H”.
+
+Mã NULL kết thúc (00H) biểu thị chuỗi ký tự sẽ tự động được gắn vào cuối dữ liệu chuỗi ký tự.
+
+Khi số lượng ký tự được chỉ định trong (s2)+1 là 0, không thực hiện xử lý nào.
+
+Nếu số lượng ký tự được chỉ định trong (s2)+1 vượt quá ký tự cuối cùng của dữ liệu chuỗi ký tự được chỉ định trong (d), dữ liệu kết thúc tại ký tự cuối cùng của (d) sẽ được lưu.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709796032182-507.png?rev=1.1)
+
+Nếu số ký tự được chỉ định trong (s2)+1 là -1, dữ liệu kết thúc tại vị trí của dữ liệu ký tự cuối cùng được chỉ định trong (s1) sẽ được lưu sau số hiệu phần tử được chỉ định trong (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709796056421-656.png?rev=1.1)
+
+#### Lưu ý kỹ thuật quan trọng
+
+Cần chú ý các điểm sau khi xử lý các mã ký tự khác ngoài mã ASCII.
+
+Số lượng ký tự được xử lý theo byte (8 bit). Do đó, giống như mã Shift-JIS, mã ký tự của 1 ký tự được biểu diễn bằng 2 byte và số lượng ký tự của 1 ký tự là “2”.
+
+Khi trích xuất chuỗi ký tự từ chuỗi mà mã ký tự của 1 ký tự được biểu diễn bằng 2 byte như mã Shift-JIS, số lượng ký tự trích xuất phải được xác định lấy mã ký tự của 1 ký tự làm đơn vị. Xin lưu ý rằng nếu chỉ trích xuất 1 byte của mã ký tự 2 byte, kết quả sẽ không phải là mã ký tự mong muốn.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Địa chỉ đọc của (s1), (s2), (d) vượt quá phạm vi của thiết bị. |
+| 408AH | Độ dài chuỗi đọc của (s1), (d) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
+| 408BH | Khi (s1), (d) đọc chuỗi ký tự, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4084H | Giá trị của (s2)+1 nhỏ hơn -2 (bao gồm -2); Giá trị của (s2) vượt quá số ký tự của (d); Giá trị của (s2) là số âm; Giá trị của (s2)+1 vượt quá số ký tự của (s1). |
+| 4086H | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709796114867-986.png?rev=1.1)
+
+Thay thế chuỗi con có độ dài ba ký tự bắt đầu từ ký tự thứ hai trong chuỗi ký tự “qwery” lưu ở R0 bằng ba ký tự đầu tiên trong D20.
+
+Kết quả của R0 là “q123y”.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709796147183-706.png?rev=1.1)
+
+## STR / Chuyển đổi dữ liệu BIN 16-bit → chuỗi ký tự
+
+STR(P)
+
+Dữ liệu BIN 16-bit được chỉ định trong (s2) được chuyển đổi thành chuỗi ký tự có dấu thập phân tại vị trí được chỉ định trong (s1) và lưu sau số hiệu phần tử được chỉ định trong (d).
+
+-[STR (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s1) | Số hiệu bắt đầu của thiết bị lưu trữ số chữ số (bit) của dữ liệu được chuyển đổi | - | Signed BIN16 bits | ANY16_S_ARRAY | -- |
+| (s2) | Dữ liệu BIN được chuyển đổi | -32768~+32767 | Signed BIN16 bits | ANY16_S | INT |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ chuỗi sau khi chuyển đổi | - | String | ANYSTRING_SINGLE | -- |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| STR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| STR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| STR | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Dữ liệu BIN 16-bit được chỉ định trong (s2) được chuyển đổi thành chuỗi ký tự có dấu thập phân tại vị trí được chỉ định trong (s1) và lưu sau số hiệu phần tử được chỉ định trong (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709796268335-399.png?rev=1.1)
+
+Tổng số chữ số có thể chỉ định trong (s1) là 2~8 chữ số.
+
+Số chữ số phần thập phân có thể chỉ định trong (s1)+1 là 0~5 chữ số. Tuy nhiên, cài đặt phải thỏa mãn điều kiện số chữ số phần thập phân ≤ (tổng số chữ số - 3).
+
+Dữ liệu chuỗi ký tự sau khi chuyển đổi sẽ được lưu vào các số hiệu phần tử sau (d) theo các cách sau.
+
+• Ở ký tự dấu, khi dữ liệu BIN 16-bit là số dương thì lưu 20H (khoảng trắng); khi là số âm thì lưu 2DH (-).
+
+Khi số chữ số thập phân được đặt thành giá trị bất kỳ khác 0, 2EH (.) sẽ tự động được lưu ở vị trí (số chữ số thập phân chỉ định + 1). Khi số chữ số thập phân là 0, 2EH (.) không được lưu.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709796286469-559.png?rev=1.1)
+
+Nếu giá trị số chữ số thập phân lớn hơn số chữ số của dữ liệu BIN 16-bit, hệ thống sẽ tự động thêm 0 rồi căn lề phải và chuyển đổi thành dạng “0.***”.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709796308066-809.png?rev=1.1)
+
+Nếu loại bỏ ký tự dấu khỏi tổng số chữ số và giá trị số chữ số thập phân lớn hơn số chữ số của dữ liệu BIN 16-bit, 20H (khoảng trắng) sẽ được lưu giữa dấu và giá trị. Nếu số chữ số của dữ liệu BIN 16-bit quá lớn, hệ thống sẽ chuyển sang trạng thái lỗi.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709796742261-643.png?rev=1.1)
+
+00H được tự động lưu vào cuối chuỗi ký tự sau khi chuyển đổi.
+
+• Nếu tổng số chữ số là số chẵn, “0000H” sẽ được lưu vào phần tử đứng sau phần tử lưu ký tự cuối cùng. Nếu tổng số chữ số là số lẻ, “00H” sẽ được lưu vào byte cao (8 bit) của phần tử lưu ký tự cuối cùng.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Địa chỉ đọc của (s1) và (s2) vượt quá phạm vi của thiết bị. |
+| 4084H | Giá trị cài đặt tham số (s1) hoặc (s1+1) vượt quá phạm vi. Ví dụ: 1. Giá trị của (s1) không nằm trong phạm vi 2-8. 1. Giá trị của (s1+1) không nằm trong phạm vi 0-5. 3. Giá trị của (s1+1) lớn hơn giá trị của (s1) trừ 3. 4. Khi (s1+1) bằng 0, số chữ số được chỉ định trong (s1) nhỏ hơn số chữ số của dữ liệu BIN 16-bit được chỉ định trong (s2)+1. 4. Khi (s1+1) khác 0, số chữ số được chỉ định trong (s1) nhỏ hơn số chữ số của dữ liệu BIN 16-bit được chỉ định trong (s2)+2. (Số chữ số của (s1)) &lt; số chữ số không dấu của dữ liệu BIN 16-bit của (s2) + số ký tự dấu (+ hoặc -) + số ký tự dấu thập phân (.) |
+| 4086H | When using offset, the offset address of (d) vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709796804142-604.png?rev=1.1)
+
+Sau khi M8 được đặt lên ON, giá trị được chuyển đổi thành chuỗi ký tự “ 12345” (có một khoảng trắng phía trước số 1) theo cài đặt tổng số chữ số (6 chữ số và 0 chữ số thập phân).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709796819724-774.png?rev=1.1)
+
+## DSTR / Chuyển đổi dữ liệu BIN 32-bit → chuỗi ký tự
+
+DSTR(P)
+
+Dữ liệu BIN 32-bit được chỉ định trong (s2) được chuyển đổi thành chuỗi ký tự có dấu thập phân tại vị trí được chỉ định trong (s1) và lưu sau số hiệu phần tử được chỉ định trong (d).
+
+-[DSTR (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s1) | Số hiệu bắt đầu của thiết bị lưu trữ số chữ số (bit) của dữ liệu được chuyển đổi | - | Signed BIN16 bits | ANY16_S_ARRAY | -- |
+| (s2) | Dữ liệu BIN được chuyển đổi | -2147483648 to 2147483647 | Signed BIN 32 bit | ANY32_S | DINT |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ chuỗi sau khi chuyển đổi | - | String | ANYSTRING_SINGLE | -- |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DSTR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| DSTR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DSTR | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Dữ liệu BIN 32-bit được chỉ định trong (s2) được chuyển đổi thành chuỗi ký tự có dấu thập phân tại vị trí được chỉ định trong (s1) và lưu sau số hiệu phần tử được chỉ định trong (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797229142-358.png?rev=1.1)
+
+Khi -654.321 được chỉ định trong (s2):
+
+Tổng số chữ số có thể chỉ định trong (s1) là 2~13 chữ số.
+
+Số chữ số phần thập phân có thể chỉ định trong (s1)+1 là 0~10 chữ số. Tuy nhiên, cài đặt phải thỏa mãn điều kiện số chữ số phần thập phân ≤ (tổng số chữ số - 3).
+
+Dữ liệu chuỗi ký tự sau khi chuyển đổi sẽ được lưu vào các số hiệu phần tử sau (d) theo các cách sau.
+
+• Ở ký tự dấu, khi dữ liệu BIN 32-bit là số dương thì lưu 20H (khoảng trắng); khi là số âm thì lưu 2DH (-).
+
+• Khi số chữ số thập phân được đặt thành giá trị bất kỳ khác 0, 2EH (.) sẽ tự động được lưu ở vị trí (số chữ số thập phân chỉ định + 1). Khi số chữ số thập phân là 0, 2EH (.) không được lưu.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797248127-726.png?rev=1.1)
+
+• Nếu giá trị số chữ số thập phân lớn hơn số chữ số của dữ liệu BIN 32-bit, hệ thống sẽ tự động thêm 0 rồi căn lề phải và chuyển đổi thành dạng “0.***”.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797265792-274.png?rev=1.1)
+
+• Nếu loại bỏ ký tự dấu khỏi tổng số chữ số và giá trị số chữ số thập phân lớn hơn số chữ số của dữ liệu BIN 32-bit, 20H (khoảng trắng) sẽ được lưu giữa dấu và giá trị. Nếu số chữ số của dữ liệu BIN 32-bit quá lớn, hệ thống sẽ chuyển sang trạng thái lỗi.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797284135-416.png?rev=1.1)
+
+• 00H được tự động lưu vào cuối chuỗi ký tự sau khi chuyển đổi.
+
+• Nếu tổng số chữ số là số chẵn, “0000H” sẽ được lưu vào phần tử đứng sau phần tử lưu ký tự cuối cùng. Nếu tổng số chữ số là số lẻ, “00H” sẽ được lưu vào byte cao (8 bit) của phần tử lưu ký tự cuối cùng.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Địa chỉ đọc của (s1) và (s2) vượt quá phạm vi của thiết bị. |
+| 4084H | Giá trị cài đặt tham số (s1) hoặc (s1+1) vượt quá phạm vi. Ví dụ: 1. Giá trị của (s1) không nằm trong phạm vi 2-13. 2. Giá trị của (s1+1) không nằm trong phạm vi 0-10. 3. Giá trị của (s1+1) lớn hơn giá trị của (S1) trừ 3. 4. Khi (s1+1) bằng 0, số chữ số được chỉ định trong (s1) nhỏ hơn số chữ số của dữ liệu BIN 16-bit được chỉ định trong (s2)+1. 4. Khi (s1+1) khác 0, số chữ số được chỉ định trong (s1) nhỏ hơn số chữ số của dữ liệu BIN 16-bit được chỉ định trong (s2)+2. (Số chữ số của (s1)) &lt; số chữ số không dấu của dữ liệu BIN 16-bit của (s2) + số ký tự dấu (+ hoặc -) + số ký tự dấu thập phân (.) |
+| 4086H | When using offset, the offset address of (d) vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797352189-763.png?rev=1.1)
+
+Như minh họa trong ví dụ, chúng ta cần chuyển đổi 123456 thành chuỗi ký tự số thực dấu phẩy động với tổng 9 chữ số và 3 chữ số thập phân.
+
+Kết quả chuyển đổi phải là:  123.456, và giá trị phía trước sẽ có hai khoảng trắng để bù cho số chữ số còn thiếu.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797367228-320.png?rev=1.1)
+
+## \$+ / Ghép nối chuỗi ký tự
+
+\$+(P)
+
+Nối chuỗi ký tự được lưu sau số hiệu phần tử chỉ định trong (s2) vào sau dữ liệu chuỗi ký tự được lưu sau số hiệu phần tử chỉ định trong (s1), và lưu kết quả sau số hiệu phần tử chỉ định trong (d).
+
+-[\$+ (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu nối hoặc số hiệu bắt đầu của thiết bị lưu trữ dữ liệu hoặc chuỗi được chỉ định trực tiếp | - | String | ANYSTRING_SINGLE | -- |
+| (s2) | Dữ liệu được nối hoặc số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được nối hoặc chuỗi được chỉ định trực tiếp | - | String | ANYSTRING_SINGLE | -- |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ kết quả nối chuỗi | - | String | ANYSTRING_SINGLE | -- |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| \$+ | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| \$+ | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| \$+ | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Nối chuỗi ký tự được lưu sau số hiệu phần tử chỉ định trong (s2) vào sau dữ liệu chuỗi ký tự được lưu sau số hiệu phần tử chỉ định trong (s1), và lưu kết quả sau số hiệu phần tử chỉ định trong (d).
+
+Chuỗi ký tự của (s1) và (s2) bắt đầu từ số hiệu phần tử được chỉ định và kết thúc tại số hiệu phần tử lưu giá trị 00H.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797459575-491.png?rev=1.1)
+
+Khi ghép các chuỗi ký tự, mã 00H biểu thị kết thúc chuỗi chỉ định trong (s1) sẽ bị bỏ qua, và chuỗi chỉ định trong (s2) được nối tiếp vào ký tự cuối cùng của (s1).
+
+Khi các chuỗi ký tự được ghép nối, 00H sẽ tự động được gắn vào cuối. Nếu số lượng ký tự sau khi nối là số lẻ, “00H” sẽ được lưu vào byte cao của phần tử lưu ký tự cuối cùng. Nếu số lượng ký tự là số chẵn, “0000H” sẽ được lưu vào phần tử đứng sau phần tử lưu ký tự cuối cùng.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The read address of (s1) or (s2) vượt quá phạm vi vùng nhớ thiết bị. |
+| 408AH | Độ dài chuỗi đọc của (s1) hoặc (s2) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
+| 408BH | Khi (s1) hoặc (s2) đọc chuỗi, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4086H | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797544078-674.png?width=273&amp;height=58&amp;rev=1.1)
+
+Sau khi ghép chuỗi ký tự “12345” và chuỗi ký tự “abcde”, kết quả là “12345abcde”.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797565200-110.png?rev=1.1)
+
+## INSTR / Tìm kiếm chuỗi ký tự
+
+\$+(P)
+
+Bắt đầu từ ký tự thứ (s3) tính từ bên trái của dữ liệu chuỗi ký tự lưu sau số hiệu phần tử chỉ định trong (s2), tìm kiếm dữ liệu chuỗi ký tự lưu sau số hiệu phần tử chỉ định trong (s1) và lưu kết quả tìm kiếm vào phần tử chỉ định trong (d).
+
+-[INSTR (s1) (s2) (d) (s3)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s1) | Chuỗi tìm kiếm hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi tìm kiếm | - | String | ANYSTRING_SINGLE | -- |
+| (s2) | Chuỗi được tìm kiếm hoặc số hiệu bắt đầu của thiết bị lưu trữ chuỗi được tìm kiếm | - | String | ANYSTRING_SINGLE | -- |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ kết quả tìm kiếm | - | Signed BIN16 bits | ANY16 | -- |
+| (s3) | Vị trí bắt đầu tìm kiếm | 1 to 400 | Signed BIN16 bits | ANY16 | INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| INSTR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| INSTR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| INSTR | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| INSTR | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Bắt đầu từ ký tự thứ (s3) tính từ bên trái của dữ liệu chuỗi ký tự lưu sau số hiệu phần tử chỉ định trong (s2), tìm kiếm dữ liệu chuỗi ký tự lưu sau số hiệu phần tử chỉ định trong (s1) và lưu kết quả tìm kiếm vào phần tử chỉ định trong (d). Kết quả tìm kiếm sẽ lưu vị trí ký tự thứ xx tính từ ký tự đầu của dữ liệu chuỗi ký tự chỉ định trong (s2).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797884541-826.png?rev=1.1)
+
+Nếu không có dữ liệu chuỗi ký tự phù hợp, giá trị 0 sẽ được lưu vào (d).
+
+Khi vị trí bắt đầu tìm kiếm (s3) là “0”, không thực hiện xử lý nào. Chuỗi cần tìm (s1) có thể chỉ định trực tiếp bằng chuỗi ký tự.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797925734-360.png?rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The write address in (s1), (s2) and (s3) vượt quá phạm vi vùng nhớ thiết bị. |
+| 408AH | Độ dài chuỗi đọc của (s1) và (s2) vượt quá giới hạn, và độ dài liên tục của chuỗi vượt quá 400 ký tự. |
+| 408BH | Khi (s1) và (s2) đọc chuỗi, đã đọc hết phạm vi tối đa của thiết bị nhưng không tìm thấy ký tự kết thúc 00H. |
+| 4086H | (d) Write address vượt quá phạm vi vùng nhớ thiết bị. |
+| 4084H | (s3) &lt;0 hoặc (s3)&gt;= độ dài chuỗi |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709797967900-828.png?rev=1.1)
+
+Khi tìm kiếm chuỗi “ef” trong chuỗi liên tục “abcdefg”, bắt đầu tìm kiếm từ ký tự đầu tiên và tìm thấy tại vị trí thứ 5.
+
+## ASC / Nhập dữ liệu ASCII
+
+ASC
+
+Lệnh dùng để chuyển đổi các chuỗi ký tự số/chữ tiếng Anh nửa độ rộng (half-width) thành mã ASCII. Dùng để chọn nhiều thông báo hiển thị trên màn hình ngoài.
+
+-[ASC(s)|(d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | 32 ký tự chữ và số tiếng Anh nửa độ rộng (half-width) do máy tính nhập vào | - | String (only ASCI code) | ANY_ASC | -- |
+| (d) | Số hiệu thiết bị ký tự bắt đầu lưu dữ liệu ASCII | - | BIN16 bit | ANY16_S | -- |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ASC | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ASC | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
+
+#### Chức năng và nguyên lý hoạt động
+
+1. Thao tác 16-bit (ASC)
+
+• Chuyển đổi các chuỗi ký tự số và chữ tiếng Anh nửa độ rộng được chỉ định trong (S) thành mã ASCII và truyền vào (D).
+
+(1) Trong (S), các ký tự nửa độ rộng từ A ~ Z, 0 ~ 9 và các ký hiệu được xử lý (không xử lý chuỗi ký tự toàn độ rộng / full-width). Khi lập trình bằng công cụ lập trình, nhập vào một chuỗi ký tự.
+
+(2) Mã ASCII sau khi chuyển đổi được lưu vào (D) theo từng 2 ký tự (mỗi ký tự 1 byte) theo thứ tự 8 bit thấp trước rồi đến 8 bit cao.
+
+2. Chức năng mở rộng
+
+• Sau khi SM162 được đặt lên ON, chức năng mở rộng trở nên hợp lệ; khi đó chuyển đổi các chuỗi ký tự số và chữ tiếng Anh nửa độ rộng được chỉ định trong (S) thành mã ASCII và truyền vào 8 bit thấp của (D) (1 byte) theo đúng thứ tự.
+
+#### Lưu ý kỹ thuật quan trọng
+
+1. Số vị trí phần tử bị chiếm dụng
+
+(1) Khi chức năng mở rộng ở trạng thái OFF, số vị trí phần tử (D) bị chiếm dụng bằng số ký tự ÷ 2 (nếu không chia hết thì làm tròn lên).
+
+(2) Khi chức năng mở rộng ở trạng thái ON, số vị trí phần tử (D) bị chiếm dụng bằng đúng số lượng ký tự.
+
+2. Khi sử dụng các lệnh như ASC, ASCI, BCC, CCD và CRC, bit cờ chức năng mở rộng SM161 là bit cờ dùng chung cho các lệnh khác.
+
+Khi sử dụng các lệnh trên và lệnh ASC, xin lưu ý viết lệnh đặt SM161 ON hoặc OFF ở phía trước lệnh ASC trong chương trình để tránh ảnh hưởng ngoài ý muốn.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output result of the read application command (s) vượt quá phạm vi vùng nhớ thiết bị. |
+| 4086H | The output result of the write application command (d) vượt quá phạm vi vùng nhớ thiết bị. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709798266790-989.png?width=314&amp;height=29&amp;rev=1.1)
+
+Như minh họa trong hình dưới đây, byte cao của mỗi biến được điền bằng 0 (hệ thập lục phân):
+
+|  | D• ((High 8 bits)) | D• ((Low 8 bits)) | S (String) |
+| :--- | :--- | :--- | :--- |
+|  | 00 | 41 | A |
+| +1 | 00 | 42 | B |
+| +2 | 00 | 43 | C |
+| +3 | 00 | 44 | D |
+| +4 | 00 | 45 | E |
+| +5 | 00 | 46 | F |
+| +6 | 00 | 47 | G |
+| +7 | 00 | 48 | H |
+
+Khi X20=ON, phép gán giá trị của D200~D203 được trình bày như sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/12%20Character%20String%20Instruction/WebHome/1709798367205-556.png?rev=1.1)
+
+Khi thanh ghi đặc biệt SM161 được đặt lên ON,
+
+mỗi ký tự ASCII chiếm một biến 16-bit sau khi chuyển đổi.
+
+0

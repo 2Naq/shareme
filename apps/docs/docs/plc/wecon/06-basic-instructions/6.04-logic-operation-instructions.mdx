@@ -1,0 +1,2046 @@
+---
+id: "6.04-logic-operation-instructions"
+title: "6.04 Lệnh phép toán logic (Logic Operation Instructions)"
+sidebar_position: 4
+sidebar_label: "6.04 Logic Operation instructions"
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.04 Lệnh phép toán logic (Logic Operation Instructions)"
+---
+
+### NEG/Lấy số bù 2 (đảo dấu) 16-bit
+
+NEG(P)
+
+Sau khi đảo dấu giá trị BIN 16-bit của thiết bị chỉ định tại (d), lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[NEG (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Thiết bị bắt đầu lưu trữ dữ liệu bù 2 | -32768 to 32767 | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| NEG | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+• Đảo dấu giá trị BIN 16-bit của thiết bị chỉ định tại (d) và lưu vào thiết bị chỉ định tại (d).
+
+• Dùng khi đảo dấu dương và âm.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760596423482-295.png?rev=1.1)
+
+:::tip
+✎ Lưu ý: Nếu sử dụng lệnh thực thi liên tục (NEG), giá trị sẽ bị đảo dấu ở mỗi chu kỳ quét nên cần đặc biệt lưu ý.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output results of (d) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+Trong hai ví dụ dưới đây, dù D2=K4 và D4=K8, hay D2=K8 và D4=K4 thì D10 luôn bằng K4.
+
+Mỗi lần M0 được SET (ON), giá trị thiết bị chỉ định tại D0 được đảo dấu.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760596467123-343.png?width=213&amp;height=65&amp;rev=1.1)
+
+Lấy giá trị tuyệt đối của hiệu trong phép toán trừ.
+
+Nếu D2&gt;D4 thì M10=ON. Nếu D2=D4 thì M11=ON. Nếu D2&lt;D4 thì M12=ON. Điều này đảm bảo D10 luôn là số dương.
+
+Nó cũng có thể được biểu diễn bằng chương trình sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760596485762-357.png?rev=1.1)
+
+Khi bit15 của D10 là "1" (cho biết D10 là số âm), M10 = ON, sử dụng lệnh NEG để lấy bù 2 (đảo dấu) D10 nhằm thu được giá trị tuyệt đối của D10.
+
+Trong hai ví dụ trên, nếu D2=K4, D4=K8; hoặc D2=K8, D4=K4, kết quả của D10 đều là K4.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760596509460-153.png?width=438&amp;height=209&amp;rev=1.1)
+
+### DNEG/Lấy số bù 2 (đảo dấu) 32-bit
+
+DNEG(P)
+
+Sau khi đảo dấu giá trị BIN 32-bit của thiết bị chỉ định tại (d), lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[DNEG (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Thiết bị bắt đầu lưu trữ dữ liệu bù 2 | -2147483648 to 2147483647 | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DNEG | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+• Đảo dấu giá trị BIN 32-bit của thiết bị chỉ định tại (d) và lưu vào thiết bị chỉ định tại (d).
+
+• Dùng khi đảo dấu dương và âm.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760596600811-808.png?width=641&amp;height=206&amp;rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Nếu bạn sử dụng lệnh thực thi liên tục (DNEG), việc đảo dấu sẽ diễn ra ở mỗi chu kỳ quét, do đó cần lưu ý.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output results of (d) in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760596616876-447.png?width=230&amp;height=70&amp;rev=1.1)
+
+Mỗi lần M0 được SET (ON), giá trị thiết bị chỉ định tại (D1, D0) được đảo dấu.
+
+### WOR/Phép toán logic OR dữ liệu 16-bit
+
+WOR(P)
+
+Thực hiện phép toán logic OR trên dữ liệu BIN 16-bit của thiết bị chỉ định tại (s1) và dữ liệu BIN 16-bit của thiết bị chỉ định tại (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[WOR (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu cho phép toán OR logic hoặc thiết bị lưu trữ dữ liệu | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (s2) | Dữ liệu cho phép toán OR logic hoặc thiết bị lưu trữ dữ liệu | -32768to 32767 | Signed BIN16 | ANY16_S |
+| (d) | Thiết bị lưu trữ kết quả phép toán OR logic |  | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| WOR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| WOR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| WOR | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+• Thực hiện phép toán logic OR trên dữ liệu BIN 16-bit của thiết bị chỉ định tại (s1) và dữ liệu BIN 16-bit của thiết bị chỉ định tại (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760596708958-150.png?width=487&amp;height=194&amp;rev=1.1)
+
+Trong trường hợp thiết bị bit, các bit nằm ngoài số điểm được chỉ định bởi số chữ số sẽ được tính là 0.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760596727247-547.png?width=303&amp;height=62&amp;rev=1.1)
+
+Khi M0 được SET (ON), thực hiện phép toán logic OR giữa (D0) và (D2), rồi lưu giá trị vào (D4), tức là (D0)∨(D2) → (D4).
+
+### DOR/Phép toán logic OR dữ liệu 32-bit
+
+DOR(P)
+
+Sau khi đảo dấu giá trị BIN 32-bit của thiết bị chỉ định tại (d), lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[DOR (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu cho phép toán OR logic hoặc thiết bị lưu trữ dữ liệu | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (s2) | Dữ liệu cho phép toán OR logic hoặc thiết bị lưu trữ dữ liệu | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (d) | Thiết bị lưu trữ kết quả phép toán OR logic |  | Signed BIN32 | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DOR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DOR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DOR | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Thực hiện phép toán logic OR trên dữ liệu BIN 32-bit của thiết bị chỉ định tại (s1) và dữ liệu BIN 32-bit của thiết bị chỉ định tại (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760596762244-118.png?width=506&amp;height=304&amp;rev=1.1)
+
+Trong trường hợp thiết bị bit, các bit nằm ngoài số điểm được chỉ định bởi số chữ số sẽ được tính là 0.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760596776802-274.png?width=316&amp;height=69&amp;rev=1.1)
+
+Khi M0 được SET (ON), thực hiện phép toán logic OR giữa (D1, D0) và (D3, D2), rồi lưu giá trị vào (D5, D4), tức là (D1, D0)∨(D3, D2) → (D5, D4).
+
+### WAND/Phép toán logic AND dữ liệu 16-bit
+
+WAND(P)
+
+Thực hiện phép toán logic AND trên từng bit của dữ liệu BIN 16-bit tại thiết bị chỉ định trong (s1) và dữ liệu BIN 16-bit tại thiết bị chỉ định trong (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[WAND (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu cho phép toán AND logic hoặc thiết bị lưu trữ dữ liệu | -32768to 32767 | Signed BIN16 | ANY16_S |
+| (s2) | Dữ liệu cho phép toán AND logic hoặc thiết bị lưu trữ dữ liệu | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (d) | Thiết bị lưu trữ kết quả phép toán AND logic |  | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| WAND | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| WAND | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| WAND | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Thực hiện phép toán logic AND trên từng bit của dữ liệu BIN 16-bit tại thiết bị chỉ định trong (s1) và dữ liệu BIN 16-bit tại thiết bị chỉ định trong (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760597183494-599.png?width=502&amp;height=196&amp;rev=1.1)
+
+Trong trường hợp thiết bị bit, các bit nằm ngoài số điểm được chỉ định bởi số chữ số sẽ được tính là 0.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760597218537-926.png?width=321&amp;height=66&amp;rev=1.1)
+
+Khi M0 được SET (ON), thực hiện phép toán logic AND của (D0) và (D2), rồi lưu giá trị vào (D4), tức là (D0) ∧ (D2) → (D4).
+
+### DAND/Phép toán logic AND dữ liệu 32-bit
+
+DAND(P)
+
+Thực hiện phép toán logic AND trên từng bit của dữ liệu BIN 32-bit tại thiết bị chỉ định trong (s1) và dữ liệu BIN 32-bit tại thiết bị chỉ định trong (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[DAND (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu cho phép toán AND logic hoặc thiết bị lưu trữ dữ liệu | -2147483648 to +2147483647 | Signed BIN32 | ANY32_S |
+| (s2) | Dữ liệu cho phép toán AND logic hoặc thiết bị lưu trữ dữ liệu | -2147483648 to +2147483647 | Signed BIN32 | ANY32_S |
+| (d) | Thiết bị lưu trữ kết quả phép toán AND logic |  | Signed BIN32 | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DAND | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DAND | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DAND | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Thực hiện phép toán logic AND trên từng bit của dữ liệu BIN 32-bit tại thiết bị chỉ định trong (s1) và dữ liệu BIN 32-bit tại thiết bị chỉ định trong (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760597298171-908.png?width=404&amp;height=241&amp;rev=1.1)
+
+Trong trường hợp thiết bị bit, các bit nằm ngoài số điểm được chỉ định bởi số chữ số sẽ được tính là 0.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760597385445-678.png?rev=1.1)
+
+Khi M0 được SET (ON), thực hiện phép toán logic AND của (D1, D0) và (D3, D2), rồi lưu giá trị vào (D5, D4): (D1, D0) ∧ (D3, D2) → (D5, D4).
+
+### WXOR/Phép toán logic XOR dữ liệu 16-bit
+
+WXOR(P)
+
+Thực hiện phép toán logic XOR (Exclusive OR) trên dữ liệu BIN 16-bit của thiết bị chỉ định tại (s1) và dữ liệu BIN 16-bit của thiết bị chỉ định tại (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[WXOR (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu cho phép toán XOR logic hoặc thiết bị lưu trữ dữ liệu | -32768 to 32767 | Signed BIN16 | ANY16_S |
+| (s2) | Dữ liệu cho phép toán XOR logic hoặc thiết bị lưu trữ dữ liệu | -32768 to +32767 | Signed BIN16 | ANY16_S |
+| (d) | Thiết bị lưu trữ kết quả phép toán XOR |  | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| WXOR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| WXOR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| WXOR | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+• Thực hiện phép toán logic XOR (Exclusive OR) trên dữ liệu BIN 16-bit của thiết bị chỉ định tại (s1) và dữ liệu BIN 16-bit của thiết bị chỉ định tại (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760597468316-781.png?width=539&amp;height=212&amp;rev=1.1)
+
+Trong trường hợp thiết bị bit, các bit nằm ngoài số điểm được chỉ định bởi số chữ số sẽ được tính là 0.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Phạm vi đọc tại (s1) và (s2) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+Ví dụ 1: Khi M0 được SET (ON), thực hiện phép toán XOR giữa (D0) và (D2), rồi lưu giá trị vào (D4): (D0)∀(D2)→(D4).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760597498689-329.png?width=313&amp;height=72&amp;rev=1.1)
+
+Ví dụ 2: Khi sử dụng kết hợp với lệnh CML, có thể thực hiện phép toán logic XNOR (XORNOT):
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760597513546-815.png?width=314&amp;height=97&amp;rev=1.1)
+
+### DXOR/Phép toán logic XOR dữ liệu 32-bit
+
+DXOR(P)
+
+Thực hiện phép toán logic XOR (Exclusive OR) trên dữ liệu BIN 32-bit của thiết bị chỉ định tại (s1) và dữ liệu BIN 32-bit của thiết bị chỉ định tại (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+-[DXOR (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s1) | Dữ liệu cho phép toán XOR logic hoặc thiết bị lưu trữ dữ liệu | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (s2) | Dữ liệu cho phép toán XOR logic hoặc thiết bị lưu trữ dữ liệu | -2147483648 to 2147483647 | Signed BIN32 | ANY32_S |
+| (d) | Thiết bị lưu trữ kết quả phép toán XOR |  | Signed BIN32 | ANY32_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DXOR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DXOR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DXOR | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Thực hiện phép toán logic XOR (Exclusive OR) trên dữ liệu BIN 32-bit của thiết bị chỉ định tại (s1) và dữ liệu BIN 32-bit của thiết bị chỉ định tại (s2), sau đó lưu kết quả vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760597718073-495.png?width=458&amp;height=276&amp;rev=1.1)
+
+Trong trường hợp thiết bị bit, các bit nằm ngoài số điểm được chỉ định bởi số chữ số sẽ được tính là 0.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output results of (s1) and (s2)in the read lệnh ứng dụng vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760597741531-828.png?width=363&amp;height=78&amp;rev=1.1)
+
+Khi M0 được SET (ON), thực hiện phép toán XOR giữa (D1, D0) và (D3, D2), rồi lưu giá trị vào (D5, D4), tức là (D1, D0) ∀ (D3, D2) → (D5, D4).
+
+### ANS/Cài đặt cảnh báo (Alarm)
+
+ANS(P)
+
+Dùng để cài đặt lệnh cảnh báo.
+
+-[ANS (s) (n) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu bộ định thời dùng để kiểm tra thời gian | - | Signed BIN 16 bit | ANY16 |
+| (n) | Dữ liệu dùng để kiểm tra thời gian | 1 to 32767 | Signed BIN 16 bit | ANY16 |
+| (d) | Thiết bị báo lỗi được đặt | - | Bit | ANY16_BOOL |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ANS | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  | ● | ● |
+| ANS | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| ANS | Parameter 3 |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Khi đầu vào lệnh duy trì trạng thái ON liên tục đủ thời gian phán đoán [(n)×100ms, bộ định thời (s)], thì SET thiết bị (d). Nếu thời gian đầu vào lệnh tắt trước thời gian phán đoán [(n)×100ms], giá trị hiện tại của bộ định thời phán đoán (s) sẽ bị reset và (d) không được SET. Ngoài ra, nếu đầu vào lệnh chuyển sang OFF, bộ định thời phán đoán cũng sẽ bị reset.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760597809028-288.png?width=425&amp;height=166&amp;rev=1.1)
+
+- Nhỏ hơn thời gian phán đoán ((n) × 100ms trở xuống)
+
+- Từ thời gian phán đoán trở lên (bao gồm) ((n) × 100ms trở lên)
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM249 | Cảnh báo tín hiệu có hiệu lực | After SM249 is ON, the following SM248 and SD249 act. |
+| SM248 | Hoạt động cảnh báo tín hiệu | SM249 ở trạng thái ON; khi bất kỳ trạng thái nào từ S900 đến S999 đang kích hoạt, SM248 sẽ ON |
+| SD249 | Số hiệu nhỏ nhất của trạng thái cảnh báo tín hiệu đang ON | Lưu số hiệu nhỏ nhất đang hoạt động trong khoảng S900 đến S999. |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767 |
+| 4084H | Số hiệu bộ định thời không nằm trong phạm vi từ T0 đến T199. |
+| 4084H | Cảnh báo tín hiệu không nằm trong phạm vi từ S900 đến S999. |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+Mã lỗi được hiển thị thông qua bộ báo tín hiệu (annunciator).
+
+Như minh họa bên dưới, khi bạn viết chương trình chẩn đoán lỗi ngoài, chẳng hạn như giám sát nội dung của SM249 (số hiệu nhỏ nhất đang ở trạng thái ON), số hiệu nhỏ nhất đang ON trong khoảng S900 đến S999 sẽ được hiển thị. Khi nhiều lỗi xảy ra đồng thời, có thể lấy số hiệu lỗi tiếp theo sau khi xóa lỗi có số hiệu nhỏ nhất.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760597946152-346.png?rev=1.1)
+
+### ANR/Xóa (Reset) cảnh báo
+
+ANR(P)
+
+Lệnh dùng để reset thiết bị cảnh báo có số hiệu nhỏ nhất đang ở trạng thái ON.
+
+-[ANR]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| No | Không có cài đặt tham số | - | - | - |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ANR | No | No object device |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Đặc tính kỹ thuật
+
+Nếu đầu vào lệnh ở trạng thái ON, reset cảnh báo đang kích hoạt trong danh sách cảnh báo.
+
+Nếu nhiều cảnh báo đang hoạt động, lệnh sẽ reset cảnh báo có số hiệu nhỏ hơn. Nếu đầu vào lệnh được bật ON lại, cảnh báo có số hiệu nhỏ tiếp theo đang hoạt động sẽ được reset.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760598030778-106.png?width=281&amp;height=108&amp;rev=1.1)
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM249 | Cảnh báo tín hiệu có hiệu lực | After SM249 is ON, the following SM248 and SD249 act. |
+| SM248 | Hoạt động cảnh báo tín hiệu | SM249 ở trạng thái ON; khi bất kỳ trạng thái nào từ S900 đến S999 đang kích hoạt, SM248 sẽ ON. |
+| SD249 | Số hiệu nhỏ nhất của trạng thái cảnh báo tín hiệu đang ON | Lưu số hiệu nhỏ nhất đang hoạt động trong khoảng S900 đến S999. |
+
+:::tip
+✎Lưu ý:
+
+Nếu sử dụng lệnh ANR, việc reset sẽ thực hiện tuần tự ở mỗi chu kỳ quét.
+
+Nếu sử dụng lệnh ANRP, lệnh sẽ chỉ được thực thi trong một chu kỳ quét.
+:::
+
+#### Mã lỗi (Error Code)
+
+Không có lỗi thực thi.
+
+#### Ví dụ minh họa
+
+Mã lỗi được hiển thị thông qua bộ báo tín hiệu (annunciator).
+
+Như minh họa bên dưới, khi bạn viết chương trình chẩn đoán lỗi ngoài, chẳng hạn như giám sát nội dung của SM249 (số hiệu nhỏ nhất đang ở trạng thái ON), số hiệu nhỏ nhất đang ON trong khoảng S900 đến S999 sẽ được hiển thị. Khi nhiều lỗi xảy ra đồng thời, có thể lấy số hiệu lỗi tiếp theo sau khi xóa lỗi có số hiệu nhỏ nhất.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760598311458-254.png?width=787&amp;height=603&amp;rev=1.1)
+
+### BON/Kiểm tra trạng thái bit của dữ liệu 16-bit
+
+BON(P)
+
+Kiểm tra xem trạng thái bit thứ (n) của dữ liệu BIN 16-bit tại thiết bị chỉ định trong (s) là ON hay OFF, và xuất kết quả ra thiết bị chỉ định tại (d).
+
+-[BON (s) (n) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị word đích lưu trữ dữ liệu | - | Signed BIN 16 bit | ANY16 |
+| (d) | Số hiệu thiết bị bit được điều khiển | - | Bit | ANY16_BOOL |
+| (n) | The position of the bit to be judged | 0 to 15 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| BON | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| BON | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
+| BON | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Kiểm tra xem trạng thái bit thứ (n) của dữ liệu BIN 16-bit tại thiết bị chỉ định trong (s) là ON hay OFF, và xuất kết quả ra thiết bị chỉ định tại (d).
+
+Nếu kết quả kiểm tra trên là ON thì (d)=ON; nếu là OFF thì (d)=OFF.
+
+Nếu hằng số (K) được chỉ định tại thiết bị (s), nó sẽ được tự động chuyển đổi sang định dạng BIN.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760598789638-480.png?width=677&amp;height=158&amp;rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Dữ liệu nhập vào (n) vượt quá phạm vi chỉ định từ 0 đến 15. |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760598810261-148.png?width=352&amp;height=66&amp;rev=1.1)
+
+Khi bit thứ n (bit thứ 3) trong D0 bằng 1 (ON), M0 được đặt thành 1 (ON).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760598835241-814.png?width=373&amp;height=208&amp;rev=1.1)
+
+### DBON/Kiểm tra trạng thái bit của dữ liệu 32-bit
+
+DBON(P)
+
+Kiểm tra xem trạng thái bit thứ (n) của dữ liệu BIN 32-bit tại thiết bị chỉ định trong (s) là ON hay OFF, và xuất kết quả ra thiết bị chỉ định tại (d).
+
+-[DBON (s) (n) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị word đích lưu trữ dữ liệu | - | Signed BIN 32 bit | ANY32 |
+| (d) | Số hiệu thiết bị bit được điều khiển | - | Bit | ANY32_BOOL |
+| (n) | The position of the bit to be judged | 0 to 31 | Signed BIN 32 bit | ANY32 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DBON | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DBON | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
+| DBON | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Kiểm tra xem trạng thái bit thứ (n) của dữ liệu BIN 32-bit tại thiết bị chỉ định trong (s) là ON hay OFF, và xuất kết quả ra thiết bị chỉ định tại (d).
+
+Nếu kết quả kiểm tra trên là ON thì (d)=ON; nếu là OFF thì (d)=OFF.
+
+Nếu hằng số (K) được chỉ định tại thiết bị (s), nó sẽ được tự động chuyển đổi sang định dạng BIN.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600294846-104.png?rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Dữ liệu nhập vào (n) vượt quá phạm vi chỉ định từ 0 đến 31. |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+Khi bit thứ n (bit thứ 3) trong D0 bằng 1 (ON), M0 được đặt thành 1 (ON).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600347896-711.png?width=448&amp;height=246&amp;rev=1.1)
+
+### ENCO/Mã hóa
+
+ENCO(P)
+
+Mã hóa dữ liệu gồm 2^(n) bit tính từ (s) và lưu kết quả vào (d).
+
+-[ENCO (s) (n) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị bắt đầu lưu trữ dữ liệu mã hóa | - | Bit/Signed BIN 16 bit | ANY_ELEMENTARY |
+| (d) | Số hiệu thiết bị lưu trữ kết quả mã hóa | - | Signed BIN 16 bit | ANY_ELEMENTARY |
+| (n) | Độ dài bit hiệu dụng | 0 to 8 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ENCO | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| ENCO | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| ENCO | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+The BIN value corresponding to the bit from 2 (n) bits of (s) to 1 is stored in (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600395391-406.png?width=483&amp;height=168&amp;rev=1.1)
+
+Khi (n)=0, lệnh sẽ không xử lý gì và nội dung của thiết bị chỉ định tại (d) không thay đổi.
+
+Thiết bị bit được xử lý dưới dạng 1 bit, và thiết bị word được xử lý dưới dạng 16 bit.
+
+Khi có nhiều bit bằng 1, vị trí bit cao hơn sẽ được ưu tiên xử lý.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Trong chỉ định thiết bị bit của (s), khi (n) nằm ngoài phạm vi 0 đến 8. |
+| 4084H | Trong chỉ định thiết bị word của (s), khi (n) nằm ngoài phạm vi 0 đến 4. |
+| 4084H | Khi dữ liệu của 2^(n) bit bắt đầu từ (s) đều bằng 0. |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600416117-563.png?rev=1.1)
+
+Khi M20 bật ON, thiết bị D0 có giá trị là 16 sau khi mã hóa.
+
+### DECO/Giải mã
+
+DECO(P)
+
+Giải mã (n) bit thấp của thiết bị chỉ định tại (s), và lưu kết quả vào 2^(n) điểm của thiết bị chỉ định tại (d).
+
+-[DECO (s) (n) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Decoded data or địa chỉ thiết bị storing the decoded data | - | Bit/Signed BIN 16 bit | ANY_ELEMENTARY |
+| (d) | Thiết bị bắt đầu lưu trữ kết quả giải mã | - | Signed BIN 16 bit | ANY_ELEMENTARY |
+| (n) | Độ dài bit hiệu dụng | 0 to 8 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DECO | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| DECO | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| DECO | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Bật ON vị trí của (d) tương ứng với giá trị BIN được chỉ định trong (n) bit thấp của (s).
+
+Khi (n)=0, lệnh sẽ không xử lý gì và nội dung của thiết bị chỉ định tại (d) không thay đổi.
+
+Thiết bị bit được xử lý dưới dạng 1 bit, và thiết bị word được xử lý dưới dạng 16 bit.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600498968-988.png?width=382&amp;height=174&amp;rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Trong chỉ định thiết bị bit của (d), khi (n) nằm ngoài phạm vi 0 đến 8. |
+| 4084H | Trong chỉ định thiết bị word của (d), khi (n) nằm ngoài phạm vi 0 đến 4. |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600518464-389.png?width=315&amp;height=63&amp;rev=1.1)
+
+Khi M20 ON, M3 sẽ được bật ON.
+
+### SUM/Đếm số bit ON của dữ liệu 16-bit
+
+SUM(P)
+
+Lưu tổng số bit có giá trị bằng 1 trong dữ liệu BIN 16-bit của thiết bị chỉ định tại (s) vào thiết bị chỉ định tại (d).
+
+-[SUM (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị bắt đầu để đếm tổng số bit có giá trị 1 | - | Signed BIN 16 bit | ANY16 |
+| (d) | Số hiệu thiết bị bắt đầu lưu trữ tổng số bit | - | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SUM | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| SUM | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | �� | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Lưu tổng số bit có giá trị bằng 1 trong dữ liệu BIN 16-bit của thiết bị chỉ định tại (s) vào thiết bị chỉ định tại (d).
+
+Khi dữ liệu BIN 16-bit của thiết bị chỉ định tại (s) toàn là 0, cờ không (Zero Flag) SM153 sẽ bật ON.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600563550-752.png?width=601&amp;height=170&amp;rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600590713-272.png?width=360&amp;height=86&amp;rev=1.1)
+
+Khi M0 ON, số lượng bit ON trong D0 được đếm và lưu vào D1. Giá trị của D1 sau khi thực thi là 4.
+
+### DSUM/Đếm số bit ON của dữ liệu 32-bit
+
+DSUM(P)
+
+Lưu tổng số bit có giá trị bằng 1 trong dữ liệu BIN 32-bit của thiết bị chỉ định tại (s) vào thiết bị chỉ định tại (d).
+
+-[SUM (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị bắt đầu để đếm tổng số bit có giá trị 1 | - | Signed BIN 32 bit | ANY32 |
+| (d) | Số hiệu thiết bị bắt đầu lưu trữ tổng số bit | - | Signed BIN 32 bit | ANY32 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DSUM | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DSUM | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Lưu tổng số bit có giá trị bằng 1 trong dữ liệu BIN 32-bit của thiết bị chỉ định tại (s) vào thiết bị chỉ định tại (d).
+
+Khi dữ liệu BIN 32-bit của thiết bị chỉ định tại (s) toàn là 0 (OFF), cờ không (Zero Flag) SM153 sẽ bật ON.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600647593-724.png?rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Khi đầu vào lệnh OFF, lệnh sẽ không được thực thi và giá trị ngõ ra số bit ON vẫn giữ nguyên như trước.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600669742-574.png?width=249&amp;height=62&amp;rev=1.1)
+
+Khi M0 ON, số lượng bit ON trong D0 được đếm và lưu vào D10, và giá trị của D10 sau khi thực thi là 4.
+
+### MEAN/Giá trị trung bình của dữ liệu 16-bit
+
+MEAN(P)
+
+Lưu tổng số bit có giá trị bằng 1 trong dữ liệu BIN 16-bit của thiết bị chỉ định tại (s) vào thiết bị chỉ định tại (d).
+
+-[MEAN (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu để tính trung bình | - | Signed BIN 16 bit | ANY16 |
+| (d) | Số hiệu thiết bị bắt đầu lưu trữ giá trị trung bình | - | Signed BIN 16 bit | ANY16 |
+| (n) | Number of data or địa chỉ thiết bị storing the number of data | 1 to 32767 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| MEAN | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| MEAN | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| MEAN | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Tính giá trị trung bình của dữ liệu 16-bit tại (n) điểm bắt đầu từ thiết bị chỉ định tại (s) và lưu vào thiết bị chỉ định tại (d).
+
+Tổng được tính theo tổng đại số và chia cho (n).
+
+Phần dư được bỏ đi (làm tròn xuống phần nguyên).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600713006-124.png?rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | The data input by (n) in the lệnh ứng dụng exceeds the specifiable range. N≤0 |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600729647-390.png?width=351&amp;height=132&amp;rev=1.1)
+
+Cộng dữ liệu của D0, D1 và D2 rồi lưu giá trị thu được sau khi chia cho 3 vào D10. Giá trị trung bình tính được là 6.
+
+### DMEAN/Giá trị trung bình của dữ liệu 16-bit
+
+DMEAN(P)
+
+Lưu tổng số bit có giá trị bằng 1 trong dữ liệu BIN 32-bit của thiết bị chỉ định tại (s) vào thiết bị chỉ định tại (d).
+
+-[DMEAN (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu để tính trung bình | - | Signed BIN 32 bit | ANY32 |
+| (d) | Số hiệu thiết bị bắt đầu lưu trữ giá trị trung bình | - | Signed BIN 32 bit | ANY32 |
+| (n) | Number of data or địa chỉ thiết bị storing the number of data | 1 to 2147483647 | Signed BIN 32 bit | ANY32 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DMEAN | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DMEAN | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DMEAN | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Tính giá trị trung bình của dữ liệu BIN 32-bit tại (n) điểm bắt đầu từ thiết bị chỉ định tại (s) và lưu vào thiết bị chỉ định tại (d).
+
+Tổng được tính theo tổng đại số và chia cho (n).
+
+Phần dư được bỏ đi (làm tròn xuống phần nguyên).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600767517-781.png?rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Khi số hiệu thiết bị vượt quá phạm vi, (n) được xử lý theo giá trị nhỏ hơn nằm trong phạm vi cho phép.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Dữ liệu nhập vào (n) vượt quá phạm vi có thể chỉ định (n≤0). |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600792055-637.png?width=376&amp;height=137&amp;rev=1.1)
+
+Cộng dữ liệu của D0, D2 và D4 rồi lưu giá trị thu được sau khi chia cho 3 vào D10 và D11; giá trị trung bình tính được là 6.
+
+### SQR/Căn bậc hai 16-bit
+
+SQR(P)
+
+Tính căn bậc hai của dữ liệu BIN 16-bit chỉ định tại (s) và lưu kết quả tính toán vào (d).
+
+-[SQR (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị lưu trữ dữ liệu để tính căn bậc hai | 0 to +32767 | Signed BIN 16 bit | ANY16 |
+| (d) | Thiết bị lưu trữ giá trị căn bậc hai đã tính | - | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SQR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| SQR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Tính căn bậc hai của dữ liệu BIN 16-bit chỉ định tại (s) và lưu kết quả tính toán vào (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600855132-607.png?rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Phần thập phân của kết quả phép toán sẽ bị bỏ đi để thành số nguyên. Nếu có việc làm tròn bỏ phần thập phân, cờ mượn (Borrow Flag) SM152 sẽ bật ON.
+
+Khi kết quả phép toán thực sự bằng 0, cờ không (Zero Flag) SM153 sẽ bật ON.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị âm được chỉ định trong (s). |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600874317-560.png?width=328&amp;height=81&amp;rev=1.1)
+
+Căn bậc hai của D0 được lưu vào D2; giá trị của D0 là 100 nên giá trị của D2 là 10.
+
+### DSQR/Căn bậc hai 32-bit
+
+DSQR(P)
+
+Tính căn bậc hai của dữ liệu BIN 32-bit chỉ định tại (s) và lưu kết quả tính toán vào (d).
+
+-[DSQR (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị lưu trữ dữ liệu để tính căn bậc hai | 0 to 2147483647 | Signed BIN 32 bit | ANY32 |
+| (d) | Thiết bị lưu trữ giá trị căn bậc hai đã tính | - | Signed BIN 32 bit | ANY32 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DSQR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+| DSQR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Tính căn bậc hai của dữ liệu BIN 32-bit chỉ định tại (s) và lưu kết quả tính toán vào (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760600909796-325.png?rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Phần thập phân của kết quả phép toán sẽ bị bỏ đi để thành số nguyên. Nếu có việc làm tròn bỏ phần thập phân, cờ mượn (Borrow Flag) SM152 sẽ bật ON.
+
+Khi kết quả phép toán thực sự bằng 0, cờ không (Zero Flag) SM153 sẽ bật ON.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị âm được chỉ định trong (s). |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760601194658-655.png?width=300&amp;height=85&amp;rev=1.1)
+
+Căn bậc hai của D0 được lưu vào D2; giá trị của D0 là 110 nên giá trị trong thiết bị D2 là 10 (phần thập phân bị loại bỏ), và cờ mượn (Borrow Flag) SM152 bật ON.
+
+### WSUM/Tổng giá trị của dữ liệu 16-bit
+
+WSUM(P)
+
+Sau khi cộng toàn bộ dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị chỉ định tại (s), kết quả được lưu vào thiết bị chỉ định tại (d).
+
+-[WSUM (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu để tính tổng | - | Signed BIN 16 bit | ANY16 |
+| (d) | Số hiệu thiết bị bắt đầu lưu trữ giá trị tổng | - | Signed BIN 32 bit | ANY32 |
+| (n) | Number of data | - | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| WSUM | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| WSUM | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| WSUM | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Sau khi cộng toàn bộ dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị chỉ định tại (s), kết quả được lưu vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760601568438-349.png?rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị âm được chỉ định trong (n). |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760601600200-296.png?width=352&amp;height=144&amp;rev=1.1)
+
+Khi M0=ON, tổng của dữ liệu 16-bit từ D0 đến D2 được lưu vào [D100, D101], và kết quả tính tổng là 18.
+
+### DWSUM/Tổng giá trị của dữ liệu 32-bit
+
+DWSUM(P)
+
+Cộng toàn bộ dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị chỉ định tại (s) và lưu vào thiết bị chỉ định tại (d).
+
+-[DWSUM (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu để tính tổng giá trị | - | Signed BIN 32 bit | ANY32 |
+| (d) | Số hiệu thiết bị bắt đầu lưu trữ tổng giá trị | - | Signed BIN64 bit | ANY64 |
+| (n) | Number of data | - | Signed BIN 32 bit | ANY32 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DWSUM | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DWSUM | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DWSUM | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Cộng toàn bộ dữ liệu BIN 32-bit gồm (n) điểm bắt đầu từ thiết bị chỉ định tại (s) và lưu vào thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760601663631-292.png?rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Khi chỉ định số chữ số tại (d), giá trị của n nằm trong khoảng từ 1 đến 8, chẳng hạn K8 (lệnh 32-bit, ví dụ K8M0), không hỗ trợ K16 (lệnh 64-bit).
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị âm được chỉ định trong (n). |
+| 4085H | When thiết bị được chỉ định tại the read các lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760601852917-128.png?rev=1.1)
+
+Khi M0=ON, tổng của dữ liệu 16-bit từ D0 đến D2 được lưu vào [D100, D101], và kết quả tính tổng là 18.
+
+### SORT/Sắp xếp dữ liệu 16-bit
+
+SORT
+
+Sắp xếp các hàng dữ liệu theo thứ tự tăng dần dựa trên nhóm dữ liệu ở cột (n3) trong bảng dữ liệu BIN 16-bit (nguồn sắp xếp) gồm (n1×n2) điểm chỉ định tại (s), và lưu vào bảng dữ liệu BIN 16-bit (sau sắp xếp) gồm (n1×n2) điểm chỉ định tại (d).
+
+-[SORT (s) (n1) (n2) (d) (n3)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | địa chỉ thiết bị bắt đầu storing the data table | - | Signed BIN 16 bit | ANY16 |
+| (n1) | Number of data (rows) | 1 to 32 | Signed BIN 16 bit | ANY16 |
+| (n2) | Số lượng nhóm dữ liệu (số cột) | 1 to 6 | Signed BIN 16 bit | ANY16 |
+| (d) | địa chỉ thiết bị bắt đầu storing the kết quả phép toán | - | Signed BIN 16 bit | ANY16 |
+| (n3) | Số thứ tự cột của nhóm dữ liệu (cột) làm cơ sở sắp xếp | - | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SORT | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
+| SORT | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+| SORT | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+| SORT | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
+| SORT | Parameter 5 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+
+#### Đặc tính kỹ thuật
+
+Đối với bảng dữ liệu BIN 16-bit (nguồn sắp xếp) gồm (n1×n2) điểm chỉ định tại (s), dựa trên nhóm dữ liệu ở cột (n3), sắp xếp các hàng dữ liệu theo thứ tự tăng dần và lưu vào bảng dữ liệu BIN 16-bit (sau sắp xếp) gồm (n1×n2) điểm tại (d).
+
+Lấy (n1)=K3, (n2)=K4 trong nguồn sắp xếp làm ví dụ, cấu trúc bảng dữ liệu như sau. Đối với bảng dữ liệu sau khi sắp xếp, thay (s) bằng (d).
+
+|  |  | Number of groups (n2) ((n2)=K4) (Column NO. 1) | Number of groups (n2) ((n2)=K4) (Column NO. 2) | Number of groups (n2) ((n2)=K4) (Column NO. 3) | Number of groups (n2) ((n2)=K4) (Column NO. 4) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  | Số hiệu quản lý | Chiều cao | Trọng lượng | Age |
+| Khi số lượng dữ liệu (n1) = 3 | Dòng thứ 1 | (s) | (s) +3 | (s) +6 | (s) +9 |
+| Khi số lượng dữ liệu (n1) = 3 | Dòng thứ 2 | (s)+1 | (s) +4 | (s) +7 | (s) +10 |
+| Khi số lượng dữ liệu (n1) = 3 | Dòng thứ 3 | (s)+2 | (s) +5 | (s) +8 | (s) +11 |
+
+Quá trình sắp xếp dữ liệu bắt đầu khi đầu vào lệnh ON và kết thúc sau (n1) chu kỳ quét, cờ kết thúc thực thi lệnh SM229 sẽ bật ON. Dưới đây là ví dụ hoạt động theo dữ liệu nguồn được sắp xếp. Ngoài ra, bằng cách đặt trước các số thứ tự như mã quản lý ở cột đầu tiên, có thể xác định được số hàng ban đầu dựa trên nội dung, rất thuận tiện.
+
+|  |  | Number of groups (n2) ((n2)=K4) (Column NO. 1) | Number of groups (n2) ((n2)=K4) (Column NO. 2) | Number of groups (n2) ((n2)=K4) (Column NO. 3) | Number of groups (n2) ((n2)=K4) (Column NO. 4) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  | Số hiệu quản lý | Chiều cao | Trọng lượng | Age |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | (s) | (s) +5 | (s) +10 | (s) +15 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | 1 | 150 | 45 | 20 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | (s)+1 | (s) +6 | (s) +11 | (s) +16 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | 2 | 180 | 50 | 40 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | (s)+2 | (s) +7 | (s) +12 | (s) +17 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | 3 | 160 | 70 | 30 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | (s) +3 | (s) +8 | (s) +13 | (s) +18 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | 4 | 100 | 20 | 8 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | (s) +4 | (s) +9 | (s) +14 | (s) +19 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | 5 | 150 | 50 | 45 |
+
+Kết quả thực thi sắp xếp theo (n3)=K2 (cột số 2).
+
+|  |  | Number of groups (n2) ((n2)=K4) (Column NO.1) | Number of groups (n2) ((n2)=K4) (Column NO.2) | Number of groups (n2) ((n2)=K4) (Column NO.3) | Number of groups (n2) ((n2)=K4) (Column NO.4) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  | Số hiệu quản lý | Chiều cao | Trọng lượng | Age |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | (d) | (d) +5 | (d) +10 | (d) +15 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | 4 | 100 | 20 | 8 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | (d) +1 | (d) +6 | (d) +11 | (d) +16 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | 1 | 150 | 45 | 20 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | (d) +2 | (d) +7 | (d) +12 | (d) +17 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | 5 | 150 | 50 | 45 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | (d) +3 | (d) +8 | (d) +13 | (d) +18 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | 3 | 160 | 70 | 30 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | (d) +4 | (d) +9 | (d) +14 | (d) +19 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | 2 | 180 | 50 | 40 |
+
+Kết quả thực thi sắp xếp theo (n3)=K3 (cột số 3).
+
+|  |  | Number of groups (n2) ((n2)=K4) (Column NO.1) | Number of groups (n2) ((n2)=K4) (Column NO.2) | Number of groups (n2) ((n2)=K4) (Column NO.3) | Number of groups (n2) ((n2)=K4) (Column NO.4) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  | Số hiệu quản lý | Chiều cao | Trọng lượng | Age |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | (d) | (d) +5 | (d) +10 | (d) +15 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | 4 | 100 | 20 | 8 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | (d) +1 | (d) +6 | (d) +11 | (d) +16 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | 1 | 150 | 45 | 20 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | (d) +2 | (d) +7 | (d) +12 | (d) +17 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | 2 | 180 | 50 | 40 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | (d) +3 | (d) +8 | (d) +13 | (d) +18 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | 5 | 150 | 50 | 45 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | (d) +4 | (d) +9 | (d) +14 | (d) +19 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | 3 | 160 | 70 | 30 |
+
+:::tip
+✎Lưu ý:
+
+Lệnh SORT chỉ hỗ trợ sắp xếp theo thứ tự tăng dần.
+
+Không thay đổi toán hạng và nội dung dữ liệu trong quá trình thực thi.
+
+Khi thực thi lại, đầu vào lệnh cần phải được tắt OFF một lần.
+
+Trong chương trình chỉ có thể điều khiển tối đa một lệnh SORT.
+
+Khi chỉ định cùng một thiết bị cho (s) và (d), dữ liệu nguồn sẽ bị ghi đè theo thứ tự dữ liệu đã sắp xếp. Vui lòng đặc biệt lưu ý không thay đổi nội dung của (s) trước khi kết thúc thực thi.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị chỉ định tại (n1) vượt quá phạm vi 1 đến 32 |
+| 4084H | Khi giá trị chỉ định tại (n2) vượt quá phạm vi 1 đến 6 |
+| 4084H | Khi giá trị chỉ định tại (n3) vượt quá phạm vi 1 đến n2 |
+| 4085H | When thiết bị được chỉ định tại read lệnh ứng dụng (s), (n1), (n2 )and (n3) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| 4087H | When the (d) parameter in the lệnh ứng dụng uses an unsupported device |
+| 4089H | The number of các lệnh ứng dụng exceeds the limit. |
+
+#### Ví dụ minh họa
+
+Tham khảo ví dụ trong phần mô tả chức năng.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760601960447-112.png?width=471&amp;height=107&amp;rev=1.1)
+
+### SORT2/Sắp xếp dữ liệu 16-bit
+
+SORT2(P)
+
+Sắp xếp các hàng dữ liệu theo thứ tự tăng dần hoặc giảm dần dựa trên nhóm dữ liệu ở cột (n3) trong bảng dữ liệu BIN 16-bit (nguồn sắp xếp) gồm (n1×n2) điểm chỉ định tại (s), và lưu vào bảng dữ liệu BIN 16-bit (sau sắp xếp) gồm (n1×n2) điểm chỉ định tại (d).
+
+-[SORT2 (s) (n1) (n2) (d) (n3)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | địa chỉ thiết bị bắt đầu storing the data table | - | Signed BIN 16 bit | ANY16 |
+| (n1) | Number of data (rows) | 1 to 32 | Signed BIN 16 bit | ANY16 |
+| (n2) | Số lượng nhóm dữ liệu (số cột) | 1 to 6 | Signed BIN 16 bit | ANY16 |
+| (d) | địa chỉ thiết bị bắt đầu storing the kết quả phép toán | - | Signed BIN 16 bit | ANY16 |
+| (n3) | Số thứ tự cột của nhóm dữ liệu (cột) làm cơ sở sắp xếp | - | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SORT2 | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
+| SORT2 | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+| SORT2 | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+| SORT2 | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
+| SORT2 | Parameter 5 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+
+#### Đặc tính kỹ thuật
+
+Sắp xếp các hàng dữ liệu theo thứ tự tăng dần hoặc giảm dần dựa trên nhóm dữ liệu ở cột (n3) và lưu vào bảng dữ liệu BIN 16-bit (sau sắp xếp) gồm (n1×n2) điểm chỉ định tại (d).
+
+Lấy (n1)=K3, (n2)=K4 trong nguồn sắp xếp làm ví dụ, cấu trúc bảng dữ liệu như sau. Đối với bảng dữ liệu sau khi sắp xếp, thay (s) bằng (d).
+
+|  |  | Khi số lượng nhóm (n2) = K4 (Cột thứ 1) | Khi số lượng nhóm (n2) = K4 (Cột thứ 2) | Khi số lượng nhóm (n2) = K4 (Cột thứ 3) | Khi số lượng nhóm (n2) = K4 (Cột thứ 4) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  | Số hiệu quản lý | Chiều cao | Trọng lượng | Age |
+| Khi số lượng dữ liệu (n1) = 3 | Dòng thứ 1 | (s) | (s)+1 | (s) +2 | (s) +3 |
+| Khi số lượng dữ liệu (n1) = 3 | Dòng thứ 2 | (s) +4 | (s) +5 | (s) +6 | (s) +7 |
+| Khi số lượng dữ liệu (n1) = 3 | Dòng thứ 3 | (s) +8 | (s) +9 | (s) +10 | (s) +100 |
+
+Thứ tự sắp xếp được thiết lập bởi trạng thái ON/OFF của SM165.
+
+|  | Lệnh cài đặt thứ tự sắp xếp |
+| :--- | :--- |
+| SM165=ON | Descending |
+| SM165=OFF | Ascending |
+
+Quá trình sắp xếp dữ liệu bắt đầu khi đầu vào lệnh ON và kết thúc sau (n1) chu kỳ quét, cờ kết thúc thực thi lệnh SM229 sẽ bật ON.
+
+Dưới đây là ví dụ hoạt động theo dữ liệu nguồn được sắp xếp. Ngoài ra, bằng cách đặt trước các số thứ tự như mã quản lý ở cột đầu tiên, có thể xác định được số hàng ban đầu dựa trên nội dung, rất thuận tiện.
+
+|  |  | Khi số lượng nhóm (n2) = K4 (Cột thứ 1) | Khi số lượng nhóm (n2) = K4 (Cột thứ 2) | Khi số lượng nhóm (n2) = K4 (Cột thứ 3) | Khi số lượng nhóm (n2) = K4 (Cột thứ 4) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  | Số hiệu quản lý | Chiều cao | Trọng lượng | Age |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | (s) | (s)+1 | (s) +2 | (s) +3 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | 1 | 150 | 45 | 20 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | (s) +4 | (s) +5 | (s) +6 | (s) +7 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | 2 | 180 | 50 | 40 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | (s) +8 | (s) +9 | (s) +10 | (s) +100 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | 3 | 160 | 70 | 30 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | (s) +12 | (s) +13 | (s) +14 | (s) +15 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | 4 | 100 | 20 | 8 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | (s) +16 | (s) +17 | (s) +18 | (s) +19 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | 5 | 150 | 50 | 45 |
+
+Kết quả thực thi sắp xếp theo (n3)=K2 (cột số 2) (SM165=OFF trong trường hợp sắp xếp tăng dần)
+
+|  |  | Khi số lượng nhóm (n2) = K4 (Cột thứ 1) | Khi số lượng nhóm (n2) = K4 (Cột thứ 2) | Khi số lượng nhóm (n2) = K4 (Cột thứ 3) | Khi số lượng nhóm (n2) = K4 (Cột thứ 4) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  | Số hiệu quản lý | Chiều cao | Trọng lượng | Age |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | (d) | (d) +1 | (d) +2 | (d) +3 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | 4 | 100 | 20 | 8 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | (d) +4 | (d) +5 | (d) +6 | (d) +7 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | 1 | 150 | 45 | 20 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | (d) +8 | (d) +9 | (d) +10 | (d) +100 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | 5 | 150 | 50 | 45 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | (d) +12 | (d) +13 | (d) +14 | (d) +15 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | 3 | 160 | 70 | 30 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | (d) +16 | (d) +17 | (d) +18 | (d) +19 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | 2 | 180 | 50 | 40 |
+
+Kết quả thực thi sắp xếp theo (n3)=K3 (cột số 3) (SM165=ON trong trường hợp sắp xếp giảm dần)
+
+|  |  | Khi số lượng nhóm (n2) = K4 (Cột thứ 1) | Khi số lượng nhóm (n2) = K4 (Cột thứ 2) | Khi số lượng nhóm (n2) = K4 (Cột thứ 3) | Khi số lượng nhóm (n2) = K4 (Cột thứ 4) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  | Số hiệu quản lý | Chiều cao | Trọng lượng | Age |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | (d) | (d) +1 | (d) +2 | (d) +3 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | 3 | 160 | 70 | 30 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | (d) +4 | (d) +5 | (d) +6 | (d) +7 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | 2 | 180 | 50 | 40 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | (d) +8 | (d) +9 | (d) +10 | (d) +100 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | 5 | 150 | 50 | 45 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | (d) +12 | (d) +13 | (d) +14 | (d) +15 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | 1 | 150 | 45 | 20 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | (d) +16 | (d) +17 | (d) +18 | (d) +19 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | 4 | 100 | 20 | 8 |
+
+:::tip
+✎Lưu ý:
+
+Không thay đổi toán hạng và nội dung dữ liệu trong quá trình thực thi.
+
+Khi thực thi lại, đầu vào lệnh cần phải được tắt OFF một lần.
+
+Lệnh SORT2 chỉ có thể được viết trong chương trình để điều khiển tối đa 2 lệnh.
+
+Khi chỉ định cùng một thiết bị cho (s) và (d), dữ liệu nguồn sẽ bị ghi đè theo thứ tự dữ liệu đã sắp xếp. Vui lòng đặc biệt lưu ý không thay đổi nội dung của (s) trước khi kết thúc thực thi.
+
+Không để vùng dữ liệu nguồn và vùng dữ liệu đã sắp xếp chồng lấn lên nhau.
+:::
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760602212597-616.png?width=568&amp;height=428&amp;rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị chỉ định tại (n1) vượt quá phạm vi 1 đến 32 |
+| 4084H | Khi giá trị chỉ định tại (n2) vượt quá phạm vi 1 đến 6 |
+| 4084H | Khi giá trị chỉ định tại (n3) vượt quá phạm vi 1 đến n2 |
+| 4085H | When thiết bị được chỉ định tại read lệnh ứng dụng (s), (d), (n1), (n2) and (n3) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| 4089H | The number of các lệnh ứng dụng exceeded the limit. |
+
+#### Ví dụ minh họa
+
+Tham khảo ví dụ trong phần mô tả chức năng.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760602288178-982.png?rev=1.1)
+
+### DSORT2/Sắp xếp dữ liệu 32-bit
+
+DSORT2(P)
+
+Sắp xếp các hàng dữ liệu theo thứ tự tăng dần hoặc giảm dần dựa trên nhóm dữ liệu ở cột (n3) trong bảng dữ liệu BIN 32-bit (nguồn sắp xếp) gồm (n1×n2) điểm chỉ định tại (s), và lưu vào bảng dữ liệu BIN 32-bit (sau sắp xếp) gồm (n1×n2) điểm chỉ định tại (d).
+
+-[DSORT2 (s) (n1) (n2) (d) (n3)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | địa chỉ thiết bị bắt đầu storing the data table | - | Signed BIN 32 bit | ANY32 |
+| (n1) | Number of data (rows) | 1 to 32 | Signed BIN 32 bit | ANY32 |
+| (n2) | Số lượng nhóm dữ liệu (số cột) | 1 to 6 | Signed BIN 32 bit | ANY32 |
+| (d) | địa chỉ thiết bị bắt đầu storing the kết quả phép toán | - | Signed BIN 32 bit | ANY32 |
+| (n3) | Số thứ tự cột của nhóm dữ liệu (cột) làm cơ sở sắp xếp | - | Signed BIN 32 bit | ANY32 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DSORT2 | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | �� | ● | ● | ● | ● | ● | ● |  |  |  | ● |  |
+| DSORT2 | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
+| DSORT2 | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
+| DSORT2 | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● |  |
+| DSORT2 | Parameter 5 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● |  |
+
+#### Đặc tính kỹ thuật
+
+Sắp xếp các hàng dữ liệu theo thứ tự tăng dần hoặc giảm dần dựa trên nhóm dữ liệu ở cột (n3) của bảng dữ liệu BIN 32-bit (nguồn sắp xếp) gồm (n1×n2) điểm chỉ định tại (s), và lưu vào bảng dữ liệu BIN 32-bit (sau sắp xếp) gồm (n1×n2) điểm chỉ định tại (d).
+
+Lấy (n1)=K3, (n2)=K4 trong nguồn sắp xếp làm ví dụ, cấu trúc bảng dữ liệu như sau. Đối với bảng dữ liệu sau khi sắp xếp, thay (s) bằng (d).
+
+|  |  | Khi số lượng nhóm (n2) = K4 (Cột thứ 1) | Khi số lượng nhóm (n2) = K4 (Cột thứ 2) | Khi số lượng nhóm (n2) = K4 (Cột thứ 3) | Khi số lượng nhóm (n2) = K4 (Cột thứ 4) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  | Số hiệu quản lý | Chiều cao | Trọng lượng | Age |
+| Khi số lượng dữ liệu (n1) = 3 | Dòng thứ 1 | (s)+1, (s) | (s)+3, (s)+2 | (s)+5, (s)+4 | (s) +7, (s) +6 |
+| Khi số lượng dữ liệu (n1) = 3 | Dòng thứ 2 | (s) +9, (s) +8 | (s)+11, (s)+10 | (s) +13, (s) +12 | (s) +15, (s) +14 |
+| Khi số lượng dữ liệu (n1) = 3 | Dòng thứ 3 | (s) +17, (s) +16 | (s) +19, (s) +18 | (s) +21, (s) +20 | (s) +23, (s) +22 |
+
+Thứ tự sắp xếp được thiết lập bởi trạng thái ON/OFF của SM165.
+
+|  | Các lệnh cài đặt thứ tự sắp xếp |
+| :--- | :--- |
+| SM165=ON | Descending |
+| SM165=OFF | Ascending |
+
+Quá trình sắp xếp dữ liệu bắt đầu khi đầu vào lệnh ON và kết thúc sau (n1) chu kỳ quét, cờ kết thúc thực thi lệnh SM229 sẽ bật ON.
+
+Dưới đây là ví dụ hoạt động theo dữ liệu nguồn được sắp xếp. Ngoài ra, bằng cách đặt trước các số thứ tự như mã quản lý ở cột đầu tiên, có thể xác định được số hàng ban đầu dựa trên nội dung, rất thuận tiện.
+
+|  |  | Khi số lượng nhóm (n2) = K4 (Cột thứ 1) | Khi số lượng nhóm (n2) = K4 (Cột thứ 2) | Khi số lượng nhóm (n2) = K4 (Cột thứ 3) | Khi số lượng nhóm (n2) = K4 (Cột thứ 4) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  | Số hiệu quản lý | height | Trọng lượng | age |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | (s)+1, (s) | (s)+3, (s)+2 | (s)+5, (s)+4 | (s) +7, (s) +6 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | 1 | 150 | 45 | 20 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | (s) +9, (s) +8 | (s)+11, (s)+10 | (s) +13, (s) +12 | (s) +15, (s) +14 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | 2 | 180 | 50 | 40 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | (s) +17, (s) +16 | (s) +19, (s) +18 | (s) +21, (s) +20 | (s) +23, (s) +22 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | 3 | 160 | 70 | 30 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | (s) +25, (s) +24 | (s) +27, (s) +26 | (s) +29, (s) +28 | (s) +31, (s) +30 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | 4 | 100 | 20 | 8 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | (s) +33, (s) +32 | (s) +35, (s) +34 | (s) +37, (s) +36 | (s) +39, (s) +38 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | 5 | 150 | 50 | 45 |
+
+Kết quả thực thi sắp xếp theo (n3)=K2 (cột số 2) (SM165=OFF trong trường hợp sắp xếp tăng dần)
+
+|  |  | Khi số lượng nhóm (n2) = K4 (Cột thứ 1) | Khi số lượng nhóm (n2) = K4 (Cột thứ 2) | Khi số lượng nhóm (n2) = K4 (Cột thứ 3) | Khi số lượng nhóm (n2) = K4 (Cột thứ 4) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  | Số hiệu quản lý | height | Trọng lượng | age |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | (s)+1, (s) | (s)+3, (s)+2 | (s)+5, (s)+4 | (s) +7, (s) +6 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | 4 | 100 | 20 | 8 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | (s) +9, (s) +8 | (s)+11, (s)+10 | (s) +13, (s) +12 | (s) +15, (s) +14 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | 1 | 150 | 45 | 20 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | (s) +17, (s) +16 | (s) +19, (s) +18 | (s) +21, (s) +20 | (s) +23, (s) +22 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | 5 | 150 | 50 | 45 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | (s) +25, (s) +24 | (s) +27, (s) +26 | (s) +29, (s) +28 | (s) +31, (s) +30 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | 3 | 160 | 70 | 30 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | (s) +33, (s) +32 | (s) +35, (s) +34 | (s) +37, (s) +36 | (s) +39, (s) +38 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | 2 | 180 | 50 | 40 |
+
+Kết quả thực thi sắp xếp theo (n3)=K3 (cột số 3) (SM165=ON trong trường hợp sắp xếp giảm dần)
+
+|  |  | Khi số lượng nhóm (n2) = K4 (Cột thứ 1) | Khi số lượng nhóm (n2) = K4 (Cột thứ 2) | Khi số lượng nhóm (n2) = K4 (Cột thứ 3) | Khi số lượng nhóm (n2) = K4 (Cột thứ 4) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  | Số hiệu quản lý | height | Trọng lượng | age |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | (s)+1, (s) | (s)+3, (s)+2 | (s)+5, (s)+4 | (s) +7, (s) +6 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 1 | 3 | 160 | 70 | 30 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | (s) +9, (s) +8 | (s)+11, (s)+10 | (s) +13, (s) +12 | (s) +15, (s) +14 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 2 | 2 | 180 | 50 | 40 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | (s) +17, (s) +16 | (s) +19, (s) +18 | (s) +21, (s) +20 | (s) +23, (s) +22 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 3 | 5 | 150 | 50 | 45 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | (s) +25, (s) +24 | (s) +27, (s) +26 | (s) +29, (s) +28 | (s) +31, (s) +30 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 4 | 1 | 150 | 45 | 20 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | (s) +33, (s) +32 | (s) +35, (s) +34 | (s) +37, (s) +36 | (s) +39, (s) +38 |
+| Khi số lượng dữ liệu (n1) = 5 | Dòng thứ 5 | 4 | 100 | 20 | 8 |
+
+:::tip
+✎Lưu ý:
+
+Không thay đổi toán hạng và nội dung dữ liệu trong quá trình thực thi.
+
+Khi thực thi lại, đầu vào lệnh cần phải được tắt OFF một lần.
+
+Lệnh SORT2 chỉ có thể được viết tối đa hai lần trong chương trình.
+
+Khi chỉ định cùng một thiết bị cho (s) và (d), dữ liệu nguồn sẽ bị ghi đè theo thứ tự dữ liệu đã sắp xếp. Vui lòng đặc biệt lưu ý không thay đổi nội dung của (s) trước khi kết thúc thực thi.
+
+Không để vùng dữ liệu nguồn và vùng dữ liệu đã sắp xếp chồng lấn lên nhau.
+:::
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760602368176-440.png?rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị chỉ định tại (n1) vượt quá phạm vi 1 đến 32 |
+| 4084H | Khi giá trị chỉ định tại (n2) vượt quá phạm vi 1 đến 6 |
+| 4084H | Khi giá trị chỉ định tại (n3) vượt quá phạm vi 1 đến n2 |
+| 4085H | When thiết bị được chỉ định tại read lệnh ứng dụng (s), (d), (n1), (n2 )and (n3) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+| 4089H | The number of các lệnh ứng dụng exceeded the limit. |
+
+#### Ví dụ minh họa
+
+Tham khảo ví dụ trong phần mô tả chức năng.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760602394743-652.png?rev=1.1)
+
+### SWAP/Hoán đổi byte cao và byte thấp của dữ liệu 16-bit
+
+SWAP(P)
+
+Hoán đổi giá trị 8 bit cao và 8 bit thấp của thiết bị chỉ định tại (d).
+
+-[SWAP (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Thiết bị word thực hiện hoán đổi byte cao và byte thấp | - | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SWAP | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Hoán đổi giá trị 8 bit cao và 8 bit thấp của thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760602460399-350.png?width=458&amp;height=266&amp;rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (d) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760602501728-667.png?width=347&amp;height=72&amp;rev=1.1)
+
+Khi kích hoạt sườn lên của M0, hoán đổi 8 bit thấp và 8 bit cao của D0 để thu được giá trị H8F2A.
+
+### DSWAP/Hoán đổi byte cao và byte thấp của dữ liệu 32-bit
+
+DSWAP(P)
+
+Các thiết bị chỉ định tại (d) và (d)+1 sẽ lần lượt được hoán đổi giá trị 8 bit cao và 8 bit thấp.
+
+-[DSWAP (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Thiết bị word thực hiện hoán đổi byte cao và byte thấp | - | Signed BIN 32 bit | ANY32 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DSWAP | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Các thiết bị chỉ định tại (d) và (d)+1 sẽ lần lượt được hoán đổi giá trị 8 bit cao và 8 bit thấp.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760602558671-764.png?rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Nếu sử dụng lệnh thực thi liên tục, phép hoán đổi sẽ được thực hiện ở mỗi chu kỳ quét.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (d) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760602578047-467.png?rev=1.1)
+
+Khi kích hoạt sườn lên của M0, 8 bit thấp và 8 bit cao của D0 và D1 được hoán đổi, thu được D0=H8F2A, D1=H3412.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760602617907-498.png?rev=1.1)
+
+### BTOW/Ghép dữ liệu theo đơn vị byte
+
+BTOW(P)
+
+Ghép 8 bit thấp của (n) byte dữ liệu BIN 16-bit được lưu từ số hiệu thiết bị chỉ định tại (s) trở đi thành các đơn vị word và lưu từ số hiệu thiết bị chỉ định tại (d) trở đi.
+
+-[BTOW (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị bắt đầu lưu trữ dữ liệu gộp theo đơn vị byte | - | Signed BIN 16 bit | ANY16 |
+| (d) | Thiết bị bắt đầu lưu trữ kết quả gộp theo đơn vị byte | - | Signed BIN 16 bit | ANY16 |
+| (n) | Số lượng dữ liệu byte được gộp | 0-32767 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| BTOW | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| BTOW | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| BTOW | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Từ số hiệu thiết bị chỉ định tại (s) trở đi, 8 bit thấp của dữ liệu BIN 16-bit gồm (n) byte được ghép thành đơn vị word và lưu vào từ số hiệu thiết bị chỉ định tại (d) trở đi.
+
+8 bit cao của (n) dữ liệu word lưu từ số hiệu thiết bị chỉ định tại (s) trở đi sẽ bị bỏ qua. Ngoài ra, khi (n) là số lẻ, giá trị 0 được lưu vào 8 bit cao của thiết bị chứa dữ liệu byte thứ (n).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760602656418-912.png?rev=1.1)
+
+£: dữ liệu byte thứ £;
+
+(1): Bỏ qua byte cao
+
+*1: Làm tròn lên phần thập phân.
+
+#### Ví dụ minh họa
+
+Khi (n)=5, dữ liệu trong 8 bit thấp của (s) đến (s)+4 được lưu vào (d) đến (d)+2.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760602688578-141.png?rev=1.1)
+
+(1): Khi (n)=5
+
+(2): Chuyển thành 00H
+
+Bằng cách thiết lập số byte tại (n), phạm vi dữ liệu byte chỉ định tại (s) và phạm vi thiết bị lưu dữ liệu ghép chỉ định tại (d) sẽ được xác định tự động.
+
+Khi số byte chỉ định tại (n) bằng 0, không có xử lý nào được thực hiện.
+
+8 bit cao của thiết bị lưu dữ liệu byte chỉ định tại (s) sẽ bị bỏ qua, và 8 bit thấp sẽ là đối tượng xử lý.
+
+#### Ví dụ minh họa
+
+Khi 8 bit thấp của D11 đến D16 được lưu vào D12 đến D14.
+
+Ngay cả khi phạm vi thiết bị lưu dữ liệu trước khi ghép chồng lấn với phạm vi thiết bị lưu dữ liệu sau khi ghép, lệnh vẫn xử lý bình thường.
+
+| Phạm vi thiết bị lưu trữ dữ liệu trước khi gộp | Phạm vi thiết bị lưu trữ dữ liệu sau khi gộp |
+| :--- | :--- |
+| (S)+0 to (s)+(n)-1 | (D) to (d) + (n/2-1) |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 32767 |
+| 4085H | When thiết bị được chỉ định tại the write lệnh ứng dụng (s),(d) and (n) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760604472849-312.png?width=441&amp;height=229&amp;rev=1.1)
+
+Khi M0 ON, dữ liệu của D20 đến D25 được ghép theo đơn vị byte và lưu vào D10 đến D12.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760604536921-440.png?rev=1.1)
+
+### WTOB/Tách dữ liệu theo đơn vị byte
+
+WTOB(P)
+
+Sau khi tách dữ liệu BIN 16-bit lưu từ số hiệu thiết bị chỉ định tại (s) trở đi thành (n) byte, lưu kết quả từ số hiệu thiết bị chỉ định tại (d) trở đi.
+
+-[WTOB (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị bắt đầu lưu trữ dữ liệu tách theo đơn vị byte | - | Signed BIN 16 bit | ANY16 |
+| (d) | Thiết bị bắt đầu lưu trữ kết quả tách theo đơn vị byte | - | Signed BIN 16 bit | ANY16 |
+| (n) | Số lượng dữ liệu byte được tách | 0-32767 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| WTOB | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| WTOB | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| WTOB | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Sau khi tách dữ liệu BIN 16-bit lưu từ số hiệu thiết bị chỉ định tại (s) trở đi thành (n) byte, lưu kết quả từ số hiệu thiết bị chỉ định tại (d) trở đi.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760604625338-123.png?rev=1.1)
+
+(1) Byte cao;
+
+(2) Byte thấp;
+
+(3) Dữ liệu byte cao;
+
+(4) Dữ liệu byte thấp;
+
+(5)*1: Làm tròn lên phần thập phân.
+
+#### Ví dụ minh họa
+
+Trong trường hợp (n)=5, lưu dữ liệu của (s) đến (s)+2 vào 8 bit thấp của (d) đến (d)+4:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760604667715-198.png?rev=1.1)
+
+- Khi (N)=5, phần này bị bỏ qua.
+
+- (N)=5.
+
+Bằng cách thiết lập số byte tại (n), phạm vi dữ liệu BIN 16-bit chỉ định tại (s) và phạm vi thiết bị lưu dữ liệu byte chỉ định tại (d) sẽ được xác định tự động.
+
+Khi số byte chỉ định tại (n) bằng 0, không có xử lý nào được thực hiện.
+
+Giá trị 00H được tự động lưu vào 8 bit cao của thiết bị lưu dữ liệu byte chỉ định tại (d).
+
+#### Ví dụ minh họa
+
+Khi D12 đến D14 được lưu vào 8 bit thấp của D11 đến D16
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760604709589-697.png?rev=1.1)
+
+Ngay cả khi phạm vi thiết bị lưu dữ liệu trước khi ghép chồng lấn với phạm vi thiết bị lưu dữ liệu sau khi ghép, lệnh vẫn xử lý bình thường.
+
+| Phạm vi thiết bị lưu trữ dữ liệu trước khi gộp | Phạm vi thiết bị lưu trữ dữ liệu đã tách |
+| :--- | :--- |
+| (s) to (s) + (n/2-1) | (d)+0 to (d)+(n)-1 |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Giá trị chỉ định bởi (n) vượt quá phạm vi 0 đến 32767 |
+| 4085H | When thiết bị được chỉ định tại read lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760604746561-356.png?rev=1.1)
+
+Khi M0 ON, dữ liệu của D10 đến D12 được tách theo đơn vị byte, sau đó lưu vào D20 đến D25.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760604793311-236.png?rev=1.1)
+
+### DIS/Tách dữ liệu 16-bit theo đơn vị 4-bit
+
+DIS(P)
+
+Lưu dữ liệu của (n) chữ số thấp (1 chữ số gồm 4 bit) trong dữ liệu BIN 16-bit chỉ định tại (s) vào 4 bit thấp của (n) điểm bắt đầu từ thiết bị chỉ định tại (d).
+
+-[DIS (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị bắt đầu lưu trữ dữ liệu trước khi tách | - | Signed BIN 16 bit | ANY16 |
+| (d) | Thiết bị bắt đầu lưu trữ dữ liệu đã tách | - | Signed BIN 16 bit | ANY16 |
+| (n) | Số lượng tách (0 nghĩa là không xử lý) | 0-4 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DIS | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| DIS | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| DIS | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Lưu dữ liệu của (n) chữ số thấp (1 chữ số gồm 4 bit) trong dữ liệu BIN 16-bit chỉ định tại (s) vào 4 bit thấp của (n) điểm bắt đầu từ thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760604910302-348.png?rev=1.1)
+
+12 bit cao của (n) điểm bắt đầu từ thiết bị chỉ định tại (d) sẽ trở thành 0.
+
+Khi (n)=0, lệnh sẽ không xử lý gì và nội dung của (n) điểm bắt đầu từ thiết bị (d) không thay đổi.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Dữ liệu trong (n) vượt quá phạm vi 0 đến 4 |
+| 4085H | When thiết bị được chỉ định tại read lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760604963418-810.png?rev=1.1)
+
+Khi M0 ON, D0 được tách theo từng nhóm 4 bit và lưu vào D10 đến D12. Kết quả là D10 = HF, D11 = H8, D12 = HA.
+
+### UNI/Ghép dữ liệu 16-bit theo đơn vị 4-bit
+
+UNI(P)
+
+Ghép 4 bit thấp của dữ liệu BIN 16-bit gồm (n) điểm bắt đầu từ thiết bị chỉ định tại (s) vào thiết bị BIN 16-bit chỉ định tại (d).
+
+-[UNI (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị bắt đầu lưu trữ dữ liệu trước khi gộp | - | Signed BIN 16 bit | ANY16 |
+| (d) | Thiết bị bắt đầu lưu trữ dữ liệu đã gộp | - | Signed BIN 16 bit | ANY16 |
+| (n) | Number of merger | 0-4 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| UNI | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| UNI | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| UNI | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Ghép 4 bit thấp của dữ liệu BIN 16-bit tại (n) điểm bắt đầu từ thiết bị chỉ định tại (s) vào thiết bị BIN 16-bit chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605018615-906.png?rev=1.1)
+
+(4-n) chữ số 4-bit cao của thiết bị chỉ định tại (d) sẽ trở thành 0.
+
+Khi (n)=0, lệnh sẽ không xử lý gì và nội dung của thiết bị tại (d) không thay đổi.
+
+#### Mã lỗi (Error Code)
+
+| Code | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Dữ liệu trong (n) vượt quá phạm vi 0 đến 4 |
+| 4085H | When thiết bị được chỉ định tại read lệnh ứng dụng (s) and (n) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605078716-678.png?rev=1.1)
+
+Khi M0 ON, 4 bit thấp của D0 đến D3 được ghép lại và lưu vào D10, giá trị là H236F.
+
+### ZRST/Xóa (Reset) dữ liệu hàng loạt
+
+ZRST(P)
+
+Thực hiện reset hàng loạt trong khoảng giữa các thiết bị cùng loại chỉ định tại (d1) và (d2). Được sử dụng khi ngắt hoạt động, thực hiện vận hành khởi tạo hoặc reset dữ liệu điều khiển.
+
+-[ZRST ( d1) (d2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d1) | Số hiệu thiết bị bit hoặc word bắt đầu để đặt lại (reset) hàng loạt | - | Bit/Signed BIN 16 bit | ANY_ELEMENTARY |
+| (d2) | Số hiệu thiết bị bit hoặc word kết thúc để đặt lại (reset) hàng loạt | - | Bit/Signed BIN 16 bit | ANY_ELEMENTARY |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ZRST | Parameter 1 |  | ● | ● | ● | ● |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| ZRST | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Thực hiện reset hàng loạt trong khoảng giữa các thiết bị cùng loại chỉ định tại (d1) và (d2).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605319907-424.png?rev=1.1)
+
+Đối với lệnh reset riêng lẻ cho từng thiết bị, có thể sử dụng lệnh RST cho thiết bị bit hoặc thiết bị word.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605416492-326.png?width=450&amp;height=108&amp;rev=1.1)
+
+Lệnh ghi hằng số hàng loạt (ví dụ: K0) có lệnh FMOV(P), có thể ghi giá trị 0 vào các thiết bị word (bao gồm cả chỉ định thiết bị bit).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605459315-437.png?width=474&amp;height=53&amp;rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Vui lòng chỉ định cùng loại thiết bị cho (d1) và (d2), và đảm bảo số hiệu (d1) &lt; số hiệu (d2). Khi số hiệu (d1) ≥ số hiệu (d2), chỉ 1 điểm tại thiết bị chỉ định trong (d1) được reset.
+
+Lệnh ZRST(P) là lệnh 16-bit, có thể chỉ định các thiết bị (LC) và (HSC) cho (d1) và (d2).
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi loại thiết bị chỉ định tại (d1) khác với loại thiết bị chỉ định tại (d2). |
+| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (d1) and (d2) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d1) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605494496-379.png?width=285&amp;height=54&amp;rev=1.1)
+
+Chức năng của lệnh giản đồ bậc thang (ladder) này là đặt giá trị của các thiết bị từ D0 đến D100 bằng 0.
+
+### ZSET/Đặt (Set) dữ liệu hàng loạt
+
+ZSET(P)
+
+Thực hiện SET hàng loạt trong khoảng giữa các thiết bị cùng loại chỉ định tại (d1) và (d2).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605549481-765.png?rev=1.1)
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (nhãn) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d1) | Số hiệu thiết bị bit bắt đầu để đặt (set) hàng loạt | - | Bit | ANY_BOOL |
+| (d2) | Số hiệu thiết bị bit kết thúc để đặt (set) hàng loạt | - | Bit | ANY_BOOL |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ZSET | Parameter 1 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| ZSET | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+
+#### Đặc tính kỹ thuật
+
+·Thực hiện SET hàng loạt trong khoảng giữa các thiết bị cùng loại chỉ định tại (d1) và (d2).
+
+·Ghi trạng thái ON (SET) cho toàn bộ phạm vi thiết bị từ (d1) đến (d2).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605688182-698.png?rev=1.1)
+
+·Đối với lệnh SET riêng lẻ cho thiết bị, có thể sử dụng lệnh SET cho thiết bị bit.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605791510-474.png?width=375&amp;height=100&amp;rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Vui lòng chỉ định cùng loại thiết bị cho (d1) và (d2), và đảm bảo số hiệu (d1) &lt; số hiệu (d2). Khi số hiệu (d1) ≥ số hiệu (d2), chỉ 1 điểm tại thiết bị chỉ định trong (d1) được SET.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi loại thiết bị chỉ định tại (d1) khác với loại thiết bị chỉ định tại (d2). |
+| 4085H | When thiết bị được chỉ định tại the read lệnh ứng dụng (d1) and (d2) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d1) exceeds the corresponding device range |
+| 4087H | Khi loại thiết bị chỉ định tại (d1) và (d2) không phải là thiết bị bit. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605831546-796.png?width=329&amp;height=55&amp;rev=1.1)
+
+Chức năng của lệnh LAD này là đặt trạng thái của các thiết bị từ M1 đến M4 thành ON.
+
+### CRC/Lệnh kiểm tra dư vòng (Cyclic Redundancy Check)
+
+CRC(P)
+
+Tính toán giá trị CRC (Cyclic Redundancy Check), một trong các phương pháp kiểm tra lỗi được sử dụng trong truyền thông. Ngoài CRC, các phương pháp kiểm tra lỗi còn bao gồm kiểm tra chẵn lẻ (parity) và
+
+kiểm tra tổng (checksum); để tính giá trị kiểm tra chẵn lẻ ngang và giá trị tổng kiểm tra có thể dùng lệnh CCD(P). Lệnh này sử dụng đa thức sinh để tạo giá trị CRC (CRC-16).
+
+"X 16 +X 15 +X 2 +1".
+
+-[CRC(P) (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị bắt đầu lưu trữ dữ liệu đối tượng cần tạo giá trị CRC | - | Signed BIN16 | ANY16 |
+| (d) | Số hiệu thiết bị đích lưu giá trị CRC được tạo | - | Signed BIN16 | ANY16 |
+| (n) | Số lượng dữ liệu 8-bit (byte) để tính giá trị CRC hoặc số hiệu thiết bị lưu trữ số lượng dữ liệu | 1 to 256 | Unsigned BIN16 | ANY16_U |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| CRC | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| CRC | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| CRC | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |  | ● |
+
+#### Đặc tính kỹ thuật
+
+Bắt đầu từ thiết bị chỉ định tại (s), tạo giá trị CRC cho dữ liệu 8-bit (đơn vị byte) gồm (n) điểm và lưu vào (d).
+
+Chế độ tính toán của lệnh này bao gồm chế độ chuyển đổi 16-bit và chế độ chuyển đổi 8-bit. Về hoạt động của từng chế độ, vui lòng tham khảo nội dung dưới đây.
+
+- Chế độ chuyển đổi 16-bit (khi SM161=OFF)
+
+Tính toán cả 8 bit cao (byte cao) và 8 bit thấp (byte thấp) của thiết bị (s). Kết quả được lưu vào 16 bit của 1 điểm thiết bị chỉ định tại (d). Đối với chương trình sau, quá trình chuyển đổi được thực hiện như hình dưới.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605886339-405.png?width=540&amp;height=104&amp;rev=1.1)
+
+|  |  |  | Example (s)=D100, (d)=D0, (n)=6 (Devices) | Ví dụ (s)=D100, (d)=D0, (n)=6 (Nội dung dữ liệu đối tượng) | Example (s)=D100, (d)=D0, (n)=6 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+|  |  |  | Vùng nhớ thiết bị (Devices) | 8-bit | 16-bit |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s) | Byte thấp (Low byte) | D100 low | 01H | 0301H |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s) | Byte cao (High byte) | D100 high | 03H |  |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s)+1 | Byte thấp (Low byte) | D101 low | 03H | 0203H |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s)+1 | Byte cao (High byte) | D101 high | 02H |  |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s)+2 | Byte thấp (Low byte) | D102 low | 00H | 1400H |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s)+2 | Byte cao (High byte) | D102 high | 14H |  |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | ... | Õ | É |  |  |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s)+(n)/2-1 | Byte thấp (Low byte) | É |  |  |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s)+(n)/2-1 | Byte cao (High byte) | É |  |  |
+| Đích lưu trữ giá trị CRC | (d) | Byte thấp (Low byte) | D0 low | E4H | 41E4H |
+| Đích lưu trữ giá trị CRC | (d) | Byte cao (High byte) | D0 high | 41H |  |
+
+- Chế độ chuyển đổi 8-bit (khi SM8161=ON)
+
+Ở chế độ chuyển đổi 8-bit, chỉ 8 bit thấp (byte thấp) của thiết bị (s) được đưa vào tính toán. Kết quả sử dụng 2 điểm bắt đầu từ thiết bị chỉ định tại (d): 8 bit thấp (byte thấp) lưu vào (d), và 8 bit cao (byte cao) lưu vào (d)+1.
+
+Đối với chương trình sau, quá trình chuyển đổi được thực hiện như hình dưới.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760605926733-876.png?width=440&amp;height=97&amp;rev=1.1)
+
+|  |  |  | Example) (s)=D100, (d)=D0, (n)=6 (Devices) | Ví dụ: (s)=D100, (d)=D0, (n)=6 (Nội dung dữ liệu đối tượng) |
+| :--- | :--- | :--- | :--- | :--- |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s) | Byte thấp (Low byte) | D100 low | 01H |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s)+1 | Byte thấp (Low byte) | D101 low | 03H |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s)+2 | Byte thấp (Low byte) | D102 low | 03H |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s)+3 | Byte thấp (Low byte) | D103 low | 02H |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s)+4 | Byte thấp (Low byte) | D104 low | 00H |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s)+5 | Byte thấp (Low byte) | D105 low | 14H |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | ... |  | É |  |
+| Vùng nhớ đích lưu trữ dữ liệu tạo mã CRC | (s)+(n)-1 | Byte thấp (Low byte) | É |  |
+| Đích lưu trữ giá trị CRC | (d) | Byte thấp (Low byte) | D0 | E4H |
+| Đích lưu trữ giá trị CRC | (d)+1 | Byte thấp (Low byte) | D1 | 41H |
+
+Trong lệnh CRC(P), đa thức sinh của giá trị CRC (CRC-16) sử dụng "X16+X15+X2+1", tuy nhiên cũng có nhiều đa thức sinh tiêu chuẩn khác cho giá trị CRC. Nếu đa thức sinh khác nhau, giá trị CRC tạo ra sẽ hoàn toàn khác, cần lưu ý điều này. Các đa thức sinh giá trị CRC chính được trình bày bên dưới.
+
+| Tên | Đa thức sinh |
+| :--- | :--- |
+| CRC-12 | X12+X11+X3+X2+X+1 |
+| CRC-16 | X16+X15+X2+1 |
+| CRC-32 | X32+X26+X23+X22+X16+X12+X11+X10+X8+X7+X5+X4+X2+X+1 |
+| CRC-CCITT | X16+X12+X5+1 |
+
+:::tip
+✎Lưu ý:
+
+Khi (s1) sử dụng KnX, KnY, KnM, KnS, giá trị n bắt buộc phải chỉ định là 4.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | The range of (n) exceeds 1 to 256 |
+| 4085H | The data address of (s) to be converted vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The (d) write address vượt quá phạm vi vùng nhớ thiết bị |
+| 4087H | (s) và (d) sử dụng loại thiết bị không được hỗ trợ |
+
+#### Ví dụ minh họa
+
+- Chế độ chuyển đổi 16-bit
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760606058933-621.png?width=496&amp;height=151&amp;rev=1.1)
+
+- Chế độ chuyển đổi 8-bit
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.4%20Logic%20Operation%20instructions/WebHome/1760606107659-729.png?width=492&amp;height=209&amp;rev=1.1)
+
+0

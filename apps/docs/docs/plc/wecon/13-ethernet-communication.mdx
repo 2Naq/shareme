@@ -1,14 +1,340 @@
 ---
 id: "13-ethernet-communication"
-title: "13 Ethernet Communication: Truyền thông mạng LAN & Socket"
+title: "13 Truyền thông mạng Ethernet (Ethernet Communication)"
 sidebar_position: 13
 sidebar_label: "13 Ethernet Communication"
-tags: [wecon, lx6v, lx6a, manual]
-description: "Cấu hình cổng mạng Ethernet tích hợp trên PLC Wecon LX6V: Modbus TCP, Socket TCP/UDP."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 13 Truyền thông mạng Ethernet (Ethernet Communication)"
 ---
 
-## 13 Ethernet Communication: Truyền thông mạng LAN & Socket
+## Tổng quan về Ethernet
 
-Khai thác cổng mạng Ethernet RJ45 tích hợp trên CPU:
-- Chuẩn giao thức công nghiệp Modbus TCP (hỗ trợ đồng thời vai trò Client và Server).
-- Giao tiếp tầng truyền vận Socket TCP/IP và UDP tự do để giao tiếp với máy tính thị giác máy (Machine Vision), Robot công nghiệp và hệ thống quản trị sản xuất MES.
+### Khái niệm địa chỉ IP
+
+Địa chỉ IP bao gồm địa chỉ mạng (network address) và địa chỉ máy chủ (host address), được phân tách bằng mặt nạ mạng con (subnet mask). Nếu một thiết bị lập trình (như máy tính PC) cần kết nối vào mạng LAN nhà máy qua card mạng, thiết bị lập trình và PLC phải nằm trong cùng một mạng con (subnet). Địa chỉ IP được kết hợp với mặt nạ mạng con để xác định mạng con của thiết bị.
+
+| No. | Thiết bị mạng 1 (IP) | Thiết bị mạng 1 (Subnet mask) | Thiết bị mạng 1 (Địa chỉ mạng) | Thiết bị mạng 2 (IP) | Thiết bị mạng 2 (Subnet mask) | Thiết bị mạng 2 (Địa chỉ mạng) | Kết nối mạng |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | 192.168.0.1 | 255.255.255.0 | 192.168.0.0 | 192.168.0.10 | 255.255.255.0 | 192.168.0.0 | Có |
+| 2 | 192.168.0.1 | 255.255.255.0 | 192.168.0.0 | 192.168.1.10 | 255.255.255.0 | 192.168.1.0 | Không |
+| 3 | 192.168.0.1 | 255.255.255.1 | 192.168.0.1 | 192.168.0.10 | 255.255.255.1 | 192.168.0.0 | Không |
+
+Khi thực hiện phép toán logic giữa địa chỉ IP và mặt nạ mạng con, có thể tính ra địa chỉ mạng. Nếu các địa chỉ nằm trong cùng một mạng, điều đó có nghĩa là có thể thực hiện truyền thông. Ví dụ:
+
+### Cài đặt địa chỉ mạng cho PC
+
+1. Mở Control Panel -&gt; Network and Internet -&gt; Network and Sharing Center;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Ethernet%20Communication/WebHome/1709800172136-122.png?rev=1.1)
+
+2. Nhấp vào kết nối mạng cục bộ (Local Area Connection) -&gt; Properties -&gt; Internet Protocol Version 4;
+
+3. Cài đặt địa chỉ IP và mặt nạ mạng con nằm trong cùng địa chỉ mạng với PLC. Lưu ý không được đặt trùng địa chỉ IP đã được sử dụng trong mạng LAN. Nếu IP của PLC là 192.168.8.8 và mặt nạ mạng con là 255.255.255.0, có thể cài đặt địa chỉ IP như hình dưới đây để kết nối PC với PLC.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Ethernet%20Communication/WebHome/1709800197035-940.png?rev=1.1)
+
+### Kiểm tra trạng thái kết nối mạng
+
+Kiểm tra trạng thái kết nối giữa PC và PLC thông qua lệnh ping.
+
+1. Nhấn tổ hợp phím Win+R, nhập cmd;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Ethernet%20Communication/WebHome/1709800277099-298.png?rev=1.1)
+
+2. Nếu địa chỉ IP của PLC là 192.168.8.8;
+
+(1) Nhập lệnh ping 192.168.8.8 và nhấn Enter. Nếu hiển thị 100% mất gói (100% loss), điều đó có nghĩa là không thể kết nối với PLC.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Ethernet%20Communication/WebHome/1709800385874-944.png?rev=1.1)
+
+(2) Nhập lệnh ping 192.168.8.8 và nhấn Enter. Nếu hiển thị 0% mất gói (0% loss), điều đó có nghĩa là có thể kết nối với PLC.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Ethernet%20Communication/WebHome/1709800404587-687.png?rev=1.1)
+
+(3) Lệnh “ping &lt;IP thiết bị mạng&gt;” chỉ thực hiện kiểm tra 4 lần. Nếu cần thực hiện ping liên tục hơn nữa, vui lòng sử dụng lệnh “ping &lt;IP thiết bị mạng&gt; -t”, như minh họa trong hình dưới đây:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Ethernet%20Communication/WebHome/1709800414375-820.png?rev=1.1)
+
+### Kết nối Ethernet giữa PLC Editor2 và PLC
+
+1. Transmission settings -&gt; Ethernet configuration -&gt; Nhập địa chỉ IP của PLC; (lưu ý: địa chỉ của card mạng phải nằm trong cùng phân đoạn mạng với PLC)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Ethernet%20Communication/WebHome/1709800528216-231.png?rev=1.1)
+
+2. Nhấp vào kiểm tra truyền thông (communication test) để xác nhận kết nối truyền thông;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Ethernet%20Communication/WebHome/1709800557135-786.png?rev=1.1)
+
+3. Sau khi kết nối thành công, nhấp “select” để thao tác với PLC.
+
+### Chức năng tìm kiếm Ethernet của PLC Editor 2
+
+1. Transmission settings -&gt; Network card selection -&gt; Equipment search (lưu ý: địa chỉ của card mạng phải nằm trong cùng phân đoạn mạng với PLC), chọn “connect PLC” tại mục 1 hoặc card mạng nằm cùng phân đoạn mạng với PLC, và nhấp mục 2 để tìm kiếm thiết bị PLC trong mạng LAN.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Ethernet%20Communication/WebHome/1709800659995-499.png?rev=1.1)
+
+2. Giao diện tìm kiếm được hiển thị như sau. Nhấp tìm kiếm (search) để hiển thị các thiết bị PLC trong mạng LAN, chọn thiết bị tương ứng và nhấp OK để truyền thông.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Ethernet%20Communication/WebHome/1709800676198-944.png?rev=1.1)
+
+3. Địa chỉ IP tại mục 1 được tự động điền vào. Nhấp kiểm tra truyền thông (communication test) để kiểm tra xem truyền thông có bình thường không; nếu bình thường, nhấp nút “select” để hoàn tất cấu hình kết nối.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Ethernet%20Communication/WebHome/1709800686490-665.png?rev=1.1)
+
+## Cấu hình Ethernet
+
+### Cài đặt địa chỉ IP
+
+(1) Cài đặt qua phần mềm lập trình
+
+Project management -&gt; parameters -&gt; PLC parameter -&gt; Ethernet configuration.
+
+Sau khi sửa đổi, kiểm tra các mục tham số thông qua việc tải xuống PLC (PLC download); sau khi tải xuống, chuyển STOP -&gt; RUN để hoàn tất.
+
+:::tip
+Lưu ý: Modbus TCP Server hỗ trợ số kết nối tối đa, dùng để cài đặt số lượng tối đa các máy khách (client) Modbus TCP bên ngoài có thể kết nối đồng thời với PLC, trong dải từ 2~8.
+:::
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Ethernet%20Communication/WebHome/1709800796514-672.png?rev=1.1)
+
+(2) Cài đặt qua phần tử đặc biệt
+
+Ghi địa chỉ IP, mặt nạ mạng con và cổng mặc định (default gateway) vào SD2680~SD2691;
+
+Khi SM2680 được đặt lên ON, mở chức năng IP tĩnh;
+
+Khi SM2683 được đặt lên ON, cờ xác nhận có thể sửa đổi IP được bật;
+
+Chuyển STOP -&gt; RUN hoặc địa chỉ IP mới sẽ có hiệu lực sau khi cấp nguồn lại.
+
+| Ký hiệu cờ đặc biệt SM | Tên | Nội dung mô tả | R/W | Nhãn thanh ghi đặc biệt SD | Tên |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| SM2680 | Công tắc cài đặt IP tĩnh | ON: cài đặt tĩnh; OFF: Địa chỉ IP được bộ định tuyến DHCP tự động cấp phát và không thể sửa đổi IP (STOP-&gt;RUN) | R/W | SD2680 | Byte thứ nhất của địa chỉ IP |
+| SM2681 | Hiển thị thông tin mạng hiện tại | Làm mới IP, cổng mặc định (Gateway), mặt nạ mạng con (Subnet mask) hiện tại sau khi được đặt thành ON. Chuyển về OFF sau khi làm mới xong. | R/W | SD2681 | Byte thứ hai của địa chỉ IP |
+| SM2682 | Hiển thị thông tin MAC hiện tại (dự phòng) | Làm mới MAC hiện tại sau khi được đặt thành ON. Chuyển về OFF sau khi làm mới xong. | R/W | SM2682 | Byte thứ ba của địa chỉ IP |
+| SM2683 | Cờ sửa đổi IP, mặt nạ mạng con (Subnet mask), cổng mặc định (Gateway) | ON: có thể sửa đổi; OFF: không thể sửa đổi (Khi được đặt thành ON, STOP-&gt;RUN; có thể tự động chuyển về OFF sau khi sửa đổi) | R/W | SD2683 | Byte thứ tư của địa chỉ IP |
+| SM2684 |  |  |  | SD2684 | Byte thứ nhất của mặt nạ mạng con (Subnet mask) |
+| SM2685 |  |  |  | SD2685 | Byte thứ hai của mặt nạ mạng con (Subnet mask) |
+| SM2686 |  |  |  | SD2686 | Byte thứ ba của mặt nạ mạng con (Subnet mask) |
+| SM2687 |  |  |  | SD2687 | Byte thứ tư của mặt nạ mạng con (Subnet mask) |
+| SM2688 |  |  |  | SD2688 | Byte thứ nhất của cổng mặc định (Default gateway) |
+| SM2689 |  |  |  | SD2689 | Byte thứ hai của cổng mặc định (Default gateway) |
+| SM2690 |  |  |  | SD2690 | Byte thứ ba của cổng mặc định (Default gateway) |
+| SM2691 |  |  |  | SD2691 | Byte thứ tư của cổng mặc định (Default gateway) |
+
+### Khái niệm giao thức TCP
+
+Giao thức TCP là Giao thức điều khiển truyền vận (Transport Control Protocol), là một giao thức tầng giao vận hướng kết nối và đáng tin cậy. Hướng kết nối có nghĩa là một quá trình truyền dữ liệu TCP bình thường cần được hoàn thành bằng cách thiết lập một kết nối mạch ảo cụ thể giữa máy khách TCP (TCP client) và máy chủ TCP (TCP server). Để truyền dữ liệu qua TCP, phải thiết lập kết nối giữa các máy chủ ở cả hai đầu.
+
+## Danh sách các thiết bị đặc biệt liên quan đến Ethernet
+
+| Ký hiệu cờ đặc biệt SM | Tên | Nội dung mô tả | R/W | Lưu giữ khi mất điện (Retentive / Latch) |
+| :--- | :--- | :--- | :--- | :--- |
+| SM2681 | Hiển thị thông tin mạng hiện tại | Làm mới IP, mặt nạ mạng con (Subnet mask) và cổng mặc định (Default gateway) hiện tại sau khi được đặt thành ON; sau đó chuyển về OFF khi hoàn tất làm mới | R/W | × |
+| SM2682 | Hiển thị thông tin MAC hiện tại | Làm mới MAC hiện tại sau khi được đặt thành ON. Chuyển về OFF sau khi làm mới xong. | R/W | × |
+| SM2683 | Cờ sửa đổi IP, mặt nạ mạng con (Subnet mask), cổng mặc định (Gateway) | ON: có thể sửa đổi; OFF: không thể sửa đổi (Khi được đặt thành ON, STOP-&gt;RUN; có thể tự động chuyển về OFF sau khi sửa đổi) | R/W | √ |
+| SM2684 | Trạng thái kết nối card mạng | ON: đã kết nối mạng; OFF: chưa kết nối mạng; kiểm tra xem cáp mạng đã được cắm chưa | R | √ |
+| SM2692 | Cờ sửa đổi địa chỉ MAC | ON: có thể sửa đổi; OFF: không thể sửa đổi (Khi được đặt thành ON, STOP-&gt;RUN; có thể tự động chuyển về OFF sau khi sửa đổi) | R/W | √ |
+| SM2700 | Cơ chế duy trì kết nối (Keep-alive) Modbus TCP | ON: OpenOFF: Close (default) | R/W | √ |
+| SM2701 | Đóng cưỡng bức máy chủ (Server) Modbus TCP | ON: Mở; OFF: Đóng (mặc định) (sau khi bật, sẽ tự động chuyển về OFF sau khi đóng) | R/W | × |
+| SM2710 | Cờ lỗi Ethernet | ON: có lỗi Ethernet, vui lòng kiểm tra SD2710 và SD2711; OFF: không có lỗi Ethernet | R | × |
+| SM2740 | Trạng thái kết nối máy chủ ModbusTCP 1 | ON: Phía Client đã kết nối; OFF: Phía Client chưa kết nối | R | × |
+| SM2760 | Trạng thái kết nối máy chủ ModbusTCP 2 | ON: Phía Client đã kết nối; OFF: Phía Client chưa kết nối | R | × |
+| SM2780 | Trạng thái kết nối máy chủ ModbusTCP 3 | ON: Phía Client đã kết nối; OFF: Phía Client chưa kết nối | R | × |
+| SM2800 | Trạng thái kết nối máy chủ ModbusTCP 4 | ON: Phía Client đã kết nối; OFF: Phía Client chưa kết nối | R | × |
+| SM2820 | Trạng thái kết nối máy chủ ModbusTCP 5 | ON: Phía Client đã kết nối; OFF: Phía Client chưa kết nối | R | × |
+| SM2840 | Trạng thái kết nối máy chủ ModbusTCP 6 | ON: Phía Client đã kết nối; OFF: Phía Client chưa kết nối | R | × |
+| SM2860 | Trạng thái kết nối máy chủ ModbusTCP 7 | ON: Phía Client đã kết nối; OFF: Phía Client chưa kết nối | R | × |
+| SM2880 | Trạng thái kết nối máy chủ ModbusTCP 8 | ON: Phía Client đã kết nối; OFF: Phía Client chưa kết nối | R | × |
+
+| Nhãn thanh ghi đặc biệt SD | Tên | Nội dung mô tả | R/W | Lưu giữ khi mất điện (Retentive / Latch) |
+| :--- | :--- | :--- | :--- | :--- |
+| SD2680 | Byte thứ nhất của địa chỉ IP | Local IP address | R/W | √ |
+| SD2681 | Byte thứ hai của địa chỉ IP |  | R/W | √ |
+| SM2682 | Byte thứ ba của địa chỉ IP |  | R/W | √ |
+| SD2683 | Byte thứ tư của địa chỉ IP |  | R/W | √ |
+| SD2684 | Byte thứ nhất của mặt nạ mạng con (Subnet mask) | Mặt nạ mạng con (Subnet mask) cục bộ | R/W | √ |
+| SD2685 | Byte thứ hai của mặt nạ mạng con (Subnet mask) |  | R/W | √ |
+| SD2686 | Byte thứ ba của mặt nạ mạng con (Subnet mask) |  | R/W | √ |
+| SD2687 | Byte thứ tư của mặt nạ mạng con (Subnet mask) |  | R/W | √ |
+| SD2688 | Byte thứ nhất của cổng mặc định (Default gateway) | Cổng mặc định (Default gateway) cục bộ | R/W | √ |
+| SD2689 | Byte thứ hai của cổng mặc định (Default gateway) |  | R/W | √ |
+| SD2690 | Byte thứ ba của cổng mặc định (Default gateway) |  | R/W | √ |
+| SD2691 | Byte thứ tư của cổng mặc định (Default gateway) |  | R/W | √ |
+| SD2692 | Byte thứ nhất của địa chỉ MAC | Địa chỉ MAC cục bộ | R/W | √ |
+| SD2693 | Byte thứ hai của địa chỉ MAC |  | R/W | √ |
+| SD2694 | Byte thứ ba của địa chỉ MAC |  | R/W | √ |
+| SD2695 | Byte thứ tư của địa chỉ MAC |  | R/W | √ |
+| SD2696 | Byte thứ năm của địa chỉ MAC |  | R/W | √ |
+| SD2697 | Byte thứ sáu của địa chỉ MAC |  | R/W | √ |
+| SD2700 | Hiển thị tốc độ truyền thông | 0: 100Mbps/bán song công; 1: 100Mbps/song công toàn phần; 2: 10Mbps/bán song công; 3: 10Mbps/song công toàn phần | R | × |
+| SD2702 | Số kết nối tối đa mà máy chủ modbusTCP hỗ trợ | Máy chủ modbusTCP cục bộ hỗ trợ số lượng máy khách (Client) tối đa kết nối đồng thời | R/W | × |
+| SD2703 | Số kết nối Modbus TCP | Số kết nối Modbus TCP cục bộ | R | × |
+| SD2710 | Mã lỗi (Error Code) | Mã lỗi Ethernet | R | × |
+| SD2711 | Socket ID of the error | -1: Máy chủ Modbus TCP mặc định của hệ thống; 0~5: Lỗi socket do người dùng tự định nghĩa | R | × |
+| SD2720 | Byte/từ thấp của số lượng yêu cầu ping nhận vào | Số lần nhận lệnh ping từ bên ngoài | R | × |
+| SD2721 | Byte/từ cao của số lượng yêu cầu ping nhận vào |  | R | × |
+| SD2722 | Byte/từ thấp của số lượng phản hồi ping nhận vào | Số lần trả lời sau khi nhận lệnh ping từ bên ngoài | R | × |
+| SD2723 | Byte/từ cao của số lượng phản hồi ping nhận vào |  | R | × |
+| SD2724 | Byte/từ thấp của số lượng yêu cầu ping gửi ra | Số lần gửi lệnh ping | R | × |
+| SD2725 | Byte/từ cao của số lượng yêu cầu ping gửi ra |  | R | × |
+| SD2726 | Phần thấp của số lượng phản hồi ping gửi ra | Số lần trả lời sau khi nhận phản hồi cho lệnh ping đã gửi | R | × |
+| SD2727 | Byte/từ cao của số lượng phản hồi ping gửi ra |  | R | × |
+| SD2728 | Số gói tin ARP đã gửi | Bộ đếm số gói tin ARP đã gửi | R | × |
+| SD2729 | Số gói tin ARP đã nhận | Bộ đếm số gói tin ARP đã nhận | R | × |
+| SD2730 | Số gói tin IP đã gửi | Bộ đếm số gói tin IP đã gửi | R | × |
+| SD2731 | Số gói tin IP đã nhận | Bộ đếm số gói tin ARP đã nhận | R | × |
+| SD2732 | Số gói tin TCP đã gửi | Bộ đếm số gói tin TCP đã gửi | R | × |
+| SD2733 | Số gói tin TCP đã nhận | Bộ đếm số gói tin TCP đã nhận | R | × |
+| SD2734 | Số gói tin UDP đã gửi | Bộ đếm số gói tin UDP đã gửi | R | × |
+| SD2735 | Số gói tin UDP đã nhận | Bộ đếm số gói tin UDP đã nhận | R | × |
+| SD2740 | Số cổng cục bộ của kết nối 1 | Thông tin kết nối và thông tin lỗi về kết nối của máy khách (Client) Modbus TCP thứ nhất tới PLC. | R | × |
+| SD2741 | Byte thứ nhất địa chỉ IP của kết nối 1 |  | R | × |
+| SD2742 | Byte thứ hai địa chỉ IP của kết nối 1 |  | R | × |
+| SD2743 | Byte thứ ba địa chỉ IP của kết nối 1 |  | R | × |
+| SD2744 | Byte thứ tư địa chỉ IP của kết nối 1 |  | R | × |
+| SD2745 | Số cổng đối tác của kết nối 1 |  | R | × |
+| SD2746 | Dự phòng |  | R | × |
+| SD2747 | Dự phòng |  |  |  |
+| SD2748 | Mã lỗi của kết nối 1 |  | R | × |
+| SD2749 | Từ thấp số lần truyền thông lỗi của kết nối 1 |  | R | × |
+| SD2750 | Từ cao số lần truyền thông lỗi của kết nối 1 |  | R | × |
+| SD2760 | Số cổng cục bộ của kết nối 2 | Thông tin kết nối và thông tin lỗi về kết nối của máy khách (Client) Modbus TCP thứ hai tới PLC. | R | × |
+| SD2761 | Byte thứ nhất địa chỉ IP của kết nối 2 |  | R | × |
+| SD2762 | Byte thứ hai địa chỉ IP của kết nối 2 |  | R | × |
+| SD2763 | Byte thứ ba địa chỉ IP của kết nối 2 |  | R | × |
+| SD2764 | Byte thứ tư địa chỉ IP của kết nối 2 |  | R | × |
+| SD2765 | Số cổng đối tác của kết nối 2 |  | R | × |
+| SD2766 | Dự phòng |  | R | × |
+| SD2767 | Dự phòng |  |  |  |
+| SD2768 | Mã lỗi của kết nối 2 |  | R | × |
+| SD2769 | Từ thấp số lần truyền thông lỗi của kết nối 2 |  | R | × |
+| SD2770 | Từ cao số lần truyền thông lỗi của kết nối 2 |  | R | × |
+| SD2780 | Số cổng cục bộ của kết nối 3 | Thông tin kết nối và thông tin lỗi về kết nối của máy khách (Client) Modbus TCP thứ ba tới PLC. | R | × |
+| SD2781 | Byte thứ nhất địa chỉ IP của kết nối 3 |  | R | × |
+| SD2782 | Byte thứ hai địa chỉ IP của kết nối 3 |  | R | × |
+| SD2783 | Byte thứ ba địa chỉ IP của kết nối 3 |  | R | × |
+| SD2784 | Byte thứ tư địa chỉ IP của kết nối 3 |  | R | × |
+| SD2785 | Số cổng đối tác của kết nối 3 |  | R | × |
+| SD2786 | Dự phòng |  | R | × |
+| SD2787 | Dự phòng |  |  |  |
+| SD2788 | Mã lỗi của kết nối 3 |  | R | × |
+| SD2789 | Từ thấp số lần truyền thông lỗi của kết nối 3 |  | R | × |
+| SD2780 | Từ cao số lần truyền thông lỗi của kết nối 3 |  | R | × |
+| SD2800 | Số cổng cục bộ của kết nối 4 | Thông tin kết nối và thông tin lỗi về kết nối của máy khách (Client) Modbus TCP thứ tư tới PLC. | R | × |
+| SD2801 | Byte thứ nhất địa chỉ IP của kết nối 4 |  | R | × |
+| SD2802 | Byte thứ hai địa chỉ IP của kết nối 4 |  | R | × |
+| SD2803 | Byte thứ ba địa chỉ IP của kết nối 4 |  | R | × |
+| SD2804 | Byte thứ tư địa chỉ IP của kết nối 4 |  | R | × |
+| SD2805 | Số cổng đối tác của kết nối 4 |  | R | × |
+| SD2806 | Dự phòng |  | R | × |
+| SD2807 | Dự phòng |  |  |  |
+| SD2808 | Mã lỗi của kết nối 4 | Thông tin lỗi về kết nối của máy khách (Client) Modbus TCP thứ tư tới PLC. | R | × |
+| SD2809 | Từ thấp số lần truyền thông lỗi của kết nối 4 |  | R | × |
+| SD2810 | Từ cao số lần truyền thông lỗi của kết nối 4 |  | R | × |
+| SD2820 | Số cổng cục bộ của kết nối 5 | Thông tin kết nối và thông tin lỗi về kết nối của máy khách (Client) Modbus TCP thứ năm tới PLC. | R | × |
+| SD2821 | Byte thứ nhất địa chỉ IP của kết nối 5 |  | R | × |
+| SD2822 | Byte thứ hai địa chỉ IP của kết nối 5 |  | R | × |
+| SD2823 | Byte thứ ba địa chỉ IP của kết nối 5 |  | R | × |
+| SD2824 | Byte thứ tư địa chỉ IP của kết nối 5 |  | R | × |
+| SD2825 | Số cổng đối tác của kết nối 5 |  | R | × |
+| SD2826 | Dự phòng |  | R | × |
+| SD2827 | Dự phòng |  |  |  |
+| SD2828 | Mã lỗi của kết nối 5 |  | R | × |
+| SD2829 | Từ thấp số lần truyền thông lỗi của kết nối 5 |  | R | × |
+| SD2830 | Từ cao số lần truyền thông lỗi của kết nối 5 |  | R | × |
+| SD2840 | Số cổng cục bộ của kết nối 6 | Thông tin kết nối và thông tin lỗi về kết nối của máy khách (Client) Modbus TCP thứ sáu tới PLC. | R | × |
+| SD2841 | Byte thứ nhất địa chỉ IP của kết nối 6 |  | R | × |
+| SD2842 | Byte thứ hai địa chỉ IP của kết nối 6 |  | R | × |
+| SD2843 | Byte thứ ba địa chỉ IP của kết nối 6 |  | R | × |
+| SD2844 | Byte thứ tư địa chỉ IP của kết nối 6 |  | R | × |
+| SD2845 | Số cổng đối tác của kết nối 6 |  | R | × |
+| SD2846 | Dự phòng |  | R | × |
+| SD2847 | Dự phòng |  |  |  |
+| SD2848 | Mã lỗi của kết nối 6 |  | R | × |
+| SD2849 | Từ thấp số lần truyền thông lỗi của kết nối 6 |  | R | × |
+| SD2850 | Từ cao số lần truyền thông lỗi của kết nối 6 |  | R | × |
+| SD2860 | Số cổng cục bộ của kết nối 7 | Thông tin kết nối và thông tin lỗi về kết nối của máy khách (Client) Modbus TCP thứ bảy tới PLC. | R | × |
+| SD2861 | Byte thứ nhất địa chỉ IP của kết nối 7 |  | R | × |
+| SD2862 | Byte thứ hai địa chỉ IP của kết nối 7 |  | R | × |
+| SD2863 | Byte thứ ba địa chỉ IP của kết nối 7 |  | R | × |
+| SD2864 | Byte thứ tư địa chỉ IP của kết nối 7 |  | R | × |
+| SD2865 | Số cổng đối tác của kết nối 7 |  | R | × |
+| SD2866 | Dự phòng |  | R | × |
+| SD2867 | Dự phòng |  |  |  |
+| SD2868 | Mã lỗi của kết nối 7 |  | R | × |
+| SD2869 | Từ thấp số lần truyền thông lỗi của kết nối 7 |  | R | × |
+| SD2870 | Từ cao số lần truyền thông lỗi của kết nối 7 |  | R | × |
+| SD2880 | Số cổng cục bộ của kết nối 8 | Thông tin kết nối và thông tin lỗi về kết nối của máy khách (Client) Modbus TCP thứ tám tới PLC. | R | × |
+| SD2881 | Byte thứ nhất địa chỉ IP của kết nối 8 |  | R | × |
+| SD2882 | Byte thứ hai địa chỉ IP của kết nối 8 |  | R | × |
+| SD2883 | Byte thứ ba địa chỉ IP của kết nối 8 |  | R | × |
+| SD2884 | Byte thứ tư địa chỉ IP của kết nối 8 |  | R | × |
+| SD2885 | Số cổng đối tác của kết nối 8 |  | R | × |
+| SD2866 | Dự phòng | Thông tin kết nối và thông tin lỗi về kết nối của máy khách (Client) Modbus TCP thứ tám tới PLC. |  |  |
+| SD2867 | Dự phòng |  | R | × |
+| SD2888 | Mã lỗi của kết nối 8 |  | R | × |
+| SD2889 | Từ thấp số lần truyền thông lỗi của kết nối 8 |  | R | × |
+| SD2890 | Từ cao số lần truyền thông lỗi của kết nối 8 |  | R | × |
+
+## Danh sách các mã lỗi thao tác Ethernet
+
+| Mã lỗi (Error Code) | Mô tả kỹ thuật | Hành động thực thi | Phương thức xử lý | Thời gian kiểm tra |
+| :--- | :--- | :--- | :--- | :--- |
+| 3680 | Lỗi nhận dữ liệu Ethernet | Tiếp tục vận hành (RUN) | Kiểm tra xem có nhiễu trong môi trường xung quanh hay không | Khi lệnh được thực thi |
+| 3681 | Hết thời gian chờ nhận dữ liệu Ethernet | Tiếp tục vận hành (RUN) | Kiểm tra xem cáp mạng có bị lỏng không. 1. Kiểm tra xem thiết bị đối tác mạng có bị lỗi dẫn đến không gửi được dữ liệu không. Kiểm tra xem thiết bị đối tác mạng có phản hồi không kịp dẫn đến trễ dữ liệu hay không. Trong trường hợp này, có thể tăng thời gian chờ nhận trong cấu hình socket. | Khi lệnh được thực thi |
+| 3684 | Lỗi cấu hình số hiệu trạm Modbus TCP | Tiếp tục vận hành (RUN) | Kiểm tra cài đặt số hiệu trạm tớ (Slave). Kiểm tra xem cơ chế thu phát của trạm tớ có vấn đề gì không. | Khi lệnh được thực thi |
+| 3685 | Tràn bộ đệm gửi Modbus TCP | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 3686 | Lỗi mã chức năng Modbus TCP | Tiếp tục vận hành (RUN) | Kiểm tra xem mã chức năng đã cài đặt có phải là mã chức năng được PLC hỗ trợ hay không | Khi lệnh được thực thi |
+| 3687 | Lỗi địa chỉ Modbus TCP | Tiếp tục vận hành (RUN) | Kiểm tra xem trạm tớ (Slave) có địa chỉ này hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 02). | Khi lệnh được thực thi |
+| 3688 | Lỗi độ dài Modbus TCP | Tiếp tục vận hành (RUN) | Kiểm tra xem độ dài truyền thông có vượt quá phạm vi Modbus hay không | Khi lệnh được thực thi |
+| 3689 | Lỗi dữ liệu Modbus TCP | Tiếp tục vận hành (RUN) | Kiểm tra xem các tham số của lệnh có bị sai không. Kiểm tra xem giá trị cài đặt có được trạm tớ (Slave) hỗ trợ hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 03). | Khi lệnh được thực thi |
+| 368A | Trạm tớ (Slave) Modbus TCP đang bận | Tiếp tục vận hành (RUN) | Thông báo trả về từ trạm tớ (Slave): Trạm tớ đang bận. (Vui lòng tham khảo mã ngoại lệ Modbus 06). | Khi lệnh được thực thi |
+| 368B | Trạm tớ (Slave) Modbus TCP không hỗ trợ mã chức năng | Tiếp tục vận hành (RUN) | Kiểm tra xem mã chức năng này có được trạm tớ (Slave) hỗ trợ hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 01). | Khi lệnh được thực thi |
+| 368C | Lỗi trạm tớ (Slave) Modbus TCP | Tiếp tục vận hành (RUN) | Thông báo trả về từ trạm tớ (Slave): Trạm tớ gặp sự cố, vui lòng kiểm tra xem trạm tớ có bị lỗi không. (Vui lòng tham khảo mã ngoại lệ Modbus 04). | Khi lệnh được thực thi |
+| 368D | Xác nhận từ trạm tớ (Slave) Modbus TCP | Tiếp tục vận hành (RUN) | Thông báo trả về từ trạm tớ (Slave): xác nhận trạm tớ. (Vui lòng tham khảo mã ngoại lệ Modbus 05). | Khi lệnh được thực thi |
+| 368E | Giao thức hiện tại của Modbus TCP không hỗ trợ lệnh này | Tiếp tục vận hành (RUN) | Không thể sử dụng lệnh RS khi giao thức trạm tớ (Slave) được cài đặt, vui lòng đổi giao thức hoặc ngắt tiếp điểm phía trước lệnh RS | Khi lệnh được thực thi |
+| 368F | Hết thời gian gửi cổng mạng | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 3690 | Tràn bộ đệm nhận | Tiếp tục vận hành (RUN) | Kiểm tra xem thiết bị kia có đang gửi dữ liệu liên tục hay không | Khi lệnh được thực thi |
+| 36A0 | Không có cổng kết nối (Gateway) khả dụng cho Modbus TCP | Tiếp tục vận hành (RUN) | Thông báo trả về từ trạm tớ (Slave): không có cổng kết nối khả dụng. (Vui lòng tham khảo mã ngoại lệ Modbus 0A). | Khi lệnh được thực thi |
+| 36A1 | Modbus TCP báo không nhận được phản hồi từ thiết bị đích. Thường có nghĩa là thiết bị không có trên mạng. | Tiếp tục vận hành (RUN) | Thông báo trả về từ trạm tớ (Slave): Thiết bị không nằm trong mạng. (Vui lòng tham khảo mã ngoại lệ Modbus 0B) | Khi lệnh được thực thi |
+| 36C0 | Lỗi mã định danh giao dịch ModbusTCP | Tiếp tục vận hành (RUN) | Kiểm tra xem có bị nghẽn mạng khiến không thể nhận dữ liệu kịp thời hay không. | Khi lệnh được thực thi |
+| 36C1 | Số liên kết khả dụng của máy chủ (Server) Modbus TCP đã đầy | Tiếp tục vận hành (RUN) | Kiểm tra xem SD2702 và SD2703 có quá nhiều máy khách (Client) đang liên kết hay không | Khi lệnh được thực thi |
+| 36C8 | Không đủ không gian trong ngăn xếp giao thức Ethernet | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 36C9 | Số lượng kết nối vượt quá giới hạn | Tiếp tục vận hành (RUN) | Xác nhận xem tổng số kết nối có vượt quá giới hạn hay không | Khi lệnh được thực thi |
+| 36CA | Lần gửi trước chưa hoàn tất | Tiếp tục vận hành (RUN) | Sử dụng cờ hoàn tất gửi để xác định lần gửi hiện tại đã hoàn tất, sau đó mới gửi lần tiếp theo | Khi lệnh được thực thi |
+| 36CB | Lỗi ngoại lệ ghi TCP | Tiếp tục vận hành (RUN) | Sử dụng thiết bị bit cờ hiệu để đánh giá trạng thái kết nối hiện tại có bình thường hay không. Nếu không bình thường, sẽ không thực hiện truyền dữ liệu. Ví dụ, sau khi cờ đóng được bật, quá trình truyền dữ liệu sẽ không được thực hiện. | Khi lệnh được thực thi |
+| 36CC | Lỗi ngoại lệ xuất TCP | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 36CD | IP address is used | Tiếp tục vận hành (RUN) | Vui lòng kiểm tra xem có kết nối nào tồn tại với cùng thông tin địa chỉ hay không | Khi lệnh được thực thi |
+| 36CE | Error in server’s acceptance of connection | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 36CF | Tràn bộ đệm nhận TCP | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 36D0 | Liên kết TCP thất bại | Tiếp tục vận hành (RUN) | Có thể do mở máy khách (Client) TCP khi chưa cắm cáp mạng. | Khi lệnh được thực thi |
+| 36D1 | Lỗi ngoại lệ khi chủ động đóng kết nối | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 36D2 | Đã xảy ra đóng bất thường bên trong ngăn xếp giao thức | Tiếp tục vận hành (RUN) | Có thể bị đóng do không có phản hồi trong thời gian dài. Kiểm tra xem thiết bị đối tác có đang trực tuyến và có ping được không. | Khi lệnh được thực thi |
+| 36D3 | Thiết bị đối tác khởi tạo gói đặt lại liên kết RST | Tiếp tục vận hành (RUN) | 1. Kiểm tra xem thiết bị đối tác có chủ động đóng bất thường không. 2. Khi đóng vai trò máy khách (Client), số lượng kết nối của đối tác đã đầy hoặc cổng của đối tác chưa mở. | Khi lệnh được thực thi |
+| 36D4 | Ngăn xếp giao thức bị đóng một phía | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 36D5 | Có xung đột địa chỉ IP | Tiếp tục vận hành (RUN) | Trong mạng LAN tồn tại thiết bị có cùng IP, vui lòng đổi địa chỉ IP | Khi lệnh được thực thi |
+| 36D6 | Có xung đột địa chỉ MAC | Tiếp tục vận hành (RUN) | Trong mạng LAN tồn tại thiết bị có cùng MAC, vui lòng đổi địa chỉ MAC | Khi lệnh được thực thi |
+| 36D7 | Tràn bộ đệm gửi TCP | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 36D8 | Lỗi ngoại lệ kết nối UDP | Tiếp tục vận hành (RUN) | Địa chỉ IP hoặc số cổng có thể đã được sử dụng. | Khi lệnh được thực thi |
+| 36D9 | Tràn bộ đệm gửi UDP | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 36DA | Không đủ không gian bộ nhớ khi gửi UDP | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 36DB | Gửi UDP thất bại | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 36DC | Giải phóng bộ nhớ UDP thất bại | Tiếp tục vận hành (RUN) | Nếu xuất hiện mã lỗi này, vui lòng liên hệ bộ phận kỹ thuật của hãng | Khi lệnh được thực thi |
+| 36DD | Tràn bộ đệm nhận UDP | Tiếp tục vận hành (RUN) | Độ dài dữ liệu nhận được qua UDP vượt quá giá trị giới hạn 512. | Khi lệnh được thực thi |
+| 4084 | Dữ liệu vượt quá phạm vi quy định được nhập vào trong lệnh ứng dụng (ví dụ: tham số 1 quy định là 0~1 nhưng lại đặt là 2) | Tiếp tục vận hành (RUN) | Sửa đổi các tham số của lệnh ứng dụng | Khi lệnh ứng dụng được thực thi |
+| 4085 | The output result of the read application command vượt quá phạm vi vùng nhớ thiết bị.(For example, the maximum output of the D device is D7999, but D8000 is used) | Tiếp tục vận hành (RUN) | Sửa đổi các tham số của lệnh ứng dụng | Khi lệnh ứng dụng được thực thi |
+| 4086 | The output result of the write application command vượt quá phạm vi vùng nhớ thiết bị.(For example, the maximum output of the D device is D7999, but D8000 is used) | Tiếp tục vận hành (RUN) | Sửa đổi các tham số của lệnh ứng dụng | Khi lệnh ứng dụng được thực thi |
+| 5080 | Socket Ethernet đã được liên kết và không thể mở lặp lại. | Tiếp tục vận hành (RUN) | Kiểm tra xem lệnh SOCOPEN có bị thực thi lặp lại hay không | Khi lệnh ứng dụng được thực thi |
+| 5081 | Socket Ethernet chưa được mở, dẫn đến thao tác thất bại | Tiếp tục vận hành (RUN) | Kiểm tra xem đã bật ON bit cờ đã kết nối của tham số (d2) trong lệnh SOCOPEN hay chưa | Khi lệnh ứng dụng được thực thi |
+| 5082 | Socket ID được nhập bởi lệnh Ethernet nằm ngoài phạm vi. | Tiếp tục vận hành (RUN) | Sửa đổi các tham số của lệnh ứng dụng | Khi lệnh ứng dụng được thực thi |
+| 5083 | Tạo máy chủ (Server) TCP thất bại | Tiếp tục vận hành (RUN) | Check if the connection is full | Khi lệnh ứng dụng được thực thi |
+| 5084 | Tạo liên kết thất bại | Tiếp tục vận hành (RUN) | Check if the connection is full | Khi lệnh ứng dụng được thực thi |
+| 5086 | Socket ID được sử dụng bởi lệnh Ethernet chưa được cấu hình từ phần mềm máy tính chủ (Upper computer) hoặc chưa được bật sau khi cấu hình. | Tiếp tục vận hành (RUN) | Kiểm tra cấu hình Ethernet của phần mềm máy tính chủ (Upper computer) | Khi lệnh ứng dụng được thực thi |
+| 5087 | Hết thời gian chờ nhận của lệnh SOCRECV | Tiếp tục vận hành (RUN) | 1. Kiểm tra xem kết nối mạng có bình thường không. 2. Kiểm tra xem thiết bị đối tác mạng có gửi dữ liệu hay không. | Khi lệnh ứng dụng được thực thi |
+| 5088 | Lệnh SOCMTCP chỉ định socket đang sử dụng chế độ cấu hình không phải máy khách (Client) TCP | Tiếp tục vận hành (RUN) | Kiểm tra cấu hình Ethernet của phần mềm máy tính chủ (Upper computer) | Khi lệnh ứng dụng được thực thi |
+| 5089 | Khi cấu hình máy chủ (Server) TCP cho socket Ethernet, chỉ định cổng cục bộ là 502 | Tiếp tục vận hành (RUN) | Cổng 502 đã bị chiếm dụng nội bộ, vui lòng sửa đổi cổng cục bộ. | Khi lệnh ứng dụng được thực thi |
+| 508A | The UDP port is specified as 1092 | Tiếp tục vận hành (RUN) | Cổng UDP: 1092 đã bị hệ thống chiếm dụng và không thể sử dụng, vui lòng sửa đổi số cổng cục bộ. | Khi lệnh ứng dụng được thực thi |
+| 5090 | Lỗi ngoại lệ kết nối cáp mạng | Tiếp tục vận hành (RUN) | Kiểm tra xem cáp mạng đã được cắm chưa | Khi lệnh ứng dụng được thực thi |
+
+0

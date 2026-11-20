@@ -1,76 +1,88 @@
 ---
 id: "8.08-sdo-instruction"
-title: "8.08 Lệnh truyền thông SDO qua mạng Bus EtherCAT"
+title: "8.08 Lệnh đọc/ghi tham số SDO qua mạng EtherCAT (SDO Instruction)"
 sidebar_position: 9
 sidebar_label: "8.08 Lệnh SDO EtherCAT"
-tags: [wecon, lx6v, lx6a, motion-control, plcopen, manual]
-description: "Tài liệu kỹ thuật chi tiết chuẩn hãng 8.08 Lệnh truyền thông SDO qua mạng Bus EtherCAT trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 8.08 Lệnh đọc/ghi tham số SDO qua mạng EtherCAT (SDO Instruction)"
 ---
 
-# SDO instruction
+## Lệnh SDO
 
-### MC_READSDO reads SDO data
+### MC_READSDO đọc dữ liệu SDO
 
- MC_READSDO
+MC_READSDO
 
-This instruction is used to read the value of the servo object dictionary.
+Lệnh này dùng để đọc giá trị của từ điển đối tượng (Object Dictionary) Servo.
 
-- [ MC_READSDO    (S1)    (S2)    (S3)    (D1)    (S4)  ]
+- [ MC_READSDO (S1) (S2) (S3) (D1) (S4) ]
 
-### Nội dung, phạm vi và kiểu dữ liệu
+#### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Content | Phạm vi giá trị | Data type | Kiểu dữ liệu (Bảng) |
-| (S1) | Object dictionary index | - | Unsigned BIN16 | ANY16_U |
-| (S2) | Object dictionary subindex | - | Unsigned BIN16 | ANY16_U |
-| (S3) | Length (BYTE unit) | - | Unsigned BIN16 | ANY16_U |
-| (D1) | The read device | - | Define the size according to S3. | - |
-| (S4) | Specify the servo station number | - | Signed BIN16 | ANY16_S |
-### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Bảng) |
+| :--- | :--- | :--- | :--- | :--- |
+| (S1) | Chỉ số từ điển đối tượng SDO (Index) | - | Unsigned BIN16 | ANY16_U |
+| (S2) | Chỉ số phụ từ điển đối tượng SDO (Subindex) | - | Unsigned BIN16 | ANY16_U |
+| (S3) | Độ dài (đơn vị BYTE) | - | Unsigned BIN16 | ANY16_U |
+| (D1) | Thiết bị đọc dữ liệu | - | Define the size according to S3. | - |
+| (S4) | Chỉ định số trạm servo | - | Signed BIN16 | ANY16_S |
 
-| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
-| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
-| MC_READSDO | Tham số 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
-| Tham số 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
-| Tham số 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
-| Tham số 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● |  |  |  |  |  |
-| Tham số 5 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
-Đặc tính kỹ thuật
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-▪Read the value according to the servo station number (S4), object dictionary index (S1), object dictionary subindex (S2), and length (S3) to the set device (D1).
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | Vùng nhớ thiết bị (Devices) | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| MC_READSDO | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |  |  |
+| MC_READSDO | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |  |  |
+| MC_READSDO | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |  |  |
+| MC_READSDO | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● |  |  |  |  |  |  |  |
+| MC_READSDO | Parameter 5 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |  |  |
 
-✎Note:
+#### Đặc tính kỹ thuật
 
-▪When there is the corresponding object dictionary set in PDO, there may be a situation where SDO cannot read it.
+▪Đọc giá trị theo số trạm Servo (S4), chỉ số từ điển đối tượng (S1), chỉ số phụ từ điển đối tượng (S2) và độ dài (S3) vào thiết bị được chỉ định (D1).
 
-### MC_WRITESD0 writes SDO data
+:::tip
+✎Lưu ý:
 
- MC_WRITESDO
+▪Khi có từ điển đối tượng tương ứng đã được cài đặt trong PDO, có thể xảy ra trường hợp SDO không thể đọc được.
+:::
 
-This instruction is used to write the value of the servo object dictionary.
+### MC_WRITESD0 ghi dữ liệu SDO
+
+MC_WRITESDO
+
+Lệnh này dùng để ghi giá trị của từ điển đối tượng (Object Dictionary) Servo.
 
 -[MCWRITESDO (S1) (S2) (S3) (S4) (S5)]
 
-### Nội dung, phạm vi và kiểu dữ liệu
+#### Nội dung, phạm vi và kiểu dữ liệu
 
-| Tham số | Content | Phạm vi giá trị | Data type | Kiểu dữ liệu (Bảng) |
-| (S1) | Object dictionary index | - | Unsigned BIN16 | ANY16_U |
-| (S2) | Object dictionary sub-index | - | Unsigned BIN16 | ANY16_U |
-| (S3) | Length (BYTE unit) | - | Unsigned BIN16 | ANY16_U |
-| (S4) | The value to be written | - | Define the size according to S3. | - |
-| (S5) | Specify the servo station number | - | Signed BIN16 | ANY16_S |
-### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Bảng) |
+| :--- | :--- | :--- | :--- | :--- |
+| (S1) | Chỉ số từ điển đối tượng SDO (Index) | - | Unsigned BIN16 | ANY16_U |
+| (S2) | Chỉ số phụ từ điển đối tượng SDO (Sub-index) | - | Unsigned BIN16 | ANY16_U |
+| (S3) | Độ dài (đơn vị BYTE) | - | Unsigned BIN16 | ANY16_U |
+| (S4) | Giá trị cần ghi | - | Define the size according to S3. | - |
+| (S5) | Chỉ định số trạm servo | - | Signed BIN16 | ANY16_S |
 
-| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
-| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
-| MC_READSDO | Tham số 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
-| Tham số 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
-| Tham số 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
-| Tham số 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● |  |  |  |  |  |
-| Tham số 5 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
-Đặc tính kỹ thuật
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
 
-▪The value of the device (S4) is written to the positions of the servo station number (S5), the object dictionary index (S1), the object dictionary sub-index (S2), and the length (S3).
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| MC_READSDO | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
+| MC_READSDO | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
+| MC_READSDO | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
+| MC_READSDO | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● |  |  |  |  |  |
+| MC_READSDO | Parameter 5 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
 
-✎Note:
+#### Đặc tính kỹ thuật
 
-▪When there is the corresponding object dictionary set in PDO, there may be a situation where SDO cannot write to it.
+▪Giá trị của thiết bị (S4) được ghi vào các vị trí gồm số trạm Servo (S5), chỉ số từ điển đối tượng (S1), chỉ số phụ từ điển đối tượng (S2) và độ dài (S3).
+
+:::tip
+✎Lưu ý:
+
+▪Khi có từ điển đối tượng tương ứng đã được cài đặt trong PDO, có thể xảy ra trường hợp SDO không thể ghi vào đó.
+:::
+
+0

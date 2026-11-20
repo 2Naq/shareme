@@ -1,0 +1,850 @@
+---
+id: "6.02-cycle-shift-instruction"
+title: "6.02 Lệnh dịch bit và xoay vòng dữ liệu (Cycle Shift Instruction)"
+sidebar_position: 2
+sidebar_label: "6.02 Cycle Shift instruction"
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.02 Lệnh dịch bit và xoay vòng dữ liệu (Cycle Shift Instruction)"
+---
+
+### DROR/Dịch vòng phải 32-bit
+
+DROR(P)
+
+Dịch vòng phải dữ liệu 32-bit của thiết bị chỉ định tại (d) đi (n) bit (không bao gồm cờ nhớ (Carry Flag)).
+
+-[DROR (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bắt đầu để xoay vòng phải | - | Signed BIN 32 bit | ANY32 |
+| (n) | Số lần xoay vòng phải | 0 to 31 | Signed BIN 32 bit | ANY32 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DROR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DROR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+・Dữ liệu 32-bit của thiết bị chỉ định tại (d) được dịch vòng phải đi (n) bit (không bao gồm cờ nhớ (Carry Flag)). Cờ nhớ (Carry Flag) ở trạng thái ON hoặc OFF tùy theo trạng thái trước khi thực thi DROR(P).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760421825022-877.png?rev=1.1)
+
+(n) chỉ định từ 0 đến 31. Khi chỉ định giá trị từ 32 trở lên cho (n), số bit dịch phải sẽ là phần dư của (n)÷32. Ví dụ: khi (n)=34, 34÷32=1 dư 2, nên thực hiện dịch phải 2 bit.
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit thấp nhất là 1. |
+
+:::tip
+✎Lưu ý:
+
+Không đặt số bit dịch phải (n) thành giá trị âm.
+
+Trong trường hợp sử dụng lệnh thực thi liên tục (ROR, RCR), phép dịch phải sẽ được thực hiện ở mỗi thời gian quét (chu kỳ quét), do đó cần lưu ý. Khi chỉ định số chữ số để xác định thiết bị tại (d), chỉ K4 (lệnh 16-bit) hoặc K8 (lệnh 32-bit) là hợp lệ (ví dụ: K4Y10, K8M0).
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Một giá trị âm đang được gán tại tham số (n). |
+| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760422294752-652.png?rev=1.1)
+
+### After the sườn lên (cạnh lên) of M1 is triggered, the value 32 of the D0 device is shifted right by 3 bits to get 4. RCR/16-bit Cycle Shift Right with Carry
+
+RCR(P)
+
+Dịch vòng phải dữ liệu 16-bit của thiết bị chỉ định tại (d) đi (n) bit bao gồm cả cờ nhớ (Carry Flag).
+
+-[RCR (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bắt đầu để xoay vòng phải | - | Signed BIN 16 bit | ANY16 |
+| (n) | Số lần xoay vòng phải | 0 to 15 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| RCR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| RCR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dịch vòng phải dữ liệu BIN 16-bit của thiết bị chỉ định tại (d) đi (n) bit bao gồm cả cờ nhớ (Carry Flag). Cờ nhớ (Carry Flag) ở trạng thái ON hoặc OFF tùy theo trạng thái trước khi thực thi RCR(P).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760422454333-961.png?rev=1.1)
+
+(n) chỉ định từ 0 đến 15. Khi chỉ định giá trị từ 16 trở lên cho (n), số bit dịch phải sẽ là phần dư của (n)÷16. Ví dụ: khi (n)=18, 18÷16=1 dư 2, nên thực hiện dịch phải 2 bit.
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit thấp nhất là 1. |
+
+:::tip
+✎Lưu ý:
+
+Không đặt số bit dịch phải (n) thành giá trị âm.
+
+Trong trường hợp sử dụng lệnh thực thi liên tục (ROR, RCR), phép dịch phải sẽ được thực hiện ở mỗi thời gian quét (chu kỳ quét), do đó cần lưu ý.
+
+Khi chỉ định số chữ số để xác định thiết bị tại (d), chỉ K4 (lệnh 16-bit) hoặc K8 (lệnh 32-bit) là hợp lệ (ví dụ: K4Y10, K8M0).
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Một giá trị âm được chỉ định trong (n) |
+| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760423186246-316.png?rev=1.1)
+
+Sau khi kích hoạt sườn lên của M0, cờ nhớ (Carry Flag) SM151 bật ON và D0 được gán giá trị 1. Khi M1=ON, giá trị trong thiết bị D0 được dịch phải 4 bit cho kết quả là 12288.
+
+### DRCR/Dịch vòng phải 32-bit có cờ nhớ (Carry)
+
+DRCR(P)
+
+Dịch vòng phải dữ liệu 32-bit của thiết bị chỉ định tại (d) đi (n) bit bao gồm cả cờ nhớ (Carry Flag).
+
+-[DRCR (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bắt đầu để xoay vòng phải | - | Signed BIN 32 bit | ANY32 |
+| (n) | Số lần xoay vòng phải | 0 to 31 | Signed BIN 32 bit | ANY32 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DRCR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DRCR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+・Dữ liệu BIN 32-bit của thiết bị chỉ định tại (d) được dịch vòng phải đi (n) bit bao gồm cả cờ nhớ (Carry Flag). Cờ nhớ (Carry Flag) ở trạng thái ON hoặc OFF tùy theo trạng thái trước khi thực thi DRCR(P).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760423290698-315.png?rev=1.1)
+
+(n) chỉ định từ 0 đến 31. Khi chỉ định giá trị từ 32 trở lên cho (n), số bit dịch phải sẽ là phần dư của (n)÷32. Ví dụ: khi (n)=34, 34÷32=1 dư 2, nên thực hiện dịch phải 2 bit.
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit thấp nhất là 1. |
+
+:::tip
+✎Lưu ý:
+
+Không đặt số bit dịch phải (n) thành giá trị âm.
+
+Trong trường hợp sử dụng lệnh thực thi liên tục (DROR, DRCR), phép dịch phải sẽ được thực hiện ở mỗi thời gian quét (chu kỳ quét), do đó cần lưu ý. Khi chỉ định số chữ số để xác định thiết bị tại (d), chỉ K4 (lệnh 16-bit) hoặc K8 (lệnh 32-bit) là hợp lệ (ví dụ: K4Y10, K8M0).
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Một giá trị âm đang được gán tại tham số (n). |
+| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760423332039-702.png?rev=1.1)
+
+### After the sườn lên (cạnh lên) of M0 is triggered, the carry flag SM151 turns ON, and D0 is assigned the value 1. When M1=ON, the value in the D0 device is shifted ROL/16-bit Cycle Shift Left
+
+ROL(P)
+
+Dịch vòng trái dữ liệu 16-bit của thiết bị chỉ định tại (d) đi (n) bit (không bao gồm cờ nhớ (Carry Flag)).
+
+-[ROL (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bắt đầu để xoay vòng trái | - | Signed BIN 16 bit | ANY16 |
+| (n) | Số lần xoay vòng trái | 0 to 15 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ROL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| ROL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+・Dữ liệu 16-bit của thiết bị chỉ định tại (d) được dịch vòng trái đi (n) bit (không bao gồm cờ nhớ (Carry Flag)). Cờ nhớ (Carry Flag) ở trạng thái ON hoặc OFF tùy theo trạng thái trước khi thực thi ROL(P).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760423449296-645.png?rev=1.1)
+
+(n) chỉ định từ 0 đến 15. Khi chỉ định giá trị từ 16 trở lên cho (n), số bit dịch trái sẽ là phần dư của (n)÷16. Ví dụ: khi (n)=18, 18÷16=1 dư 2, nên thực hiện dịch trái 2 bit.
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit cao nhất là 1. |
+
+:::tip
+✎Lưu ý:
+
+Không đặt số bit dịch trái (n) thành giá trị âm. Trong trường hợp sử dụng lệnh thực thi liên tục (ROL, RCL), phép dịch trái sẽ được thực hiện ở mỗi thời gian quét (chu kỳ quét), do đó cần lưu ý. Khi chỉ định số chữ số để xác định thiết bị tại (d), chỉ K4 (lệnh 16-bit) hoặc K8 (lệnh 32-bit) là hợp lệ (ví dụ: K4Y10, K8M0).
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Một giá trị âm đang được gán tại tham số (n). |
+| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760423484766-674.png?rev=1.1)
+
+Dịch trái giá trị 1 trong thiết bị D0 đi 3 bit cho kết quả là 8.
+
+### DROL/Dịch vòng trái 32-bit
+
+DROL(P)
+
+Dịch vòng trái dữ liệu 32-bit của thiết bị chỉ định tại (d) đi (n) bit (không bao gồm cờ nhớ (Carry Flag)).
+
+-[DROL (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bắt đầu để xoay vòng trái | - | Signed BIN 32 bit | ANY32 |
+| (n) | Số lần xoay vòng trái | 0 to 31 | Signed BIN 32 bit | ANY32 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DROL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DROL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+・Dữ liệu 32-bit của thiết bị chỉ định tại (d) được dịch vòng trái đi (n) bit (không bao gồm cờ nhớ (Carry Flag)). Cờ nhớ (Carry Flag) ở trạng thái ON hoặc OFF tùy theo trạng thái trước khi thực thi DROL(P).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760423597585-179.png?rev=1.1)
+
+(n) chỉ định từ 0 đến 31. Khi chỉ định giá trị từ 32 trở lên cho (n), số bit dịch trái sẽ là phần dư của (n)÷32. Ví dụ: khi (n)=34, 34÷32=1 dư 2, nên thực hiện dịch trái 2 bit.
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit cao nhất là 1. |
+
+:::tip
+✎Lưu ý:
+
+Không đặt số bit dịch trái (n) thành giá trị âm.
+
+Trong trường hợp sử dụng lệnh thực thi liên tục (ROL, RCL), phép dịch trái sẽ được thực hiện ở mỗi thời gian quét (chu kỳ quét), do đó cần lưu ý. Khi chỉ định số chữ số để xác định thiết bị tại (d), chỉ K4 (lệnh 16-bit) hoặc K8 (lệnh 32-bit) là hợp lệ (ví dụ: K4Y10, K8M0).
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Một giá trị âm đang được gán tại tham số (n). |
+| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760423689272-728.png?rev=1.1)
+
+Dịch trái giá trị 1 trong thiết bị D0 đi 3 bit cho kết quả là 8.
+
+### RCL/Dịch vòng trái 16-bit có cờ nhớ (Carry)
+
+RCL(P)
+
+Dịch vòng trái dữ liệu 16-bit của thiết bị chỉ định tại (d) đi (n) bit bao gồm cả cờ nhớ (Carry Flag).
+
+-[RCL (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bắt đầu để xoay vòng trái | - | Signed BIN 16 bit | ANY16 |
+| (n) | Số lần xoay vòng trái | 0 to 15 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| RCL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| RCL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+・Dữ liệu 16-bit của thiết bị chỉ định tại (d) được dịch vòng trái (n) bit bao gồm cả cờ nhớ (Carry Flag). Cờ nhớ (Carry Flag) ở trạng thái ON hoặc OFF tùy theo trạng thái trước khi thực thi RCL(P).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760423735015-397.png?rev=1.1)
+
+(n) chỉ định từ 0 đến 15. Khi chỉ định giá trị từ 16 trở lên cho (n), số bit dịch trái sẽ là phần dư của (n)÷16. Ví dụ: khi (n)=18, 18÷16=1 dư 2, nên thực hiện dịch trái 2 bit.
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | Nó bật ON khi bit cuối cùng được dịch ra từ bit cao nhất là 1. |
+
+:::tip
+✎Lưu ý:
+
+Không đặt số bit dịch trái (n) thành giá trị âm. Trong trường hợp sử dụng lệnh thực thi liên tục (ROL, RCL), phép dịch trái sẽ được thực hiện ở mỗi thời gian quét (chu kỳ quét), do đó cần lưu ý. Khi chỉ định số chữ số để xác định thiết bị tại (d), chỉ K4 (lệnh 16-bit) hoặc K8 (lệnh 32-bit) là hợp lệ (ví dụ: K4Y10, K8M0).
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Một giá trị âm đang được gán tại tham số (n). |
+| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760423784255-258.png?rev=1.1)
+
+Sau khi kích hoạt sườn lên của M0, cờ nhớ (Carry Flag) SM151 bật ON và D0 được gán giá trị 1.
+
+### DRCL/Dịch vòng trái 32-bit có cờ nhớ (Carry)
+
+DRCL(P)
+
+Dịch vòng trái dữ liệu 32-bit của thiết bị chỉ định tại (d) đi (n) bit bao gồm cả cờ nhớ (Carry Flag).
+
+-[DRCL (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị bắt đầu để xoay vòng trái | - | Signed BIN 32 bit | ANY32 |
+| (n) | Số lần xoay vòng trái | 0 to 31 | Signed BIN 32 bit | ANY32 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DRCL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● | ● |
+| DRCL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dữ liệu 32-bit của thiết bị chỉ định tại (d) được dịch vòng trái (n) bit bao gồm cả cờ nhớ (Carry Flag). Cờ nhớ (Carry Flag) ở trạng thái ON hoặc OFF tùy theo trạng thái trước khi thực thi RCL(P).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760423849169-741.png?rev=1.1)
+
+(n) chỉ định từ 0 đến 31. Khi chỉ định giá trị từ 32 trở lên cho (n), số bit dịch trái sẽ là phần dư của (n)÷32. Ví dụ: khi (n)=34, 34÷32=1 dư 2, nên thực hiện dịch trái 2 bit.
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | Bật ON khi bit cuối cùng được dịch ra từ bit cao nhất là 1. |
+
+:::tip
+✎Lưu ý:
+
+Không đặt số bit dịch trái (n) thành giá trị âm. Trong trường hợp sử dụng lệnh thực thi liên tục (ROL, RCL), phép dịch trái sẽ được thực hiện ở mỗi thời gian quét (chu kỳ quét), do đó cần lưu ý. Khi chỉ định số chữ số để xác định thiết bị tại (d), chỉ K4 (lệnh 16-bit) hoặc K8 (lệnh 32-bit) là hợp lệ (ví dụ: K4Y10, K8M0).
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Một giá trị âm đang được gán tại tham số (n). |
+| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760423888127-822.png?rev=1.1)
+
+Sau khi kích hoạt sườn lên của M0, cờ nhớ (Carry Flag) SM151 bật ON và D0 được gán giá trị 1. Khi M1=ON, dịch trái giá trị trong thiết bị D0 đi 4 bit (kèm cờ nhớ) cho kết quả là 24.
+
+### SFTR/Dịch phải n bit của dữ liệu bit
+
+SFTR(P)
+
+Dịch phải (n2) bit đối với dữ liệu gồm (n1) bit bắt đầu từ thiết bị chỉ định tại (d).
+
+-[SFTR (s) (d) (n1) (n2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu sau khi dịch | - | Bit | ANY_BOOL |
+| (d) | Số hiệu bắt đầu của thiết bị được dịch | - | Bit | ANY_BOOL |
+| (n1) | Độ dài của dữ liệu được dịch | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+| (n2) | Số lượng bit dịch chuyển | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SFTR | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+| SFTR | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+| SFTR | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+|  | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dịch phải (n2) bit đối với dữ liệu gồm (n1) bit bắt đầu từ thiết bị chỉ định tại (d). Sau khi dịch, (n2) điểm bắt đầu từ (s) được truyền vào (n2) điểm bắt đầu từ (d) + (n1 - n2).
+
+Khi K0 được chỉ định tại (s), (n2) bit bắt đầu từ (d) + (n1 - n2) sau khi dịch sẽ được đặt bằng 0.
+
+Khi K1 được chỉ định tại (s), (n2) bit bắt đầu từ (d) + (n1 - n2) sau khi dịch sẽ được đặt bằng 1.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760423968427-375.png?rev=1.1)
+
+(1): Khi (s)=K0, giá trị trở thành 0.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767 |
+| 4084H | Khi giá trị chỉ định tại (n1) và (n2) thỏa mãn (n1)&lt;(n2) |
+| 4085H | When thiết bị được chỉ định tại read các lệnh ứng dụng (s), (d), (n1) and (n2) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+Đối với dữ liệu n1=9 bit (chiều dài thanh ghi dịch) bắt đầu từ M0, thực hiện dịch phải n2=3 bit. Sau khi dịch, truyền n2=3 bit từ Y0 vào n2=3 bit từ M6.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760424174444-599.png?rev=1.1)
+
+### SFTL/Dịch trái n bit của dữ liệu bit
+
+SFTL(P)
+
+Dịch trái dữ liệu gồm (n1) bit bắt đầu từ thiết bị chỉ định tại (d) đi (n2) bit.
+
+-[SFTL (s) (d) (n1) (n2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu sau khi dịch | - | Bit | ANY_BOOL |
+| (d) | Số hiệu bắt đầu của thiết bị được dịch | - | Bit | ANY_BOOL |
+| (n1) | Độ dài của dữ liệu được dịch | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+| (n2) | Số lượng bit dịch chuyển | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SFTL | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+| SFTL | Parameter 2 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |
+| SFTL | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+|  | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dịch trái (n2) bit đối với dữ liệu gồm (n1) bit bắt đầu từ thiết bị chỉ định tại (d). Sau khi dịch, (n2) điểm bắt đầu từ (s) được truyền vào (n2) điểm bắt đầu từ (d).
+
+Khi K0 được chỉ định tại (s), (n2) bit bắt đầu từ (d) + (n1 - n2) sau khi dịch sẽ được đặt bằng 0.
+
+Khi K1 được chỉ định tại (s), (n2) bit bắt đầu từ (d) + (n1 - n2) sau khi dịch sẽ được đặt bằng 1.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760424455543-335.png?width=493&amp;height=186&amp;rev=1.1)
+
+(1): Khi (s)=K0, giá trị trở thành 0.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767 |
+| 4084H | Khi giá trị chỉ định tại (n1) và (n2) thỏa mãn (n1)&lt;(n2) |
+| 4085H | When thiết bị được chỉ định tại read các lệnh ứng dụng (s), (d), (n1) and (n2) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760424530216-236.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760424550716-785.png?rev=1.1)
+
+### WSFR/Dịch phải n word của dữ liệu word
+
+WSFR(P)
+
+Dịch phải (n2) bit đối với dữ liệu gồm (n1) bit bắt đầu từ thiết bị chỉ định tại (d).
+
+-[WSFR (s) (d) (n1) (n2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu sau khi dịch | - | word | ANY_BOOL |
+| (d) | Số hiệu bắt đầu của thiết bị được dịch | - | word | ANY_BOOL |
+| (n1) | Độ dài của dữ liệu được dịch | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+| (n2) | Số lượng bit dịch chuyển | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SFTR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| SFTR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| SFTR | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+|  | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dịch phải (n2) word đối với dữ liệu gồm (n1) word bắt đầu từ thiết bị chỉ định tại (d). Sau khi dịch, (n2) điểm bắt đầu từ (s) được truyền vào (n2) điểm bắt đầu từ (d) + (n1 - n2).
+
+Khi K được chỉ định tại (s), (n2) thiết bị bắt đầu từ (d) + (n1 - n2) sau khi dịch sẽ được gán giá trị đã chỉ định.
+
+Nếu giá trị chỉ định tại (n1) hoặc (n2) bằng 0, lệnh sẽ không thực hiện xử lý gì.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760424601832-245.png?rev=1.1)
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767 |
+| 4084H | Khi giá trị chỉ định tại (n1) và (n2) thỏa mãn (n1)&lt;(n2) |
+| 4084H | Khi (s) và (d) đều chỉ định KnM, KnX và KnS, giá trị của n sẽ thay đổi. |
+| 4085H | When thiết bị được chỉ định tại read các lệnh ứng dụng (s), (d), (n1) and (n2) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+(S) và (d) chỉ định cùng một bội số trong thiết bị chỉ định chữ số. Chương trình này thực hiện dịch phải các bit Y0 đến Y7, dịch phải Y10 đến Y17 sang Y0 đến Y7, sau đó lưu X0 đến X7 vào Y10 đến Y17.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760424711174-788.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760424773254-832.png?rev=1.1)
+
+### WSFL/Dịch trái n word của dữ liệu word
+
+WSFL(P)
+
+Dịch trái dữ liệu gồm (n1) bit bắt đầu từ thiết bị chỉ định tại (d) đi (n2) bit.
+
+-[WSFL (s) (d) (n1) (n2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu sau khi dịch | - | Word | ANY_BOOL |
+| (d) | Số hiệu bắt đầu của thiết bị được dịch | - | Word | ANY_BOOL |
+| (n1) | Độ dài của dữ liệu được dịch | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+| (n2) | Số lượng bit dịch chuyển | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SFTR | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| SFTR | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| SFTR | Parameter 3 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+|  | Parameter 4 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dịch trái (n2) word đối với dữ liệu gồm (n1) word bắt đầu từ thiết bị chỉ định tại (d). Sau khi dịch, truyền (n2) điểm bắt đầu từ (s) vào (n2) điểm bắt đầu từ (d).
+
+Khi K được chỉ định tại (s), (n2) thiết bị bắt đầu từ (d) + (n1 - n2) sau khi dịch sẽ được gán giá trị đã chỉ định.
+
+Nếu giá trị chỉ định tại (n1) hoặc (n2) bằng 0, lệnh sẽ không thực hiện xử lý gì.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị chỉ định tại (n1) và (n2) vượt quá phạm vi 0 đến 32767 |
+| 4084H | Khi giá trị chỉ định tại (n1) và (n2) thỏa mãn (n1)&lt;(n2) |
+| 4084H | Khi (s) và (d) đều chỉ định KnM, KnX và KnS, giá trị của n sẽ thay đổi. |
+| 4085H | When thiết bị được chỉ định tại read các lệnh ứng dụng (s), (d), (n1) and (n2) exceeds the corresponding device range |
+| 4086H | When thiết bị được chỉ định tại the write lệnh ứng dụng (d) exceeds the corresponding device range |
+
+#### Ví dụ minh họa
+
+(S), (d) thực hiện chỉ định cùng bội số trong thiết bị chỉ định chữ số. Chương trình này thực hiện dịch bỏ các bit cao Y10 đến Y17 sang trái, dịch trái Y0 đến Y7 sang Y10 đến Y17, sau đó lưu X0 đến X7 vào Y0 đến Y7.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760424973070-861.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760424988439-164.png?rev=1.1)
+
+### SFR/Dịch phải n bit của dữ liệu 16-bit
+
+SFR(P)
+
+Dịch phải dữ liệu 16-bit của thiết bị chỉ định tại (d) đi (n) bit.
+
+-[SFR (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được dịch | - | Signed BIN 16 bit | ANY16 |
+| (n) | Số lượng bit dịch chuyển | 0-15 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SFR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| SFR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425136987-322.png?rev=1.1)
+
+Khi (N)=6
+
+Dịch phải dữ liệu 16-bit của thiết bị chỉ định tại (d) đi (n) bit tính từ bit cao nhất. (n) bit tính từ bit có trọng số cao nhất (MSB) sẽ trở thành 0.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425160057-467.png?rev=1.1)
+
+Khi (N)=6
+
+Khi thiết bị bit được chỉ định tại (d), phạm vi thiết bị được chỉ định theo số chữ số sẽ được dịch sang phải.
+
+(n) chỉ định từ 0 đến 15. Khi chỉ định giá trị từ 16 trở lên cho (n), số bit dịch sẽ là phần dư của (n)÷16. Ví dụ: khi (n)=18, 18÷16=1 dư 2, nên thực hiện dịch phải 2 bit.
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | Set to ON/OFF according to the state of n-1 bit (1/0) |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Một giá trị âm đang được gán tại tham số (n). |
+| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+Khi M1 ON, nội dung của Y10 đến Y23 được dịch phải theo số bit chỉ định trong D0.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425226210-263.png?rev=1.1)
+
+### DSFR/Dịch phải 1 word cho dữ liệu n word
+
+DSFR(P)
+
+Dịch phải 1 word đối với dữ liệu gồm (n) điểm bắt đầu từ thiết bị chỉ định tại (d).
+
+-[DSFR (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được dịch | - | Signed BIN 16 bit | ANY16 |
+| (n) | Số lượng bit dịch chuyển | 0 to 32767 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DSFR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| DSFR | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+• Dịch phải 1 word đối với dữ liệu gồm (n) điểm bắt đầu từ thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425335570-491.png?rev=1.1)
+
+• Thiết bị chỉ định tại (d)+(n-1) sẽ trở thành 0.
+
+:::tip
+✎Lưu ý:
+
+Tại (d), khi chỉ định số hiệu thiết bị bằng cách chỉ định số chữ số của thiết bị bit, số hiệu thiết bị phải là bội số của 16 (0, 16, 32, 64...) và chỉ được chỉ định K4 cho số chữ số. Khi số chữ số không phải K4, hệ thống sẽ dùng K4 để xử lý.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 32767 |
+| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+Khi M1 ON, dịch phải nội dung của D0 đến D4 đi 1 word (D1→D0, D2→D1, D3→D2, D4→D3, D4 được đặt bằng 0).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425377305-643.png?rev=1.1)
+
+Trước khi thực thi:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425415508-482.png?rev=1.1)
+
+### Sau khi thực thi:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425447660-222.png?width=746&amp;height=153&amp;rev=1.1)
+
+### SFL/Dịch trái n bit của dữ liệu 16-bit
+
+SFL(P)
+
+Dịch trái dữ liệu 16-bit của thiết bị chỉ định tại (d) đi (n) bit.
+
+-[SFL (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được dịch | - | Signed BIN 16 bit | ANY16 |
+| (n) | Số lượng bit dịch chuyển | 0 to 15 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SFL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| SFL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dịch trái dữ liệu 16-bit của thiết bị chỉ định tại (d) đi (n) bit tính từ bit thấp nhất. (n) bit tính từ bit thấp nhất (LSB) sẽ trở thành 0.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425551653-648.png?rev=1.1)
+
+Khi (n)=8, kết quả như sau.
+
+Khi thiết bị bit được chỉ định tại (d), phép dịch trái được thực hiện trong phạm vi thiết bị được chỉ định theo số chữ số.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425615068-500.png?rev=1.1)
+
+Khi (n)=3, kết quả như sau.
+
+(n) chỉ định từ 0 đến 15. Khi chỉ định giá trị từ 16 trở lên cho (n), số bit dịch trái sẽ là phần dư của (n)÷16. Ví dụ: khi (n)=18, 18÷16=1 dư 2, nên thực hiện dịch trái 2 bit.
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Device) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM151 | Cờ nhớ (Carry) | Turn ON/OFF according to the state of n+1 bit (1/0) |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Một giá trị âm đang được gán tại tham số (n). |
+| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+Example: When M1 is ON, the contents of Y10 to Y17 are shifted to the left by the number of digits specified in D0.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425672540-175.png?rev=1.1)
+
+### DSFL/Dịch trái 1 word cho dữ liệu n word
+
+DSFL(P)
+
+Dịch trái 1 word đối với dữ liệu gồm (n) điểm bắt đầu từ thiết bị chỉ định tại (d).
+
+-[DSFL (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được dịch | - | Signed BIN 16 bit | ANY16 |
+| (n) | Số lượng bit dịch chuyển | 0 to 32,767 | Signed BIN 16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DSFL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+| DSFL | Parameter 2 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Dịch trái 1 word đối với dữ liệu gồm (n) điểm bắt đầu từ thiết bị chỉ định tại (d).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425747327-866.png?rev=1.1)
+
+Thiết bị chỉ định tại (d) sẽ trở thành 0.
+
+:::tip
+✎Lưu ý:
+
+Tại (d), khi chỉ định số hiệu thiết bị bằng cách chỉ định số chữ số của thiết bị bit, số hiệu thiết bị phải là bội số của 16 (0, 16, 32, 64...) và chỉ được chỉ định K4 cho số chữ số. Khi số chữ số không phải K4, hệ thống sẽ dùng K4 để xử lý.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Khi giá trị chỉ định tại (n) vượt quá phạm vi 0 đến 32,767 |
+| 4085H | Phạm vi tại (d) và (n) trong lệnh ứng dụng vượt quá giới hạn vùng nhớ thiết bị |
+| 4086H | Kết quả xuất ra tại (d) trong lệnh ghi vượt quá phạm vi vùng nhớ thiết bị cho phép |
+
+#### Ví dụ minh họa
+
+Khi M1 ON, dịch trái nội dung của D0 đến D4 đi 1 word (D3→D4, D2→D3, D1→D2, D0→D1, D0 được đặt bằng 0).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425774130-914.png?rev=1.1)
+
+Trước khi thực thi:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425790573-653.png?rev=1.1)
+
+Sau khi thực thi:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/Transfer%20Comparison%20instruction/WebHome/1760425802291-948.png?rev=1.1)
+
+0

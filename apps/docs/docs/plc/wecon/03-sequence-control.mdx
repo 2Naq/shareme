@@ -1,15 +1,708 @@
 ---
 id: "03-sequence-control"
-title: "03 Sequence Control: Điều khiển tuần tự SFC / STL"
+title: "03 Tập lệnh điều khiển tuần tự (Sequence Control)"
 sidebar_position: 3
 sidebar_label: "03 Sequence Control"
-tags: [wecon, lx6v, lx6a, manual]
-description: "Kỹ thuật lập trình điều khiển quá trình tuần tự SFC / STL trên PLC Wecon."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 03 Tập lệnh điều khiển tuần tự (Sequence Control)"
 ---
 
-## 03 Sequence Control: Điều khiển tuần tự SFC / STL
+## Các lệnh chương trình điều khiển trình tự
 
-Điều khiển tuần tự (Sequence Control) sử dụng các cờ trạng thái `S` để phân chia chu trình công nghệ của máy thành các bước rõ ràng (Step):
-- Bước khởi tạo ban đầu (Initial Step).
-- Bước chuyển tiếp điều kiện (Transition Condition).
-- Thực thi tác vụ tại mỗi bước và tự động chuyển giao trạng thái khi cảm biến báo hoàn tất.
+## Các lệnh tiếp điểm
+
+## Bắt đầu phép toán, nối nối tiếp, nối song song
+
+LD, LDI, AND, ANI, OR, ORI
+
+• LD: tiếp điểm thường mở (NO) instruction. LD I: tiếp điểm thường đóng (NC) instruction.
+
+Trích xuất thông tin ON/OFF của thiết bị được chỉ định trong (s) làm kết quả tính toán.
+
+• AND: Lệnh nối nối tiếp tiếp điểm thường mở (NO). ANI: Lệnh nối nối tiếp tiếp điểm thường đóng (NC).
+
+Trích xuất thông tin ON/OFF của thiết bị được chỉ định trong (s) và thực hiện phép toán AND với kết quả tính toán cho đến thời điểm hiện tại làm kết quả tính toán.
+
+• OR: Lệnh nối song song 1 tiếp điểm thường mở (NO). ORI: Lệnh nối song song 1 tiếp điểm thường đóng (NC)
+
+Trích xuất thông tin ON/OFF của thiết bị được chỉ định trong (s) và thực hiện phép toán OR với kết quả phép toán cho đến thời điểm hiện tại làm kết quả phép toán.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/42.png?width=186&amp;height=317&amp;rev=1.1)
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (nhãn) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị dùng làm tiếp điểm | --- | Bit | ANY_BOOL |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| LD | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| LDI | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| AND | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| ANI | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| OR | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| ORI | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+
+#### Đặc tính kỹ thuật
+
+- LD, LDI
+
+• Lệnh LD là lệnh tiếp điểm thường mở (NO), và lệnh LDI là lệnh tiếp điểm thường đóng (NC). Thông tin ON/OFF *1 của thiết bị được chỉ định được trích xuất làm kết quả phép toán.
+
+*1: Khi chỉ định bit của thiết bị từ (Word), trạng thái được bật/tắt (ON/OFF) theo giá trị 1/0 của bit được chỉ định.
+
+- AND, ANI
+
+• Lệnh AND là lệnh nối nối tiếp tiếp điểm thường mở (NO), và lệnh ANI là lệnh nối nối tiếp tiếp điểm thường đóng (NC). Lệnh trích xuất thông tin ON/OFF*1 của thiết bị bit được chỉ định và thực hiện phép toán AND với kết quả phép toán cho đến thời điểm hiện tại. Giá trị này được dùng làm kết quả phép toán.
+
+*1: Khi chỉ định bit của thiết bị từ (Word), trạng thái được bật/tắt (ON/OFF) theo giá trị 1/0 của bit được chỉ định.
+
+• Không giới hạn số lượng tiếp điểm nối tiếp và lệnh này có thể được sử dụng liên tục bất kỳ lúc nào.
+
+• Sau lệnh OUT, việc xuất nối tầng thông qua tiếp điểm OUT sang các cuộn dây khác được gọi là ngõ ra nối tầng. Miễn là trình tự hợp lệ, có thể lặp lại bao nhiêu lần tùy ý.
+
+- OR, ORI
+
+• Lệnh OR là lệnh nối song song cho một tiếp điểm thường mở (NO), và lệnh ORI là lệnh nối song song cho một tiếp điểm thường đóng (NC). Lệnh trích xuất thông tin ON/OFF*1 của thiết bị được chỉ định, thực hiện phép toán OR với kết quả tính toán cho đến thời điểm hiện tại và sử dụng giá trị đó làm kết quả phép toán.
+
+*1: Khi chỉ định bit của thiết bị từ (Word), trạng thái được bật/tắt (ON/OFF) theo giá trị 1/0 của bit được chỉ định.
+
+• Các lệnh OR và ORI bắt đầu từ bước chứa lệnh và nối song song tới bước chứa các lệnh LD và LDI trước đó.
+
+• Không giới hạn số lượng kết nối song song.
+
+:::tip
+Điểm chính
+
+Khi chỉ định bit của thiết bị từ (Word), bit được chỉ định bằng số thập lục phân. (Ví dụ, b11 của D0 sẽ trở thành "D0.B")
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | (S) read address vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+1) Lệnh LD (bắt đầu phép toán logic của tiếp điểm thường mở a)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/43.png?width=496&amp;height=217&amp;rev=1.1)
+
+2) Lệnh LDI (bắt đầu phép toán logic của tiếp điểm thường đóng b)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/44.png?rev=1.1)
+
+3) Lệnh AND (tiếp điểm thường mở a nối nối tiếp)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/45.png?rev=1.1)
+
+4) Lệnh ANI (tiếp điểm thường đóng b nối nối tiếp)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/46.png?width=539&amp;height=266&amp;rev=1.1)
+
+5) Lệnh OR (tiếp điểm thường mở a nối song song)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/47.png?width=430&amp;height=317&amp;rev=1.1)
+
+6) Lệnh ORI (tiếp điểm thường đóng b nối song song)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/48.png?width=476&amp;height=361&amp;rev=1.1)
+
+7) Hiệu chỉnh độ lệch (Offset)
+
+Tất cả các thiết bị được sử dụng trong các lệnh LD, LDI, AND, ANI, OR, ORI đều có thể được hiệu chỉnh chỉ số (Index) bằng thiết bị dữ liệu D (không thể hiệu chỉnh thanh ghi trạng thái S).
+
+Có thể sử dụng D0 đến D7999 trong hiệu chỉnh chỉ số.
+
+Khi các thiết bị là ngõ vào (X) và ngõ ra (Y), giá trị của thanh ghi chỉ số được chuyển đổi sang số bát phân rồi cộng vào.
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/49.png?rev=1.1)
+
+Khi giá trị của D0 là 10, X012 quyết định tiếp điểm LD ở trạng thái ON (dẫn)/OFF (không dẫn).
+
+8) Chỉ định bit trong thanh ghi dữ liệu
+
+Đối với các thiết bị sử dụng trong các lệnh LD, LDI, AND, ANI, OR và ORI, có thể chỉ định từng bit riêng lẻ của thiết bị dữ liệu (D).
+
+Khi chỉ định một bit của thanh ghi dữ liệu, hãy nhập dấu "." sau số hiệu thanh ghi dữ liệu (D), tiếp theo là số hiệu bit (0 đến F). Chức năng chỉ định bit khả dụng cho thanh ghi dữ liệu, nhưng chỉ hợp lệ với thanh ghi dữ liệu 16-bit.
+
+Số hiệu bit được gán bắt đầu từ bit có trọng số nhỏ nhất (LSB), theo thứ tự: 0, 1, 2, ..., 9, A, B, ..., F
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/1775545550785-830.png)
+
+Trạng thái ON/OFF (dẫn/không dẫn) của tiếp điểm LD được quyết định bởi bit 3 của D0.
+
+### Bắt đầu tính toán xung, nối nối tiếp xung, nối song song xung
+
+LDP, LDF, ANDP, ANDF, ORP, ORF
+
+• LDP: Lệnh bắt đầu phép toán xung cạnh lên.
+
+Chỉ bật ON tại cạnh lên (OFF→ON) của thiết bị bit được chỉ định trong (s).
+
+• LDF: Lệnh bắt đầu phép toán xung cạnh xuống.
+
+Chỉ bật ON tại cạnh xuống (ON→OFF) của thiết bị bit được chỉ định trong (s).
+
+• ANDP: Lệnh nối nối tiếp xung cạnh lên, ANDF: Lệnh nối nối tiếp xung cạnh xuống. Kết quả phép toán trước đó cho đến thời điểm này được thực hiện phép toán AND với thiết bị bit được chỉ định trong (s) làm kết quả phép toán.
+
+• ORP: Lệnh nối song song cho xung cạnh lên / ORF: Lệnh nối song song cho xung cạnh xuống. Kết quả phép toán cho đến thời điểm này được thực hiện phép toán OR với thiết bị bit được chỉ định trong (s) làm kết quả phép toán.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/50.png?width=210&amp;height=369&amp;rev=1.1)
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Các thiết bị dùng làm tiếp điểm | - | Bit | ANY_BOOL |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| LD | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| LDI | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| AND | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| ANI | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| OR | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| ORI | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+
+#### Đặc tính kỹ thuật
+
+- LDP, LDF
+
+• Lệnh LDP là lệnh bắt đầu phép toán xung cạnh lên, chỉ bật ON tại cạnh lên (OFF→ON) của thiết bị bit được chỉ định. Khi chỉ định bit của thiết bị từ (Word), lệnh chỉ bật ON khi bit được chỉ định chuyển từ 0→1. Trong trường hợp chỉ dùng lệnh LDP, nó tương đương với lệnh dạng xung (P) được thực thi khi ON.
+
+Khi mạch sử dụng lệnh LDP được thay thế bằng mạch không sử dụng lệnh LDP, tình huống sẽ như sau.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/51.png?width=599&amp;height=122&amp;rev=1.1)
+
+• Lệnh LDF là lệnh xung cạnh xuống, bật ON tại cạnh xuống (ON→OFF) của thiết bị bit được chỉ định. Khi chỉ định bit của thiết bị từ (Word), lệnh chỉ bật ON khi bit được chỉ định chuyển từ 1→0.
+
+- ANDP, ANDF
+
+• Lệnh ANDP là lệnh nối nối tiếp cho xung cạnh lên, và lệnh ANDF là lệnh nối nối tiếp cho xung cạnh xuống. Phép toán AND được thực hiện với kết quả phép toán cho đến thời điểm đó làm kết quả phép toán. Thông tin ON/OFF sử dụng trong các lệnh ANDP và ANDF được thể hiện trong bảng dưới đây.
+
+| Thiết bị được chỉ định trong ANDP, ANDF (Thiết bị bit) | Thiết bị được chỉ định trong ANDP, ANDF (Chỉ định bit của thiết bị word) | Trạng thái ANDP | Trạng thái ANDF |
+| :--- | :--- | :--- | :--- |
+| OFF→ON | 0→1 | ON | OFF |
+| OFF | 0 | OFF | OFF |
+| ON | 1 | OFF | OFF |
+| ON→OFF | 1→0 | OFF | ON |
+
+- ORP, ORF
+
+• Lệnh ORP là lệnh nối song song cho xung cạnh lên, và lệnh ORF là lệnh nối song song cho xung cạnh xuống. Phép toán OR được thực hiện với kết quả phép toán tính đến thời điểm đó và kết quả thu được dùng làm kết quả phép toán. Thông tin ON/OFF sử dụng trong các lệnh ORP và ORF được thể hiện trong bảng dưới đây.
+
+| Thiết bị được chỉ định trong ORP, ORF (Thiết bị bit) | Thiết bị được chỉ định trong ORP, ORF (Chỉ định bit của thiết bị word) | ORP status | ORF status |
+| :--- | :--- | :--- | :--- |
+| OFF→ON | 0→1 | ON | OFF |
+| OFF | 0 | OFF | OFF |
+| ON | 1 | OFF | OFF |
+| ON→OFF | 1→0 | OFF | ON |
+
+#### Mã lỗi (Error Code)
+
+Không có lỗi vận hành.
+
+#### Ví dụ minh họa
+
+1) Các lệnh LDP, ANDP, ORP (tính toán bắt đầu khi phát hiện cạnh lên, nối nối tiếp, nối song song)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/52.png?width=512&amp;height=246&amp;rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/53.png?width=521&amp;height=200&amp;rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/54.png?width=524&amp;height=90&amp;rev=1.1)
+
+Trong hình trên, khi X000 đến X002 chuyển từ OFF sang ON, M0 hoặc M1 chỉ duy trì trạng thái ON trong 1 chu kỳ vận hành.
+
+2) Các lệnh LDF, ANDF, ORF (tính toán bắt đầu khi phát hiện cạnh xuống, nối nối tiếp, nối song song)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/55.png?width=561&amp;height=272&amp;rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/56.png?rev=1.1)
+
+Trong hình trên, khi X000 đến X002 chuyển từ ON sang OFF, M0 hoặc M1 chỉ duy trì trạng thái ON trong 1 chu kỳ vận hành.
+
+3) Chỉ định bit của thanh ghi dữ liệu (D)
+
+Trong các thiết bị dùng cho lệnh LDP, LDF, ANDP, ANDF, ORP, ORF, có thể chỉ định các bit của thanh ghi dữ liệu (D).
+
+Để chỉ định bit của thanh ghi dữ liệu, nhập dấu "." sau số hiệu của thanh ghi dữ liệu (D), rồi nhập số hiệu bit (0 đến F). Các thanh ghi dữ liệu khả dụng được chỉ định theo bit, nhưng chỉ hợp lệ đối với thanh ghi dữ liệu 16-bit.
+
+Vui lòng chỉ định số hiệu bit theo thứ tự 0, 1, 2,... 9, A, B,... F bắt đầu từ bit bậc thấp.
+
+Ví dụ:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/57.png?rev=1.1)
+
+Bit thứ 3 của D0 quyết định trạng thái ON (dẫn)/OFF (không dẫn) của tiếp điểm LDP khi nó chuyển từ OFF sang ON.
+
+## Các lệnh kết hợp
+
+### Nối nối tiếp và nối song song các khối giản đồ thang (Ladder)
+
+ANB, ORB
+
+Thực hiện phép toán AND hoặc phép toán OR giữa khối A và khối B, và sử dụng làm kết quả của phép toán.
+
+Giản đồ thang (Ladder)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/58.png?width=317&amp;height=229&amp;rev=1.1)
+
+#### Đặc tính kỹ thuật
+
+- ANB
+
+• Thực hiện phép toán AND của khối A và khối B và sử dụng làm kết quả phép toán.
+
+• Ký hiệu của lệnh ANB không phải là ký hiệu tiếp điểm, mà là ký hiệu kết nối.
+
+- ORB
+
+• Thực hiện phép toán OR của khối A và khối B và sử dụng làm kết quả phép toán.
+
+• Lệnh ORB kết nối song song các khối mạch có từ 2 tiếp điểm trở lên. Kết nối song song chỉ có 1 tiếp điểm sử dụng lệnh OR và lệnh ORI, không dùng lệnh ORB.
+
+• Ký hiệu của lệnh ORB không phải là ký hiệu tiếp điểm, mà là ký hiệu kết nối.
+
+#### Mã lỗi (Error Code)
+
+Không có lỗi vận hành.
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/59.png?rev=1.1)
+
+### Đảo kết quả phép toán
+
+INV
+
+Đảo ngược kết quả các phép toán tính đến trước lệnh INV.
+
+Giản đồ thang (Ladder)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/60.png?width=340&amp;height=58&amp;rev=1.1)
+
+#### Đặc tính kỹ thuật
+
+Đảo ngược kết quả các phép toán tính đến trước lệnh INV.
+
+| kết quả phép toán before INV instruction | kết quả phép toán after INV instruction is executed |
+| :--- | :--- |
+| OFF | ON |
+| ON | OFF |
+
+#### Mã lỗi (Error Code)
+
+Không có lỗi vận hành.
+
+:::tip
+Điểm lưu ý
+
+• Lệnh INV thực thi phép toán trên kết quả của phép toán trước đó, do đó cần sử dụng ở cùng vị trí với lệnh AND. Không thể sử dụng lệnh INV ở vị trí của lệnh LD và OR.
+
+• Khi sử dụng kết hợp lệnh INV và lệnh ANB cho phép toán giản đồ thang (Ladder), hãy chú ý đến phạm vi bị đảo.
+:::
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/61.png?width=591&amp;height=200&amp;rev=1.1)
+
+#### Ví dụ minh họa
+
+Lệnh INV (đảo kết quả phép toán)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/62.png?width=600&amp;height=193&amp;rev=1.1)
+
+### Kết quả phép toán xung
+
+MEP, MEF
+
+• MEP: Bật ON khi kết quả phép toán trước lệnh MEP là cạnh lên, và tắt OFF khi không phải cạnh lên.
+
+• MEF: Bật ON khi kết quả phép toán trước lệnh MEF là cạnh xuống, và tắt OFF khi không phải cạnh xuống.
+
+Giản đồ thang (Ladder)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/63.png?width=386&amp;height=126&amp;rev=1.1)
+
+#### Đặc tính kỹ thuật
+
+- MEP
+
+• Khi kết quả phép toán trước lệnh MEP là cạnh lên (OFF→ON), nó chuyển sang ON (trạng thái dẫn). Khi kết quả phép toán trước lệnh MEP không phải cạnh lên, nó chuyển sang OFF (trạng thái không dẫn).
+
+• Khi sử dụng lệnh MEP, nếu nhiều tiếp điểm được mắc nối tiếp, việc xử lý xung sẽ dễ dàng hơn.
+
+- MEF
+
+• Khi kết quả phép toán trước lệnh MEF là cạnh xuống (ON→OFF), nó chuyển sang ON (trạng thái dẫn). Khi kết quả phép toán trước lệnh MEF không phải cạnh xuống, nó chuyển sang OFF (trạng thái không dẫn).
+
+• Khi sử dụng lệnh MEF, nếu nhiều tiếp điểm được mắc nối tiếp, việc xử lý xung sẽ dễ dàng hơn.
+
+#### Mã lỗi (Error Code)
+
+Không có lỗi vận hành.
+
+:::tip
+Điểm lưu ý
+
+• Đối với lệnh MEP và lệnh MEF, nếu các tiếp điểm có chỉ số được tạo xung bởi chương trình con, lệnh FOR đến NEXT, v.v., chúng có thể không hoạt động bình thường.
+
+• Lệnh MEP và lệnh MEF thực hiện thao tác dựa trên kết quả tính toán trước đó, vì vậy chúng phải được sử dụng ở cùng vị trí với lệnh AND. Không thể sử dụng lệnh MEP và lệnh MEF ở vị trí của lệnh LD và lệnh OR.
+:::
+
+#### Ví dụ minh họa
+
+1) Lệnh MEP (ON tại cạnh lên của kết quả phép toán)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/64.png?rev=1.1)
+
+- Lệnh MEF (ON tại cạnh xuống của kết quả phép toán)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/65.png?rev=1.1)
+
+## Các lệnh ngõ ra
+
+### Lệnh OUT (ngoại trừ bộ định thời và bộ đếm)
+
+Xuất kết quả của phép toán trước lệnh OUT ra thiết bị được chỉ định.
+
+Giản đồ thang (Ladder)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/66.png?width=211&amp;height=81&amp;rev=1.1)
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Số hiệu thiết bị ON/OFF | - | Bit | ANY_BOOL |
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| OUT | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  | ● | ● |  |  |  | ● | ● |  |  |  | ● |
+
+#### Đặc tính kỹ thuật
+
+| Điều kiện | Kết quả tính toán | Cuộn dây / bit được chỉ định |
+| :--- | :--- | :--- |
+| Khi sử dụng thiết bị bit | OFF | OFF |
+| Khi sử dụng thiết bị bit | ON | ON |
+| Khi sử dụng thiết bị word | OFF | 0 |
+| Khi sử dụng thiết bị word | ON | 1 |
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4086H | (D) write address vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+1) Khi sử dụng thiết bị bit
+
+Thiết bị được lập trình với lệnh OUT bật ON/OFF theo trạng thái của tiếp điểm điều khiển, và lệnh OUT song song có thể được sử dụng liên tiếp nhiều lần.
+
+Trong ví dụ chương trình sau, đây là trường hợp của lệnh OUT M101 theo sau là OUT M100.
+
+Tuy nhiên, nếu sử dụng nhiều lệnh OUT cho cùng một số hiệu thiết bị, sẽ xảy ra hiện tượng ngõ ra kép (cuộn dây kép - Double Coil). Xin lưu ý.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/67.png?width=377&amp;height=170&amp;rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/69.png?width=295&amp;height=180&amp;rev=1.1)
+
+2） Hiệu chỉnh độ lệch (Offset)
+
+Tất cả các thiết bị sử dụng trong lệnh OUT đều có thể được hiệu chỉnh chỉ số (Index) bằng thiết bị dữ liệu D (không thể hiệu chỉnh thanh ghi trạng thái S).
+
+Có thể sử dụng D0 đến D7999 trong hiệu chỉnh chỉ số.
+
+Khi các thiết bị sử dụng là ngõ vào (X) và ngõ ra (Y), giá trị của thanh ghi chỉ số được chuyển sang số bát phân rồi cộng vào.
+
+Ví dụ:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/70.png?rev=1.1)
+
+Khi giá trị của D0 là 10, nếu X0 ON (dẫn), tiếp điểm Y12 sẽ ON (dẫn).
+
+3) Chỉ định bit trong thanh ghi dữ liệu
+
+Trong số các thiết bị sử dụng trong lệnh OUT, có thể chỉ định bit của thanh ghi dữ liệu (D). Để chỉ định bit của thanh ghi dữ liệu, nhập dấu "." sau số hiệu của thanh ghi dữ liệu (D), rồi nhập số hiệu bit (0 đến F). Các thanh ghi dữ liệu khả dụng được chỉ định theo bit, nhưng chỉ hợp lệ với thanh ghi dữ liệu 16-bit.
+
+Vui lòng chỉ định số hiệu vị trí theo thứ tự 0, 1, 2,... 9, A, B,... F bắt đầu từ bit bậc thấp.
+
+Ví dụ:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/71.png?width=239&amp;height=46&amp;rev=1.1)
+
+Trong ví dụ bên trái, trạng thái của X1 quyết định trạng thái ON (dẫn)/OFF (không dẫn) của bit thứ 3 trong D0.
+
+### Lệnh SET
+
+Khi lệnh thực thi chuyển sang ON, thiết bị được chỉ định trong (d) sẽ ở trạng thái sau.
+
+• Thiết bị bit: Bật ON cuộn dây và tiếp điểm.
+
+• Chỉ định bit của thiết bị từ (Word): Đặt vị trí được chỉ định thành 1.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/72.png?width=239&amp;height=78&amp;rev=1.1)
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Đặt (ON) số hiệu thiết bị bit/chỉ định bit của thiết bị word | - | Bit | ANY_BOOL |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SET | Parameter 1 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+
+*1: Không thể sử dụng hiệu chỉnh độ lệch khi dùng các thiết bị S.
+
+#### Đặc tính kỹ thuật
+
+Khi lệnh thực thi chuyển sang ON, thiết bị được chỉ định trong (d) sẽ ở trạng thái sau.
+
+| Vùng nhớ thiết bị (Devices) | Trạng thái thiết bị |
+| :--- | :--- |
+| Bit device | Bật ON cuộn dây và tiếp điểm |
+| Chỉ định bit của thiết bị word | Đặt vị trí bit được chỉ định lên 1 |
+
+Thiết bị đã được bật ON sẽ vẫn duy trì trạng thái ON ngay cả khi lệnh thực thi tắt OFF. Thiết bị được bật ON bởi lệnh SET có thể được tắt OFF bằng lệnh RST.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/73.png?width=600&amp;height=139&amp;rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Đối với rơ-le ngõ ra (Y), nếu lệnh SET và lệnh RST được thực thi trong cùng một phép toán/chu kỳ, kết quả của lệnh nằm gần lệnh END (cuối chương trình) nhất sẽ được xuất ra.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4086H | (d) In the case of using offset, the offset address vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+1) Khi sử dụng thiết bị bit
+
+Lệnh SET song song có thể được sử dụng liên tiếp nhiều lần. Trong ví dụ chương trình sau, đây là trường hợp của chương trình có SET Y000 theo sau là RST Y000.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/74.png?width=632&amp;height=155&amp;rev=1.1)
+
+2) Hiệu chỉnh độ lệch (Offset)
+
+Tất cả các thiết bị sử dụng trong lệnh SET đều có thể được đánh chỉ số (Index) bằng thiết bị dữ liệu D (không thể hiệu chỉnh thanh ghi trạng thái S).
+
+Có thể sử dụng D0 đến D7999 trong hiệu chỉnh chỉ số.
+
+Khi các thiết bị sử dụng là ngõ vào (X) và ngõ ra (Y), giá trị của thanh ghi chỉ số được chuyển đổi sang số bát phân rồi cộng vào.
+
+Ví dụ:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/75.png?rev=1.1)
+
+Khi giá trị của D0 là 10, lúc X0 ON (dẫn), tiếp điểm Y12 ON (dẫn), lúc X0 OFF (không dẫn), tiếp điểm Y12 vẫn giữ nguyên trạng thái.
+
+3) Chỉ định bit trong thanh ghi dữ liệu
+
+Trong số các thiết bị sử dụng trong lệnh SET, có thể chỉ định các bit của thanh ghi dữ liệu (D).
+
+Để chỉ định bit của thanh ghi dữ liệu, nhập dấu "." sau số hiệu của thanh ghi dữ liệu (D), rồi nhập số hiệu bit (0 đến F). Các thanh ghi dữ liệu khả dụng được chỉ định theo bit, nhưng chỉ hợp lệ đối với thanh ghi dữ liệu 16-bit.
+
+Vui lòng chỉ định số hiệu bit theo thứ tự 0, 1, 2,… 9, A, B,… F bắt đầu từ bit thấp hơn.
+
+Ví dụ:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/76.png?rev=1.1)
+
+Trong ví dụ bên trái, trạng thái của X1 là ON (dẫn), và bit thứ 3 trong D0 chuyển sang ON (dẫn). Khi trạng thái của X1 là OFF (không dẫn), trạng thái của bit thứ 3 trong D0 vẫn giữ nguyên.
+
+## Lệnh RST
+
+Khi ngõ vào RST chuyển sang ON, thiết bị được chỉ định trong (d) sẽ chuyển sang trạng thái sau.
+
+• Thiết bị bit: Tắt OFF cuộn dây và tiếp điểm.
+
+• Bộ định thời và bộ đếm: Đặt giá trị hiện tại về 0, đồng thời đặt cuộn dây và tiếp điểm sang OFF.
+
+• Chỉ định bit của thiết bị từ (Word): Đặt vị trí được chỉ định về 0.
+
+• Thiết bị từ (Word), thiết bị truy cập mô-đun, thanh ghi chỉ số: Đặt nội dung về 0.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/77.png?width=221&amp;height=72&amp;rev=1.1)
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Đặt lại (Reset) số hiệu thiết bị bit/chỉ định bit của thiết bị word hoặc đặt lại số hiệu thiết bị word | - | Bit/word/double word | ANY_ELEMENTARY |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| RST | Parameter 1 | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● |
+
+*1: Không thể sử dụng hiệu chỉnh độ lệch khi dùng các thiết bị S.
+
+#### Đặc tính kỹ thuật
+
+Khi lệnh thực thi ở trạng thái ON, thiết bị được chỉ định sẽ ở trạng thái sau.
+
+| Vùng nhớ thiết bị (Devices) | Trạng thái thiết bị |
+| :--- | :--- |
+| Bit Device | Bật ON cuộn dây và tiếp điểm |
+| Timer, counter | Đặt giá trị hiện tại về 0, đặt cuộn dây và tiếp điểm về OFF |
+| Chỉ định bit của thiết bị word | Đặt vị trí bit được chỉ định về 0 |
+| Thiết bị word | Set the content to 0 |
+
+Khi lệnh thực thi ở trạng thái OFF, trạng thái thiết bị không thay đổi.
+
+Chức năng khi chỉ định thiết bị từ (Word) bằng lệnh RST giống với giản đồ thang (Ladder) sau đây.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/78.png?width=681&amp;height=79&amp;rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Đối với bộ định thời và bộ đếm, khi lệnh RST được thực thi trong chương trình, chương trình con hoặc chương trình ngắt mà lệnh RST bị nhảy qua, bộ định thời và bộ đếm có thể giữ nguyên không đổi sau khi đặt lại, và bộ định thời/bộ đếm sẽ không hoạt động.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4086H | (d) write address vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+1) Sử dụng thiết bị bit
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/79.png?width=426&amp;height=171&amp;rev=1.1)
+
+- Khi X0 ON (dẫn), Y0 được đặt về OFF, R10 được đặt về 0, thiết bị từ của T10 được đặt về 0, thiết bị bit được đặt về OFF và thiết bị từ của C100 được đặt về 0. Thiết bị được tắt OFF.
+
+- Khi X0 OFF (không dẫn), mọi trạng thái đều giữ nguyên không đổi.
+
+2) Hiệu chỉnh độ lệch (Offset)
+
+Tất cả các thiết bị sử dụng trong lệnh RST đều có thể được đánh chỉ số (Index) bằng thiết bị dữ liệu D. (Không thể hiệu chỉnh thanh ghi trạng thái S)
+
+Có thể sử dụng D0 đến D7999 trong hiệu chỉnh chỉ số.
+
+Khi các thiết bị sử dụng là ngõ vào (X) và ngõ ra (Y), giá trị của thanh ghi chỉ số được chuyển đổi sang số bát phân rồi cộng vào.
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/80.png?rev=1.1)
+
+Khi giá trị của D0 là 10, lúc X0 ON (dẫn), tiếp điểm Y12 chuyển sang OFF (không dẫn), lúc X0 OFF (không dẫn), tiếp điểm Y12 vẫn giữ nguyên trạng thái.
+
+3) Chỉ định bit trong thanh ghi dữ liệu
+
+Trong số các thiết bị sử dụng trong lệnh RST, có thể chỉ định các bit của thanh ghi dữ liệu (D).
+
+Để chỉ định bit của thanh ghi dữ liệu, nhập dấu "." sau số hiệu của thanh ghi dữ liệu (D), rồi nhập số hiệu bit (0 đến F). Các thanh ghi dữ liệu khả dụng được chỉ định theo bit, nhưng chỉ hợp lệ đối với thanh ghi dữ liệu 16-bit.
+
+Vui lòng chỉ định số hiệu bit theo thứ tự 0, 1, 2,… 9, A, B,… F bắt đầu từ bit thấp hơn.
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/81.png?rev=1.1)
+
+Trong ví dụ bên trái, trạng thái của X1 là ON (dẫn), và bit thứ 3 trong D0 chuyển sang OFF (không dẫn). Khi trạng thái của X1 là OFF (không dẫn), trạng thái của bit thứ 3 trong D0 vẫn giữ nguyên.
+
+không dẫn), và trạng thái của bit thứ 3 trong D0 vẫn giữ nguyên.
+
+### PLF / Ngõ ra cạnh xuống
+
+Khi lệnh PLF chuyển từ ON→OFF, thiết bị được chỉ định trong (d) bật ON trong một chu kỳ quét, và khi ở trạng thái khác ON→OFF, thiết bị ở trạng thái OFF.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/82.png?width=217&amp;height=71&amp;rev=1.1)
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Thiết bị phát xung | - | Bit | ANY_BOOL |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| PLF | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Đặc tính kỹ thuật
+
+Khi lệnh thực thi chuyển từ ON→OFF, thiết bị được chỉ định sẽ bật ON, và khi lệnh thực thi ở trạng thái khác ON→OFF, nó sẽ tắt OFF. Khi có một lệnh PLF cho thiết bị được chỉ định trong (d) trong một chu kỳ quét, thiết bị được chỉ định sẽ bật ON trong một chu kỳ quét.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/83.png?width=466&amp;height=121&amp;rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Nếu lệnh PLF bị nhảy qua bởi lệnh CJ, hoặc chương trình con đang thực thi không được gọi bởi lệnh CALL(P), thiết bị được chỉ định trong (d) có thể bị bật ON lâu hơn một chu kỳ quét. Hãy cẩn thận.
+:::
+
+#### Mã lỗi (Error Code)
+
+Không có mã lỗi
+
+#### Ví dụ minh họa
+
+Lệnh PLF (ngõ ra vi phân cạnh xuống)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/84.png?width=732&amp;height=107&amp;rev=1.1)
+
+Trong hình trên, khi X000 chuyển từ ON sang OFF, M1 chỉ bật ON trong một chu kỳ vận hành.
+
+### PLS / Ngõ ra cạnh lên
+
+Khi lệnh PLS chuyển từ OFF→ON, thiết bị được chỉ định trong (d) được bật ON trong một chu kỳ quét, và khi ở trạng thái khác OFF→ON, thiết bị ở trạng thái OFF.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/85.png?rev=1.1)
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (d) | Thiết bị phát xung | - | Bit | ANY_BOOL |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Dịch địa chỉ ([D]) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| PLS | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Đặc tính kỹ thuật
+
+Khi lệnh PLS chuyển từ OFF→ON, thiết bị được chỉ định sẽ bật ON trong một chu kỳ quét, và khi ở trạng thái khác OFF→ON, nó sẽ tắt OFF. Khi có một lệnh PLS cho thiết bị được chỉ định trong (d) trong một chu kỳ quét, thiết bị được chỉ định sẽ bật ON trong một chu kỳ quét.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/86.png?width=533&amp;height=114&amp;rev=1.1)
+
+:::tip
+✎Lưu ý:
+
+Nếu lệnh PLS bị nhảy qua bởi lệnh CJ, hoặc chương trình con đang thực thi không được gọi bởi lệnh CALL(P), thiết bị được chỉ định trong (d) có thể bị bật ON lâu hơn một chu kỳ quét. Hãy cẩn thận.
+:::
+
+#### Mã lỗi (Error Code)
+
+Không có mã lỗi
+
+#### Ví dụ minh họa
+
+Lệnh PLS (ngõ ra vi phân cạnh lên)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/03%20Sequence%20Control%20Program%20Instructions/WebHome/87.png?rev=1.1)
+
+Trong hình trên, khi X000 chuyển từ OFF sang ON, M0 chỉ bật ON trong một chu kỳ vận hành.
+
+0

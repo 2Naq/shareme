@@ -1,0 +1,124 @@
+---
+id: "6.15-io-refresh-instruction"
+title: "6.15 Lệnh làm mới ngõ vào/ra tức thời (IO Refresh Instruction)"
+sidebar_position: 15
+sidebar_label: "6.15 IO Refresh instruction"
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.15 Lệnh làm mới ngõ vào/ra tức thời (IO Refresh Instruction)"
+---
+
+### REF / Làm mới ngõ vào/ra (I/O Refresh)
+
+REF(P)
+
+Thực hiện reset hàng loạt trong khoảng giữa các thiết bị cùng loại chỉ định tại (d1) và (d2). Được sử dụng khi ngắt hoạt động, thực hiện vận hành khởi tạo hoặc reset dữ liệu điều khiển.
+
+Làm mới n điểm bắt đầu từ thiết bị được chỉ định tại (s) để thu nhận ngõ vào ngoài hoặc xuất ngõ ra ngoài
+
+-[REF (s) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu bắt đầu của thiết bị được làm mới | Khi dùng X và Y: Chữ số thấp nhất chỉ có thể là 0; Khi dùng HSC: HSC0 đến HSC7 | Bit | ANY_BOOL |
+| (n) | Số điểm làm mới | Khi dùng X và Y: Chỉ có thể là bội số của 8; Khi dùng HSC: 1 đến 8 | UnsignedBIN 16 bit | ANY16_U |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| REF | Parameter 1 | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |
+| REF | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  |  | ● |
+
+#### Đặc tính kỹ thuật
+
+Đây là chức năng chỉ làm mới thiết bị tương ứng trong một chu kỳ quét để thu nhận tín hiệu vào ngoài hoặc xuất tín hiệu ra ngoài.
+
+Việc thu nhận ngõ vào và xuất ngõ ra ngoài chỉ được thực hiện hàng loạt sau khi lệnh END của chương trình được thực thi, do đó không thể xuất tín hiệu xung ra bên ngoài trong một chu kỳ quét. Khi lệnh làm mới ngõ vào/ra (I/O Refresh) được thực thi, ngõ vào (X) hoặc ngõ ra (Y) tương ứng sẽ bị cưỡng bức làm mới ngay trong quá trình thực thi chương trình, nhờ vậy có thể xuất tín hiệu xung ra bên ngoài trong một chu kỳ quét.
+
+Có thể sử dụng giữa các lệnh FOR đến NEXT và lệnh CJ.
+
+Có thể sử dụng để làm mới ngõ vào và ngõ ra trong chương trình con ngắt nhằm thu nhận thông tin ngõ vào mới nhất và xuất kết quả phép toán kịp thời.
+
+Độ trễ thay đổi trạng thái cổng ngõ vào thực tế được quyết định bởi thời gian lọc của các phần tử ngõ vào.
+
+Độ trễ thay đổi trạng thái cổng ngõ ra thực tế được quyết định bởi thời gian đáp ứng của các phần tử ngõ ra (như rơ-le). Tiếp điểm ngõ ra trong quá trình làm mới ngõ ra sẽ tác động sau thời gian đáp ứng của rơ-le (hoặc transistor) ngõ ra.
+
+Thời gian trễ đáp ứng của loại ngõ ra rơ-le khoảng 10ms (tối đa 20ms), cổng ngõ ra tốc độ cao loại transistor khoảng 10us và cổng ngõ ra điểm thông thường khoảng 0.5ms.
+
+Vẫn sẽ có một độ trễ nhất định khi thời gian lọc từ X0 đến X17 được đặt bằng 0.
+
+Lệnh REF cũng có thể làm mới giá trị của thiết bị bộ đếm tốc độ cao HSC. Giá trị của bộ đếm tốc độ cao được cập nhật mỗi 100us khi sử dụng bình thường; nếu cần lấy ngay giá trị mới nhất của bộ đếm tốc độ cao, bạn có thể dùng lệnh REF để làm mới bộ đếm. Sau khi lệnh được thực thi, giá trị trong thiết bị HSC là giá trị mới nhất của bộ đếm tốc độ cao.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The read address of (s) and (n) vượt quá phạm vi vùng nhớ thiết bị.✎Note: If (s)+(n) exceeds the maximum range of the device corresponding (s), an error will be reported |
+| 4085H | (s) sử dụng thiết bị có chữ số thấp nhất khác 0 |
+| 4084H | Khi (s) dùng X và Y, (n) không phải bội số của 8; Khi (s) dùng HSC: (n) vượt quá phạm vi K1 đến K8 |
+| 2585H | Use REF instruction to refresh bộ đếm tốc độ cao (HSC) value, but there is no OUT HSC instruction to open the bộ đếm tốc độ cao (HSC) of the channel. |
+
+#### Ví dụ minh họa
+
+(1) Lệnh REF làm mới ngõ vào X hoặc ngõ ra Y
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.15%20IO%20Refresh%20instruction/WebHome/1761027107415-917.png?rev=1.1)
+
+Như trong ví dụ trên, X0 đến X7 có thể cập nhật nhanh tín hiệu ngõ vào sau khi M8 được bật ON. Sau khi X0 kích hoạt Y20, xuất nhanh Y20 đến Y27 thông qua lệnh REF Y20 K8 tiếp theo.
+
+(2) Lệnh REF làm mới bộ đếm tốc độ cao HSC
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.15%20IO%20Refresh%20instruction/WebHome/1761027141406-506.png?rev=1.1)
+
+Như trong ví dụ trên, bật M0 ON để làm mới xung ngõ vào hiện tại của bộ đếm tốc độ cao, lưu giá trị bộ đếm tốc độ cao mới nhất vào HSC0 và lưu giá trị bộ đếm tốc độ cao hiện tại vào địa chỉ R1000.
+
+### REFF / Làm mới ngõ vào (Có cài đặt bộ lọc)
+
+REFF(P)
+
+Thay đổi tạm thời hiệu ứng lọc của bộ lọc số từ X0 đến X17 thành (n)ms. Phạm vi của (n) là 0 đến 60ms.
+
+-[REFF (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (n) | Giá trị bộ lọc của X0 đến X17 | 0 to 60 | BIN16 bit | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| REFF | Parameter 1 | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Trong bộ điều khiển lập trình (PLC), X0 đến X17 sử dụng bộ lọc số. Hằng số thời gian lọc mặc định được cài đặt bởi SD2280 và SD2281, và bộ lọc có thể được thay đổi tạm thời thành 0 đến 60ms thông qua lệnh REFF.
+
+Khi sử dụng chức năng bộ đếm tốc độ cao hoặc ngắt đầu vào X, thời gian lọc của cổng liên quan tự động đặt về mức ngắn nhất, còn thời gian lọc của các cổng không liên quan vẫn giữ nguyên giá trị cài đặt ban đầu.
+
+Cũng có thể dùng lệnh MOV để gán trực tiếp vào SD2280 và SD2281 nhằm thay đổi thời gian lọc, nhưng lệnh REFF sẽ không làm thay đổi giá trị của SD2280 và SD2281.
+
+:::tip
+✎Lưu ý:
+
+Việc lọc điểm X trước lệnh này có thể không được kiểm soát (nếu SD2280 và SD2281 được đặt bằng 0, điểm X trước lệnh sẽ hoàn toàn không được lọc).
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The (n) read address vượt quá phạm vi vùng nhớ thiết bị |
+| 4084H | (n) is not in the range of 0 to 60 |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.15%20IO%20Refresh%20instruction/WebHome/1761027170147-497.png?rev=1.1)
+
+Sau khi M0 được bật ON, thời gian lọc của X0 đến X17 trong chương trình bậc thang (Ladder) sau lệnh REFF sẽ tạm thời là 3ms, còn SD2280 và SD2281 không thay đổi.
+
+0

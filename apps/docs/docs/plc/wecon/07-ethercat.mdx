@@ -1,15 +1,610 @@
 ---
 id: "07-ethercat"
-title: "07 EtherCAT: Mạng truyền thông công nghiệp thời gian thực"
+title: "07 Mạng truyền thông công nghiệp EtherCAT"
 sidebar_position: 7
 sidebar_label: "07 EtherCAT"
-tags: [wecon, lx6v, lx6a, manual]
-description: "Hướng dẫn thiết lập và cấu hình mạng truyền thông Bus EtherCAT cho Servo Drive trên Wecon LX6V."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 07 Mạng truyền thông công nghiệp EtherCAT"
 ---
 
-## 07 EtherCAT: Mạng truyền thông công nghiệp thời gian thực
+## Mô tả kỹ thuật
 
-Giao thức EtherCAT là xương sống truyền thông cho các dòng PLC Wecon LX6V / LX6A:
-- Hỗ trợ chu kỳ truyền thông đồng bộ cấp micro-giây (Distributed Clock - DC).
-- Tự động quét và nhận diện tập tin mô tả thiết bị ESI (XML) của các hãng Servo (Wecon, Panasonic, Yaskawa, Inovance, Delta).
-- Ánh xạ tự động các đối tượng PDO phục vụ trực tiếp cho Chương 08 Motion Control.
+EtherCAT là công nghệ mạng trường công nghiệp mở dựa trên nền tảng Ethernet, có đặc điểm chu kỳ làm mới truyền thông ngắn, độ rung pha (Jitter) đồng bộ nhỏ và chi phí phần cứng thấp.
+
+## Cấu hình trạm chủ (Master)
+
+Nhấp đúp vào nút EtherCAT trên cây quản lý dự án để mở cấu hình EtherCAT, sửa đổi cấu hình và lưu lại.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341705534-984.png?rev=1.1)
+
+## Mô tả cấu hình
+
+- Chu kỳ đơn vị đồng bộ: khoảng thời gian thực hiện đồng bộ dữ liệu.
+
+- Thời gian chờ PreOP-&gt;OP: thời gian quá hạn khi chuyển từ trạng thái PreOP sang trạng thái OP trong quá trình khởi tạo OP;
+
+- Tự động khởi động lại trạm tớ (Slave): sau khi bật tính năng này, nếu trạm tớ bị ngoại tuyến hoặc mất nguồn, hệ thống sẽ cố gắng khôi phục về trạng thái OP;
+
+- Cho phép EtherCAT theo trạng thái PLC RUN: sau khi bật tính năng này, trạng thái PLC RUN sẽ kích hoạt EtherCAT thực thi quy trình lên trạng thái OP;
+
+- Độ lệch đồng bộ: tỷ lệ phần trăm độ lệch thời gian cho phép trong quá trình đồng bộ;
+
+- Ngắt bus EtherCAT khi ngoại tuyến: nếu một thiết bị ngoại tuyến, chức năng EtherCAT sẽ bị vô hiệu hóa và tất cả các trạm sẽ chuyển về trạng thái PreOP. Nếu tính năng tự động khởi động lại trạm tớ được bật, tất cả sẽ được khởi động lại.
+
+## Nhập và thêm trạm tớ (Slave)
+
+### Nhập cấu hình
+
+Nhấp chuột phải vào nút EtherCAT trên cây quản lý dự án, chọn New, nhấn nút Import trong cửa sổ Add Slave bật lên và chọn tệp XML EtherCAT của nhà sản xuất tương ứng để nhập vào.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341765703-669.png?rev=1.1)
+
+### Thêm một trạm tớ (Slave)
+
+Nhấp chuột phải vào nút EtherCAT trong quản lý dự án, nhấp Tạo mới (New), chọn một loại trạm tớ và nhấp Thêm (Add), một nút trạm tớ mới sẽ được thêm vào nút EtherCAT trong quản lý dự án, và nhấp Đóng (Close) để kết thúc thao tác thêm trạm tớ.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341765720-985.png?rev=1.1)
+
+### Sao chép thành mục mới
+
+Nhấp chuột phải để chọn nút trạm tớ bên dưới nút EtherCAT trong quản lý dự án, nhấp “Sao chép thành mục mới (Copy to New Item)” để tạo một nút trạm tớ mới có cấu hình giống hệt nút đã chọn.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341765723-496.png?rev=1.1)
+
+### Cấu hình trạm tớ (Slave)
+
+### Xóa
+
+① Nhấp chuột phải vào nút EtherCAT, chọn [Xóa tất cả (Delete all)], và xóa toàn bộ cấu hình trạm tớ hiện đang tạo.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341765723-851.png?rev=1.1)
+
+② Nhấp chuột phải vào trạm tớ dưới nút EtherCAT, chọn Delete để xóa cấu hình trạm tớ hiện tại.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341765724-681.png?rev=1.1)
+
+### Cập nhật thiết bị
+
+① Nhấp chuột phải vào nút EtherCAT và chọn [Cập nhật tất cả thiết bị (Update All Devices)] để cập nhật thông tin cấu hình của nút EtherCAT hiện tại theo thông tin tệp cấu hình EtherCAT mới được nhập.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341765725-408.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341765725-319.png?rev=1.1)
+
+② Nhấp chuột phải vào trạm tớ bên dưới nút EtherCAT, chọn [Cập nhật thiết bị (Update equipment)], và cập nhật thông tin cấu hình của nút trạm tớ tương ứng theo thông tin tệp cấu hình EtherCAT mới được nhập.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341765726-520.png?rev=1.1)
+
+### Tham số trạm tớ (Slave)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341765727-592.png?rev=1.1)
+
+Nhấp đúp vào trạm tớ bên dưới nút EtherCAT, hộp thoại cấu hình EtherCAT sẽ bật lên. Trong giao diện tham số trạm tớ, tích chọn bật tham số chuyên gia (enable expert parameter) để sử dụng giao diện dữ liệu quá trình chuyên gia cùng các hộp kiểm và ô nhập liệu bên dưới.
+
+▪Kiểm tra Vendor ID: Trong quá trình kích hoạt, kiểm tra xem cấu hình trạm tớ đã tải xuống có khớp với Vendor ID của trạm tớ đang kết nối với PLC hay không;
+
+▪Kiểm tra Product ID: Trong quá trình kích hoạt, kiểm tra xem cấu hình trạm tớ đã tải xuống có khớp với Product ID của trạm tớ đang kết nối với PLC hay không;
+
+▪Kiểm tra số phiên bản: Kiểm tra xem số phiên bản có nhất quán khi kích hoạt hay không;
+
+▪Thời gian chờ truy cập SDO: Cài đặt thời gian chờ truy cập SDO.
+
+### Đồng hồ phân tán (Distributed Clock)
+
+Phần này dùng để cài đặt chế độ vận hành đồng bộ của trạm tớ (Slave). Giao diện như sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341789527-748.png?rev=1.1)
+
+Chế độ đơn vị đồng bộ: Thông thường, các trạm tớ (Slave) EtherCAT có chế độ FreeRun, chế độ chạy đồng bộ theo sự kiện ngõ vào và ngõ ra (SM-Synchron), và chế độ chạy đồng bộ theo đồng hồ phân tán (DC-Synchron). Tùy thuộc vào trạm tớ được chọn, các tùy chọn được hỗ trợ bởi chế độ đơn vị đồng bộ sẽ khác nhau.
+
+Lấy mô-đun Servo Wecon VD3E EtherCAT V1.11 làm ví dụ. Mô-đun này hỗ trợ chế độ SM-Synchron, và không thể thiết lập cả SYNC0 lẫn SYNC1. Chỉ có một ngắt duy nhất của sự kiện ngõ vào và ngõ ra dữ liệu bên trong trạm tớ. Logic xử lý bên trong trạm tớ được minh họa trong hình sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341789530-451.png?rev=1.1)
+
+Đồng thời, mô-đun này cũng hỗ trợ chế độ DC-Synchron. Ở chế độ này, có thể cấu hình ngắt Sync của trạm tớ. Các sự kiện đồng bộ DC được bật mặc định, và ngắt SYNC0 được bật. Chu kỳ của ngắt SYNC0 giống với chu kỳ đồng bộ của trạm chủ (Master) EtherCAT. Ngắt SYNC1 không được bật.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341789531-717.png?rev=1.1)
+
+Khi tích chọn "Bật tham số chuyên gia (Enable expert parameters)", chọn chế độ DC trong hộp thả xuống, chẳng hạn như "DC-Synchron", và tích chọn "Bật sự kiện đồng bộ chu kỳ (Enable cycle synchronization event)". Các nhóm SYNC0 và SYNC1 sẽ được khôi phục từ trạng thái vô hiệu hóa sang trạng thái khả dụng, và nút bật SYNC0 sẽ được tích chọn mặc định. Cấu hình được minh họa trong hình dưới đây:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341789531-396.png?rev=1.1)
+
+Khi hộp thả xuống chọn chế độ không phải DC, chẳng hạn như "SM-Synchron", các nhóm SYNC0 và SYNC1 đều bị làm mờ (vô hiệu hóa), và thời gian chu kỳ cũng như thời gian lệch (offset) đều bằng 0.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341789532-901.png?rev=1.1)
+
+### Cài đặt bí danh (Alias)
+
+Tích chọn "Bật tham số chuyên gia (Enable expert parameters)" để đặt bí danh cho trạm tớ, hoặc tích chọn "Thiết bị tùy chọn (Equipment optional)" để bắt buộc trạm tớ cấu hình bí danh. Để sử dụng chức năng bí danh trạm một cách chính xác, vui lòng thực hiện theo các bước sau:
+
+1. Tạo cấu hình, bỏ tích "Bật bí danh (Alias Enable)", và đợi trạm tớ khởi động bình thường sau khi tải chương trình xuống.
+
+2. Tích chọn "Bật tham số chuyên gia (Enable expert parameters)" hoặc "Thiết bị tùy chọn (equipment optional)" và nhập bí danh.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341789533-378.png?rev=1.1)
+
+3. Ở chế độ giám sát, nhấp vào nút "Ghi EEPROM (Write EEPROM)" và đợi quá trình ghi hoàn tất.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341789534-367.png?rev=1.1)
+
+4. Sau khi ghi xong, cấp nguồn lại cho trạm tớ và kiểm tra xem bí danh đã thực sự được ghi thành công chưa thông qua chức năng quét tự động.
+
+### Tham số chuyên gia
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341789534-573.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341789535-883.png?rev=1.1)
+
+▪Chọn ① vùng bảng trình quản lý đồng bộ (Synchronization Manager), chọn ngõ vào và ngõ ra, thì ② vùng bảng phân bổ PDO sẽ được cập nhật danh sách phân bổ PDO tương ứng với ngõ ra hoặc ngõ vào của trình quản lý đồng bộ;
+
+▪Tích chọn hoặc bỏ tích để bật ② vùng biểu mẫu phân bổ PDO, kết quả sẽ được phản hồi tới ③ danh sách PDO;
+
+▪Chọn hàng đã tích trong ③ danh sách PDO, nội dung của ④ bảng nội dung PDO sẽ được cập nhật;
+
+▪Trong ④ bảng nội dung PDO, nhấp chuột phải vào menu và chọn Thêm (Add) hoặc nhấp nút ⑤ Thêm (Add), chọn nội dung cần thêm trong giao diện Thêm nội dung PDO, rồi nhấp Thêm (Add);
+
+▪Sau khi chọn nội dung cần xóa trong ④ bảng nội dung PDO, nhấp chuột phải vào menu và chọn Xóa (Delete) hoặc nhấp trực tiếp nút ⑥ Xóa (Delete) để xóa.
+
+### Dữ liệu quá trình (Process data)
+
+Ngoại trừ việc giao diện dữ liệu quá trình không thể tùy chỉnh nội dung PDO, các chức năng khác về cơ bản giống với tham số quá trình chuyên gia.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341815071-354.png?rev=1.1)
+
+### Ánh xạ I/O
+
+Đối với nội dung PDO được thiết lập bởi các tham số quá trình, người dùng có thể chọn thiết bị hoặc biến để thực hiện ánh xạ.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341815073-664.png?rev=1.1)
+
+### Tham số khởi động
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341815074-991.png?rev=1.1)
+
+① Thêm (Add)
+
+Nhấp chuột phải vào menu để chọn [Thêm (Add)] hoặc nhấp trực tiếp [Thêm (Add)] để vào giao diện thêm tham số khởi động, chọn mục tương ứng và thêm tham số khởi động.
+
+② Xóa (Delete)
+
+Sau khi chọn nội dung tham số cần xóa, nhấp chuột phải mở menu và chọn Delete hoặc nhấn trực tiếp nút Delete để xóa.
+
+### Thông tin trạm tớ (Slave)
+
+Hiển thị thông tin trạm tớ (Slave).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1744341815074-931.png?rev=1.1)
+
+## Bí danh (Alias)
+
+### Cấu hình tham số bí danh (Alias)
+
+Tích chọn [Bật tham số chuyên gia (Enable expert parameters)] và [Thiết bị tùy chọn (Equipment optional)] để sử dụng chức năng [Bí danh (Alias)].
+
+Sau khi bật [Tham số chuyên gia (Expert parameters)], bạn có thể chọn có cần bí danh hay không.
+
+Sau khi bật [Thiết bị tùy chọn (Equipment optional)], bí danh được bật cưỡng bức.
+
+[Thiết bị tùy chọn (Equipment optional)] có nghĩa là thiết bị này là thiết bị tùy chọn và có thể không tồn tại. Khi không tìm thấy thiết bị, nó sẽ không chạy. Nếu chạy MC_POWER, lệnh sẽ không thành công và báo lỗi. [Bật bí danh (Alias enable)] được bật cưỡng bức, tức là khi thiết bị tương ứng phải được tìm thấy thông qua bí danh và phải kiểm tra thông tin sản phẩm, sản phẩm phải khớp thì mới có thể nhận diện bình thường.
+
+Nếu là bí danh được đặt trong [Chế độ chuyên gia (Expert mode)], ngay cả khi không tìm thấy bí danh, thiết bị có mã model tương ứng vẫn có thể chạy bình thường nếu được tìm thấy theo đúng thứ tự.
+
+#### Ví dụ minh họa
+
+- 5 thiết bị: A, B, C, D, E. Thứ tự kết nối là E, D, A, C, B, hệ thống sẽ tìm kiếm theo bí danh, và tất cả đều khớp với thứ tự cấu hình. Hệ thống sẽ chạy bình thường.
+
+| Thứ tự cấu hình | Bí danh (Alias) | Thứ tự liên kết | Bí danh (Alias) |
+| :--- | :--- | :--- | :--- |
+| A | 1 | E | 5 |
+| B | 2 | D | 4 |
+| C | 3 | A | 1 |
+| D | 4 | C | 3 |
+| E | 5 | B | 2 |
+
+- 5 thiết bị: A, B, C, D, E. Tích chọn [Thiết bị tùy chọn (Equipment optional)], và thứ tự kết nối là d, a, c và b. Khi sử dụng e, khối hàm FB tương ứng sẽ báo lỗi, nhưng sẽ không ảnh hưởng đến việc sử dụng và vận hành của các thiết bị khác;
+
+| Thứ tự cấu hình | Bí danh (Alias) | Thứ tự liên kết | Bí danh (Alias) |
+| :--- | :--- | :--- | :--- |
+| A | 1 | D | 4 |
+| B | 2 | A | 1 |
+| C | 3 | C | 3 |
+| D | 4 | B | 2 |
+| E | 5 |  |  |
+
+- 5 thiết bị: A, B, C, D, E. C và E bật [Thiết bị tùy chọn (Device optional)], và thứ tự kết nối là e, d, c, b. Vì a không bật [Thiết bị tùy chọn (Device optional)] và đồng thời không tìm thấy, khi chuyển sang OP sẽ không thể lên OP, và lỗi "Không tìm thấy thiết bị (Device not found)" sẽ được báo.
+
+| Thứ tự cấu hình | Bí danh (Alias) | Thứ tự liên kết | Bí danh (Alias) |
+| :--- | :--- | :--- | :--- |
+| A | 1 | E | 5 |
+| B | 2 | D | 4 |
+| C | 3 | C | 3 |
+| D | 4 | B | 2 |
+| E | 5 |  |  |
+
+Nếu là bí danh được đặt trong chế độ chuyên gia, ngay cả khi không tìm thấy bí danh, thiết bị có mã model tương ứng vẫn có thể chạy bình thường nếu được tìm thấy theo đúng thứ tự.
+
+#### Ví dụ minh họa
+
+5 thiết bị: A, B, C, D, E. Thứ tự kết nối là e, d, a, c, b.
+
+Các bí danh b, d và e đều khớp tương ứng. Lúc này, a và c sẽ được tìm thấy ngay cả khi chúng không khớp bí danh. (Sau khi b, d và e đã khớp, loại bỏ ba đơn vị này khỏi cả hai phía, khi đó còn lại: thứ tự cấu hình là a, c và tìm trong chuỗi kết nối nên a và c có thể được tìm thấy.)
+
+| Thứ tự cấu hình | Bí danh (Alias) | Thứ tự liên kết | Bí danh (Alias) |
+| :--- | :--- | :--- | :--- |
+| A | 1 | E | 5 |
+| B | 2 | D | 4 |
+| C | 3 | A | 10 |
+| D | 4 | C | 30 |
+| E | 5 | B | 2 |
+
+Nếu các bí danh của a, d và e khớp tương ứng, thì b và c không thể được tìm thấy nếu chúng không khớp. (Sau khi loại bỏ tương tự, thứ tự cấu hình là b, c, tìm trong chuỗi kết nối là c, b. Do đó, c và b không thể tìm thấy.)
+
+| Thứ tự cấu hình | Bí danh (Alias) | Thứ tự liên kết | Bí danh (Alias) |
+| :--- | :--- | :--- | :--- |
+| A | 1 | E | 5 |
+| B | 2 | D | 4 |
+| C | 3 | A | 1 |
+| D | 4 | C | 30 |
+| E | 5 | B | 20 |
+
+:::tip
+Ghi chú kỹ thuật
+
+Nếu cả [Chế độ chuyên gia (Expert mode)] và [Thiết bị tùy chọn (Equipment optional)] đều được tích chọn, hệ thống sẽ chạy theo [Thiết bị tùy chọn (Equipment optional)];
+
+l Hiện tại, phiên bản đầu tiên không hỗ trợ tình huống số thiết bị được kết nối nhiều hơn số thiết bị đã cấu hình và có nhiều thiết bị hơn mức có thể kết nối bình thường;
+
+Ví dụ: kết nối 5 thiết bị với cấu hình 5 đơn vị, nếu một trong số đó được đặt [Thiết bị tùy chọn (Device Optional)] nhưng không có sự tương ứng, lúc này sẽ không thể kích hoạt;
+
+Ngoài ra, nếu bỏ tích [ID nhà sản xuất (Manufacturer id)] và [Kiểm tra model (Model check)], mặc dù trong một số trường hợp bạn có thể chỉ kiểm tra sự tương ứng bí danh và ép khớp tuần tự, nhưng không có gì đảm bảo hệ thống sẽ vận hành bình thường;
+
+Ngoại trừ bí danh 0, các bí danh có thể ánh xạ tương ứng bình thường không được phép trùng lặp. Trước khi chuyển sang OP, phần này sẽ được kiểm tra (phát hiện tức thời khi SM1900 chuyển từ OFF-&gt;ON); ví dụ, trong quá trình thao tác, cho phép đặt hai bí danh giống nhau cho trạm tớ, nhưng sau khi thiết lập lại OP (bằng lệnh hoặc STOP-&gt;RUN) lỗi cũng sẽ được báo.
+:::
+
+### Ghi bí danh vào Servo
+
+Ở chế độ giám sát, nhấp vào giao diện thiết bị EtherCAT trong giao diện quản lý dự án.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774921706980-630.png?width=320&amp;height=388&amp;rev=1.1)
+
+Lúc này, giao diện sau sẽ xuất hiện. Khác với chế độ không giám sát, nút [Ghi EEprom (Write EEprom)] xuất hiện. Nút này dùng để ghi bí danh vào Servo tương ứng.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774921736912-237.png?rev=1.1)
+
+Quy tắc thực thi cho nút này là:
+
+Sau khi lên OP, (SM1902 ON) sẽ được thiết lập theo thiết bị tương ứng với cấu hình. Nếu không có sự tương ứng, hệ thống sẽ thông báo thiết lập thất bại;
+
+Trước khi lên OP, (SM1902 OFF) bí danh được gán theo trình tự kết nối bất kể mã model có khớp hay không, thiết lập trực tiếp. Nếu không có sự tương ứng, việc thiết lập sẽ thất bại.
+
+Ví dụ cấu hình đơn giản
+
+Khi đã có sẵn một cấu hình thiết bị EtherCAT, hãy mở cấu hình EtherCAT của trạm tớ tương ứng.
+
+1. Tích chọn [Bật tham số chuyên gia (Start Expert Parameters)] và [Bật bí danh (Alias Enable)], sau đó cấu hình bí danh tương ứng cần ghi vào mục "Địa chỉ bí danh (Alias Address)"; 2. Lưu cấu hình và tải xuống để chạy (Run) trong PLC;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774921785975-984.png?rev=1.1)
+
+Khi trình tự kết nối khớp tương ứng, vẫn có thể khớp với Servo tương ứng. 3. Mở giao diện giám sát thiết bị phần mềm và quan sát thấy SM1902 đang ON;
+
+Mở giao diện cấu hình EtherCAT, nhấp [Ghi EEprom (Write EEprom)] và ghi bí danh vào Servo;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774921849319-426.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774921877348-328.png?rev=1.1)
+
+Khởi động lại Servo và PLC là có thể khớp nối thông qua bí danh.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774921899334-213.png?width=362&amp;height=228&amp;rev=1.1)
+
+Sau đó tích chọn [Thiết bị tùy chọn (Device optional)] ở chế độ chỉnh sửa.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774921964285-625.png?rev=1.1)
+
+Sau khi tháo bỏ thiết bị EtherCAT đang kết nối và tải lại giản đồ thang (Ladder) có tích chọn thiết bị tùy chọn, giản đồ thang vẫn có thể khởi động bình thường. Tuy nhiên, MC_POWER tương ứng với trục đó không thể khởi động (nhưng sẽ không báo lỗi) và ánh xạ I/O không hoạt động.
+
+Trong cùng giản đồ thang đó, kết nối lại thiết bị tương ứng, rồi thực hiện STOP-&gt;RUN. Thiết bị tương ứng khi chạy PLC có thể sử dụng bình thường.
+
+### Tham số chuyên gia
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774922011354-552.png?rev=1.1)
+
+. Chọn ① vùng bảng Trình quản lý đồng bộ (Synchronization Manager), chọn ngõ vào và ngõ ra, ② vùng bảng phân bổ PDO sẽ được cập nhật thành danh sách phân bổ PDO tương ứng với ngõ ra hoặc ngõ vào của trình quản lý đồng bộ;
+
+. Tích chọn hoặc bỏ tích “bật ② vùng bảng phân bổ PDO”, kết quả sẽ được phản hồi tới ③ danh sách PDO; . Chọn hàng đã tích trong ③ danh sách PDO để cập nhật ④ bảng nội dung PDO;
+
+. Trong ④ bảng nội dung PDO, nhấp chuột phải để chọn Thêm (Add) hoặc nhấp nút ⑤ Thêm (Add), chọn nội dung cần thêm trong giao diện nội dung PDO và nhấp Thêm (Add);
+
+. Sau khi chọn nội dung cần xóa trong ④ bảng nội dung PDO, nhấp chuột phải vào menu để chọn Xóa (Delete) hoặc nhấp trực tiếp nút ⑥ Xóa (Delete) để xóa.
+
+### Dữ liệu quá trình (Process Data)
+
+Giao diện dữ liệu quá trình về cơ bản nhất quán với các chức năng tham số quá trình chuyên gia, ngoại trừ việc không thể tùy chỉnh nội dung PDO.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774922053648-913.png?rev=1.1)
+
+### Ánh xạ I/O
+
+Đối với nội dung PDO được thiết lập bởi các tham số quá trình, bạn có thể chọn thiết bị hoặc biến để ánh xạ.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774922078808-508.png?rev=1.1)
+
+### Tham số khởi động
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774922137069-776.png?rev=1.1)
+
+① Thêm (Add)
+
+Nhấp chuột phải vào menu để chọn [Thêm (Add)] hoặc nhấp trực tiếp [Thêm (Add)] để vào giao diện thêm tham số khởi động, chọn mục tương ứng và thêm tham số khởi động. ② Xóa
+
+Sau khi chọn nội dung tham số cần xóa, nhấp chuột phải vào menu để chọn xóa hoặc nhấp trực tiếp “Xóa (Delete)”.
+
+### Thông tin trạm tớ (Slave)
+
+Hiển thị thông tin trạm tớ (Slave).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774922176699-927.png?rev=1.1)
+
+### Quét thiết bị
+
+Chức năng quét thiết bị của EtherCAT hỗ trợ quét trực tiếp sau khi kết nối hoặc tháo dỡ thiết bị.
+
+- Chọn thẻ EtherCAT, nhấp chuột phải và chọn quét thiết bị trong menu bật lên.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774864251034-249.jpeg?rev=1.1)
+
+- Nhấp nút "Quét thiết bị (Scan the device)" trong cửa sổ bật lên. Nếu PLC chưa được kết nối, một thông báo lỗi sẽ hiện ra như bên dưới;
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774864251039-758.jpeg?rev=1.1)
+
+- Sau khi đợi quá trình quét hoàn tất, các thiết bị trạm tớ đã quét được có thể nhìn thấy ở khung xem bên trái.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774864251041-292.jpeg?rev=1.1)
+
+- Nhấp [Sao chép tất cả (Copy all)] để cập nhật các thiết bị đã quét vào danh sách cấu hình hiện tại, sau đó nhấp [Lưu (Save)] để cập nhật các thiết bị đã quét vào danh sách cấu hình của dự án. Sau khi lưu, nhấp [Đóng (Close)] để hoàn tất cập nhật vào danh sách cấu hình.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774864251044-226.jpeg?rev=1.1)
+
+:::tip
+✎Lưu ý: Nếu đóng cửa sổ mà chưa lưu, các thiết bị đã quét sẽ không được thêm vào danh sách cấu hình của dự án!
+:::
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774864251046-293.jpeg?rev=1.1)
+
+## Lệnh EtherCAT
+
+### ETC_READPARAMETER_COE
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774922271272-193.png?rev=1.1)
+
+Hàm này chủ yếu được sử dụng để đọc các tham số SDO của Servo.
+
+Nội dung, phạm vi, kiểu dữ liệu
+
+| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| ETC_READPARAMETER_COE | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Cho phép đọc SDO Servo |
+| ETC_READPARAMETER_COE | Ngõ vào (Input) | SlaveID | WORD | Không | Từ 0 đến phạm vi các trạm slave EtherCAT có thể liên kết | Cài đặt theo ID đã cấu hình trên giao diện. Nếu thiết bị là tùy chọn, lỗi vẫn sẽ được báo ngay cả khi thiết bị không tồn tại thực tế |
+| ETC_READPARAMETER_COE | Ngõ vào (Input) | Index | WORD | Không | 0 to 65535 | Chỉ mục (Index), điền theo thông tin do servo cung cấp |
+| ETC_READPARAMETER_COE | Ngõ vào (Input) | SubIndex | WORD | Không | 0 to 65535 | Chỉ mục con (Sub-index), điền theo thông tin do servo cung cấp |
+| ETC_READPARAMETER_COE | Ngõ vào (Input) | DstLength | WORD | Không | - | Độ dài dữ liệu, điền theo thông tin do servo cung cấp. |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Khi lấy được giá trị, Done sẽ được đặt thành TRUE; nếu chưa đọc xong, Done sẽ là FALSE |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Busy bằng TRUE trong quá trình đang đọc |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | RelLength | WORD | Có | - | Độ dài thực tế |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | Data | DWORD | Có | - | Dữ liệu đọc được |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | AbrotCode | DWORD | Có | TRUE/FALSE | Mã ngắt (Abort code) do servo trả về, tham khảo tài liệu tiêu chuẩn EtherCAT để biết chi tiết |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Lỗi (Error) |
+| ETC_READPARAMETER_COE | Ngõ ra (Output) | ErrorID | DWORD | Có | Xem mã lỗi để biết chi tiết | Mã lỗi (Error Code) |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Device (T(Bit)) | Device (HSC(Bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Dịch địa chỉ ([D]) | Mở rộng từ kép (DXX) | Mở rộng dạng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ETC_READPARAMETER_COE | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_READPARAMETER_COE | SlaveID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_READPARAMETER_COE | Index |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_READPARAMETER_COE | SubIndex |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_READPARAMETER_COE | DstLength |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_READPARAMETER_COE | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_READPARAMETER_COE | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_READPARAMETER_COE | RelLength |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_READPARAMETER_COE | Data |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_READPARAMETER_COE | AbrotCode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_READPARAMETER_COE | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_READPARAMETER_COE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+- Được sử dụng để đọc các giá trị địa chỉ theo chỉ mục (Index) và chỉ mục phụ (Subindex) của Servo với độ dài chính xác.
+
+- Chức năng:
+
+① Khi Enable được đặt liên tục ở mức ON, hàm sẽ liên tục đọc giá trị SDO vào Data. Khi nhận được giá trị, nó sẽ đặt Done lên ON và ghi tiếp giá trị mới vào Data. Nếu không đọc được giá trị nào, Done sẽ được đặt về OFF.
+
+② Khi Enable được kích hoạt bằng cạnh xung, hàm sẽ đọc dữ liệu một lần. Trong quá trình này, Busy ở trạng thái TRUE. Sau khi đọc dữ liệu xong, hàm sẽ ghi giá trị thu được vào Data, tại thời điểm đó Done sẽ được đặt lên ON.
+
+③ Nếu không tìm thấy trạm tớ tương ứng sau khi Enable được kích hoạt, lỗi 0x27c3 sẽ được báo.
+
+④ Nếu chỉ mục (Index), chỉ mục phụ (Subindex) hoặc độ dài tương ứng không chính xác sau khi Enable được kích hoạt, lỗi sẽ xảy ra. Cần kiểm tra lỗi cụ thể theo AbrotCode.
+
+:::tip
+✎ Lưu ý: Việc đọc dữ liệu qua truyền thông cần thời gian xử lý; đọc quá nhiều dữ liệu cùng lúc sẽ làm tăng thời gian cập nhật dữ liệu.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 0x27c3 | Không tìm thấy trục (Kiểm tra xem các tham số đầu vào có đúng không) |
+| 0x27D8 | Lỗi độ dài truy cập SDO (Kiểm tra độ dài sử dụng trong lệnh đọc và ghi SDO) |
+| 0x27CD | Lỗi đọc SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
+| 0x27CC | Lỗi ghi SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774922271273-764.png?rev=1.1)
+
+Đọc giá trị từ Index 0x6064, Subindex 0, với độ dài bằng 2, và hiển thị giá trị đọc được trong trường Data.
+
+ETC_WRITEPARAMETER_COE
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774922271274-351.png?rev=1.1)
+
+Hàm này chủ yếu được sử dụng để ghi các tham số SDO vào bộ điều khiển Servo.
+
+Nội dung, phạm vi, kiểu dữ liệu
+
+| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Cho phép đọc SDO Servo |
+| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | SlaveID | WORD | Không | Từ 0 đến phạm vi các trạm slave EtherCAT có thể liên kết | Cài đặt theo ID đã cấu hình trên giao diện. Nếu thiết bị là tùy chọn, lỗi vẫn sẽ được báo ngay cả khi thiết bị không tồn tại thực tế |
+| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | Index | WORD | Không | 0~65535 | Chỉ mục (Index), điền theo thông tin do servo cung cấp |
+| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | SubIndex | WORD | Không | 0~65535 | Chỉ mục con (Sub-index), điền theo thông tin do servo cung cấp |
+| ETC_WRITEPARAMETER_COE | Ngõ vào (Input) | DstLength | WORD | Không | - | Độ dài dữ liệu, điền theo thông tin do servo cung cấp. |
+| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Khi lấy được giá trị, Done sẽ được đặt thành TRUE; nếu chưa đọc xong, Done sẽ là FALSE |
+| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Busy bằng TRUE trong quá trình đang đọc |
+| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | AbrotCode | DWORD | Có | TRUE/FALSE | Mã ngắt (Abort code) do servo trả về, tham khảo tài liệu tiêu chuẩn EtherCAT để biết chi tiết |
+| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Lỗi (Error) |
+| ETC_WRITEPARAMETER_COE | Ngõ ra (Output) | ErrorID | DWORD | Có | Xem mã lỗi để biết chi tiết | Mã lỗi (Error Code) |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Device (T(Bit)) | Device (HSC(Bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Dịch địa chỉ ([D]) | Mở rộng từ kép (DXX) | Mở rộng dạng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ETC_WRITEPARAMETER_COE | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_WRITEPARAMETER_COE | SlaveID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_WRITEPARAMETER_COE | Index |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_WRITEPARAMETER_COE | SubIndex |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_WRITEPARAMETER_COE | DstLength |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_WRITEPARAMETER_COE | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_WRITEPARAMETER_COE | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_WRITEPARAMETER_COE | AbrotCode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_WRITEPARAMETER_COE | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ETC_WRITEPARAMETER_COE | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+- Được sử dụng để đọc các giá trị địa chỉ theo chỉ mục (Index) và chỉ mục phụ (Subindex) của Servo với độ dài chính xác.
+
+- Chức năng:
+
+① Khi Enable được đặt liên tục ở mức ON, hàm sẽ liên tục đọc giá trị SDO vào Data. Khi nhận được giá trị, nó sẽ đặt Done lên ON và ghi tiếp giá trị mới vào Data. Nếu không đọc được giá trị nào, Done sẽ được đặt về OFF.
+
+② Khi Enable được kích hoạt bằng cạnh xung, hàm sẽ đọc dữ liệu một lần. Trong quá trình này, Busy ở trạng thái TRUE. Sau khi đọc dữ liệu xong, hàm sẽ ghi giá trị thu được vào Data, tại thời điểm đó Done sẽ được đặt lên ON.
+
+③ Nếu không tìm thấy trạm tớ tương ứng sau khi Enable được kích hoạt, lỗi 0x27c3 sẽ được báo.
+
+④ Nếu chỉ mục (Index), chỉ mục phụ (Subindex) hoặc độ dài tương ứng không chính xác sau khi Enable được kích hoạt, lỗi sẽ xảy ra. Cần kiểm tra lỗi cụ thể theo AbrotCode.
+
+:::tip
+✎ Lưu ý: Việc đọc dữ liệu qua truyền thông cần thời gian xử lý; đọc quá nhiều dữ liệu cùng lúc sẽ làm tăng thời gian cập nhật dữ liệu.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 0x27c3 | Không tìm thấy trạm slave tương ứng (Kiểm tra xem các tham số đầu vào có đúng không) |
+| 0x27D8 | Lỗi độ dài truy cập SDO (Kiểm tra độ dài sử dụng trong lệnh đọc và ghi SDO) |
+| 0x27CD | Lỗi đọc SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
+| 0x27CC | Lỗi ghi SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774922271275-534.png?rev=1.1)
+
+Ghi giá trị 131072 vào địa chỉ có Index 0x6091, Subindex 1 và độ dài dữ liệu bằng 4, sau đó đọc lại thông qua ETC_READPARAMETER_COE.
+
+### IODRVETHERCAT
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774922271276-492.png?rev=1.1)
+
+Hàm này chủ yếu được sử dụng để khởi động, khởi động lại và ngắt bus EtherCAT.
+
+Nội dung, phạm vi, kiểu dữ liệu
+
+| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| IODRVETHERCAT | Ngõ vào (Input) | Restart | BOOL | Không | TRUE/FALSE | Kích hoạt khởi động lại/bắt đầu bus EtherCAT |
+| IODRVETHERCAT | Ngõ vào (Input) | StopBus | BOOL | Không | TRUE/FALSE | Kích hoạt tắt bus EtherCAT |
+| IODRVETHERCAT | Ngõ ra (Output) | ConfigFinished | BOOL | Có | TRUE/FALSE | Cấu hình hoàn tất (TRUE) |
+| IODRVETHERCAT | Ngõ ra (Output) | DistributedClockInSync | BOOL | Có | TRUE/FALSE | Khởi tạo đồng hồ đồng bộ hoàn tất (TRUE) |
+| IODRVETHERCAT | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Đã xảy ra lỗi (TRUE) |
+| IODRVETHERCAT | Ngõ ra (Output) | SyncInWindow | BOOL | Có | Xem mã lỗi để biết chi tiết | Khởi tạo cửa sổ đồng bộ hoàn tất (TRUE) |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Device (T(Bit)) | Device (HSC(Bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Dịch địa chỉ ([D]) | Mở rộng từ kép (DXX) | Mở rộng dạng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| IODRVETHERCAT | Restart | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| IODRVETHERCAT | StopBus | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| IODRVETHERCAT | ConfigFinished |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| IODRVETHERCAT | DistributedClockInSync |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| IODRVETHERCAT | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| IODRVETHERCAT | SyncInWindow |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+- Hàm này chủ yếu được sử dụng để khởi động, khởi động lại và ngắt bus EtherCAT.
+
+- Chức năng:
+
+① Đặt Restart thành TRUE hoặc kích hoạt ở cạnh lên sẽ thực thi quy trình khởi động lại bus EtherCAT. ConfigFinished, DistributedClockInSync và SyncInWindow sẽ được đặt thành TRUE theo thứ tự khởi tạo. Nếu xảy ra ngoại lệ khởi tạo, Error sẽ được đặt thành TRUE.
+
+② Đặt StopBus thành TRUE sẽ ngắt bus EtherCAT. ConfigFinished, DistributedClockInSync và SyncInWindow sẽ được đặt thành FALSE.
+
+③ Đặt đồng thời cả Restart và StopBus thành TRUE sẽ bị coi là ngoại lệ, và Error sẽ được đặt thành TRUE. Mã lỗi sẽ được xuất ra từ địa chỉ lỗi của PLC.
+
+:::tip
+✎Lưu ý: Việc đọc dữ liệu cần có thời gian, và đọc quá nhiều dữ liệu cùng một lúc sẽ mất nhiều thời gian để cập nhật dữ liệu.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 0x27c3 | Không tìm thấy trạm slave tương ứng (Kiểm tra xem các tham số đầu vào có đúng không) |
+| 0x27D8 | Lỗi độ dài truy cập SDO (Kiểm tra độ dài sử dụng trong lệnh đọc và ghi SDO) |
+| 0x27CD | Lỗi đọc SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
+| 0x27CC | Lỗi ghi SDO. Kiểm tra địa chỉ, thử lại thao tác hoặc tăng thời gian chờ (timeout). |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774922271276-525.png?rev=1.1)
+
+Đặt Restart thành TRUE để khởi động trạm chủ (Master) EtherCAT, và SM1902 được đặt thành TRUE sau khi khởi động thành công.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20EtherCAT/WebHome/1774922271277-338.png?rev=1.1)
+
+Đặt StopBus thành TRUE để ngắt trạm chủ (Master) EtherCAT, và SM1902 được đặt thành FALSE đồng bộ.
+
+Các mã ngoại lệ AbrotCode
+
+| Các mã ngoại lệ AbrotCode | Ngoại lệ tương ứng |
+| :--- | :--- |
+| 0x00000000 | No SDO error |
+| 0x05030000 | Bit chuyển đổi (Toggle bit) không thay đổi |
+| 0x05040000 | SDO timeout |
+| 0x05040001 | Bộ chỉ định lệnh không xác định |
+| 0x05040005 | Giải thích sự kiện không đủ bộ nhớ |
+| 0x06010000 | Truy cập không được hỗ trợ |
+| 0x06010001 | Mục chỉ ghi |
+| 0x06010002 | Mục chỉ đọc |
+| 0x06010003 | Không thể ghi mục vì Subindex 0 khác 0 |
+| 0x06010004 | Không thể truy cập đối tượng |
+| 0x06020000 | Đối tượng không tồn tại |
+| 0x06040041 | Không thể ánh xạ đối tượng vào PDO |
+| 0x06040042 | Đối tượng ánh xạ vượt quá kích thước PDO |
+| 0x06040043 | Tham số không tương thích |
+| 0x06040047 | Thiết bị không tương thích |
+| 0x06060000 | Lỗi phần cứng |
+| 0x06070010 | Lỗi độ dài tham số |
+| 0x06070012 | Tham số quá dài |
+| 0x06070013 | Tham số quá ngắn |
+| 0x06090011 | Chỉ mục con (mục) không tồn tại |
+| 0x06090030 | Giá trị vượt quá giới hạn |
+| 0x06090031 | Giá trị quá lớn |
+| 0x06090032 | Ngưỡng quá nhỏ |
+| 0x06090033 | Danh sách nhận dạng mô-đun phát hiện được (0xF030) không khớp với danh sách nhận dạng mô-đun đã cấu hình |
+| 0x06090036 | Nhỏ hơn giá trị tối thiểu |
+| 0x08000000 | Lỗi chung |
+| 0x08000020 | Giải thích sự kiện không thể đọc/ghi dữ liệu |
+| 0x08000021 | Không thể truy cập dữ liệu do đang điều khiển cục bộ |
+| 0x08000022 | Giải thích sự kiện: không thể đọc hoặc ghi dữ liệu ở trạng thái hiện tại |
+| 0x08000023 | Đối tượng không có trong từ điển đối tượng |
+
+0

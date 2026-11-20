@@ -1,0 +1,948 @@
+---
+id: "6.07-external-io-instructions"
+title: "6.07 Lệnh giao tiếp thiết bị ngoại vi I/O (External IO Instructions)"
+sidebar_position: 7
+sidebar_label: "6.07 External IO instructions"
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 6.07 Lệnh giao tiếp thiết bị ngoại vi I/O (External IO Instructions)"
+---
+
+### ARWS/Công tắc mũi tên
+
+ARWS
+
+Lệnh nhập dữ liệu sử dụng các công tắc mũi tên để di chuyển vị trí chữ số và tăng hoặc giảm giá trị của chữ số đó.
+
+-[ARWS (s) (d1) (d2) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | địa chỉ thiết bị bắt đầu that input | - | BIN16 bit | ANY_BOOL |
+| (d1) | Số hiệu thiết bị word lưu trữ dữ liệu chuyển đổi BCD | - | BIN16 bit | ANY_BOOL |
+| (d2) | Thiết bị bit bắt đầu (Y) kết nối với màn hình LED 7 đoạn | 0 to 9999 | BIN16 bit | ANY16_S |
+| (n) | Chỉ định số chữ số hiển thị trên LED 7 đoạn (Phạm vi cài đặt: K0 đến K3) | 0 to 3 | BIN16 bit | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ARWS | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| ARWS | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
+| ARWS | Parameter 3 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| ARWS | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |
+
+#### Đặc tính kỹ thuật
+
+Thao tác 16-bit (ARWS). Giá trị BIN 16-bit từ 0 đến 9999 được lưu trong D+1. Để thuận tiện, phần mô tả sau được trình bày dưới dạng chuyển đổi BCD.
+
+Khi đầu vào lệnh ON, lệnh ARWS sẽ hoạt động như minh họa bên dưới.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760511617972-611.png?rev=1.1)
+
+Nội dung phần hiển thị và vận hành
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760511742942-310.png?rev=1.1)
+
+(1) Chỉ định chữ số của n hiển thị trên LED 7 đoạn bằng mã BCD
+
+Ví dụ dưới đây minh họa nguyên lý hoạt động với dữ liệu 4 chữ số (hàng 10³):
+
+(2) Hoạt động của công tắc chọn chữ số (S+2, S+3)
+
+1) Hoạt động khi ngõ vào giảm hàng chữ số (S+2) bật ON: Mỗi lần nhấn công tắc, vị trí hàng chữ số thay đổi tuần hoàn theo thứ tự 10³ → 10² → 10¹ → 10⁰ → 10³.
+
+2) Hoạt động khi ngõ vào tăng hàng chữ số (S+3) bật ON: Mỗi lần nhấn công tắc, vị trí hàng chữ số thay đổi tuần hoàn theo thứ tự 10³ → 10⁰ → 10¹ → 10² → 10³.
+
+(3) Hoạt động của đèn LED hiển thị chữ số đang chọn (D2+4 đến D2+7). Vị trí chữ số được chỉ định có thể hiển thị bằng đèn LED thông qua các tín hiệu chọn (strobe) D2+4 đến D2+7.
+
+(4) Hoạt động của công tắc thay đổi dữ liệu theo từng chữ số (S, S+1). Dữ liệu được thay đổi tại vị trí chữ số do "công tắc chọn chữ số" ở trên chỉ định.
+
+1) Hoạt động khi ngõ vào tăng giá trị bật ON. Mỗi lần nhấn công tắc, nội dung của D1 thay đổi theo thứ tự 0→1→2→...→8→9→0→1.
+
+2) Hoạt động khi ngõ vào giảm giá trị bật ON. Mỗi lần nhấn công tắc, nội dung của D1 thay đổi theo thứ tự 0→9→8→7...1→0→9.
+
+Các nội dung này có thể được hiển thị trên bộ hiển thị LED 7 đoạn.
+
+Như trình bày ở trên, thông qua chuỗi thao tác này, bạn có thể ghi giá trị mục tiêu vào D1 trong khi quan sát màn hình LED 7 đoạn.
+
+:::tip
+✎Lưu ý:
+
+- Về cài đặt tham số n, vui lòng tham khảo phần cài đặt tham số của lệnh SEGL (FNC 74). Phạm vi cài đặt từ 0 đến 3.
+
+- Về dạng ngõ ra của bộ điều khiển lập trình (PLC), vui lòng sử dụng PLC loại ngõ ra transistor.
+
+- Về thời gian quét (chu kỳ quét) và thời điểm hiển thị
+
+- Lệnh ARWS được thực thi đồng bộ với thời gian quét (chu kỳ quét) của bộ điều khiển lập trình (PLC).
+
+- Để thực hiện chuỗi hiển thị này, thời gian quét của bộ điều khiển lập trình (PLC) cần lớn hơn 10ms.
+
+- Khi nhỏ hơn 10ms, vui lòng sử dụng chế độ quét không đổi (Constant Scan Mode) và chạy với thời gian quét lớn hơn 10ms.
+
+- Số điểm thiết bị bị chiếm dụng (Ngõ vào thiết bị s chiếm 4 điểm. Ngõ ra thiết bị d2 chiếm 8 điểm.)
+
+- Restrictions on the times of the uses of instructions
+
+Chỉ có thể sử dụng tối đa một lệnh ARWS trong chương trình.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | The data input in the lệnh ứng dụng (d1) and (d2) exceeds the specified range |
+| 4085H | The output result of the read lệnh ứng dụng (s), (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output result of the write lệnh ứng dụng (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760512397594-857.png?rev=1.1)
+
+Sơ đồ đấu nối phần cứng tương ứng được thể hiện trong hình bên dưới, và PLC phải là loại ngõ ra transistor:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760512491182-137.png?rev=1.1)
+
+(1) LED 7 đoạn trong hình hiển thị giá trị của D0. Nhấn X10 đến X13 để thay đổi giá trị. Giá trị của D0 chỉ có thể nằm trong khoảng từ 0 đến 9999.
+
+(2) Khi X20 ON, vị trí con trỏ ở hàng nghìn. Mỗi lần nhấn phím lùi (X12), vị trí chỉ định được chuyển theo thứ tự "hàng nghìn → hàng trăm → hàng chục → hàng đơn vị → hàng nghìn"; nếu nhấn phím tiến (X13), thứ tự chuyển sẽ đảo ngược; vị trí con trỏ được hiển thị bằng đèn LED kết nối với tín hiệu xung chọn (Y004 đến Y007).
+
+(3) Đối với vị trí con trỏ hiện tại, mỗi lần nhấn phím tăng (X11), nội dung tại vị trí đó thay đổi theo 0 → 1 → 2 →……8 → 9 → 0 → 1; khi nhấn phím giảm (X10), giá trị thay đổi theo 0 → 9 → 8 → 7 →……1 → 0 → 9; giá trị sau khi sửa có hiệu lực ngay lập tức.
+
+### DSW/Nhập phím số (công tắc số BCD)
+
+DSW
+
+Lệnh này dùng để đọc trạng thái của công tắc cài đặt dạng ma trận, với 4 công tắc cài đặt BCD làm một nhóm, và lưu giá trị cài đặt vào đơn vị chỉ định sau khi đọc. Có thể đọc tối đa 2 nhóm công tắc cài đặt.
+
+-[DSW (s) (d1) (d2) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị bắt đầu (X) kết nối với công tắc số (chiếm 4 điểm) | - | Bit | ANY_BOOL |
+| (d1) | Số hiệu thiết bị bắt đầu (Y) xuất tín hiệu quét (strobe) (chiếm 4 điểm) | - | Bit | ANY_BOOL |
+| (d2) | địa chỉ thiết bị that stores the value of the digital switch (occupies n points) | 0 to 9999 | Signed BIN16 | ANY16_S |
+| (n) | Số nhóm công tắc số (mỗi nhóm 4 chữ số) (n=1 hoặc 2) | 1 to 2 | Signed BIN16 | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DSW | Parameter 1 | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| DSW | Parameter 2 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| DSW | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
+| DSW | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |
+
+#### Đặc tính kỹ thuật
+
+Lệnh này dùng để đọc trạng thái của công tắc cài đặt dạng ma trận, với 4 công tắc cài đặt BCD làm một nhóm, và lưu giá trị cài đặt vào đơn vị chỉ định sau khi đọc. Có thể đọc tối đa 2 nhóm công tắc cài đặt.
+
+(1) Về giá trị ngõ vào (d1)
+
+Có thể đọc được 4 chữ số từ 0 đến 9.999.
+
+Dữ liệu được lưu dưới dạng giá trị BIN (số nhị phân).
+
+Nhóm thứ nhất được lưu vào (d2), và nhóm thứ hai được lưu vào (d2)+1.
+
+(2) Chỉ định số lượng nhóm n
+
+1) Khi sử dụng 4 chữ số / 1 nhóm × 1 [n=K1], thông qua tín hiệu chọn (strobe)
+
+Từ (s) đến [(s)+3], lần lượt đọc các công tắc số BCD 4 chữ số kết nối từ (d1) đến [(d1)+3], và lưu giá trị dưới dạng BIN vào (d2).
+
+2) Khi sử dụng 4 chữ số / 1 nhóm × 2 [n=K2], thông qua tín hiệu chọn (strobe)
+
+Từ (s) đến [(s)+3], lần lượt đọc các công tắc số BCD 4 chữ số kết nối từ (d1) đến [(d1)+3], và lưu giá trị dưới dạng BIN vào (d2).
+
+Thông qua tín hiệu chọn (strobe) (d1) đến [(d1)+3], lần lượt đọc công tắc số BCD 4 chữ số kết nối từ (s)+4 đến [(s)+7], và lưu giá trị của nó dưới dạng BIN vào (d2)+1.
+
+:::tip
+✎Lưu ý:
+
+(1) Khi tiếp điểm lệnh OFF
+
+Ngay cả khi lệnh OFF, nội dung của (d2) không thay đổi, nhưng các ngõ ra từ (d1) đến [(d1)+3] đều chuyển sang OFF.
+
+(2) Số điểm thiết bị bị chiếm dụng
+
+1) Khi sử dụng 4 chữ số 2 nhóm (n=K2), chiếm 2 điểm bắt đầu từ (d2).
+
+2) Khi dùng 4 chữ số 1 nhóm, (s) chiếm 4 điểm; khi dùng 4 chữ số 2 nhóm, (s) chiếm 8 điểm.
+
+(3) Khi kết nối công tắc số có ít hơn 4 chữ số
+
+Đối với các chữ số không sử dụng, tín hiệu chọn (strobe) &lt;ngõ ra chỉ định chữ số&gt; (d1) không cần đấu dây, nhưng ngay cả khi có chữ số không dùng đến, ngõ ra đó vẫn đã bị lệnh này chiếm dụng nên không thể dùng cho mục đích khác. Hãy chắc chắn để trống các ngõ ra không sử dụng.
+
+(4) Khuyến nghị sử dụng loại ngõ ra transistor
+
+Để đọc giá trị của công tắc số một cách liên tục, hãy đảm bảo sử dụng bộ điều khiển lập trình (PLC) loại ngõ ra transistor.
+
+(5) Về công tắc số (digital switch)
+
+Vui lòng sử dụng công tắc số loại ngõ ra BCD.
+
+(6) Về thời điểm đọc dữ liệu nhập từ bàn phím
+
+Để tránh bỏ sót khi đọc do độ trễ bộ lọc của ngõ vào bàn phím, vui lòng sử dụng linh hoạt các chức năng “Chế độ quét không đổi (Constant Scan Mode)” và “Ngắt định thời (Timer Interrupt)”.
+
+(7) Giới hạn số lượng lệnh
+
+Có thể sử dụng đồng thời tối đa 2 lệnh.
+:::
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM229 | Kết thúc thực thi lệnh | Sau khi kết thúc một chu kỳ đọc, SM229 sẽ được đặt ON trong một chu kỳ quét |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | The data input in the lệnh ứng dụng (n) and (d2) exceeds the specified range |
+| 4085H | The output result of the read lệnh ứng dụng (s) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output result of the write lệnh ứng dụng (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
+| 4089H | The number of các lệnh ứng dụng exceeds the limit |
+
+#### Ví dụ minh họa
+
+Chương trình
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760512862523-769.png?width=482&amp;height=168&amp;rev=1.1)
+
+Sơ đồ đấu dây
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760512897876-845.png?rev=1.1)
+
+- DSW hoạt động trong khi M1 (ngõ vào đọc công tắc số) đang ON.
+
+- DSW sẽ hoạt động cho đến khi kết thúc một chu kỳ đọc và cờ kết thúc thực thi lệnh (SM229) bật ON.
+
+### HKY/Nhập phím số thập lục phân (Hex)
+
+HKY
+
+Lệnh nhập dữ liệu sử dụng bàn phím (16 phím) từ 0 đến F để nhập, cài đặt giá trị số (0 đến 9) và các điều kiện vận hành (các phím chức năng A đến F).
+
+Khi chức năng mở rộng bật ON, có thể sử dụng số thập lục phân của các phím từ 0 đến F để nhập từ bàn phím.
+
+-[HKY (s) (d1) (d2) (d3)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị bit bắt đầu (X) nhận đầu vào bàn phím 16 phím (chiếm 4 điểm) | - | Bit | ANY_BOOL |
+| (d1) | Số hiệu thiết bị bắt đầu (Y) xuất tín hiệu quét (chiếm 4 điểm) | - | Bit | ANY_BOOL |
+| (d2) | địa chỉ thiết bị that stores the value input from the 16 keys | 0 to 9999 | BIN16 bit | ANY16_S |
+| (d3) | Số hiệu thiết bị bit bắt đầu lưu trạng thái phím nhấn ON (chiếm 8 điểm) | - | BIN16 bit | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| HKY | Parameter 1 | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| HKY | Parameter 2 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| HKY | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
+| HKY | Parameter 4 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+
+#### Đặc tính kỹ thuật
+
+Thao tác 16-bit (HKY)
+
+Quét các tín hiệu ngõ vào hàng [S đến S+3] và ngõ ra cột [D1 đến D1+3] kết nối với 16 phím (0 đến F); khi nhấn các phím 0 đến 9, giá trị sẽ được lưu vào D2 và tín hiệu phát hiện nhấn phím được xuất ra D3+7.
+
+Ngoài ra, sau khi nhấn các phím A đến F, thông tin phím tương ứng trên bàn phím [D3 đến D3+5] sẽ bật ON, và tín hiệu phát hiện nhấn phím được xuất ra D3+6.
+
+(1) Về việc dùng các phím 0 đến 9 để nhập giá trị D2, D3+7
+
+Nếu giá trị vượt quá 9.999, chữ số hàng cao sẽ bị tràn. Giá trị đã nhập được lưu vào D2 dưới dạng BIN (số nhị phân).
+
+Khi bất kỳ phím nào từ 0 đến 9 được nhấn, ngõ ra phát hiện phím D3+7 sẽ bật ON.
+
+(2) Thông tin về các phím A đến F (D3 đến D3+6)
+
+Tương ứng với các phím A đến F, 6 điểm đầu tiên từ D3 (D3 đến D3+5) sẽ bật ON. Khi bất kỳ phím nào từ A đến F được nhấn, ngõ ra phát hiện phím D3+6 sẽ bật ON.
+
+| Keyboard | Key information |
+| :--- | :--- |
+| A | D3 |
+| B | D3+1 |
+| C | D3+2 |
+| D | D3+3 |
+| E | D3+4 |
+| F | D3+5 |
+
+Chức năng mở rộng
+
+Sau khi SM167 bật ON và chức năng mở rộng có hiệu lực, dữ liệu của các phím thập lục phân từ 0 đến F được lưu ở dạng BIN.
+
+Ngoại trừ các điểm sau đây, các nội dung khác giống với phần [Mô tả chức năng và hoạt động] ở trên.
+
+Dữ liệu thập lục phân nhập bằng các phím 0 đến F được ghi nguyên trạng vào D2.
+
+(1) Về việc nhập giá trị số bằng các phím 0 đến F (D2)
+
+Khi vượt quá FFFF, các chữ số hàng cao sẽ bị tràn.
+
+Ví dụ: khi nhập 1→2→3→B→F, giá trị “23BF” được lưu vào D2 ở dạng BIN. Khi nhập F, chữ số 1 bị tràn ra ngoài.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513015140-977.png?rev=1.1)
+
+:::tip
+✎Lưu ý
+
+- Hạn chế về số lần sử dụng lệnh
+
+Lệnh HKY chỉ có thể sử dụng tối đa một lệnh trong chương trình.
+
+- Khi nhấn đồng thời nhiều phím
+
+Khi nhiều phím được nhấn cùng lúc, phím được nhấn đầu tiên sẽ có hiệu lực.
+
+- Khi tiếp điểm lệnh OFF
+
+Ngay cả khi lệnh OFF, nội dung của D2 không thay đổi, nhưng từ D3 đến D3+7 đều chuyển sang OFF.
+
+- Số điểm thiết bị bị chiếm dụng
+
+Khi kết nối 16 phím, chiếm 4 điểm bắt đầu từ thiết bị S của ngõ vào (X).
+
+Khi kết nối 16 phím, chiếm 4 điểm bắt đầu từ thiết bị D1 của ngõ ra (Y).
+
+Chiếm 8 điểm bắt đầu từ thiết bị D3 cho ngõ ra thông tin phím.
+
+Vui lòng không để trùng lặp với các thiết bị dùng trong các phần điều khiển khác của máy.
+
+D3 đến D3+5: Thông tin phím của các phím A đến F
+
+D3+6: Ngõ ra phát hiện nhấn phím của các phím A đến F
+
+D3+7: Ngõ ra phát hiện nhấn phím của các phím 0-9
+
+- Về thời điểm đọc dữ liệu nhập từ bàn phím
+
+Lệnh HKY được thực thi đồng bộ với chu kỳ quét của bộ điều khiển lập trình (PLC).
+
+Cần 8 chu kỳ quét để hoàn thành một lượt quét toàn bộ bàn phím.
+
+Để tránh bỏ sót khi đọc do độ trễ bộ lọc của ngõ vào bàn phím, vui lòng sử dụng linh hoạt các chức năng [Chế độ quét không đổi] và [Ngắt định thời].
+
+- Dạng ngõ ra
+
+Vui lòng sử dụng bộ điều khiển lập trình (PLC) loại ngõ ra transistor.
+:::
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM229 | Kết thúc thực thi lệnh | OFF: Đang quét (d1) đến (d1)+3 hoặc lệnh chưa được thực thi; ON: Hoàn tất xuất tuần hoàn (d1) đến (d1)+3 (quét từ chữ số 1 đến 4) rồi bật ON |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output result of the read lệnh ứng dụng (s) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output result of the write lệnh ứng dụng (d1), (d2) and (d3) vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+Chương trình
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513293092-735.png?width=484&amp;height=89&amp;rev=1.1)
+
+Sơ đồ đấu dây
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513332784-164.png?width=500&amp;height=460&amp;rev=1.1)
+
+Khi nhập [1]→[2]→[3]→[B]→[F], lưu "23BF" vào D0 ở dạng BIN.
+
+Khi nhập [F], [1] bị tràn.
+
+### DHKY/Nhập phím số thập lục phân 32-bit
+
+DHKY
+
+Lệnh nhập dữ liệu sử dụng bàn phím (16 phím) từ 0 đến F để nhập, cài đặt giá trị số (0 đến 9) và các điều kiện vận hành (các phím chức năng A đến F).
+
+Khi chức năng mở rộng bật ON, có thể sử dụng số thập lục phân của các phím từ 0 đến F để nhập từ bàn phím.
+
+-[DHKY (s) (d1) (d2) (d3)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu thiết bị bit bắt đầu (X) nhận đầu vào bàn phím 16 phím (chiếm 4 điểm) | - | Bit | ANY_BOOL |
+| (d1) | Số hiệu thiết bị bắt đầu (Y) xuất tín hiệu quét (chiếm 4 điểm) | - | Bit | ANY_BOOL |
+| (d2) | địa chỉ thiết bị that stores the value input from the 16 keys | 0 to 99999999 | BIN32 bit | ANY32_S |
+| (d3) | Số hiệu thiết bị bit bắt đầu lưu trạng thái phím nhấn ON (chiếm 8 điểm) | - | BIN16 bit | ANY16_S |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DHKY | Parameter 1 | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| DHKY | Parameter 2 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| DHKY | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● |  |
+| DHKY | Parameter 4 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+
+#### Đặc tính kỹ thuật
+
+Thao tác 32-bit (DHKY)
+
+Quét các tín hiệu ngõ vào hàng [S đến S+3] và ngõ ra cột [D1 đến D1+3] kết nối với 16 phím (0 đến F); khi nhấn các phím 0 đến 9, giá trị sẽ được lưu vào [D2+1, D2], và tín hiệu phát hiện nhấn phím được xuất ra D3+7.
+
+Ngoài ra, sau khi nhấn các phím A đến F, thông tin phím tương ứng trên bàn phím [D3 đến D3+5] sẽ bật ON, và tín hiệu phát hiện nhấn phím được xuất ra D3+6.
+
+(1) Về việc dùng các phím từ 0 đến 9 để nhập giá trị [D2+1, D2], D3+7
+
+Nếu vượt quá 99.999.999, chữ số hàng cao sẽ bị tràn.
+
+Giá trị đã nhập được lưu vào [D2+1, D2] dưới dạng BIN (số nhị phân).
+
+Khi bất kỳ phím nào từ 0 đến 9 được nhấn, ngõ ra phát hiện phím D3+7 sẽ bật ON.
+
+(2) Thông tin nút nhấn về các phím A đến F (D3 đến D3+6)
+
+Về thông tin nhấn phím trên bàn phím, vui lòng tham khảo phần thao tác 16-bit (HKY) ở trang trước.
+
+Chức năng mở rộng
+
+Sau khi SM167 bật ON và chức năng mở rộng có hiệu lực, dữ liệu của các phím thập lục phân từ 0 đến F được lưu ở dạng BIN.
+
+Ngoại trừ các điểm sau đây, các nội dung khác giống với phần “Mô tả chức năng và hoạt động” ở trên.
+
+Dữ liệu thập lục phân nhập bằng các phím 0 đến F được ghi nguyên trạng vào [D2+1, D2].
+
+(3) Về việc nhập giá trị số bằng các phím 0 đến F ([D2+1, D2])
+
+- Khi vượt quá FFFFFFFF, các chữ số hàng cao sẽ bị tràn.
+
+Ví dụ: khi nhập [9]→[2]→[3]→[B]→[F]→[A]→[F], lưu "923BFAF" vào [D2+1, D2] ở dạng BIN.
+
+:::tip
+✎Lưu ý
+
+- Hạn chế về số lần sử dụng lệnh
+
+Chỉ có thể sử dụng tối đa một lệnh DHKY trong chương trình.
+
+- Khi nhấn đồng thời nhiều phím
+
+Khi nhiều phím được nhấn cùng lúc, phím được nhấn đầu tiên sẽ có hiệu lực.
+
+- Khi tiếp điểm lệnh OFF
+
+Ngay cả khi lệnh OFF, nội dung của D2 không thay đổi, nhưng từ D3 đến D3+7 đều chuyển sang OFF.
+
+- Số điểm thiết bị bị chiếm dụng
+
+Khi kết nối 16 phím, chiếm 4 điểm bắt đầu từ thiết bị S của ngõ vào (X).
+
+Khi kết nối 16 phím, chiếm 4 điểm bắt đầu từ thiết bị D1 của ngõ ra (Y).
+
+Chiếm 8 điểm bắt đầu từ thiết bị D3 cho ngõ ra thông tin phím.
+
+Vui lòng cẩn thận không để trùng lặp với các thiết bị dùng trong các phần điều khiển khác của máy.
+
+D3 đến D3+5: Thông tin phím của các phím A đến F
+
+D3+6: Ngõ ra phát hiện nhấn phím của các phím A đến F
+
+D3+7: Ngõ ra phát hiện nhấn phím của các phím 0-9
+
+- Về thời điểm đọc dữ liệu nhập từ bàn phím
+
+Lệnh DHKY được thực thi đồng bộ với chu kỳ quét của bộ điều khiển lập trình (PLC).
+
+Cần 8 chu kỳ quét để hoàn thành một lượt quét toàn bộ bàn phím.
+
+Để tránh bỏ sót khi đọc do độ trễ bộ lọc của ngõ vào bàn phím, vui lòng sử dụng linh hoạt các chức năng “Chế độ quét không đổi (Constant Scan Mode)” và “Ngắt định thời (Timer Interrupt)”.
+
+- Dạng ngõ ra
+
+Vui lòng sử dụng bộ điều khiển lập trình (PLC) loại ngõ ra transistor.
+:::
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM229 | Kết thúc thực thi lệnh | OFF: Đang quét (d1) đến (d1)+3 hoặc lệnh chưa được thực thi; ON: Hoàn tất xuất tuần hoàn (d1) đến (d1)+3 (quét từ chữ số 1 đến 4) rồi bật ON |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output result of the read lệnh ứng dụng (s) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output result of the write lệnh ứng dụng (d1), (d2) and (d3) vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+Chương trình
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513491921-463.png?width=439&amp;height=72&amp;rev=1.1)
+
+Sơ đồ đấu dây
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513520049-993.png?width=505&amp;height=472&amp;rev=1.1)
+
+Khi nhập 1→2→3→B→F→5→7→6, lưu "123BF576" ở dạng BIN vào [D1,D0].
+
+### PR/Xuất mã ASCII
+
+PR
+
+Lệnh này dùng để xuất song song dữ liệu ASCII ra các ngõ ra (Y).
+
+-[PR (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu mã ASCII |  | String (ASCII code only) | ANY_ASC |
+| (d) | Số hiệu bắt đầu Y xuất dữ liệu mã ASCII | - | Bit | ANY_BOOL |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| PR | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
+| PR | Parameter 2 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+
+#### Đặc tính kỹ thuật
+
+Mã ASCII lưu trong 8 bit thấp (1 byte) của các thiết bị từ (S) đến (S)+7 được xuất ra từ (D) đến (D)+7 theo từng ký tự bằng phương pháp phân chia thời gian.
+
+Mã ASCII được lưu bên trong như hình dưới đây, và giản đồ thời gian sau được trình bày dựa trên ví dụ này.
+
+Thứ tự truyền bắt đầu từ (S) = "A" và kết thúc tại (S)+7 = "H", truyền tổng cộng 8 byte.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513810834-297.png?rev=1.1)
+
+Giản đồ xung thời gian
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513830738-643.png?rev=1.1)
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM227 | PR mode | OFF: Xuất nối tiếp 8 byte (cố định 8 ký tự); ON: Xuất nối tiếp 16 byte (1 đến 16 ký tự) |
+
+:::tip
+✎Lưu ý
+
+- Đầu vào lệnh và hoạt động của lệnh
+
+Đầu vào lệnh = ON: Ngay cả khi lệnh ON liên tục hoặc thực thi lệnh xung, một khi hoàn tất việc xuất một chu kỳ, quá trình thực thi sẽ kết thúc.
+
+SM229 chỉ hoạt động khi SM227=ON.
+
+Đầu vào lệnh = OFF: tất cả ngõ ra đều OFF.
+
+- Mối quan hệ với thời gian quét (thời gian thực thi)
+
+Lệnh được thực thi đồng bộ với thời gian quét.
+
+Khi thời gian quét ngắn, có thể sử dụng chế độ quét không đổi để điều khiển; khi thời gian quét dài hơn, có thể sử dụng ngắt định thời để điều khiển.
+
+- Về ngõ ra của bộ điều khiển lập trình (PLC)
+
+Vui lòng sử dụng bộ điều khiển lập trình (PLC) loại ngõ ra transistor.
+
+- Khi tồn tại mã 00H (NUL) trong dữ liệu (khi SM227=ON)
+
+Sau khi lệnh được thực thi đến mã này, phần dữ liệu còn lại sẽ không được xuất ra.
+
+Ngoài ra, SM229 duy trì trạng thái ON trong một chu kỳ quét.
+
+- Hạn chế về số lần sử dụng lệnh
+
+Chỉ có thể sử dụng tối đa một lệnh PR trong chương trình.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output result of the read lệnh ứng dụng (s) vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output result of the write lệnh ứng dụng (d) vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+Chương trình
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513895339-222.png?width=382&amp;height=59&amp;rev=1.1)
+
+Nếu mã ASCII trong D200 đến D203 là "Stopped", tín hiệu cổng ngõ ra tương ứng và giản đồ thời gian của nó như sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513928003-568.png?rev=1.1)
+
+### SEGD/Giải mã LED 7 đoạn (1 chữ số)
+
+SEGD(P)
+
+Lệnh điều khiển hiển thị LED 7 đoạn (1 chữ số).
+
+-[SEGD (s) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị word bắt đầu được giải mã | -32767 to 32767 | Bit | ANY_BOOL |
+| (d) | Số hiệu thiết bị word lưu trữ dữ liệu hiển thị LED 7 đoạn | -32767 to 32767 | Bit | ANY_BOOL |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SEGD | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| SEGD | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● | ● |
+
+#### Đặc tính kỹ thuật
+
+Giải mã 4 bit thấp (1 chữ số) từ 0 đến F (số thập lục phân) của (S) thành dữ liệu hiển thị LED 7 đoạn và lưu vào 8 bit thấp của (d).
+
+1. Bảng giải mã LED 7 đoạn
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760513975975-174.png?rev=1.1)
+
+:::tip
+✎Lưu ý
+
+Số điểm thiết bị bị chiếm dụng: 8 bit thấp của thiết bị ngõ ra (d) bị chiếm dụng, còn 8 bit cao không thay đổi.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output result of the read lệnh ứng dụng (s) and (d) vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output result of the write lệnh ứng dụng (d) vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760514031048-488.png?rev=1.1)
+
+Khi M0 được SET (ON), 4 bit thấp của dữ liệu trong D0 được giải mã và xuất ra các cổng Y10 đến Y17. Bảng chuyển đổi tương ứng được thể hiện trong bảng trên (bảng giải mã LED 7 đoạn). Người dùng không cần tự chuẩn bị bảng này vì bảng tra cứu đã được tích hợp sẵn trong hệ thống PLC.
+
+### SEGL/Hiển thị LED 7 đoạn quét theo thời gian có chốt (Latch)
+
+SEGL
+
+Lệnh điều khiển hiển thị 1 hoặc 2 nhóm LED 7 đoạn 4 chữ số có mạch chốt (latch).
+
+-[SEGL (s) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị word bắt đầu để chuyển đổi BCD | 0 to 9999 | BIN16 bit | ANY16 |
+| (d) | The starting Y number to be output | - | Bit | ANY_BOOL |
+| (n) | Số hiệu tham số [Phạm vi cài đặt: K0(H0) đến K7(H7)] | 0 to 7 | BIN16/32 bit | ANY16_U |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SEGL | Parameter 1 |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● |  |
+| SEGL | Parameter 2 |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| SEGL | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |
+
+#### Đặc tính kỹ thuật
+
+Chuyển đổi giá trị 4 chữ số của (s) thành dữ liệu BCD và sử dụng phương pháp phân chia thời gian để xuất tuần tự từng chữ số ra LED 7 đoạn có bộ giải mã BCD. (s) hợp lệ khi là dữ liệu BIN trong phạm vi từ 0 đến 9999.
+
+Tham số (n) cần được cài đặt như sau dựa trên logic dương/âm ở phía bộ điều khiển lập trình (PLC) và logic dương/âm ở phía LED 7 đoạn.
+
+| Mức logic ngõ ra của bộ điều khiển lập trình (PLC) | Ngõ vào dữ liệu | Tín hiệu quét (Strobe) | Parameter n (4 digitsin 1 group) | Parameter n (4 digitsin 2 groups) |
+| :--- | :--- | :--- | :--- | :--- |
+| Logic âm | Logic âm (đồng nhất) | Logic âm (đồng nhất) | 0 | 4 |
+| Logic âm | Logic âm (đồng nhất) | Logic dương (không đồng nhất) | 1 | 5 |
+| Logic âm | Logic dương (không đồng nhất) | Logic âm (đồng nhất) | 2 | 6 |
+| Logic âm | Logic dương (không đồng nhất) | Logic dương (không đồng nhất) | 3 | 7 |
+| Logic dương | Logic dương (đồng nhất) | Logic âm (đồng nhất) | 0 | 4 |
+| Logic dương | Logic dương (đồng nhất) | Logic dương (không đồng nhất) | 1 | 5 |
+| Logic dương | Logic âm (không đồng nhất) | Logic âm (đồng nhất) | 2 | 6 |
+| Logic dương | Logic âm (không đồng nhất) | Logic dương (không đồng nhất) | 3 | 7 |
+
+(1) Khi sử dụng 4 chữ số trong 1 nhóm (n=K0 đến 3)
+
+Sau khi chuyển đổi giá trị 4 chữ số của (s) từ BIN→BCD, sử dụng phương pháp phân chia thời gian để xuất lần lượt từng chữ số từ (d) đến (d)+3. Ngoài ra, ngõ ra tín hiệu chọn (strobe) (d)+4 đến (d)+7 cũng được xuất theo phương pháp phân chia thời gian, chốt vào màn hình LED 7 đoạn của nhóm 4 chữ số thứ nhất.
+
+(2) Khi sử dụng 4 chữ số trong 2 nhóm (n=K4 đến 7)
+
+1) Nhóm 4 chữ số thứ 1
+
+Sau khi chuyển đổi giá trị 4 chữ số của (s) từ BIN→BCD, sử dụng phương pháp phân chia thời gian để xuất lần lượt từng chữ số từ (d) đến (d)+3. Ngõ ra tín hiệu chọn (strobe) (d)+4 đến (d)+7 được xuất lần lượt theo phương pháp phân chia thời gian, chốt vào màn hình LED 7 đoạn của nhóm 4 chữ số thứ nhất.
+
+2) Nhóm 4 chữ số thứ 2
+
+Sau khi chuyển đổi giá trị 4 chữ số của (s)+1 từ BIN→BCD, sử dụng phương pháp phân chia thời gian để xuất lần lượt từng chữ số từ (d)+10 đến (d)+13. Ngõ ra tín hiệu chọn (strobe) (d)+4 đến (d)+7 được xuất lần lượt theo phương pháp phân chia thời gian, chốt vào màn hình LED 7 đoạn của nhóm 4 chữ số thứ hai.
+
+:::tip
+✎Lưu ý
+
+- Về thời gian cần thiết để cập nhật màn hình LED 7 đoạn 4 chữ số
+
+Thời gian cần thiết để cập nhật màn hình 4 chữ số (1 nhóm hoặc 2 nhóm) bằng 12 lần thời gian quét (thời gian thực thi).
+
+- Hoạt động khi đầu vào lệnh OFF
+
+Khi đầu vào lệnh ON, hoạt động được lặp lại. Tuy nhiên, nếu tiếp điểm lệnh tắt OFF trong khi đang thực hiện, hoạt động sẽ bị ngắt. Khi ON trở lại, nó sẽ bắt đầu lại từ bước đầu tiên.
+
+- Số điểm thiết bị bị chiếm dụng
+
+Khi sử dụng 4 chữ số trong 1 nhóm: chiếm 1 điểm từ thiết bị bắt đầu chỉ định tại S.
+
+Chiếm 8 điểm từ thiết bị bắt đầu chỉ định tại D. Ngay cả khi số chữ số sử dụng ít hơn, các điểm đã bị chiếm cũng không thể dùng cho mục đích khác.
+
+Khi sử dụng 4 chữ số 2 nhóm: chiếm 2 điểm từ thiết bị bắt đầu chỉ định tại S.
+
+Chiếm 12 điểm từ thiết bị bắt đầu chỉ định tại D. Ngay cả khi số chữ số sử dụng ít hơn, các điểm đã bị chiếm cũng không thể dùng cho mục đích khác.
+
+- Về thời gian quét (chu kỳ quét) và thời điểm hiển thị
+
+Lệnh SEGL được thực thi đồng bộ với thời gian quét (chu kỳ quét) của bộ điều khiển lập trình (PLC).
+
+Để thực hiện chuỗi hiển thị này, thời gian quét của bộ điều khiển lập trình (PLC) cần lớn hơn 10ms.
+
+Khi nhỏ hơn 10ms, vui lòng sử dụng chế độ quét không đổi (Constant Scan Mode) và chạy với thời gian quét lớn hơn 10ms.
+
+- Về dạng ngõ ra của bộ điều khiển lập trình (PLC)
+
+Vui lòng sử dụng bộ điều khiển lập trình (PLC) loại ngõ ra transistor.
+
+- Giới hạn số lượng lệnh
+
+Có thể sử dụng đồng thời tối đa 2 lệnh.
+:::
+
+Thiết bị liên quan
+
+| Vùng nhớ thiết bị (Devices) | Tên | Nội dung mô tả |
+| :--- | :--- | :--- |
+| SM229 | Kết thúc thực thi lệnh | Sau khi xử lý hoàn tất, SM229 bật ON trong một chu kỳ quét |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | The data input in the lệnh ứng dụng (n) exceeds the specified range |
+| 4085H | The output result of the read lệnh ứng dụng (s) vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output result of the write lệnh ứng dụng (d) vượt quá phạm vi vùng nhớ thiết bị |
+| 4089H | The number of các lệnh ứng dụng exceeds the limit |
+
+#### Ví dụ minh họa
+
+Chương trình
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760514168362-367.png?width=480&amp;height=64&amp;rev=1.1)
+
+Sơ đồ đấu nối phần cứng tương ứng được thể hiện trong hình sau. Nội dung của D0 được hiển thị trên nhóm LED 7 đoạn thứ nhất, và nội dung của D1 được hiển thị trên nhóm LED 7 đoạn thứ hai. Nếu giá trị đọc của D0 hoặc D1 vượt quá 9999, chương trình sẽ báo lỗi:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760514198852-670.png?rev=1.1)
+
+LED 7 đoạn dùng trong sơ đồ đấu dây có sẵn mạch chốt dữ liệu hiển thị, mạch giải mã và kích 7 đoạn, thuộc loại logic âm (khi cổng ngõ vào ở mức thấp nghĩa là dữ liệu vào là 1, hoặc đang được chọn). Trong quá trình xử lý hiển thị, các cổng Y4 đến Y7 của PLC sẽ quét tự động, mỗi lần chỉ có một cổng ON đóng vai trò tín hiệu chọn chữ số (strobe). Lúc này, dữ liệu trên các cổng Y0 đến Y3 là dữ liệu mã BCD gửi đến chữ số tương ứng. Khi tín hiệu chọn chuyển từ ON→OFF, dữ liệu được chốt vào mạch chốt trong LED 7 đoạn; sau khi giải mã và kích bên trong, LED 7 đoạn sẽ hiển thị chữ số. Hệ thống PLC xử lý tuần hoàn Y4 đến Y7 lần lượt cho đến khi xử lý xong cả 4 chữ số. Tương tự, Y10 đến Y13 là các cổng xuất dữ liệu của nhóm LED 7 đoạn 4 chữ số thứ hai, dùng chung các đường chọn Y4 đến Y7. Phương thức xử lý giống nhau và việc hiển thị của hai nhóm được thực hiện đồng thời. Trong ví dụ, nếu D0=K2468 và D1=K9753, nhóm thứ nhất sẽ hiển thị 2 4 6 8 và nhóm thứ hai sẽ hiển thị 9 7 5 3.
+
+Cần 12 chu kỳ quét để hoàn thành một lần làm tươi hiển thị. Sau khi xử lý xong, tùy theo logic dương/âm của bộ điều khiển lập trình (PLC) và logic dương/âm của mã 7 đoạn, hãy lựa chọn theo các nguyên tắc sau:
+
+Đối với một nhóm 4 chữ số, n=0 đến 3. Khi dùng hai nhóm 4 chữ số, n=4 đến 7.
+
+| Số nhóm hiển thị | Group 1 | Group 1 | Group 1 | Group 1 | Group 2 | Group 2 | Group 2 | Group 2 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Cực tính xuất dữ liệu Y | PNP |  | NPN |  | PNP |  | NPN |  |
+| Cực tính tín hiệu quét (Strobe) và dữ liệu | Identical | Opposite | Identical | Opposite | Identical | Opposite | Identical | Opposite |
+| the value of n | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+
+### TKY/Nhập phím số (0 đến 9)
+
+TKY
+
+Lệnh sử dụng bàn phím (các phím số) từ 0 đến 9 để nhập dữ liệu cài đặt cho các thiết bị như bộ định thời và bộ đếm.
+
+-[TKY (s) (d1) (d2)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị bit bắt đầu nhận đầu vào phím số (chiếm 10 điểm) | - | Bit | ANY_BOOL |
+| (d1) | Số hiệu thiết bị word lưu trữ dữ liệu | 0 to 9999 | Signed BIN16 | ANY16_S |
+| (d2) | Số hiệu thiết bị bit bắt đầu biểu thị phím được nhấn ON (chiếm 11 điểm) | - | Bit | ANY_BOOL |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| TKY | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| TKY | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  |  |  | ● |  |
+| TKY | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+
+#### Đặc tính kỹ thuật
+
+Kết nối các phím số từ 0 đến 9 với ngõ vào [(s) đến (s)+9] và nhấn phím trên bàn phím; giá trị nhập được lưu vào (d1) và xuất ra (d2) đến (d2)+10
+
+thông tin nhập phím và tín hiệu ngõ ra phát hiện nhấn phím.
+
+(1) Về giá trị ngõ vào (d1)
+
+Nếu lớn hơn 9.999, giá trị sẽ bị tràn từ chữ số hàng cao.
+
+Giá trị nhập vào được lưu dưới dạng BIN (số nhị phân).
+
+Sau khi nhấn các phím số theo thứ tự ①, ②, ③, ④, giá trị được lưu dưới dạng 2130 trong (d1).
+
+(2) Về thông tin phím từ (d2) đến +10
+
+Thông tin phím từ (d2) đến (d2)+9 chuyển trạng thái ON/OFF tương ứng theo phím được nhấn.
+
+Khi nhấn bất kỳ phím nào từ 0 đến 9, ngõ ra phát hiện bàn phím của (d2)+10 sẽ ở trạng thái ON.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760514377832-451.png?rev=1.1)
+
+:::tip
+✎Lưu ý
+
+- Khi nhấn đồng thời nhiều phím
+
+Khi nhấn đồng thời nhiều phím, chỉ phím được nhấn đầu tiên mới có hiệu lực.
+
+- Khi tiếp điểm lệnh OFF
+
+Ngay cả khi tín hiệu đầu vào chuyển sang OFF, nội dung của (d2) vẫn không thay đổi, nhưng từ (d2) đến (d2)+10 sẽ chuyển sang OFF.
+
+- Số điểm thiết bị bị chiếm dụng
+
+✎ Connect the input of the number keys, occupying 10 points from (s).
+
+Ngay cả khi phím số không được kết nối (không sử dụng), vì (d2) đã bị chiếm dụng nên không thể sử dụng cho mục đích khác.
+
+✎ It occupies 11 points from the start device (d2) for key information output.
+
+Vui lòng cẩn thận không để trùng lặp với các thiết bị dùng trong các phần điều khiển khác của máy.
+
+(d2) đến (d2)+9: Bật ON tương ứng theo ngõ vào của các phím số từ 0 đến 9.
+
+(d2)+10: Bật ON khi nhấn bất kỳ phím nào từ 0 đến 9. (Ngõ ra phát hiện bàn phím)
+
+- Hạn chế về số lần sử dụng lệnh
+
+Chỉ có thể sử dụng một trong hai lệnh TKY hoặc lệnh DTKY trong chương trình.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output result of the read lệnh ứng dụng (s) vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output result of the write lệnh ứng dụng (d) vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760514609709-174.png?rev=1.1)
+
+Để nhập số "2013", nhấn lần lượt các phím 2, 0, 1, 3 (X2, X0, X1, X3). Hoạt động của các biến nội bộ PLC được minh họa như hình dưới đây.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760514662302-178.png?rev=1.1)
+
+### DTKY / Nhập phím số
+
+DTKY
+
+Sử dụng 4 điểm bắt đầu từ thiết bị chỉ định tại (d) để thực hiện 4 kiểu ngõ ra định thời.
+
+-[STMR (s1) (s2) (d)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Thiết bị bit bắt đầu nhận đầu vào phím số (chiếm 10 điểm) | - | Bit | ANY_BOOL |
+| (d1) | Số hiệu thiết bị word lưu trữ dữ liệu | 0 to 99999999 | Signed BIN32 | ANY32_S |
+| (d2) | Số hiệu thiết bị bit bắt đầu biểu thị phím được nhấn ON [chiếm 11 điểm] | - | Bit | ANY_BOOL |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| DTKY | Parameter 1 | ● | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+| DTKY | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● | ● | ● |  |  |  | ● |  |
+| DTKY | Parameter 3 |  | ● | ● | ● | ● |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |
+
+#### Đặc tính kỹ thuật
+
+Kết nối các phím số từ 0 đến 9 với ngõ vào [(s) đến (s)+9] và nhấn phím trên bàn phím; giá trị nhập được lưu vào (d1) và xuất ra (d2) đến (d2)+10
+
+thông tin nhập phím và tín hiệu ngõ ra phát hiện nhấn phím.
+
+(1) Về giá trị ngõ vào (d1)
+
+Nếu lớn hơn 9.999, giá trị sẽ bị tràn từ chữ số hàng cao.
+
+Giá trị nhập vào được lưu dưới dạng BIN (số nhị phân).
+
+(2) Thông tin phím từ (d2) đến +10
+
+Thông tin phím từ (d2) đến +9 chuyển trạng thái ON/OFF tương ứng theo phím được nhấn.
+
+Khi nhấn bất kỳ phím nào từ 0 đến 9, ngõ ra phát hiện bàn phím của (d2)+10 sẽ ở trạng thái ON.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760514844496-799.png?rev=1.1)
+
+:::tip
+✎Lưu ý
+
+- Khi nhấn đồng thời nhiều phím
+
+- Khi nhấn đồng thời nhiều phím, chỉ phím được nhấn đầu tiên mới có hiệu lực.
+
+- Khi tiếp điểm lệnh OFF
+
+Ngay cả khi tín hiệu đầu vào chuyển sang OFF, nội dung của (d2) vẫn không thay đổi, nhưng từ (d2) đến (d2)+10 sẽ chuyển sang OFF.
+
+- Số điểm thiết bị bị chiếm dụng
+
+✎ Connect the input of the number keys, occupying 10 points from (s).
+
+Ngay cả khi phím số không được kết nối (không sử dụng), vì (d2) đã bị chiếm dụng nên không thể sử dụng cho mục đích khác.
+
+✎ It occupies 11 points from the start device (d2) for key information output.
+
+Vui lòng cẩn thận không để trùng lặp với các thiết bị dùng trong các phần điều khiển khác của máy.
+
+(d2) đến (d2)+9: Bật ON tương ứng theo ngõ vào của các phím số từ 0 đến 9.
+
+(d2)+10: Bật ON khi nhấn bất kỳ phím nào từ 0 đến 9. (Ngõ ra phát hiện bàn phím)
+
+- Hạn chế về số lần sử dụng lệnh
+
+Chỉ có thể sử dụng một trong hai lệnh TKY hoặc lệnh DTKY trong chương trình.
+:::
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The output result of the read lệnh ứng dụng (s) and (d1) vượt quá phạm vi vùng nhớ thiết bị |
+| 4086H | The output result of the write lệnh ứng dụng (d1) and (d2) vượt quá phạm vi vùng nhớ thiết bị |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.7%20External%20IO%20instructions/WebHome/1760515045145-370.png?rev=1.1)
+
+Khi X20 đang ON, nếu muốn nhập số "20205689", hãy nhấn lần lượt 2, 0, 2, 0, 5, 6, 8, 9 (X2, X0, X2, X0, X5, X6, X10, X11), khi đó giá trị trong (D1, D0) là 20205689.
+
+0

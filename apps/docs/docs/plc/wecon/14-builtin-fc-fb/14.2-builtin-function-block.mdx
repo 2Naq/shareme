@@ -1,0 +1,738 @@
+---
+id: "14.2-builtin-function-block"
+title: "14.2 Khối hàm chức năng tích hợp sẵn (Built-in Function Block)"
+sidebar_position: 2
+sidebar_label: "14.2 Built-in Function Block"
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 14.2 Khối hàm chức năng tích hợp sẵn (Built-in Function Block)"
+---
+
+### R_TRIG / Phát hiện cạnh lên
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761201848919-968.png?rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| R_TRIG | CLK | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| R_TRIG | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- X, Y, M, S và SM là kiểu BOOL;
+
+- Không thể sử dụng X làm ngõ ra.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu |
+| :--- | :--- | :--- |
+| R_TRIG | CLK | BOOL |
+| R_TRIG | Q | BOOL |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khi (CLK) chuyển sang ON, (Q) được đặt lên ON chỉ trong một chu kỳ quét (scan).
+
+- Giản đồ xung thời gian
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202071677-311.png?rev=1.1)
+
+(1): Khi EN=ON và gặp cạnh lên của (CLK), (Q) được đặt lên ON;
+
+(2): Trong chu kỳ quét (scan) tiếp theo, (Q) được đặt về OFF;
+
+(3): Khi EN=OFF, (Q) giữ nguyên trạng thái ngõ ra của chu kỳ quét trước đó.
+
+### F_TRIG / Phát hiện cạnh xuống
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761201970311-833.png?width=372&amp;height=152&amp;rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| F_TRIG | CLK | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| F_TRIG | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- X, Y, M, S và SM là kiểu BOOL;
+
+- Không thể sử dụng X làm ngõ ra.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu |
+| :--- | :--- | :--- |
+| F_TRIG | CLK | BOOL |
+| F_TRIG | Q | BOOL |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khi (CLK) chuyển sang OFF, (Q) được đặt lên ON chỉ trong một chu kỳ quét (scan).
+
+- Giản đồ xung thời gian
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202169099-852.png?rev=1.1)
+
+(1): Khi EN=ON và gặp cạnh xuống của (CLK), (Q) được đặt lên ON;
+
+(2): Trong chu kỳ quét (scan) tiếp theo, (Q) được đặt về OFF;
+
+(3): Khi EN=OFF, (Q) giữ nguyên trạng thái ngõ ra của chu kỳ quét trước đó.
+
+### RS / Khối hàm lưỡng ổn (Ưu tiên Reset)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202212253-367.png?rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| RS | SET | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| RS | RESET | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| RS | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- X, Y, M, S và SM là kiểu BOOL;
+
+- Không thể sử dụng X làm ngõ ra.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu |
+| :--- | :--- | :--- |
+| RS | SET | BOOL |
+| RS | RESET | BOOL |
+| RS | Q | BOOL |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khi RESET là “TRUE”, bất kể giá trị của SET là gì, ngõ ra Q là “FALSE”; khi RESET là “FALSE” và SET là “TRUE”, ngõ ra Q là “TRUE”; khi cả RESET và SET đều là “FALSE”, Q giữ nguyên trạng thái ban đầu.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202255538-174.png?rev=1.1)
+
+### SR / Khối hàm lưỡng ổn (Ưu tiên Set)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202315882-397.png?width=323&amp;height=207&amp;rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SR | SET | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SR | RESET | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SR | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- X, Y, M, S và SM là kiểu BOOL;
+
+- Không thể sử dụng X làm ngõ ra.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu |
+| :--- | :--- | :--- |
+| SR | SET | BOOL |
+| SR | RESET | BOOL |
+| SR | Q | BOOL |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khi SET là “TRUE”, bất kể giá trị của RESET là gì, ngõ ra Q là “TRUE”; khi SET là “FALSE” và RESET là “TRUE”, ngõ ra Q là “FALSE”; khi cả RESET và SET đều là “FALSE”, Q giữ nguyên trạng thái ban đầu.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202369547-543.png?rev=1.1)
+
+### CTU / Bộ đếm lên
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202401240-363.png?width=265&amp;height=236&amp;rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| CTU | CU | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CTU | RESET | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CTU | PV |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+| CTU | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CTU | CV |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- X, Y, M, S và SM là kiểu BOOL;
+
+- T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit);
+
+- LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
+
+- Không thể sử dụng X làm ngõ ra.
+
+| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu |
+| :--- | :--- | :--- |
+| CTU | CU | BOOL |
+| CTU | RESET | BOOL |
+| CTU | PV | WORD |
+| CTU | Q | BOOL |
+| CTU | CV | WORD |
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+#### Chức năng và nguyên lý hoạt động
+
+- Nếu (CU) chuyển từ OFF sang ON, (CV) được đếm tăng (+1);
+
+- Nếu (CV) lớn hơn hoặc bằng (PV) của bộ đếm, (Q) chuyển sang ON và tiếp tục đếm tăng cho đến khi đạt giá trị tối đa 32767; sau đó dừng đếm;
+
+- (PV) đặt giá trị đích của bộ đếm. Nếu (RESET) được đặt lên ON, (CV) được đặt về 0.
+
+Ví dụ: PV được đặt là 3
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202445519-544.png?width=228&amp;height=264&amp;rev=1.1)
+
+Biểu đồ thời gian:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202480667-767.png?rev=1.1)
+
+(1) Tại cạnh lên của CU, CV được đếm tăng;
+
+(2) Khi RESET được đặt lên ON, CV được đặt lại (reset).
+
+#### Lưu ý kỹ thuật quan trọng
+
+- Phạm vi của bộ đếm: 0~32767;
+
+- Nếu giá trị của PV được đặt vượt quá phạm vi của bộ đếm, ngõ ra Q sẽ luôn ở trạng thái ON.
+
+### CTD / Bộ đếm xuống
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202520608-875.png?rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| CTD | CD | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CTD | LOAD | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CTD | PV |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+| CTD | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CTD | CV |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- X, Y, M, S và SM là kiểu BOOL;
+
+- T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit);
+
+- LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
+
+- Không thể sử dụng X làm ngõ ra.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu |
+| :--- | :--- | :--- |
+| CTD | CD | BOOL |
+| CTD | LOAD | BOOL |
+| CTD | PV | WORD |
+| CTD | Q | BOOL |
+| CTD | CV | WORD |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Nếu (CD) chuyển từ OFF sang ON, (CV) được đếm giảm (-1);
+
+- Nếu (CV) bằng 0, (Q) chuyển sang ON; sau đó dừng đếm;
+
+- (PV) đặt giá trị ban đầu của bộ đếm. Nếu (LOAD) được đặt lên ON, (CV) được gán bằng giá trị của (PV).
+
+Ví dụ: PV được đặt là 3
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202551277-239.png?rev=1.1)
+
+Biểu đồ thời gian:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202582506-785.png?rev=1.1)
+
+(1) Khi LOAD được đặt lên ON, giá trị PV được gán cho CV;
+
+(2) Khi CD có cạnh lên, CV được đếm giảm;
+
+#### Lưu ý kỹ thuật quan trọng
+
+- Phạm vi của bộ đếm: 0~32767;
+
+- Nếu giá trị của CV được đặt vượt quá phạm vi của bộ đếm, ngõ ra Q sẽ luôn ở trạng thái ON;
+
+- Nếu giá trị của CV được đặt vượt quá phạm vi của bộ đếm, phép đếm không hợp lệ.
+
+### CTUD / Bộ đếm lên và xuống
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202617662-563.png?width=350&amp;height=247&amp;rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| CTUD | CU | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CTUD | CD | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CTUD | RESET | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CTUD | LOAD | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CTUD | PV |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+| CTUD | QU |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CTUD | QD |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CTUD | CV |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- T, C, D, R và SD là kiểu dữ liệu số nguyên 16-bit có dấu (Signed 16-bit);
+
+- X, Y, M, S và SM là kiểu BOOL;
+
+- LC và HSC là kiểu dữ liệu số nguyên 32-bit có dấu (Signed 32-bit);
+
+- Không thể sử dụng X làm ngõ ra.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu |
+| :--- | :--- | :--- |
+| CTUD | CU | BOOL |
+| CTUD | CD | BOOL |
+| CTUD | RESET | BOOL |
+| CTUD | LOAD | BOOL |
+| CTUD | PV | WORD |
+| CTUD | QU | BOOL |
+| CTUD | QD | BOOL |
+| CTUD | CV | WORD |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Nếu (CU) chuyển từ OFF sang ON, (CV) được đếm tăng (+1);
+
+- Nếu (CV) lớn hơn hoặc bằng (PV) của bộ đếm, (QU) chuyển sang ON và tiếp tục đếm tăng cho đến khi đạt giá trị tối đa 32767; sau đó dừng đếm;
+
+- (PV) đặt giá trị ban đầu của bộ đếm. Nếu (RESET) được đặt lên ON, (CV) được đặt về 0;
+
+- Nếu (CD) chuyển từ OFF sang ON, (CV) được đếm giảm (-1);
+
+- Nếu (CV) bằng 0, (QD) chuyển sang ON; sau đó dừng đếm giảm;
+
+- (PV) đặt giá trị đích của bộ đếm. Nếu (LOAD) được đặt lên ON, (CV) được gán bằng giá trị của (PV).
+
+Ví dụ: PV được đặt là 3
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202645886-628.png?rev=1.1)
+
+Biểu đồ thời gian:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202670509-226.png?width=708&amp;height=543&amp;rev=1.1)
+
+- Tại cạnh lên của CU, CV được đếm tăng;
+
+(2) Khi RESET được đặt lên ON, CV được đặt lại (reset);
+
+(3) Tại cạnh lên của CD, CV được đếm giảm;
+
+(4) Khi LOAD được đặt lên ON, giá trị PV được gán cho CV.
+
+#### Lưu ý kỹ thuật quan trọng
+
+- Phạm vi của bộ đếm: 0~32767;
+
+- Nếu giá trị của PV được đặt vượt quá phạm vi của bộ đếm, ngõ ra QU sẽ luôn ở trạng thái ON.
+
+- Nếu giá trị của CV được đặt vượt quá phạm vi của bộ đếm, việc đếm lên/xuống không hợp lệ và ngõ ra QD ở trạng thái ON.
+
+### TON / Bộ định thời trễ khi bật (ON-Delay Timer)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202721389-686.png?width=353&amp;height=185&amp;rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| TON | IN1 | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TON | PT |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TON | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TON | ET |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- X, Y, M, S và SM là kiểu BOOL;
+
+- Không thể sử dụng X làm ngõ ra.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu |
+| :--- | :--- | :--- |
+| TON | IN1 | BOOL |
+| TON | PT | TIME |
+| TON | Q | BOOL |
+| TON | ET | TIME |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khi IN1 chuyển từ “FALSE” sang “TRUE”, bộ định thời bắt đầu đếm. Khi đạt đến thời gian cài đặt PT và trong suốt khoảng thời gian đó IN1 luôn ở trạng thái “TRUE”, ngõ ra Q được đặt lên “TRUE”. Nếu trạng thái của IN1 chuyển sang “FALSE” trong khoảng thời gian này, bộ định thời sẽ được đặt lại (reset), chờ tín hiệu cạnh lên tiếp theo của IN1 rồi mới khởi động lại;
+
+- ET là thời gian đã trôi qua sau khi bộ định thời được khởi động, thời gian trễ bắt đầu từ 0 đến hết thời gian cài đặt bởi PT, sau đó giữ nguyên giá trị ET cho đến khi IN1 chuyển sang trạng thái “FALSE” thì ET sẽ được đặt lại về 0.
+
+Giản đồ xung thời gian
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202743304-411.png?width=470&amp;height=318&amp;rev=1.1)
+
+### TOF / Bộ định thời trễ khi tắt (OFF-Delay Timer)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202778564-949.png?width=283&amp;height=204&amp;rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| TOF | IN1 | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TOF | PT |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TOF | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TOF | ET |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- X, Y, M, S và SM là kiểu BOOL;
+
+- Không thể sử dụng X làm ngõ ra.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu |
+| :--- | :--- | :--- |
+| TOF | IN1 | BOOL |
+| TOF | PT | TIME |
+| TOF | Q | BOOL |
+| TOF | ET | TIME |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khi IN1 chuyển từ “FALSE” sang “TRUE”, tín hiệu ngõ ra Q của bộ định thời là “TRUE”; khi ngõ vào kích của bộ định thời chuyển sang “FALSE”, bộ định thời bắt đầu đếm; trong suốt thời gian bộ định thời đang chạy, ngõ ra Q của nó giữ trạng thái “TRUE”; khi đạt đến thời gian cài đặt, ngõ ra Q được đặt lại (reset); trước khi đạt đến thời gian của bộ định thời, nếu ngõ vào IN1 của bộ định thời chuyển sang trạng thái “TRUE”, giá trị ET của bộ định thời bị đặt lại về 0 và ngõ ra Q vẫn giữ trạng thái “TRUE”;
+
+- ET là thời gian đã trôi qua sau khi bộ định thời được khởi động, thời gian trễ bắt đầu từ 0 đến hết thời gian cài đặt bởi PT, sau đó ET được giữ nguyên cho đến khi IN1 chuyển sang trạng thái “TRUE” thì ET sẽ được đặt lại về 0. Trước khi đạt đến thời gian cài đặt bởi PT, nếu IN1 chuyển sang “TRUE” thì ngõ ra ET sẽ được đặt lại về 0 ngay lập tức.
+
+Giản đồ xung thời gian
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202802038-374.png?rev=1.1)
+
+### TP / Bộ định thời tạo xung (Pulse Timer)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202850599-625.png?rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| TP | IN1 | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TP | PT |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TP | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TP | ET |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- X, Y, M, S và SM là kiểu BOOL;
+
+- Không thể sử dụng X làm ngõ ra.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu |
+| :--- | :--- | :--- |
+| TP | IN1 | BOOL |
+| TP | PT | TIME |
+| TP | Q | BOOL |
+| TP | ET | TIME |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khi IN1 chuyển từ “FALSE” sang “TRUE”, bộ định thời bắt đầu chạy; bất kể đầu ngõ vào IN1 của bộ định thời thay đổi như thế nào, thời gian chạy thực tế của bộ định thời vẫn là giá trị PT do người dùng cài đặt; khi bộ định thời đang chạy, tín hiệu ngõ ra của đầu ra Q là “TRUE”;
+
+- Đầu ra ET cung cấp thời gian đếm cho đầu ra Q. Thời gian đếm bắt đầu tại 0 và kết thúc tại PT. Khi đạt đến PT, ET sẽ giữ nguyên giá trị thời gian đó cho đến khi IN1 chuyển sang “FALSE”.
+
+Giản đồ xung thời gian
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202887763-363.png?rev=1.1)
+
+### RTC / Đồng hồ thời gian thực
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1761202930574-273.png?rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| RTC | EN1 | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| RTC | PDT |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| RTC | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| RTC | CDT |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- X, Y, M, S và SM là kiểu BOOL;
+
+- Không thể sử dụng X làm ngõ ra.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Tham số | Kiểu dữ liệu |
+| :--- | :--- | :--- |
+| RTC | EN1 | BOOL |
+| RTC | PDT | DATE_AND_TIME |
+| RTC | Q | BOOL |
+| RTC | CDT | DATE_AND_TIME |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Khi EN1 là “FALSE”, cả ngõ ra Q và CDT đều bằng “0” và thời gian tương ứng là DT#1970-1-1-00:00:00. Khi EN1 chuyển sang “TRUE”, khối hàm bắt đầu từ thời gian cài đặt bởi PDT, đếm theo giây và trả về qua CDT. Khi EN được đặt lại về FALSE, CDT sẽ được đặt lại về DT#1970-1-1-00:00:00.
+
+:::tip
+Lưu ý kỹ thuật:
+
+- Chỉ có cạnh lên mới kích hoạt bắt đầu đếm.
+:::
+
+### SETSYSTIME / Cài đặt đồng hồ hệ thống
+
+- Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SETSYSTIME | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIME | Year |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIME | Month |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIME | Day |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIME | Hour |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIME | Minute |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIME | Second |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIME | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIME | ERROR |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+- Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- LC, HSC là các kiểu dữ liệu 32-bit có dấu;
+
+- T, C, D, R, SD là các kiểu dữ liệu 16-bit có dấu.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SETSYSTIME | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
+| SETSYSTIME | Ngõ vào (Input) | Year | WORD | Không | [0,65535] | Year |
+| SETSYSTIME | Ngõ vào (Input) | Month | WORD | Không | [0,65535] | Month |
+| SETSYSTIME | Ngõ vào (Input) | Day | WORD | Không | [0,65535] | Day |
+| SETSYSTIME | Ngõ vào (Input) | Hour | WORD | Có | [0,65535] | Hour |
+| SETSYSTIME | Ngõ vào (Input) | Minute | WORD | Có | [0,65535] | Minute |
+| SETSYSTIME | Ngõ vào (Input) | Second | WORD | Có | [0,65535] | Second |
+| SETSYSTIME | Ngõ ra (Output) | Q | BOOL | Có | TRUE/FALSE | Complete |
+| SETSYSTIME | Ngõ ra (Output) | ERROR | BOOL | Có | TRUE/FALSE | Lỗi (Error) |
+
+### SETSYSTIMERTC / Cài đặt đồng hồ RTC hệ thống
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1774852792820-971.png?rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SETSYSTIMERTC | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIMERTC | DateTime |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIMERTC | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIMERTC | ERROR |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪LC, HSC là các kiểu dữ liệu 32-bit có dấu;
+
+▪T, C, D, R, SD là các kiểu dữ liệu 16-bit có dấu.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SETSYSTIMERTC | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
+| SETSYSTIMERTC | Ngõ vào (Input) | DateTime | DATE_AND_TIME | Không | 1970-01-01-0:0:0 to 2106-02-07-06:28:15 | Set Date |
+| SETSYSTIMERTC | Ngõ ra (Output) | Q | BOOL | Có | TRUE/FALSE | Complete |
+| SETSYSTIMERTC | Ngõ ra (Output) | ERROR | BOOL | Có | TRUE/FALSE | Lỗi (Error) |
+
+### SETSYSTIMEMS / Cài đặt đồng hồ MS hệ thống
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1774852792820-534.png?rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SETSYSTIMEMS | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIMEMS | DateTime |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIMEMS | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SETSYSTIMEMS | ERROR |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪LC, HSC là các kiểu dữ liệu 32-bit có dấu;
+
+▪T, C, D, R, SD là các kiểu dữ liệu 16-bit có dấu.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SETSYSTIMEMS | Ngõ vào (Input) | Execute | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
+| SETSYSTIMEMS | Ngõ vào (Input) | DateTime | DWORD | Không | [0,4294927695] | Cài đặt dấu thời gian mili-giây |
+| SETSYSTIMEMS | Ngõ ra (Output) | Q | BOOL | Có | TRUE/FALSE | Complete |
+| SETSYSTIMEMS | Ngõ ra (Output) | ERROR | BOOL | Có | TRUE/FALSE | Lỗi (Error) |
+
+:::tip
+✎ Lưu ý: Mã lỗi 4084H sẽ được báo nếu thời gian đầu vào nằm ngoài phạm vi từ 00:00:00 ngày 01/01/2000 đến 23:59:59 ngày 31/12/2099.
+:::
+
+### GETSYSTIME / Đọc đồng hồ hệ thống
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1774853018899-758.png?rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| GETSYSTIME | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIME | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIME | Year |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIME | Month |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIME | Day |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIME | Hour |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIME | Minute |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIME | Second |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIME | DateTime |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIME | Week |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| GETSYSTIME | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
+| GETSYSTIME | Ngõ ra (Output) | Year | WORD | Có | [0,65535] | Year |
+| GETSYSTIME | Ngõ ra (Output) | Month | WORD | Có | [0,65535] | Month |
+| GETSYSTIME | Ngõ ra (Output) | Day | WORD | Có | [0,65535] | Day |
+| GETSYSTIME | Ngõ ra (Output) | Hour | WORD | Có | [0,65535] | Hour |
+| GETSYSTIME | Ngõ ra (Output) | Minute | WORD | Có | [0,65535] | Minute |
+| GETSYSTIME | Ngõ ra (Output) | Second | WORD | Có | [0,65535] | Second |
+| GETSYSTIME | Ngõ ra (Output) | Q | BOOL | Có | TRUE/FALSE | Complete |
+| GETSYSTIME | Ngõ ra (Output) | DateTime | DATE_AND_TIME | Có | 1970-01-01-0:0:0 to 2106-02-07-06:28:15 | Date |
+| GETSYSTIME | Ngõ ra (Output) | Week | WORD | Có | [0,65535] | Week |
+
+### PWM / Điều chế độ rộng xung (Giới hạn độ rộng xung)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1774853018901-444.png?rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| PWM | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| PWM | Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| PWM | PulsePeriod |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| PWM | PulseWidth |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| PWM | InVelocity |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| PWM | Bysy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| PWM | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| PWM | ErrorId |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+LC, HSC là các kiểu dữ liệu 32-bit có dấu; T, C, D, R, SD là kiểu dữ liệu 16-bit có dấu.
+
+- LC, HSC là các kiểu dữ liệu 32-bit có dấu;
+
+- T, C, D, R, SD là các kiểu dữ liệu 16-bit có dấu.
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| PWM | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
+| PWM | Ngõ vào (Input) | Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
+| PWM | Ngõ vào (Input) | PulsePeriod | WORD | Không | [0,65535] | Chu kỳ: Độ rộng của một sóng vuông hoàn chỉnh. Đơn vị: 1µs |
+| PWM | Ngõ vào (Input) | PulseWidth | WORD | Không | [0,65535] | Độ rộng mức cao của sóng vuông. Đơn vị: 1µs |
+| PWM | Ngõ ra (Output) | InVelocity | BOOL | Có | TRUE/FALSE | Tần số độ rộng xung đạt đến giá trị cài đặt |
+| PWM | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Thực thi xuất sóng vuông PWM. |
+| PWM | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | TRUE: An internal error occurred in the khối hàm (FB). |
+| PWM | Ngõ ra (Output) | ErrorId | DWORD | Có | 0 | Error ID. For details, refer to MC_ERROR. |
+
+#### Chức năng và nguyên lý hoạt động
+
+(1) Khối hàm này thực hiện điều chế độ rộng xung (PWM) động.
+
+(2) Trong khi khối hàm MC_PWM đang thực thi, không cho phép bất kỳ lệnh PWM nào khác thực hiện xuất xung PWM trên cùng một trục.
+
+#### Giản đồ thời gian (Sequence Diagram)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/PWM.png?rev=1.1)
+
+Mô tả lỗi:
+
+| Mã lỗi (Error Code) | Giá trị ban đầu | Mô tả kỹ thuật |
+| :--- | :--- | :--- |
+| 0 | MC_NO_ERROR | Không có lỗi |
+| 0x00800024 | MC_PWM_PORT_WAS_RUN | Cổng tương ứng hiện đang chạy |
+| 0x00800023 | MC_PWM_PERIOD_LESS_THAN_WIDTH | Chu kỳ xung nhỏ hơn độ rộng xung mức cao |
+| 0x00700005 | MC_ERROR_ID_AXIS_NOTFIND | Trục không tồn tại |
+
+Trong cùng một cấu hình trục, chỉ có thể chọn một trong hai chế độ PWM hoặc chế độ phát xung (pulse); không thể sử dụng đồng thời cả hai chế độ. Đảm bảo số hiệu trục được cấu hình khớp với cấu hình trục đã tạo.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/PWM%20Axis.png?rev=1.1)
+
+### GETSYSTIMEMS / Đọc đồng hồ MS hệ thống
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1774853018900-499.png?rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| GETSYSTIMEMS | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIMEMS | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIMEMS | DateTime |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+LC, HSC là kiểu dữ liệu 32-bit có dấu; T, C, D, R, SD là kiểu dữ liệu 16-bit có dấu. Bảng thông số chân và kiểu biến:
+
+| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| GETSYSTIME | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Kích hoạt khối hàm (Enable) |
+| GETSYSTIME | Ngõ ra (Output) | Year | WORD | Có | [0,65535] | Year |
+| GETSYSTIME | Ngõ ra (Output) | Month | WORD | Có | [0,65535] | Month |
+| GETSYSTIME | Ngõ ra (Output) | Day | WORD | Có | [0,65535] | Day |
+| GETSYSTIME | Ngõ ra (Output) | Hour | WORD | Có | [0,65535] | Hour |
+| GETSYSTIME | Ngõ ra (Output) | Minute | WORD | Có | [0,65535] | Minute |
+| GETSYSTIME | Ngõ ra (Output) | Second | WORD | Có | [0,65535] | Second |
+| GETSYSTIME | Ngõ ra (Output) | Q | BOOL | Có | TRUE/FALSE | Complete |
+| GETSYSTIME | Ngõ ra (Output) | DateTime | DATE_AND_TIME | Có | 1970-01-01-0:0:0 to 2106-02-07-06:28:15 | Date |
+| GETSYSTIME | Ngõ ra (Output) | Week | WORD | Có | [0,65535] | Week |
+
+### GETSYSTIMERTC / Đọc đồng hồ RTC hệ thống
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/14%20%20/14.2%20Built-in%20Function%20Block/WebHome/1774853018900-708.png?rev=1.1)
+
+#### Vùng nhớ thiết bị hỗ trợ (Chỉ sử dụng một biến thiết bị đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ offset)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| GETSYSTIMERTC | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIMERTC | Q |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GETSYSTIMERTC | DateTime |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+#### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+LC, HSC là các kiểu dữ liệu 32-bit có dấu; T, C, D, R, SD là kiểu dữ liệu 16-bit có dấu.
+
+0

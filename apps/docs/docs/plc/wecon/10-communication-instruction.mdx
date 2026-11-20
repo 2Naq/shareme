@@ -1,14 +1,1595 @@
 ---
 id: "10-communication-instruction"
-title: "10 Communication Instruction: Truyền thông nối tiếp Modbus"
+title: "10 Tập lệnh truyền thông nối tiếp (Communication Instruction)"
 sidebar_position: 10
 sidebar_label: "10 Communication Instruction"
-tags: [wecon, lx6v, lx6a, manual]
-description: "Tập lệnh truyền thông nối tiếp RS-485 / RS-422 qua Modbus RTU / ASCII."
+tags: ["wecon","lx6v","lx6a","plc-editor-2","manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 10 Tập lệnh truyền thông nối tiếp (Communication Instruction)"
 ---
 
-## 10 Communication Instruction: Truyền thông nối tiếp Modbus
+## Cài đặt giao thức cổng truyền thông
 
-Điều khiển và thu thập dữ liệu từ biến tần, đồng hồ đo nhiệt độ, cân điện tử qua cổng COM tích hợp bằng các lệnh truyền thông tiêu chuẩn:
-- Lệnh giao tiếp Modbus Master / Slave (`MODRD`, `MODWR`, `MODRW`).
-- Lệnh truyền nhận dữ liệu tự do không định dạng (Free Protocol / Non-protocol RS).
+### Cài đặt giao thức cổng truyền thông
+
+PROTOCOL(P)
+
+Cài đặt giao thức (s) cho cổng truyền thông (n).
+
+-[PROTOCOL (s) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu giao thức cần cài đặt | - | Unsigned BIN16 bits | ANY16 | INT |
+| (n) | Cổng truyền thông cần cài đặt, 0 là COM1, 1 là COM2 | 0, 1 | Unsigned BIN16 bits | ANY16 | INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| PROTOCOL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| PROTOCOL | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Lệnh này chủ yếu dùng để cài đặt giao thức trong trạng thái RUN, và cũng có thể dùng ở chu kỳ quét đầu tiên của trạng thái RUN.
+
+Giá trị của địa chỉ giao thức (COM1 SD2542, COM2 SD2592) và cờ sửa đổi giao thức (COM1 SD2543, COM2 SD2593) có thể được cài đặt trực tiếp theo các tham số của lệnh.
+
+Công thức tính cụ thể để cài đặt cờ sửa đổi giao thức (COM1 SD2543, COM2 SD2593) là: (giá trị cài đặt tham số + độ lệch phần tử đặc biệt khởi đầu của cổng nối tiếp tương ứng + 10)*2
+
+Ví dụ: đặt giao thức thành 2, tức là (2 + 2593 - 2590 + 10)*2, bằng (2 + 3 + 10)*2 = 30. Khi đó, SD2592 sẽ được đặt thành 1, và SD2593 sẽ được đặt thành 32.
+
+:::tip
+✎Lưu ý:
+
+Dù giá trị được cài đặt bằng cách tự tính toán rồi sửa đổi cờ xác nhận (COM1 SD2543, COM2 SD2593) cho giao thức, hay sử dụng lệnh này, giao thức đều có thể được sửa đổi khi PLC đang ở trạng thái RUN.
+
+Cờ sửa đổi giao thức (COM1 SD2543 và COM2 SD2593): trong quá trình RUN, khi giao thức và cờ sửa đổi được đặt đúng (tính đúng đắn sẽ được kiểm tra tại lệnh END của chương trình), chu kỳ đó sẽ được coi là chu kỳ hợp lệ đầu tiên; sau đó giao thức và cờ sửa đổi (COM1 SD2543, COM2 SD2593) sẽ được xóa sau khi hoàn tất sửa đổi và cùng một giá trị đặt tiếp theo sẽ không được xử lý lại. Điều này nhằm tránh việc cài đặt lặp lại nhiều lần.
+:::
+
+Số hiệu giao thức
+
+| Số hiệu giao thức | Nội dung mô tả |
+| :--- | :--- |
+| 0H | Trạm tớ (Slave) Wecon Modbus |
+| 2H | Trạm tớ (Slave) Modbus RTU |
+| 3H | Trạm tớ (Slave) Modbus ASCII |
+| 10H | Giao thức tự định nghĩa (User-defined protocol) |
+| 20H | Trạm chủ (Master) Modbus RTU |
+| 30H | Trạm chủ (Master) Modbus ASCII |
+
+Phần tử liên quan
+
+| Vùng nhớ thiết bị (Devices) | Nội dung mô tả |
+| :--- | :--- |
+| SD2542 | Cài đặt giao thức COM1 |
+| SD2543 | Cờ sửa đổi giao thức COM1 |
+| SD2592 | Cài đặt giao thức COM2 |
+| SD2593 | Cờ sửa đổi giao thức COM2 |
+
+#### Lưu ý kỹ thuật quan trọng
+
+Việc cài đặt tham số truyền thông sẽ ảnh hưởng đến toàn bộ quá trình truyền thông. Các tham số trong PLC chỉ nên sửa đổi khi không có truyền thông hoặc sau khi một vòng truyền thông đã hoàn tất. Cần đặc biệt lưu ý điểm này.
+
+Nếu giao thức đã đặt không khớp với số hiệu giao thức được cung cấp, cờ sửa đổi giao thức (COM1 SD2543, COM2 SD2593) sẽ không bị xóa sau khi cài đặt. Lúc này, giao thức chưa được cài đặt thành công và sẽ chạy theo giao thức ban đầu.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The read address (s) (n) vượt quá phạm vi vùng nhớ thiết bị. |
+| 4084H | (n) is not 1. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709191890650-622.png?rev=1.1)
+
+Như minh họa trong ví dụ trên, M1 chuyển từ OFF sang ON trong quá trình RUN.
+
+SD2594 sẽ được đặt thành 32 (20H), SD2595 sẽ được đặt thành 90 rồi sau đó được xóa. Lúc này, việc cài đặt đã thành công.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709191945171-155.png?rev=1.1)
+
+Nếu M1 chuyển từ OFF sang ON một lần nữa,
+
+SD2592 sẽ được đặt thành 32 (20H), SD2595 sẽ được đặt thành 90, và sẽ không bị xóa.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709191962952-895.png?rev=1.1)
+
+## Cài đặt tham số cổng nối tiếp Modbus
+
+### PORTPARA / Cài đặt tham số cổng nối tiếp Modbus
+
+PORTPARA(P)
+
+Cài đặt tham số cổng nối tiếp (s) cho cổng truyền thông (n).
+
+-[PORTPARA (s) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Tham số cổng nối tiếp cần cài đặt | - | Unsigned BIN16 bits | ANY16 | INT |
+| (n) | Cổng truyền thông cần cài đặt, 0 là COM1, 1 là COM2 | 0, 1 | Unsigned BIN16 bits | ANY16 | INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| PORTPARA | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| PORTPARA | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Lệnh này chủ yếu dùng để cài đặt tham số cổng nối tiếp trong trạng thái RUN, và cũng có thể dùng ở chu kỳ đầu tiên của trạng thái RUN.
+
+Giá trị của địa chỉ tham số cổng nối tiếp (COM1 SD2540, COM2 SD2590) và cờ sửa đổi tham số nối tiếp (COM1 SD2541, COM2 SD2591) có thể được cài đặt trực tiếp theo các tham số của lệnh.
+
+Công thức tính cụ thể để cài đặt cờ sửa đổi tham số cổng nối tiếp (COM1 SD2541, COM2 SD2591) là: (giá trị cài đặt tham số + độ lệch phần tử đặc biệt khởi đầu của cổng nối tiếp tương ứng + 10)*2
+
+Ví dụ: đặt tham số cổng nối tiếp COM1 thành 193 (HC1), tức là (193 + 2541 - 2540 + 10)*2, bằng (193 + 1 + 10)*2 = 408. Khi đó, SD2540 được đặt thành 193 (HC1) và SD2541 được đặt thành 408.
+
+:::tip
+✎ Note:
+
+Dù giá trị được cài đặt bằng cách tự tính toán rồi sửa đổi cờ xác nhận (COM1 SD2541, COM2 SD2591) cho tham số cổng nối tiếp, hay sử dụng lệnh này, các tham số cổng nối tiếp đều có thể được sửa đổi khi PLC đang ở trạng thái RUN.
+
+Cờ sửa đổi tham số cổng nối tiếp (COM1 SD2541 và COM2 SD2591): trong quá trình RUN, khi tham số cổng nối tiếp và cờ sửa đổi được đặt đúng (tính đúng đắn sẽ được kiểm tra tại lệnh END của chương trình), chu kỳ đó sẽ được coi là chu kỳ hợp lệ đầu tiên; sau đó tham số cổng nối tiếp và cờ sửa đổi (COM1 SD2541, COM2 SD2591) sẽ được xóa sau khi hoàn tất sửa đổi và cùng một giá trị đặt tiếp theo sẽ không được xử lý lại. Điều này nhằm tránh việc cài đặt lặp lại nhiều lần.
+:::
+
+Bảng cài đặt tham số cổng nối tiếp
+
+| Bit number | Tên | Content (0 (bit OFF)) | Content (1 (bit ON)) |
+| :--- | :--- | :--- | :--- |
+| b0 | Độ dài dữ liệu | 7 digits | 8 digits |
+| b1b2 | Kiểm tra chẵn lẻ (Parity) | b2, b1: (0, 0): Không (None); (0,1): Lẻ (ODD); (1,1): Chẵn (EVEN) |  |
+| b3 | Bit dừng (Stop bit) | 1 bit | 2 bit |
+| b4b5b6b7b8b9 | Tốc độ Baud (bps) | .b9,b8,b7,b6,b5,b4( 0, 0, 0, 1, 1, 1): 4800( 0, 0, 1, 0, 0, 0): 9600( 0, 0, 1, 0, 0, 1): 19200( 0, 0, 1, 0, 1, 0): 38400( 0, 0, 1, 0, 1, 1): 57600 | .b9,b8,b7,b6,b5,b4( 0, 0, 1, 1, 0, 0): 115200( 0, 0, 1, 1, 0, 1): 187500( 0, 0, 1, 1, 1, 0): 230400( 0, 0, 1, 1, 1, 1): 460800( 0, 1, 0, 0, 0, 0): 921600 |
+| b10 | STX | Tắt chức năng STX | Bật chức năng STX, giá trị cụ thể được cài đặt bởi D8124 |
+| b11 | ETX | Tắt chức năng ETX | Bật chức năng ETX, giá trị cụ thể được cài đặt bởi D8125 |
+| b12 | -- | -- | -- |
+| b13 | -- | -- | -- |
+| b14 | -- | -- | -- |
+| b15 | -- | -- | -- |
+
+Phần tử liên quan
+
+| Vùng nhớ thiết bị (Devices) | Nội dung mô tả |
+| :--- | :--- |
+| SD2540 | Cài đặt tham số cổng nối tiếp COM1 |
+| SD2541 | Cờ sửa đổi tham số cổng nối tiếp COM1 |
+| SD2590 | Cài đặt tham số cổng nối tiếp COM2 |
+| SD2591 | Cờ sửa đổi tham số cổng nối tiếp COM2 |
+
+#### Lưu ý kỹ thuật quan trọng
+
+Việc cài đặt tham số truyền thông sẽ ảnh hưởng đến toàn bộ quá trình truyền thông. Các tham số trong PLC chỉ nên sửa đổi khi không có truyền thông hoặc sau khi một vòng truyền thông đã hoàn tất. Cần đặc biệt lưu ý điểm này.
+
+Chức năng STX và chức năng ETX chỉ có tác dụng trong trường hợp giao thức tự định nghĩa (user-defined protocol).
+
+Nếu giao thức đã đặt không khớp với số hiệu giao thức được cung cấp, cờ sửa đổi tham số cổng nối tiếp (COM1 SD2541, COM2 SD2591) sẽ không bị xóa sau khi cài đặt. Lúc này, giao thức chưa được cài đặt thành công và sẽ chạy theo giao thức ban đầu.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The read address (s) and (n) vượt quá phạm vi vùng nhớ thiết bị. |
+| 4084H | (n) is not 0 or 1. |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709192341229-210.png?rev=1.1)
+
+Như minh họa trong ví dụ trên,
+
+M1 chuyển từ OFF sang ON trong quá trình RUN.
+
+SD2540 sẽ được đặt thành 129 (H81, tốc độ baud: 9600, bit dừng: 1, bit dữ liệu: 8, bit chẵn lẻ: không), SD2541 sẽ được đặt thành 280 rồi sau đó được xóa. Lúc này, việc cài đặt đã thành công.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709192357577-580.png?rev=1.1)
+
+Nếu M1 chuyển từ OFF sang ON một lần nữa,
+
+SD2540 sẽ được đặt thành 129 (H81), SD2541 sẽ được đặt thành 280, và sẽ không bị xóa.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709192373970-129.png?rev=1.1)
+
+## Cài đặt số trạm Modbus
+
+### STATION / Cài đặt số trạm Modbus
+
+STATION (P)
+
+Trong giao thức trạm tớ (Slave) Modbus, đặt số trạm (s) cho cổng truyền thông (n).
+
+-[STATION (s) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu trạm cần cài đặt | 0~255 | Unsigned BIN16 bits | ANY16 | INT |
+| (n) | Cổng truyền thông cần cài đặt, 0 là COM1, 1 là COM2 | 0, 1 | Unsigned BIN16 bits | ANY16 | INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| STATION | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| STATION | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Lệnh này chủ yếu dùng để cài đặt số trạm trong trạng thái RUN, và cũng có thể dùng ở chu kỳ đầu tiên của trạng thái RUN.
+
+- Giá trị của địa chỉ số trạm (COM1 SD2544, COM2 SD2594) và cờ sửa đổi số trạm (COM1 SD2545, COM2 SD2595) có thể được cài đặt trực tiếp theo các tham số của lệnh.
+
+- Công thức tính cụ thể để cài đặt cờ sửa đổi số trạm (COM1 SD2545, COM2 SD2595) là: (giá trị cài đặt tham số + độ lệch phần tử đặc biệt khởi đầu của cổng nối tiếp tương ứng + 10) *2
+
+Ví dụ: đặt số trạm COM2 thành 1, tức là (1 + 2595 - 2590 + 10) *2, bằng (1 + 5 + 10) *2 = 32. Khi đó, SD2594 sẽ được đặt thành 1, và SD2595 sẽ được đặt thành 32.
+
+:::tip
+Lưu ý: Dù giá trị được cài đặt bằng cách tự tính toán rồi sửa đổi cờ xác nhận (COM1 SD2545, COM2 SD2595) cho số trạm, hay sử dụng lệnh này, số trạm đều có thể được sửa đổi khi PLC đang ở trạng thái RUN.
+
+Cờ sửa đổi số trạm (COM1 SD2545 và COM2 SD2595): Trong quá trình RUN, khi số trạm và cờ sửa đổi được đặt đúng (tính đúng đắn sẽ được kiểm tra tại lệnh END của chương trình), chu kỳ đó sẽ được coi là chu kỳ hợp lệ đầu tiên; sau đó giao thức và cờ sửa đổi (COM1 SD2545, COM2 SD2595) sẽ được xóa sau khi hoàn tất sửa đổi và cùng một giá trị đặt tiếp theo sẽ không được xử lý lại. Điều này nhằm tránh việc cài đặt lặp lại nhiều lần.
+:::
+
+Phần tử liên quan
+
+| Vùng nhớ thiết bị (Devices) | Nội dung mô tả |
+| :--- | :--- |
+| SD2544 | Cài đặt số hiệu trạm COM1 |
+| SD2545 | Cờ sửa đổi số hiệu trạm COM1 |
+| SD2594 | Cài đặt số hiệu trạm COM2 |
+| SD2595 | Cờ sửa đổi số hiệu trạm COM2 |
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | The read address (s) (n) vượt quá phạm vi vùng nhớ thiết bị. |
+| 4084H | (s) không nằm trong phạm vi 0~255. |
+| 4084H | (n) is not 0 or 1. |
+
+#### Lưu ý kỹ thuật quan trọng
+
+Việc cài đặt tham số truyền thông sẽ ảnh hưởng đến toàn bộ quá trình truyền thông. Các tham số trong PLC chỉ nên sửa đổi khi không có truyền thông hoặc sau khi một vòng truyền thông đã hoàn tất. Cần đặc biệt lưu ý điểm này.
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709192619027-553.png?rev=1.1)
+
+Như minh họa trong ví dụ trên,
+
+M1 chuyển từ OFF sang ON trong quá trình RUN.
+
+SD2594 sẽ được đặt thành 2, SD2595 sẽ được đặt thành 34 rồi sau đó được xóa. Lúc này, việc cài đặt đã thành công.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709192635876-596.png?rev=1.1)
+
+Nếu M1 chuyển từ OFF sang ON một lần nữa,
+
+SD2594 sẽ được đặt thành 2, SD2595 sẽ được đặt thành 34 nhưng sẽ không bị xóa.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709192654323-459.png?rev=1.1)
+
+## Lệnh RS
+
+### RS / Lệnh truyền thông ngoài
+
+RS
+
+Trong giao thức trạm chủ (Master) Modbus: lệnh này là giao diện cài đặt để trạm chủ gửi các khung giao thức. Dựa vào mã chức năng số trạm (s), địa chỉ trạm tớ (m), độ dài (d) do lệnh cài đặt và mã chức năng, hệ thống có thể xác định có cần dữ liệu (n) để tự động ghép việc truyền và nhận khung giao thức hay không. Nếu là mã chức năng dạng đọc, dữ liệu sẽ được ghi vào (n).
+
+-[RS (s) (m) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Địa chỉ bắt đầu của vùng thanh ghi lưu trữ dữ liệu cần gửi. | - | Unsigned BIN16 bits | ANY16 | -- |
+| (m) | The length (in bytes) of the data to be sent. | 0~523 | Unsigned BIN16 bits | ANY16 | -- |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được ghi. | - | Unsigned BIN16 bits | ANY16 | -- |
+| (n) | Dung lượng dữ liệu được ghi (tính bằng byte). | 0~523 | Unsigned BIN16 bits | ANY16 | -- |
+
+Trong giao thức Modbus:
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Byte cao lưu số hiệu trạm của trạm tớ (Slave), và byte thấp lưu mã chức năng Modbus. | - | Unsigned BIN16 bits | ANY16 |
+| (m) | Địa chỉ trạm tớ (Slave). Địa chỉ do trạm tớ cung cấp sẽ đọc hoặc ghi dữ liệu từ địa chỉ đó của trạm tớ. | - | Unsigned BIN16 bits | ANY16 |
+| (d) | Độ dài, độ dài dữ liệu được đọc hoặc ghi bởi Modbus, và đơn vị được xác định bởi mã chức năng. | - | Unsigned BIN16 bits | ANY16 |
+| (n) | Địa chỉ bắt đầu của dữ liệu cần đọc hoặc ghi. | - | Unsigned BIN16 bits | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| RS | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  | ● | ● |  |  |  |
+| RS | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  | ● | ● |  |  |  |
+| RS | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  | ● | ● |  |  |  |
+| RS | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  | ● | ● |  |  |  |
+
+Giao thức tự định nghĩa (User-defined protocol)
+
+Khi giao thức truyền thông được đặt là giao thức tự định nghĩa: khi tiếp điểm phía trước lệnh RS bật ON và SM2591 cũng bật ON đồng thời, nếu độ dài gửi (m) khác 0, (m) byte dữ liệu của (s) sẽ được gửi đi, sau đó chuyển sang chế độ chờ nhận. Khi nhận được dữ liệu, (N) byte dữ liệu sẽ được lưu vào (d). SM2593 sẽ bật ON sau khi nhận đủ (n) dữ liệu.
+
+Ngoài ra, khi độ dài gửi (m) bằng 0, hệ thống sẽ ở chế độ chỉ nhận. Khi độ dài nhận (n) bằng 0, hệ thống sẽ ở chế độ chỉ gửi.
+
+Để bật các chế độ ký tự bắt đầu (STX) và ký tự kết thúc (ETX) của lệnh RS, phải cài đặt trạng thái của bit thứ 10 và bit thứ 11 của địa chỉ đặc biệt SD2600. Xem bảng dưới đây để biết chi tiết cài đặt:
+
+| Bit number | Tên | Content (0 (bit OFF)) | Content (1 (bit ON)) |
+| :--- | :--- | :--- | :--- |
+| b0 | Độ dài dữ liệu | 7 digits | 8 digits |
+| b1b2 | Kiểm tra chẵn lẻ (Parity) | b2, b1: (0, 0): Không (None); (0,1): Lẻ (ODD); (1,1): Chẵn (EVEN) |  |
+| b3 | Bit dừng (Stop bit) | 1 bit | 2 bit |
+| b4b5b6b7b8b9 | Tốc độ Baud (bps) | .b9,b8,b7,b6,b5,b4( 0, 0, 0, 1, 1, 1): 4800( 0, 0, 1, 0, 0, 0): 9600( 0, 0, 1, 0, 0, 1): 19200( 0, 0, 1, 0, 1, 0): 38400( 0, 0, 1, 0, 1, 1): 57600 | .b9,b8,b7,b6,b5,b4( 0, 0, 1, 1, 0, 0): 115200( 0, 0, 1, 1, 0, 1): 187500( 0, 0, 1, 1, 1, 0): 230400( 0, 0, 1, 1, 1, 1): 460800( 0, 1, 0, 0, 0, 0): 921600 |
+| b10 | STX | Tắt chức năng STX | Bật chức năng STX, giá trị cụ thể được cài đặt bởi D8124 |
+| b11 | ETX | Tắt chức năng ETX | Bật chức năng ETX, giá trị cụ thể được cài đặt bởi D8125 |
+| b12 | -- | -- | -- |
+| b13 | -- | -- | -- |
+| b14 | -- | -- | -- |
+| b15 | -- | -- | -- |
+
+#### Ví dụ minh họa
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709192957243-806.png?rev=1.1)
+
+Khi M1 ở trạng thái ON, dữ liệu gửi và nhận của quá trình truyền thông được lưu trữ như sau sau khi lệnh được thực thi:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709192977624-617.png?rev=1.1)
+
+Như minh họa trong hình, dữ liệu được gửi lần lượt là 01H, 02H, 03H, 04H và 05H. Số ô nền tối được sử dụng chính là độ dài dữ liệu gửi (m).
+
+Như minh họa trong hình, dữ liệu nhận được lần lượt là 21H, 22H, 23H và 24H. Số ô nền tối được sử dụng chính là độ dài dữ liệu nhận (n).
+
+Trong lập trình thực tế cần thực hiện một số cấu hình và chuẩn bị cho truyền thông nối tiếp để đạt được truyền thông như mong muốn. Ví dụ: chế độ gửi và nhận của cổng nối tiếp, tốc độ baud, số bit, bit kiểm tra chẵn lẻ, cài đặt giao thức phần mềm, điều kiện đánh giá quá thời gian (timeout), chuẩn bị dữ liệu cho bộ đệm thu phát, và xử lý cờ gửi/nhận phải được thiết lập. Một chương trình cài đặt truyền thông RS tương đối hoàn chỉnh được minh họa như sau:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709193063665-172.png?width=294&amp;height=199&amp;rev=1.1)
+
+Đặt giao thức thành giao thức tự định nghĩa,
+
+Khoảng thời gian giữa các lần gửi: 5ms,
+
+Quá thời gian nhận (timeout): 100ms,
+
+Số lần thử lại: 3 lần,
+
+Quá thời gian giãn cách ký tự: 30ms,
+
+Địa chỉ bắt đầu gửi D200 của giao thức tự định nghĩa: độ dài gửi 8,
+
+Kích hoạt gửi trực tiếp ngay khi thỏa mãn điều kiện.
+
+Để biết hướng dẫn chi tiết về giao thức tự định nghĩa, vui lòng tham khảo mục “9.5.1 User-defined Protocol Description”.
+
+Giao thức Modbus
+
+Khi giao thức được đặt là giao thức trạm chủ (Master) Modbus (dù là RTU hay ASCII), khi tiếp điểm phía trước lệnh RS được đặt ON, lệnh RS2 sẽ đánh giá xem có cần dữ liệu của (N) để gửi khung dữ liệu ghép hay không dựa vào mã chức năng số trạm (s), địa chỉ trạm tớ (m), độ dài (d) và mã chức năng.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709193191809-462.png?rev=1.1)
+
+Sau khi nhận xong, trực tiếp đóng lệnh và đặt lại cờ nhận của lệnh.
+
+| Tham số | Nội dung mô tả |
+| :--- | :--- |
+| (s) | Byte cao lưu số hiệu trạm của trạm tớ (Slave), và byte thấp lưu mã chức năng Modbus. |
+| (m) | Địa chỉ trạm tớ (Slave). Địa chỉ do trạm tớ cung cấp sẽ đọc hoặc ghi dữ liệu từ địa chỉ đó của trạm tớ. |
+| (d) | Độ dài: độ dài được đọc hoặc ghi bởi Modbus. Đơn vị được xác định bởi mã chức năng. |
+| (n) | Địa chỉ bắt đầu của dữ liệu cần đọc hoặc ghi. |
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709193250935-338.png?width=296&amp;height=138&amp;rev=1.1)
+
+Cài đặt giao thức truyền thông:
+
+Khoảng thời gian gửi: 5ms
+
+Quá thời gian nhận: 100ms
+
+Số lần thử lại khi quá thời gian: 3 lần
+
+Số trạm 01H, mã chức năng 03H, trạm tớ
+
+Như minh họa trong giản đồ thang (ladder) ở trên:
+
+Khi M1 bật ON, PLC sẽ gửi dữ liệu (hệ thập lục phân) từ cổng COM2 của PLC: 01 03 00 0A 00 05 A5 C8
+
+01: biểu thị địa chỉ trạm tớ (Slave), 8 bit cao của (s);
+
+03: mã lệnh Modbus, 8 bit thấp của (s), mang nghĩa đọc thanh ghi trạm tớ;
+
+00 0A: địa chỉ thanh ghi trạm tớ cần đọc, giá trị của (m);
+
+00 05: số lượng thanh ghi cần đọc, giá trị của (d),
+
+A5 C8: mã kiểm tra CRC.
+
+Để biết hướng dẫn chi tiết về giao thức Modbus, vui lòng tham khảo mục “9.5.2 Modbus Protocol Description”.
+
+#### Lưu ý kỹ thuật quan trọng
+
+- Mặc dù lệnh RS hiện tại cho phép tất cả các tham số của lệnh sử dụng hằng số như K và H, các giao thức khác nhau có những giới hạn khác nhau.
+
+- Khi giao thức là giao thức tự định nghĩa, S và D không thể là hằng số, nếu không sẽ báo lỗi (3189H).
+
+- Khi giao thức là giao thức Modbus, n không thể là hằng số, nếu không sẽ báo lỗi (3189H).
+
+- Không thể cài đặt kết hợp giao thức RTU với độ dài dữ liệu 7 bit.
+
+- Nếu cài đặt tham số cổng nối tiếp khác nhau, có thể vẫn truyền thông được. Hiện tại, điều này là bình thường.
+
+- Hiện tại, lệnh RS không thể được sử dụng trong các chương trình ngắt và sự kiện.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Địa chỉ đọc của (s), (m), (d) và (n) vượt quá phạm vi của thiết bị. |
+| 3180H | Lỗi nhận dữ liệu COM2. Có thể có nhiễu trên cáp truyền thông, khuyến nghị nối dây GND. |
+| 3181H | Hết thời gian chờ nhận dữ liệu COM2. Kiểm tra đấu dây, kiểm tra xem cài đặt tham số cổng nối tiếp giữa trạm chủ và trạm tớ có tương ứng hay không và có nhiễu hay không. Kiểm tra xem có phải do phản hồi chậm từ trạm tớ hay không. Khuyến nghị tăng khoảng thời gian gửi SD2546. |
+| 3182H | Lỗi kiểm tra CRC của COM2. Có thể có nhiễu trên cáp truyền thông, khuyến nghị nối dây GND. |
+| 3183H | Lỗi kiểm tra LRC của COM2. Có thể có nhiễu trên cáp truyền thông, khuyến nghị nối dây GND. |
+| 3184H | Số hiệu trạm COM2 cấu hình không đúng. Kiểm tra cài đặt số hiệu trạm tớ (Slave) và kiểm tra xem cơ chế thu phát từ trạm tớ có vấn đề gì không. |
+| 3185H | Tràn bộ đệm gửi COM2. Nếu thông báo lỗi này xuất hiện, vui lòng liên hệ nhân viên kỹ thuật |
+| 3186H | Mã chức năng COM2 bị sai. Kiểm tra xem mã chức năng đã cài đặt có phải là mã chức năng được PLC hỗ trợ hay không. |
+| 3187H | Địa chỉ COM2 bị sai. Kiểm tra xem trạm tớ (Slave) có địa chỉ này hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 02). |
+| 3188H | Độ dài COM2 bị sai. Kiểm tra xem độ dài truyền thông có vượt quá phạm vi độ dài do giao thức Modbus hoặc giao thức tự định nghĩa quy định hay không. |
+| 3189H | Lỗi dữ liệu COM2. Kiểm tra xem các tham số của lệnh có bị sai không. Kiểm tra xem giá trị cài đặt có được trạm tớ (Slave) hỗ trợ hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 03). |
+| 318AH | Trạm tớ (Slave) COM2 đang bận. Thông báo trả về từ trạm tớ: Trạm tớ đang bận. (Vui lòng tham khảo mã ngoại lệ Modbus 06). |
+| 318BH | Trạm tớ (Slave) COM2 không hỗ trợ mã chức năng. Kiểm tra xem mã chức năng này có được trạm tớ hỗ trợ hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 01). |
+| 318CH | Trạm tớ (Slave) COM2 bị lỗi. Thông báo trả về từ trạm tớ: Trạm tớ gặp sự cố, vui lòng kiểm tra xem trạm tớ có bị lỗi không. (Vui lòng tham khảo mã ngoại lệ Modbus 04). |
+| 318DH | Xác nhận từ trạm tớ (Slave) COM2. Thông báo trả về từ trạm tớ: xác nhận trạm tớ. (Vui lòng tham khảo mã ngoại lệ Modbus 05). |
+| 318EH | Hiện tại, COM2 không hỗ trợ lệnh hoặc chức năng này. Khi giao thức trạm tớ (Slave) được cài đặt, không thể sử dụng các lệnh truyền thông liên quan đến trạm chủ (Master) hoặc các chức năng của trạm chủ. Vui lòng đổi giao thức hoặc ngắt tiếp điểm phía trước lệnh tương ứng hoặc tắt chức năng truyền thông tương ứng. |
+| 318FH | Hết thời gian gửi COM2. Nếu thông báo lỗi này xuất hiện, vui lòng liên hệ nhân viên kỹ thuật. |
+| 31A0H | Không có cổng kết nối (Gateway) khả dụng cho COM2. Thông báo trả về từ trạm tớ: không có cổng kết nối khả dụng. (Vui lòng tham khảo mã ngoại lệ Modbus 0A). |
+| 31A1H | COM2 báo không nhận được phản hồi từ thiết bị đích. Thông báo trả về từ trạm tớ: Thiết bị chưa được kết nối mạng. (Vui lòng tham khảo mã ngoại lệ Modbus 0B). |
+
+## Hướng dẫn sử dụng giao thức lệnh RS
+
+### Mô tả giao thức tự định nghĩa
+
+Giới thiệu
+
+Chức năng của giao thức tự định nghĩa: có thể truyền dữ liệu trực tiếp với thiết bị mà không qua bất kỳ xử lý nào hoặc khách hàng có thể thiết lập giao thức tương ứng để truyền thông với các thiết bị khác.
+
+Hiện tại, giao thức tự định nghĩa của PLC 6V được cấu hình và gửi qua COM2, và lệnh sử dụng là lệnh RS. Giao thức và tham số cổng nối tiếp cần được cấu hình thông qua các phần tử.
+
+Giao thức tự định nghĩa hiện tại nhìn chung tương tự như trên 3V.
+
+Cấu hình cơ bản
+
+(1) Lệnh
+
+Bản thân lệnh RS được sử dụng giống như lệnh RS trước đây trên 3V, và có thể sử dụng phần tử R.
+
+-[RS (s) (m) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Địa chỉ bắt đầu của vùng thanh ghi lưu trữ dữ liệu cần gửi | - | Unsigned BIN16 bits | ANY16 | -- |
+| (m) | The length (in bytes) of the data to be sent | 0~528 | Unsigned BIN16 bits | ANY16 | -- |
+| (d) | Số hiệu bắt đầu của thiết bị lưu trữ dữ liệu được ghi | - | Unsigned BIN16 bits | ANY16 | -- |
+| (n) | Dung lượng dữ liệu được ghi | 0~528 | Unsigned BIN16 bits | ANY16 | -- |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| RS | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  | ● | ● |  |  |  |
+| RS | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  | ● | ● |  |  |  |
+| RS | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  | ● | ● |  |  |  |
+| RS | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  | ● | ● |  |  |  |
+
+:::tip
+✎ Note:
+
+Mặc dù lệnh RS hiện tại cho phép tất cả các tham số của lệnh sử dụng hằng số như K và H, các giao thức khác nhau có những giới hạn khác nhau.
+
+Khi giao thức là giao thức tự định nghĩa, S và D không thể là hằng số, nếu không sẽ báo lỗi.
+:::
+
+(2) Cài đặt phần tử đặc biệt
+
+Bảng địa chỉ đặc biệt
+
+| COM2 special D device (SD) | COM2 special D device (SD) | COM2 special M device (SM) | COM2 special M device (SM) |
+| :--- | :--- | :--- | :--- |
+| 2590 | Cài đặt cổng truyền thông | 2590 | Bật điều khiển gửi |
+| 2591 | Cờ sửa đổi tham số cổng nối tiếp COM1 | 2591 | Điều khiển gửi / nhắc gửi |
+| 2592 | Cài đặt giao thức truyền thông | 2592 | Bật điều khiển nhận |
+| 2593 | Cờ sửa đổi giao thức | 2593 | Điều khiển nhận / nhắc nhận |
+| 2594 | Cài đặt số hiệu trạm | 2594 | Chế độ 8-bit (cho giao thức tự định nghĩa) |
+| 2595 | Cờ sửa đổi số hiệu trạm | 2595 |  |
+| 2596 | Khoảng thời gian gửi (0.1ms) 0~32767. Đặt 0 thành 10 (1ms) | 2596 |  |
+| 2597 | Cài đặt thời gian chờ truyền thông (10ms) 0~32767. Đặt 0 thành 10 (100ms) | 2597 |  |
+| 2598 | Số lần thử lại khi hết thời gian chờ 0~32767 | 2598 |  |
+| 2599 | Cài đặt thời gian chờ giữa các ký tự (cho giao thức tự định nghĩa) (0.1ms) 0 đến 32767. Đặt 0 thành 10 (1ms) | 2599 |  |
+| 2600 | STX value | 2600 |  |
+| 2601 | ETX value | 2601 |  |
+| ... |  | ... |  |
+| 2610 | Dung lượng dữ liệu đã nhận | 2610 | Cờ hoàn tất truyền thông |
+| 2611 | Lỗi gần nhất | 2611 | Cờ đang nhận |
+| 2612 | Lỗi hiện tại | 2612 | Retry |
+| 2613 | Bước xảy ra lỗi | 2613 | Lỗi truyền thông |
+| 2614 | Số hiệu trạm bị lỗi | 2614 | Hết thời gian chờ truyền thông |
+| 2615 | Số lần lỗi tích lũy | 2615 |  |
+
+Các nội dung sẽ được sử dụng hoặc cài đặt bởi giao thức tự định nghĩa đã được đánh dấu bằng “gạch chân” và “in đậm”.
+
+Ngoài ra, các phần tử được dùng làm điều kiện phán đoán đã được đánh dấu “in đậm” trong bảng.
+
+:::tip
+✎ Note:
+
+Hiện tại, COM1 không hỗ trợ giao thức tự định nghĩa.
+:::
+
+Cài đặt cổng truyền thông SD2590
+
+| Bit number | Tên | Content (0 (bit OFF)) | Content (1 (bit ON)) |
+| :--- | :--- | :--- | :--- |
+| b0 | Độ dài dữ liệu | 7 digits | 8 digits |
+| b1b2 | Kiểm tra chẵn lẻ (Parity) | b2, b1: (0, 0): Không (None); (0,1): Lẻ (ODD); (1,1): Chẵn (EVEN) |  |
+| b3 | Bit dừng (Stop bit) | 1 bit | 2 bit |
+| b4b5b6b7b8b9 | Tốc độ Baud (bps) | .b9,b8,b7,b6,b5,b4( 0, 0, 0, 1, 1, 1): 4800( 0, 0, 1, 0, 0, 0): 9600( 0, 0, 1, 0, 0, 1): 19200( 0, 0, 1, 0, 1, 0): 38400( 0, 0, 1, 0, 1, 1): 57600 | .b9,b8,b7,b6,b5,b4( 0, 0, 1, 1, 0, 0): 115200( 0, 0, 1, 1, 0, 1): 187500( 0, 0, 1, 1, 1, 0): 230400( 0, 0, 1, 1, 1, 1): 460800( 0, 1, 0, 0, 0, 0): 921600 |
+| b10 | STX | Tắt chức năng STX | Bật chức năng STX, giá trị cụ thể được cài đặt bởi D8124 |
+| b11 | ETX | Tắt chức năng ETX | Bật chức năng ETX, giá trị cụ thể được cài đặt bởi D8125 |
+
+Theo cài đặt từng bit được cung cấp trong bảng trên, tham số cổng nối tiếp được đặt vào SD2590. Hiện tại, cài đặt về cơ bản giống 3V. Vì có thể cài đặt tốc độ baud cao hơn nên các bit dùng để bật STX và ETX cần được dịch lùi lại hai bit.
+
+Ví dụ: cài đặt tham số cổng nối tiếp: tốc độ baud: 115200, bit dừng: 1, bit dữ liệu: 8, bit chẵn lẻ: không, bật STX.
+
+Khi đó đặt giá trị H4C1 (K1217) vào SD2590. Hiện tại, các tham số đặt trực tiếp vào SD2590 chỉ có hiệu lực trong chu kỳ đầu tiên khi PLC RUN, và nếu cần sửa đổi trong khi RUN thì có thể cài đặt bằng lệnh PORTPARAM.
+
+Cài đặt giao thức SD2592
+
+| Cài đặt giao thức truyền thông | Cài đặt giao thức truyền thông | Cài đặt giao thức truyền thông | Cài đặt giao thức truyền thông |
+| :--- | :--- | :--- | :--- |
+| 0 H | Trạm tớ (Slave) Wecon Modbus | 10 H | Giao thức tự định nghĩa (User-defined protocol) |
+| 2 H | Trạm tớ (Slave) Modbus RTU | 20 H | Trạm chủ (Master) Modbus RTU |
+| 3 H | Trạm tớ (Slave) Modbus ASCII | 30 H | Trạm chủ (Master) Modbus ASCII |
+
+Giao thức tương ứng có thể được cài đặt bằng cách đặt giá trị tương ứng vào SD2592.
+
+Hiện tại, các tham số đặt trực tiếp vào SD2590 chỉ có hiệu lực trong chu kỳ đầu tiên khi PLC RUN.
+
+Nếu cần sửa đổi các tham số trong khi RUN, có thể cài đặt bằng lệnh PROTOCOL.
+
+Khoảng thời gian gửi SD2596
+
+Chức năng chính của khoảng thời gian gửi là: xác định thời gian cần chờ để gửi lệnh tiếp theo sau khi một lệnh hoàn tất. Khi đặt bằng 0, hệ thống sẽ không chờ gửi theo khoảng thời gian chỉ định, nhưng vẫn chịu ảnh hưởng bởi chu kỳ quét.
+
+Đơn vị của khoảng thời gian truyền là 0.1 ms, tức là thời gian giãn cách bằng 10ms khi giá trị được đặt là 100.
+
+Quá thời gian truyền thông SD2597 và thử lại khi quá thời gian SD2598
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709194693483-466.png?rev=1.1)
+
+Chức năng chính của quá thời gian truyền thông là: xác định thời điểm cần thử lại hoặc cần báo lỗi khi không nhận được dữ liệu sau khi PLC đã gửi đi. Khi đặt bằng 0, giá trị mặc định là 100ms.
+
+Đơn vị của khoảng thời gian truyền là 10ms, tức là thời gian đánh giá quá thời gian bằng 100ms khi giá trị được đặt là 10.
+
+Khi xảy ra quá thời gian nhận, hệ thống sẽ kiểm tra xem có cấu hình thử lại và số lần thử lại hiện tại hay không. Nếu số lần thử lại lớn hơn hoặc bằng SD2598, lỗi sẽ được báo.
+
+Nếu SD2598 được đặt bằng 0, không thực hiện thử lại.
+
+Khi đặt bằng 1, gửi dữ liệu một lần rồi gửi lại một lần nữa sau khi quá thời gian.
+
+Quá thời gian giãn cách ký tự SD2599
+
+Hiện tại, cài đặt này khả dụng cho giao thức tự định nghĩa.
+
+Chức năng chính của quá thời gian giãn cách ký tự là: sau khi đã nhận được ít nhất một ký tự trước khi xảy ra quá thời gian truyền thông, kiểm tra xem khoảng thời gian giữa hai ký tự tiếp theo có vượt quá giới hạn thời gian hay không; nếu vượt quá giới hạn, báo lỗi và kết thúc truyền thông.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709194729585-457.png?rev=1.1)
+
+Cài đặt này chủ yếu được thiết kế nhằm tính đến trường hợp một số thiết bị có thể gửi dữ liệu chậm hoặc có yêu cầu gửi đặc thù khác. Không cần thử lại khi xảy ra quá thời gian giãn cách ký tự.
+
+Lệnh cài đặt tham số cổng nối tiếp
+
+Cài đặt trên giao diện máy tính chủ (phần mềm lập trình)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709194773560-219.png?rev=1.1)
+
+Thông qua cài đặt tham số PLC trên giao diện phần mềm máy tính chủ, nếu chuyển giao thức sang “no protocol”, điều đó có nghĩa là giao thức tự định nghĩa.
+
+Tham số cổng nối tiếp chủ yếu bao gồm tốc độ baud, số bit dữ liệu và các tham số cổng nối tiếp khác.
+
+Ký tự bắt đầu/kết thúc có thể được gửi đi khi ký tự bắt đầu được bật. Ký tự bắt đầu/kết thúc sẽ được phân biệt khi nhận dữ liệu. Xem hướng dẫn trong quy trình gửi và nhận để biết chi tiết.
+
+Điều quan trọng cần lưu ý là các ký tự ở đây thực chất là các giá trị thập phân.
+
+Lệnh PORTPARA
+
+-[PORTPARA (s) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Tham số cổng nối tiếp cần cài đặt | 0 to 256 | Unsigned BIN16 bits | ANY16 | -- |
+| (n) | Cổng truyền thông cần cài đặt, 0 là COM1, 1 là COM2 | 0, 1 | Unsigned BIN16 bits | ANY16 | INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| PROTOCOL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| PROTOCOL | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Lệnh này được dùng để cài đặt giao thức truyền thông tại thời điểm RUN, và lệnh trên thực chất dùng để đặt một giá trị cụ thể cho cờ sửa đổi tham số.
+
+● Công thức tính cụ thể là: (giá trị cài đặt tham số + độ lệch phần tử đặc biệt khởi đầu của cổng nối tiếp tương ứng + 10)*2
+
+Ví dụ: đặt giao thức thành trạm chủ (Master) Modbus RTU (H20), tức là (0x20 + 2593 - 2590 + 10) * 2, bằng (32 + 3 + 10) *2 = 90, nhằm mục đích tránh việc sửa đổi tùy tiện tham số cổng nối tiếp trong quá trình vận hành.
+
+Đối với giao thức tự định nghĩa, nếu các tham số cài đặt được kích hoạt, giá trị sẽ chỉ được thay đổi sau khi lệnh hoàn tất hoàn toàn.
+
+Đối với giao thức trạm chủ Modbus, nếu các tham số cài đặt được kích hoạt, giá trị sẽ chỉ được thay đổi sau khi lệnh hoàn tất hoàn toàn.
+
+Đối với giao thức trạm tớ Modbus, nếu các tham số cài đặt được kích hoạt, việc chuyển đổi có thể được thực hiện khi dữ liệu nhận được không đang trong quá trình xử lý.
+
+Để biết chi tiết, vui lòng tham khảo mục “PROTOCOL Instruction Description”.
+
+Mô tả mức độ ưu tiên của tham số cổng nối tiếp
+
+Mức độ ưu tiên của việc cài đặt tham số cổng nối tiếp được liệt kê dưới đây. Hiện tại, tham số cổng nối tiếp được lưu giữ khi mất điện.
+
+Cài đặt bằng lệnh cài đặt tham số cổng nối tiếp = sử dụng lệnh MOV trong giản đồ thang (ladder) để cài đặt phần tử SD tương ứng &gt; tham số tải xuống từ máy tính chủ &gt; dữ liệu trước đó được lưu giữ khi mất điện.
+
+Giản đồ thang cơ bản
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709195811192-573.png?width=419&amp;height=294&amp;rev=1.1)
+
+Cài đặt tham số cổng nối tiếp:
+
+Tốc độ baud: 115200, bit dừng: 1, bit dữ liệu: 8, kiểm tra chẵn lẻ
+
+Đặt giao thức thành giao thức tự định nghĩa
+
+Khoảng thời gian gửi: 5ms
+
+Quá thời gian nhận: 100ms
+
+Số lần thử lại: 3 lần
+
+Quá thời gian giãn cách ký tự: 30ms
+
+Địa chỉ bắt đầu gửi D200 của giao thức tự định nghĩa: độ dài gửi 8
+
+Kích hoạt gửi trực tiếp ngay khi thỏa mãn điều kiện
+
+Sau khi nhận xong, trực tiếp đóng lệnh và đặt lại cờ nhận của lệnh.
+
+1. Cơ chế gửi và nhận
+
+(1) Không có ký tự bắt đầu (STX) và ký tự kết thúc (ETX)
+
+16-bit (SM2594 là OFF)
+
+Các phần tử sẽ được chia trực tiếp thành byte cao và byte thấp, sau đó dữ liệu ở địa chỉ thấp được gửi trước, tiếp theo là dữ liệu ở địa chỉ cao.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197260367-911.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197271332-974.png?width=161&amp;height=183&amp;rev=1.1)
+
+Ví dụ: dữ liệu gửi là 01, 02, 03, 04 và 05
+
+Khi X1 ở trạng thái ON, dữ liệu gửi và nhận của quá trình truyền thông được lưu trữ như sau sau khi lệnh được thực thi.
+
+Ví dụ: dữ liệu nhận được là 11, 12, 13 và 14
+
+8-bit (SM2594 là ON)
+
+Lấy trực tiếp giá trị ở địa chỉ thấp (byte thấp) của phần tử và gửi đi
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197320390-469.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197331830-332.png?rev=1.1)
+
+Như minh họa trong giản đồ thang ở trên và với phép truyền dữ liệu trên, dữ liệu được gửi phải là: 70 E1 31 62 6C.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197349815-564.png?rev=1.1)
+
+Dữ liệu nhận được cũng sẽ được lưu tại địa chỉ thấp (byte thấp).
+
+(2) Mở và cài đặt ký tự bắt đầu STX
+
+Giá trị của ký tự bắt đầu SD2600 chỉ hợp lệ ở các bit thấp.
+
+Khi STX được mở, dữ liệu khi gửi sẽ bắt đầu bằng ký tự bắt đầu STX, và dữ liệu bắt đầu bằng STX sẽ được nhận nhưng không hiển thị STX.
+
+Khi nhận được dữ liệu bắt đầu bằng STX ở giữa chừng, quá trình nhận sẽ bắt đầu lại.
+
+Nếu ký tự đầu tiên không được nhận, sẽ được đánh giá là quá thời gian trong trường hợp quá thời gian của ký tự đầu tiên; nếu ký tự đầu tiên đã được nhận, bất kể nhận loại dữ liệu nào, thời gian quá hạn ký tự sẽ được tính kể từ khi nhận ký tự cuối cùng.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197411454-969.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197419797-167.png?rev=1.1)
+
+Như minh họa trong giản đồ thang ở trên và với phép truyền dữ liệu trên, dữ liệu được gửi phải là FE 70 7D E1 00 31.
+
+Nếu gửi FE 51 26 34 15 tới PLC, dữ liệu sau sẽ được nhận.
+
+Nếu gửi FE 25 63 FE 51 26 34 15 tới PLC, dữ liệu sau sẽ được nhận.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197434533-834.png?rev=1.1)
+
+2. Mở và cài đặt ký tự kết thúc ETX
+
+Giá trị của ký tự kết thúc SD2601 chỉ hợp lệ ở các bit thấp.
+
+Khi ETX được mở, dữ liệu sẽ kết thúc bằng ETX ở cuối quá trình gửi.
+
+SM2610 và SM2593 ngay lập tức chuyển sang ON khi nhận được một ký tự ETX, bất kể đã nhận đủ độ dài dữ liệu hay chưa.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197515381-874.png?rev=1.1)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197524487-888.png?rev=1.1)
+
+Như minh họa trong giản đồ thang ở trên và với phép truyền dữ liệu trên, kết quả là 70 7D E1 00 31 FD.
+
+Như minh họa trong giản đồ thang ở trên, nếu gửi 01 06 FD, dữ liệu sau sẽ được nhận. Nếu gửi trực tiếp FD, nó sẽ được đánh giá ngay lập tức là “kết thúc”.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197546086-345.png?rev=1.1)
+
+Mở đồng thời cả ký tự bắt đầu (STX) và ký tự kết thúc (ETX)
+
+Khi cả ký tự bắt đầu và ký tự kết thúc đều được mở, nhìn chung được xem là sự kết hợp của hai trạng thái mở riêng lẻ nêu trên.
+
+Tuy nhiên, nếu chỉ nhận được dữ liệu ETX khi cả hai ký tự đều được mở, quá trình sẽ không kết thúc ngay mà chuyển sang đánh giá thời gian giãn cách ký tự, mà không bắt đầu nhận dữ liệu.
+
+Nhận sau khi gửi (tương tự cơ chế trạm chủ Modbus)
+
+1. Trạng thái OFF (mặc định) của công tắc điều khiển gửi (SM2590) và công tắc điều khiển nhận (SM2592)
+
+Khi tiếp điểm của lệnh RS được đặt ON, SM2591 sẽ được gửi ngay khi được đặt ON, và SM2591 sẽ tự động chuyển về OFF sau khi gửi.
+
+Sau khi gửi, kiểm tra trạng thái của SM2593. Nếu ở trạng thái ON, nó sẽ dừng ở lệnh này và chờ cho đến khi SM2593 được đặt OFF rồi mới nhận dữ liệu; nếu ở trạng thái OFF, nó sẽ bắt đầu nhận dữ liệu.
+
+Sau thời gian quá hạn ký tự đầu tiên (SD2597), nếu không nhận được ký tự nào thì bị coi là quá thời gian; nếu có cài đặt số lần thử lại thì thực hiện thử lại. Nếu không thể truyền thông sau khi thử lại, lỗi sẽ được báo và SM2593 cùng SM2614 được đặt lên ON.
+
+Sau khi nhận ký tự đầu tiên, kiểm tra xem khoảng thời gian giữa các ký tự có vượt quá thời gian cài đặt bởi SD2599 hay không, nếu vượt quá sẽ báo lỗi. (Vui lòng tham khảo mục “Character Interval Timeout” để biết chi tiết.)
+
+Nếu có từ hai lệnh trở lên: Sau khi cờ SM2591 bật ON, lệnh RS được kích hoạt đầu tiên sẽ được gửi đi; sau khi lệnh RS này hoàn tất (*1), hệ thống sẽ tự động chuyển sang thực thi lệnh RS tiếp theo theo thứ tự trong chương trình Ladder (*2).
+
+Nếu có hai lệnh trở lên, một dữ liệu khác sẽ không được gửi khi dữ liệu đang nhận dở, và lệnh ban đầu tiếp tục được thực thi để nhận cho đến khi hoàn tất.
+
+:::tip
+✎ Note * 1: Completion refers to receiving data or reporting errors.
+:::
+
+:::tip
+✎ Lưu ý (*2): Nếu không còn lệnh RS nào khác phía sau trong chương trình Ladder, hệ thống sẽ quay lại thực thi lệnh RS đầu tiên đang mở.
+:::
+
+2. Chế độ gửi khi công tắc điều khiển gửi (SM2590) ở trạng thái ON
+
+Khi công tắc điều khiển gửi (SM2590) ở trạng thái ON, không cần phải điều khiển SM2591 lên ON.
+
+Lúc này, chỉ cần tiếp điểm của lệnh RS được kích hoạt là có thể gửi đi, và SM2591 được tự động đặt thành ON.
+
+3. Chế độ nhận khi công tắc điều khiển nhận (SM2592) ở trạng thái ON
+
+Khi công tắc điều khiển nhận (SM2592) ở trạng thái ON, SM2593 tự động chuyển về OFF khi lệnh được thực thi.
+
+Khi nhận, trạng thái của SM2593 sẽ không bị kiểm tra lại nữa, và SM2593 vẫn sẽ được đặt thành ON sau khi nhận xong.
+
+4. Trạng thái ON của công tắc điều khiển gửi (SM2590) và công tắc điều khiển nhận (SM2592)
+
+Trong trường hợp trên, dữ liệu có thể được gửi chỉ bằng cách kích hoạt tiếp điểm phía trước lệnh RS, hệ thống sẽ tự động chuyển sang trạng thái chờ nhận, và khi nhận hoàn tất sẽ chuyển sang lệnh RS đang mở tiếp theo.
+
+(3) Chỉ gửi (Send only)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197775117-634.png?rev=1.1)
+
+Khi độ dài gửi được đặt thành giá trị khác 0 và độ dài nhận được đặt bằng 0, đây là chế độ chỉ gửi.
+
+1. Trạng thái OFF của công tắc điều khiển gửi (SM2590)
+
+Khi SM2591 được đặt thành ON, hệ thống gửi dữ liệu và không nhận dữ liệu.
+
+Nếu có hai lệnh trở lên, sau khi SM2591 được đặt ON, lệnh RS được đặt ON đầu tiên sẽ được gửi, và sau đó nếu lệnh RS này hoàn tất và được đặt ON, SM2591 sẽ chuyển sang lệnh RS tiếp theo trong giản đồ thang.
+
+2. Trạng thái ON của công tắc điều khiển gửi (SM2590)
+
+Dữ liệu sẽ được gửi khi lệnh RS được kích hoạt.
+
+Khi nhiều lệnh được kích hoạt, dữ liệu sẽ được gửi theo kiểu xoay vòng, và trong quá trình gửi xoay vòng, dữ liệu sẽ được gửi theo các khoảng thời gian dựa trên khoảng thời gian gửi đã cài đặt.
+
+(4) Chỉ nhận (Receive-only)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709197838060-527.png?rev=1.1)
+
+Khi độ dài gửi được đặt thành giá trị khác 0 và độ dài nhận được đặt bằng 0, đây là chế độ chỉ gửi.
+
+1. Trạng thái OFF của công tắc điều khiển gửi (SM2590)
+
+Khi SM2591 được đặt thành ON, hệ thống gửi dữ liệu và không nhận dữ liệu.
+
+Nếu có hai lệnh trở lên, sau khi SM2591 được đặt ON, lệnh RS được đặt ON đầu tiên sẽ được gửi, và sau đó nếu lệnh RS này hoàn tất và được đặt ON, SM2591 sẽ chuyển sang lệnh RS tiếp theo trong giản đồ thang.
+
+2. Trạng thái ON của công tắc điều khiển gửi (SM2590)
+
+Dữ liệu sẽ được gửi khi lệnh RS được kích hoạt.
+
+Khi nhiều lệnh được kích hoạt, dữ liệu sẽ được gửi theo kiểu xoay vòng, và trong quá trình gửi xoay vòng, dữ liệu sẽ được gửi theo các khoảng thời gian dựa trên khoảng thời gian gửi đã cài đặt.
+
+(5) Gửi sau khi nhận bằng chế độ chỉ nhận và chỉ gửi (tương tự cơ chế trạm tớ Modbus)
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709715782626-666.png?width=233&amp;height=247&amp;rev=1.1)
+
+Chỉ nhận: khi được đánh giá là hoàn tất quá trình nhận, lệnh cần kích hoạt sẽ được phán đoán dựa theo nội dung nhận được; đồng thời, dữ liệu nhận được sẽ được lưu lại.
+
+Chỉ gửi: nội dung gửi đi khác nhau sau khi M2 được kích hoạt và M3 được kích hoạt. Sau khi kích hoạt kết thúc, chúng sẽ quay lại kích hoạt phần chỉ nhận của M1.
+
+A. 9.5.1.4 Thông tin lỗi
+
+Mã lỗi hiện tại sẽ được hiển thị trong SD7, SD0, SD2611 và SD2612.
+
+Các mã lỗi có thể xảy ra trong giao thức tự định nghĩa chủ yếu được trình bày như sau:
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 3181H | Hết thời gian chờ nhận dữ liệu |
+| 3188H | Lỗi độ dài |
+| 3189H | Lỗi dữ liệu COM2. “Kiểm tra xem các tham số của lệnh có bị sai không. Kiểm tra xem giá trị cài đặt có được trạm tớ (Slave) hỗ trợ hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 03).” |
+| 318EH | Hiện tại, COM2 không hỗ trợ lệnh hoặc chức năng này. Khi giao thức trạm tớ (Slave) được cài đặt, không thể sử dụng các lệnh truyền thông liên quan đến trạm chủ (Master) hoặc các chức năng của trạm chủ. Vui lòng đổi giao thức hoặc ngắt tiếp điểm phía trước lệnh tương ứng hoặc tắt chức năng truyền thông tương ứng. |
+| 318FH | Hết thời gian gửi COM2. Nếu thông báo lỗi này xuất hiện, vui lòng liên hệ nhân viên kỹ thuật. |
+| 3190H | COM2 nhận dữ liệu vượt quá giới hạn bộ nhớ đệm (Cache). |
+
+Sau khi đặt lại giao thức hoặc tham số truyền thông, các lỗi đã báo sẽ được xóa.
+
+Ngoài ra, trong trường hợp truyền thông hoàn tất / lỗi truyền thông / quá thời gian truyền thông, bit cờ hiệu sẽ được đặt sau khi thực thi lệnh.
+
+B. 9.5.1.5 Khác biệt với Mitsubishi
+
+Các điểm khác biệt đã biết hiện nay:
+
+⑴ Đối với STX và ETX, Mitsubishi có thể đặt tối đa 4 byte, nhưng chúng ta chỉ có một byte.
+
+⑵ Hỗ trợ cộng dồn (accumulation), kiểm tra chẵn lẻ (parity), CR và LF.
+
+⑶ Cơ chế điều khiển lệnh của Mitsubishi là thực thi cố định lệnh đó khi lệnh được kích hoạt đầu tiên. Nó sẽ không chuyển sang lệnh khác giữa chừng trừ khi tiếp điểm của lệnh này bị đóng (ngắt).
+
+### Mô tả giao thức Modbus
+
+Giới thiệu
+
+Giao thức trạm chủ Modbus hiện tại nhìn chung tương tự như LX3V. Địa chỉ được sửa đổi ở phần trạm tớ.
+
+Cấu hình cơ bản
+
+(1) Lệnh
+
+Bản thân lệnh RS được sử dụng giống như lệnh RS trước đây trên 3V. Có thể sử dụng phần tử R.
+
+-[RS (s) (m) (d) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) |
+| :--- | :--- | :--- | :--- | :--- |
+| (s) | Byte cao lưu số hiệu trạm của trạm tớ (Slave), và byte thấp lưu mã chức năng Modbus. | - | Unsigned BIN16 bits | ANY16 |
+| (m) | Địa chỉ trạm tớ (Slave). Địa chỉ do trạm tớ cung cấp sẽ đọc hoặc ghi dữ liệu từ địa chỉ đó của trạm tớ. | - | Unsigned BIN16 bits | ANY16 |
+| (d) | Độ dài: độ dài được đọc hoặc ghi bởi Modbus. Đơn vị được xác định bởi mã chức năng. | - | Unsigned BIN16 bits | ANY16 |
+| (n) | Địa chỉ bắt đầu của dữ liệu cần đọc hoặc ghi. | - | Unsigned BIN16 bits | ANY16 |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| RS | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  | ● | ● |  |  |  |
+| RS | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  | ● | ● |  |  |  |
+| RS | Parameter 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  | ● | ● |  |  |  |
+| RS | Parameter 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |
+
+:::tip
+✎Lưu ý:
+
+Mặc dù lệnh RS hiện tại cho phép tất cả các tham số của lệnh sử dụng hằng số như K và H,
+
+các giao thức khác nhau có những giới hạn khác nhau. Khi giao thức là giao thức trạm chủ Modbus, n không thể là hằng số, nếu không sẽ báo lỗi.
+:::
+
+(2) Cài đặt phần tử đặc biệt
+
+Bảng địa chỉ đặc biệt
+
+| COM1 special D device (SD) | COM1 special D device (SD) |
+| :--- | :--- |
+| 2540 | Cài đặt cổng truyền thông |
+| 2541 | Cờ sửa đổi tham số cổng nối tiếp COM1 |
+| 2542 |  |
+| 2543 |  |
+| 2544 | Cài đặt số hiệu trạm |
+| 2545 | Cờ sửa đổi số hiệu trạm |
+
+:::tip
+✎Lưu ý: COM1 không hỗ trợ sửa đổi giao thức.
+:::
+
+| COM2 special D device (SD) | COM2 special D device (SD) | COM2 special M device (SM) | COM2 special M device (SM) |
+| :--- | :--- | :--- | :--- |
+| 2590 | Cài đặt cổng truyền thông | 2590 | Bật điều khiển gửi |
+| 2591 | Cờ sửa đổi tham số cổng nối tiếp COM1 | 2591 | Điều khiển gửi / nhắc gửi |
+| 2592 | Cài đặt giao thức truyền thông | 2592 | Bật điều khiển nhận |
+| 2593 | Cờ sửa đổi giao thức | 2593 | Điều khiển nhận / nhắc nhận |
+| 2594 | Cài đặt số hiệu trạm | 2594 | Chế độ 8-bit (cho giao thức tự định nghĩa) |
+| 2595 | Cờ sửa đổi số hiệu trạm | 2595 |  |
+| 2596 | Khoảng thời gian gửi (0.1ms) 0-32767. Đặt 0 thành 10 (1ms) | 2596 |  |
+| 2597 | Cài đặt thời gian chờ truyền thông (10ms) 0-32767. Đặt 0 thành 10 (100ms) | 2597 |  |
+| 2598 | Số lần thử lại khi hết thời gian chờ 0-32767 | 2598 |  |
+| 2599 | Cài đặt thời gian chờ giữa các ký tự (cho giao thức tự định nghĩa) (0.1ms) 0 đến 32767. Đặt 0 thành 10 (1ms) | 2599 |  |
+| 2600 | STX value | 2600 |  |
+| 2601 | ETX value | 2601 |  |
+| ... |  | .. |  |
+| 2610 | Dung lượng dữ liệu đã nhận | 2610 | Cờ hoàn tất truyền thông |
+| 2611 | Lỗi gần nhất | 2611 | Cờ đang nhận |
+| 2612 | Lỗi hiện tại | 2612 | Retry |
+| 2613 | Bước xảy ra lỗi | 2613 | Lỗi truyền thông |
+| 2614 | Số hiệu trạm bị lỗi | 2614 | Hết thời gian chờ truyền thông |
+| 2615 | Số lần lỗi tích lũy | 2615 |  |
+
+Các nội dung sẽ được sử dụng hoặc cài đặt bởi giao thức Modbus đã được đánh dấu bằng “gạch chân” và “in đậm”.
+
+Ngoài ra, các phần tử được dùng làm điều kiện phán đoán đã được đánh dấu “in đậm” trong bảng.
+
+1. Cài đặt cổng truyền thông SD2590
+
+| Bit number | Tên | Content (0 (bit OFF)) | Content (1 (bit ON)) |
+| :--- | :--- | :--- | :--- |
+| b0 | Độ dài dữ liệu | 7 digits | 8 digits |
+| b1b2 | Kiểm tra chẵn lẻ (Parity) | b2, b1: (0, 0): Không (None); (0,1): Lẻ (ODD); (1,1): Chẵn (EVEN) |  |
+| b3 | Bit dừng (Stop bit) | 1 bit | 2 bit |
+| b4b5b6b7b8b9 | Tốc độ Baud (bps) | .b9,b8,b7,b6,b5,b4( 0, 0, 0, 1, 1, 1): 4800( 0, 0, 1, 0, 0, 0): 9600( 0, 0, 1, 0, 0, 1): 19200( 0, 0, 1, 0, 1, 0): 38400( 0, 0, 1, 0, 1, 1): 57600 | .b9,b8,b7,b6,b5,b4( 0, 0, 1, 1, 0, 0): 115200( 0, 0, 1, 1, 0, 1): 187500( 0, 0, 1, 1, 1, 0): 230400( 0, 0, 1, 1, 1, 1): 460800( 0, 1, 0, 0, 0, 0): 921600 |
+
+Theo cài đặt từng bit được cung cấp trong bảng trên, tham số cổng nối tiếp được đặt vào SD2590.
+
+Hiện tại, cài đặt về cơ bản giống 3V. Vì có thể cài đặt tốc độ baud cao hơn nên các bit dùng để bật STX và ETX cần được dịch lùi lại hai bit.
+
+Ví dụ: cài đặt tham số cổng nối tiếp: tốc độ baud: 115200, bit dừng: 1, bit dữ liệu: 8, bit chẵn lẻ: không.
+
+Khi đó đặt giá trị HC1 (K1217) vào SD2590.
+
+Hiện tại, các tham số đặt trực tiếp vào SD2590 chỉ có hiệu lực trong chu kỳ đầu tiên khi PLC RUN.
+
+Nếu cần sửa đổi các tham số trong khi RUN, có thể cài đặt bằng lệnh PORTPARAM.
+
+2. Cài đặt giao thức SD2592
+
+| Cài đặt giao thức truyền thông | Cài đặt giao thức truyền thông | Cài đặt giao thức truyền thông | Cài đặt giao thức truyền thông |
+| :--- | :--- | :--- | :--- |
+| 0H | Trạm tớ (Slave) Wecon Modbus | 10H | Giao thức tự định nghĩa (User-defined protocol) |
+| 2H | Trạm tớ (Slave) Modbus RTU | 20H | Trạm chủ (Master) Modbus RTU |
+| 3H | Trạm tớ (Slave) Modbus ASCII | 30H | Trạm chủ (Master) Modbus ASCII |
+
+Giao thức tương ứng có thể được cài đặt bằng cách đặt giá trị tương ứng vào SD2592.
+
+Hiện tại, các tham số đặt trực tiếp vào SD2590 chỉ có hiệu lực trong chu kỳ đầu tiên khi PLC RUN.
+
+Nếu cần sửa đổi các tham số trong khi RUN, có thể cài đặt bằng lệnh PROTOCOL.
+
+Hiện tại, COM1 không thể hỗ trợ giao thức nào khác ngoài giao thức trạm tớ W Modbus.
+
+3. Khoảng thời gian gửi SD2596
+
+Chức năng chính của khoảng thời gian gửi là: xác định thời gian cần chờ để gửi lệnh tiếp theo sau khi một lệnh hoàn tất. Khi đặt bằng 0, hệ thống sẽ không chờ gửi theo khoảng thời gian chỉ định, nhưng vẫn chịu ảnh hưởng bởi chu kỳ quét.
+
+Đơn vị của khoảng thời gian truyền là 0.1 ms, tức là thời gian giãn cách bằng 10ms khi giá trị được đặt là 100.
+
+4. Quá thời gian truyền thông SD2597 và thử lại khi quá thời gian SD2598
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709716850100-900.png?rev=1.1)
+
+Chức năng chính của quá thời gian truyền thông là: xác định thời điểm cần thử lại hoặc cần báo lỗi khi không nhận được dữ liệu sau khi PLC đã gửi đi. Khi đặt bằng 0, giá trị mặc định là 100ms.
+
+Đơn vị của khoảng thời gian truyền là 10ms, tức là thời gian đánh giá quá thời gian bằng 100ms khi giá trị được đặt là 10.
+
+Khi xảy ra quá thời gian nhận, hệ thống sẽ kiểm tra xem có cấu hình thử lại và số lần thử lại hiện tại hay không. Nếu số lần thử lại lớn hơn hoặc bằng SD2598, lỗi sẽ được báo.
+
+Nếu SD2598 được đặt bằng 0, không thực hiện thử lại.
+
+Khi đặt bằng 1, gửi dữ liệu một lần rồi gửi lại một lần nữa sau khi quá thời gian.
+
+(3) Cài đặt tham số cổng nối tiếp
+
+1. Lệnh PORTPARA
+
+-[PORTPARA (s) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Tham số cổng nối tiếp cần cài đặt 0~256 | - | Unsigned BIN16 bits | ANY16 | INT |
+| (n) | Cổng truyền thông cần cài đặt, 0 là COM1, 1 là COM2 | -2147483648~2147483647 | Unsigned BIN16 bits | ANY16 | INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| PORTPARA | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| PORTPARA | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Dùng để cài đặt tham số truyền thông tại thời điểm RUN.
+
+Để biết chi tiết, vui lòng tham khảo mục “PORTPARA Instruction Description”.
+
+2. Lệnh PROTOCOL
+
+-[PROTOCOL (s) (n)]
+
+#### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Nội dung mô tả | Phạm vi giá trị | Kiểu dữ liệu | Kiểu dữ liệu (Nhãn biến) | Kiểu biến tự định nghĩa |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (s) | Số hiệu giao thức cần cài đặt | 0 to 65535 | Unsigned BIN16 bits | ANY16 | INT |
+| (n) | Cổng truyền thông cần cài đặt, 0 là COM1, 1 là COM2 | 1 | Unsigned BIN16 bits | ANY16 | INT |
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | Sửa đổi chỉ mục ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| PROTOCOL | Parameter 1 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+| PROTOCOL | Parameter 2 |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● | ● | ● | ● |  |  | ● | ● |  | ● | ● |
+
+#### Chức năng và nguyên lý hoạt động
+
+Lệnh này được dùng để cài đặt giao thức truyền thông tại thời điểm RUN, và lệnh trên thực chất dùng để đặt một giá trị cụ thể cho cờ sửa đổi tham số.
+
+Công thức tính cụ thể là: (giá trị cài đặt tham số + độ lệch phần tử đặc biệt khởi đầu của cổng nối tiếp tương ứng + 10)*2
+
+Ví dụ: đặt giao thức thành trạm chủ (Master) Modbus RTU (H20), tức là (0x20 + 2593 - 2590 + 10) * 2, bằng (32 + 3 + 10) *2 = 90, nhằm mục đích tránh việc sửa đổi tùy tiện tham số cổng nối tiếp trong quá trình vận hành.
+
+Đối với giao thức trạm chủ Modbus, nếu các tham số cài đặt được kích hoạt, giá trị sẽ chỉ được thay đổi sau khi lệnh hoàn tất hoàn toàn.
+
+Đối với giao thức trạm tớ Modbus, nếu các tham số cài đặt được kích hoạt, việc chuyển đổi có thể được thực hiện khi dữ liệu nhận được không đang trong quá trình xử lý.
+
+Để biết chi tiết, vui lòng tham khảo mục “PROTOCOL Instruction Description”.
+
+3. Cài đặt trên máy tính chủ
+
+Mục cài đặt tham số PLC của phần mềm máy tính chủ có thể cài đặt các tham số cổng nối tiếp tương ứng.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709717121639-464.png?rev=1.1)
+
+Số trạm giao thức cụ thể không được bằng 0
+
+Số trạm trong giao thức Modbus RTU và Modbus ASCII bằng 0: Giao thức đặt làm trạm chủ (Master).
+
+Số trạm trong giao thức Modbus RTU và Modbus ASCII khác 0: Giao thức đặt làm trạm tớ (Slave).
+
+Các tham số cổng nối tiếp được điền theo nội dung trong bảng.
+
+:::tip
+Lưu ý: Giao thức RTU không thể cài đặt độ dài dữ liệu 7 bit.
+:::
+
+4. Mô tả mức độ ưu tiên của tham số cổng nối tiếp
+
+Mức độ ưu tiên của các cài đặt tham số cổng nối tiếp được liệt kê dưới đây.
+
+Hiện tại, các tham số cổng nối tiếp được lưu giữ khi mất điện.
+
+Cài đặt bằng lệnh cài đặt tham số cổng nối tiếp = sử dụng lệnh MOV trong giản đồ thang (ladder) để cài đặt phần tử SD tương ứng &gt; tham số tải xuống từ máy tính chủ &gt; dữ liệu trước đó được lưu giữ khi mất điện.
+
+(4) Giản đồ thang cơ bản
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709717196041-407.png?width=409&amp;height=190&amp;rev=1.1)
+
+Cài đặt tham số cổng nối tiếp
+
+Tốc độ baud: 115200, bit dữ liệu: 8, bit chẵn lẻ: không, bit dừng: 1
+
+Cài đặt giao thức truyền thông: giao thức trạm chủ ModbusRTU
+
+Khoảng thời gian gửi: 5ms
+
+Quá thời gian nhận: 100ms
+
+Số lần thử lại khi quá thời gian: 3 lần
+
+Số trạm 01H, mã chức năng 03H, địa chỉ trạm tớ 10, độ dài 05
+
+1. Quy trình gửi và nhận
+
+Trạm chủ Modbus (Modbus master station)
+
+Khi lập trình, ở phía trước mỗi lệnh RS (chế độ Modbus), mỗi đơn vị toán hạng phải được gán một giá trị nhất định theo địa chỉ đối tượng thao tác truyền thông, loại thao tác, địa chỉ thanh ghi thao tác, số lượng dữ liệu, đơn vị gửi hoặc nhận. Khi quá trình thực thi bắt đầu, chương trình hệ thống sẽ tự động tính toán mã kiểm tra CRC, tổ chức khung truyền thông, và hoàn thành thao tác gửi dữ liệu và nhận phản hồi.
+
+Nếu sử dụng giao thức Modbus-ASC để truyền thông (SD2592 được đặt thành H30), định dạng HEX-ASC cho dữ liệu gửi và nhận sẽ được chương trình hệ thống PLC tự động chuyển đổi, và cách người dùng sử dụng lệnh RS (chế độ Modbus) hoàn toàn giống với khi dùng giao thức Modbus-RTU.
+
+Trong chương trình PLC, nếu có nhiều lệnh RS (chế độ Modbus) được kích hoạt, khi chương trình hệ thống thực thi, lệnh RS tiếp theo sẽ được xử lý theo cách tương tự sau khi các khâu “gửi, chờ phản hồi, nhận, kiểm tra, phân tích và lưu trữ” của một lệnh RS hoàn tất, cho đến khi tất cả các lệnh RS được thực thi xong và bắt đầu lại. Người dùng không cần quan tâm đến thời điểm và quy trình thực thi của nó, giúp đơn giản hóa thiết kế lập trình PLC. Đây là ưu điểm của lệnh Modbus.
+
+Danh sách chức năng trạm chủ Modbus
+
+| Mã chức năng | Tên chức năng | Details |
+| :--- | :--- | :--- |
+| 0x01 | Đọc trạng thái cuộn dây (Coil) | Đọc trạng thái cuộn dây (Coil) (nhiều điểm) |
+| 0x02 | Đọc ngõ vào | Đọc ngõ vào (nhiều điểm) |
+| 0x03 | Đọc thanh ghi giữ (Holding register) | Đọc thanh ghi giữ (Holding register) (nhiều điểm) |
+| 0x04 | Đọc thanh ghi ngõ vào (Input register) | Đọc thanh ghi ngõ vào (Input register) (nhiều điểm) |
+| 0x05 | Ghi 1 cuộn dây (Coil) | Ghi cuộn dây (Coil) (chỉ một điểm) |
+| 0x06 | Ghi 1 thanh ghi | Ghi thanh ghi giữ (Holding register) (chỉ một điểm) |
+| 0x0F | Ghi hàng loạt cuộn dây (Coil) | Ghi nhiều điểm cuộn dây (Coil) |
+| 0x10 | Ghi hàng loạt thanh ghi | Ghi nhiều điểm thanh ghi giữ (Holding register) |
+
+Ví dụ:
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1709789901403-566.png?width=399&amp;height=186&amp;rev=1.1)
+
+Cài đặt tham số cổng nối tiếp
+
+Tốc độ baud: 115200, bit dữ liệu: 8, bit chẵn lẻ: không, bit dừng: 1
+
+Cài đặt giao thức truyền thông: giao thức trạm chủ ModbusRTU
+
+Khoảng thời gian gửi: 5ms
+
+Quá thời gian nhận: 100ms
+
+Số lần thử lại khi quá thời gian: 3 lần
+
+Số trạm 01H, mã chức năng 03H, trạm tớ
+
+Như minh họa trong giản đồ thang (ladder) ở trên:
+
+Khi M1 bật ON, PLC sẽ gửi dữ liệu (hệ thập lục phân) từ cổng COM2 của PLC: 01 03 00 0A 00 05 A5 C8
+
+01: biểu thị địa chỉ trạm tớ (Slave), 8 bit cao của (s);
+
+03: mã lệnh Modbus, 8 bit thấp của (s), mang nghĩa đọc thanh ghi trạm tớ;
+
+00 0A: địa chỉ thanh ghi trạm tớ cần đọc, giá trị của (m);
+
+00 05: Số lượng thanh ghi cần đọc, giá trị của (d),
+
+A5 C8: Mã kiểm tra CRC
+
+:::tip
+✎Lưu ý
+
+Khi ghi 1 cuộn dây (0x05), nếu ghi giá trị 1, giá trị sử dụng là 0xFF00; nếu ghi giá trị 0, giá trị sử dụng là 0x0000.
+
+Khi ghi hàng loạt cuộn dây (0x0F), cần chú ý việc hoán đổi byte cao và byte thấp. Ví dụ, khi ghi độ dài 1, giá trị tham số thứ tư là 1 (0x0001) tương ứng với việc gửi 0, và chỉ khi ghi 256 (0x0100) thì mới có thể ghi giá trị 1 vào địa chỉ đích.
+:::
+
+2. Trạm tớ Modbus (Modbus slave station)
+
+Khi PLC được dùng làm trạm tớ Modbus, nó hỗ trợ các lệnh thao tác truyền thông như 0x01, 0x03, 0x05, 0x06, 0x0f và 0x10 của Modbus; thông qua các lệnh này, các cuộn dây (coil) có thể đọc và ghi của PLC gồm các biến như M, S, T, C, X (chỉ đọc), SM, Y, LC, HSC, v.v. Các biến thanh ghi bao gồm D, T, C, R, SD, LC và HSC.
+
+Khi máy chủ truyền thông Modbus truy cập (đọc hoặc ghi lại) các biến nội bộ của PLC trạm tớ, nó phải tuân theo định nghĩa khung lệnh truyền thông và phương thức đánh chỉ mục địa chỉ biến dưới đây để thực hiện thao tác truyền thông bình thường.
+
+① Instruction code 0x01 (01): read coil
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594 |
+| 2 | 0x01 (mã lệnh) | 1 byte | Đọc cuộn dây (Coil) |
+| 3 | Địa chỉ bắt đầu của cuộn dây (Coil) | 2 byte | Byte cao đứng trước và byte thấp đứng sau, xem phần đánh địa chỉ của cuộn dây (Coil) |
+| 4 | Số lượng cuộn dây (Coil) | 2 byte | Byte cao đứng trước và byte thấp đứng sau (N) |
+| 5 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+Định dạng khung phản hồi: địa chỉ trạm tớ + 0x01 + số byte + trạng thái cuộn dây + mã kiểm tra CRC
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594 |
+| 2 | 0x01 (mã lệnh) | 1 byte | Đọc cuộn dây (Coil) |
+| 3 | Số lượng byte | 1 byte | Value: [(N+7)/8] |
+| 4 | Trạng thái cuộn dây (Coil) | [(N+7)/8] bytes | Mỗi 8 cuộn dây (Coil) được gộp thành một byte. Nếu nhóm cuối cùng ít hơn 8 bit, phần chưa định nghĩa được điền bằng 0. 8 cuộn dây đầu tiên nằm trong byte đầu tiên, và cuộn dây có địa chỉ nhỏ nhất nằm ở bit thấp nhất. Cứ tiếp tục như vậy. |
+| 5 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+Phản hồi lỗi: xem khung phản hồi lỗi
+
+② Mã lệnh 0x03 (03): đọc thanh ghi (read register)
+
+Định dạng khung yêu cầu: địa chỉ trạm tớ + 0x03 + địa chỉ bắt đầu thanh ghi + số lượng thanh ghi + mã kiểm tra CRC.
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594 |
+| 2 | 0x03 (mã lệnh) | 1 byte | Đọc thanh ghi |
+| 3 | Địa chỉ bắt đầu của thanh ghi | 2 byte | Byte cao đứng trước và byte thấp đứng sau, xem phần đánh địa chỉ của thanh ghi |
+| 4 | Số lượng thanh ghi | 2 byte | Byte cao đứng trước và byte thấp đứng sau (N) |
+| 5 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594 |
+| 2 | 0x03 (mã lệnh) | 1 byte | Đọc thanh ghi |
+| 3 | Số lượng byte | 1 byte | Value: N*2 |
+| 4 | Giá trị thanh ghi | N*2 bytes | Mỗi hai byte biểu diễn một giá trị thanh ghi, với byte cao đứng trước và byte thấp đứng sau. Thanh ghi có địa chỉ nhỏ đứng trước |
+| 5 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+Định dạng khung phản hồi: địa chỉ trạm tớ + 0x03 + số byte + giá trị thanh ghi + mã kiểm tra CRC.
+
+Phản hồi lỗi: xem khung phản hồi lỗi
+
+③ Mã lệnh 0x05 (05): ghi một cuộn dây (write single coil)
+
+Định dạng khung phản hồi: địa chỉ trạm tớ + 0x05 + số byte + địa chỉ cuộn dây + mã kiểm tra CRC
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594 |
+| 2 | 0x05 (mã lệnh) | 1 byte | Ghi đơn cuộn dây (Coil) |
+| 3 | Địa chỉ cuộn dây (Coil) | 2 byte | Byte cao đứng trước và byte thấp đứng sau, xem phần đánh địa chỉ của cuộn dây (Coil) |
+| 4 | Trạng thái cuộn dây (Coil) | 2 byte | Byte cao đứng trước và byte thấp đứng sau. Nếu giá trị khác 0 thì có hiệu lực. |
+| 5 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+Định dạng khung phản hồi: địa chỉ trạm tớ + 0x05 + địa chỉ cuộn dây + trạng thái cuộn dây + mã kiểm tra CRC.
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594. |
+| 2 | 0x05 (mã lệnh) | 1 byte | Ghi đơn cuộn dây (Coil) |
+| 3 | Địa chỉ cuộn dây (Coil) | 2 byte | Byte cao đứng trước và byte thấp đứng sau, xem phần đánh địa chỉ của cuộn dây (Coil) |
+| 4 | Trạng thái cuộn dây (Coil) | 2 byte | Byte cao đứng trước và byte thấp đứng sau. Nếu giá trị khác 0 thì có hiệu lực. |
+| 5 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+Phản hồi lỗi: xem khung phản hồi lỗi
+
+Trong đó trạng thái cuộn dây 0xFF00 nghĩa là đặt thành ON và 0x0000 nghĩa là đặt thành OFF.
+
+④ Mã lệnh 0x06 (06): ghi một thanh ghi (write single register)
+
+Định dạng khung yêu cầu: địa chỉ trạm tớ + 0x06 + địa chỉ thanh ghi + giá trị thanh ghi + mã kiểm tra CRC.
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594 |
+| 2 | 0x06 (mã lệnh) | 1 byte | Ghi đơn thanh ghi |
+| 3 | Địa chỉ thanh ghi | 2 byte | Byte cao đứng trước và byte thấp đứng sau, xem phần đánh địa chỉ của thanh ghi |
+| 4 | Giá trị thanh ghi | 2 byte | Byte cao đứng trước và byte thấp đứng sau. Nếu giá trị khác 0 thì có hiệu lực. |
+| 5 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+Định dạng khung phản hồi: địa chỉ trạm tớ + 0x06 + địa chỉ thanh ghi + giá trị thanh ghi + mã kiểm tra CRC.
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594 |
+| 2 | 0x06 (mã lệnh) | 1 byte | Ghi đơn thanh ghi |
+| 3 | Địa chỉ thanh ghi | 2 byte | Byte cao đứng trước và byte thấp đứng sau, xem phần đánh địa chỉ của thanh ghi |
+| 4 | Giá trị thanh ghi | 2 byte | Byte cao đứng trước và byte thấp đứng sau. Nếu giá trị khác 0 thì có hiệu lực. |
+| 5 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+Phản hồi lỗi: xem khung phản hồi lỗi.
+
+⑤ Mã lệnh 0x0f (15): ghi nhiều cuộn dây (write multiple coils)
+
+Định dạng khung yêu cầu: địa chỉ trạm tớ + 0x0f + địa chỉ bắt đầu cuộn dây + số lượng cuộn dây + số byte + trạng thái cuộn dây + mã kiểm tra CRC.
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594 |
+| 2 | 0x0F (mã lệnh) | 1 byte | Ghi nhiều cuộn dây (Coil) |
+| 3 | Địa chỉ bắt đầu của cuộn dây (Coil) | 2 byte | Byte cao đứng trước và byte thấp đứng sau, xem phần đánh địa chỉ của cuộn dây (Coil) |
+| 4 | Số lượng cuộn dây (Coil) | 2 byte | Byte cao đứng trước và byte thấp đứng sau. N, giá trị tối đa: 1968 |
+| 5 | Số lượng byte | 1 byte | Value: [(N+7)/8] |
+| 6 | Trạng thái cuộn dây (Coil) | [(N+7)/8] bytes | Mỗi 8 cuộn dây (Coil) được gộp thành một byte. Nếu nhóm cuối cùng ít hơn 8 bit, phần chưa định nghĩa được điền bằng 0. 8 cuộn dây đầu tiên nằm trong byte đầu tiên, và cuộn dây có địa chỉ nhỏ nhất nằm ở bit thấp nhất. Cứ tiếp tục như vậy. |
+| 7 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+Định dạng khung phản hồi: địa chỉ trạm tớ + 0x0f + địa chỉ bắt đầu cuộn dây + số lượng cuộn dây + mã kiểm tra CRC
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594 |
+| 2 | 0x0F (mã lệnh) | 1 byte | Ghi nhiều cuộn dây (Coil) |
+| 3 | Địa chỉ bắt đầu của cuộn dây (Coil) | 2 byte | Byte cao đứng trước và byte thấp đứng sau, xem phần đánh địa chỉ của cuộn dây (Coil) |
+| 4 | Số lượng cuộn dây (Coil) | 2 byte | Byte cao đứng trước và byte thấp đứng sau. |
+| 5 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+Phản hồi lỗi: xem khung phản hồi lỗi
+
+⑥ Mã lệnh 0x10 (16): ghi nhiều thanh ghi (write multiple registers)
+
+Định dạng khung yêu cầu: địa chỉ trạm tớ + 0x10 + địa chỉ bắt đầu thanh ghi + số lượng thanh ghi + số byte + giá trị thanh ghi + mã kiểm tra CRC.
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594 |
+| 2 | 0x10 (mã lệnh) | 1 byte | Ghi nhiều thanh ghi |
+| 3 | Địa chỉ bắt đầu của thanh ghi | 2 byte | Byte cao đứng trước và byte thấp đứng sau, xem phần đánh địa chỉ của thanh ghi |
+| 4 | Số lượng thanh ghi | 2 byte | Byte cao đứng trước và byte thấp đứng sau. N, giá trị tối đa: 120 |
+| 5 | Số lượng byte | 1 byte | Value: N*2 |
+| 6 | Giá trị thanh ghi | N*2 (N*4) |  |
+| 7 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+Định dạng khung phản hồi: địa chỉ trạm tớ + 0x10 + địa chỉ bắt đầu thanh ghi + số lượng thanh ghi + mã kiểm tra CRC.
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594 |
+| 2 | 0x10 (mã lệnh) | 1 byte | Ghi nhiều thanh ghi |
+| 3 | Địa chỉ bắt đầu của thanh ghi | 2 byte | Byte cao đứng trước và byte thấp đứng sau, xem phần đánh địa chỉ của thanh ghi |
+| 4 | Số lượng thanh ghi | 2 byte | Byte cao đứng trước và byte thấp đứng sau. N, giá trị tối đa: 120 |
+| 5 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+Phản hồi lỗi: xem khung phản hồi lỗi
+
+⑦ Khung phản hồi lỗi
+
+Phản hồi lỗi: địa chỉ trạm tớ + (mã lệnh + 0x80) + mã lỗi + mã kiểm tra CRC.
+
+| No. | Data (byte) meaning | Số lượng byte | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- |
+| 1 | Địa chỉ trạm tớ (Slave Address) | 1 byte | Nhận giá trị 1~247, được cài đặt bởi SD2544 và SD2594 |
+| 2 | Mã lệnh + 0x80 | 1 byte | Mã lệnh lỗi |
+| 3 | Mã lỗi (Error Code) | 1 byte | 1 to 4 |
+| 4 | Mã kiểm tra lỗi CRC | 2 byte | Bit cao đứng trước, bit thấp đứng sau |
+
+| No. | Mã lỗi (Error Code) | Mô tả kỹ thuật |
+| :--- | :--- | :--- |
+| 1 | 01 | Mã chức năng không được hỗ trợ |
+| 2 | 02 | Sai địa chỉ hoặc mã chức năng |
+| 3 | 03 | Sai độ dài |
+| 4 | 04 | Lệnh không hoàn chỉnh |
+| 5 | 05 | Địa chỉ không được phép |
+
+⑧ Bảng địa chỉ trạm tớ
+
+| Địa chỉ từ (Word) | Địa chỉ từ (Word) | Địa chỉ từ (Word) | Địa chỉ từ (Word) | Địa chỉ từ (Word) |
+| :--- | :--- | :--- | :--- | :--- |
+| Kiểu địa chỉ | Occupation | Phạm vi địa chỉ | Địa chỉ thập phân | Tổng kích thước địa chỉ dự phòng |
+| T0 to T511 | 512 WORD | 0x0000 to 0x01ff | 0 | 1536 |
+| C0~C255 | 256 WORD | 0x0600 to 0x06ff | 1536 | 1024 |
+| LC0 to LC255 | 512 WORD | 0x0A000 to 0x0BFF | 2560 | 1024 |
+| HSC0 to HSC15 | 128 WORD | 0x0E00 to 0x0E1F | 3584 | 512 |
+| D0~D7999 | 8000 WORD | 0x1000 to 0x2F3F | 4096 | 16384 |
+| SD0 to SD4095 | 4096 WORD | 0x5000 to 0x5FFF | 20480 | 12288 |
+| R0~R30000 | 30000 WORD | 0x8000 to 0xF52F | 32768 | 30000 |
+
+| Bit address | Bit address | Bit address | Bit address | Bit address |
+| :--- | :--- | :--- | :--- | :--- |
+| Kiểu địa chỉ | Occupation | Phạm vi địa chỉ | Địa chỉ thập phân | Tổng kích thước địa chỉ dự phòng |
+| T0 to T511 | 512 bit | 0x0000 to 0x01ff | 0 | 1536 |
+| C0~C255 | 256 bit- | 0x0600 to 0x06ff | 1536 | 1024 |
+| LC0 to LC255 | 256 bit- | 0x0A00 to 0x0AFF | 2560 | 1024 |
+| HSC0 to HSC15 | 64 bit | 0x0E00 to 0x0E0F | 3584 | 512 |
+| M0 to M8000 | 8192 bit | 0x1000 to 0x2F3F | 4096 | 16384 |
+| SM0~SM4095 | 4096 bit | 0x5000 to 0x5FFF | 20480 | 12288 |
+| Dự phòng |  | 0x8000 to 0xBFFF |  | 16383 |
+| S0 to S4095 | 4096 bit | 0xC000 to 0xCFFF | 49152 | 8192 |
+| X0 to X1777 | 1024 bit- | 0xE000 to 0xE3FF | 57344 | 4096 |
+| Y0~Y1777 | 1024 bit- | 0xF000 to 0xF3FF | 61440 | 4096 |
+
+Thông tin lỗi
+
+Mã lỗi hiện tại sẽ được hiển thị trong SD7, SD0, SD2611 và SD2612.
+
+Các mã lỗi có thể xảy ra trong giao thức Modbus chủ yếu được trình bày như sau:
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4085H | Địa chỉ đọc của (s), (m), (d) và (n) vượt quá phạm vi của thiết bị (lỗi này chỉ hiển thị trong SD7 và SD0). |
+| 3180H | Lỗi nhận dữ liệu COM2. Có thể có nhiễu trên cáp truyền thông, khuyến nghị nối dây GND. |
+| 3181H | Hết thời gian chờ nhận dữ liệu COM2. Kiểm tra đấu dây, kiểm tra xem cài đặt tham số cổng nối tiếp giữa trạm chủ và trạm tớ có tương ứng hay không và có nhiễu hay không. Kiểm tra xem có phải do phản hồi chậm từ trạm tớ hay không. Khuyến nghị tăng khoảng thời gian gửi SD2546. |
+| 3182H | Lỗi kiểm tra CRC của COM2. Có thể có nhiễu trên cáp truyền thông, khuyến nghị nối dây GND. |
+| 3183H | Lỗi kiểm tra LRC của COM2. Có thể có nhiễu trên cáp truyền thông, khuyến nghị nối dây GND. |
+| 3184H | Số hiệu trạm COM2 cấu hình không đúng. Kiểm tra cài đặt số hiệu trạm tớ (Slave) và kiểm tra xem cơ chế thu phát từ trạm tớ có vấn đề gì không. |
+| 3185H | Tràn bộ đệm gửi COM2. Nếu thông báo lỗi này xuất hiện, vui lòng liên hệ nhân viên kỹ thuật. |
+| 3186H | Mã chức năng COM2 bị sai. Kiểm tra xem mã chức năng đã cài đặt có phải là mã chức năng được PLC hỗ trợ hay không. |
+| 3187H | Địa chỉ COM2 bị sai. Kiểm tra xem trạm tớ (Slave) có địa chỉ này hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 02). |
+| 3188H | Độ dài COM2 bị sai. Kiểm tra xem độ dài truyền thông có vượt quá phạm vi độ dài do giao thức Modbus hoặc giao thức tự định nghĩa quy định hay không. |
+| 3189H | Lỗi dữ liệu COM2. Kiểm tra xem các tham số của lệnh có bị sai không. Kiểm tra xem giá trị cài đặt có được trạm tớ (Slave) hỗ trợ hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 03). |
+| 318AH | Trạm tớ (Slave) COM2 đang bận. Thông báo trả về từ trạm tớ: Trạm tớ đang bận. (Vui lòng tham khảo mã ngoại lệ Modbus 06). |
+| 318BH | Trạm tớ (Slave) COM2 không hỗ trợ mã chức năng. Kiểm tra xem mã chức năng này có được trạm tớ hỗ trợ hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 01). |
+| 318CH | Trạm tớ (Slave) COM2 bị lỗi. Thông báo trả về từ trạm tớ: Trạm tớ gặp sự cố, vui lòng kiểm tra xem trạm tớ có bị lỗi không. (Vui lòng tham khảo mã ngoại lệ Modbus 04). |
+| 318DH | Xác nhận từ trạm tớ (Slave) COM2. Thông báo trả về từ trạm tớ: xác nhận trạm tớ. (Vui lòng tham khảo mã ngoại lệ Modbus 05). |
+| 318EH | Hiện tại, COM2 không hỗ trợ lệnh hoặc chức năng này. Khi giao thức trạm tớ (Slave) được cài đặt, không thể sử dụng các lệnh truyền thông liên quan đến trạm chủ (Master) hoặc các chức năng của trạm chủ. Vui lòng đổi giao thức hoặc ngắt tiếp điểm phía trước lệnh tương ứng hoặc tắt chức năng truyền thông tương ứng. |
+| 318FH | Hết thời gian gửi COM2. Nếu thông báo lỗi này xuất hiện, vui lòng liên hệ nhân viên kỹ thuật. |
+| 3190H | COM2 nhận dữ liệu vượt quá giới hạn bộ nhớ đệm (Cache). |
+| 31A0H | Không có cổng kết nối (Gateway) khả dụng cho COM2. Thông báo trả về từ trạm tớ: không có cổng kết nối khả dụng. (Vui lòng tham khảo mã ngoại lệ Modbus 0A). |
+| 31A1H | COM2 báo không nhận được phản hồi từ thiết bị đích. Thông báo trả về từ trạm tớ: Thiết bị chưa được kết nối mạng. (Vui lòng tham khảo mã ngoại lệ Modbus 0B). |
+
+Sau khi đặt lại giao thức hoặc tham số truyền thông, các lỗi đã báo sẽ được xóa.
+
+Ngoài ra, trong trường hợp truyền thông hoàn tất / lỗi truyền thông / quá thời gian truyền thông, bit cờ hiệu sẽ được đặt sau khi thực thi lệnh.
+
+## Mô tả giao thức WECON Modbus
+
+Hiện tại, giao thức WECON Modbus (giao thức đặc biệt) được chỉnh sửa dựa trên giao thức Modbus RTU.
+
+Do đó, không thể sử dụng độ dài dữ liệu 7 bit trong tham số cổng nối tiếp.
+
+Giao thức này hoàn toàn tương thích với giao thức Modbus RTU, và địa chỉ giống với địa chỉ mặc định của giao thức Modbus RTU trên PLC LX6V.
+
+Chức năng mở rộng chủ yếu được dùng để truyền thông với PLC Editor 2.
+
+## Khối hàm truyền thông
+
+### SERIAL_MODBUS_WR
+
+SERIAL_MODBUS_WR - Truyền thông nối tiếp trạm chủ Modbus
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1761118509428-681.png?width=212&amp;height=227&amp;rev=1.1)
+
+Khối hàm này là khối hàm cài đặt để trạm chủ Modbus (dù là RTU hay ASCII) gửi khung giao thức. Khi tiếp điểm phía trước Enable chuyển sang ON, dựa vào cổng truyền thông, số trạm, mã chức năng, địa chỉ trạm tớ, số lượng và địa chỉ dữ liệu ánh xạ đã cài đặt trong khối hàm, khung dữ liệu được ghép và gửi đi.
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (C(bit)) | Thiết bị (LC(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | Dịch địa chỉ ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SERIAL_MODBUS_WR | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SERIAL_MODBUS_WR | CommunicationPort |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+| SERIAL_MODBUS_WR | SlaveID |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+| SERIAL_MODBUS_WR | FunctionCode |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+| SERIAL_MODBUS_WR | SlaveAddress |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+| SERIAL_MODBUS_WR | Count |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+| SERIAL_MODBUS_WR | Data |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |
+| SERIAL_MODBUS_WR | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SERIAL_MODBUS_WR | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SERIAL_MODBUS_WR | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SERIAL_MODBUS_WR | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SERIAL_MODBUS_WR | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | PinType | Tham số | Kiểu biến (VariableType) | Có thể để trống không | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SERIALMODBUS_WR | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Cho phép gửi dữ liệu truyền thông nối tiếp trạm chủ (Master) Modbus |
+| SERIALMODBUS_WR | Ngõ vào (Input) | CommunicationPort | UINT | Không | [0,1] | Cổng truyền thông: 0: Cổng nối tiếp 1; 1: Cổng nối tiếp 2 |
+| SERIALMODBUS_WR | Ngõ vào (Input) | SlaveID | UINT | Không | [0,255] | Số hiệu trạm của trạm tớ (Slave) |
+| SERIALMODBUS_WR | Ngõ vào (Input) | FunctionCode | UINT | Không | 1/2/3/4/5/6/15/16 | Mã chức năng |
+| SERIALMODBUS_WR | Ngõ vào (Input) | SlaveAddress | UINT | Không | [0,65535] | Địa chỉ trạm tớ (địa chỉ do trạm tớ cung cấp) sẽ đọc hoặc ghi dữ liệu từ địa chỉ này của trạm tớ. |
+| SERIALMODBUS_WR | Ngõ vào (Input) | Count | UINT | Không | - | Số lượng: số lượng đọc hoặc ghi Modbus, và đơn vị được xác định bởi mã chức năng. |
+| SERIALMODBUS_WR | Ngõ vào (Input) | Data | ANY | Không | - | Địa chỉ bắt đầu để đọc hoặc ghi dữ liệu |
+| SERIALMODBUS_WR | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Lệnh đã hoàn tất |
+| SERIALMODBUS_WR | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cổng nối tiếp đang bận |
+| SERIALMODBUS_WR | Ngõ ra (Output) | Active | BOOL | Có | TRUE/FALSE | Lệnh đang hoạt động |
+| SERIALMODBUS_WR | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Lỗi (Error) |
+| SERIALMODBUS_WR | Ngõ ra (Output) | ErrorID | DWORD | Có | Tham khảo ErrorID để biết chi tiết | Mã lỗi (Error Code) |
+
+#### Chức năng và nguyên lý hoạt động
+
+Bật khối hàm MB_SERIAL để gửi dữ liệu truyền thông nối tiếp trạm chủ Modbus đã chỉ định nhằm đọc từ hoặc ghi tới trạm tớ.
+
+:::tip
+Lưu ý
+
+(1) Chỉ cập nhật trạng thái gửi lệnh truyền thông nối tiếp hiện tại khi và chỉ khi chân Enable của khối hàm được bật;
+
+(2) Nếu hai hoặc nhiều lệnh cổng nối tiếp sử dụng cùng một cổng nối tiếp trong chương trình quét, các lệnh cổng nối tiếp tương ứng sẽ chờ lệnh cổng nối tiếp trước đó thực thi xong theo thứ tự lệnh, rồi mới thực thi lệnh truyền thông của mình;
+
+(3) Nếu hai hoặc nhiều lệnh cổng nối tiếp sử dụng các cổng nối tiếp khác nhau trong chương trình quét, các lệnh cổng nối tiếp tương ứng sẽ được thực thi tuần tự theo thứ tự lệnh mà không ảnh hưởng lẫn nhau;
+
+(4) Busy biểu thị cổng nối tiếp đang bận và Active biểu thị lệnh hiện tại đang được thực thi.
+:::
+
+Giao thức Modbus
+
+Khi giao thức được đặt là giao thức trạm chủ Modbus (dù là RTU hay ASCII), khi tiếp điểm phía trước khối hàm MB_SERIAL ở trạng thái ON, khối hàm MB_SERIAL sẽ gửi khung dữ liệu ghép tại cổng truyền thông được chỉ định theo số trạm, mã chức năng, địa chỉ trạm tớ, số lượng và địa chỉ bắt đầu dữ liệu.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Lỗi nhập CommunicationPort (0: Cổng nối tiếp 1, 1: Cổng nối tiếp 2). |
+| 408FH | Phần mềm hệ thống (Firmware) không hỗ trợ lệnh này và cần được nâng cấp. |
+| 4096H | Cài đặt của Count và Data nằm ngoài phạm vi của biến. |
+| 3180H | Lỗi nhận dữ liệu COM2. Có thể có nhiễu trên cáp truyền thông, khuyến nghị nối dây GND. |
+| 3181H | Hết thời gian chờ nhận dữ liệu COM2. Kiểm tra đấu dây, kiểm tra xem cài đặt tham số cổng nối tiếp giữa trạm chủ và trạm tớ có tương ứng hay không và có nhiễu hay không. Kiểm tra xem có phải do phản hồi chậm từ trạm tớ hay không. Khuyến nghị tăng khoảng thời gian gửi SD2546. |
+| 3182H | Lỗi kiểm tra CRC của COM2. Có thể có nhiễu trên cáp truyền thông, khuyến nghị nối dây GND. |
+| 3183H | Lỗi kiểm tra LRC của COM2. Có thể có nhiễu trên cáp truyền thông, khuyến nghị nối dây GND. |
+| 3184H | Lỗi cấu hình số hiệu trạm COM2. Kiểm tra cài đặt số hiệu trạm tớ (Slave) và kiểm tra xem cơ chế thu phát từ trạm tớ có vấn đề gì không. |
+| 3185H | Tràn bộ đệm gửi COM2. Nếu thông báo lỗi này xuất hiện, vui lòng liên hệ nhân viên kỹ thuật. |
+| 3186H | Lỗi mã chức năng COM2. Kiểm tra xem mã chức năng đã cài đặt có phải là mã chức năng được PLC hỗ trợ hay không. |
+| 3187H | Lỗi địa chỉ COM2. Kiểm tra xem trạm tớ (Slave) có địa chỉ này hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 02) |
+| 3188H | Độ dài COM2 bị sai. Kiểm tra xem độ dài truyền thông có vượt quá phạm vi độ dài do giao thức Modbus hoặc giao thức tự định nghĩa quy định hay không. |
+| 3189H | Lỗi dữ liệu COM2. Kiểm tra xem các tham số của lệnh có bị sai không. Kiểm tra xem giá trị cài đặt có được trạm tớ (Slave) hỗ trợ hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 03). |
+| 318AH | Trạm tớ (Slave) COM2 đang bận. Thông tin trả về từ trạm tớ: Trạm tớ đang bận (Vui lòng tham khảo mã ngoại lệ Modbus 06). |
+| 318BH | Trạm tớ (Slave) COM2 không hỗ trợ mã chức năng. Kiểm tra xem mã chức năng này có được trạm tớ hỗ trợ hay không. (Vui lòng tham khảo mã ngoại lệ Modbus 01) |
+| 318CH | Lỗi trạm tớ (Slave) COM2. Thông tin trả về từ trạm tớ: Trạm tớ gặp sự cố, vui lòng kiểm tra xem trạm tớ có bị lỗi không. (Vui lòng tham khảo mã ngoại lệ Modbus 04) |
+| 318DH | Xác nhận từ trạm tớ (Slave) COM2. Thông báo trả về từ trạm tớ: Xác nhận từ trạm tớ (Vui lòng tham khảo mã ngoại lệ Modbus 05) |
+| 318EH | Hiện tại, COM2 không hỗ trợ lệnh hoặc chức năng này. Khi giao thức trạm tớ (Slave) được cài đặt, không thể sử dụng các lệnh truyền thông liên quan đến trạm chủ (Master) hoặc các chức năng của trạm chủ. Vui lòng đổi giao thức hoặc ngắt tiếp điểm phía trước lệnh tương ứng hoặc tắt chức năng truyền thông tương ứng. |
+| 318FH | Hết thời gian gửi COM2. Nếu thông báo lỗi này xuất hiện, vui lòng liên hệ nhân viên kỹ thuật. |
+| 31A0H | Không có cổng kết nối (Gateway) khả dụng cho COM2. Thông tin trả về từ trạm tớ: Cổng kết nối không khả dụng (Vui lòng tham khảo mã ngoại lệ Modbus 0A) |
+| 31A1H | COM2 báo không nhận được phản hồi từ thiết bị đích. Thông tin trả về từ trạm tớ: Thiết bị không nằm trong mạng. (Vui lòng tham khảo mã ngoại lệ Modbus 0B) |
+
+#### Ví dụ minh họa
+
+Ví dụ ứng dụng
+
+Cài đặt các tham số truyền thông COM2 thông qua phần tử SD.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1761119049914-901.png?width=533&amp;height=377&amp;rev=1.1)
+
+Bật khối hàm và chân Enable của nó, gửi dữ liệu trạm chủ cổng nối tiếp Modbus và chờ trạm tớ phản hồi. Done cho biết lệnh hiện tại đã thực thi xong, Busy cho biết cổng nối tiếp đang bận, và Active cho biết lệnh hiện tại đang chạy (đang chờ dữ liệu trả về từ trạm tớ).
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1761120009429-879.png?width=571&amp;height=611&amp;rev=1.1)
+
+### SERIAL_WR
+
+SERIAL_WR - Truyền thông nối tiếp giao thức tùy chỉnh
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1761120169708-257.png?width=271&amp;height=307&amp;rev=1.1)
+
+Khối hàm này là khối hàm cài đặt cho cổng nối tiếp dùng giao thức tự định nghĩa để gửi khung giao thức. Khi tiếp điểm phía trước Enable chuyển sang ON, dựa vào cổng truyền thông, địa chỉ ánh xạ dữ liệu gửi, độ dài dữ liệu gửi, địa chỉ ánh xạ dữ liệu nhận và độ dài dữ liệu nhận đã cài đặt trong khối hàm, khung dữ liệu được gửi đi và chờ dữ liệu có độ dài chỉ định trả về.
+
+#### Vùng nhớ thiết bị hỗ trợ (Device Used)
+
+| Khối lệnh / Lệnh | Tham số | Thiết bị (X) | Thiết bị (Y) | Thiết bị (M) | Thiết bị (S) | Thiết bị (SM) | Thiết bị (T(bit)) | Thiết bị (HSC(bit)) | Thiết bị (D.b) | Thiết bị (KnX) | Thiết bị (KnY) | Thiết bị (KnM) | Thiết bị (KnS) | Thiết bị (T) | Thiết bị (C) | Thiết bị (D) | Thiết bị (R) | Thiết bị (SD) | Thiết bị (LC) | Thiết bị (HSC) | Thiết bị (K) | Thiết bị (H) | Thiết bị (E) | OffsetModification ([D]) | Mở rộng xung (XXP) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| SERIAL_WR | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SERIAL_WR | CommunicationPort |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+| SERIAL_WR | SendData |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |
+| SERIAL_WR | SendDataLength |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+| SERIAL_WR | ReceiveData |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |
+| SERIAL_WR | ReceiveDataLength |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |
+| SERIAL_WR | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SERIAL_WR | Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SERIAL_WR | Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SERIAL_WR | Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SERIAL_WR | ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  |  |  |  |  |  |  |  |
+
+#### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh / Lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SERIAL_WR | Ngõ vào (Input) | Enable | BOOL | Không | TRUE/FALSE | Cho phép gửi dữ liệu truyền thông nối tiếp không giao thức (tự do) |
+| SERIAL_WR | Ngõ vào (Input) | CommunicationPort | UINT | Không | [0,1] | Cổng truyền thông, 0: Cổng nối tiếp 1, 1: Cổng nối tiếp 2 |
+| SERIAL_WR | Ngõ vào (Input) | SendData | ANY | Không | - | Địa chỉ bắt đầu để gửi dữ liệu |
+| SERIAL_WR | Ngõ vào (Input) | SendDataLength | UINT | Không | [0,523] | Độ dài dữ liệu gửi, tính bằng byte |
+| SERIAL_WR | Ngõ vào (Input) | ReceiveData | ANY | Không | - | Địa chỉ bắt đầu để nhận dữ liệu |
+| SERIAL_WR | Ngõ vào (Input) | ReceiveDataLength | UINT | Không | [0,523] | Độ dài dữ liệu nhận được, tính bằng byte |
+| SERIAL_WR | Ngõ ra (Output) | Done | BOOL | Có | TRUE/FALSE | Lệnh đã hoàn tất |
+| SERIAL_WR | Ngõ ra (Output) | Busy | BOOL | Có | TRUE/FALSE | Cổng nối tiếp đang bận |
+| SERIAL_WR | Ngõ ra (Output) | Active | BOOL | Có | TRUE/FALSE | Lệnh đang hoạt động |
+| SERIAL_WR | Ngõ ra (Output) | Error | BOOL | Có | TRUE/FALSE | Lỗi (Error) |
+| SERIAL_WR | Ngõ ra (Output) | ErrorID | DWORD | Có | Tham khảo ErrorID để biết chi tiết | Mã lỗi (Error Code) |
+
+#### Chức năng và nguyên lý hoạt động
+
+- Bật khối hàm PROTOCOLLESS_SERIAL, cho phép gửi dữ liệu truyền thông nối tiếp của trạm chủ giao thức tùy chỉnh đã chỉ định và chờ dữ liệu trả về từ trạm tớ.
+
+:::tip
+Lưu ý
+
+- Chỉ cập nhật trạng thái gửi lệnh truyền thông nối tiếp hiện tại khi và chỉ khi chân Enable của khối hàm được bật;
+
+- Nếu hai hoặc nhiều lệnh truyền thông nối tiếp được sử dụng đồng thời trong chương trình quét, các lệnh truyền thông tương ứng được thực thi tuần tự theo trình tự lệnh;
+
+- Busy biểu thị cổng nối tiếp đang bận, và Active biểu thị lệnh hiện tại đang được thực thi.
+:::
+
+Giao thức tự định nghĩa (User-defined protocol)
+
+Khi giao thức được đặt là giao thức tùy chỉnh, khi tiếp điểm phía trước khối hàm PROTOCOLLESS_SERIAL ở trạng thái ON, khối hàm PROTOCOLLESS_SERIAL sẽ gửi địa chỉ bắt đầu dữ liệu và độ dài dữ liệu gửi tại cổng truyền thông được chỉ định để truyền khung dữ liệu ghép, đồng thời chờ dữ liệu có độ dài dữ liệu nhận được điền vào địa chỉ bắt đầu dữ liệu nhận.
+
+- Khi độ dài dữ liệu truyền được đặt bằng 0, có thể không cần điền địa chỉ ánh xạ dữ liệu truyền. Lúc này, khối hàm PROTOCOLLESS_SERIAL chỉ nhận dữ liệu;
+
+- Khi độ dài dữ liệu nhận được đặt bằng 0, có thể không cần điền địa chỉ ánh xạ dữ liệu nhận. Lúc này, khối hàm PROTOCOLLESS_SERIAL chỉ gửi dữ liệu.
+
+#### Mã lỗi (Error Code)
+
+| Mã lỗi (Error Code) | Nội dung mô tả |
+| :--- | :--- |
+| 4084H | Lỗi nhập CommunicationPort (0: Cổng nối tiếp 1, 1: Cổng nối tiếp 2). |
+| 5: | Cài đặt của SendDataLength và SendData hoặc ReceiveDataLength và ReceiveData nằm ngoài phạm vi của biến. |
+| 3181H | Hết thời gian chờ nhận dữ liệu |
+| 318EH | Hiện tại, COM2 không hỗ trợ lệnh hoặc chức năng này. Khi được cài đặt sang giao thức trạm tớ (Slave), không thể sử dụng các lệnh truyền thông liên quan đến trạm chủ (Master) hoặc chức năng trạm chủ. Vui lòng đổi giao thức hoặc ngắt tiếp điểm phía trước lệnh tương ứng hoặc tắt chức năng truyền thông tương ứng. |
+| 318FH | Hết thời gian chờ nhận dữ liệu COM2. • Kiểm tra đấu dây; • Kiểm tra xem cài đặt tham số cổng nối tiếp giữa trạm chủ và trạm tớ có tương ứng hay không; • Kiểm tra xem có nhiễu hay không; • Kiểm tra xem có phải do phản hồi chậm từ trạm tớ hay không. Khuyến nghị tăng khoảng thời gian gửi SD2546. |
+| 3190H | COM2 nhận dữ liệu vượt quá giới hạn bộ nhớ đệm (Cache). |
+
+#### Ví dụ minh họa
+
+Ví dụ ứng dụng
+
+- Cài đặt các tham số truyền thông COM2 thông qua phần tử SD.
+
+![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/Communication%20Instruction/WebHome/1761120267443-852.png?width=498&amp;height=580&amp;rev=1.1)
+
+Bật khối hàm và chân Enable của khối hàm, gửi dữ liệu giao thức tùy chỉnh và chờ trạm tớ phản hồi. Done cho biết lệnh hiện tại đã thực thi xong, Busy cho biết cổng nối tiếp đang bận, và Active cho biết lệnh hiện tại đang chạy (đang chờ dữ liệu trả về từ trạm tớ).
+
+0
