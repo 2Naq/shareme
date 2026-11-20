@@ -1,0 +1,219 @@
+---
+id: "8.01-management-function-blocks-single-axis"
+title: "8.01 Khối hàm quản trị điều khiển đơn trục (Management FBs)"
+sidebar_position: 2
+sidebar_label: "8.01 Quản trị đơn trục (13 FBs)"
+tags: [wecon, lx6v, lx6a, mc_power, mc_readstatus, mc_reset, mc_setposition, mc_touchprobe]
+description: "Hướng dẫn kỹ thuật chi tiết 13 khối hàm quản trị đơn trục chuẩn PLCopen trên PLC Wecon LX6V / LX6A500: MC_POWER, MC_READSTATUS, MC_RESET, MC_TouchProbe..."
+---
+
+## Tổng quan nhóm khối hàm 8.01
+
+Nhóm khối hàm quản trị đơn trục (**Management Function Blocks for Single-axis Motion Control**) trong PLC Wecon chịu trách nhiệm kiểm soát trạng thái cấp nguồn (Servo Ready), giám sát liên tục dữ liệu động học (vận tốc, vị trí, trạng thái chuyển động), xóa lỗi và thực hiện các chức năng chốt tọa độ tốc độ cao (TouchProbe).
+
+> **Đặc tính kỹ thuật chung:**
+> - Các khối quản trị trạng thái (`MC_POWER`, `MC_READSTATUS`, `MC_READMOTIONSTATE`, `MC_READAXISINFO`) thường kích hoạt bằng **mức logic duy trì (`Enable = TRUE`)**.
+> - Các khối lệnh tác vụ tức thời (`MC_RESET`, `MC_SETPOSITION`, `MC_TouchProbe`, `MC_AbortTrigger`) kích hoạt bằng **cạnh lên (`Execute` Rising Edge)**.
+> - Kiểu dữ liệu trục `Axis` sử dụng định dạng `WORD` hoặc cấu trúc tham chiếu trục `AXIS_REF`, dải giá trị từ `0` đến `65535`.
+
+---
+
+## 1. MC_POWER: Công tắc cấp nguồn cho trục
+
+Khối hàm là công tắc phần mềm điều khiển trạng thái Servo ON cho trục tham gia vào hệ thống Motion Control.
+
+```pascal
+// Cú pháp gọi khối hàm MC_POWER trong Structured Text (ST)
+fb_Power(
+    Enable          := bEnable,          // [IN, BOOL] Mức TRUE duy trì cấp nguồn
+    EnablePositive  := bEnablePos,       // [IN, BOOL] Cho phép quay chiều thuận (+)
+    EnableNegative  := bEnableNeg,       // [IN, BOOL] Cho phép quay chiều nghịch (-)
+    Axis            := AxisID,           // [IN, WORD] Số thứ tự trục (0..65535)
+    Status          => bServoReady,      // [OUT, BOOL] Báo Servo đã ON thành công
+    Valid           => bValid,           // [OUT, BOOL] Dữ liệu ngõ ra hợp lệ
+    Error           => bError,           // [OUT, BOOL] Cờ báo lỗi
+    ErrorID         => dwErrorID         // [OUT, DWORD] Mã lỗi (xem mục 8.11)
+);
+```
+
+### Bảng thông số chi tiết (Variable Type Used)
+
+| Chân tín hiệu | Phân loại | Kiểu dữ liệu | Cho phép để trống | Dải giá trị | Diễn giải kỹ thuật |
+| :--- | :--- | :--- | :---: | :--- | :--- |
+| **Enable** | Input | BOOL | Không | TRUE / FALSE | Khi Enable = TRUE, nguồn động lực của Drive được đóng (Servo ON). Khi Enable = FALSE, trục chuyển về trạng thái `Disabled`. |
+| **EnablePositive**| Input | BOOL | Không | TRUE / FALSE | Cho phép trục chuyển động theo chiều dương. Nếu FALSE, trục không thể phát lệnh chuyển động thuận. |
+| **EnableNegative**| Input | BOOL | Không | TRUE / FALSE | Cho phép trục chuyển động theo chiều âm. Nếu FALSE, trục không thể phát lệnh chuyển động nghịch. |
+| **Axis** | In/Out | WORD | Không | 0 .. 65535 | Số ID của trục logic cần điều khiển. |
+| **Status** | Output | BOOL | Có | TRUE / FALSE | Phản hồi trạng thái Servo: TRUE khi drive đã sẵn sàng và trục ở trạng thái `StandStill`. |
+| **Valid** | Output | BOOL | Có | TRUE / FALSE | Dữ liệu trạng thái ngõ ra có giá trị hợp lệ. |
+| **Error** | Output | BOOL | Có | TRUE / FALSE | TRUE khi xảy ra sự cố trong quá trình cấp nguồn. |
+| **ErrorID** | Output | DWORD | Có | Mã Hex | Mã lỗi chi tiết (tham khảo [Bảng mã lỗi 8.11](./8.11-error-code-table.mdx)). |
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+- **Tín hiệu Bit:** X, Y, M, S, SM.
+- **Thanh ghi Word:** T, C, D, R, SD (16-bit có dấu).
+- **Thanh ghi Double Word:** LC, HSC (32-bit có dấu).
+- *Lưu ý:* Chỉ sử dụng biến đơn lẻ, không hỗ trợ ghép chuỗi hoặc dịch địa chỉ (offset).
+
+### Nguyên lý hoạt động và lưu ý kỹ thuật:
+1. Khi `Enable` chuyển sang `TRUE`, khối hàm gửi lệnh đóng nguồn đến Drive. Nếu trục đang ở trạng thái `Disabled`, nó sẽ chuyển sang trạng thái `StandStill` và sẵn sàng tiếp nhận các lệnh chuyển động.
+2. Nếu xảy ra lỗi khi `Enable = TRUE`, khối hàm sẽ xuất cờ `Error = TRUE` và trục tự động chuyển vào trạng thái `ErrorStop`.
+3. Khi `Enable` hạ xuống `FALSE`, trục chuyển ngay về trạng thái `Disabled`, động cơ mất moment giữ (free-run).
+
+---
+
+## 2. MC_READSTATUS: Đọc trạng thái hoạt động chuẩn PLCopen
+
+Khối hàm quét chu kỳ và phản hồi chi tiết trạng thái hoạt động hiện thời của trục theo mô hình máy trạng thái PLCopen.
+
+```pascal
+fb_ReadStatus(
+    Enable              := TRUE,           // Quét liên tục mỗi chu kỳ scan
+    Axis                := 0,
+    Valid               => bValid,
+    Busy                => bBusy,
+    Error               => bError,
+    ErrorID             => dwErrorID,
+    ErrorStop           => bErrorStop,     // Trục đang bị dừng do sự cố
+    Disabled            => bDisabled,      // Trục chưa bật nguồn (Servo OFF)
+    Stopping            => bStopping,      // Đang trong tiến trình dừng bởi MC_Stop
+    StandStill          => bStandStill,    // Đang đứng yên sẵn sàng nhận lệnh mới
+    DiscreteMotion      => bDiscrete,      // Đang chạy định vị điểm-điểm
+    ContinuousMotion    => bContinuous,    // Đang chạy theo vận tốc liên tục
+    SynchronizedMotion  => bSync,          // Đang chạy bám trục chủ (Cam / Gear)
+    Homing              => bHoming,        // Đang thực hiện chu trình tìm gốc
+    ConstantVelocity    => bConstVel,      // Đang duy trì tốc độ đều
+    Accelerating        => bAcc,           // Đang trong giai đoạn tăng tốc
+    Decelerating        => bDec            // Đang trong giai đoạn giảm tốc
+);
+```
+
+### Bảng thông số chi tiết MC_READSTATUS
+
+| Chân tín hiệu | Phân loại | Kiểu dữ liệu | Cho phép để trống | Diễn giải kỹ thuật |
+| :--- | :--- | :--- | :---: | :--- |
+| **Enable** | Input | BOOL | Không | Duy trì mức TRUE để đọc liên tục trạng thái mỗi chu kỳ scan. |
+| **Axis** | In/Out | WORD | Không | Số hiệu trục logic. |
+| **Valid** | Output | BOOL | Có | Báo dữ liệu đọc về có độ tin cậy. |
+| **Busy** | Output | BOOL | Có | Khối hàm đang trong quá trình đọc dữ liệu. |
+| **Error / ErrorID**| Output | BOOL / DWORD | Có | Cờ báo lỗi và mã lỗi tương ứng. |
+| **ErrorStop** | Output | BOOL | Có | Báo TRUE khi trục rơi vào trạng thái sự cố `ErrorStop`. |
+| **Disabled** | Output | BOOL | Có | Báo TRUE khi trục ở trạng thái mất nguồn `Disabled`. |
+| **Stopping** | Output | BOOL | Có | Báo TRUE khi trục đang giảm tốc dừng do lệnh `MC_Stop`. |
+| **StandStill** | Output | BOOL | Có | Báo TRUE khi trục đứng yên hoàn toàn và sẵn sàng nhận lệnh mới. |
+| **DiscreteMotion** | Output | BOOL | Có | Báo TRUE khi đang chạy định vị tuyệt đối hoặc tương đối. |
+| **ContinuousMotion**| Output | BOOL | Có | Báo TRUE khi đang quay liên tục không giới hạn điểm dừng. |
+| **SynchronizedMotion**| Output | BOOL | Có | Báo TRUE khi đang chạy đồng bộ bám trục Master. |
+| **Homing** | Output | BOOL | Có | Báo TRUE khi đang trong chu trình tìm gốc cơ học. |
+| **ConstantVelocity**| Output | BOOL | Có | Báo TRUE khi trục đạt vận tốc đều ổn định. |
+| **Accelerating** | Output | BOOL | Có | Báo TRUE khi vận tốc trục đang tăng dần. |
+| **Decelerating** | Output | BOOL | Có | Báo TRUE khi vận tốc trục đang giảm dần. |
+
+---
+
+## 3. MC_READMOTIONSTATE: Đọc trạng thái động học
+
+Cung cấp thông tin động học chuyên sâu: chiều quay hiện tại, trạng thái tăng tốc, giảm tốc hoặc chuyển động đều.
+
+### Bảng thông số kỹ thuật:
+- **Enable** (Input, BOOL): Kích hoạt quét trạng thái.
+- **Axis** (Input, WORD): Số hiệu trục.
+- **Valid, Busy, Error, ErrorID** (Output).
+- **ConstantVelocity** (Output, BOOL): Trục đang chuyển động ở vận tốc không đổi.
+- **Accelerating** (Output, BOOL): Trục đang tăng tốc.
+- **Decelerating** (Output, BOOL): Trục đang giảm tốc.
+- **Direction** (Output, BOOL): Chiều chuyển động hiện thời (`FALSE`: Chiều dương, `TRUE`: Chiều âm).
+
+---
+
+## 4. MC_READAXISERROR: Đọc mã lỗi trục
+
+Được sử dụng chuyên biệt để giám sát và chẩn đoán sự cố trục.
+- Khi trục phát sinh lỗi, ngõ ra **AxisError** sẽ báo `TRUE` và **AxisErrorID** (DWORD) sẽ xuất ra mã số Hex chi tiết xác định chính xác nguyên nhân lỗi phần cứng hoặc logic.
+
+---
+
+## 5. MC_READAXISINFO: Đọc thông tin cấu hình phần cứng trục
+
+Khối hàm đọc các thông tin tĩnh của trục đã được thiết lập trong cấu hình phần cứng của dự án:
+- **AxisType** (Output, WORD): Loại trục (0: Bus Servo EtherCAT, 1: Bus Virtual Axis, 2: Bus Encoder, v.v.).
+- **IsHomed** (Output, BOOL): Cờ xác nhận trục đã thực hiện tìm gốc cơ học thành công hay chưa.
+- **PositiveLimitSwitch** (Output, BOOL): Trạng thái ngõ vào công tắc hành trình chiều dương.
+- **NegativeLimitSwitch** (Output, BOOL): Trạng thái ngõ vào công tắc hành trình chiều âm.
+- **Simulation** (Output, BOOL): Trục đang ở chế độ mô phỏng ảo hay phần cứng thực.
+
+---
+
+## 6. MC_READPARAMETER & MC_READBOOLPARAMETER: Đọc tham số trục
+
+Cho phép chương trình người dùng đọc trực tiếp các tham số nội tại của hệ thống điều khiển vị trí trong thời gian thực:
+- **MC_READPARAMETER:** Đọc tham số dạng số thực có dấu độ chính xác kép (`LREAL`) như: Vận tốc lớn nhất, gia tốc cực đại, giới hạn mềm Software Limit.
+- **MC_READBOOLPARAMETER:** Đọc các tham số dạng nhị phân (`BOOL`) như: Kích hoạt giới hạn phần mềm, đảo chiều tín hiệu xung.
+- Tham số `ParameterNumber` (DINT): Số thứ tự chỉ mục tham số cần đọc theo bảng quy chuẩn Wecon.
+
+---
+
+## 7. MC_READACTUALVELOCITY & MC_READACTUALPOSITION: Đọc vận tốc và vị trí thực tế
+
+Hai khối hàm cốt lõi dùng để cập nhật giá trị hồi tiếp thời gian thực lên giao diện điều khiển HMI/SCADA:
+- **MC_READACTUALVELOCITY:** Xuất giá trị vận tốc thực tế của trục tại chân **Velocity** (LREAL, đơn vị: xung/s hoặc đơn vị người dùng/s).
+- **MC_READACTUALPOSITION:** Xuất giá trị tọa độ thực tế của trục tại chân **Position** (LREAL, độ chính xác số thực kép).
+
+---
+
+## 8. MC_RESET: Xóa lỗi và giải phóng trạng thái ErrorStop
+
+Khi trục gặp sự cố (quá tải, chạm cữ giới hạn, lỗi truyền thông), trục bị khóa cứng ở trạng thái `ErrorStop`. Lệnh `MC_RESET` là phương tiện duy nhất để xóa lỗi phần mềm và đưa trục trở về trạng thái bình thường.
+
+```pascal
+fb_Reset(
+    Execute := bResetBtn,       // Kích hoạt bằng CẠNH LÊN
+    Axis    := 0,
+    Done    => bResetDone,      // Báo TRUE khi xóa lỗi thành công
+    Busy    => bResetBusy,
+    Error   => bResetErr,
+    ErrorID => dwResetErrID
+);
+```
+
+> **Quy tắc sư phạm cốt lõi:**
+> - Nếu `MC_Power.Status = TRUE`, sau khi Reset thành công trục chuyển về trạng thái **StandStill**.
+> - Nếu `MC_Power.Status = FALSE`, sau khi Reset thành công trục chuyển về trạng thái **Disabled**.
+> - Nếu nguyên nhân phần cứng gây lỗi chưa được loại bỏ (ví dụ: công tắc E-Stop vẫn bị ấn hoặc cảm biến giới hạn hành trình vẫn bị chạm), lệnh Reset sẽ báo lỗi thất bại (`MC_ERROR_ID_ERRORSTOP_RESET_FAILED`).
+
+---
+
+## 9. MC_SETPOSITION: Cài đặt lại tọa độ hiện thời
+
+Dùng để gán lại giá trị cho bộ đếm tọa độ hiện tại mà không gây ra bất kỳ dịch chuyển cơ khí nào trên động cơ:
+- **Execute** (Input, BOOL): Kích hoạt cạnh lên.
+- **Position** (Input, LREAL): Giá trị tọa độ mới cần áp đặt.
+- **Mode** (Input, BOOL):
+  - `FALSE` (Tuyệt đối - Absolute): Tọa độ hiện tại được gán thẳng bằng giá trị `Position`.
+  - `TRUE` (Tương đối - Relative): Tọa độ hiện tại dịch chuyển một khoảng bù tương ứng với `Position`.
+- **Done** (Output, BOOL): Báo hoàn thành việc thay đổi tọa độ.
+
+---
+
+## 10. MC_TouchProbe & MC_AbortTrigger: Bắt vị trí siêu tốc
+
+Khối hàm hỗ trợ chốt tọa độ thực tế của trục tại thời điểm chân cảm biến quang/tiệm cận phần cứng tốc độ cao chuyển mức tín hiệu (độ trễ micro-giây, độc lập hoàn toàn với chu kỳ quét của PLC).
+
+```pascal
+fb_TouchProbe(
+    Execute         := bTriggerStart,
+    TriggerInput    := stTriggerCfg,     // Cấu hình chân ngắt phần cứng
+    WindowOnly      := TRUE,             // Bật tính năng cửa sổ lọc nhiễu
+    FirstPosition   := 100.0,            // Giới hạn dưới của cửa sổ bắt tọa độ
+    LastPosition    := 200.0,            // Giới hạn trên của cửa sổ bắt tọa độ
+    Axis            := 0,
+    Done            => bProbeDone,       // Đã bắt được vị trí
+    Busy            => bProbeBusy,
+    CommandAborted  => bProbeAborted,
+    Error           => bProbeErr,
+    ErrorID         => dwProbeErrID,
+    RecordedPosition=> fCapturedPos      // Tọa độ thực tế chốt được (LREAL)
+);
+```
+
+- **MC_AbortTrigger:** Cho phép người dùng hủy tác vụ chờ của `MC_TouchProbe` khi kết thúc chu trình làm việc mà cảm biến không phát hiện sản phẩm.

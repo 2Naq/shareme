@@ -1,0 +1,16 @@
+---
+id: "01-execution-of-program"
+title: "01 Execution of the Program: Chu kỳ quét & Thứ tự thực thi"
+sidebar_position: 1
+sidebar_label: "01 Execution of the Program"
+tags: [wecon, lx6v, lx6a, manual]
+description: "Nguyên lý chu kỳ quét (Scan Cycle), thời gian xử lý vòng lặp và thứ tự thực thi chương trình trong PLC Wecon LX6V."
+---
+
+## 01 Execution of the Program: Chu kỳ quét & Thứ tự thực thi
+
+Hệ thống PLC Wecon thực thi chương trình người dùng theo chu kỳ quét lặp tuần hoàn (Cyclic Scan Execution) bao gồm 4 giai đoạn nối tiếp:
+1. **Đọc ngõ vào vật lý (Input Process Image):** Quét trạng thái từ các chân đấu nối bên ngoài (X0, X1...) vào vùng đệm bộ nhớ.
+2. **Thực thi logic chương trình (Program Execution):** Thực thi tuần tự các lệnh Ladder/ST từ đầu đến cuối chương trình chính.
+3. **Cập nhật ngõ ra (Output Process Image):** Xuất các giá trị tính toán từ bộ nhớ ra chân transistor/relay vật lý (Y0, Y1...).
+4. **Xử lý truyền thông & Giám sát hệ thống (Housekeeping & Communication):** Xử lý gói tin EtherCAT, Ethernet, RS-485 và kiểm tra watchdog timer.

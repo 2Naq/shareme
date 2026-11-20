@@ -1,0 +1,36 @@
+---
+id: "8.05-management-functions-axis-group"
+title: "8.05 Khối hàm quản trị điều khiển nhóm trục (Axis Group Management)"
+sidebar_position: 6
+sidebar_label: "8.05 Quản trị nhóm trục (10 FBs)"
+tags: [wecon, lx6v, lx6a, axis-group, mc_groupenable, mc_groupdisable, mc_groupreset]
+description: "Hướng dẫn kỹ thuật 10 khối hàm quản trị nhóm trục (Axis Group) cho các cơ cấu nhiều bậc tự do (Cartesian, Delta, SCARA, CNC) trên PLC Wecon."
+---
+
+## Tổng quan nhóm khối hàm 8.05
+
+Khi điều khiển các cơ cấu phối hợp nhiều trục (như tay gắp Cartesian X-Y-Z, máy CNC, Robot Delta), các trục đơn lẻ được tập hợp thành một **Nhóm trục (Axis Group)**. Nhóm trục được quản lý bởi một máy trạng thái nhóm riêng biệt (`GroupDisabled`, `GroupStandby`, `GroupMoving`, `GroupStopping`, `GroupErrorStop`).
+
+### Danh mục 10 khối hàm quản trị nhóm trục:
+1. **MC_GROUPENABLE:** Cấp nguồn và kích hoạt nhóm trục vào trạng thái sẵn sàng (`GroupStandby`).
+2. **MC_GROUPDISABLE:** Vô hiệu hóa toàn bộ nhóm trục.
+3. **MC_GROUPRESET:** Xóa lỗi nhóm trục khi rơi vào sự cố (`GroupErrorStop`).
+4. **MC_GROUPREADSTATUS:** Đọc trạng thái hoạt động tổng thể của nhóm trục.
+5. **MC_GROUPREADERROR:** Đọc cờ và mã lỗi chi tiết của nhóm trục.
+6. **MC_GROUPREDACTUALPOSITION:** Đọc vector tọa độ thực tế $[X, Y, Z]$ của nhóm trục.
+7. **MC_GROUPREADACTUALVELOCITY:** Đọc vận tốc tiếp tuyến tổng hợp thực tế của nhóm trục.
+8. **MC_GROUPREADACTUALACCELERATION:** Đọc gia tốc tiếp tuyến thực tế của nhóm trục.
+9. **MC_REMOVEAXISFROMGROUP:** Tách một trục đơn ra khỏi nhóm.
+10. **MC_UNGROUPALLAXES:** Giải tán hoàn toàn nhóm trục, đưa tất cả các trục trở lại trạng thái trục độc lập.
+
+```pascal
+// Ví dụ kích hoạt nhóm trục
+fb_GroupEnable(
+    Execute     := bEnableGroupCmd,
+    AxisGroup   := GroupID_0,        // Tham chiếu nhóm trục
+    Done        => bGroupReady,
+    Busy        => bGroupBusy,
+    Error       => bGroupErr,
+    ErrorID     => dwGroupErrID
+);
+```

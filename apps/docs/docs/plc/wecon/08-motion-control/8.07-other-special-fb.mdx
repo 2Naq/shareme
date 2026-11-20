@@ -1,0 +1,74 @@
+---
+id: "8.07-other-special-fb"
+title: "8.07 Các khối hàm chuyển động đặc biệt khác (Other Special FBs)"
+sidebar_position: 8
+sidebar_label: "8.07 Khối chuyên dụng (10 FBs)"
+tags: [wecon, lx6v, lx6a, mc_movejog, mc_movevelocity, torque-control, csv, cia402]
+description: "Hướng dẫn kỹ thuật chi tiết 10 khối hàm đặc biệt: MC_MOVEJOG, MC_MOVEVELOCITY, MC_COMBINEAXES, Torque Control và các chế độ CiA402 CSV/PV/PT/PP."
+---
+
+## Tổng quan nhóm khối hàm 8.07
+
+Nhóm 8.07 cung cấp các giải pháp điều khiển chuyên dụng mở rộng vượt ra ngoài các khối lệnh định vị vị trí truyền thống, bao gồm chạy nhấp bằng tay (Manual JOG), điều khiển tốc độ liên tục, tổng hợp chuyển động vi sai và các chế độ điều khiển lực căng/lực xoắn (Torque) theo đặc tả CiA402.
+
+### Danh mục 10 khối hàm đặc biệt:
+1. **MC_MOVEJOG:** Chạy nhấp bằng tay (Manual JOG) theo chiều thuận hoặc nghịch.
+2. **MC_MOVEVELOCITY:** Chạy liên tục theo vận tốc cài đặt (Speed Mode).
+3. **MC_COMBINEAXES:** Tổng hợp chuyển động từ 2 trục chủ để điều khiển 1 trục tớ.
+4. **MC_MOVEVELOCITY_CSV:** Chế độ điều khiển vận tốc chu kỳ thời gian thực (Cyclic Synchronous Velocity) qua mạng Bus EtherCAT.
+5. **MC_SYNCMOVEVELOCITY:** Đồng bộ chu kỳ vận tốc đa trục.
+6. **MC_SETTORQUE:** Cài đặt giá trị giới hạn lực xoắn / moment xoắn.
+7. **MC_TORQUECONTROL:** Chuyển Servo sang chế độ điều khiển moment xoắn chuyên dụng (Torque Control Mode).
+8. **MC_MOVEABSRELPP:** Điều khiển vị trí Profile Position Mode (PP Mode theo chuẩn CiA402).
+9. **MC_MOVEVELOCITYPV:** Điều khiển vận tốc Profile Velocity Mode (PV Mode).
+10. **MC_TORQUECONTROLPT:** Điều khiển lực xoắn Profile Torque Mode (PT Mode).
+
+---
+
+## 1. MC_MOVEJOG: Chạy nhấp bằng tay
+
+Khối hàm bắt buộc trong mọi giao diện vận hành máy (HMI Manual Page) giúp công nhân gá đặt cơ khí, cân chỉnh cữ và test động cơ:
+
+```pascal
+fb_Jog(
+    EnablePositive  := bJogFwdButton,    // Nhấn giữ nút chạy thuận
+    EnableNegative  := bJogRevButton,    // Nhấn giữ nút chạy nghịch
+    Velocity        := 40.0,             // Tốc độ JOG (đơn vị/giây)
+    Acceleration    := 200.0,
+    Deceleration    := 200.0,
+    Axis            := 0,
+    Busy            => bJogBusy,
+    CommandAborted  => bJogAborted,
+    Error           => bJogErr,
+    ErrorID         => dwJogErrID
+);
+```
+
+- Khi nút `EnablePositive` ON: Trục tự động tăng tốc mượt mà và quay theo chiều thuận. Khi nhả nút về OFF, trục hãm dừng lại.
+- Tương tự cho chiều nghịch với `EnableNegative`.
+
+---
+
+## 2. MC_MOVEVELOCITY: Điều khiển chạy liên tục theo vận tốc
+
+Dùng cho các cơ cấu vận hành liên tục không có điểm dừng cố định (như băng tải tiếp liệu, trục cán, bơm định lượng):
+- Kích hoạt bằng **Cạnh lên** của chân `Execute`.
+- Trục tăng tốc lên đến `Velocity` và duy trì quay liên tục vô hạn.
+- Khi đạt đúng tốc độ cài đặt, chân **InVelocity** báo `TRUE`.
+- Trục chỉ dừng lại khi nhận lệnh `MC_Stop` hoặc `MC_Halt`.
+
+---
+
+## 3. MC_COMBINEAXES: Tổng hợp chuyển động vi sai
+
+Khối hàm nhận tín hiệu vị trí/vận tốc từ **Master 1** và **Master 2**, sau đó tính toán theo hàm số học (Cộng hoặc Trừ) để điều khiển trục **Slave**:
+- Thuật toán: `Slave = Master1 +/- Master2`.
+- Ứng dụng: Bàn máy vi sai hai bậc tự do, cơ cấu bù sai lệch động học trong máy cắt laser/plasma.
+
+---
+
+## 4. Điều khiển lực xoắn Moment (Torque Control): MC_TORQUECONTROL
+
+Khi cuộn dây đồng, quấn màng bọc nilon hoặc siết nắp chai, việc kiểm soát vị trí không còn ý nghĩa mà bắt buộc phải kiểm soát chính xác lực xoắn để màng không bị rách và nắp chai không bị tuôn ren:
+- Khối hàm chuyển trạng thái của Drive Servo sang **Torque Mode**.
+- Duy trì lực ép/lực xoắn `Torque` ổn định liên tục theo giá trị cài đặt.

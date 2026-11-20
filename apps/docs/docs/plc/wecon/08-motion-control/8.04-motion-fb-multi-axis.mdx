@@ -1,0 +1,98 @@
+---
+id: "8.04-motion-fb-multi-axis"
+title: "8.04 Khối hàm chuyển động điều khiển đa trục (Multi-axis Motion FBs)"
+sidebar_position: 5
+sidebar_label: "8.04 Cam & Gear đa trục (5 FBs)"
+tags: [wecon, lx6v, lx6a, mc_camin, mc_camout, mc_gearin, mc_gearout, mc_gearinpos]
+description: "Hướng dẫn chi tiết 5 khối hàm khớp nối và đồng bộ chuyển động đa trục: MC_CAMIN, MC_CAMOUT, MC_GEARIN, MC_GEAROUT, MC_GEARINPOS trên PLC Wecon."
+---
+
+## Tổng quan nhóm khối hàm 8.04
+
+Nhóm khối hàm chuyển động đa trục thực thi các cơ cấu liên kết động học số giữa **Trục Chủ (Master)** và **Trục Tớ (Slave)** thông qua Bánh răng điện tử (Electronic Gear) và Cam điện tử (Electronic Cam).
+
+---
+
+## 1. MC_GEARIN: Khớp nối bánh răng điện tử (Electronic Gear)
+
+Khối hàm thiết lập liên kết vận tốc giữa Master và Slave theo một tỉ số truyền hữu tỉ:
+
+```text
+Vận tốc Slave = Vận tốc Master * (RatioNumerator / RatioDenominator)
+```
+
+```pascal
+fb_GearIn(
+    Execute             := bEngageGear,
+    RatioNumerator      := 2,            // Tử số tỉ số truyền
+    RatioDenominator    := 1,            // Mẫu số tỉ số truyền
+    Acceleration        := 500.0,        // Gia tốc bắt kịp trục chủ
+    Deceleration        := 500.0,
+    Jerk                := 1500.0,
+    BufferMode          := 0,
+    Master              := 0,            // ID trục chủ
+    Slave               := 1,            // ID trục tớ
+    InGear              => bInGear,      // Báo TRUE khi đã đạt đúng tỉ số đồng tốc
+    Busy                => bGearBusy,
+    Active              => bGearActive,
+    CommandAborted      => bGearAborted,
+    Error               => bGearErr,
+    ErrorID             => dwGearErrID
+);
+```
+
+- Khi kích hoạt `Execute`, trục Slave tăng tốc bám theo trục Master.
+- Khi đạt đúng tỉ lệ truyền số học, chân **InGear** báo `TRUE`. Trục Slave ở trạng thái `SynchronizedMotion`.
+
+---
+
+## 2. MC_GEAROUT: Tách khớp bánh răng điện tử
+
+Ngắt liên kết đồng bộ bánh răng giữa Master và Slave. Trục Slave thoát khỏi trạng thái `SynchronizedMotion`, chuyển sang trạng thái `ContinuousMotion` và duy trì vận tốc hiện tại cho đến khi có lệnh dừng.
+
+---
+
+## 3. MC_GEARINPOS: Khớp bánh răng đồng bộ pha vị trí
+
+Nâng cấp của `MC_GEARIN`: Đòi hỏi trục Slave không chỉ đồng bộ vận tốc mà còn phải ăn khớp chính xác tuyệt đối về **Tọa độ vị trí (Phase Alignment)** tại một điểm mốc định trước của cả 2 trục.
+
+---
+
+## 4. MC_CAMIN: Bắt đầu đóng khớp Cam điện tử
+
+Khối hàm đưa trục Slave bám theo biên dạng quỹ đạo Cam của trục Master:
+
+```pascal
+fb_CamIn(
+    Execute             := bStartCam,
+    ContinuousUpdate    := FALSE,
+    MasterOffset        := 0.0,
+    SlaveOffset         := 0.0,
+    MasterScaling       := 1.0,          // Tỉ lệ nhân hành trình Master
+    SlaveScaling        := 1.0,          // Tỉ lệ nhân hành trình Slave
+    MasterStartDistance := 50.0,         // Khoảng chạy đà
+    MasterSyncPosition  := 100.0,        // Tọa độ bắt đầu đồng bộ
+    StartMode           := 0,            // 0: Tuyệt đối, 1: Tương đối
+    MasterValueSource   := 0,            // 0: Lệnh vị trí, 1: Hồi tiếp thực tế
+    CamTableID          := 1,
+    BufferMode          := 0,
+    Master              := 0,
+    Slave               := 1,
+    InSync              => bCamInSync,   // Báo TRUE khi đã ăn khớp hoàn toàn với bảng Cam
+    Busy                => bCamBusy,
+    Active              => bCamActive,
+    CommandAborted      => bCamAborted,
+    Error               => bCamErr,
+    ErrorID             => dwCamErrID,
+    EndOfProfile        => bCamEndCycle  // Xung báo hiệu kết thúc 1 chu kỳ Cam
+);
+```
+
+- **InSync:** Báo `TRUE` khi trục Slave đã bắt kịp tọa độ nội suy của đường cong Cam.
+- **EndOfProfile:** Phát xung chu kỳ mỗi khi trục Master hoàn thành một chu trình Cam (hữu ích cho việc đếm sản phẩm hoặc chuyển bước chu kỳ).
+
+---
+
+## 5. MC_CAMOUT: Thoát khỏi chế độ Cam điện tử
+
+Ngắt kết nối Cam điện tử, giải phóng trục Slave về trạng thái tự do có kiểm soát.

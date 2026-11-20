@@ -1,0 +1,216 @@
+---
+id: "8.11-error-code-table"
+title: "8.11 Bảng tra cứu chẩn đoán mã lỗi toàn diện (Error Codes)"
+sidebar_position: 12
+sidebar_label: "8.11 Bảng tra cứu mã lỗi (154 Mã)"
+tags: [wecon, lx6v, lx6a, error-codes, troubleshooting, diagnostics]
+description: "Bảng tra cứu đối chiếu toàn diện 154 mã lỗi Motion Control chuẩn hãng Wecon (Run-time, State-machine, Axis error, Servo, SDO) kèm giải pháp xử lý."
+---
+
+## Hướng dẫn chẩn đoán sự cố Motion Control
+
+Khi ngõ ra **Error = TRUE** trên bất kỳ khối hàm điều khiển chuyển động nào của PLC Wecon, chân **ErrorID** sẽ xuất ra một mã lỗi số nguyên 32-bit (dạng số Hexadecimal `0x00xxxxxx`).
+
+Bảng dưới đây tổng hợp đầy đủ **154 mã lỗi chuẩn** của nhà sản xuất WECON, được phân loại thành 12 nhóm sự cố kèm định danh kỹ thuật và hướng dẫn xử lý:
+
+
+### Nhóm lỗi: Normal
+
+| Mã lỗi (Hex) | Định danh kỹ thuật (Error Identifier) | Ý nghĩa sự cố & Biện pháp khắc phục |
+| :---: | :--- | :--- |
+| `0x00` | `MC_ERROR_ID_SUCCESS` | No error |
+
+### Nhóm lỗi: Run-time error
+
+| Mã lỗi (Hex) | Định danh kỹ thuật (Error Identifier) | Ý nghĩa sự cố & Biện pháp khắc phục |
+| :---: | :--- | :--- |
+| `0x00200000` | `MC_ERROR_ID_SCURVE_NOTFEASIBLE` | Not feasible to computeS-curve |
+| `0x00200001` | `MC_ERROR_ID_SCURVE_MAXVEL_NOTREACHED` | Not reach maximum velocity |
+| `0x00200002` | `MC_ERROR_ID_SCURVE_MAXACC_NOTREACHED` | Not reach maximum acceleration |
+| `0x00200003` | `MC_ERROR_ID_SCURVE_FINDMAXACC_FAILED` | Fail to find maximum velocity |
+| `0x00200004` | `MC_ERROR_ID_SCURVE_INVALIDINPUT` | Invalid constraint for S-curve planning |
+
+### Nhóm lỗi: PLCOpen State-machine error
+
+| Mã lỗi (Hex) | Định danh kỹ thuật (Error Identifier) | Ý nghĩa sự cố & Biện pháp khắc phục |
+| :---: | :--- | :--- |
+| `0x00300000` | `MC_ERROR_ID_AXIS_STATE_VIOLATION` | Invalid axis state violation |
+| `0x00300001` | `MC_ERROR_ID_POWER_ON_OFF_FROM_ERROR_STOP` | Try to power on the servo at ErrorStop |
+| `0x00300002` | `MC_ERROR_ID_INVALID_STATE_FROM_STOPPING` | Invalid state transition at Stopping |
+| `0x00300003` | `MC_ERROR_ID_INVALID_STATE_FROM_ERROR_STOP` | Invalid state transition at ErrorStop |
+| `0x00300004` | `MC_ERROR_ID_INVALID_STATE_FROM_DISABLED` | Invalid state transition at Disabled |
+| `0x00300005` | `MC_ERROR_ID_INVALID_STATE_FROM_POWERED` | Invalid state transition at Powered |
+| `0x00300006` | `MC_ERROR_ID_INVALID_STATE_FROM_SYNC` | Invalid state transition at Sync |
+| `0x00300007` | `MC_ERROR_ID_INVALID_STATE_NOT_HOME` | Invalid state transition when not home |
+| `0x00300008` | `MC_ERROR_ID_INVALID_STATE_TO_DISABLED` | Invalid state transition to Disabled |
+| `0x00300009` | `MC_ERROR_ID_INVALID_STATE_TO_ERRORSTOP` | Invalid state transition to ErrorStop |
+| `0x0030000A` | `MC_ERROR_ID_INVALID_STATE_TO_STANDSTILL` | Invalid state transition to StandStill |
+| `0x0030000B` | `MC_ERROR_ID_INVALID_STATE_TO_HOMING` | Invalid state transition to Homing |
+| `0x0030000C` | `MC_ERROR_ID_INVALID_STATE_TO_STOPPING` | Invalid state transition to Stoppping |
+| `0x0030000D` | `MC_ERROR_ID_INVALID_STATE_TO_DISCRETE` | Invalid state transition to DiscreteMotion |
+| `0x0030000E` | `MC_ERROR_ID_INVALID_STATE_TO_SYNC` | Invalid state transition to SynchronizedMotion |
+| `0x0030000F` | `MC_ERROR_ID_INVALID_STATE_TO_CONTINUOUS` | Invalid state transition to ContinuousMotion |
+
+### Nhóm lỗi: Error due to user/system limitations
+
+| Mã lỗi (Hex) | Định danh kỹ thuật (Error Identifier) | Ý nghĩa sự cố & Biện pháp khắc phục |
+| :---: | :--- | :--- |
+| `0x00400000` | `MC_ERROR_ID_MOTION_LIMIT_ERROR` | Velocity, acceleration or position over limit |
+| `0x00400001` | `MC_ERROR_ID_INVALID_DIRECTION_POSITIVE` | No positive direction motion allowed |
+| `0x00400002` | `MC_ERROR_ID_INVALID_DIRECTION_NEGATIVE` | No negative direction motion allowed |
+| `0x00400003` | `MC_ERROR_ID_VELOCITY_OVER_LIMIT` | Velocity over limit |
+| `0x00400004` | `MC_ERROR_ID_ACCELERATION_OVER_LIMIT` | Acceleration over limit |
+| `0x00400005` | `MC_ERROR_ID_POSITION_OVER_POSITIVE_LIMIT` | Position over positive limit |
+| `0x00400006` | `MC_ERROR_ID_POSITION_OVER_NEGATIVE_LIMIT` | Position over negative limit |
+| `0x00400007` | `MC_ERROR_ID_POSITION_LAG_OVERLIMIT` | Position lag over limit |
+| `0x00400008` | `MC_ERROR_ID_TORQUE_OVER_LIMIT` | Torque over limit |
+
+### Nhóm lỗi: Error Stop
+
+| Mã lỗi (Hex) | Định danh kỹ thuật (Error Identifier) | Ý nghĩa sự cố & Biện pháp khắc phục |
+| :---: | :--- | :--- |
+| `0x00500000` | `MC_ERROR_ID_AXIS_ERROR_STOP` | Axis error stopped |
+
+### Nhóm lỗi: Error from servo
+
+| Mã lỗi (Hex) | Định danh kỹ thuật (Error Identifier) | Ý nghĩa sự cố & Biện pháp khắc phục |
+| :---: | :--- | :--- |
+| `0x00600000` | `MC_ERROR_ID_AXIS_ERROR_STOP` | Servo has no error |
+| `0x00600001` | `MC_ERROR_ID_SERVO_FIELDBUS_INIT_ERROR` | Servo fieldbus initialize error |
+| `0x00600002` | `MC_ERROR_ID_SERVO_POWER_ERROR` | Servo power error |
+| `0x00600003` | `MC_ERROR_ID_SERVO_POWERING_ON_ERROR` | Servo has error during powering on |
+| `0x00600004` | `MC_ERROR_ID_SERVO_ERROR_WHEN_POWERED_ON` | Servo has error after powered on |
+| `0x00600005` | `MC_ERROR_ID_SERVO_POWERING_OFF_ERROR` | Servo has error during powering off |
+| `0x00600006` | `MC_ERROR_ID_SERVO_PDO_NOT_MAP` | Servo PDO not map |
+| `0x00600007` | `MC_ERROR_ID_SERVO_PDO_READ_ERROR` | Servo PDO read error |
+| `0x00600008` | `MC_ERROR_ID_SERVO_PDO_WRITE_ERROR` | Servo PDO write error |
+| `0x00600009` | `MC_ERROR_ID_SERVO_POWER_OFF` | Servo can't run in power off |
+| `0x0060000A` | `MC_ERROR_ID_SERVO_ERROR_HOME_STATE` | Servo has error when homing state |
+| `0x0060000B` | `MC_ERROR_ID_SERVO_HOME_MODE_SWITCH` | Servo mode switch error |
+| `0x0060000C` | `MC_ERROR_ID_SERVO_HOME_CTRLWORD` | Servo set homing mode error |
+| `0x0060000D` | `MC_ERROR_ID_SERVO_HOME` | Servo homing error |
+| `0x0060000E` | `MC_ERROR_ID_SERVO_PDO_READ_BUSY` | Servo PDO read busy |
+| `0x0060000F` | `MC_ERROR_ID_SERVO_TOUCHPROBE_NOTFIND` | Fail to find Servo TouchProbe |
+| `0x00600010` | `MC_ERROR_ID_SERVO_PARAREAD` | Read Servo parameter error |
+| `0x00600011` | `MC_ERROR_ID_SERVO_PARAWRITE` | Write Servo parameter error |
+| `0x00600012` | `MC_ERROR_ID_LOCAL_PULSE_HOME_TIMEOUT` | Time out when origin regression |
+| `0x00600013` | `MC_ERROR_ID_LOCAL_PULSE_HOME_NOT_TOUCH_LIMI` | The execution has not encountered the limit |
+| `0x00600014` | `MC_ERROR_ID_LOCAL_PULSE_HOME_VELOCITY_OVER_LIMIT` | Pulse shaft HOME Velocity over limit |
+| `0x00600015` | `MC_ERROR_ID_LOCAL_PULSE_HOME_ACC_OVER_LIMIT` | Pulse shaft HOME Acceleration over limit |
+| `0x00600020` | `MC_ERROR_ID_MODE_SWITCH_NEEDPDO_NOTMAP` | There is no required PDO for the modecorresponding to mode switching. |
+| `0x006000FF` | `MC_ERROR_ID_SERVO_LOST` | Servo lost |
+| `0x00600040` | `MC_ERROR_ID_SERVO_ERROR` | Servo report error |
+
+### Nhóm lỗi: Axis's error
+
+| Mã lỗi (Hex) | Định danh kỹ thuật (Error Identifier) | Ý nghĩa sự cố & Biện pháp khắc phục |
+| :---: | :--- | :--- |
+| `0x00700000` | `MC_ERROR_ID_AXIS_GENERAL_ERROR` | Axis's general error |
+| `0x00700001` | `MC_ERROR_ID_AXIS_ADD_QUEUE_ERROR` | Axis'add error |
+| `0x00700002` | `MC_ERROR_ID_AXIS_IS_UNHEALTHY` | Axis is unhealthy |
+| `0x00700003` | `MC_ERROR_ID_AXIS_IS_OVER_LIMIT` | Axis's motion instruction is over limit |
+| `0x00700004` | `MC_ERROR_ID_AXIS_FALLINGEDGE_ERROR` | Axis error when on the falling edge |
+| `0x00700005` | `MC_ERROR_ID_AXIS_NOTFIND` | Not find the axis |
+| `0x00700006` | `MC_ERROR_ID_AXIS_IS_INGROUP` | Axis is in Group |
+| `0x00700007` | `MC_ERROR_ID_AXIS_CAN_NOT_SETPOS` | Axis cannot be set position in current state |
+| `0x00700008` | `MC_ERROR_ID_AXIS_NOT_POWER` | Axis does not power on yet |
+| `0x00700009` | `MC_ERROR_ID_AXIS_NOT_SUPPORTED_TOUCH` | Not support the bound touch probe number |
+| `0x0070000A` | `MC_ERROR_ID_AXIS_IS_COMBINED` | Axis is combined |
+| `0x0070000B` | `MC_ERROR_ID_AXIS_CAN_NOT_COMBINE_WHILE_RUN` | Axis can't combine whilerunning |
+| `0x0070000C` | `MC_ERROR_ID_AXIS_GROUP_NOTFIND` | Not find axis group number |
+
+### Nhóm lỗi: General FB error
+
+| Mã lỗi (Hex) | Định danh kỹ thuật (Error Identifier) | Ý nghĩa sự cố & Biện pháp khắc phục |
+| :---: | :--- | :--- |
+| `0x00800000` | `MC_ERROR_ID_FB_GENERAL_ERROR` | User's FB run error |
+| `0x00800001` | `MC_ERROR_ID_FB_READ_PARAM_ERROR` | User's FB read error |
+| `0x00800002` | `MC_ERROR_ID_FB_STOP_ERROR` | User's FB stop error |
+| `0x00800003` | `MC_ERROR_ID_FB_NOT_BIND_AXIS` | User's FB does not bind the logic axis |
+| `0x00800004` | `MC_ERROR_ID_FB_NOT_SET_PARAMETER_ID` | User's FB dose not set the read parameter |
+| `0x00800005` | `MC_ERROR_ID_FB_NOT_IN_QUEUE` | User's FB has already done and can't update |
+| `0x00800006` | `MC_ERROR_ID_FB_PARAMETER_ERROR` | User's FB parameter error |
+| `0x00800007` | `MC_ERROR_ID_FB_PLAN_FAILED` | User's FB error due to parameter when executing planning |
+| `0x00800008` | `MC_ERROR_ID_FB_REPLACE_AXIS_IN_RUN` | User's FB replace axis in running |
+| `0x00800009` | `MC_ERROR_ID_FB_HALTSUPERIMPOSED_ERROR` | Stop virtual superimposed error |
+| `0x0080000A` | `MC_ERROR_ID_FB_NOT_BIND_AXIS_GROUP` | User's FB isn't binding axis in axis group |
+| `0x0080000B` | `MC_ERROR_ID_FB_BIND_AXIS_IS_ERROR` | The bound axis has error |
+| `0x0080000C` | `MC_ERROR_ID_FB_MINE_AXIS_IS_ERROR` | Fb’s planning axis has error |
+| `0x0080000D` | `MC_ERROR_ID_FB_NOT_BIND_MASTER` | FB does not bind master axis |
+| `0x0080000E` | `MC_ERROR_ID_FB_NOT_BIND_SLAVE` | FB does not bind slave axis |
+| `0x0080000F` | `MC_ERROR_ID_FB_CAN_NOT_BIND_ENCODERAXIS` | FB can't bind encoder axis |
+| `0x00800010` | `MC_ERROR_ID_FB_NOT_BIND_TRIGGER_INFO` | FB does not bind trigger information |
+| `0x00800011` | `MC_ERROR_ID_FB_NOT_SUPPORTED_TRINUM` | Bound trigger number is not supported |
+| `0x00800012` | `MC_ERROR_ID_FB_CAN_NOT_CHANGE_WHILE_RUN` | FB’ bound parameter cannot change at running |
+| `0x00800013` | `MC_ERROR_ID_FB_RANGE_SET_ERROR` | FB parameter range has error. Maximum value may be less than minimum value. |
+| `0x00800014` | `MC_ERROR_ID_FB_MASTER_SLAVE_ARE_SAME` | FB master and slave axis are consistent |
+| `0x00800015` | `MC_ERROR_ID_FB_MASTER_AUXILIARY_ARE_SAME` | FB master and auxiliary axis are consistent |
+| `0x00800016` | `MC_ERROR_ID_FB_AUXILIARY_SLAVE_ARE_SAME` | FB auxiliary and slave axis are consistent |
+| `0x00800017` | `MC_ERROR_ID_FB_MASTER_SLAVE_NOT_ASCENDING` | FB master and slave id are not in ascending order |
+
+### Nhóm lỗi: General axis group error
+
+| Mã lỗi (Hex) | Định danh kỹ thuật (Error Identifier) | Ý nghĩa sự cố & Biện pháp khắc phục |
+| :---: | :--- | :--- |
+| `0x00900000` | `MC_ERROR_ID_AXIS_GROUP_GENERAL_ERROR` | Group general error |
+| `0x00900001` | `MC_ERROR_ID_AXIS_GROUP_ADD_QUEUE_ERROR` | Group fb add error |
+| `0x00900002` | `MC_ERROR_ID_AXIS_GROUP_REMOVE_ERROR` | Group remove logic axis error |
+| `0x00900003` | `MC_ERROR_ID_AXIS_GROUP_ENABLE_ERROR` | Group enable error |
+| `0x00900004` | `MC_ERROR_ID_AXIS_GROUP_DISABLE_ERROR` | Group disable error |
+| `0x00900005` | `MC_ERROR_ID_AXIS_GROUP_STOP_ERROR` | Group stop error |
+| `0x00900006` | `MC_ERROR_ID_AXIS_GROUP_AXIS_INSINGLEMOVE` | Group is to run, but axis is in single axis controlled |
+| `0x00900007` | `MC_ERROR_ID_AXIS_GROUP_AXIS_INGROUPMOVE` | Axis is bound in axis group |
+| `0x00900008` | `MC_ERROR_ID_AXIS_GROUP_IS_UNHEALTHY` | Group's any axis is error or any error in group |
+| `0x00900009` | `MC_ERROR_ID_AXIS_GROUP_CAN_NOT_SETPOT` | Group can't set position |
+| `0x0090000A` | `MC_ERROR_ID_AXIS_GROUP_INVALID_STATE_TRANS` | Group is to switch to the unallowed state |
+| `0x0090000B` | `MC_ERROR_ID_AXIS_GROUP_NOT_BIND_AXIS` | Group does not bind axis |
+| `0x0090000C` | `MC_ERROR_ID_AXIS_GROUP_IS_DISABLED` | Group is disabled |
+
+### Nhóm lỗi: Single axis planner error
+
+| Mã lỗi (Hex) | Định danh kỹ thuật (Error Identifier) | Ý nghĩa sự cố & Biện pháp khắc phục |
+| :---: | :--- | :--- |
+| `0x00A00000` | `MC_ERROR_ID_PLANNER_DIST_IS_ZERO` | Planner position is 0 |
+| `0x00A00001` | `MC_ERROR_ID_PLANNER_SPPED_IS_ZERO` | Planner velocity is 0 |
+| `0x00A00002` | `MC_ERROR_ID_PLANNER_ACC_DES_IS_ZERO` | Planner acceleration is 0 |
+| `0x00A00003` | `MC_ERROR_ID_PLANNER_JERK_IS_ZERO` | Group general error |
+| `0x00A00004` | `MC_ERROR_ID_PLANNER_CURRENT_DIFF_LAST` | Planner synchronization error, current position is inconsistent with the last position |
+| `0x00A00005` | `MC_ERROR_ID_PLANNER_SPPED_OVER_LIMIT` | Planner input velocity is over limit |
+| `0x00A00006` | `MC_ERROR_ID_PLANNER_ACC_DES_OVER_LIMIT` | Planner input acceleration and deceleration is over limit |
+| `0x00A00007` | `MC_ERROR_ID_PLANNER_JERK_OVER_LIMIT` | Planner input Jerk is over limit |
+| `0x00AFFFFF` | `MC_ERROR_ID_PLANNER_SG_CULCULATE` | Planner single axis calculate error |
+
+### Nhóm lỗi: Axis group planner error
+
+| Mã lỗi (Hex) | Định danh kỹ thuật (Error Identifier) | Ý nghĩa sự cố & Biện pháp khắc phục |
+| :---: | :--- | :--- |
+| `0x00B00000` | `MC_ERROR_ID_PLANNER_SP_SAME_START_END` | Planner space curve’ start and end are the same |
+| `0x00B00000` | `MC_ERROR_ID_PLANNER_SP_NOT_IN_SAME_PLANE` | Planner space curve is not in the same plane |
+| `0x00BFFFFF` | `MC_ERROR_ID_PLANNER_SP_CULCULATE` | Planner space curve calculate error |
+
+### Nhóm lỗi: ECAM or EGEAR error
+
+| Mã lỗi (Hex) | Định danh kỹ thuật (Error Identifier) | Ý nghĩa sự cố & Biện pháp khắc phục |
+| :---: | :--- | :--- |
+| `0x00C00000` | `MC_ERROR_ID_AXIS_MASTER_AND_SLAVE_IS_SAME` | Planner master and slave is the same |
+| `0x00C00001` | `MC_ERROR_ID_AXIS_MAX_ACC_OR_DEC_OR_VEL_IS_ZERO` | Planner axis's max acc/dec/vel is zero |
+| `0x00C00002` | `MC_ERROR_ID_CAM_TABLE_IS_INEXISTENCE` | Planner the camtable is inexistence |
+| `0x00C00003` | `MC_ERROR_ID_CAM_NODENUM_OVER_NODE_SIZE` | Planner the cam node num is over actual cam node size |
+| `0x00C00004` | `MC_ERROR_ID_CAM_NODENUM_OR_NODESIZE_IS_ERROR` | Planner the cam node num or cam node size is error |
+| `0x00C00005` | `MC_ERROR_ID_CAM_FIRST_NODE_POS_NON_ZERO` | Planner the cam first node's master position or slave position non-zero |
+| `0x00C00006` | `MC_ERROR_ID_CAM_NODE_PARAMETER_IS_ERROR` | Planner the cam node parameter is error |
+| `0x00C00007` | `MC_ERROR_ID_CAM_UPDATE_CAM_TABLE_IS_ERROR` | Planner the update cam table is error |
+| `0x00C00008` | `MC_ERROR_ID_CAM_SAVE_CAM_TABLE_IS_ERROR` | Planner the save cam table is error |
+| `0x00C00009` | `MC_ERROR_ID_CAM_GET_AXIS_VEL_AND_POS_ERROR` | Planner get master and slave vel/pos is error |
+| `0x00C0000A` | `MC_ERROR_ID_BUFFER_MODE_IS_NOT_ABORTING` | Planner the buffer mode is not aborting |
+| `0x00C0000B` | `MC_ERROR_ID_CAM_AXIS_SCALING_IS_ZERO` | Planner the cam master scaling or slave scaling is zero |
+| `0x00C0000C` | `MC_ERROR_ID_CAM_TABLE_IS_NOT_BIND` | Planner the cam table is not bind |
+| `0x00C0000D` | `MC_ERROR_ID_THE_AXIS_IS_NOT_IN_CAM_STATE` | Planner the axis is not in the cam state |
+| `0x00C0000E` | `MC_ERROR_ID_THE_AXIS_IS_NOT_IN_GEAR_STATE` | Planner the axis is not in the gear state |
+| `0x00C0000F` | `MC_ERROR_ID_CAM_IN_PARAMETER_IS_ERROR` | Planner the camin parameter is error |
+| `0x00C00010` | `MC_ERROR_ID_GEAR_IN_PARAMETER_IS_ERROR` | Planner the gearin parameter is error |
+| `0x00C00011` | `MC_ERROR_ID_GEAR_IN_POS_PARAMETER_IS_ERROR` | Planner the gearinpos parameter is error |
+| `0x00C00012` | `MC_ERROR_ID_CAM_TABLE_IS_UPDATE` | Planner the cam table is updating |
+| `0x00C00013` | `MC_ERROR_ID_GET_CAM_TABLE_POS_IS_ERROR` | Planner the get cam table position is error |
+| `0x00C00014` | `MC_ERROR_ID_CAM_TABLE_PHASE_IS_OUT_OF_RANGE` | Planner the get cam table position is error |
+| `0x00C00015` | `MC_ERROR_ID_CAM_TABLE_NODE_IS_NOT_ADJOIN` | Planner the cam table node is not adjoin |

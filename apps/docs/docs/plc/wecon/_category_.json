@@ -1,8 +1,8 @@
 {
-  "label": "Wecon",
+  "label": "Wecon (LX6A / LX6V)",
   "position": 3,
   "link": {
     "type": "generated-index",
-    "description": "Tài liệu kỹ thuật và giáo trình điều khiển chuyển động (Motion Control) PLC Wecon dòng LX6V / LX6A trên phần mềm PLC Editor 2 chuẩn PLCopen."
+    "description": "Tài liệu kỹ thuật và sổ tay hướng dẫn lập trình PLC Wecon dòng LX6V / LX6A500 trên phần mềm PLC Editor 2 chuẩn PLCopen."
   }
 }

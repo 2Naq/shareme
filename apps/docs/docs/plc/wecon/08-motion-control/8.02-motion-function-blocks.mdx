@@ -1,0 +1,142 @@
+---
+id: "8.02-motion-function-blocks-single-axis"
+title: "8.02 Khối hàm chuyển động điều khiển đơn trục (Motion FBs)"
+sidebar_position: 3
+sidebar_label: "8.02 Chuyển động đơn trục (7 FBs)"
+tags: [wecon, lx6v, lx6a, mc_moveabsolute, mc_moverelative, mc_stop, mc_halt, mc_home]
+description: "Hướng dẫn kỹ thuật chi tiết 7 khối hàm chuyển động đơn trục: MC_STOP, MC_HOME, MC_HALT, MC_MOVEABSOLUTE, MC_MOVERELATIVE, MC_MOVEADDITIVE, MC_MOVESUPERIMPOSED."
+---
+
+## Tổng quan nhóm khối hàm 8.02
+
+Nhóm khối hàm chuyển động đơn trục (**Motion Function Blocks for Single-axis Motion Control**) đảm nhiệm vai trò quy hoạch quỹ đạo vị trí/vận tốc thời gian thực, tính toán đường cong gia tốc (hình thang hoặc S-curve) và phát lệnh điều khiển trục cơ cấu chấp hành.
+
+### Danh mục 7 khối hàm chuyển động:
+1. **MC_STOP:** Dừng khẩn cấp có kiểm soát (Khóa cứng trạng thái `Stopping`).
+2. **MC_HOME:** Thực hiện chu trình quét tìm gốc tọa độ cơ học (Homing Routine).
+3. **MC_HALT:** Tạm dừng chuyển động (Cho phép các lệnh khác ghi đè ngắt quyền).
+4. **MC_MOVEABSOLUTE:** Định vị vị trí tuyệt đối theo hệ tọa độ máy.
+5. **MC_MOVERELATIVE:** Định vị vị trí tương đối tính từ điểm hiện tại.
+6. **MC_MOVEADDITIVE:** Bổ sung thêm khoảng dịch chuyển vào lệnh đang thực thi.
+7. **MC_MOVESUPERIMPOSED:** Chồng một chuyển động bù lên một chuyển động nền đang chạy độc lập.
+
+---
+
+## 1. MC_STOP: Dừng khẩn cấp khống chế trục
+
+Khối hàm thực hiện hãm tốc độ của trục về 0 và khóa cứng trục ở trạng thái `Stopping` chừng nào tín hiệu ngõ vào còn giữ mức cao.
+
+```pascal
+fb_Stop(
+    Execute         := bEmergencyStopBtn,  // Mức TRUE duy trì khóa trạng thái dừng
+    Deceleration    := 1500.0,             // Gia tốc hãm dừng (đơn vị/s^2)
+    Jerk            := 5000.0,             // Độ giật mượt khi dừng
+    Axis            := 0,
+    Done            => bStopDone,          // Vận tốc đã về 0 thành công
+    Busy            => bStopBusy,          // Đang trong tiến trình hãm tốc
+    CommandAborted  => bStopAborted,
+    Error           => bStopErr,
+    ErrorID         => dwStopErrID
+);
+```
+
+### Bảng thông số kỹ thuật MC_STOP:
+
+| Chân tín hiệu | Phân loại | Kiểu dữ liệu | Cho phép để trống | Dải giá trị | Diễn giải kỹ thuật |
+| :--- | :--- | :--- | :---: | :--- | :--- |
+| **Execute** | Input | BOOL | Không | TRUE / FALSE | Kích hoạt và duy trì lệnh dừng. Khi TRUE, trục chuyển sang `Stopping` và ngăn chặn mọi khối chuyển động khác. |
+| **Deceleration**| Input | LREAL | Không | 0 .. 999999999 | Độ hãm giảm tốc khi dừng (đơn vị: đơn vị người dùng/s^2). |
+| **Jerk** | Input | LREAL | Không | 0 .. 999999999 | Độ giật thay đổi gia tốc (S-curve). |
+| **Axis** | In/Out | WORD | Không | 0 .. 65535 | Số ID trục logic. |
+| **Done** | Output | BOOL | Có | TRUE / FALSE | Báo TRUE khi vận tốc trục đã hãm về 0 hoàn toàn. |
+| **Busy** | Output | BOOL | Có | TRUE / FALSE | Báo TRUE khi quá trình giảm tốc đang diễn ra. |
+| **CommandAborted**| Output| BOOL | Có | TRUE / FALSE | Lệnh dừng bị hủy bỏ (rất hiếm, chỉ khi mất nguồn hoặc lỗi trục). |
+| **Error / ErrorID**| Output| BOOL / DWORD | Có | - | Cờ báo lỗi và mã lỗi tương ứng. |
+
+> **Điểm nhấn giảng dạy sống còn:** Khi `MC_STOP.Execute = TRUE`, trục bị cưỡng bức ở trạng thái `Stopping`. Trục chỉ có thể quay về trạng thái `StandStill` (sẵn sàng nhận lệnh mới) khi thỏa mãn đồng thời 2 điều kiện:
+> 1. Trục đã dừng hoàn toàn: `MC_STOP.Done = TRUE`.
+> 2. Người vận hành đã nhả nút dừng: `MC_STOP.Execute = FALSE`.
+
+---
+
+## 2. MC_HALT: Tạm dừng chuyển động có thể ngắt quyền
+
+Khối hàm đưa trục giảm tốc dừng về vận tốc 0 nhưng **không khóa cứng trục** ở trạng thái dừng.
+
+### Điểm khác biệt mấu chốt so với MC_STOP:
+- Kích hoạt bằng **Cạnh lên** (`Execute` Rising Edge).
+- Khi trục đang giảm tốc trong tiến trình `MC_HALT`, nếu có bất kỳ lệnh chuyển động nào khác (`MC_MoveAbsolute`, `MC_MoveVelocity`) được kích hoạt, lệnh `MC_HALT` sẽ lập tức bị hủy bỏ quyền kiểm soát (`CommandAborted = TRUE`) và trục sẽ chuyển hướng theo lệnh mới ngay lập tức.
+- Phù hợp với: Nút tạm dừng (Pause) chu trình để kiểm tra hoặc đợi nạp phôi.
+
+---
+
+## 3. MC_HOME: Tìm gốc tọa độ cơ học (Homing Routine)
+
+Khối hàm thực hiện chu trình tìm điểm 0 cơ khí để đồng bộ tọa độ máy với tọa độ phần mềm:
+- Kích hoạt bằng cạnh lên của `Execute`.
+- Trục chuyển sang trạng thái `Homing`.
+- PLC và Drive tự động phối hợp theo phương pháp tìm gốc (Origin switch, Limit switch kết hợp xung Index Z của Encoder) đã được cài đặt trong cấu hình phần cứng.
+- Khi chốt được điểm gốc, tọa độ trục được tự gán bằng giá trị cài đặt tại chân **Position** (LREAL, thường là 0.0), ngõ ra **Done** xuất xung TRUE và trục chuyển về trạng thái **StandStill**.
+
+---
+
+## 4. MC_MOVEABSOLUTE: Định vị vị trí tuyệt đối
+
+Khối hàm điều khiển trục di chuyển từ vị trí hiện thời đến một tọa độ mục tiêu cố định tuyệt đối trong hệ quy chiếu máy.
+
+```pascal
+fb_MoveAbs(
+    Execute             := bTriggerMove,        // Cạnh lên bắt đầu lệnh
+    ContinuousUpdate    := FALSE,               // Cho phép cập nhật động
+    Position            := 1000.0,              // Tọa độ tuyệt đối cần đến
+    Velocity            := 120.0,               // Vận tốc di chuyển cực đại
+    Acceleration        := 400.0,               // Gia tốc tăng tốc
+    Deceleration        := 400.0,               // Gia tốc hãm tốc
+    Jerk                := 1500.0,              // Độ giật S-curve
+    BufferMode          := 0,                   // 0: mcAborting
+    Axis                := 0,
+    Done                => bMoveDone,           // Đến đúng vị trí
+    Busy                => bMoveBusy,           // Đang di chuyển
+    Active              => bMoveActive,         // Đang trực tiếp kiểm soát trục
+    CommandAborted      => bMoveAborted,        // Bị ngắt bởi lệnh khác
+    Error               => bMoveErr,
+    ErrorID             => dwMoveErrID
+);
+```
+
+### Bảng thông số chi tiết MC_MOVEABSOLUTE:
+| Chân | Kiểu pin | Kiểu dữ liệu | Phạm vi | Mô tả kỹ thuật |
+| :--- | :--- | :--- | :--- | :--- |
+| **Execute** | Input | BOOL | TRUE / FALSE | Cạnh lên kích hoạt phát lệnh định vị tuyệt đối. |
+| **ContinuousUpdate**| Input| BOOL | TRUE / FALSE | Khi TRUE, cho phép cập nhật liên tục các tham số Velocity, Acc... trong lúc đang chạy. |
+| **Position** | Input | LREAL | -999999999 .. 999999999 | Tọa độ tuyệt đối đích đến (mm, vòng, độ). |
+| **Velocity** | Input | LREAL | > 0 .. 999999999 | Vận tốc mục tiêu của chuyển động. |
+| **Acceleration** | Input | LREAL | > 0 .. 999999999 | Gia tốc tăng tốc. |
+| **Deceleration** | Input | LREAL | > 0 .. 999999999 | Gia tốc hãm tốc. |
+| **Jerk** | Input | LREAL | 0 .. 999999999 | Độ giật S-curve (giảm rung lắc cơ khí). |
+| **BufferMode** | Input | INT / ENUM | 0 .. 5 | Chế độ đệm lệnh (xem mục 8.10). |
+| **Done** | Output| BOOL | TRUE / FALSE | Báo TRUE khi trục đã dừng chính xác tại tọa độ đích. |
+| **Active** | Output| BOOL | TRUE / FALSE | Báo TRUE khi khối hàm đang trực tiếp sinh quỹ đạo điều khiển trục. |
+
+---
+
+## 5. MC_MOVERELATIVE: Định vị vị trí tương đối
+
+Khối hàm điều khiển trục dịch chuyển thêm một độ dời khoảng cách (`Distance`) tính từ vị trí tức thời tại thời điểm phát lệnh:
+- **Distance** (Input, LREAL): Khoảng cách dịch chuyển.
+  - `Distance > 0`: Dịch chuyển theo chiều thuận.
+  - `Distance &lt; 0`: Dịch chuyển theo chiều nghịch.
+- Tọa độ đích = Tọa độ hiện thời + `Distance`.
+
+---
+
+## 6. MC_MOVEADDITIVE: Bổ sung khoảng dịch chuyển
+
+Khối hàm cho phép cộng dồn thêm một khoảng cách `Distance` vào đích đến của lệnh định vị đang chạy dở:
+- Ví dụ: Lệnh `MC_MoveAbsolute` đang chạy tới vị trí 1000. Trong lúc trục đang chạy, `MC_MOVEADDITIVE` được kích hoạt với `Distance = 200`. Tọa độ đích mới của trục sẽ tự động chuyển thành **1200** mà không làm gián đoạn quỹ đạo vận tốc.
+
+---
+
+## 7. MC_MOVESUPERIMPOSED: Chuyển động bù chồng lấn
+
+Cho phép áp đặt thêm một hành trình dịch chuyển phụ chồng lên một chuyển động chính đang chạy mà không làm hủy bỏ lệnh chính. Thường dùng trong các cơ cấu hiệu chỉnh sai lệch động (như căn chỉnh vị trí màng in trong máy in ống đồng tốc độ cao).

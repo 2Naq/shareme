@@ -1,0 +1,60 @@
+---
+id: "8.06-axis-group-motion-fb"
+title: "8.06 Khối hàm chuyển động nhóm trục (Axis Group Motion FBs)"
+sidebar_position: 7
+sidebar_label: "8.06 Nội suy nhóm trục (8 FBs)"
+tags: [wecon, lx6v, lx6a, interpolation, linear, circular, mc_movelinearabsolute, mc_movecircularabsolute]
+description: "Hướng dẫn kỹ thuật 8 khối hàm nội suy nhóm trục: Nội suy đường thẳng (Linear), nội suy cung tròn (Circular) 3 chế độ, chạy trực tiếp (Direct) trên Wecon."
+---
+
+## Tổng quan nhóm khối hàm 8.06
+
+Nhóm khối hàm nội suy nhóm trục chịu trách nhiệm điều khiển đồng thời nhiều trục để đầu công cụ (Tool Center Point - TCP) di chuyển chính xác theo quỹ đạo hình học trong không gian.
+
+### Danh mục 8 khối hàm chuyển động nhóm:
+1. **MC_MOVELINEARABSOLUTE:** Nội suy đường thẳng đến tọa độ tuyệt đối.
+2. **MC_MOVELINEARRELATIVE:** Nội suy đường thẳng theo khoảng dời gia số.
+3. **MC_MOVECIRCULARABSOLUTE:** Nội suy cung tròn đến tọa độ tuyệt đối.
+4. **MC_MOVECIRCULARRELATIVE:** Nội suy cung tròn theo khoảng dời tương đối.
+5. **MC_MOVEDIRECTABSOLUTE:** Chạy nhanh từng trục độc lập đến tọa độ tuyệt đối (không ràng buộc quỹ đạo thẳng).
+6. **MC_MOVEDIRECTRELATIVE:** Chạy nhanh từng trục độc lập theo gia số.
+7. **MC_GROUPSTOP:** Dừng khống chế khẩn cấp toàn bộ nhóm trục.
+8. **MC_GROUPHALT:** Tạm dừng chuyển động nhóm trục (có thể ghi đè).
+
+---
+
+## 1. Nội suy đường thẳng: MC_MOVELINEARABSOLUTE
+
+Đầu công cụ di chuyển từ điểm hiện tại đến tọa độ đích $[X, Y, Z]$ theo một đường thẳng hình học với vận tốc tiếp tuyến `Velocity`.
+
+```pascal
+fb_LinearAbs(
+    Execute         := bStartLinear,
+    Position        := arrTargetXYZ,     // Mảng tọa độ đích [X, Y, Z]
+    Velocity        := 100.0,            // Vận tốc tiếp tuyến (mm/s)
+    Acceleration    := 500.0,
+    Deceleration    := 500.0,
+    Jerk            := 2000.0,
+    BufferMode      := 0,
+    TransitionMode  := 0,
+    AxisGroup       := 0,
+    Done            => bLinearDone,
+    Busy            => bLinearBusy,
+    Active          => bLinearActive,
+    CommandAborted  => bLinearAborted,
+    Error           => bLinearErr,
+    ErrorID         => dwLinearErrID
+);
+```
+
+---
+
+## 2. Nội suy cung tròn: MC_MOVECIRCULARABSOLUTE
+
+Đầu công cụ di chuyển tạo thành một cung tròn hoàn hảo trong mặt phẳng hoặc không gian. Hệ thống Wecon hỗ trợ 3 chế độ vẽ qua tham số **CircMode**:
+
+| Giá trị `CircMode` | Chế độ | Cách xác định cung tròn | Ghi chú kỹ thuật |
+| :---: | :--- | :--- | :--- |
+| **0** | **Border (3 điểm biên)** | Điểm bắt đầu $\to$ Điểm trung gian `AuxPoint` $\to$ Điểm kết thúc `EndPoint`. | Cực kỳ trực quan, góc ôm cung tròn bắt buộc phải nhỏ hơn $2\pi$. |
+| **1** | **Circle Center (Tâm tròn)**| Điểm bắt đầu $\to$ Tọa độ tâm tròn `AuxPoint` $\to$ Điểm kết thúc. Chọn chiều quay `CW` hoặc `CCW`. | Tương thích hoàn toàn với mã lệnh CNC G02/G03; góc không được đúng bằng $\pi$. |
+| **2** | **Diameter (Vectơ pháp tuyến)**| Điểm bắt đầu, điểm kết thúc và vectơ pháp tuyến vuông góc với mặt phẳng chứa cung tròn. | Dùng trong không gian 3D phức tạp; chiều dài vectơ xác định bán kính cung tròn. |

@@ -1,0 +1,15 @@
+---
+id: "03-sequence-control"
+title: "03 Sequence Control: Điều khiển tuần tự SFC / STL"
+sidebar_position: 3
+sidebar_label: "03 Sequence Control"
+tags: [wecon, lx6v, lx6a, manual]
+description: "Kỹ thuật lập trình điều khiển quá trình tuần tự SFC / STL trên PLC Wecon."
+---
+
+## 03 Sequence Control: Điều khiển tuần tự SFC / STL
+
+Điều khiển tuần tự (Sequence Control) sử dụng các cờ trạng thái `S` để phân chia chu trình công nghệ của máy thành các bước rõ ràng (Step):
+- Bước khởi tạo ban đầu (Initial Step).
+- Bước chuyển tiếp điều kiện (Transition Condition).
+- Thực thi tác vụ tại mỗi bước và tự động chuyển giao trạng thái khi cảm biến báo hoàn tất.
