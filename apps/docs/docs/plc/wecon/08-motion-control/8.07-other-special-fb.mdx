@@ -1,74 +1,665 @@
 ---
 id: "8.07-other-special-fb"
-title: "8.07 Các khối hàm chuyển động đặc biệt khác (Other Special FBs)"
+title: "8.07 Các khối hàm chuyển động đặc biệt khác"
 sidebar_position: 8
 sidebar_label: "8.07 Khối chuyên dụng (10 FBs)"
-tags: [wecon, lx6v, lx6a, mc_movejog, mc_movevelocity, torque-control, csv, cia402]
-description: "Hướng dẫn kỹ thuật chi tiết 10 khối hàm đặc biệt: MC_MOVEJOG, MC_MOVEVELOCITY, MC_COMBINEAXES, Torque Control và các chế độ CiA402 CSV/PV/PT/PP."
+tags: [wecon, lx6v, lx6a, motion-control, plcopen, manual]
+description: "Tài liệu kỹ thuật chi tiết chuẩn hãng 8.07 Các khối hàm chuyển động đặc biệt khác trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."
 ---
 
-## Tổng quan nhóm khối hàm 8.07
+# Other Special FB
 
-Nhóm 8.07 cung cấp các giải pháp điều khiển chuyên dụng mở rộng vượt ra ngoài các khối lệnh định vị vị trí truyền thống, bao gồm chạy nhấp bằng tay (Manual JOG), điều khiển tốc độ liên tục, tổng hợp chuyển động vi sai và các chế độ điều khiển lực căng/lực xoắn (Torque) theo đặc tả CiA402.
+## MC_MOVEJOG
 
-### Danh mục 10 khối hàm đặc biệt:
-1. **MC_MOVEJOG:** Chạy nhấp bằng tay (Manual JOG) theo chiều thuận hoặc nghịch.
-2. **MC_MOVEVELOCITY:** Chạy liên tục theo vận tốc cài đặt (Speed Mode).
-3. **MC_COMBINEAXES:** Tổng hợp chuyển động từ 2 trục chủ để điều khiển 1 trục tớ.
-4. **MC_MOVEVELOCITY_CSV:** Chế độ điều khiển vận tốc chu kỳ thời gian thực (Cyclic Synchronous Velocity) qua mạng Bus EtherCAT.
-5. **MC_SYNCMOVEVELOCITY:** Đồng bộ chu kỳ vận tốc đa trục.
-6. **MC_SETTORQUE:** Cài đặt giá trị giới hạn lực xoắn / moment xoắn.
-7. **MC_TORQUECONTROL:** Chuyển Servo sang chế độ điều khiển moment xoắn chuyên dụng (Torque Control Mode).
-8. **MC_MOVEABSRELPP:** Điều khiển vị trí Profile Position Mode (PP Mode theo chuẩn CiA402).
-9. **MC_MOVEVELOCITYPV:** Điều khiển vận tốc Profile Velocity Mode (PV Mode).
-10. **MC_TORQUECONTROLPT:** Điều khiển lực xoắn Profile Torque Mode (PT Mode).
+MC_MOVEJOG
 
----
+Khối hàm điều khiển trục thực hiện chuyển động nhấp bằng tay (Manual JOG) theo vận tốc mục tiêu cài đặt.
 
-## 1. MC_MOVEJOG: Chạy nhấp bằng tay
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
 
-Khối hàm bắt buộc trong mọi giao diện vận hành máy (HMI Manual Page) giúp công nhân gá đặt cơ khí, cân chỉnh cữ và test động cơ:
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVEJOG | EnablePositive | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| EnableNegative | �� | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+ ### Lưu ý khi sử dụng vùng nhớ thiết bị
 
-```pascal
-fb_Jog(
-    EnablePositive  := bJogFwdButton,    // Nhấn giữ nút chạy thuận
-    EnableNegative  := bJogRevButton,    // Nhấn giữ nút chạy nghịch
-    Velocity        := 40.0,             // Tốc độ JOG (đơn vị/giây)
-    Acceleration    := 200.0,
-    Deceleration    := 200.0,
-    Axis            := 0,
-    Busy            => bJogBusy,
-    CommandAborted  => bJogAborted,
-    Error           => bJogErr,
-    ErrorID         => dwJogErrID
-);
-```
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
 
-- Khi nút `EnablePositive` ON: Trục tự động tăng tốc mượt mà và quay theo chiều thuận. Khi nhả nút về OFF, trục hãm dừng lại.
-- Tương tự cho chiều nghịch với `EnableNegative`.
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
 
----
+### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-## 2. MC_MOVEVELOCITY: Điều khiển chạy liên tục theo vận tốc
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVEJOG | Ngõ vào (Input) | EnablePositive | BOOL | Không | TRUE / FALSE | Chuyển động chiều thuận (+) |
+| EnableNegative | BOOL | Không | TRUE / FALSE | Chuyển động chiều nghịch (-) |
+| Vận tốc cài đặt | LREAL | Không | [0 to 999999999. 999999] | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc giảm tốc |
+| Axis | WORD, AXIS_INFO_T | Không | [0 to 65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Mã lỗi tra cứu (xem [Bảng mã lỗi 8.11](./8.11-error-code-table.mdx)) |
+Đặc tính kỹ thuật
 
-Dùng cho các cơ cấu vận hành liên tục không có điểm dừng cố định (như băng tải tiếp liệu, trục cán, bơm định lượng):
-- Kích hoạt bằng **Cạnh lên** của chân `Execute`.
-- Trục tăng tốc lên đến `Velocity` và duy trì quay liên tục vô hạn.
-- Khi đạt đúng tốc độ cài đặt, chân **InVelocity** báo `TRUE`.
-- Trục chỉ dừng lại khi nhận lệnh `MC_Stop` hoặc `MC_Halt`.
+▪Khi tín hiệu `EnablePositive` chuyển mức lên TRUE, trục thực hiện chuyển động nhấp theo chiều thuận (+) với vận tốc cài đặt.
+▪Khi tín hiệu `EnableNegative` chuyển mức lên TRUE, trục thực hiện chuyển động nhấp theo chiều nghịch (-) với vận tốc cài đặt.
+▪In the process of positive motion, modifying the Enablepositive to FALSE causes deceleration until the axis stops. In the process of deceleration, if Enablepositive is changed to TRUE, the axis will continue to move until reaching the specified velocity. In the process of deceleration, if EnableNegative is changed to TRUE, the axis will decrease its velocity to 0 and then execute negative motion until its velocity reaches the specified velocity.
 
----
+✎Note:
 
-## 3. MC_COMBINEAXES: Tổng hợp chuyển động vi sai
+▪This function is not available when the axis does not exist.
 
-Khối hàm nhận tín hiệu vị trí/vận tốc từ **Master 1** và **Master 2**, sau đó tính toán theo hàm số học (Cộng hoặc Trừ) để điều khiển trục **Slave**:
-- Thuật toán: `Slave = Master1 +/- Master2`.
-- Ứng dụng: Bàn máy vi sai hai bậc tự do, cơ cấu bù sai lệch động học trong máy cắt laser/plasma.
+▪When EnablePositive or EnableNegative is TRUE, modifying velocity does not change the velocity at this time.
 
----
+ Error code
 
-## 4. Điều khiển lực xoắn Moment (Torque Control): MC_TORQUECONTROL
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
 
-Khi cuộn dây đồng, quấn màng bọc nilon hoặc siết nắp chai, việc kiểm soát vị trí không còn ý nghĩa mà bắt buộc phải kiểm soát chính xác lực xoắn để màng không bị rách và nắp chai không bị tuôn ren:
-- Khối hàm chuyển trạng thái của Drive Servo sang **Torque Mode**.
-- Duy trì lực ép/lực xoắn `Torque` ổn định liên tục theo giá trị cài đặt.
+## MC_COMBINEAXES
+
+MC_COMBINEAXES
+
+The function block adds and subtracts the positions of the master axis and the auxiliary axis as the position of the slave axis.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_COMBINEAXES | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ConbineMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MasterReferenceType |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AuxiliaryReferenceType |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Master |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Auxiliary |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InCombiantion |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_COMBINEAXES | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ConbineMode | WORD | Có | [0 to 1] | Addition and subtraction operation selection 0: Addition 1: Subtraction |
+| MasterReferenceType | WORD | Có | [1 to 2] | Master axis position type 1: Feedback position 2: Khối lệnh position |
+| AuxiliaryReferenceType | WORD | Có | [1 to 2] | Auxiliary axis position type 1: Feedback position 2: Khối lệnh position |
+| BufferMode | LREAL | Không | 0 | Mode selection |
+| Master | WORD, AXIS INFO T | Không | [0 to 65535] | Master axis number |
+| Auxiliary | WORD, AXIS INFO T | Không | [0 to 65535] | Auxiliary axis number |
+| Slave | WORD, AXIS INFO T | Không | [0 to 65535] | Slave axis number |
+| Ngõ ra (Output) | InCombiantion | BOOL | Có | TRUE / FALSE | Addition and subtraction operation flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Mã lỗi tra cứu (xem [Bảng mã lỗi 8.11](./8.11-error-code-table.mdx)) |
+ Đặc tính kỹ thuật
+
+▪On the Execute rising edge, the addition and subtraction positioning operation is performed.
+
+✎Note:
+
+▪Unable to restart this instruction;
+
+▪To end this instruction, MC_construction is needed;
+
+▪This instruction does not execute in-place inspection;
+
+▪When using the instruction position, the set values of master axis number and auxiliary axis number must be less than the slave axis number;
+
+▪This instruction is not affected by the abnormal status of the main axis and auxiliary axis. When the abnormal status is released, the slave axis continues to execute the addition and subtraction positioning operation. In addition, when this instruction is enabled and the axis is abnormal, this instruction is interrupted, but it has no effect on the master axis and the slave axis;
+
+▪When MC_setposition instruction is executed for the master axis or the auxiliary axis, it may happen that the slave axis catches at a large velocity, which is very dangerous.
+
+Error code
+
+| Error code | Content |
+| 7000OA | Axis is in a bound status. |
+| 7000OB | Axis cannot be bound at run time. |
+| 800014 | The master axis is consistent with the slave axis. |
+| 800015 | The master axis is consistent with the auxiliary axis. |
+| 800016 | The auxiliary axis is consistent with the slave axis. |
+| 800017 | Master axis (auxiliary axis) and slave axis numbers are not ascending order. |
+
+## MC_MOVEVELOCITY
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVEVELOCITY | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Direction |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InVận tốc cài đặt |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVEVELOCITY | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Không | TRUE / FALSE | Whether update continuously or not |
+| Vận tốc cài đặt | LREAL | Không | [0 to 999999999. 999999] | The set velocity |
+| Gia tốc tăng tốc | LREAL | Không | [0 to 999999999. 999999] | The set acceleration |
+| Gia tốc giảm tốc | LREAL | Không | [0 to 999999999. 999999] | The set deceleration |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Có | [0 to 999999999. 999999] | The set jerk is only valid in the S-curve. |
+| Direction | WORD | Không | [1] | Direction flag 1: Positive direction 2: Shortest path 3: Negative direction 4: Current direction |
+| BufferMode | WORD | Có | [0] | Chế độ vùng đệm nối lệnh (BufferMode) |
+| Axis | WORD, AXIS INFO T | Không | [0 to 65535] | Số hiệu định danh trục (Axis ID) and axis in-built variable |
+| Ngõ ra (Output) | InVận tốc cài đặt | BOOL | Có | TRUE / FALSE | Reach the set velocity flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Mã lỗi tra cứu (xem [Bảng mã lỗi 8.11](./8.11-error-code-table.mdx)) |
+Đặc tính kỹ thuật
+
+▪MC_MOVEVELOCITY function block is used for continuing the motion of the previous function block and moving according to the velocity specified by the previous function block. The input values of acceleration, deceleration and jerk are used to monitor whether the corresponding values of the controlled axis are within the input values.
+
+▪Since there is no input signal of position or distance, the function block will move until other function block sends a new command to stop the operation of this function block;
+
+▪When the velocity of the controlled axis reaches the set value of input parameter Vận tốc cài đặt, the output parameter Invelocity is set to ON.
+
+▪Once the input Execute signal detects that the falling edge or other function block makes this function block abort, the output parameter Invelocity is reset.
+
+▪MC_MOVEVELOCITY function block should be used when the controlled axis is in a stop status or a single-axis running status. When the function block is triggered, the controlled axis is switched to continuous Motion status.
+
+▪If the controlled axis is not in the above status, the function block is not executed. Erroroutput is set;
+
+▪MC_MOVEVELOCITY function block can be triggered repeatedly.
+
+Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+
+## MC _ MOVEVELOCITY _ CSV
+
+Sets motion according to the speed specified by the function block
+
+The function block is used to continue the motion of the previous function block and move according to the speed specified by the function block.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, device splicing and index are not supported)
+
+| Khối lệnh | Tham số | Device | Index Modification | Pulse Expansion |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ MOVEVELOCITY _ CSV | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Direction |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InVận tốc cài đặt |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error ID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes:
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- T, C, D, R and SD are signed 16-bit data types.
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC _ MOVE VELOCITY _ CSV | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Có | TRUE / FALSE | Whether update continuously or not |
+| Vận tốc cài đặt | LREAL | Không | [0,999999999.999999] | Setting velocity |
+| Gia tốc tăng tốc | LREAL | Không | [0,999999999.999999] | Setting acceleration |
+| Gia tốc giảm tốc | LREAL | Không | [0,999999999.999999] | Set deceleration |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Có | [0,999999999.999999] | The set jerk is only effective in S-curve. |
+| Direction | WORD | Không | [1,4] | Direction flag bit 1. Positive direction; 2. Negative direction; 3. The current direction; 4. The shortest path (reserved). |
+| BufferMode | WORD | Có | [0] | BufferMode |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) and built-in variable of axis |
+| Ngõ ra (Output) | InVận tốc cài đặt | BOOL | Có | TRUE / FALSE | Reach the set velocity flag bit |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Activity flag |
+| Command aborted | BOOL | Có | TRUE / FALSE | Interrupt flag bit |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| Error ID | DWORD | Có | - | Error code (Please refer to [8.11 Error code comparison table]) |
+Chức năng và nguyên lý hoạt động
+
+- The MC_ MOVEVELOCITY_CSV function block is used to continue the movement of the previous function block and move according to the speed specified by the function block. The input values of acceleration, deceleration and jerk are used to monitor whether the corresponding values of the controlled axis are within the input values.
+- Since there is no input signal of position or distance, the function block will move until other function block sends a new command to stop movement of this function block;
+- When the speed of the controlled axis reaches the input parameter ‘Vận tốc cài đặt’ setpoint, the output parameter ‘InVận tốc cài đặt’ is set. Once the input ‘Execute’ signal detects a falling edge or other function block to abort this function block, the output parameter InVận tốc cài đặt is reset;
+- The MC_ MOVEVELOCITY_CSV function block shall be in a stopped motion state or a single-axis operation state when the controlled axis is operated. After this function block is triggered, the controlled axis transitions to the ‘Continuous Motion’ state. If the controlled axis is not in the above state, the function block is not executed, Error output is set;
+- The MC_ MOVEVELOCITY_CSV function block can be triggered repeatedly multiple times.
+Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+Lưu ý kỹ thuật quan trọng
+
+- Different from the MC _ MOVEVELOCITY function block, this function block will automatically switch the servo mode to CSV (Synchronous Cycle Speed) mode;
+- Using this function block requires adding four object dictionaries, H60FF, H6060, H6061, and H606C, to the PDO.
+Timing diagram
+
+## MC _ SYNCMOVEVELOCITY
+
+MC _ SYNCMOVEVELOCITY-Sets motion according to the speed specified by the function block
+
+The function block is used to continue the motion of the previous function block and move according to the speed specified by the function block.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)
+
+| Khối lệnh | Tham số | Device | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ SYNCMOVE VELOCITY | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InVận tốc cài đặt |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes for using devices
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- T, C, D, R and SD are signed 16-bit data types.
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Empty or not | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC _ SYNCMOVE VELOCITY | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Vận tốc cài đặt | LREAL | Không | [-999999999.999999,99999 9999.999999] | Setting velocity |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) and built-in variable of axis |
+| Ngõ ra (Output) | InVận tốc cài đặt | BOOL | Có | TRUE / FALSE | Reach the set velocity flag bit |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please refer to 8.11 Error Code |
+Chức năng và nguyên lý hoạt động
+
+- The MC _ SYNCMOVEVELOCITY function block function block is used to continue the movement of the previous function block and move according to the speed specified by the function block.
+- Since there is no input signal of position or distance, the function block will move until other function block sends a new command to stop movement of this function block;
+- When the speed of the controlled axis reaches the input parameter Vận tốc cài đặt setpoint, the output parameter InVận tốc cài đặt is set. Once the input ‘Execute’ signal detects a falling edge or other function block to abort this function block, the output parameter ‘InVận tốc cài đặt’ is reset;
+- The MC _ SYNCMOVEVELOCITY function block shall be in a stopped motion state or a single-axis operation state when the controlled axis is operated. After this function block is triggered, the controlled axis transitions to the ‘Continuous Motion’ state. If the controlled axis is not in the above state, the function block is not executed, Error output is set;
+- The MC _ SYNCMOVEVELOCITY function block can be triggered repeatedly multiple times.
+✎Note: After using MC _ SYNCMOVEVELOCITY , the servo mode is automatically switched to the synchronous cycle speed mode.
+
+Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+Timing diagram
+
+## MC _ SETTORQUE
+
+Synchronous torque instruction
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)
+
+| Khối lệnh | Tham số | Device | Index Modification | Pulse Expansion |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ SETTORQUE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TORQUE |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MaxVận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InTorque |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes for using devices
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- T, C, D, R and SD are signed 16-bit data types.
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Pin Type | Tham số | Kiểu dữ liệu | Empty or not | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC _ SETTORQUE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Có | TRUE / FALSE | Updated during operation |
+| Torque | LREAL | Không | [-32768,32767] | Target torque (unit is 0.1%) |
+| MaxVận tốc cài đặt | LREAL | Không | [0,999999999.999999] | Maximum speed |
+| BufferMode | WORD | Có | [0] | Currently only interrupts are supported |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | InTorque | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Abortion flag |
+| Error | BOOL | Có | TRUE / FALSE | Error or not |
+| ErrorID | DWORD | Có | - | Error code ( Please refer to [8.11 Error code comparison table]) |
+Chức năng và nguyên lý hoạt động
+
+- This instruction is used to implement the synchronous torque control function and is only used for the bus servo axis. The rising edge and high level of the command are valid, and the virtual axis mode is not supported.
+- The following PDOs need to be configured in CST mode;
+0x1600: 0x6060, 0x6071, 607f (optional), 6040
+
+0x1A00: 0x6061, 0x6077, 0x6041
+
+- If you use VD3E, you need to configure the startup parameter 2001: 9 value to 2;
+- When Enable = ON, the function block converts TarTorque and MaxVận tốc cài đặt from user units to pulse units and sends them to the servo driver from time to time. The shaft is in the Continuous Motion state and performs synchronous torque motion. When the falling edge of Eanble, the function block performs synchronous torque motion with the TarTorque and Vận tốc cài đặt latched during the high level, and it is invalid to modify the TarTorque and Vận tốc cài đặt in real time;
+- This instruction can only be invoked if the axis is switched to the enabled state using the MC _ Power instruction;
+- This instruction uses the driver synchronous torque mode to realize the torque control function. When Enable = ON, the function block converts TarTorque and Vận tốc cài đặt from user units to pulse units and sends them to the servo driver from time to time. The shaft is in the Continuous Motion state and performs synchronous torque motion;
+TarTorque: The target torque, the unit is 0.1%. One decimal place after the decimal point is valid in the program, and the latter ones are directly discarded. The actual torque of the driver is limited by the maximum positive and negative torques set in the configuration parameters.
+
+Note
+
+- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
+- Giản đồ thời gian thực thi (Sequence Diagram)
+
+## MC _ TORQUECONTROL
+
+Torque control command
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)
+
+| Khối lệnh | Tham số | Device | Index Modification | Pulse Expansion |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ TORQUE CONTROL | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TORQUE |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TorqueRamp |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MaxVận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InTorque |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes for using devices
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- T, C, D, R and SD are signed 16-bit data types.
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Pin Type | Tham số | Kiểu dữ liệu | Empty or not | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC _ TORQUECONTROL | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Có | TRUE / FALSE | Updated during operation |
+| Torque | LREAL | Không | [-32768,32767] | Target torque (unit is 0.1%） |
+| MaxVận tốc cài đặt | LREAL | Không | [0,999999999.999999] | Maximum speed |
+| TorqueRamp | LREAL | Không | [0,999999999.999999] | Torque slope |
+| BufferMode | WORD | Có | [0] | Only interrupt mode supported |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | InTorque | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Abortion flag |
+| Error | BOOL | Có | TRUE / FALSE | Error or not |
+| ErrorID | DWORD | Có | - | Error code (Please refer to [8.11 Error code comparison table]) |
+Chức năng và nguyên lý hoạt động
+
+- This instruction is used to realize the torque control function and is only used for the EtherCAT bus axis. The rising edge of the instruction is valid, and the imaginary axis mode is not supported.
+- The following PDOs need to be configured in CST mode:
+0x1600: 0x6060, 0x6071, 607f (optional), 6040
+
+0x1A00: 0x6061, 0x6077, 0x6041
+
+- If VD3E is used, the value of startup parameter 2001:9 is 2;
+Chức năng và nguyên lý hoạt động description
+
+- This instruction can only be invoked if the axis is switched to the enabled state using the MC _ Power instruction;
+- This instruction uses the driver synchronous torque mode to realize the torque control function;
+- On the rising edge of the instruction, the function block latches the input parameters of TarTorque, TorqueSlope and MaxVận tốc cài đặt, and the axis is in the ContinuousMotion state and performs torque motion;
+TarTorque: Target torque, the unit is 0.1%, one decimal place after the decimal point is valid in the program, and the latter ones are discarded. The actual torque of the driver is limited by the maximum positive and negative torques set in the configuration parameters;
+
+TorqueSlope: Moment slope, the unit is 1%, one decimal place after the decimal point is valid in the program, and the latter ones are directly discarded;
+
+- Speed control in torque mode
+For servo drives, if 0x607f is mapped in the axis parameter, this instruction limits the maximum speed of the servo motor by 0x607f, if 0x607f is not mapped, the speed limit is invalid;
+
+On the rising edge of Execute, the instruction converts the speed limit set by Vận tốc cài đặt into pulse units and writes it into 0x607f through PDO;
+
+When the torque instruction is interrupted by others, the maximum speed of the axis will be limited by the "Maximum speed" in the configuration interface;
+
+For third-party drives, Vận tốc cài đặt can only be used as a speed limit under the following conditions:
+
+The maximum speed of the servomotor can be limited by 0x607F;
+
+0x607F can be configured into the PDO;
+
+The unit of 0x607F is pulse unit, non-speed unit.
+
+- Stop control on torque mode
+In the torque mode, the MC _ Stop instruction is called to perform the shut down, and after receiving the Stop instruction, the driver switches to the synchronous position mode, and performs deceleration according to the deceleration set by the Stop instruction.
+
+- Interrupt
+In PLCOpen, when the instruction is valid, the axis will be in the Continuous Motion state. Other instructions that can make the axis in Discrete motion or comply with PLCOpen state machine switching can interrupt the instruction. When the instruction is interrupted, CommandAboarted is valid;
+
+CommandAboarted is valid when Execute=ON and Done signal is invalid and is about to hit the limit signal execution needs to perform deceleration;
+
+The axis de-enable CommandAboarted is valid when Execute=ON and the Done signal is invalid.
+
+Timing diagram
+
+After setting the target torque, the command is triggered, and the actual output torque can reach the target torque.
+
+After setting the target torque, the command is triggered, and finally the actual output torque cannot reach the target torque.
+
+## MC _ MOVEABSRELPP
+
+Positioning instruction based on contour position mode
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)
+
+| Khối lệnh | Tham số | Device | Sửa đổi chỉ mục | Pulse Expansion |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ MOVEA BSRELPP | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Mode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes for using devices
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- T, C, D, R and SD are signed 16-bit data types.
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Pin Type | Tham số | Kiểu dữ liệu | Empty or not | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC _ MOVE ABSRELPP | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Position | LREAL | Không | -999999999.999999 999999999.999999 | Target location |
+| Vận tốc cài đặt | LREAL | Không | （0,999999999.999999] | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | （0,999999999.999999] | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | （0,999999999.999999] | Gia tốc giảm tốc |
+| Mode | INT | Không | [0,1] | 1: Absolute mode. 1: Relative mode |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Error or not |
+| ErrorID | DWORD | Có | - | Error code (Please refer to [8.11 Error code comparison table]) |
+Chức năng và nguyên lý hoạt động
+
+- This command is used to control the EtherCAT bus contour axis to realize the absolute/relative positioning function in contour position mode. In the basic settings of axis configuration, the contour mode option needs to be checked before it can be called, and the rising edge is valid.
+- Contour Position Mode requires the following PDOs:
+0x1600: 0x6081, 0x6083, 0x6084, 0x607A, 0x6060, 0x6040
+
+0x1A00: 0x6061, 0x6064, 0x6041
+
+Chức năng và nguyên lý hoạt động description
+
+- This instruction can only be invoked if the axis is switched to the enabled state using the MC _ Power instruction;
+- At the rising edge of the Execute input, the instruction latches the input parameters on the left side such as Position and Vận tốc cài đặt, triggers the absolute/relative positioning function, and switches the PLCOpen state machine of the axis to the DiscreteMotion state;
+- When Mode = 0, the positioning Mode is absolute positioning Mode, and Position is used to set the target Position of absolute positioning. If the axis Mode is configured as rotation Mode, the target Position is positioned according to the shortest distance;
+- When Mode = 1, the positioning Mode is a relative positioning Mode, and Position is used to set the target distance of relative positioning;
+- Interrupt
+When this instruction is valid in PLCOpen, the axis will be in the Discretemotion state. Other outline mode instructions that can make the axis in Discretemotion or comply with PLCOpen state machine switching can interrupt this instruction. CommandAboarted is valid when the instruction is interrupted. The instruction of periodic synchronization mode cannot be called, otherwise a fault will be reported;
+
+CommandAboarted is valid when the MC _ Power instruction is invalid when Execute = TRUE and the Busy signal is valid causes the axis to be de-enabled.
+
+Timing diagram
+
+## MC _ MOVEVELOCITYPV
+
+Contour Speed Command
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)
+
+| Khối lệnh | Tham số | Device | Index Modification | Pulse Expansion |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ MOVEVELO CITYPV | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InVận tốc cài đặt |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes for using devices
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- T, C, D, R and SD are signed 16-bit data types.
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Variable Type | Can you Is empty | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC _ MOVEVE LOCITYPV | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Vận tốc cài đặt | LREAL | Không | -999999999.999999 999999999.999999 | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | （0,999999999.999999] | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | The QPS Exceeds Maximum Limit 5 | Gia tốc giảm tốc |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | InVận tốc cài đặt | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Abortion flag |
+| Error | BOOL | Có | TRUE / FALSE | Error or not |
+| ErrorID | DWORD | Có | - | Error code (Please refer to [8.11 Error code comparison table]) |
+Chức năng và nguyên lý hoạt động
+
+- This command is used to realize the continuous motion function of EtherCAT bus contour axis in contour speed mode. In the basic settings of axis configuration, the contour mode option needs to be checked before it can be called, and the rising edge is valid;
+- This instruction is a simulated velocity instruction based on the profile velocity (PV) mode;
+- The following PDOs are required for the profile speed mode:
+0x1600: 0x6083, 0x6084, 0x60FF, 0x6060, 0x6040
+
+0x1A00: 0x6061, 0x606c, 0x6041
+
+Chức năng và nguyên lý hoạt động description
+
+- This instruction can only be invoked if the axis is switched to the STANDSTILL state using the MC _ Power instruction;
+- When Execute = TRUE, the instruction latches the input parameters on the left side such as Vận tốc cài đặt and Gia tốc tăng tốc, the axis continuously runs according to the target speed set by Vận tốc cài đặt, and switches the PLCOpen state machine of the axis to the ContinuousMotion state.
+Timing diagram
+
+## MC _ TORQUECONTROLPT
+
+MC _ TORQUECONTROLPT-Contour torque control command
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used) (only a single device can be used, and device splicing and Index are not supported)
+
+| Khối lệnh | Tham số | Device | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC _ TORQUE CONTROLPT | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TORQUE |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TorqueRamp |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MaxVận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InTorque |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CommandAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Notes for using devices
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- T, C, D, R and SD are signed 16-bit data types.
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Pin Type | Tham số | Kiểu dữ liệu | Empty or not | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_ TORQUECONTROLPT | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Torque | LREAL | Không | [-32768,32767] | Target torque (unit is 0.1%) |
+| TorqueRamp | LREAL | Không | （0,999999999.999999] | Torque slope |
+| MaxVận tốc cài đặt | LREAL | Không | [0,999999999.999999] | Maximum speed |
+| Axis | WORD | Không | [0,65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | InTorque | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Abortion flag |
+| Error | BOOL | Có | TRUE / FALSE | Error or not |
+| ErrorID | DWORD | Có | - | Error code (Please refer to [8.11 Error code comparison table]) |
+Chức năng và nguyên lý hoạt động
+
+- This instruction is used to control the EtherCAT bus profile axis to realize the absolute/relative positioning function in profile position mode. In the basic settings of axis configuration, the profile mode option needs to be checked before it can be called, and the rising edge is valid;
+- This instruction is used to realize the torque control function and is only used for the EtherCAT bus axis. The rising edge of the instruction is valid and the virtual axis mode is not supported;
+- Profile torque mode needs to be configured with the following PDOs:
+0x1600: 0x6087 (optional), 0x6060, 0x6071, 0x607f (optional), 0x6040
+
+0x1A00: 0x6061, 0x6077, 0x6041
+
+Chức năng và nguyên lý hoạt động description
+
+- This instruction can only be invoked if the axis is switched to the enabled state using the MC _ Power instruction. Otherwise, report a fault;
+- This instruction uses the driver synchronous torque mode to realize the torque control function;
+- On the rising edge of the instruction, the function block latches the input parameters of TarTorque, TorqueSlope and MaxVận tốc cài đặt, and the axis is in the ContinuousMotion state and performs torque motion;
+TarTorque: Target torque, the unit is 0.1%, one decimal place after the decimal point is valid in the program, and the latter ones are directly discarded. The actual torque of the driver is limited by the maximum positive and negative torques set in the configuration parameters;
+
+TorqueRamp: Torque ramp, the unit is 1%, one decimal place after the decimal point is valid in the program, and the latter ones are directly discarded.
+
+- Speed control in torque mode
+For servo drives, if 0x607f is mapped in the axis parameter, this instruction limits the maximum speed of the servo motor by 0x607f, if 0x607f is not mapped, the speed limit is invalid;
+
+On the rising edge of Execute, the instruction converts the speed limit set by Vận tốc cài đặt into pulse units and writes it into 0x607f through PDO;
+
+When the torque instruction is interrupted by others, the maximum speed of the axis will be limited by the "Maximum speed" in the configuration interface;
+
+For third-party drives, Vận tốc cài đặt can only be used as a speed limit under the following conditions:
+
+The maximum speed of the servomotor can be limited by 0x607F;
+
+0x607F can be configured into the PDO;
+
+The unit of 0x607F is pulse unit, non-speed unit.
+
+- Stop control on torque mode
+In the torque mode, the MC _ Stop instruction is called to perform the shut down, and after receiving the Stop instruction, the driver switches to the synchronous position mode, and performs deceleration according to the deceleration set by the Stop instruction.
+
+- Interrupt
+In PLCOpen, when the instruction is valid, the axis will be in the Continuous Motion state. Other instructions that can make the axis in Discrete motion or comply with PLCOpen state machine switching can interrupt the instruction. When the instruction is interrupted, CommandAboarted is valid;
+
+CommandAboarted is valid when Execute=ON and Done signal is invalid and is about to hit the limit signal execution needs to perform deceleration;
+
+The axis de-enable CommandAboarted is valid when Execute=ON and the Done signal is invalid.
+
+Timing diagram

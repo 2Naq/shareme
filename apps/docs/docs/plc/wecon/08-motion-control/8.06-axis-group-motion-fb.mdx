@@ -1,60 +1,534 @@
 ---
 id: "8.06-axis-group-motion-fb"
-title: "8.06 Khối hàm chuyển động nhóm trục (Axis Group Motion FBs)"
+title: "8.06 Khối hàm chuyển động nhóm trục"
 sidebar_position: 7
 sidebar_label: "8.06 Nội suy nhóm trục (8 FBs)"
-tags: [wecon, lx6v, lx6a, interpolation, linear, circular, mc_movelinearabsolute, mc_movecircularabsolute]
-description: "Hướng dẫn kỹ thuật 8 khối hàm nội suy nhóm trục: Nội suy đường thẳng (Linear), nội suy cung tròn (Circular) 3 chế độ, chạy trực tiếp (Direct) trên Wecon."
+tags: [wecon, lx6v, lx6a, motion-control, plcopen, manual]
+description: "Tài liệu kỹ thuật chi tiết chuẩn hãng 8.06 Khối hàm chuyển động nhóm trục trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."
 ---
 
-## Tổng quan nhóm khối hàm 8.06
+# Axis group motion Chức năng và nguyên lý hoạt động Blocks
 
-Nhóm khối hàm nội suy nhóm trục chịu trách nhiệm điều khiển đồng thời nhiều trục để đầu công cụ (Tool Center Point - TCP) di chuyển chính xác theo quỹ đạo hình học trong không gian.
+### MC_GROUPSTOP
 
-### Danh mục 8 khối hàm chuyển động nhóm:
-1. **MC_MOVELINEARABSOLUTE:** Nội suy đường thẳng đến tọa độ tuyệt đối.
-2. **MC_MOVELINEARRELATIVE:** Nội suy đường thẳng theo khoảng dời gia số.
-3. **MC_MOVECIRCULARABSOLUTE:** Nội suy cung tròn đến tọa độ tuyệt đối.
-4. **MC_MOVECIRCULARRELATIVE:** Nội suy cung tròn theo khoảng dời tương đối.
-5. **MC_MOVEDIRECTABSOLUTE:** Chạy nhanh từng trục độc lập đến tọa độ tuyệt đối (không ràng buộc quỹ đạo thẳng).
-6. **MC_MOVEDIRECTRELATIVE:** Chạy nhanh từng trục độc lập theo gia số.
-7. **MC_GROUPSTOP:** Dừng khống chế khẩn cấp toàn bộ nhóm trục.
-8. **MC_GROUPHALT:** Tạm dừng chuyển động nhóm trục (có thể ghi đè).
+The function block is use to stop axis group.
 
----
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
 
-## 1. Nội suy đường thẳng: MC_MOVELINEARABSOLUTE
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GROUPSTOP | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
 
-Đầu công cụ di chuyển từ điểm hiện tại đến tọa độ đích $[X, Y, Z]$ theo một đường thẳng hình học với vận tốc tiếp tuyến `Velocity`.
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
 
-```pascal
-fb_LinearAbs(
-    Execute         := bStartLinear,
-    Position        := arrTargetXYZ,     // Mảng tọa độ đích [X, Y, Z]
-    Velocity        := 100.0,            // Vận tốc tiếp tuyến (mm/s)
-    Acceleration    := 500.0,
-    Deceleration    := 500.0,
-    Jerk            := 2000.0,
-    BufferMode      := 0,
-    TransitionMode  := 0,
-    AxisGroup       := 0,
-    Done            => bLinearDone,
-    Busy            => bLinearBusy,
-    Active          => bLinearActive,
-    CommandAborted  => bLinearAborted,
-    Error           => bLinearErr,
-    ErrorID         => dwLinearErrID
-);
-```
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
 
----
+### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-## 2. Nội suy cung tròn: MC_MOVECIRCULARABSOLUTE
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GROUPSTOP | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Gia tốc giảm tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Có | [0 to 999999999. 999999] | Độ giật mượt đường cong S (Jerk) |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Output` | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 11 Error Code】) |
+Đặc tính kỹ thuật
 
-Đầu công cụ di chuyển tạo thành một cung tròn hoàn hảo trong mặt phẳng hoặc không gian. Hệ thống Wecon hỗ trợ 3 chế độ vẽ qua tham số **CircMode**:
+▪When on the Execute rising edge, the axis group decelerate to stop and any functional block being executed is stopped. When Execute=true, the axis group is on the stop status and cannot execute other axis group motion instruction.
 
-| Giá trị `CircMode` | Chế độ | Cách xác định cung tròn | Ghi chú kỹ thuật |
-| :---: | :--- | :--- | :--- |
-| **0** | **Border (3 điểm biên)** | Điểm bắt đầu $\to$ Điểm trung gian `AuxPoint` $\to$ Điểm kết thúc `EndPoint`. | Cực kỳ trực quan, góc ôm cung tròn bắt buộc phải nhỏ hơn $2\pi$. |
-| **1** | **Circle Center (Tâm tròn)**| Điểm bắt đầu $\to$ Tọa độ tâm tròn `AuxPoint` $\to$ Điểm kết thúc. Chọn chiều quay `CW` hoặc `CCW`. | Tương thích hoàn toàn với mã lệnh CNC G02/G03; góc không được đúng bằng $\pi$. |
-| **2** | **Diameter (Vectơ pháp tuyến)**| Điểm bắt đầu, điểm kết thúc và vectơ pháp tuyến vuông góc với mặt phẳng chứa cung tròn. | Dùng trong không gian 3D phức tạp; chiều dài vectơ xác định bán kính cung tròn. |
+▪The velocity of axis group is zero. Done is set to ON. If Execute=false, return to the normal axis group enabling status;
+
+▪Only MC_GroupDisable can be used to interrupt axis group.
+
+Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+
+### MC_GROUPHALT
+
+The function block is to halt axis group.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GROUPHALT | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GROUPHALT | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Gia tốc giảm tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Có | [0 to 999999999. 999999] | Độ giật mượt đường cong S (Jerk) |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 10 Error Code】) |
+Đặc tính kỹ thuật
+
+▪When on the Execute rising edge, the axis group decelerate to stop, any function block being executed is stopped, and the axis group velocity is 0. Done is set to on;
+
+▪Unbuffered mode: During axis group deceleration, if another function block with mcAborting buffer mode is executed, the current function block is interrupted and the new function block is executed immediately.
+
+Error code
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was input. |
+
+### MC_MOVELINEARABSOLUTE
+
+This function block is absolute position linear interpolation.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVELINEARABSOLUTE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CoordSystem |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TransitionMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TransitionTham số |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVELINEARABSOLUTE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Position | LREAL array | Không | - | Position |
+| Vận tốc cài đặt | LREAL | Không | [0 to 999999999. 999999] | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Có | [0 to 999999999. 999999] | Độ giật mượt đường cong S (Jerk) is valid in S curve only. |
+| CoordSystem | WORD | Có | 0 | Coordinate system |
+| BufferMode | WORD | Có | [0 to 1] | Please check [8.9.5 Mode selection description] for more details. |
+| TransitionMode | WORD | Có | [0 to 2] | Please check [8.9.4 Transition mode description] for more details. |
+| TransitionTham số | LREAL | Có | [0 to 999999999. 999999] | Please check [8.9.4 Transition mode description] for more details on transition parameter. |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 10 Error Code】) |
+Đặc tính kỹ thuật
+
+▪This function block executes linear interpolation motion, and puts the actual TCP position to the absolute position specified by a specific CoordSystem.
+
+✎Note:
+
+▪The axis group can be moved only when being enabled;
+
+▪All velocities and accelerations are in a safe range, and subject to the maximum velocity and acceleration that can be reached (Affected by the planning velocity, the limited velocity and acceleration set in the FB). If all the velocities and accelerations exceed the limit, they should be reduced to the limit.
+
+▪Linear motion is allowed to be interrupted;
+
+▪Axis group don’t support S type curve, so acceleration is not taking effect.
+
+Error code 
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+
+### MC_MOVELINEARRELATIVE
+
+This function block is relative position linear interpolation.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVELINEARRELATIVE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khoảng cách dịch chuyển tương đối |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CoordSystem |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TransitionMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TransitionTham số |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪T, C, D, R and SD are signed 16-bit data types.
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVELINEARRELATIVE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Khoảng cách dịch chuyển tương đối | LREAL array | Không | - | Position |
+| Vận tốc cài đặt | LREAL | Không | [0 to 999999999. 999999] | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Có | [0 to 999999999. 999999] | Độ giật mượt đường cong S (Jerk): Only the axis group S-curve is valid. |
+| CoordSystem | WORD | Có | - | Coordinate system |
+| BufferMode | WORD | Có | [0 to 1] | Please check [8.9.5 Mode selection description] for more details. |
+| TransitionMode | WORD | Có | [0 to 2] | Please check [8.9.4 Transition mode description] for more details. |
+| TransitionTham số | LREAL | Có | [0 to 999999999. 999999] | Please check [8.9.4 Transition mode description] for more details on transition parameter. |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 10 Error Code Cross-reference Table】) |
+Đặc tính kỹ thuật
+
+▪This function block executes line interpolation motion, and puts the actual TCP position to the absolute position specified by a specific coordsystem.
+
+ ✎Note:▪The axis group can be moved only when being enabled;
+
+▪All velocities and accelerations are in a safe range, and subject to the maximum velocity and acceleration that can be reached (Affected by the planning velocity, the limited velocity and acceleration set in the FB). If all the velocities and accelerations exceed the limit, they should be reduced to the limit.
+
+▪Linear motion is allowed to be interrupted;
+
+▪Axis group don’t support S type curve, so acceleration is not taking effect.
+
+ Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+
+### MC_MOVECIRCULARABSOLUTE
+
+The function block is absolute position circular interpolation.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVECIRCULARABSOLUTE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CircMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AuxPoint |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| EndPoint |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| PathChoice |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CoordSystem |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TransitionMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TransitionTham số |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVECIRCULARABSOLUTE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| CircMode | WORD | Không | [0 to 2] | Please check [8.9.3 Arc mode description] for more details on arc construction mode. |
+| AuxPoint | LREAL array | Không | - | Please check [8.9.3 Arc mode description] for more details on auxiliary point. |
+| EndPoint | LREAL array | Không | - | Please check [8.9.3 Arc mode description] for more details on end point. |
+| PathChoice | WORD | Không | [0 to 1] | Please check [8.9.3 Arc mode description] for more details on arc path selection. |
+| Vận tốc cài đặt | LREAL | Không | [0 to 999999999. 999999] | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Có | [0 to 999999999. 999999] | Độ giật mượt đường cong S (Jerk) is valid in S-curve only. |
+| CoordSystem | WORD | Có | 0 | Coordinate system |
+| BufferMode | WORD | Có | [0 to 1] | Please check [8.9.5 Mode selection description] for more details. |
+| TransitionMode | WORD | Có | [0 to 2] | Please check [8.9.4 Transition mode description] for more details. |
+| TransitionTham số | LREAL | Có | [0 to 999999999. 999999] | Please check [8.9.4 Transition mode description] for more details on transition parameter. |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check [8. 10 Error Code Cross-reference Table] ) |
+Đặc tính kỹ thuật
+
+▪This function block executes linear interpolation motion, and puts the actual TCP position to the absolute position specified by a specific CoordSystem.
+
+✎Note:
+
+▪The axis group can be moved only when being enabled;
+
+▪All velocities and accelerations are in a safe range, and subject to the maximum velocity and acceleration that can be reached (Affected by the planning velocity, the limited velocity and acceleration set in the FB). If all the velocities and accelerations exceed the limit, they should be reduced to the limit.
+
+▪Linear motion is allowed to be interrupted;
+
+▪Axis group don’t support S type curve, so acceleration is not taking effect.
+
+ Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+
+### MC_MOVECIRCULARRELATIVE
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVECIRCULARRELATIVE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CircMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AuxPoint |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| EndPoint |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| PathChoice |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CoordSystem |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TransitionMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TransitionTham số |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVELINEARRELATIVE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| CircMode | WORD | Không | [0 to 2] | Please check [8.9.3 Arc mode description] for more details on arc construction mode. |
+| AuxPoint | LREAL array | Không | - | Please check [8.9.3 Arc mode description] for more details on auxiliary point. |
+| EndPoint | LREAL array | Không | - | Please check [8.9.3 Arc mode description] for more details on end point. |
+| PathChoice | WORD | Không | [0 to 1] | Please check [8.9.3 Arc mode description] for more details on arc path selection. |
+| Vận tốc cài đặt | LREAL | Không | [0 to 999999999. 999999] | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | [0 to 999999999. 999999] | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Có | [0 to 999999999. 999999] | Độ giật mượt đường cong S (Jerk):is valid in S-curve only. |
+| CoordSystem | WORD | Có | - | Coordinate system |
+| BufferMode | WORD | Có | [0 to 1] | Please check [8.9.5 Mode selection description] for more details. |
+| TransitionMode | WORD | Có | [0 to 2] | Please check [8.9.4 Transition mode description] for more details. |
+| TransitionTham số | LREAL | Có | [0 to 999999999. 999999] | Please check [8.9.4 Transition mode description] for more details on transition parameter. |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check [8. 10 Error Code Cross-reference Table] ) |
+Đặc tính kỹ thuật
+
+▪This function block executes circular interpolation motion, and puts the actual TCP position to the absolute position specified by a specific coordsystem.
+
+✎Note:
+
+▪The axis group can be moved only when being enabled;
+
+▪All velocities and accelerations are in a safe range, and subject to the maximum velocity and acceleration that can be reached (Affected by the planning velocity, the limited velocity and acceleration set in the FB). If all the velocities and accelerations exceed the limit, they should be reduced to the limit.
+
+▪Linear motion is allowed to be interrupted;
+
+▪Axis group don’t support S type curve, so acceleration is not taking effect.
+
+  Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+
+### MC_MOVEDIRECTABSOLUTE
+
+This function block is the fast positioning of absolute position.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVECIRCULARRELATIVE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CoordSystem |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TransitionMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TransitionTham số |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVEDIRE CTABSOLUTE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Position | LREAL array | Không | - | Please check [8.9.3 Arc mode description] for more details on arc construction mode. |
+| CoordSystem | WORD | Có | 0 | Coordinate system |
+| BufferMode | WORD | Có | [0 to 1] | Please check [8.9.5 Mode selection description] for more details. |
+| TransitionMode | WORD | Có | [0 to 2] | Please check [8.9.4 Transition mode description] for more details. |
+| TransitionTham số | LREAL | Có | [0 to 999999999. 999999] | Please check [8.9.4 Transition mode description] for more details on transition parameter. |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Mã lỗi tra cứu (xem [Bảng mã lỗi 8.11](./8.11-error-code-table.mdx)) |
+Đặc tính kỹ thuật
+
+▪ The function block puts the axis group to the absolute position specified in the specific coordinate system, and does not emphasize on how to reach the target position;
+
+▪The performance of each axis in the axis group, such as velocity, acceleration, deceleration, jerk, does not change when moving.
+
+✎Note:
+
+▪The axis group can be moved only when being enabled;
+
+▪All velocities and accelerations are in a safe range, and subject to the maximum velocity and acceleration that can be reached (Affected by the planning velocity, the limited velocity and acceleration set in the FB). If all the velocities and accelerations exceed the limit, they should be reduced to the limit.
+
+▪Linear motion is allowed to be interrupted;
+
+▪The instruction running velocity and acceleration are associated with the minimum value of each axis associated with the axis group;
+
+▪Axis group don’t support S type curve, so acceleration is not taking effect.
+
+Error code
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was input. |
+
+### MC_MOVEDIRECTRELATIVE
+
+The function block executes the fast positioning of the relative position.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVEDIRECTRELATIVE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khoảng cách dịch chuyển tương đối |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CoordSystem |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TransitionMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TransitionTham số |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+ ### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVEDIRECTRELATIVE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Khoảng cách dịch chuyển tương đối | LREAL array | Không | - | Please check [8.9.3 Arc mode description] for more details on arc construction mode. |
+| CoordSystem | WORD | Có | 0 | Coordinate system |
+| BufferMode | WORD | Có | [0 to1] | Please check [8.9.5 Mode selection description] for more details. |
+| TransitionMode | WORD | Có | [0 to 2] | Please check [8.9.4 Transition mode description] for more details. |
+| TransitionTham số | LREAL | Có | [0 to 999999999. 999999] | Please check [8.9.4 Transition mode description] for more details on transition parameter. |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Mã lỗi tra cứu (xem [Bảng mã lỗi 8.11](./8.11-error-code-table.mdx)) |
+ Đặc tính kỹ thuật
+
+▪ The function block puts the axis group to the relative position specified in the specific coordinate system, and does not emphasize on how to reach the target position;
+
+▪The performance of each axis in the axis group, such as velocity, acceleration, deceleration, jerk, does not change when moving.
+
+✎Note:
+
+▪The axis group can be moved only when being enabled;
+
+▪All velocities and accelerations are in a safe range, and subject to the maximum velocity and acceleration that can be reached (Affected by the planning velocity, the limited velocity and acceleration set in the FB). If all the velocities and accelerations exceed the limit, they should be reduced to the limit.
+
+▪Linear motion is allowed to be interrupted;
+
+▪The instruction running velocity and acceleration are associated with the minimum value of each axis associated with the axis group;
+
+▪Axis group don’t support S type curve, so acceleration is not taking effect.
+
+ Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |

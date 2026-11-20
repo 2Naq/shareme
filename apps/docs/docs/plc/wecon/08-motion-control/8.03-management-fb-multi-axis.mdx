@@ -1,56 +1,159 @@
 ---
 id: "8.03-management-fb-multi-axis"
-title: "8.03 Khối hàm quản trị điều khiển đa trục (Multi-axis Management FBs)"
+title: "8.03 Khối hàm quản trị cho điều khiển đa trục"
 sidebar_position: 4
 sidebar_label: "8.03 Quản trị Cam đa trục (3 FBs)"
-tags: [wecon, lx6v, lx6a, e-cam, mc_camtableselect, mc_generatecamtable, mc_savecamtable]
-description: "Hướng dẫn kỹ thuật 3 khối hàm quản trị bảng dữ liệu Cam điện tử (E-CAM): MC_CAMTABLESELECT, MC_GENERATECAMTABLE, MC_SAVECAMTABLE."
+tags: [wecon, lx6v, lx6a, motion-control, plcopen, manual]
+description: "Tài liệu kỹ thuật chi tiết chuẩn hãng 8.03 Khối hàm quản trị cho điều khiển đa trục trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."
 ---
 
-## Tổng quan nhóm khối hàm 8.03
+## Management Chức năng và nguyên lý hoạt động Blocks for Multi-axis Motion Control
 
-Nhóm khối hàm quản trị đa trục (**Management Function Blocks for Multi-axis Motion Control**) tập trung vào việc quản lý vòng đời của **Bảng dữ liệu Cam điện tử (Electronic Cam Table)** trong bộ nhớ runtime của PLC Wecon.
+### MC_CAMTABLESELECT
 
-Cam điện tử là công nghệ thay thế đĩa cam cơ khí bằng hàm toán học hoặc bảng tra cứu vị trí giữa Trục Chủ (Master) và Trục Tớ (Slave): $Y = f(X)$.
+MC_CAMTABLESELECT
 
----
+This function block is used to bind the cam table.
 
-## 1. MC_CAMTABLESELECT: Nạp và chọn bảng Cam
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
 
-Khối hàm chọn bảng Cam từ cơ sở dữ liệu dự án và gắn vào bộ nhớ hoạt động của trục:
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_CAMTABLESELECT | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Periodic | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MasterAbsolute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SlaveAbsolute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Master |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CamTable |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CamTableID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
 
-```pascal
-fb_CamSelect(
-    Execute         := bSelectCamCmd,
-    Periodic        := TRUE,             // Chạy lặp tuần hoàn chu kỳ
-    MasterAbsolute  := TRUE,             // Trục chủ tính theo tọa độ tuyệt đối
-    SlaveAbsolute   := TRUE,             // Trục tớ tính theo tọa độ tuyệt đối
-    CamTableID      := 1,                // Mã ID bảng Cam đã tạo
-    Done            => bSelectDone,
-    Busy            => bSelectBusy,
-    Error           => bSelectErr,
-    ErrorID         => dwSelectErrID
-);
-```
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-### Bảng tham số MC_CAMTABLESELECT:
-| Tham số | Chiều | Kiểu dữ liệu | Mô tả kỹ thuật |
-| :--- | :---: | :--- | :--- |
-| **Execute** | Input | BOOL | Kích hoạt nạp bảng Cam bằng cạnh lên. |
-| **Periodic** | Input | BOOL | `TRUE`: Chu trình Cam lặp lại tuần hoàn vô tận. `FALSE`: Chạy đúng 1 chu kỳ Cam rồi kết thúc. |
-| **MasterAbsolute**| Input | BOOL | Tọa độ trục chủ tham chiếu dạng tuyệt đối hay tương đối. |
-| **SlaveAbsolute** | Input | BOOL | Tọa độ trục tớ tham chiếu dạng tuyệt đối hay tương đối. |
-| **CamTableID** | Input | WORD / UINT | Số hiệu định danh của bảng Cam cần chọn. |
-| **Done / Busy** | Output | BOOL | Báo nạp bảng Cam thành công / đang xử lý. |
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_CAMTABLESELECT | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Periodic | BOOL | Không | TRUE / FALSE | Cyclic mode setting |
+| MasterAbsolute | BOOL | Không | TRUE / FALSE | Master axis position mode setting |
+| SlaveAbsolute | BOOL | Không | TRUE / FALSE | Slave axis position mode setting |
+| Master | WORD | Không | - | Master axis |
+| Slave | WORD | Không | - | Slave axis |
+| CamTable | Cam table (INT type variable) | Không | - | Cam table |
+| Ngõ ra (Output) | Done | BOOL | Không | TRUE / FALSE | Completion sign |
+| Busy | BOOL | Không | TRUE / FALSE | Busy sign |
+| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Không | - | Error code |
+| CamTableID | WORD | Không | - | Cam table identification number |
+Chức năng và nguyên lý hoạt động
 
----
+- When MasterAbsolute is true, it means the master axis is under the absolute mode; when MasterAbsolute is false, it means the master axis is under the relative mode;
+- When SlaveAbsolute is true, it means the slave axis is under the absolute mode; when SlaveAbsolute is false, it means the slave axis is under the relative mode;
+- This function block is used to bind the cam table, that is, to bind the input master axis, slave axis and cam table. When calling MC_CAMIN function block, only the cam table bound by this function block can be used.
+Lưu ý kỹ thuật quan trọng
 
-## 2. MC_GENERATECAMTABLE: Tự động sinh bảng Cam động
+- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
+Error code
 
-Cho phép thuật toán điều khiển của PLC tự động tính toán lại các điểm nút nội suy và tái tạo bảng Cam mới ngay trong lúc hệ thống đang vận hành (thích hợp cho máy thay đổi kích thước bao bì sản phẩm linh hoạt qua công thức HMI mà không cần nạp lại chương trình).
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was entered. |
+Giản đồ thời gian thực thi (Sequence Diagram) 
 
----
+### MC_GENERATECAMTABLE
 
-## 3. MC_SAVECAMTABLE: Lưu bảng Cam vào bộ nhớ không bay màu
+MC_GENERATECAMTABLE
 
-Ghi dữ liệu bảng Cam vừa được sinh ra hoặc chỉnh sửa vào bộ nhớ Flash/Non-volatile của PLC Wecon để tránh mất dữ liệu khi mất nguồn đột ngột.
+This function block is used to update the cam table.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used) (Only a single device can be used, and device splicing and offset are not supported)
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+|  |  | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GENERATECAMTABLE | Execute |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CamTableID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CamNode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| NodeNum |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Generatecam TableMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Pin | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GENERATECAMTABLE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| CamTableID | INT | Không |  | Cam tableID |
+| CamNode | ARRAY (CAMNODET) | Không | - | Array of cam nodes |
+| NodeNum | INT | Không | 2 ～361 | Number of cam nodes |
+| GeneratecamTable Mode | INT | Không |  | Effective mode 0： Effective in the next cam cycle; Others: Reserved |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| BusY | BOOL | Có | TRUE / FALSE | Aborted flag |
+| Khối lệnhAborted | BOOL | Có | TRUE / FALSE | Abortion flag |
+| ReadyUpdate | BOOL | Có | TRUE / FALSE | Cam table update comp flag |
+| Error | BOOL | Có |  | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có |  | Error Code (Please check [8.10 Error Code Cross-reference Table] ) |
+Chức năng và nguyên lý hoạt động
+
+- This function block is used to update cam table. At the rising edge of startup, the cam data is calculated based on values of input variables camNode and NodeNum. The data is updated to the cam table specified by camTable, which is will be effective in the next cam cycle.
+✎Note:
+
+1. This function block is not available when the Cam table does not exist.
+
+2. The data written to ECAM table needs to be accurate to six decimal places, otherwise PLC will report error 16x00000C
+
+ Giản đồ thời gian thực thi (Sequence Diagram)
+
+### MC_SAVECAMTABLE
+
+MC_SAVECAMTABLE
+
+This function block is used to save the cam table.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used) (Only a single device can be used, and device splicing and offset are not supported)
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_SAVECAMTABLE | Execute |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CamTableID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+ ### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Pin | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_SAVECAMTABLE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| CamTableID | INT | Không | - | Cam tableID |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| BusY | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Khối lệnhAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | - | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error Code (Please check [8.10 Error Code Cross-reference Table] |
+Chức năng và nguyên lý hoạt động
+
+- This function block is used to save the specified cam table.
+ ✎Note:This function block is not available when the Cam table does not exist.
+
+In the process of executing this instruction, the controller cannot be powered off. Otherwise, the data will fail to be saved and the cam data will be lost.
+
+Error code 
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was entered. |
+Giản đồ thời gian thực thi (Sequence Diagram)

@@ -1,98 +1,377 @@
 ---
 id: "8.04-motion-fb-multi-axis"
-title: "8.04 Khối hàm chuyển động điều khiển đa trục (Multi-axis Motion FBs)"
+title: "8.04 Khối hàm chuyển động cho điều khiển đa trục"
 sidebar_position: 5
 sidebar_label: "8.04 Cam & Gear đa trục (5 FBs)"
-tags: [wecon, lx6v, lx6a, mc_camin, mc_camout, mc_gearin, mc_gearout, mc_gearinpos]
-description: "Hướng dẫn chi tiết 5 khối hàm khớp nối và đồng bộ chuyển động đa trục: MC_CAMIN, MC_CAMOUT, MC_GEARIN, MC_GEAROUT, MC_GEARINPOS trên PLC Wecon."
+tags: [wecon, lx6v, lx6a, motion-control, plcopen, manual]
+description: "Tài liệu kỹ thuật chi tiết chuẩn hãng 8.04 Khối hàm chuyển động cho điều khiển đa trục trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."
 ---
 
-## Tổng quan nhóm khối hàm 8.04
+## Motion Chức năng và nguyên lý hoạt động Block for Multi-axis Motion Control
 
-Nhóm khối hàm chuyển động đa trục thực thi các cơ cấu liên kết động học số giữa **Trục Chủ (Master)** và **Trục Tớ (Slave)** thông qua Bánh răng điện tử (Electronic Gear) và Cam điện tử (Electronic Cam).
+### MC_CAMIN
 
----
+The function block enables the controlled axis to carry out cam motion.
 
-## 1. MC_GEARIN: Khớp nối bánh răng điện tử (Electronic Gear)
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
 
-Khối hàm thiết lập liên kết vận tốc giữa Master và Slave theo một tỉ số truyền hữu tỉ:
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+|  |  | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_CAMIN | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MasterIndex |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SlaveIndex |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MasterScaling |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SlaveScaling |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MasterStartKhoảng cách dịch chuyển tương đối |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MasterSyncPosition |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| StartMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MasterValueSource |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CamTableID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Master |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InSync |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| EndOfProfile |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
 
-```text
-Vận tốc Slave = Vận tốc Master * (RatioNumerator / RatioDenominator)
-```
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-```pascal
-fb_GearIn(
-    Execute             := bEngageGear,
-    RatioNumerator      := 2,            // Tử số tỉ số truyền
-    RatioDenominator    := 1,            // Mẫu số tỉ số truyền
-    Acceleration        := 500.0,        // Gia tốc bắt kịp trục chủ
-    Deceleration        := 500.0,
-    Jerk                := 1500.0,
-    BufferMode          := 0,
-    Master              := 0,            // ID trục chủ
-    Slave               := 1,            // ID trục tớ
-    InGear              => bInGear,      // Báo TRUE khi đã đạt đúng tỉ số đồng tốc
-    Busy                => bGearBusy,
-    Active              => bGearActive,
-    CommandAborted      => bGearAborted,
-    Error               => bGearErr,
-    ErrorID             => dwGearErrID
-);
-```
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_CAMIN | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Không | TRUE / FALSE | Updated during operation |
+| MasterIndex | LREAL | Không | -9999999.00~9999999.00 | Master axis offset |
+| SlaveIndex | LREAL | Không | -9999999.00~9999999.00 | Slave axis bias |
+| MasterScaling | LREAL | Không | -9999999.00~9999999.00 | Master axis scaling factor |
+| SlaveScaling | LREAL | Không | -9999999.00~9999999.00 | Slave axis scaling factor |
+| MasterStartKhoảng cách dịch chuyển tương đối | LREAL | Không | -9999999.00~9999999.00 (not 0) | Master axis starting distance |
+| MasterSyncPosition | LREAL | Không | -9999999.00~9999999.00 | Master axis synchronization position |
+| StartMode | WORD | Không | 0 to 2 | Start mode (0-Absolute, 1-Relative, 2-Catchup) |
+| MasterValueSource | WORD | Không | 0 to 2 | Master axis synchronization source (Khối lệnh value, set value and actual value) |
+| CamTableID | WORD | Không | 0 to 9999999.00 | Electronic CAM table identification |
+| BufferMode | WORD | Không | 0 | Mode selection |
+| Master | WORD | Không | - | Master axis |
+| Slave | WORD | Không | - | Slave axis |
+| Ngõ ra (Output) | InSync | BOOL | Không | TRUE / FALSE | Completion sign |
+| Busy | BOOL | Không | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Không | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Không | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Không | - | Error code |
+| EndOfProfile | WORD | Không | - | Electronic CAM end signal |
+Chức năng và nguyên lý hoạt động
 
-- Khi kích hoạt `Execute`, trục Slave tăng tốc bám theo trục Master.
-- Khi đạt đúng tỉ lệ truyền số học, chân **InGear** báo `TRUE`. Trục Slave ở trạng thái `SynchronizedMotion`.
+- This function starts with the input parameter MasterSyncPosition. Before reaching the MasterSyncPosition, the catchup or transition motion is carried out according to the set parameters (absolute relative of the master axis, absolute relative of the slave axis, starting mode). After reaching the MasterSyncPosition position, the positional relationship between the master axis and the slave axis is obtained according to the camTableID, and the relationship is corrected under the set offset and scaling factors of the master axis and the slave axis, and the cam motion is carried out.
+- MasterSyncPosition
+MasterSyncPosition is the absolute position when the axis mode is absolute;
 
----
+MasterSyncPosition is the relative position when the axis mode is relative;
 
-## 2. MC_GEAROUT: Tách khớp bánh răng điện tử
+- ImSync status bit is turned ON when the master axis reaches MasterSyncPosition position and the slave axis reaches the slave axis position corresponding to the cam table of the master axis. Generally speaking, when the slave axis is in relative mode, the MC_CAMIN instruction is executed, and this status bit will be turned ON immediately; when the slave axis is in absolute or tracing mode, the status bit will be turned ON immediately after the slave axis jumps or traces to the position corresponding to the master axis cam table.
+- The EndOfProfle status bit is turned ON after the slave axis has followed the master axis through the entire cam table; The StartMode parameter, together with the MasterAbsolute/SlaverAbsolute parameters in the MC_CAMTABLESELECT instruction, determines the motion mode of the master/slave axis.
+- The master mode is only determined by MasterAbsolute and is not affected by the value in StartMode. The slave axis mode is expressed as follows:
+| StartMode | SlaveAbsolute | Slave axis mode |
+| Absolute | Relative | Relative |
+| Absolute | Absolute | Absolute |
+| Relative | Relative | Relative |
+| Relative | Absolute | Relative |
+| Catch up | Relative | Relative catch up |
+| Catch up | Absolute | Relative catch up |
+| Master axis mode | Slave axis mode | Result |
+| Relative | Relative | When CAMIN is executed, slave axis position jumps to the set offset position; When master axis is executing, slave axis performs relative motion according to the start position of cam table. |
+| Absolute | When CAMIN is executed, slave axis position jumps to the cam table start position (i.e., 0); When the master axis is executing, slave axis moves according to the corresponding point position of the cam table. |
+| Relative | When CAMIN is executed, slave axis position catches up to the set offset position; When the master axis is executing, the slave axis performs relative motion according to the corresponding points of the cam table. |
+| Absolute catch up | When CAMIN is executed, slave axis position catches up to the cam table starting position (i.e., 0); When the master axis is executing, the slave axis moves according to the corresponding point position of the cam table. |
+| Absolute | Relative | When CAMIN is executed, slave axis position jumps to the set offset position; When the master axis is executing, the slave axis performs relative motion according to the points corresponding to the cam table. |
+| Absolute | When CAMIN is executed, slave axis position jumps to the current slave axis position corresponding to the master axis in the cam table (For example, if the current position of the master axis is 100 and the slave axis point corresponding to the master axis point 100 in the cam table is 200, the slave axis jumps after CAMIN is executed;) After the master axis is executing, slave axis performs relative motion according to the corresponding points in the cam table. |
+| Relative catch up | When CAMIN is executed, slave axis position catches up to the set offset position; When the master axis is executing, slave axis performs relative motion according to the corresponding points of the cam table. |
+| Absolute catch up | When CAMIN is executed, slave axis position catches up to the current slave axis position corresponding to the master axis in the cam table (For example, if the current position of the master axis is 100 and the slave axis point corresponding to the master axis point 100 in the cam table is 200, the slave axis jumps after CAMIN is executed;) After the master axis is running, the slave axis performs relative motion to the corresponding points in the cam table. |
+- When axis is in absolute mode, if the current position of the axis is not within the range of the axis in the cam table, it will be processed by self-acting periodization.
+Example: the current axis position is 110, and the axis position in the cam table is 0~100, then the default axis position after CAMIN execution is 10 (the actual axis position does not change);
 
-Ngắt liên kết đồng bộ bánh răng giữa Master và Slave. Trục Slave thoát khỏi trạng thái `SynchronizedMotion`, chuyển sang trạng thái `ContinuousMotion` và duy trì vận tốc hiện tại cho đến khi có lệnh dừng.
+- The master-slave axis multiplier and master-slave axis offset parameters take effect when CAMIN is executed and do not support modification in the process; unsuitable parameters will cause the slave axis position to jump.
+- The master-slave position relationship (where CAM () indicates the corresponding slave position of the master axis on the cam table):
+Master Position = Master Position * Master Multiplier + Master Offset
 
----
+Slave position = Slave multiplier * CAM (spindle position) + Slave offset
 
-## 3. MC_GEARINPOS: Khớp bánh răng đồng bộ pha vị trí
+- The master-slave multiplier cannot be 0.
+Lưu ý kỹ thuật quan trọng
 
-Nâng cấp của `MC_GEARIN`: Đòi hỏi trục Slave không chỉ đồng bộ vận tốc mà còn phải ăn khớp chính xác tuyệt đối về **Tọa độ vị trí (Phase Alignment)** tại một điểm mốc định trước của cả 2 trục.
+- This function block is not available when the axis does not exist;
+- The motion mode of the slave axis shall be determined according to start mode and SlaveAbsolute of CamtableSelect. See “Chapter 8.6” [Mô tả kỹ thuật of Several Modes in E-CAM] for details. MasterValueSource is now an actual value regardless of which mode you choose.
+Error code
 
----
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was entered. |
+Giản đồ thời gian thực thi (Sequence Diagram)
 
-## 4. MC_CAMIN: Bắt đầu đóng khớp Cam điện tử
+▪ MC_CAMIN needs to be used in conjunction with MC_CAMTABLESELECT and a single-axis motion (e.g., MC_MOVEABSOLUTE), the sequence diagram is as follows.
 
-Khối hàm đưa trục Slave bám theo biên dạng quỹ đạo Cam của trục Master:
+(1) Slave motion varies depending on StartMode.
 
-```pascal
-fb_CamIn(
-    Execute             := bStartCam,
-    ContinuousUpdate    := FALSE,
-    MasterOffset        := 0.0,
-    SlaveOffset         := 0.0,
-    MasterScaling       := 1.0,          // Tỉ lệ nhân hành trình Master
-    SlaveScaling        := 1.0,          // Tỉ lệ nhân hành trình Slave
-    MasterStartDistance := 50.0,         // Khoảng chạy đà
-    MasterSyncPosition  := 100.0,        // Tọa độ bắt đầu đồng bộ
-    StartMode           := 0,            // 0: Tuyệt đối, 1: Tương đối
-    MasterValueSource   := 0,            // 0: Lệnh vị trí, 1: Hồi tiếp thực tế
-    CamTableID          := 1,
-    BufferMode          := 0,
-    Master              := 0,
-    Slave               := 1,
-    InSync              => bCamInSync,   // Báo TRUE khi đã ăn khớp hoàn toàn với bảng Cam
-    Busy                => bCamBusy,
-    Active              => bCamActive,
-    CommandAborted      => bCamAborted,
-    Error               => bCamErr,
-    ErrorID             => dwCamErrID,
-    EndOfProfile        => bCamEndCycle  // Xung báo hiệu kết thúc 1 chu kỳ Cam
-);
-```
+Assume that the start conditions for cam motion are as follows:
 
-- **InSync:** Báo `TRUE` khi trục Slave đã bắt kịp tọa độ nội suy của đường cong Cam.
-- **EndOfProfile:** Phát xung chu kỳ mỗi khi trục Master hoàn thành một chu trình Cam (hữu ích cho việc đếm sản phẩm hoặc chuyển bước chu kỳ).
+▪ In condition 1, the master axis jumps at the position of 20 (70~50), and the jumping position is the cam table position corresponding to masterSyncPosition, and the output variable InSync (in synchronization) changes to TRUE when it passes the position of 70, and the slave axis starts camming.
 
----
+▪ In condition 2, the master axis will catch up at 20 (70~50), and the catch-up position is the cam table position corresponding to masterSyncPosition, and the output variable InSync (in synchronization) becomes TRUE when it passes the position of 70, and the slave axis starts camming.
 
-## 5. MC_CAMOUT: Thoát khỏi chế độ Cam điện tử
+▪ In condition 3, the output variable InSync (in synchronization) becomes TRUE when the master axis passes the position of 70, and the slave axis starts camming.
 
-Ngắt kết nối Cam điện tử, giải phóng trục Slave về trạng thái tự do có kiểm soát.
+| Input variable | Condition 1 | Condition 2 | Condition 3 |
+| MasterAbsolute | True (Absolute) | True (Absolute) | True (Absolute) |
+| SlaveAbsolute | True (Absolute) | True (Absolute) | FALSE (Relative) |
+| StartMode | MC_START_MODE_ABSOLUTE | MC_START_MODE_RAMPIN | MC_START_MODE_RELATIVE |
+| MasterSyncPosition | 70 | 70 | 70 |
+| MasterDistace | 50 | 50 | 50 |
+| MasterOffset | 0 | 0 | 0 |
+| SlaveOffset | 0 | 0 | 0 |
+| MasterScaling | 1 | 1 | 1 |
+| SlaveScaling | 1 | 1 | 1 |
+(2) Slave motion varies depending on MasterAbsolute.
+
+(3)Slave motion varies depending on SlaveAbsolute.
+
+### MC_CAMOUT
+
+The function block enables the controlled axis to carry out uniform motion at current velocity.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
+
+| Khối lệnh | Kiểu chân | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_CAMOUT | Ngõ vào (Input) | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Ngõ ra (Output) | Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_CAMOUT | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Slave | WORD | Không | 0 to 65535 | Slave axis |
+| Done | BOOL | Không | TRUE / FALSE | Completion sign |
+| Busy | BOOL | Không | TRUE / FALSE | Busy sign |
+| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Không | - | Error code |
+Chức năng và nguyên lý hoạt động
+
+- The function is used to separate the slave axis from the position relation specified for the electronic cam. Execute the MC_CamOut function block to transform the slave shaft from the synchronous state to the continuous motion state. The current velocity of the slave axis is maintained.
+Lưu ý kỹ thuật quan trọng
+
+- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
+Giản đồ thời gian thực thi (Sequence Diagram)
+
+### MC_GEARIN
+
+The function block enables the controlled axis to carry out gear motion.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GEARIN | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| RatioNumerator |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| RatioDenominator |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MasterValueSource |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Master |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InGear |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GEARIN | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Không | TRUE / FALSE | Updated during operation |
+| RatioNumerator | INT16 | Không | -32768~32767 | Gear velocity ratio (numerator) |
+| RatioDenominator | UINT16 | Không | 0 to 65535 | Gear velocity ratio (denominator) |
+| MasterValueSource | WORD | Không | 0 to 2 | Master axis synchronization source (Khối lệnh value, set value and actual value) |
+| Gia tốc tăng tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Không | 0 to 9999999.00 | Độ giật mượt đường cong S (Jerk) |
+| BufferMode | WORD | Không | 0 | Selection |
+| Master | WORD | Không | - | Master axis |
+| Slave | WORD | Không | - | Slave axis |
+| Ngõ ra (Output) | InGear | BOOL | Không | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Không | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Không | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Không | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Không | - | Error code |
+Chức năng và nguyên lý hoạt động
+
+- The function block is used for establishing the synchronization of the velocity ratio between the master axis and the slave axis. Firstly, the slave axis takes the velocity of master axis multiplied by the velocity ratio as the target velocity and moves at the set acceleration and jerk and executes gear motion according to the velocity of master axis when reaching the target motion.
+Lưu ý kỹ thuật quan trọng
+
+- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
+Error code
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was entered. |
+Giản đồ thời gian thực thi (Sequence Diagram)
+
+- After starting the motion, the slave axis performs acceleration and deceleration with the velocity obtained by multiplying the spindle speed by the gear ratio as the target speed;
+- Before reaching target position is called the Catching phase and after reaching it is called the InGear phase;
+- The gear ratio is positive and the slave axis moves in the same direction as the master axis.
+
+- The gear ratio is negative and the slave axis moves in the reverse direction to the master axis.
+
+Before reaching synchronization, the slave axis moves according to the maximum acceleration set by the axis as plus or minus speed, and the slave axis velocity is recognized when it is equal to the speed of the master axis multiplied by the gear ratio.
+
+When the speed of the slave axis equals the speed of the master axis multiplied by the gear ratio, the gears are recognized as meshing, and thereafter the slave axis follows the master axis completely.
+
+- Master axis maintains constant velocity before synchronization (Gear instruction is triggered according to 1:1 gear ratio)
+- Master axis moves in variable velocity before synchronization (Gear instruction triggered according to 1:1 gear ratio)
+
+### MC_GEAROUT
+
+The function block enables the controlled axis to carry out uniform motion at current velocity.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GEAROUT | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GEAROUT | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Slave | WORD | Không | 0 to 65535 | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Done | BOOL | Không | TRUE / FALSE | Completion sign |
+| Busy | BOOL | Không | TRUE / FALSE | Busy sign |
+| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Không | - | Error code |
+ Chức năng và nguyên lý hoạt động
+
+- The function block is used for separating the slave axis from the master axis at the velocity ratio and maintaining the motion at the velocity when it separates.
+Lưu ý kỹ thuật quan trọng
+
+- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
+Giản đồ thời gian thực thi (Sequence Diagram)
+
+### MC_GEARINPOS
+
+The function block enables the controlled axis to carry out gear motion.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GEARINPOS | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| RatioNumerator |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| RatioDenominator |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MasterValueSource |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MasterSyncPosition |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SlaveSyncPosition |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| SyncMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| MasterStartKhoảng cách dịch chuyển tương đối |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Master |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Slave |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| StartSync |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InSync |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- C, D, R and SD are signed 16-bit data types.
+### Bảng thông số chân và kiểu biến (Variable Type Used) 
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GEARINPOS | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| RatioNumerator | DINT | Không | -32768~32767 | Gear velocity ratio (numerator) |
+| RatioDenominator | UINT | Không | 0 to 65535 | Gear velocity ratio (denominator) |
+| MasterValueSource | WORD | Không | 0 to 2 | Master axis synchronization source (Khối lệnh value, set value and actual value) |
+| MasterSyncPosition | LREAL | Không | -9999999.00~9999999.00 | Master axis synchronization position |
+| SlaveSyncPosition | LREAL | Không | -9999999.00~9999999.00 | Slave axis synchronization position |
+| SyncMode | WORD | Không | 0 to 2 | Synchronous mode (shortest, catchup, slowdown) |
+| MasterStartKhoảng cách dịch chuyển tương đối | LREAL | Không | -9999999.00~9999999.00 (not 0) | Master axis starting distance |
+| Vận tốc cài đặt | LREAL | Không | 0~9999999.00 (not 0) | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Không | 0 to 9999999.00 | Độ giật mượt đường cong S (Jerk) |
+| BufferMode | WORD | Không | 0 | Chế độ vùng đệm nối lệnh (BufferMode) selection |
+| Master | WORD | Không | - | Master axis |
+| Slave | WORD | Không | - | Slave axis |
+| Ngõ ra (Output) | StartSync | BOOL | Không | TRUE / FALSE | Synchronous identification |
+| InSync | BOOL | Không | TRUE / FALSE | Synchronized sign |
+| Busy | BOOL | Không | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Không | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Không | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Không | - | Error code |
+Chức năng và nguyên lý hoạt động
+
+- The function block is used to achieve the specified velocity ratio between the slave axis and master axis at the specific position through a set maximum velocity, acceleration, deceleration, jerk and synchronous mode.
+Lưu ý kỹ thuật quan trọng
+
+- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
+Error code
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was entered. |
+ Giản đồ thời gian thực thi (Sequence Diagram)
+
+- After starting the motion, the slave axis performs acceleration and deceleration with the speed obtained by multiplying the axis velocity by the gear ratio as the target velocity;
+- The position obtained by ▪ (MasterSyncPosition - MasterStartKhoảng cách dịch chuyển tương đối) is called the start position, and after the master axis reaches this position, the slave axis starts to catching up with the target;
+- If the gear ratio is positive, the slave axis moves in the same direction as the master axis.
+
+- If the gear ratio is negative, the slave axis moves in the reverse direction to the master axis.
+
+- Before reaching synchronization, the slave axis moves at the maximum acceleration set by the axis as plus or minus speed, and is recognized when the slave axis speed is equal to the speed of the master axis multiplied by the gear ratio.
+- When the speed of the slave axis equals the velocity of the master axis multiplied by the gear ratio, the gears are considered to be meshed, and thereafter the slave axis follows the main axis completely.
+- The master axis moves at a constant speed until synchronization is achieved (The gear instruction is triggered at a gear ratio of 1:1).
+- Master axis moves in variable velocity before synchronization (Gear instruction triggered according to 1:1 gear ratio)
+gearInPos carries out the pursuit motion in the following three modes, all following the spindle in gear motion after the target speed has been reached:
+
+- Shortest: catching in constant acceleration mode;
+- Catchuo: catching in S-curve;
+- Slowdown: catching up in T-curve.
+✎ Note: When the amount of movement in the chase is short, there may be an abrupt change in speed from the axis to the target position and then directly to the target speed.

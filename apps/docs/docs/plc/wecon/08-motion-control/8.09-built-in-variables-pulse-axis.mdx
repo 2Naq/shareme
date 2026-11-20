@@ -3,88 +3,168 @@ id: "8.09-built-in-variables-pulse-axis"
 title: "8.09 Biến hệ thống tích hợp của trục phát xung nội bộ"
 sidebar_position: 10
 sidebar_label: "8.09 Biến hệ thống trục xung"
-tags: [wecon, lx6v, lx6a, axis_info_t, pulse-axis, hardware-mapping]
-description: "Chi tiết toàn bộ bảng biến hệ thống toàn cục AXIS_INFO_T (Cfg, Cmd, Act, Status, Dbg) và ánh xạ phần cứng chân phát xung Y0-Y7 trên PLC Wecon."
+tags: [wecon, lx6v, lx6a, motion-control, plcopen, manual]
+description: "Tài liệu kỹ thuật chi tiết chuẩn hãng 8.09 Biến hệ thống tích hợp của trục phát xung nội bộ trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."
 ---
 
-## 1. Kiến trúc biến hệ thống trục xung (Pulse Axis Variables)
+# Built-in variables of pulse axis system
 
-Khi phát xung tốc độ cao trực tiếp từ CPU PLC Wecon (dòng ngõ ra Transistor), hệ thống tự động khởi tạo cấu trúc biến toàn cục định nghĩa sẵn mang tên **`AXIS_INFO_T`** cho từng trục. Người lập trình có thể truy cập trực tiếp các biến thành viên này để giám sát dữ liệu và gỡ lỗi mà không cần phải gọi nhiều khối hàm phụ trợ.
+The current state of the axis can be monitored in the program by its system variables.
 
-### Bảng ánh xạ phần cứng ngõ ra xung và chiều:
-- **Local ID = 0:** Cặp chân xung/chiều `Y0 / Y1`
-- **Local ID = 1:** Cặp chân xung/chiều `Y2 / Y3`
-- **Local ID = 2:** Cặp chân xung/chiều `Y4 / Y5`
-- **Local ID = 3:** Cặp chân xung/chiều `Y6 / Y7`
-
----
-
-## 2. Cấu trúc dữ liệu chi tiết AXIS_INFO_T
-
-Cấu trúc biến trục được phân tách thành 5 nhóm dữ liệu chức năng:
-
-```mermaid
-classDiagram
-    class AXIS_INFO_T {
-        +AXIS_INFO_CFG_T Cfg
-        +AXIS_INFO_CMD_T Cmd
-        +AXIS_INFO_ACT_T Act
-        +AXIS_INFO_STATUS_T Status
-        +AXIS_DEBUG_T Dbg
-    }
-```
-
-### 2.1. Nhóm Cấu hình (Cfg - Axis Configuration)
-| Tên biến | Kiểu dữ liệu | Chức năng (Chỉ đọc - Read Only) |
-| :--- | :---: | :--- |
-| **wAxisID** | WORD | Số hiệu định danh của trục logic. |
-| **wVersion** | WORD | Phiên bản firmware quản lý trục. |
-| **wAxisType** | WORD | Kiểu trục (0: Bus Servo, 1: Bus Encoder, v.v.). |
-| **nEtherCATNo** | DINT | Số hiệu thứ tự của trục trên mạng EtherCAT. |
-| **nLocalID** | DINT | ID trục xung nội bộ phần cứng: `0` (Y0/Y1), `1` (Y2/Y3), `2` (Y4/Y5), `3` (Y6/Y7). |
-| **bVirtualAxis** | BOOL | Cờ xác định trục là trục ảo (`TRUE`) hay trục vật lý (`FALSE`). |
-
-### 2.2. Nhóm Lệnh phát đi (Cmd - Command Setpoints)
-| Tên biến | Kiểu dữ liệu | Chức năng |
-| :--- | :---: | :--- |
-| **fSetPosition** | LREAL | Tọa độ đích cài đặt hiện thời đang được phát lệnh. |
-| **fSetVelocity** | LREAL | Vận tốc cài đặt hiện thời đang được phát lệnh. |
-| **fSetAcceleration**| LREAL | Gia tốc cài đặt hiện thời. |
-| **fSetDeceleration**| LREAL | Gia tốc giảm tốc cài đặt hiện thời. |
-| **fSetJerk** | LREAL | Độ giật S-curve cài đặt. |
-| **nLocalAxisSetPos** | DINT | Tổng số xung phát lệnh nguyên bản của trục nội bộ. |
-
-### 2.3. Nhóm Hồi tiếp thực tế (Act - Actual Feedback Values)
-| Tên biến | Kiểu dữ liệu | Chức năng |
-| :--- | :---: | :--- |
-| **fActPosition** | LREAL | Vị trí hồi tiếp thực tế hiện tại của cơ cấu. |
-| **fActVelocity** | LREAL | Vận tốc quay thực tế đo được từ Encoder. |
-| **fFollowPos** | LREAL | Độ lệch bám vị trí (Following Error = SetPos - ActPos). |
-| **nLocalAxisActPos** | DINT | Số xung thực tế đọc về từ bộ đếm tốc độ cao HSC. |
-| **nLocalAxisActFrequency**| DINT | Tần số phát xung thực tế đo được thời gian thực. |
-
-### 2.4. Nhóm Trạng thái logic (Status - Bit Indicators)
-| Tên biến | Kiểu dữ liệu | Chức năng |
-| :--- | :---: | :--- |
-| **wAxisState** | WORD | Trạng thái máy trạng thái PLCopen hiện thời (StandStill, DiscreteMotion...). |
-| **wAxisError** | DWORD | Mã lỗi hiện tại của trục (0 nếu bình thường). |
-| **bPowerState** | BOOL | Báo trạng thái Servo ON đang sẵn sàng. |
-| **bphLimit** | BOOL | Tín hiệu chạm công tắc hành trình giới hạn dương phần cứng. |
-| **bnhLimit** | BOOL | Tín hiệu chạm công tắc hành trình giới hạn âm phần cứng. |
-| **bHomeState** | BOOL | Tín hiệu công tắc cảm biến điểm gốc (Origin/Home). |
-| **bPsLimit** | BOOL | Báo chạm giới hạn phần mềm chiều dương (Software Positive Limit). |
-| **bnsLimit** | BOOL | Báo chạm giới hạn phần mềm chiều âm (Software Negative Limit). |
-| **bTarDir** | BOOL | Chiều chuyển động mục tiêu (`FALSE`: Thuận, `TRUE`: Nghịch). |
-
-### 2.5. Nhóm Gỡ lỗi bằng tay (Dbg - Axis Debugging Controls)
-| Tên biến | Kiểu dữ liệu | Chức năng điều khiển gỡ lỗi |
-| :--- | :---: | :--- |
-| **bAxisDebug** | BOOL | Công tắc bật chế độ gỡ lỗi trực tiếp trên giao diện phần mềm. |
-| **bPower** | BOOL | Công tắc cưỡng bức Servo ON/OFF. |
-| **bStop** | BOOL | Nút kích hoạt dừng trục khẩn cấp. |
-| **bReset** | BOOL | Nút kích hoạt xóa lỗi trục. |
-| **bJogP / bJogN** | BOOL | Nút bấm chạy JOG thuận (+) / JOG nghịch (-). |
-| **bHome** | BOOL | Nút bấm kích hoạt chu trình tìm gốc cơ học. |
-| **bAbsPos / bRelPos**| BOOL | Nút bấm chạy thử định vị tuyệt đối / tương đối. |
-| **fPresetPosition**| LREAL | Tọa độ đích đặt trước để test định vị. |
-| **fJogVelocity** | LREAL | Vận tốc chạy thử JOG. |
+| Name | Data type | Chức năng và nguyên lý hoạt động |
+| Cfg | AXIS_INFO_CFG_T | Cấu hình tham số trục |
+| wAxisID | WORD | Số hiệu định danh trục (Axis ID) (Read only) |
+| wVersion | WORD | Version number (Read only) |
+| wAxisType | WORD | Axis type (Read only): Bus servo axis Bus encoder axis |
+| nEtherCATNo | DINT | EtherCAT axis number |
+| nLocalID | DINT | Local axis ID. Y0/Y1 is 0; Y2/Y3 is 1; Y4/Y5 is 2; Y6/Y7 is 3. |
+| bVirtualAxis | BOOL | Virtual axis or not |
+| Cmd | AXIS_INFO_CMD_T | Giá trị cài đặt phát lệnh |
+| fSetPosition | LREAL | Tọa độ cài đặt phát lệnh (Chỉ đọc) |
+| fSetVận tốc cài đặt | LREAL | Vận tốc cài đặt phát lệnh (Chỉ đọc) |
+| fSetGia tốc tăng tốc | LREAL | Gia tốc cài đặt phát lệnh (Chỉ đọc) |
+| fSetGia tốc giảm tốc | LREAL | Gia tốc hãm thực tế (Chỉ đọc) |
+| fSetĐộ giật mượt đường cong S (Jerk) | LREAL | Độ giật cài đặt (Chỉ đọc) |
+| fSetTorque | LREAL | Lực xoắn cài đặt (Chỉ đọc, Dự phòng) |
+| nLocalAxisSetPos | DINT | Tọa độ phát lệnh của trục xung nội bộ (Chỉ đọc) |
+| Act | AXIS_INFO_ACT_T | Giá trị thực tế hiện tại |
+| fActPosition | LREAL | Vị trí hiện tại đo được (Chỉ đọc) |
+| fActVận tốc cài đặt | LREAL | Vận tốc hiện tại đo được (Chỉ đọc) |
+| fActGia tốc tăng tốc | LREAL | Gia tốc thực tế đo được (Chỉ đọc) |
+| fActGia tốc giảm tốc | LREAL | Gia tốc hãm thực tế (Chỉ đọc) |
+| fActĐộ giật mượt đường cong S (Jerk) | LREAL | Độ giật thực tế đo được (Chỉ đọc) |
+| fActTorque | LREAL | Lực xoắn hiện tại (Chỉ đọc, Dự phòng) |
+| fFollowPos | LREAL | Độ lệch bám vị trí (Following Error, Chỉ đọc) |
+| nLocalAxisActPos | DINT | Vị trí thực tế trục xung đọc từ HSC (Chỉ đọc) |
+| nLocalAxisActFrequency | DINT | Tần số phát xung thực tế đo được (Chỉ đọc) |
+| Status | AXIS_INFO_STATUS_T | Trạng thái trục |
+| wAxisState | WORD | Trạng thái trục (Read only) |
+| Name | Data type | Chức năng và nguyên lý hoạt động |
+| wAxisError | DWORD | Mã lỗi của trục (Chỉ đọc) |
+| wMotionState | WORD | Trạng thái chuyển động của trục (Chỉ đọc) |
+| bPowerState | BOOL | Trạng thái Servo Ready ON (Chỉ đọc) |
+| bphLimit | BOOL | Cảm biến giới hạn hành trình dương phần cứng (Chỉ đọc) |
+| bnhLimit | BOOL | Cảm biến giới hạn hành trình âm phần cứng (Chỉ đọc) |
+| bHomeState | BOOL | Cảm biến vị trí điểm gốc Home (Chỉ đọc) |
+| bPsLimit | BOOL | Cờ chạm giới hạn phần mềm chiều dương (Chỉ đọc) |
+| bnsLimit | BOOL | Cờ chạm giới hạn phần mềm chiều âm (Chỉ đọc) |
+| bTarDir | BOOL | Chiều chuyển động hiện thời (Chỉ đọc) |
+| Dbg | AXIS_DEBUG_T | Thông tin gỡ lỗi trục trực tiếp |
+| bAxisDebug | BOOL | Công tắc bật chế độ gỡ lỗi |
+| bPower | BOOL | Công tắc cấp nguồn Servo ON/OFF |
+| bStop | BOOL | Lệnh dừng trục khẩn cấp |
+| bReset | BOOL | Lệnh xóa lỗi trục |
+| bJogP | BOOL | Nút bấm chạy nhấp chiều thuận (JOG+) |
+| bJopN | BOOL | Nút bấm chạy nhấp chiều nghịch (JOG-) |
+| bHome | BOOL | Kích hoạt tìm gốc cơ học |
+| bSetPos | BOOL | Cài đặt tọa độ hiện tại |
+| bAbsPos | BOOL | Chạy thử định vị tuyệt đối |
+| bRevPos | BOOL | Reciprocating motion: |
+| bRelPos | BOOL | Chạy thử định vị tương đối |
+| bVận tốc cài đặt | BOOL | Chạy liên tục theo vận tốc |
+| bTorque | BOOL | Chế độ Moment lực xoắn (Dự phòng) |
+| fPresetPosition | LREAL | Tọa độ áp đặt trước |
+| fJogVận tốc cài đặt | LREAL | Vận tốc chạy thử JOG |
+| fPositionOffser | LREAL | Kích hoạt tìm gốc cơ học mode offset |
+| fTarPosition | LREAL | Tọa độ vị trí mục tiêu |
+| fTarVận tốc cài đặt | LREAL | Vận tốc mục tiêu |
+| fTarGia tốc tăng tốc | LREAL | Gia tốc mục tiêu |
+| fTarGia tốc giảm tốc | LREAL | Gia tốc giảm tốc mục tiêu |
+| fTarĐộ giật mượt đường cong S (Jerk) | LREAL | Độ giật mục tiêu |
+| fTarPosition2 | LREAL | Tọa độ vị trí mục tiêu 2 |
+| Name | Data type | Chức năng và nguyên lý hoạt động |
+| fTarVận tốc cài đặt2 | LREAL | Target speed 2 |
+| fTarGia tốc tăng tốc2 | LREAL | Độ giật mục tiêu 2 |
+| fTarGia tốc giảm tốc2 | LREAL | Gia tốc giảm tốc mục tiêu 2 |
+| fTarĐộ giật mượt đường cong S (Jerk)2 | LREAL | Độ giật mục tiêu 2 |
+| fTarTorque | LREAL | Target torque Reserved |
+| fTarTorqueSlop | LREAL | Torque ramp Reserved |
+| fLimitVận tốc cài đặt | LREAL | Limit the speed. Reserved |
+| Pdo | AXIS_INFO_PDO_T | PDO information |
+| wControlWord | WORD | Control word |
+| wStatusWord | WORD | Status word |
+| nSetPosition | DINT | Setting position |
+| nActPosition | DINT | Current position |
+| nSetVận tốc cài đặt | DINT | Setting speed |
+| nActVận tốc cài đặt | DINT | Current speed |
+| nSetTorque | DINT | Lực xoắn cài đặt (Chỉ đọc, Dự phòng) |
+| nActTorque | DINT | Current torque Reserved |
+| nDO | DINT | Digital output Reserved |
+| nDI | DINT | Digital input Reserved |
+| wModesOfPperation | WORD | Control mode |
+| wModesOfPperationDisplay | WORD | Current control mode |
+| wTouchChức năng và nguyên lý hoạt động | WORD | Touch probe function settings |
+| wTouchStaus | WORD | Probe touch status |
+| nTouch1PPos | DINT | Rising edge position of touch probe 1 |
+| nTouch1NPos | DINT | Falling edge position of touch probe 1 |
+| nTouch2PPos | DINT | Rising edge position of touch probe 2 |
+| nTouch2NPos | DINT | Falling edge position of touch probe 2 |
+| nMaxVận tốc cài đặt | DINT | Maximum velocity Reserved |
+| pParam | AXIS_MODEPARAM_INFO_T | Tham số information |
+| nEncoderMode | BYTE | Encoder model. |
+| Name | Data type | Chức năng và nguyên lý hoạt động |
+|  |  | 0: Incremental mode 1: Absolute mode. |
+| nModeSet | BYTE | Mode settings. 0: Linear mode 1: Rotation mode. |
+| dRotatePeriod | LREAL | Rotation cycle |
+| nSpeedADType | BYTE | Speed acceleration and deceleration type. 0: Default mode; 1: T-curve; 2: S-curve. |
+| bEnSwLimit | BOOL | Whether to enable software limit |
+| dSwPLimit | LREAL | Positive limit unit |
+| dSwNLimit | LREAL | Reverse limit unit |
+| dFollowThreShold | LREAL | Following error threshold Unit |
+| dAxisMaxSpeed | LREAL | Axis maximum velocity unit/s |
+| dAxisMaxASpeed | LREAL | Axis maximum acceleration unit/s^2 |
+| dAxisMaxJogSpeed | LREAL | Axis Jog Maximum Speed Unit/s |
+| nPMaxTorque | DINT | Positive torque maximum*0.1% |
+| nNMaxTorque | DINT | Negative torque maximum*0.1% |
+| bNoInErrorStop | BOOL | Don’t enter ErrorStop after hitting the limit status. Reserved |
+| bHdPLimit | BOOL | Hardware positive limit 0: Positive logic; 1: Negative logic; Reserved: Not in use yet. |
+| bHdNLimit | BOOL | Hardware reverse limit (Read-only) 0: Positive logic; 1: Negative logic; Reserved: Not in use yet. |
+| bEnProbe1 | BOOL | Touch probe 1 enable Reserved |
+| bEnProbe2 | BOOL | Touch probe 2 enable Reserved |
+| sProbe1 | ARRAY[O..5] OF BYTE | Touch probe 1, X0 to X7. |
+| sProbe2 | ARRAY[O..5] OF BYTE | Touch probe 2, X0 to X7. |
+| nOutputWay | DWORD | Output mode 0: Pulse+Direction; 1: CW/CCW. |
+| nCounterMode | DWORD | Counting mode 0: A/B phase 1 times frequency; |
+| Name | Data type | Chức năng và nguyên lý hoạt động |
+|  |  | 1: A/B phase 2 times frequency; 2: A/B phase 4 times frequency; 3: CW/CCW; 4: Pulse+Direction; 5: Single phase count. |
+| nSignalSource | DWORD | Signal source 0: X0-Phase A; 1: X1-Phase B; 2: X2-Phase A; 3: X3-Phase B. |
+| bEnPreSet | BOOL | Preset enable |
+| sInputTermial | ARRAY[O..5] OF BYTE | Input terminal |
+| bEnCmpOutput | BOOL | Compare output enable |
+| dPulseWidth | LREAL | Pulse width |
+| sOutputTermial | ARRAY[O..5] OF BYTE | Output terminal |
+| sCmpOutputUnit | ARRAY[O..4] OF BYTE | Compare output units ms/Unit |
+| nFiltTime10ns | DINT | Filtering time design 10us unit |
+| nFreqFilterTime | DINT | Vận tốc cài đặt filtering time constant |
+| pOrigin | AXIS_ORIGINRET_INFO_T | Kích hoạt tìm gốc cơ học information |
+| nOriginSignal | BYTE | Cờ báo trục đang trong chu trình tìm gốc (Kích hoạt tìm gốc cơ học)al 0: Not assigned; 1: Not used; 2: In use. |
+| nZSingal | BYTE | Z signal. 0: Not assigned; 1: Not used; 2: In use. |
+| nPLimit | BYTE | Positive limit 0: Not assigned; 1: Not used; 2: In use. |
+| nNLimit | BYTE | Negative limit 0: Not assigned; 1: Not used; 2: In use. |
+| nDirection | BYTE | Kích hoạt tìm gốc cơ học direction: 0: Not assigned; 1: Forward; 2: Reverse |
+| nInputCheckDirection | BYTE | Enter the detection direction. 0: Not assigned; |
+| Name | Data type | Chức năng và nguyên lý hoạt động |
+|  |  | 0: Positive 2: Reverse |
+| nReturnList | BYTE | Kích hoạt tìm gốc cơ học list Kích hoạt tìm gốc cơ học mode 1 to 35 |
+| nReturnZero | BYTE | Kích hoạt tìm gốc cơ học mode 0: Absolute homing 1: Relative homing. |
+| dReturnSpeed | LREAL | Kích hoạt tìm gốc cơ học speed Unit/s |
+| dReturnAccelerate | LREAL | Kích hoạt tìm gốc cơ học acceleration Uint/s^2 |
+| dReturnNearSpeed | LREAL | Kích hoạt tìm gốc cơ học approach velocity Unit/s |
+| nReturnTimeOut | DINT | Kích hoạt tìm gốc cơ học overtime time ms |
+| bEnPLimit | BOOL | Positive limit enables |
+| bEnNLimit | BOOL | Negative limit enable |
+| bEnSignalLimit | BOOL | Cờ báo trục đang trong chu trình tìm gốc (Kích hoạt tìm gốc cơ học)al enable |
+| sPLimitAddr | ARRAY[O..5] OF BYTE | Positive limit address X0~X1023. (The local pulse axis currently only supports hardware limit X0-X7) |
+| sNLimitAddr | ARRAY[O..5] OF BYTE | Reverse limit address X0~X1023. (The local pulse axis currently only supports hardware limit X0-X7) |
+| sSignalLimitAddr | ARRAY[O..5] OF BYTE | Cờ báo trục đang trong chu trình tìm gốc (Kích hoạt tìm gốc cơ học)al address X0 to X1023 (The local pulse axis currently only supports hardware limit X0-X7) |
+| nPLimitLogic | BOOL | Forward limit logic 0: Forward logic; 1: Reverse logic. |
+| nNLimitLogic | BOOL | Negative limit logic. 0: Positive logic; 1: Negative logic. |
+| nSignalLogic | BOOL | Cờ báo trục đang trong chu trình tìm gốc (Kích hoạt tìm gốc cơ học)al logic 0: Positive logic; 1: Negative logic. |
+| pUnit | AXIS_UNITCONV_INFO_T | Unit information |
+| bReverse | BOOL | Reverse or not |
+| bEnGearBox | BOOL | Enable gearbox |
+| nRotatePulseNum | DINT | The number of pulses for one revolution of the motor/encoder |
+| dRotateMoveAmount1 | LREAL | Movement amount 1 in one rotation |
+| dRotateMoveAmount2 | LREAL | Movement amount 2 in one rotation |
+| nGearRatioM | INT | Gear ratio molecule |
+| nGearRatioD | INT | Gear ratio denominator |

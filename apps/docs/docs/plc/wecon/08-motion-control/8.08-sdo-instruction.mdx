@@ -3,48 +3,74 @@ id: "8.08-sdo-instruction"
 title: "8.08 Lệnh truyền thông SDO qua mạng Bus EtherCAT"
 sidebar_position: 9
 sidebar_label: "8.08 Lệnh SDO EtherCAT"
-tags: [wecon, lx6v, lx6a, sdo, ethercat, cia402, object-dictionary]
-description: "Hướng dẫn chi tiết cú pháp và cách thức đọc/ghi tham số từ điển đối tượng (Object Dictionary) của Servo Drive qua lệnh SDO: MC_READSDO và MC_WRITESDO."
+tags: [wecon, lx6v, lx6a, motion-control, plcopen, manual]
+description: "Tài liệu kỹ thuật chi tiết chuẩn hãng 8.08 Lệnh truyền thông SDO qua mạng Bus EtherCAT trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."
 ---
 
-## Tổng quan về truyền thông SDO trong mạng Bus EtherCAT
+# SDO instruction
 
-Trong mạng truyền thông công nghiệp thời gian thực EtherCAT:
-- **Kênh PDO (Process Data Objects):** Dùng để trao đổi dữ liệu điều khiển tuần hoàn thời gian thực cực nhanh (chu kỳ 1ms, 500µs) như: Lệnh vị trí, vận tốc tức thời, trạng thái Statusword.
-- **Kênh SDO (Service Data Objects):** Dùng để đọc hoặc ghi cấu hình tham số tĩnh bên trong **Từ điển đối tượng (Object Dictionary)** của Servo Drive mà không cần kết nối cáp cấu hình riêng.
+### MC_READSDO reads SDO data
 
-PLC Wecon hỗ trợ 2 lệnh truyền thông SDO chuẩn:
+ MC_READSDO
 
-```text
-Cú pháp đọc: -[ MC_READSDO   (S1) (S2) (S3) (D1) (S4) ]-
-Cú pháp ghi: -[ MC_WRITESDO  (S1) (S2) (S3) (S4) (S5) ]-
-```
+This instruction is used to read the value of the servo object dictionary.
 
----
+- [ MC_READSDO    (S1)    (S2)    (S3)    (D1)    (S4)  ]
 
-## 1. Lệnh đọc dữ liệu: MC_READSDO
+### Nội dung, phạm vi và kiểu dữ liệu
 
-Đọc giá trị từ một ô nhớ tham số trong Servo về thanh ghi PLC.
+| Tham số | Content | Phạm vi giá trị | Data type | Kiểu dữ liệu (Bảng) |
+| (S1) | Object dictionary index | - | Unsigned BIN16 | ANY16_U |
+| (S2) | Object dictionary subindex | - | Unsigned BIN16 | ANY16_U |
+| (S3) | Length (BYTE unit) | - | Unsigned BIN16 | ANY16_U |
+| (D1) | The read device | - | Define the size according to S3. | - |
+| (S4) | Specify the servo station number | - | Signed BIN16 | ANY16_S |
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
 
-### Bảng tham số lệnh MC_READSDO:
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_READSDO | Tham số 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
+| Tham số 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
+| Tham số 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
+| Tham số 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● |  |  |  |  |  |
+| Tham số 5 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
+Đặc tính kỹ thuật
 
-| Ký hiệu | Ý nghĩa tham số | Kiểu dữ liệu | Dải giá trị | Ví dụ ứng dụng thực tế |
-| :---: | :--- | :---: | :--- | :--- |
-| **(S1)** | Index của Object Dictionary | ANY16_U (WORD) | 16#0000 .. 16#FFFF | `16#6041` (Statusword), `16#6064` (Actual Position) |
-| **(S2)** | Sub-index của Object Dictionary | ANY16_U (WORD) | 16#00 .. 16#FF | Chỉ mục con của tham số bên trong Drive |
-| **(S3)** | Độ dài dữ liệu (Số Byte) | ANY16_U (WORD) | 1, 2, 4 | `1` (1 Byte), `2` (Word/16-bit), `4` (DWord/32-bit) |
-| **(D1)** | Vùng nhớ lưu dữ liệu đọc về | D, R, SD... | Theo kích thước S3 | Thanh ghi PLC nhận kết quả đọc từ Servo |
-| **(S4)** | Số trạm Servo (Station Node ID)| ANY16_S (INT) | 1 .. 65535 | Địa chỉ mạng vật lý của Drive trên tuyến EtherCAT |
+▪Read the value according to the servo station number (S4), object dictionary index (S1), object dictionary subindex (S2), and length (S3) to the set device (D1).
 
----
+✎Note:
 
-## 2. Lệnh ghi dữ liệu: MC_WRITESDO
+▪When there is the corresponding object dictionary set in PDO, there may be a situation where SDO cannot read it.
 
-Ghi giá trị cấu hình mới từ PLC vào tham số nội tại của bộ điều khiển Servo:
-- **(S1):** Index đối tượng (WORD).
-- **(S2):** Sub-index đối tượng (WORD).
-- **(S3):** Chiều dài dữ liệu ghi (1, 2, 4 Byte).
-- **(S4):** Giá trị hoặc vùng nhớ chứa giá trị cần ghi vào Drive.
-- **(S5):** Số trạm Servo mục tiêu.
+### MC_WRITESD0 writes SDO data
 
-> **Lưu ý kỹ thuật quan trọng:** Nếu một tham số đối tượng đã được gán (Mapped) sẵn vào danh sách trao đổi dữ liệu nhanh (RxPDO hoặc TxPDO), giao thức an toàn của một số dòng Servo sẽ khóa quyền đọc/ghi tham số đó qua kênh SDO để tránh xung đột dữ liệu.
+ MC_WRITESDO
+
+This instruction is used to write the value of the servo object dictionary.
+
+-[MCWRITESDO (S1) (S2) (S3) (S4) (S5)]
+
+### Nội dung, phạm vi và kiểu dữ liệu
+
+| Tham số | Content | Phạm vi giá trị | Data type | Kiểu dữ liệu (Bảng) |
+| (S1) | Object dictionary index | - | Unsigned BIN16 | ANY16_U |
+| (S2) | Object dictionary sub-index | - | Unsigned BIN16 | ANY16_U |
+| (S3) | Length (BYTE unit) | - | Unsigned BIN16 | ANY16_U |
+| (S4) | The value to be written | - | Define the size according to S3. | - |
+| (S5) | Specify the servo station number | - | Signed BIN16 | ANY16_S |
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_READSDO | Tham số 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
+| Tham số 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
+| Tham số 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
+| Tham số 4 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● |  |  |  |  |  |
+| Tham số 5 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ● | ● |  | ● | ● | ● | ● |  |  |  |
+Đặc tính kỹ thuật
+
+▪The value of the device (S4) is written to the positions of the servo station number (S5), the object dictionary index (S1), the object dictionary sub-index (S2), and the length (S3).
+
+✎Note:
+
+▪When there is the corresponding object dictionary set in PDO, there may be a situation where SDO cannot write to it.

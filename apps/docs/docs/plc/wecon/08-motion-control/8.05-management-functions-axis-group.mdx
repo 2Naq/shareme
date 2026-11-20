@@ -1,36 +1,520 @@
 ---
 id: "8.05-management-functions-axis-group"
-title: "8.05 Khối hàm quản trị điều khiển nhóm trục (Axis Group Management)"
+title: "8.05 Khối hàm quản trị điều khiển nhóm trục"
 sidebar_position: 6
 sidebar_label: "8.05 Quản trị nhóm trục (10 FBs)"
-tags: [wecon, lx6v, lx6a, axis-group, mc_groupenable, mc_groupdisable, mc_groupreset]
-description: "Hướng dẫn kỹ thuật 10 khối hàm quản trị nhóm trục (Axis Group) cho các cơ cấu nhiều bậc tự do (Cartesian, Delta, SCARA, CNC) trên PLC Wecon."
+tags: [wecon, lx6v, lx6a, motion-control, plcopen, manual]
+description: "Tài liệu kỹ thuật chi tiết chuẩn hãng 8.05 Khối hàm quản trị điều khiển nhóm trục trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."
 ---
 
-## Tổng quan nhóm khối hàm 8.05
+# Management functions of axis group motion contro
 
-Khi điều khiển các cơ cấu phối hợp nhiều trục (như tay gắp Cartesian X-Y-Z, máy CNC, Robot Delta), các trục đơn lẻ được tập hợp thành một **Nhóm trục (Axis Group)**. Nhóm trục được quản lý bởi một máy trạng thái nhóm riêng biệt (`GroupDisabled`, `GroupStandby`, `GroupMoving`, `GroupStopping`, `GroupErrorStop`).
+The function block is to add axis to axis group.
 
-### Danh mục 10 khối hàm quản trị nhóm trục:
-1. **MC_GROUPENABLE:** Cấp nguồn và kích hoạt nhóm trục vào trạng thái sẵn sàng (`GroupStandby`).
-2. **MC_GROUPDISABLE:** Vô hiệu hóa toàn bộ nhóm trục.
-3. **MC_GROUPRESET:** Xóa lỗi nhóm trục khi rơi vào sự cố (`GroupErrorStop`).
-4. **MC_GROUPREADSTATUS:** Đọc trạng thái hoạt động tổng thể của nhóm trục.
-5. **MC_GROUPREADERROR:** Đọc cờ và mã lỗi chi tiết của nhóm trục.
-6. **MC_GROUPREDACTUALPOSITION:** Đọc vector tọa độ thực tế $[X, Y, Z]$ của nhóm trục.
-7. **MC_GROUPREADACTUALVELOCITY:** Đọc vận tốc tiếp tuyến tổng hợp thực tế của nhóm trục.
-8. **MC_GROUPREADACTUALACCELERATION:** Đọc gia tốc tiếp tuyến thực tế của nhóm trục.
-9. **MC_REMOVEAXISFROMGROUP:** Tách một trục đơn ra khỏi nhóm.
-10. **MC_UNGROUPALLAXES:** Giải tán hoàn toàn nhóm trục, đưa tất cả các trục trở lại trạng thái trục độc lập.
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
 
-```pascal
-// Ví dụ kích hoạt nhóm trục
-fb_GroupEnable(
-    Execute     := bEnableGroupCmd,
-    AxisGroup   := GroupID_0,        // Tham chiếu nhóm trục
-    Done        => bGroupReady,
-    Busy        => bGroupBusy,
-    Error       => bGroupErr,
-    ErrorID     => dwGroupErrID
-);
-```
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+|  |  | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_ADDAXISTOGROUP | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| IdentInGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_ADDAXISTOGROUP | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| IdentInGroup | WORD | Không | [0 to 2] | Axis sequence flag |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Axis | WORD | Không | [0 t o 65535] | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 10 Error Code】) |
+Đặc tính kỹ thuật
+
+▪The rising edge of Execute triggers and Axis is added to Axes Group. Khối lệnhs are not buffered and axis do not move;
+
+▪IndentInGroup is a flag of the adding axis order to axis group.
+
+✎Note:
+
+▪If the serial number of the axis group does not exist, an error will be reported;
+
+▪When the axis group is enabled, an error will be reported when add new axis;
+
+▪Axis group cannot move when only adding axis to axis group. It is necessary to call MC_GroupEnable to enable the motion.
+
+ Error code
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was input. |
+Giản đồ thời gian thực thi (Sequence Diagram)
+
+### MC_REMOVEAXISFROMGROUP
+
+This function block removes axis from an axis group.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_REMOVEAXISFROMGROUP | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| IdentInGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_REMOVEAXISFROMGROUP | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| IdentInGroup | WORD | Không | [0 to 2] | Axis sequence flag |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 10 Error Code Cross-reference Table】) |
+Đặc tính kỹ thuật
+
+▪This function block removes axis from AxesGroup with serial number marked by IdentInGroup, which are not cached and do not move.
+
+ ✎Note:▪If the serial number of the axis group does not exist, an error will be reported;
+
+▪ Axis group is running or not disabled, and an error will be reported when removed the axis;
+
+▪Single-axis operation can only be executed when the axis group is disabled, and whether it is removed or not will not affect the single-axis operation.
+
+Error code 
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was input. |
+Giản đồ thời gian thực thi (Sequence Diagram)
+
+### MC_UNGROUPALLAXES
+
+This function block removes all the axes from an axis group.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_UNGROUPALLAXES | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BusY |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+ ### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_UNGROUPALLAXES | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| BusY | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 10 Error Code】) |
+ Đặc tính kỹ thuật
+
+▪Delete all axes from AxesGroup. Not be buffered and not move.
+
+✎Note:
+
+▪If the serial number of the axis group does not exist, an error will be reported;
+
+▪ Axis group is running or not disabled, and an error will be reported when removed the axis;
+
+Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+
+### MC_GROUPENABLE
+
+The function block is axis group enabled.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_SAVECAMTABLE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪T, C, D, R and SD are signed 16-bit data types.
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GROUPENABLE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8.10 Error Code】) |
+Đặc tính kỹ thuật
+
+▪Enable axis group to run on the Execute rising edge.
+
+✎Note:▪Axis group motion can only be running when enabled, otherwise an error will be reported;
+
+▪When a single axis is running, enabling this block will report an error.
+
+Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+Giản đồ thời gian thực thi (Sequence Diagram)
+
+### MC_GROUPDISABLE
+
+This function block is axis group disabled.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used) (Only a single device can be used, an d device splicing and index are not supported)
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GROUPDISABLE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+ ### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪T, C, D, R and SD are signed 16-bit data types.
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Type | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GROUPDISABLE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 10 Error Code】) |
+Đặc tính kỹ thuật
+
+▪On the Execute rising edge, disable the axis group.
+
+✎Note:
+
+▪Single axis operation can only be executed when the group is disabled.
+
+▪When a single axis is running, disabling this block will report an error.
+
+ Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+
+### MC_GROUPREDACTUALPOSITION
+
+This function block is to read the actual position of each axis from the axis group.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GROUPREADA CTUALPOSITION | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CoordSystem |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪T, C, D, R and SD are signed 16-bit data types.
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GROUPREADACTUALPOSITION | Ngõ vào (Input) | Enable | BOOL | Không | TRUE / FALSE | Enable |
+| CoordSystem | WORD | Có | 0 | Coordinate system |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Valid | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 11 Error Code】) |
+| Position | LREAL array | Có |  | Position |
+Đặc tính kỹ thuật
+
+- When Enable= true, the position of each axis of the selected axis group in the selected coordinate system is continuously returned.
+Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+
+### MC_GROUPREADACTUALVELOCITY
+
+​
+
+This function block is to read the actual velocity of each axis from the axis group.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GROUPREADACTUALVELOCITY | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CoordSystem |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| PathVận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GROUPREADACTUALVELOCITY | Ngõ vào (Input) | Enable | BOOL | Không | TRUE / FALSE | Enable |
+| CoordSystem | WORD | Có | 0 | Coordinate system |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Valid | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 11 Error Code】) |
+| Vận tốc cài đặt | LREAL array | Có |  | Vận tốc cài đặt |
+| PathVận tốc cài đặt | LREAL | Có |  | Path velocity |
+ Đặc tính kỹ thuật
+
+- When Enable=true, the velocity of each axis and the current TCP path velocity (the result of combined velocity) of the selected axis group in the selected coordinate system are continuously returned.
+ Error code
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was input. |
+
+### MC_GROUPREADERROR
+
+​
+
+The function block is axis group to read error.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GROUPREADERROR | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GroupErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GROUPREADERROR | Ngõ vào (Input) | Enable | BOOL | Không | TRUE / FALSE | Enable |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Valid | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 11Error Code】) |
+| GroupErrorID | DWROD | Có |  | Axis group error code |
+Đặc tính kỹ thuật
+
+▪When Enable= true, read the axis group error status.
+
+Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+
+### MC_GROUPREADSTATUS
+
+This function block reads the status of the currently activated axis group.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GROUP READSTATUS | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GroupMoving |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GroupKích hoạt tìm gốc cơ học |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GroupErrorStop |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GroupStandby |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GroupStopping |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| GroupDisabled |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ConstantVận tốc cài đặt |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Accelerating |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Decelerating |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| InPosition |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GROUPREADERROR | Ngõ vào (Input) | Enable | BOOL | Không | TRUE / FALSE | Enable |
+| AxesGroup | WORD | Không | [0,65535] | Axis group number |
+| Ngõ ra (Output) | Valid | BOOL | Có | TRUE / FALSE | Whether the output is valid |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| GroupMoving | BOOL | Có | TRUE / FALSE | Axle group movement flag |
+| GroupKích hoạt tìm gốc cơ học | BOOL | Có | TRUE / FALSE | Axle group back to zero flag |
+| GroupErrorStop | BOOL | Có | TRUE / FALSE | Axis group error stop flag |
+| GroupStandby | BOOL | Có | TRUE / FALSE | Axis group static sign |
+| GroupStopping | BOOL | Có | TRUE / FALSE | Axis group stop in flag |
+| GroupDisabled | BOOL | Có | TRUE / FALSE | Axis group not activated flag |
+| ConstantVận tốc cài đặt | BOOL | Có | TRUE / FALSE | Constant speed |
+| Accelerating | BOOL | Có | TRUE / FALSE | Accelerate |
+| Decelerating | BOOL | Có | TRUE / FALSE | Decelerate |
+| InPosition | BOOL | Có | TRUE / FALSE | Reach the target position |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 11 Error Code Cross-Reference Table】) |
+ Đặc tính kỹ thuật
+
+▪When Enable= true, the status of the enabled axis group is continuously returned, and its status is set and marked by the output flag;
+
+▪ConstantVận tốc cài đặt is set to ON when moving at constant velocity on the command path.Accelerating and decelerating is set to ON when the velocity increases or decreases on the command path.
+
+▪ InPosition is set to ON when reach the target position. 
+
+Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+
+### MC_GROUPRESET
+
+The function block is axis group reset.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GROUPRESET | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪T, C, D, R and SD are signed 16-bit data types.
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GROUPRESET | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 10 Error Code Cross-reference Table】) |
+Đặc tính kỹ thuật
+
+▪Reset the axis group from the error status to the enabled status when on the Execute rising edge, which is similar with the single-axis MC_Reset.
+
+Error code
+
+| Error code | Content |
+| 4084H | Input data beyond the specifiable range |
+
+### MC_GROUPREADACTUALACCELERATION
+
+This function block is to read the actual acceleration of each axis from the axis group.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc chỉ mục)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_GROUPREADACTUALACCELERATION | Enable | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CoordSystem |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| AxesGroup |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Valid |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| PathGia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+ ### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+▪- **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+
+▪- **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_GROUPREADACTUALACCELERATION | Ngõ vào (Input) | Enable | BOOL | Không | TRUE / FALSE | Enable |
+| CoordSystem | WORD | Có | 0 | Coordinate system |
+| AxesGroup | WORD | Không | [0 to 65535] | Axis group number |
+| Ngõ ra (Output) | Valid | BOOL | Có | TRUE / FALSE | Whether the input is valid or not |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code (Please check【8. 11 Error Code】) |
+| Gia tốc tăng tốc | LREAL array | Có |  | Gia tốc tăng tốc |
+| PathGia tốc tăng tốc | LREAL | Có |  | Path acceleration |
+Đặc tính kỹ thuật
+
+▪When Enable=true, the acceleration of each axis and the current TCP path acceleration (The result of combined acceleration) of the selected axis group in the selected coordinate system are continuously returned.
+
+Error code
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was input. |

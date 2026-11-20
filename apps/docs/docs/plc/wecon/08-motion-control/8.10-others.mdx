@@ -1,89 +1,186 @@
 ---
-id: "8.10-others-state-machine-buffermode"
+id: "8.10-others"
 title: "8.10 Sơ đồ trạng thái, Chế độ cung tròn & Vùng đệm BufferMode"
 sidebar_position: 11
 sidebar_label: "8.10 Máy trạng thái & BufferMode"
-tags: [wecon, lx6v, lx6a, buffermode, arc-mode, transition-mode, state-diagram]
-description: "Chi tiết toàn diện sơ đồ chuyển đổi trạng thái PLCopen, 3 chế độ vẽ cung tròn CircMode và 6 chế độ vùng đệm BufferMode nối quỹ đạo không gián đoạn."
+tags: [wecon, lx6v, lx6a, motion-control, plcopen, manual]
+description: "Tài liệu kỹ thuật chi tiết chuẩn hãng 8.10 Sơ đồ trạng thái, Chế độ cung tròn & Vùng đệm BufferMode trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."
 ---
 
-## 1. Sơ đồ trạng thái máy điều khiển trục đơn (Single Axis State Diagram)
+# Others
 
-```mermaid
-stateDiagram-v2
-    [*] --> Disabled
-    Disabled --> StandStill: MC_Power.Enable = TRUE && Status = TRUE
-    StandStill --> Disabled: MC_Power.Enable = FALSE
-    
-    StandStill --> Homing: MC_Home.Execute
-    Homing --> StandStill: MC_Home.Done = TRUE
-    
-    StandStill --> DiscreteMotion: MC_MoveAbsolute / MC_MoveRelative
-    DiscreteMotion --> StandStill: Done = TRUE
-    
-    StandStill --> ContinuousMotion: MC_MoveVelocity.Execute
-    DiscreteMotion --> ContinuousMotion: MC_MoveVelocity.Execute
-    ContinuousMotion --> DiscreteMotion: MC_MoveAbsolute / Relative
-    
-    StandStill --> SynchronizedMotion: MC_GearIn / MC_CamIn
-    DiscreteMotion --> SynchronizedMotion: MC_GearIn / MC_CamIn
-    ContinuousMotion --> SynchronizedMotion: MC_GearIn / MC_CamIn
-    SynchronizedMotion --> StandStill: MC_GearOut / MC_CamOut
-    
-    DiscreteMotion --> Stopping: MC_Stop.Execute = TRUE
-    ContinuousMotion --> Stopping: MC_Stop.Execute = TRUE
-    SynchronizedMotion --> Stopping: MC_Stop.Execute = TRUE
-    StandStill --> Stopping: MC_Stop.Execute = TRUE
-    Stopping --> StandStill: MC_Stop.Done = TRUE && MC_Stop.Execute = FALSE
-    
-    Disabled --> ErrorStop: Lỗi Phần Cứng / Drive Fault
-    StandStill --> ErrorStop: Lỗi Trục Phát Sinh
-    DiscreteMotion --> ErrorStop: Quá Giới Hạn / Lỗi Trục
-    ContinuousMotion --> ErrorStop: Quá Giới Hạn / Lỗi Trục
-    SynchronizedMotion --> ErrorStop: Lỗi Trục Đồng Bộ
-    Stopping --> ErrorStop: Lỗi Khi Đang Dừng
-    
-    ErrorStop --> StandStill: MC_Reset.Done = TRUE (Khi Enable=TRUE)
-    ErrorStop --> Disabled: MC_Reset.Done = TRUE (Khi Enable=FALSE)
-```
+### Single axis motion control status diagram
 
-### Các quy tắc chuyển đổi trạng thái bắt buộc:
-1. Mọi trạng thái có thể chuyển về **ErrorStop** khi xuất hiện sự cố trên trục.
-2. Mọi trạng thái chuyển về **Disabled** khi `MC_Power.Enable = FALSE` và trục không có lỗi.
-3. Khi ở **ErrorStop**, trục chuyển về **StandStill** khi `MC_Reset.Done = TRUE`, `MC_Power.Enable = TRUE` và `MC_Power.Status = TRUE`.
-4. Trục chuyển từ **Stopping** về **StandStill** chỉ khi `MC_Stop.Done = TRUE` **VÀ** `MC_Stop.Execute = FALSE`.
+✎Note: Continuous line arrows indicate transitions via command. Dashed line arrows indicate automatic transitions, which occur when a command on an axis ends or a related system transition occurs (e.g., a related error).
 
----
+① The transition condition for any state to fault stop or deceleration stop is: a fault occurs on the axis.
 
-## 2. Cơ chế vùng đệm và nối tiếp lệnh: BufferMode
+② The transition condition for any state to off is: MC_Power.Enable = FALSE and there is no fault on the axis.
 
-Khi kích hoạt liên tiếp hai khối lệnh chuyển động (Khối 1: FB1, Khối 2: FB2), tham số **BufferMode** trên FB2 quyết định hành vi tiếp quản trục:
+③ MC_Reset = FALSE and MC_Power.Status = FALSE.
 
-```mermaid
-graph TD
-    FB1["FB1 Đang Chạy Vận Tốc V1"] --> Check{"BufferMode của FB2"}
-    Check -->|mcAborting - 0| Abort["Hủy FB1 ngay lập tức, chuyển hướng theo FB2"]
-    Check -->|mcBuffered - 1| Buf["Chờ FB1 xong hẳn V=0 rồi FB2 mới chạy"]
-    Check -->|mcBlendingLow - 2| BLow["Nối lệnh liên tục tại Min(V1, V2)"]
-    Check -->|mcBlendingPrevious - 3| BPrev["Nối lệnh liên tục tại vận tốc V1"]
-    Check -->|mcBlendingNext - 4| BNext["Nối lệnh liên tục tại vận tốc V2"]
-    Check -->|mcBlendingHigh - 5| BHigh["Nối lệnh liên tục tại Max(V1, V2)"]
-```
+④ MC_Reset = TRUE, MC_Power.Status = TRUE, and MC_Power.Enable = TRUE.
 
-### Chi tiết 6 chế độ BufferMode:
-1. **mcAborting (Chế độ 0 - Mặc định):** Lệnh FB2 kích hoạt sẽ ngắt quyền ngay lập tức của FB1. Vận tốc và tọa độ đích chuyển hướng theo FB2 tức thì.
-2. **mcBuffered (Chế độ 1):** FB2 xếp hàng chờ. FB1 chạy đến đích hoàn toàn và giảm tốc về 0 (V=0), ngay lập tức FB2 được kích hoạt mà không bị trễ thời gian chu kỳ quét PLC.
-3. **mcBlendingLow (Chế độ 2):** Trục không dừng lại tại ranh giới giữa 2 khối lệnh mà chạy lướt qua vị trí tiếp giáp với vận tốc chuyển tiếp bằng `Min(V1, V2)`.
-4. **mcBlendingPrevious (Chế độ 3):** Trục chạy qua điểm tiếp giáp với vận tốc duy trì chính xác bằng vận tốc của khối lệnh trước (V1).
-5. **mcBlendingNext (Chế độ 4):** Trục chạy qua điểm tiếp giáp với vận tốc của khối lệnh sau (V2).
-6. **mcBlendingHigh (Chế độ 5):** Trục chạy qua điểm tiếp giáp với vận tốc bằng `Max(V1, V2)`.
+⑤ MC_Power.Enable = TRUE and MC_Power.Status = TRUE.
 
----
+⑥ MC_Stop.Done = TRUE and MC_Stop.Execute = FALSE.
 
-## 3. Chế độ vẽ cung tròn: Arc Mode (CircMode)
+### Axis group motion control status diagram
 
-| Chế độ (`CircMode`) | Tên gọi | Cách thức xác định cung tròn | Ràng buộc kỹ thuật |
-| :---: | :--- | :--- | :--- |
-| **0** | **Border (3 điểm biên)** | Điểm bắt đầu $\to$ Điểm phụ `AuxPoint` $\to$ Điểm kết thúc `EndPoint`. | Góc ôm cung tròn bắt buộc phải nhỏ hơn `2π`. |
-| **1** | **Circle Center (Tâm tròn)**| Điểm bắt đầu $\to$ Tâm đường tròn `AuxPoint` $\to$ Điểm kết thúc. Chọn chiều quay `CW` hoặc `CCW`. | Góc không được đúng bằng `π`; góc ôm nhỏ hơn `2π`. |
-| **2** | **Diameter (Vectơ pháp tuyến)**| Điểm bắt đầu, điểm kết thúc và vectơ pháp tuyến vuông góc với mặt phẳng chứa cung tròn. | Phải tính toán vectơ vuông góc với mặt phẳng cung tròn; chiều dài vectơ bằng bán kính. |
+✎Note: For all states in the diagram could be transitioned to GroupDisabled state by MC_GroupDisable or MC_UngroupAllAxes.
+
+① Applies to all non-administrative (i.e., motion control) function blocks.
+
+② In the GroupErrorStop or GroupStopping state, all function blocks can be invoked, although they are not executed (except that MC_GroupReset is executed in the GroupErrorStop state and any other errors are generated). In exceptional cases, GroupErrorStop or GroupStopping will transition to GroupStandby or GroupErrorStop accordingly.
+
+③ MC_GroupStop.Done = TRUE and MC_GroupStop.Execute = FALSE.
+
+④ The state transition is available if the last axis is removed from the axis group.
+
+⑤ The transition is available when the axis group is non-empty.
+
+### Arc mode description
+
+| Mode | Border (CircMode=0) | Circle center (Circmode=1) | Diameter (CircMode=2) |
+| Đặc tính kỹ thuật | The arc path consists of the starting point, auxiliary points, and ending point. | The arc path consists of the starting point, the center point, and theending point. | The arc is determined by its starting point, ending point, and the normal vector of the plane containing the circle. The direction of the vector determines the direction of CW and CCW circles. The vector length is the radius of the arc. |
+| Mô tả kỹ thuật |  |  |  |
+| Auxpoint | Arc path point | Center point of arc | Normal vector of the plane where the space arc lies |
+| Path choice | Invalid | CW and CCW circles CCW mode CW mode | Major and minor arcs 1: Minor arc 0: Major arc |
+| Characteristics | Restriction of angle less than 2π for single instruction | Restriction of angle less than 2π and nor equal to π for single instruction | Restriction of angle less than 2π for single instruction The vector perpendicular to the circular plane must be calculated. |
+
+### Transition mode description
+
+Detailed explanation of transition mode: Transition parameters are additional parameters of transition modes, which take effect according to different transition modes.
+
+| TransitionMode | 0 (No buffer mode) | 1 (Largest velocity to buffer) | 2 (Specified velocity buffer) |
+| TransitionTham số | Invalid | Invalid | Specified velocity |
+
+### Mode selection instructions
+
+| Cảnh báo an toàn kỹ thuật |
+| It should be noted that if the moving function block is interrupted by another function block, the following error will occur: braking distance is insufficient due to the limitation of deceleration; Note that in all the sequence diagrams explained below, some of the sequence diagrams for the status word feedback are incorrect. For example, in Figure 8-2, the start signal is not automatically set by the system after triggering, but controlled by the user. Chức năng và nguyên lý hoạt động block triggers execution logic when on the rising edge. Likewise, the Done signal is not set automatically. When the function block ends, Done will be set until the falling edge of Execute is generated! |
+ (1) mcAborting
+
+It is an agreed pattern without buffering. When the status of the application axis is changed to "ErrorStop", all motion control function blocks with buffer mode will enter mcAborting.
+
+At this time, the function block output "Error" in mcAborting is set. Its subsequent commands are rejected because the output Error is set, so Active is reset.
+
+The following figure illustrates the function connection of the front and back function block instances in mcAborting.
+
+                                                                                     Figure8-1
+
+As shown in Figure 8-1, the previous and next motion control function blocks are MC_MoveAbsolute, and both adopt mcAborting.
+
+The following Figure 8-2 shows the sequence diagrams of function block instances FB1 and FB2. Figure 8-2(a) shows the sequence diagram of two absolute position motion function blocks under normal working conditions, i.e., the motion controlled by FB2 is carried out after the motion controlled by FB1 is completed.
+
+When on the Start_1=TRUE rising edge, the function block instance FB1 is activated. At the same time, the outputs Busy_1 and Active_1 are set. The motion process of the axis is as follows: the velocity increases to 100u/s according to the acceleration of 100u/s2, and keep the axis move at constant velocity. Then the velocity decreases to 0 with deceleration of 100u/s2, thus moving the axis to 1000u.
+
+Then the output Done 1 is set, and Busy 1 and Active 1 are reset.
+
+Axis position is 1000u.
+
+                                                                 Figure8-2 The sequence diagram of normal working condition and mcAborting
+
+When on the Start_2=TRUE rising edge, the second function block instance FB2 is activated. The output Busy_2 and Active 2 are set. According to the acceleration of 50u/s2, the axis velocity increases to the constant velocity of 50u/s. Then the axis velocity decreases to 0 at the deceleration of 50u/s. The axis position is from 1000u to 2000u.
+
+Since the absolute position has been reached, output Done_2 is set and Busy_2 and Active_2 are reset. Axis position is 2000u.
+
+Figure 8-2(b) shows the sequence diagrams of two absolute position motion function blocks in mcAborting. On the rising edge of start1 = TRUE, the function block instanceFB1is activated.
+
+At the same time, the output Busy_2 and Active_1 are set. The axis motion velocity increases according to the acceleration of 100u/s2. But in this process, the output start 2 of the function block instance FB2 is set, which abort the motion of the previous function block instance FB1. At this time, the axis dose not reach the required position 1000u and is aborted to stop.
+
+As the function block instance FB2 is activated, Busy_2 and Active_2 are set. According to the requirement of the function block instance FB2, the velocity of the axis decreases to the input value of 50u/s2 according to its deceleration of 50u/s2. Keep it move at the constant velocity of 50u/s so that it will finally reach the position 2000u.
+
+It can be seen that the activation of the next function block causes the previous function block to stop its motion, and the aborting command immediately affects the motion of the axis.
+
+This buffer mode is called mcAborting.
+
+(2) mcBuffered
+
+The command of the next function block is stored in the buffer area. The command of the buffer area is executed only after the motion of the previous function block is completed. Therefore, this mode is called mcBuffered.
+
+The BufferMode input for the next function block is set to be buffered mode (mcBuffered). Figure 8-3shows the setting for the connection of two function blocks.
+
+The sequence diagram of mcBuffered is shown in Figure 8-4. In the figure, FB1 is activated when the input start 1=TRUE of the previous function block instance is on the rising edge. When this function block instance FB1 control the axis to move, the start 2 of the next function block instance FB2 is set. Due to the FB2 buffer mode is set to mcBuffered, the activation of FB2 does not abort the control of FB1 to the axis. Although the output Busy_2 of FB2 is set, the function block is not activated, namely, the output Active_2 is still FALSE.
+
+Therefore, FB1 continues to control the motion of the axis until the axis reaches the set position 1000u. Then FB2 is immediately activated to work, and the velocity of the axis is not delayed. Increase the velocity to 50u/s based on the acceleration of 50u/s2 directly and then keep it move at the constant velocity of 50u/s, so that it will finally reach the position of 2000.
+
+                                                                                     Figure8-3 Connections in mcBuffered
+
+It can be seen from the figure that the buffer mode of the rear function block is set to mcBuffered, which means that the rear function block cannot interrupt the motion of the previous function block. And once the previous function block completes its task.
+
+and Done_1 is set, the work of the next function block will start immediately.
+
+The mcBuffered indicates that the motion command of the next function block has been stored in the buffer area, which does not affect the control and operation of previous motion control function block over the axis. It can execute subsequent commands after the executed function block outputs Done or Inxxx becomes TRUE.
+
+                                                                                     Figure 8-4 
+
+mcBlending
+
+There are four options for mcBlending of the previous and next function blocks. The mcBlending represents the blending of the velocity of the previous and next functional blocks. In this case, the previous function block interrupts its motion, and the next function block controls the subsequent motion, but its initial velocity is called blending velocity or mixing velocity.
+
+The mixing velocity can adopt the velocity of two function blocks (whichever is lower or higher) or it can be directly specified that the velocity of the previous function block or the velocity of the next function block is adopted.
+
+Therefore, the mcBlending is divided into four types.
+
+(1) mcBlendingLow.
+
+The blending velocity is the lower of the set velocity of the two function blocks. This mcBlending can be random. If the set velocity of the previous function block is lower than that of the next function block, the blending velocity adopts the velocity of the previous function block.
+
+On the contrary, if the set velocity of the previous function block is higher than that of the next function block, the blending velocity adopts the velocity of the next function block.
+
+When the buffer mode of the next function block is set to be mcBlendingLow, it means that the next function block will not interrupt the work of previous function block if the work of the previous function block is not completed; when the velocity of the previous function block decreases to the lower velocity of the previous and next function blocks, the next function block can continue to control the motion of the axis.
+
+Figure 8-5 shows the connection diagram of three motion blocks, and the mode of latter two function blocks are set to be mcBlendingLow.
+
+                                                                                     Figure 8-5 The connection of mcBlendingLow
+
+Figure 8-6 shows the sequence diagram of mcBlendingLow. To illustrate maBlendingLow, two subsequent function block instance FB2 and FB3 are used in the figure. In the figure, FB1 is activated when start_1 is set on the rising edge and then its BusY_1 is set. When FB1 controls the axis to move, start=2 of the FB2 instance is also set on the rising edge. FB1 does not complete the axis motion, so the Buffer-Mode of FB2 is set to mcBlendingLow.
+
+Therefore, FB1 adopts the minimum velocity after blending FB1 and FB2, namely, the set velocity of FB2 of 50u/s.
+
+It means that in the subsequent motion of FB1, the velocity of the axis is reduced to 50u/s according to the deceleration of FB2. When the axis velocity drops to the mixed low velocity, the FB1 control axis moves to the set position of 1000u, and the output Done_1 of FB1 is set, which indicates the end of its controlled motion.
+
+FB2 immediately controls the axis to move at a constant velocity of 50u/s, and the axis is moving to specified position of 2000u.
+
+At this time, if the Start_3 of the function block instance FB3 is set, since FB2 has not reached its position of 2000u, and the Buffer-Mode of FB3 is set to be mcBlendingLow, when the Start_3 of FB3 is set, the moving axis will control the axis according to the set velocity of FB2 and FB3 (whichever is lower) until the position of the axis reaches the set position of 2000u, then the output Active_2 is reset when FB2 is activated.
+
+At this time, if the Start_3 of the function block instance FB3 is set, since FB2 has not reached its position of 2000u, and the Buffer-Mode of FB3 is set to be mcBlendingLow, when the Start_3 of FB3 is set, the moving axis will control the axis according to the set velocity of FB2 and FB3 (whichever is lower) until the position of the axis reaches the set position of 2000u, then the output Active_2 is reset when FB2 is activated. Then under the control of the FB3 function block instance, increase the velocity of the axis to 100u/s; then keep the axis move at constant velocity, and finally reduce the velocity to 0u/s; at this time the axis reaches the set position of 3000u.
+
+                                                                                      Figure 8-6 The sequence diagram of mcBlendingLow
+
+mcBlending means that due to the difference in the set velocity of the previous and next function blocks, when the Execute rising edge input of the next function block is set, the system will determine what velocity should be adopted to control the axis according to the BufferMode parameter set by the next function block.
+
+The aforesaid mcBlendingLow adopts the set velocity of the two function blocks (whichever is lower).
+
+The previous function block will complete the subsequent motion under the control of blending velocity until it reaches the set position, and the subsequent function block will continue to control the axis. mcBlendingPrevious: the blending velocity adopts the velocity set by the previous function block.
+
+mcBlendingPrevious
+
+As shown in Figure 8-5, if the BufferMode parameter of FB2 and FB3 is set to be mcBlendingPrevious, the blending velocity directly adopts the velocity of the previous function block.
+
+Figure 8-7 shows the timing diagram of the mcBlendingPrevious.
+
+When analyzing the sequence diagram, pay attention to the change of blending velocity. As shown in Figure 8-7, in the timing diagram of the mcBlendingPrevious, when FB1 is in buffer mode, the axis moves according to the velocity of the previous function block FB1, i.e., 100u/s, until it reaches the set position of 1000u.
+
+When FB2 is in buffer mode, the axis moves according to the velocity of the previous function block FB2, i.e., 50u/s, until it reaches the set position of 2000u.
+
+Therefore, the axis velocity is100u/s when FB1 output Active is reset, and the axis velocity is 50u/s when FB2 output Active is reset.
+
+                                                                                Figure 8-7 Giản đồ thời gian thực thi (Sequence Diagram) of mcBlendingPrevious
+
+mcBlendingNext
+
+As shown in Figure 8-5, if the BufferMode parameter of FB2 and FB3 is set to be mcBlendingNext, the blending velocity directly adopts the velocity of the next function block.
+
+Figure 8-8 shows the timing diagram of the mcBlendingNext.
+
+As shown in Figure 8-8, in the timing diagram of the mcBlendingNext, when FB1 is in buffer mode, the axis moves according to the velocity of the next function block FB2, i.e., 50u/s,
+
+until it reaches the set position of 1000u. When FB2 is in buffer mode, the axis moves at 100U/S according to the velocity of the next function block FB3, until it reaches the set position of 2000U. Therefore, the axis velocity is 50u/s when the FB1 output Active is reset, and the axis velocity is 50u/s when FB2 output Active is reset.
+
+As shown in Figure 8-6 of the sequence diagram of the mcBlendingLow, when FB1 is in buffer mode, the axis buffers at the low blending velocity and moves at 50U/S according to the velocity of FB2, until it reaches the set position of 1000U.
+
+When FB2 is in buffer mode, the axis buffers at the low blending velocity and moves at 50U/S according to the velocity of the FB2, until it reaches the set position of 2000U.
+
+Therefore, the axis velocity is 50u/s when the FB1 output Active is reset, and the axis velocity is 50u/s when FB2 output Active is reset.

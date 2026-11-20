@@ -1,142 +1,436 @@
 ---
-id: "8.02-motion-function-blocks-single-axis"
-title: "8.02 Khối hàm chuyển động điều khiển đơn trục (Motion FBs)"
+id: "8.02-motion-function-blocks"
+title: "8.02 Khối hàm chuyển động cho điều khiển đơn trục"
 sidebar_position: 3
 sidebar_label: "8.02 Chuyển động đơn trục (7 FBs)"
-tags: [wecon, lx6v, lx6a, mc_moveabsolute, mc_moverelative, mc_stop, mc_halt, mc_home]
-description: "Hướng dẫn kỹ thuật chi tiết 7 khối hàm chuyển động đơn trục: MC_STOP, MC_HOME, MC_HALT, MC_MOVEABSOLUTE, MC_MOVERELATIVE, MC_MOVEADDITIVE, MC_MOVESUPERIMPOSED."
+tags: [wecon, lx6v, lx6a, motion-control, plcopen, manual]
+description: "Tài liệu kỹ thuật chi tiết chuẩn hãng 8.02 Khối hàm chuyển động cho điều khiển đơn trục trên PLC Wecon dòng LX6V / LX6A500 (PLC Editor 2)."
 ---
 
-## Tổng quan nhóm khối hàm 8.02
+## Motion Chức năng và nguyên lý hoạt động Blocks for Single-axis Motion Control
 
-Nhóm khối hàm chuyển động đơn trục (**Motion Function Blocks for Single-axis Motion Control**) đảm nhiệm vai trò quy hoạch quỹ đạo vị trí/vận tốc thời gian thực, tính toán đường cong gia tốc (hình thang hoặc S-curve) và phát lệnh điều khiển trục cơ cấu chấp hành.
+### MC_STOP
 
-### Danh mục 7 khối hàm chuyển động:
-1. **MC_STOP:** Dừng khẩn cấp có kiểm soát (Khóa cứng trạng thái `Stopping`).
-2. **MC_HOME:** Thực hiện chu trình quét tìm gốc tọa độ cơ học (Homing Routine).
-3. **MC_HALT:** Tạm dừng chuyển động (Cho phép các lệnh khác ghi đè ngắt quyền).
-4. **MC_MOVEABSOLUTE:** Định vị vị trí tuyệt đối theo hệ tọa độ máy.
-5. **MC_MOVERELATIVE:** Định vị vị trí tương đối tính từ điểm hiện tại.
-6. **MC_MOVEADDITIVE:** Bổ sung thêm khoảng dịch chuyển vào lệnh đang thực thi.
-7. **MC_MOVESUPERIMPOSED:** Chồng một chuyển động bù lên một chuyển động nền đang chạy độc lập.
+This function block is used to change the state of the controlled axis to the deceleration stopping state.
 
----
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
 
-## 1. MC_STOP: Dừng khẩn cấp khống chế trục
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+|  |  | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_STOP | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
 
-Khối hàm thực hiện hãm tốc độ của trục về 0 và khóa cứng trục ở trạng thái `Stopping` chừng nào tín hiệu ngõ vào còn giữ mức cao.
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- T, C, D, R and SD are signed 16-bit data types.
+### Bảng thông số chân và kiểu biến (Variable Type Used) 
 
-```pascal
-fb_Stop(
-    Execute         := bEmergencyStopBtn,  // Mức TRUE duy trì khóa trạng thái dừng
-    Deceleration    := 1500.0,             // Gia tốc hãm dừng (đơn vị/s^2)
-    Jerk            := 5000.0,             // Độ giật mượt khi dừng
-    Axis            := 0,
-    Done            => bStopDone,          // Vận tốc đã về 0 thành công
-    Busy            => bStopBusy,          // Đang trong tiến trình hãm tốc
-    CommandAborted  => bStopAborted,
-    Error           => bStopErr,
-    ErrorID         => dwStopErrID
-);
-```
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_STOP | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Gia tốc giảm tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Có | 0 to 9999999.00 | Độ giật mượt đường cong S (Jerk) |
+| Axis | WORD | Không | 0 to 65535 | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Done | BOOL | Không | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Không | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| CommandAborted | BOOL | Không | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Không | - | Error code |
+ Chức năng và nguyên lý hoạt động
 
-### Bảng thông số kỹ thuật MC_STOP:
+- This function block is used to change the state of the controlled axis to the deceleration stopping state. When the rising edge of the input Execute signal triggers the function block, the controlled axis decelerates with the output Decelerate value and the axis motion stops.
+Lưu ý kỹ thuật quan trọng
 
-| Chân tín hiệu | Phân loại | Kiểu dữ liệu | Cho phép để trống | Dải giá trị | Diễn giải kỹ thuật |
-| :--- | :--- | :--- | :---: | :--- | :--- |
-| **Execute** | Input | BOOL | Không | TRUE / FALSE | Kích hoạt và duy trì lệnh dừng. Khi TRUE, trục chuyển sang `Stopping` và ngăn chặn mọi khối chuyển động khác. |
-| **Deceleration**| Input | LREAL | Không | 0 .. 999999999 | Độ hãm giảm tốc khi dừng (đơn vị: đơn vị người dùng/s^2). |
-| **Jerk** | Input | LREAL | Không | 0 .. 999999999 | Độ giật thay đổi gia tốc (S-curve). |
-| **Axis** | In/Out | WORD | Không | 0 .. 65535 | Số ID trục logic. |
-| **Done** | Output | BOOL | Có | TRUE / FALSE | Báo TRUE khi vận tốc trục đã hãm về 0 hoàn toàn. |
-| **Busy** | Output | BOOL | Có | TRUE / FALSE | Báo TRUE khi quá trình giảm tốc đang diễn ra. |
-| **CommandAborted**| Output| BOOL | Có | TRUE / FALSE | Lệnh dừng bị hủy bỏ (rất hiếm, chỉ khi mất nguồn hoặc lỗi trục). |
-| **Error / ErrorID**| Output| BOOL / DWORD | Có | - | Cờ báo lỗi và mã lỗi tương ứng. |
+- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
+- In profile mode, the STOP command requires the mapper to map the PDOs of 0x6060, 0x6061, 0x60FF, and 0x606C for normal operation;
+- In CST/CSV mode, triggering STOP switches to synchronous velocity mode;
+- In CST/CSV mode, the STOP command requires the mapper to map the PDOs of 0x6060, 0x6061, 0x60FF, and 0x606C for normal operation;
+Error code
 
-> **Điểm nhấn giảng dạy sống còn:** Khi `MC_STOP.Execute = TRUE`, trục bị cưỡng bức ở trạng thái `Stopping`. Trục chỉ có thể quay về trạng thái `StandStill` (sẵn sàng nhận lệnh mới) khi thỏa mãn đồng thời 2 điều kiện:
-> 1. Trục đã dừng hoàn toàn: `MC_STOP.Done = TRUE`.
-> 2. Người vận hành đã nhả nút dừng: `MC_STOP.Execute = FALSE`.
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was entered. |
+Giản đồ thời gian thực thi (Sequence Diagram)
 
----
+- When the call is located, trigger MC_STOP instruction and sequence diagram is as follows:
 
-## 2. MC_HALT: Tạm dừng chuyển động có thể ngắt quyền
+- When driver fails during the instruction running, sequence diagram is as follows:
 
-Khối hàm đưa trục giảm tốc dừng về vận tốc 0 nhưng **không khóa cứng trục** ở trạng thái dừng.
+### MC_HOME
 
-### Điểm khác biệt mấu chốt so với MC_STOP:
-- Kích hoạt bằng **Cạnh lên** (`Execute` Rising Edge).
-- Khi trục đang giảm tốc trong tiến trình `MC_HALT`, nếu có bất kỳ lệnh chuyển động nào khác (`MC_MoveAbsolute`, `MC_MoveVelocity`) được kích hoạt, lệnh `MC_HALT` sẽ lập tức bị hủy bỏ quyền kiểm soát (`CommandAborted = TRUE`) và trục sẽ chuyển hướng theo lệnh mới ngay lập tức.
-- Phù hợp với: Nút tạm dừng (Pause) chu trình để kiểm tra hoặc đợi nạp phôi.
+This function block is used to change the state of the controlled axis to the origin state.
 
----
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
 
-## 3. MC_HOME: Tìm gốc tọa độ cơ học (Homing Routine)
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+|  |  | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_HMOE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
 
-Khối hàm thực hiện chu trình tìm điểm 0 cơ khí để đồng bộ tọa độ máy với tọa độ phần mềm:
-- Kích hoạt bằng cạnh lên của `Execute`.
-- Trục chuyển sang trạng thái `Homing`.
-- PLC và Drive tự động phối hợp theo phương pháp tìm gốc (Origin switch, Limit switch kết hợp xung Index Z của Encoder) đã được cài đặt trong cấu hình phần cứng.
-- Khi chốt được điểm gốc, tọa độ trục được tự gán bằng giá trị cài đặt tại chân **Position** (LREAL, thường là 0.0), ngõ ra **Done** xuất xung TRUE và trục chuyển về trạng thái **StandStill**.
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- T, C, D, R and SD are signed 16-bit data types.
+### Bảng thông số chân và kiểu biến (Variable Type Used)
 
----
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_HOME | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Position | LREAL | Có | 0 to 9999999.00 | Position |
+| BufferMode | WORD | Không | 0 to 5 | Mode selection |
+| Axis | WORD | Có | 0 to 65535 | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Done | BOOL | Có | TRUE / FALSE | Completion sign |
+| Busy | BOOL | Có | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Có | TRUE / FALSE | Valid flag bit |
+| CommandAborted | BOOL | Có | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Có | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Có | - | Error code |
+Chức năng và nguyên lý hoạt động
 
-## 4. MC_MOVEABSOLUTE: Định vị vị trí tuyệt đối
+- It is determined whether the controlled axis returns to its origin by detecting the relevant limit switch, absolute position origin switch or transmitted sequence pulse signal.
+Lưu ý kỹ thuật quan trọng
 
-Khối hàm điều khiển trục di chuyển từ vị trí hiện thời đến một tọa độ mục tiêu cố định tuyệt đối trong hệ quy chiếu máy.
+- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
+Error code
 
-```pascal
-fb_MoveAbs(
-    Execute             := bTriggerMove,        // Cạnh lên bắt đầu lệnh
-    ContinuousUpdate    := FALSE,               // Cho phép cập nhật động
-    Position            := 1000.0,              // Tọa độ tuyệt đối cần đến
-    Velocity            := 120.0,               // Vận tốc di chuyển cực đại
-    Acceleration        := 400.0,               // Gia tốc tăng tốc
-    Deceleration        := 400.0,               // Gia tốc hãm tốc
-    Jerk                := 1500.0,              // Độ giật S-curve
-    BufferMode          := 0,                   // 0: mcAborting
-    Axis                := 0,
-    Done                => bMoveDone,           // Đến đúng vị trí
-    Busy                => bMoveBusy,           // Đang di chuyển
-    Active              => bMoveActive,         // Đang trực tiếp kiểm soát trục
-    CommandAborted      => bMoveAborted,        // Bị ngắt bởi lệnh khác
-    Error               => bMoveErr,
-    ErrorID             => dwMoveErrID
-);
-```
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was entered. |
+Giản đồ thời gian thực thi (Sequence Diagram)
 
-### Bảng thông số chi tiết MC_MOVEABSOLUTE:
-| Chân | Kiểu pin | Kiểu dữ liệu | Phạm vi | Mô tả kỹ thuật |
-| :--- | :--- | :--- | :--- | :--- |
-| **Execute** | Input | BOOL | TRUE / FALSE | Cạnh lên kích hoạt phát lệnh định vị tuyệt đối. |
-| **ContinuousUpdate**| Input| BOOL | TRUE / FALSE | Khi TRUE, cho phép cập nhật liên tục các tham số Velocity, Acc... trong lúc đang chạy. |
-| **Position** | Input | LREAL | -999999999 .. 999999999 | Tọa độ tuyệt đối đích đến (mm, vòng, độ). |
-| **Velocity** | Input | LREAL | > 0 .. 999999999 | Vận tốc mục tiêu của chuyển động. |
-| **Acceleration** | Input | LREAL | > 0 .. 999999999 | Gia tốc tăng tốc. |
-| **Deceleration** | Input | LREAL | > 0 .. 999999999 | Gia tốc hãm tốc. |
-| **Jerk** | Input | LREAL | 0 .. 999999999 | Độ giật S-curve (giảm rung lắc cơ khí). |
-| **BufferMode** | Input | INT / ENUM | 0 .. 5 | Chế độ đệm lệnh (xem mục 8.10). |
-| **Done** | Output| BOOL | TRUE / FALSE | Báo TRUE khi trục đã dừng chính xác tại tọa độ đích. |
-| **Active** | Output| BOOL | TRUE / FALSE | Báo TRUE khi khối hàm đang trực tiếp sinh quỹ đạo điều khiển trục. |
+Start origin homing, and then driver normally executes origin homing, sequence diagram is as follows:
 
----
+### MC_HALT
 
-## 5. MC_MOVERELATIVE: Định vị vị trí tương đối
+This function block is often used to stop the motion of the controlled axis under normal operating conditions.
 
-Khối hàm điều khiển trục dịch chuyển thêm một độ dời khoảng cách (`Distance`) tính từ vị trí tức thời tại thời điểm phát lệnh:
-- **Distance** (Input, LREAL): Khoảng cách dịch chuyển.
-  - `Distance > 0`: Dịch chuyển theo chiều thuận.
-  - `Distance &lt; 0`: Dịch chuyển theo chiều nghịch.
-- Tọa độ đích = Tọa độ hiện thời + `Distance`.
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
 
----
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_HALT | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
 
-## 6. MC_MOVEADDITIVE: Bổ sung khoảng dịch chuyển
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+### Bảng thông số chân và kiểu biến (Variable Type Used)
 
-Khối hàm cho phép cộng dồn thêm một khoảng cách `Distance` vào đích đến của lệnh định vị đang chạy dở:
-- Ví dụ: Lệnh `MC_MoveAbsolute` đang chạy tới vị trí 1000. Trong lúc trục đang chạy, `MC_MOVEADDITIVE` được kích hoạt với `Distance = 200`. Tọa độ đích mới của trục sẽ tự động chuyển thành **1200** mà không làm gián đoạn quỹ đạo vận tốc.
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_HALT | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| Gia tốc giảm tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Không | 0 to 9999999.00 | Độ giật mượt đường cong S (Jerk) |
+| Axis | WORD | Không | 0 to 65535 | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Done | BOOL | Không | TRUE / FALSE | Dữ liệu ngõ ra có giá trị hợp lệ hay không |
+| Busy | BOOL | Không | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Không | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Không | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Không | - | Error code |
+ Chức năng và nguyên lý hoạt động
 
----
+- If the controlled axis is in a continuous motion state, the rising edge of the Execute signal input by the MC_Halt function block triggers the activation of the function block, so that the state of the controlled axis changes to the intermittent motion state. Similarly, if the controlled axis is in an intermittent motion state or a synchronous motion state, the activation of the MC_HALT function block will keep the controlled axis in an intermittent motion state. This function block is often used to stop the motion of the controlled axis under normal operating conditions.
+Lưu ý kỹ thuật quan trọng
 
-## 7. MC_MOVESUPERIMPOSED: Chuyển động bù chồng lấn
+- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
+Error code
 
-Cho phép áp đặt thêm một hành trình dịch chuyển phụ chồng lên một chuyển động chính đang chạy mà không làm hủy bỏ lệnh chính. Thường dùng trong các cơ cấu hiệu chỉnh sai lệch động (như căn chỉnh vị trí màng in trong máy in ống đồng tốc độ cao).
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was entered. |
+Giản đồ thời gian thực thi (Sequence Diagram)
+
+- After the call is located, trigger MC_HALT instruction, sequence diagram is as follows:
+- After triggering MC_HALT instruction, call the location instruction again to interrupt the execution of MC_HALT, sequence diagram is as follows:
+
+- When executing MC_HALT, showdown failure happens, sequence diagram is as follows:
+
+### MC_MOVEABSOLUTE
+
+MC_MOVEABSOLUTE
+
+Khối hàm điều khiển trục di chuyển từ vị trí hiện thời đến tọa độ mục tiêu tuyệt đối cài đặt theo các tham số động học đầu vào.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+|  |  | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVEABSOLUTE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Position |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+### Bảng thông số chân và kiểu biến (Variable Type Used) 
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVEABSOLUTE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Không | TRUE / FALSE | Updated during operation |
+| Position | LREAL | Không | -9999999.00~9999999.00 | Absolute position |
+| Vận tốc cài đặt | LREAL | Không | 0 to 9999999.00 | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Không | 0 to 9999999.00 | Độ giật mượt đường cong S (Jerk) |
+| BufferMode | WORD | Không | 0 to 5 | Mode selection |
+| Axis | WORD | Không | 0 to 65535 | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Done | BOOL | Không | TRUE / FALSE | Completion flag |
+| Busy | BOOL | Không | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Không | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Không | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Không | - | Error code |
+Chức năng và nguyên lý hoạt động
+
+- The function block enables the controlled axis reach the set absolute position with input parameters (velocity, acceleration, deceleration, jerk and specified motion direction).
+Lưu ý kỹ thuật quan trọng
+
+- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
+Error code
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was entered. |
+Giản đồ thời gian thực thi (Sequence Diagram)
+
+- Normal working condition sequence diagram (buffermode_1=0, buffermode_2=0):
+
+- mcAboring sequence diagram (buffermode_1=0, buffermode_2=0):
+
+- mcBuffered sequence diagram (buffermode_1=0, buffermode_2=1):
+
+- mcBlendingLow sequence diagram (buffermode_1=0, buffermdoe_2=2, buffermode_3=2):
+
+- mcBlendingPrevious sequence diagram (buffermode_1=0, buffermode_2=3, buffermode_3=3)
+
+- mcBlendingNext sequence diagram (buffermode_1=0, buffermode_2=4，buffermode_3=4):
+
+- mcBlendingHigh sequence diagram (buffermode_1=0, buffermode_2=5, buffermode_3=5):
+
+### MC_MOVERELATIVE
+
+MC_MOVERELATIVE
+
+Khối hàm điều khiển trục di chuyển từ vị trí hiện thời đến tọa độ mục tiêu tuyệt đối cài đặt theo các tham số động học đầu vào.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+|  |  | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVERELATIVE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khoảng cách dịch chuyển tương đối |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- T, C, D, R and SD are signed 16-bit data types.
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVERELATIVE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Không | TRUE / FALSE | Updated during operation |
+| Khoảng cách dịch chuyển tương đối | LREAL | Không | -9999999.00~9999999.00 | Relative position |
+| Vận tốc cài đặt | LREAL | Không | 0 to 9999999.00 | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Không | 0 to 9999999.00 | Độ giật mượt đường cong S (Jerk) |
+| BufferMode | WORD | Không | 0 to 5 | Mode selection |
+| Axis | WORD | Không | 0 to 65535 | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Done | BOOL | Không | TRUE / FALSE | Completion sign |
+| Busy | BOOL | Không | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Không | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Không | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Không | - | Error code |
+Chức năng và nguyên lý hoạt động
+
+- The function block takes the current position as the starting point of motion and controls the controlled axis to reach the set relative position (Khoảng cách dịch chuyển tương đối) with the set parameters (velocity, acceleration, deceleration and jerk), It refers to the motion control that takes starting point of the motion + Khoảng cách dịch chuyển tương đối as the end point.
+Lưu ý kỹ thuật quan trọng
+
+- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
+Error code
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was entered. |
+Giản đồ thời gian thực thi (Sequence Diagram)
+
+- Normal working condition sequence diagram (buffermode_1=0, buffermode_2=0):
+
+- mcAboring sequence diagram (buffermode_1=0, buffermode_2=0):
+
+- mcBuffered sequence diagram (buffermode_1=0, buffermode_2=1):
+
+- mcBlendingLow sequence diagram (buffermode_1=0, buffermdoe_2=2, buffermode_3=2)
+- mcBlendingPrevious sequence diagram (buffermode_1=0, buffermode_2=3, buffermode_3=3)
+
+- mcBlendingNext sequence diagram (buffermode_1=0, buffermode_2=4，buffermode_3=4):
+
+- McBlendingHigh sequence diagram (buffermode_1=0, buffermode_2=5, buffermode_3=5):
+
+### MC_MOVEADDITIVE
+
+MC_MOVEADDITIVE
+
+This function block is a motion increment function block.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+|  |  | X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVEADDITIVE | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khoảng cách dịch chuyển tương đối |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- T, C, D, R and SD are signed 16-bit data types.
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVERELATIVE | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Không | TRUE / FALSE | Updated during operation |
+| Khoảng cách dịch chuyển tương đối | LREAL | Không | -9999999.00~9999999.00 | Relative position |
+| Vận tốc cài đặt | LREAL | Không | 0 to 9999999.00 | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Không | 0 to 9999999.00 | Độ giật mượt đường cong S (Jerk) |
+| BufferMode | WORD | Không | 0 to 5 | Mode selection |
+| Axis | WORD | Không | 0 to 65535 | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Done | BOOL | Không | TRUE / FALSE | Completion sign |
+| Busy | BOOL | Không | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Không | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Không | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Không | - | Error code |
+Chức năng và nguyên lý hoạt động
+
+- It is used to add the input parameters (velocity, acceleration, deceleration and jerk) specified by this function block to reach the specified distance (Khoảng cách dịch chuyển tương đối) on the basis of existing motion, i.e., adding distance.
+Lưu ý kỹ thuật quan trọng
+
+- Khối hàm này sẽ báo lỗi không khả dụng nếu số hiệu trục `Axis` không tồn tại trong cấu hình phần cứng.
+Error code
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was entered. |
+Giản đồ thời gian thực thi (Sequence Diagram)
+
+When using MC_MOVEABSOLUTE with MC_MOVEADDITIVE together, and when the tagret position of MC_MOVEABSOLUTE is 10 and velocity is 5, the stacked position of MC_MOVEADDITIVE is 15 and velocity is 10, the relationship between position and velocity of Axis_0 is as follows:
+
+### MC_MOVESUPERIMPOSED
+
+MC_MOVESUPERIMPOSED
+
+This function block is a motion superposition function block.
+
+### Vùng nhớ thiết bị hỗ trợ (Devices Used)
+*(Chỉ hỗ trợ biến đơn lẻ, không hỗ trợ ghép chuỗi thiết bị hoặc dịch địa chỉ offset)*
+
+| Khối lệnh | Tham số | Devices | Sửa đổi chỉ mục | Mở rộng xung |
+| X | Y | M | S | SM | T(bit) | C(bit) | LC(bit) | HSC(bit) | D.b | KnX | KnY | KnM | KnS | T | C | D | R | SD | LC | HSC | K | H | E | [D] | XXP |
+| MC_MOVESUPERIMPOSED | Execute | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ContinuousUpdate | ● | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khoảng cách dịch chuyển tương đối |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Vận tốc cài đặtDiff |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc tăng tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Gia tốc giảm tốc |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Độ giật mượt đường cong S (Jerk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| BufferMode |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Axis |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Done |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Busy |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Active |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Khối lệnhAborted |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Error |  | ● | ● | ● | ● |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ErrorID |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+### Lưu ý khi sử dụng vùng nhớ thiết bị
+
+- - **LC** và **HSC** là kiểu dữ liệu 32-bit có dấu (Signed DWord/DINT);
+- - **T, C, D, R và SD** là kiểu dữ liệu 16-bit có dấu (Signed Word/INT);
+### Bảng thông số chân và kiểu biến (Variable Type Used)
+
+| Khối lệnh | Kiểu chân | Tham số | Kiểu dữ liệu | Cho phép để trống | Phạm vi giá trị | Mô tả kỹ thuật |
+| MC_MOVESUPERIMPOSED | Ngõ vào (Input) | Execute | BOOL | Không | TRUE / FALSE | Enable |
+| ContinuousUpdate | BOOL | Không | TRUE / FALSE | Updated during operation |
+| Khoảng cách dịch chuyển tương đối | LREAL | Không | -9999999.00~9999999.00 | Relative position |
+| Vận tốc cài đặtDiff | LREAL | Không | 0 to 9999999.00 | Vận tốc cài đặt |
+| Gia tốc tăng tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc tăng tốc |
+| Gia tốc giảm tốc | LREAL | Không | 0 to 9999999.00 | Gia tốc giảm tốc |
+| Độ giật mượt đường cong S (Jerk) | LREAL | Không | 0 to 9999999.00 | Độ giật mượt đường cong S (Jerk) |
+| BufferMode | WORD | Không | 0 to 5 | Mode selection |
+| Axis | WORD | Không | 0 to 65535 | Số hiệu định danh trục (Axis ID) |
+| Ngõ ra (Output) | Done | BOOL | Không | TRUE / FALSE | Completion sign |
+| Busy | BOOL | Không | TRUE / FALSE | Cờ báo khối hàm đang bận thực thi (Busy) |
+| Active | BOOL | Không | TRUE / FALSE | Valid flag |
+| CommandAborted | BOOL | Không | TRUE / FALSE | Cờ báo lệnh bị hủy bỏ / ngắt quyền (CommandAborted) |
+| Error | BOOL | Không | TRUE / FALSE | Cờ báo có phát sinh lỗi hay không |
+| ErrorID | DWORD | Không | - | Error code |
+Chức năng và nguyên lý hoạt động
+
+- This function block is used to superpose the motion, which means that on the basis of current motion speed, the velocity difference is added so that the input acceleration, deceleration and jerk are also increased based on the original motion values, i.e., increasing the velocity and making the controlled axis move to the specified (relative) distance (Khoảng cách dịch chuyển tương đối).
+Lưu ý kỹ thuật quan trọng
+
+- This function block is not available when the axis does not exist;
+- When it executes, the previous function block should be executed first.
+Error code
+
+| Error code | Content |
+| 4084H | Data beyond the specifiable range was entered. |
+Giản đồ thời gian thực thi (Sequence Diagram)
