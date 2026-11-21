@@ -13,6 +13,7 @@ import {
   Scan,
   Gauge,
   Cpu,
+  ArrowLeftRight,
 } from "lucide-react";
 
 const ToolPage = React.lazy(() => import("@/pages/tools/index"));
@@ -50,6 +51,9 @@ const BitWordDevicesFxPage = React.lazy(
 );
 const InverterFaultsPage = React.lazy(
   () => import("@/pages/tools/inverter-faults"),
+);
+const WeconModbusMapPage = React.lazy(
+  () => import("@/pages/tools/wecon-modbus-map"),
 );
 
 // Định nghĩa các nhóm công cụ
@@ -101,6 +105,14 @@ export const routeConfig = [
     showInSidebar: true,
     icon: Scan,
     group: "qr",
+  },
+  {
+    path: "/tools/wecon-modbus-map",
+    label: "Ánh Xạ Địa Chỉ Modbus WECON",
+    element: <WeconModbusMapPage />,
+    showInSidebar: true,
+    icon: ArrowLeftRight,
+    group: "data",
   },
   {
     path: "/tools/bit-word-devices-fx",

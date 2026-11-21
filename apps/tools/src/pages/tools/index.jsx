@@ -106,7 +106,9 @@ export default function ToolPage() {
                         ? "Tính toán nhanh chóng và chính xác việc quy đổi tín hiệu Analog 4-20mA về dải giá trị thực tế (Engineering Value) cho PLC."
                         : tool.path === "/tools/rs485-hex"
                           ? "Tiện ích tra cứu nhanh và phân tích mã HEX, cấu trúc bit mapping truyền thông chuẩn RS485."
-                          : "Công cụ tiện ích hỗ trợ nhanh chóng cho các dự án tự động hóa của ní."}
+                          : tool.path === "/tools/wecon-modbus-map"
+                            ? "Ánh xạ 2 chiều địa chỉ thiết bị PLC WECON (M, D, X, Y, S, SM, SD, R, T, C, LC, HSC) sang Modbus 0-Based & 1-Based (+1 HMI Weintek)."
+                            : "Công cụ tiện ích hỗ trợ nhanh chóng cho các dự án tự động hóa của ní."}
                     </CardDescription>
                   </div>
                 </Card>
