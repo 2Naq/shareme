@@ -1,0 +1,1 @@
+import{Xr as e,qr as t}from"./index-DHYfCwqB.js";var n=e(t(),1),r=n.createContext({disabled:!1});function i(){return n.useContext(r)}export{i as t};
