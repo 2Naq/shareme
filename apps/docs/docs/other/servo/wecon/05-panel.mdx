@@ -1,0 +1,197 @@
+---
+id: "05-panel"
+title: "05 Bảng điều khiển LED và Thao tác Cài đặt (Panel Operation)"
+sidebar_position: 5
+sidebar_label: "05 Panel"
+tags: ["wecon", "vd3e", "servo", "panel", "jog", "factory-reset", "manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 05 Hướng dẫn giải mã hiển thị LED 5 chữ số, cài đặt tham số, chạy thử JOG và khôi phục cài đặt gốc trên Servo VD3E Series."
+---
+
+## Cấu tạo Bảng điều khiển (Panel Composition)
+
+![Hình 5-1 Sơ đồ mặt bảng điều khiển bộ điều khiển Servo VD3E](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/image-20230626144055-1.png?rev=1.1)
+
+*Hình 5-1: Sơ đồ cấu tạo mặt bảng điều khiển của bộ điều khiển Servo VD3E*
+
+Bảng điều khiển trên mặt máy của bộ điều khiển Servo WECON VD3E Series bao gồm **màn hình hiển thị LED 7 thanh 5 chữ số** và **5 phím nhấn chức năng**, dùng để giám sát trạng thái, hiển thị mã lỗi, cài đặt tham số và vận hành thử nghiệm. Chức năng của từng phím nhấn được mô tả trong Bảng 5-1:
+
+**Bảng 5-1: Chức năng các phím nhấn trên bảng điều khiển**
+
+| Biểu tượng phím | Tên phím | Chức năng chi tiết |
+| :--- | :--- | :--- |
+| ![Phím Mode](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/1687761802133-870.png?rev=1.1) | **Mode** (Chế độ) | • Chuyển đổi qua lại giữa các chế độ hiển thị;<br/>• Quay trở lại menu cấp trước đó. |
+| ![Phím Up](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/1687761807562-323.png?rev=1.1) | **Increase / Up** (Tăng) | Tăng giá trị tại chữ số LED đang nhấp nháy (hoặc quay thuận khi ở chế độ JOG). |
+| ![Phím Down](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/1687761812606-895.png?rev=1.1) | **Down** (Giảm) | Giảm giá trị tại chữ số LED đang nhấp nháy (hoặc quay nghịch khi ở chế độ JOG). |
+| ![Phím Shift](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/1687761817807-198.png?rev=1.1) | **SHIFT** (Dịch chữ số) | ① Dịch chuyển vị trí chữ số LED đang nhấp nháy;<br/>② Chuyển trang để xem các chữ số bậc cao đối với dữ liệu có độ dài lớn hơn 4 chữ số. |
+| ![Phím Enter](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/1687761822654-445.png?rev=1.1) | **Confirm / Enter** (Xác nhận) | ① Đi vào menu cấp tiếp theo;<br/>② Thực thi lệnh lưu giá trị cài đặt tham số. |
+
+---
+
+## Các chế độ Hiển thị trên Bảng điều khiển (Panel Display)
+
+Khi bộ điều khiển Servo hoạt động, màn hình LED được sử dụng cho 4 chế độ hiển thị:
+
+- **Hiển thị trạng thái (Status display):** Hiển thị trạng thái vận hành hiện tại của bộ điều khiển Servo và mạng EtherCAT.
+- **Hiển thị tham số (Parameter display):** Hiển thị mã nhóm từ điển đối tượng (`Pxx.yy`) và giá trị cài đặt tương ứng.
+- **Hiển thị lỗi (Fault display):** Hiển thị mã lỗi (`Er.xx`) hoặc mã cảnh báo (`A-xx`) hiện tại của Servo.
+- **Hiển thị giám sát (Monitor display):** Hiển thị các thông số vận hành thời gian thực (`U0-xx` ~ `U2-xx`) của Servo.
+
+### Sơ đồ chuyển đổi giữa các chế độ hiển thị (Display Switching)
+
+![Hình 5-2 Sơ đồ chuyển đổi các chế độ hiển thị trên bảng điều khiển](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/image-20230626144055-2.png?rev=1.1)
+
+*Hình 5-2: Lưu đồ chuyển đổi giữa các chế độ hiển thị khi nhấn phím `Mode`*
+
+1. Ngay sau khi cấp nguồn, màn hình LED tự động vào **[Chế độ hiển thị trạng thái (Status display mode)]**.
+2. Khi xảy ra lỗi vận hành, màn hình ngay lập tức chuyển sang **[Chế độ hiển thị lỗi]** với cả 5 LED nhấp nháy đồng bộ; lúc này có thể nhấn phím `Mode` để chuyển sang chế độ hiển thị tham số để kiểm tra.
+3. Nhấn phím `Mode` để chuyển tuần tự qua các chế độ hiển thị theo lưu đồ Hình 5-2.
+
+### Hiển thị Trạng thái (Status Display)
+
+**Bảng 5-2: Giải mã các ký hiệu hiển thị trạng thái trên màn hình LED**
+
+| Ký hiệu hiển thị LED | Tên trạng thái | Thời điểm xuất hiện | Ý nghĩa chi tiết |
+| :--- | :--- | :--- | :--- |
+| ![rESt](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877619634854.png?rev=1.1) | **`rESt`**<br/>Khởi tạo Servo (Reset) | Trong vòng 1 giây đầu khi vừa cấp nguồn | Bộ điều khiển Servo đang trong quá trình khởi tạo hoặc reset. Sau khi hoàn tất sẽ tự động chuyển sang trạng thái khác. |
+| ![nr](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877620284789.png?rev=1.1) | **`nr`**<br/>Servo chưa sẵn sàng (Not Ready) | Sau khi khởi tạo xong nhưng chưa sẵn sàng | Bộ điều khiển Servo đang ở trạng thái chưa sẵn sàng vận hành (`Switch On Disabled`). |
+| ![ry](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877620821167.png?rev=1.1) | **`ry`**<br/>Servo sẵn sàng (Ready) | Khi mạch động lực và truyền thông đã sẵn sàng | Servo đã ở trạng thái sẵn sàng (`Ready to Switch On` / `Switched On`), đang chờ lệnh kích hoạt `S-ON` từ bộ điều khiển thượng tầng (PLC). |
+| ![rn](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877621015930.png?rev=1.1) | **`rn`**<br/>Servo đang chạy (Running) | Khi tín hiệu kích hoạt Servo (`S-ON`) bật ON | Bộ điều khiển Servo đang cấp dòng khóa/quay động cơ (`Operation Enabled`). |
+| ![nF](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877621358311.png?rev=1.1) | **`nF`**<br/>Không có lỗi (No Fault) | Khi Servo hoạt động bình thường không có lỗi | Báo hiệu bộ điều khiển không có lỗi tồn đọng. |
+| ![Qs](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/1728377203960-145.png?width=213&height=82&rev=1.1) | **`Qs`**<br/>Dừng nhanh (Quick Stop) | Khi kích hoạt lệnh dừng nhanh | Bộ điều khiển Servo đang ở trạng thái dừng nhanh (`Quick Stop Active`). |
+| ![Chế độ điều khiển](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877621544357.png?rev=1.1) | **`1 ~ A`**<br/>Chế độ điều khiển (LED thứ 3 từ trái) | Hiển thị thường trực ở chế độ trạng thái | Hiển thị chế độ vận hành hiện tại dưới dạng số Hex:<br/>• **`1`**: Chế độ vị trí biên dạng (PP - Profile Position)<br/>• **`3`**: Chế độ vận tốc biên dạng (PV - Profile Velocity)<br/>• **`4`**: Chế độ mô-men biên dạng (PT - Profile Torque)<br/>• **`6`**: Chế độ về gốc (HM - Homing)<br/>• **`8`**: Chế độ vị trí đồng bộ chu kỳ (CSP)<br/>• **`9`**: Chế độ vận tốc đồng bộ chu kỳ (CSV)<br/>• **`A`**: Chế độ mô-men đồng bộ chu kỳ (CST) |
+| ![Trạng thái truyền thông](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877621791120.png?width=143&height=105&rev=1.1) | **`1 ~ 8`**<br/>Trạng thái EtherCAT (LED thứ 2 từ trái) | Hiển thị thường trực ở chế độ trạng thái | Hiển thị trạng thái máy trạng thái EtherCAT (ESM) của trạm tớ:<br/>• **`1`**: Trạng thái khởi tạo (`Init`)<br/>• **`2`**: Trạng thái tiền vận hành (`Pre-Operational`)<br/>• **`4`**: Trạng thái vận hành an toàn (`Safe-Operational`)<br/>• **`8`**: Trạng thái vận hành (`Operational`) |
+| ![Báo kết nối CN6](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877621981265.png?rev=1.1) | **Thanh ngang trên (LED 1)**<br/>Báo kết nối cổng `CN6 (OUT)` | Hiển thị thường trực | • **Tắt:** Chưa phát hiện kết nối cáp mạng tại cổng `CN6`<br/>• **Sáng tĩnh:** Đã thiết lập kết nối vật lý tại cổng `CN6` |
+| ![Báo kết nối CN5](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877622185591.png?rev=1.1) | **Thanh ngang dưới (LED 1)**<br/>Báo kết nối cổng `CN5 (IN)` | Hiển thị thường trực | • **Tắt:** Chưa phát hiện kết nối cáp mạng tại cổng `CN5`<br/>• **Sáng tĩnh:** Đã thiết lập kết nối vật lý tại cổng `CN5` |
+
+![Hình 5-3 Sơ đồ bố trí 5 chữ số LED hiển thị trạng thái](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/PixPin_2024-09-26_17-03-49.png?width=400&height=437&rev=1.1)
+
+*Hình 5-3: Sơ đồ giải mã 5 vị trí LED trong chế độ hiển thị trạng thái*
+
+---
+
+### Hiển thị Tham số (Parameter Display)
+
+Bộ điều khiển Servo WECON VD3E Series chia các tham số nhóm `2000h` thành **13 nhóm mã hàm (`P00` đến `P10`...)** giúp người dùng định vị và cài đặt nhanh trực tiếp trên bàn phím LED (chi tiết danh mục tham số xem tại **Chương 8: Từ điển đối tượng**).
+
+#### (1) Định dạng hiển thị mã hàm (`PXX.YY`)
+
+Định dạng hiển thị trên màn hình LED là `PXX.YY`, trong đó `XX` là số thứ tự nhóm mã hàm (tương ứng chỉ số `20XXh`) và `YY` là số thứ tự tham số trong nhóm (ở hệ thập phân, tương ứng với Sub-index hệ Hex):
+
+| Hiển thị LED | Mã đối tượng tương ứng | Giải thích |
+| :--- | :--- | :--- |
+| ![P00.01](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1687762408983.png?rev=1.1) | Mã hàm `2000-01h` (`P00-01`) | • `00`: Nhóm mã hàm `P00` (`2000h`)<br/>• `01`: Tham số số `01` trong nhóm |
+
+#### (2) Hiển thị dữ liệu theo độ dài chữ số
+
+- **① Dữ liệu từ 4 chữ số trở xuống:** Hiển thị trên một trang duy nhất. Nếu là số có dấu (Signed) mang giá trị âm, LED ngoài cùng bên trái hiển thị dấu trừ `"-"`.
+
+| Ví dụ 1 | Ví dụ 2 | Ví dụ 3 |
+| :--- | :--- | :--- |
+| ![Ví dụ hiển thị 1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877626687623.png?width=188&height=68&rev=1.1) | ![Ví dụ hiển thị 2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877625526362.png?width=179&height=64&rev=1.1) | ![Ví dụ hiển thị 3](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877625797732.png?width=160&height=58&rev=1.1) |
+
+- **② Dữ liệu từ 5 chữ số trở lên (32-bit):** Hiển thị phân trang từ bậc thấp (Low) đến bậc cao (High), mỗi trang gồm 4 chữ số. Cấu trúc hiển thị: `[Số trang hiện tại (LED 1)] + [4 chữ số giá trị]`. Nhấn giữ/nhấn phím `SHIFT` để chuyển trang.
+  - Ví dụ hiển thị số dương `2147483646`:
+
+![Hình 5-4 Hiển thị phân trang số 2147483646](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/image-20230626144055-4.png?rev=1.1)
+
+*Hình 5-4: Thao tác chuyển trang hiển thị số 32-bit dương `2147483646`*
+
+  - Ví dụ hiển thị số âm `-2147483647`:
+
+![Hình 5-5 Hiển thị phân trang số -2147483647](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/image-20230626144055-5.png?rev=1.1)
+
+*Hình 5-5: Thao tác chuyển trang hiển thị số 32-bit âm `-2147483647`*
+
+#### (3) Các thông báo khi lưu cài đặt tham số
+
+**Bảng 5-3: Các ký hiệu phản hồi khi cài đặt tham số**
+
+| Hiển thị LED | Ký hiệu | Thời điểm xuất hiện | Ý nghĩa |
+| :--- | :--- | :--- | :--- |
+| ![done](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877628211715.png?rev=1.1) | **`done`** | Sau khi lưu tham số hoặc khôi phục cài đặt gốc | Hoàn tất lưu cài đặt tham số vào bộ nhớ. |
+| ![P.init](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877628421229.png?rev=1.1) | **`P.Init`** | Khi thực hiện khôi phục cài đặt gốc | Bộ điều khiển đang trong quá trình khởi tạo lại tham số về mặc định xuất xưởng. |
+| ![Error](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877628582298.png?rev=1.1) | **`Error`** | Khi nhập giá trị vượt ngưỡng hoặc không được phép sửa | Báo lỗi giá trị tham số vượt quá giới hạn cho phép hoặc tham số chỉ đọc/đang khóa. |
+
+---
+
+### Hiển thị Lỗi & Cảnh báo (Fault Display)
+
+Bảng điều khiển có thể hiển thị mã lỗi (`Er.xx`) và mã cảnh báo (`A-xx`) hiện tại hoặc lịch sử. Khi có nhiều lỗi xảy ra đồng thời, màn hình sẽ ưu tiên hiển thị mã lỗi có mức độ nghiêm trọng cao nhất. Người dùng có thể tra cứu mã lỗi hiện tại và 5 mã lỗi/cảnh báo gần nhất thông qua nhóm tham số giám sát `U0`.
+
+| Loại thông báo | Hình ảnh hiển thị LED | Tên thông báo | Ý nghĩa |
+| :--- | :--- | :--- | :--- |
+| **Ví dụ Cảnh báo (Bảng 5-4)** | ![A-94](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877629437186.png?width=133&height=45&rev=1.1) | Cảnh báo yêu cầu khởi động lại nguồn (`A-94`) | Đã thay đổi tham số có thuộc tính yêu cầu tắt/bật lại nguồn điện để có hiệu lực. |
+| **Ví dụ Lỗi (Bảng 5-5)** | ![Er.21](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877629611964.png?width=129&height=45&rev=1.1) | Lỗi bảo vệ quá tải động cơ (`Er.21`) | Động cơ Servo bị quá tải vượt ngưỡng thời gian cho phép. |
+
+---
+
+### Hiển thị Giám sát (Monitor Display)
+
+Sau khi cấp nguồn hoặc khi Servo đang chạy, nhấn phím `Mode` để chuyển sang chế độ giám sát (`U0-xx`).
+
+**Bảng 5-6: Ví dụ hiển thị các biến giám sát vận hành**
+
+| Hiển thị LED | Mã biến giám sát | Tên thông số | Đơn vị | Ý nghĩa chi tiết |
+| :--- | :--- | :--- | :--- | :--- |
+| ![U0-02](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877631074505.png?rev=1.1) | `U0-02` | Tốc độ thực tế động cơ Servo | rpm | Hiển thị tốc độ quay thực tế của động cơ Servo ở hệ thập phân. |
+| ![U0-31](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877631238739.png?rev=1.1) | `U0-31` | Điện áp DC Bus | V | Hiển thị giá trị điện áp một chiều trên thanh cái DC Bus (giữa `P+` và `-`). |
+| ![U0-17](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/image-20230626144055-6.png?width=310&height=238&rev=1.1) | `U0-17` | Trạng thái tín hiệu ngõ vào số (`DI`) | - | Hiển thị trạng thái mức logic của 6 chân `DI1 ~ DI6`: Thanh đứng nửa trên sáng biểu thị mức Cao (High), nửa dưới sáng biểu thị mức Thấp (Low). |
+| ![U0-19](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/image-20230626144055-7.png?width=234&height=171&rev=1.1) | `U0-19` | Trạng thái tín hiệu ngõ ra số (`DO`) | - | Hiển thị trạng thái mức logic của 3 chân `DO1 ~ DO3`: Thanh đứng nửa trên sáng biểu thị mức Cao (High), nửa dưới sáng biểu thị mức Thấp (Low). |
+
+---
+
+## Hướng dẫn Thao tác trên Bảng điều khiển (Panel Operation)
+
+### 1. Quy trình Cài đặt Tham số (Parameter Setting)
+
+Lấy ví dụ thay đổi tham số `2000-01h` (`P00.01`) từ chế độ điều khiển vị trí sang chế độ điều khiển vận tốc:
+
+1. Sau khi cấp nguồn, màn hình ở trạng thái sẵn sàng (`ry`).
+2. Nhấn phím `Mode` để chuyển sang giao diện chọn mã hàm (`P00.00`).
+3. Dùng phím `Up` / `Down` / `SHIFT` để chọn mã hàm `P00.01`, sau đó nhấn phím `Enter (Confirm)` để vào giao diện sửa giá trị.
+4. Dùng phím `Up` và `Down` để thay đổi giá trị tham số.
+5. Nhấn phím `Enter (Confirm)` **2 lần** để xác nhận lưu giá trị mới (màn hình báo `done`).
+
+![Hình 5-6 Lưu đồ các bước cài đặt tham số](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/image-20230626144055-8.png?rev=1.1)
+
+*Hình 5-6: Sơ đồ minh họa các bước cài đặt tham số trên màn hình LED*
+
+### 2. Quy trình Chạy thử JOG trên Bảng điều khiển (Jog Operation)
+
+Để kiểm tra nhanh động cơ và bộ điều khiển Servo trước khi kết nối mạng EtherCAT, bạn có thể sử dụng chức năng chạy nhấp JOG trực tiếp từ bàn phím theo Hình 5-7:
+
+1. Sau khi cấp nguồn (đảm bảo Servo đang ở trạng thái OFF/chưa kích hoạt từ PLC), chỉnh mã hàm đến **`P10.01`**.
+2. Nhấn phím `Enter` để vào menu cài đặt tốc độ chạy JOG (rpm).
+3. Sau khi chỉnh tốc độ JOG mong muốn, nhấn phím `Enter`, màn hình sẽ hiển thị chữ **`JOG`** nhấp nháy. Nhấn phím `Enter` thêm một lần nữa để chính thức kích hoạt chế độ JOG (Servo ON).
+4. Nhấn giữ phím **`Up`** hoặc **`Down`** để điều khiển động cơ quay thuận hoặc quay nghịch.
+5. Nhấn phím **`Mode`** để thoát khỏi chế độ JOG và trở về menu trước.
+
+:::tip
+- Lưu ý 1: Nhấn giữ phím `Up` / `Down` động cơ sẽ quay liên tục; nhấn nhả nhanh động cơ sẽ nhích từng bước nhỏ.
+- Lưu ý 2: Nhấn phím `Mode` để thoát trạng thái chạy JOG và quay lại menu cấp trên.
+- Lưu ý 3: Nếu màn hình báo `Error` không vào được JOG, hãy kiểm tra xem trục có đang ở trạng thái kích hoạt (`S-ON`) hoặc đang có lỗi bảo vệ hay không (xem Chương 10).
+:::
+
+![Hình 5-7 Các bước thao tác chạy thử JOG](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/image-20230626144055-9.png?rev=1.1)
+
+*Hình 5-7: Lưu đồ các bước thao tác chạy thử JOG (`P10.01`)*
+
+### 3. Quy trình Khôi phục Cài đặt Gốc (Factory Reset)
+
+Có thể khôi phục toàn bộ tham số về mặc định xuất xưởng thông qua mã hàm **`P10.02`** theo Hình 5-8:
+
+1. Sau khi cấp nguồn (ở trạng thái Servo OFF), chọn mã hàm **`P10.02`**.
+2. Nhấn phím `Enter` để vào giao diện cài đặt giá trị.
+3. Dùng phím `Up` đặt giá trị thành **`1`**, nhấn phím `Enter` (màn hình nhấp nháy `00001`), nhấn phím `Enter` thêm lần nữa để màn hình hiển thị **`P.init`**.
+4. **Nhấn giữ phím `Enter` trong 3 giây**, các chữ số trên màn hình LED sẽ sáng dần từ trái sang phải cho đến khi hiển thị `8.8.8.8.8.`.
+5. Nhả phím `Enter` khi màn hình đã sáng đủ `8.8.8.8.8.`.
+6. Màn hình hiển thị **`done`** báo hiệu đã khôi phục cài đặt gốc thành công. Lúc này, hãy tắt nguồn và cấp nguồn lại cho bộ điều khiển Servo.
+
+:::tip
+- Lưu ý 1: Nếu đặt giá trị của `P10.02` nằm ngoài phạm vi `0 ~ 1`, màn hình sẽ báo `Error`.
+- Lưu ý 2: Khi giá trị đang là `0`, nếu nhấn phím `Down`, màn hình sẽ báo `Error` trong 1 giây rồi tự động nhảy sang giá trị `1`.
+:::
+
+![Hình 5-8 Các bước khôi phục cài đặt gốc](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/05%20Panel/WebHome/image-20230626144055-10.png?rev=1.1)
+
+*Hình 5-8: Lưu đồ các bước khôi phục cài đặt gốc (`P10.02`)*

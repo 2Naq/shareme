@@ -100,6 +100,9 @@ efort:
 keyence:
   label: Keyence
   permalink: /keyence
+scara:
+  label: Robot SCARA
+  permalink: /scara
 
 
 

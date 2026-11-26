@@ -1,0 +1,263 @@
+---
+id: "06-communication-network-configuration"
+title: "06 Cấu hình Mạng truyền thông EtherCAT và Máy trạng thái CiA 402"
+sidebar_position: 6
+sidebar_label: "06 Communication Network"
+tags: ["wecon", "vd3e", "servo", "ethercat", "pdo", "sdo", "cia402", "manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 06 Kiến trúc truyền thông EtherCAT (CoE), ánh xạ RPDO/TPDO, đồng hồ phân tán DC và sơ đồ máy trạng thái CiA 402 trên Servo VD3E Series."
+---
+
+## Quy trình Thiết lập Vận hành Mạng EtherCAT (EtherCAT Operation)
+
+![Hình 6-1 Lưu đồ cấu hình vận hành EtherCAT](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/1687763900631-428.png?rev=1.1)
+
+*Hình 6-1: Lưu đồ quy trình cấu hình và vận hành mạng EtherCAT*
+
+---
+
+## Nguyên lý Cơ bản về Truyền thông EtherCAT (EtherCAT Communication Fundamentals)
+
+### Thông số kỹ thuật truyền thông EtherCAT
+
+| Phân tầng | Nội dung | Đặc tính kỹ thuật |
+| :--- | :--- | :--- |
+| **Tầng ứng dụng (Application layer)** | Dữ liệu quá trình (PDO) | Hỗ trợ ánh xạ PDO thay đổi linh hoạt (Variable PDO mapping) và cố định |
+| **Tầng ứng dụng (Application layer)** | Dữ liệu hộp thư (SDO) | Yêu cầu SDO (SDO request), Phản hồi SDO (SDO reply) |
+| **Tầng ứng dụng (Application layer)** | Hồ sơ điều khiển CiA 402 | Chế độ vị trí đồng bộ chu kỳ (CSP), Vận tốc đồng bộ chu kỳ (CSV), Mô-men đồng bộ chu kỳ (CST), Vị trí biên dạng (PP), Vận tốc biên dạng (PV), Mô-men biên dạng (PT), Về gốc (HM) |
+| **Tầng vật lý (Physical layer)** | Chuẩn truyền dẫn | 100BASE-TX (IEEE 802.3) |
+| **Tầng vật lý (Physical layer)** | Cổng giao tiếp | 2 cổng RJ45: `CN5 (IN)` và `CN6 (OUT)` |
+
+### Cấu trúc truyền thông (Communication Structure)
+
+Bộ điều khiển Servo mạng WECON VD3E Series tuân thủ tiêu chuẩn quốc tế **IEC 61800-7 (CiA 402)** — giao thức con điều khiển chuyển động CANopen trên nền tảng EtherCAT (**CoE**).
+
+![Hình 6-2 Cấu trúc truyền thông CoE](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/1687763990838-324.png?rev=1.1)
+
+*Hình 6-2: Cấu trúc phân lớp truyền thông CoE (PDO thời gian thực và SDO hộp thư)*
+
+- **PDO (Process Data Object - Đối tượng dữ liệu quá trình):** Bao gồm các đối tượng trong Từ điển đối tượng (Object Dictionary) cho phép ánh xạ vào khung dữ liệu chu kỳ thời gian thực. Nội dung trao đổi dữ liệu trong mỗi chu kỳ đồng bộ được quy định bởi cấu hình ánh xạ PDO.
+- **SDO (Service Data Object - Truyền thông hộp thư Mailbox):** Là kênh truyền thông không chu kỳ (Aperiodic), có thể đọc và ghi mọi đối tượng trong Từ điển đối tượng.
+
+### Máy trạng thái EtherCAT (EtherCAT State Machine - ESM)
+
+Thiết bị EtherCAT hoạt động theo 4 trạng thái chuẩn nhằm điều phối quá trình khởi tạo và trao đổi dữ liệu giữa trạm chủ (Master) và trạm tớ (Slave):
+
+- **Init (`I`):** Trạng thái khởi tạo (Hiển thị trên LED số 2 là `1`);
+- **Pre-Operational (`P`):** Trạng thái tiền vận hành (Hiển thị trên LED số 2 là `2`);
+- **Safe-Operational (`S`):** Trạng thái vận hành an toàn (Hiển thị trên LED số 2 là `4`);
+- **Operational (`O`):** Trạng thái vận hành chính thức (Hiển thị trên LED số 2 là `8`).
+
+![Hình 6-3 Sơ đồ máy trạng thái EtherCAT ESM](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877640707184.png?rev=1.1)
+
+*Hình 6-3: Sơ đồ chuyển đổi máy trạng thái EtherCAT (ESM)*
+
+:::tip
+Khi chuyển từ trạng thái Khởi tạo (`Init`) lên trạng thái Vận hành (`Operational`), bắt buộc phải chuyển tuần tự theo đúng thứ tự: **`Init → Pre-Operational → Safe-Operational → Operational`** (không được nhảy cóc). Tuy nhiên, khi hạ trạng thái từ `Operational` quay về các trạng thái thấp hơn thì cho phép chuyển vượt cấp trực tiếp.
+:::
+
+| Trạng thái / Quá trình chuyển tiếp | Hoạt động xử lý giữa Trạm chủ (Master) và Trạm tớ (Slave) |
+| :--- | :--- |
+| **`Init` (Khởi tạo)** | Chưa có truyền thông ở tầng ứng dụng; trạm chủ chỉ có thể đọc và ghi các thanh ghi chip ESC. |
+| **`Init → Pre-Operational`** | • Trạm chủ cấu hình địa chỉ trạm cho trạm tớ;<br/>• Cấu hình kênh hộp thư (Mailbox SyncManager);<br/>• Cấu hình đồng hồ phân tán DC (Distributed Clock);<br/>• Yêu cầu chuyển sang trạng thái `Pre-Operational`. |
+| **`Pre-Operational` (Tiền vận hành)** | Cho phép truyền thông dữ liệu hộp thư ở tầng ứng dụng (**SDO**). Chưa truyền PDO. |
+| **`Pre-Operational → Safe-Operational`** | • Trạm chủ dùng SDO để khởi tạo cấu hình ánh xạ dữ liệu quá trình (PDO Mapping);<br/>• Trạm chủ cấu hình các kênh SyncManager (SM2/SM3) dùng cho dữ liệu quá trình;<br/>• Trạm chủ cấu hình đơn vị ánh xạ bộ nhớ FMMU;<br/>• Yêu cầu chuyển sang trạng thái `Safe-Operational`. |
+| **`Safe-Operational` (Vận hành an toàn)** | Cho phép đọc dữ liệu phản hồi từ trạm tớ (**SDO, TPDO**), nhưng các tín hiệu điều khiển ngõ ra (**RPDO**) chưa được kích hoạt. |
+| **`Safe-Operational → Operational`** | • Trạm chủ gửi dữ liệu ngõ ra (RPDO) hợp lệ;<br/>• Yêu cầu chuyển sang trạng thái `Operational`. |
+| **`Operational` (Vận hành)** | Toàn bộ dữ liệu ngõ vào và ngõ ra đều có hiệu lực; hỗ trợ đồng thời **SDO, TPDO và RPDO**. |
+
+---
+
+### Đèn báo trạng thái cổng mạng EtherCAT (Communication Indicator Lamp)
+
+Đèn LED báo trạng thái truyền thông của bộ điều khiển Servo VD3E được tích hợp trực tiếp trên hai cổng RJ45 `CN5 (IN)` và `CN6 (OUT)` như minh họa ở Hình 6-4:
+
+![Hình 6-4 Vị trí đèn báo truyền thông trên cổng CN5/CN6](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/1687764127429-364.png?rev=1.1)
+
+*Hình 6-4: Vị trí đèn báo kết nối (Vàng) và đèn báo truyền dữ liệu (Xanh lá) trên cổng RJ45*
+
+#### (1) Đèn báo kết nối vật lý - LINK (Màu vàng)
+
+| Trạng thái đèn Vàng | Giải thích ý nghĩa |
+| :--- | :--- |
+| **Tắt (OFF)** | Cổng chưa được cắm cáp mạng hoặc cáp mạng bị đứt. |
+| **Sáng tĩnh (ON)** | Cổng đã được kết nối cáp mạng vật lý bình thường. |
+
+#### (2) Đèn báo hoạt động truyền thông - ACT (Màu xanh lá)
+
+| Trạng thái đèn Xanh lá | Giải thích ý nghĩa |
+| :--- | :--- |
+| **Sáng tĩnh (ON)** | Chưa thiết lập phiên truyền thông dữ liệu với trạm chủ (Master). |
+| **Nhấp nháy (BLINKING)** | Đã thiết lập kết nối truyền thông và đang trao đổi khung dữ liệu với trạm chủ. |
+
+---
+
+### Dữ liệu Quá trình PDO (Process Data Object)
+
+PDO truyền nhận dữ liệu điều khiển và phản hồi theo chu kỳ thời gian thực, được chia thành:
+- **RPDO (Receive PDO):** Trạm tớ (Servo) nhận lệnh điều khiển từ trạm chủ (PLC).
+- **TPDO (Transmit PDO):** Trạm tớ (Servo) gửi trạng thái phản hồi về trạm chủ (PLC).
+
+![Hình 6-6 Sơ đồ nguyên lý trao đổi dữ liệu RPDO và TPDO](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/1687764189351-772.png?rev=1.1)
+
+*Hình 6-6: Sơ đồ nguyên lý trao đổi dữ liệu RPDO và TPDO giữa Master và Slave*
+
+#### (1) Tham số ánh xạ PDO (PDO mapping parameters)
+
+Vùng địa chỉ từ `1600h ~ 17FFh` dùng cho cấu hình **RPDO**, và từ `1A00h ~ 1BFFh` dùng cho cấu hình **TPDO**:
+
+| Loại PDO | Mã đối tượng (Index) | Tính chất ánh xạ |
+| :--- | :--- | :--- |
+| **RPDO** | `1600h` | Ánh xạ thay đổi linh hoạt (Variable mapping — người dùng tùy chỉnh được) |
+| **RPDO** | `1701h ~ 1705h` | Ánh xạ cố định (Fixed mapping) |
+| **TPDO** | `1A00h` | Ánh xạ thay đổi linh hoạt (Variable mapping — người dùng tùy chỉnh được) |
+| **TPDO** | `1B01h ~ 1B04h` | Ánh xạ cố định (Fixed mapping) |
+
+![Hình 6-7 Ví dụ cấu hình ánh xạ RxPDO](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/1687764238838-148.png?rev=1.1)
+
+*Hình 6-7: Ví dụ cấu hình ánh xạ RxPDO (`1600h`)*
+
+**Bảng định nghĩa các kiểu dữ liệu chuẩn trong Từ điển đối tượng:**
+
+| Kiểu dữ liệu | Mô tả | Dải giá trị số |
+| :--- | :--- | :--- |
+| `SINT` | Số nguyên có dấu 8-bit | $-128 \sim 127$ |
+| `USINT` | Số nguyên không dấu 8-bit | $0 \sim 255$ |
+| `INT` | Số nguyên có dấu 16-bit | $-32768 \sim 32767$ |
+| `UINT` | Số nguyên không dấu 16-bit | $0 \sim 65535$ |
+| `DINT` | Số nguyên có dấu 32-bit | $-2147483648 \sim 2147483647$ |
+| `UDINT` | Số nguyên không dấu 32-bit | $0 \sim 4294967295$ |
+| `STRING` | Chuỗi ký tự | Mã ASCII |
+
+![Hình 6-8 Ví dụ cấu hình ánh xạ TxPDO](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/1687764276184-189.png?rev=1.1)
+
+*Hình 6-8: Ví dụ cấu hình ánh xạ TxPDO (`1A00h`)*
+
+![Hình 6-8b Ví dụ ánh xạ SyncManager PDO](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/1687764295841-774.png?rev=1.1)
+
+*Hình 6-9: Ví dụ gán danh sách PDO vào kênh quản lý đồng bộ SyncManager*
+
+#### (2) Cài đặt gán PDO cho kênh quản lý đồng bộ (SyncManager PDO Assignment)
+
+Trong truyền thông chu kỳ EtherCAT, các đối tượng `1C10h ~ 1C2Fh` định nghĩa danh sách đối tượng PDO được gắn vào từng kênh Quản lý đồng bộ (SyncManager - SM):
+
+| Index (Hex) | Sub-index (Hex) | Nội dung cấu hình |
+| :--- | :--- | :--- |
+| `1C12h` | `01h` | Chọn một trong các bộ `0x1600`, `0x1701 ~ 0x1705` làm **RPDO** thực tế (SM2) |
+| `1C13h` | `01h` | Chọn một trong các bộ `0x1A00`, `0x1B01 ~ 0x1B04` làm **TPDO** thực tế (SM3) |
+
+#### (3) Cấu trúc từ dữ liệu ánh xạ PDO (32-bit Mapping Entry)
+
+Mỗi mục ánh xạ trong PDO (từ `Sub-index 1` đến `N`, với `Sub-index 0` lưu tổng số lượng đối tượng $N$) là một thanh ghi 32-bit chứa con trỏ trỏ tới đối tượng trong Từ điển đối tượng, bao gồm: **Index (16-bit cao)**, **Sub-index (8-bit giữa)** và **Độ dài bit của đối tượng (8-bit thấp)**:
+
+| Vị trí Bit | Bit 31 ... Bit 16 | Bit 15 ... Bit 8 | Bit 7 ... Bit 0 |
+| :--- | :--- | :--- | :--- |
+| **Thành phần** | **Index (16-bit)** | **Sub-index (8-bit)** | **Độ dài đối tượng (Bit length)** |
+
+| Giá trị trường Độ dài (Hex) | Độ dài tính theo Bit |
+| :--- | :--- |
+| `08h` | 8-bit (1 Byte) |
+| `10h` | 16-bit (2 Bytes) |
+| `20h` | 32-bit (4 Bytes) |
+
+- **Ví dụ:** Tham số ánh xạ của đối tượng `6040h-00` (Từ điều khiển - Control Word, dài 16-bit) sẽ có giá trị 32-bit là **`60400010h`**.
+
+:::warning
+- Cấu hình ánh xạ PDO **chỉ có thể được thay đổi khi máy trạng thái EtherCAT đang ở trạng thái Tiền vận hành (`Pre-Operational` — màn hình LED hiển thị số `2`)**, nếu ghi ở trạng thái khác sẽ báo lỗi SDO.
+- Các tham số cấu hình PDO không được lưu cố định vào EEPROM của Servo. Do đó, sau mỗi lần bật nguồn, trạm chủ (PLC) sẽ tự động nạp lại cấu hình ánh xạ PDO trong pha khởi tạo `Pre-OP → Safe-OP`; nếu không cấu hình, Drive sẽ sử dụng ánh xạ mặc định.
+- Mã lỗi SDO sẽ được trả về nếu:
+  1. Sửa đổi tham số PDO khi không ở trạng thái `Pre-Operational`;
+  2. Ghi giá trị khác `1600h / 1701h ~ 1705h` vào `1C12h`, hoặc ghi giá trị khác `1A00h / 1B01h ~ 1B04h` vào `1C13h`.
+- **Không được thêm quá 10 đối tượng ánh xạ biến đổi (trong RPDO hoặc TPDO), nếu vượt quá 10 đối tượng sẽ gây lỗi kích hoạt trạm Servo.**
+:::
+
+---
+
+### Dữ liệu Hộp thư SDO và Đồng hồ phân tán DC
+
+- **Dữ liệu Hộp thư SDO (Mailbox Data SDO):** Dùng để truyền dữ liệu không định kỳ như đọc/ghi tham số cấu hình, thông số vận hành Servo. Dòng WECON VD3E hiện hỗ trợ dịch vụ **Yêu cầu SDO (SDO Request)** và **Phản hồi SDO (SDO Response)**.
+- **Đồng hồ phân tán (Distributed Clock - DC):** Cho phép toàn bộ các thiết bị trên mạng EtherCAT sử dụng chung một thời gian hệ thống đồng nhất, giúp đồng bộ hóa chính xác thời điểm thực thi tác vụ của từng trục. Bộ điều khiển Servo WECON VD3E hỗ trợ chế độ đồng bộ **DC Synchronous Mode (`SYNC0`)**.
+
+![Hình 6-9 Sơ đồ nguyên lý chế độ đồng bộ DC](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16877644223063.png?rev=1.1)
+
+*Hình 6-10: Sơ đồ nguyên lý đồng bộ xung ngắt `SYNC0` trong chế độ Đồng hồ phân tán (DC)*
+
+---
+
+## Tổng hợp Hiển thị Trạng thái Truyền thông trên Màn hình LED
+
+![Hình 6-10 Sơ đồ tổng hợp hiển thị trạng thái trên màn hình LED 5 chữ số](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/Servo%20pannel%20display.jpg?rev=1.1)
+
+*Hình 6-11: Sơ đồ phân vùng 5 chữ số LED hiển thị trạng thái truyền thông và vận hành*
+
+1. **LED số 1 (Ngoài cùng bên trái) — Trạng thái kết nối cổng vật lý:**
+   - Thanh ngang trên: Cổng `CN6 (OUT)` (Tắt = Chưa kết nối; Sáng = Đã kết nối).
+   - Thanh ngang dưới: Cổng `CN5 (IN)` (Tắt = Chưa kết nối; Sáng = Đã kết nối).
+2. **LED số 2 từ trái — Trạng thái máy trạng thái EtherCAT (ESM):**
+   - `1`: Khởi tạo (`Initialization`)
+   - `2`: Tiền vận hành (`Pre-Operation`)
+   - `4`: Vận hành an toàn (`Safe-Operation`)
+   - `8`: Vận hành (`Operation`)
+3. **LED số 3 từ trái — Chế độ điều khiển Servo hiện tại (Hex):**
+   - `1`: Vị trí biên dạng (`PP` - Profile Position)
+   - `3`: Vận tốc biên dạng (`PV` - Profile Velocity)
+   - `4`: Mô-men biên dạng (`PT` - Profile Torque)
+   - `6`: Về gốc (`HM` - Homing)
+   - `7`: Nội suy (`IP` - Interpolation)
+   - `8`: Vị trí đồng bộ chu kỳ (`CSP` - Cyclic Synchronous Position)
+   - `9`: Vận tốc đồng bộ chu kỳ (`CSV` - Cyclic Synchronous Velocity)
+   - `A`: Mô-men đồng bộ chu kỳ (`CST` - Cyclic Synchronous Torque)
+4. **LED số 4 và số 5 từ trái — Trạng thái hoạt động của Servo:**
+   - `nr`: Chưa sẵn sàng (`Not ready`)
+   - `ry`: Sẵn sàng (`Ready`)
+   - `rn`: Đang chạy (`Run`)
+   - `nF`: Không có lỗi (`Failure-free`)
+
+---
+
+## Giới thiệu Máy trạng thái Điều khiển CiA 402 (CiA 402 State Machine)
+
+Quá trình khởi động, kích hoạt (`Servo ON`), dừng nhanh (`Quick Stop`) và xóa lỗi của bộ điều khiển Servo mạng WECON VD3E tuân thủ chặt chẽ quy trình chuyển trạng thái của giao thức chuẩn **CiA 402**:
+
+![Hình 6-11 Sơ đồ chuyển đổi máy trạng thái CiA 402](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/1687765004268-447.png?rev=1.1)
+
+*Hình 6-12: Sơ đồ máy trạng thái điều khiển chuyển động chuẩn CiA 402*
+
+| Trạng thái CiA 402 | Mô tả hoạt động và quyền truy cập tham số |
+| :--- | :--- |
+| **Initialization (Khởi tạo)** | Bộ điều khiển đang khởi tạo và tự kiểm tra nội bộ. Chưa thể cài đặt tham số và chưa thể kích hoạt Servo. |
+| **Servo trouble-free (`Switch On Disabled`)** | Bộ điều khiển không có lỗi. Cho phép cài đặt mọi tham số. |
+| **Servo ready (`Ready to Switch On`)** | Bộ điều khiển đã sẵn sàng đóng mạch động lực. Cho phép cài đặt tham số. |
+| **Wait to turn on servo enable (`Switched On`)** | Mạch động lực đã sẵn sàng, đang chờ lệnh bật kích hoạt Servo (`Enable Operation`). Cho phép cài đặt tham số. |
+| **Servo operation (`Operation Enabled`)** | Bộ điều khiển Servo đang cấp dòng điều khiển động cơ hoạt động bình thường. |
+| **Quick stop (`Quick Stop Active`)** | Bộ điều khiển đang thực thi quá trình hãm dừng nhanh. Chỉ các mã hàm có thuộc tính "Có hiệu lực ngay khi đang chạy" mới có thể thay đổi. |
+| **Malfunction shutdown (`Fault Reaction Active`)** | Bộ điều khiển phát hiện lỗi và đang thực thi quy trình dừng bảo vệ. |
+| **Fault (Lỗi)** | Quá trình dừng do lỗi đã hoàn tất, mọi chức năng điều khiển động cơ bị khóa. Cho phép thay đổi tham số để khắc phục sự cố và gửi lệnh `Fault Reset`. |
+
+---
+
+## Đặc tính Vật lý Cổng mạng và Cấu trúc Đấu nối (Basic Characteristics)
+
+Cáp mạng EtherCAT (khuyến nghị cáp mạng chống nhiễu chuẩn **Cat5e / Cat6 STP**) được kết nối vào cổng `CN5 (IN)` và `CN6 (OUT)` theo chuẩn IEEE 802.3:
+
+![Hình 6-12 Sơ đồ chân cổng truyền thông RJ45 CN5/CN6](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/1687767552529-985.png?width=714&height=327&rev=1.1)
+
+*Hình 6-13: Sơ đồ thứ tự chân cổng RJ45 `CN5 (IN)` và `CN6 (OUT)`*
+
+| Số chân (Pin) | Tên tín hiệu | Mô tả chức năng |
+| :--- | :--- | :--- |
+| **1** | `TX+` | Truyền dữ liệu + (Sending data+) |
+| **2** | `TX-` | Truyền dữ liệu - (Sending data-) |
+| **3** | `RX+` | Nhận dữ liệu + (Receiving data+) |
+| **4, 5** | `-` | Không sử dụng |
+| **6** | `RX-` | Nhận dữ liệu - (Receiving data-) |
+| **7, 8** | `-` | Không sử dụng |
+
+Cấu trúc liên kết mạng (Topology) EtherCAT rất linh hoạt, hỗ trợ cả **đấu nối chuỗi tuyến tính (Linear connection)** và **đấu nối mạch vòng dự phòng (Ring connection)**:
+
+![Hình 6-13 Kết nối chuỗi tuyến tính (Linear connection)](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/1687765312978-447.png?rev=1.1)
+
+*Hình 6-14: Cấu trúc kết nối chuỗi tuyến tính (Linear Topology)*
+
+![Hình 6-14 Kết nối mạch vòng (Ring connection)](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/06%20Communication%20Network%20Configuration/WebHome/1687765334875-824.png?rev=1.1)
+
+*Hình 6-15: Cấu trúc kết nối mạch vòng (Ring Topology)*

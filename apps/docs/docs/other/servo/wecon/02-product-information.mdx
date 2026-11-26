@@ -1,0 +1,200 @@
+---
+id: "02-product-information"
+title: "02 Thông tin Sản phẩm và Thông số Kỹ thuật (Product Information)"
+sidebar_position: 2
+sidebar_label: "02 Product Information"
+tags: ["wecon", "vd3e", "servo", "specifications", "motor", "manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 02 Quy tắc đặt mã hiệu, cấu tạo và thông số kỹ thuật bộ điều khiển Servo VD3E Series & Động cơ Servo WD/WE."
+---
+
+## Bộ điều khiển Servo (Servo Drives)
+
+### Quy tắc đặt mã hiệu bộ điều khiển Servo (Servo Drive Model Naming)
+
+![Quy tắc đặt mã hiệu bộ điều khiển Servo VD3E](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1759993193559-352.png?width=593&height=386&rev=1.1)
+
+Nhãn thông số (Nameplate) và hình dáng ngoại quan của bộ điều khiển Servo mạng EtherCAT dòng WECON VD3E (Type A, Type B và Type C) được minh họa trong Hình 2-2, Hình 2-3 và Hình 2-4 dưới đây:
+
+![Hình 2-2 Nhãn máy và ngoại quan bộ điều khiển Servo Type A](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1687677342379-987.png?rev=1.1)
+
+*Hình 2-2: Nhãn thông số và ngoại quan bộ điều khiển Servo VD3E Type A*
+
+![Hình 2-3 Nhãn máy và ngoại quan bộ điều khiển Servo Type B](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1687677567856-920.png?rev=1.1)
+
+*Hình 2-3: Nhãn thông số và ngoại quan bộ điều khiển Servo VD3E Type B*
+
+![Hình 2-4 Nhãn máy và ngoại quan bộ điều khiển Servo Type C](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_176015345243.png?rev=1.1)
+
+*Hình 2-4: Nhãn thông số và ngoại quan bộ điều khiển Servo VD3E Type C*
+
+### Cấu tạo các bộ phận của Bộ điều khiển Servo (The Composition of Servo Drive)
+
+![Hình 2-5 Cấu tạo bộ điều khiển Servo VD3E Type A](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1687677712205-673.png?rev=1.1)
+
+*Hình 2-5: Cấu tạo các bộ phận của bộ điều khiển Servo VD3E Type A*
+
+![Hình 2-6 Cấu tạo bộ điều khiển Servo VD3E Type B](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1687677925947-760.png?rev=1.1)
+
+*Hình 2-6: Cấu tạo các bộ phận của bộ điều khiển Servo VD3E Type B*
+
+![Hình 2-7 Cấu tạo bộ điều khiển Servo VD3E Type C](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1760163872813-584.png?rev=1.1)
+
+*Hình 2-7: Cấu tạo các bộ phận của bộ điều khiển Servo VD3E Type C*
+
+:::tip
+Khi sử dụng điện trở xả ngoài (External braking resistor) hoặc điện trở xả nội (Internal braking resistor), cần thực hiện đấu cầu ngắn mạch hoặc tháo cầu đấu giữa các chân `P+`, `C`, `D` theo đúng sơ đồ nguyên lý tại Hình 2-8.
+:::
+
+![Hình 2-8 Sơ đồ đấu cầu ngắn mạch điện trở xả](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1687678017634-457.png?rev=1.1)
+
+*Hình 2-8: Sơ đồ nguyên lý đấu cầu điện trở xả (Dùng điện trở nội: nối tắt `C-D`; Dùng điện trở ngoài: tháo cầu `C-D` và đấu điện trở ngoài vào `P+` và `C`)*
+
+### Thông số kỹ thuật Bộ điều khiển Servo (Specifications of Servo Drive)
+
+#### (1) Thông số kỹ thuật điện (Electrical specification)
+
+**Bảng 2-1: Thông số kỹ thuật điện dòng cấp nguồn 220V (Type A & Type B)**
+
+| Thông số | VD3E Type A (`VD3E-003SA1G`) | VD3E Type A (`VD3E-010SA1G`) | VD3E Type A (`VD3E-014SA1G`) | VD3E Type B (`VD3E-016SA1G`) | VD3E Type B (`VD3E-019SA1G`) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Dòng điện ngõ ra cực đại** | 3A | 10A | 14A | 16A | 19A |
+| **Nguồn nuôi mạch điều khiển** | Dùng chung nguồn động lực | Dùng chung nguồn động lực | Dùng chung nguồn động lực | 1 pha AC 198V ~ 242V, 50/60 Hz | 1 pha AC 198V ~ 242V, 50/60 Hz |
+| **Nguồn mạch động lực** | 1 pha AC 198V ~ 242V, 50/60 Hz | 1 pha AC 198V ~ 242V, 50/60 Hz | 1 pha AC 198V ~ 242V, 50/60 Hz | 1 pha / 3 pha AC 198V ~ 242V, 50/60 Hz | 1 pha / 3 pha AC 198V ~ 242V, 50/60 Hz |
+| **Điện trở xả (Braking resistor)** | Hỗ trợ kết nối điện trở ngoài | Hỗ trợ kết nối điện trở ngoài | Hỗ trợ tích hợp sẵn & kết nối ngoài | Hỗ trợ tích hợp sẵn & kết nối ngoài | Hỗ trợ tích hợp sẵn & kết nối ngoài |
+
+**Bảng 2-2: Thông số kỹ thuật điện dòng 3 pha 220V công suất lớn (VD3E Type B)**
+
+| Thông số | VD3E Type B (`VD3E-021SA1G`) | VD3E Type B (`VD3E-025SA1G`) | VD3E Type B (`VD3E-030SA1G`) |
+| :--- | :--- | :--- | :--- |
+| **Dòng điện ngõ ra cực đại** | 21A | 25A | 30A |
+| **Nguồn nuôi mạch điều khiển** | 1 pha AC 198V ~ 242V, 50/60 Hz | 1 pha AC 198V ~ 242V, 50/60 Hz | 1 pha AC 198V ~ 242V, 50/60 Hz |
+| **Nguồn mạch động lực** | 3 pha AC 198V ~ 242V, 50/60 Hz | 3 pha AC 198V ~ 242V, 50/60 Hz | 3 pha AC 198V ~ 242V, 50/60 Hz |
+| **Điện trở xả (Braking resistor)** | Hỗ trợ tích hợp sẵn & kết nối ngoài | Hỗ trợ tích hợp sẵn & kết nối ngoài | Hỗ trợ tích hợp sẵn & kết nối ngoài |
+
+**Bảng 2-3: Thông số kỹ thuật điện dòng 3 pha 380V (VD3E Type T: 16A ~ 21A)**
+
+| Thông số | VD3E Type T (`VD3E-016TA1G`) | VD3E Type T (`VD3E-019TA1G`) | VD3E Type T (`VD3E-021TA1G`) |
+| :--- | :--- | :--- | :--- |
+| **Dòng điện ngõ ra cực đại** | 16A | 19A | 21A |
+| **Nguồn nuôi mạch điều khiển** | 1 pha AC 342V ~ 440V, 50/60 Hz | 1 pha AC 342V ~ 440V, 50/60 Hz | 1 pha AC 342V ~ 440V, 50/60 Hz |
+| **Nguồn mạch động lực** | 3 pha AC 342V ~ 440V, 50/60 Hz | 3 pha AC 342V ~ 440V, 50/60 Hz | 3 pha AC 342V ~ 440V, 50/60 Hz |
+| **Điện trở xả (Braking resistor)** | Hỗ trợ tích hợp sẵn & kết nối ngoài | Hỗ trợ tích hợp sẵn & kết nối ngoài | Hỗ trợ tích hợp sẵn & kết nối ngoài |
+
+**Bảng 2-4: Thông số kỹ thuật điện dòng 3 pha 380V công suất lớn (VD3E Type T: 30A ~ 50A)**
+
+| Thông số | VD3E Type T (`VD3E-030TA1G`) | VD3E Type T (`VD3E-040TA1G`) | VD3E Type T (`VD3E-050TA1G`) |
+| :--- | :--- | :--- | :--- |
+| **Dòng điện ngõ ra cực đại** | 30A | 40A | 50A |
+| **Nguồn nuôi mạch điều khiển** | 1 pha AC 342V ~ 440V, 50/60 Hz | 1 pha AC 342V ~ 440V, 50/60 Hz | 1 pha AC 342V ~ 440V, 50/60 Hz |
+| **Nguồn mạch động lực** | 3 pha AC 342V ~ 440V, 50/60 Hz | 3 pha AC 342V ~ 440V, 50/60 Hz | 3 pha AC 342V ~ 440V, 50/60 Hz |
+| **Điện trở xả (Braking resistor)** | Hỗ trợ tích hợp sẵn & kết nối ngoài | Hỗ trợ tích hợp sẵn & kết nối ngoài | Hỗ trợ tích hợp sẵn & kết nối ngoài |
+
+#### (2) Thông số kỹ thuật cơ bản (Basic specifications)
+
+| Danh mục | Nhóm thông số | Hạng mục | Mô tả chi tiết |
+| :--- | :--- | :--- | :--- |
+| **Môi trường** | Điều kiện vận hành | Nhiệt độ | 0℃ đến 40℃ |
+| **Môi trường** | Điều kiện vận hành | Độ ẩm | 20% đến 90% RH (không ngưng tụ sương) |
+| **Môi trường** | Điều kiện vận hành | Va đập cơ học | 3M4, 3 mm [2 ~ 9 Hz], khu vực Loại 1 |
+| **Môi trường** | Điều kiện vận hành | Độ rung chấn | 3M4, 1G [9 ~ 200 Hz], khu vực Loại 1 |
+| **Môi trường** | Điều kiện bảo quản | Nhiệt độ | -20℃ đến 65℃ |
+| **Môi trường** | Điều kiện bảo quản | Độ ẩm | 20% đến 90% RH (không ngưng tụ sương) |
+| **Môi trường** | Điều kiện bảo quản | Độ rung chấn | 2M2, 3.5 mm [2 ~ 9 Hz] |
+| **Môi trường** | Cấp bảo vệ vỏ | Cấp bảo vệ (IP) | IP20 |
+| **Môi trường** | Mức độ ô nhiễm | Mức độ ô nhiễm | Cấp II |
+| **Môi trường** | Cấp quá áp | Cấp quá áp | Cấp III |
+| **Môi trường** | Độ cao lắp đặt | Độ cao so với mực nước biển | Tối đa 2000m:<br/>• Từ 1000m trở xuống: Không cần suy giảm công suất (Derating);<br/>• Trên 1000m: Cứ tăng thêm 100m thì suy giảm công suất định mức 1%;<br/>• Trên 2000m: Vui lòng liên hệ nhà sản xuất. |
+| **Thông tin cơ bản** | Phương pháp điều khiển | Điều khiển công suất | Điều chế độ rộng xung IGBT PWM, điều khiển dòng điện hình sin (Sine wave current drive) |
+| **Thông tin cơ bản** | Dòng máy | Mã dòng sản phẩm | `VD3E-0xxSA1G` / `VD3E-0xxTA1G` |
+| **Thông tin cơ bản** | Phản hồi Encoder | Loại bộ mã hóa hỗ trợ | Encoder tuyệt đối 17-bit (Từ tính) / Encoder tuyệt đối 23-bit (Quang học) |
+| **Thông tin cơ bản** | Nhiệt độ làm việc | Dải nhiệt độ hoạt động | 0 ~ 45℃ |
+| **Thông tin cơ bản** | Độ ẩm làm việc | Dải độ ẩm hoạt động | Dưới 90% RH (không ngưng tụ) |
+| **Đặc tính Trạm tớ EtherCAT** | Giao thức truyền thông | Chuẩn mạng | Giao thức EtherCAT |
+| **Đặc tính Trạm tớ EtherCAT** | Dịch vụ hỗ trợ | Giao thức tầng ứng dụng | CoE (CANopen over EtherCAT - CiA 402) |
+| **Đặc tính Trạm tớ EtherCAT** | Chế độ đồng bộ | Cơ chế đồng bộ | Đồng hồ phân tán DC (Distributed Clock) |
+| **Đặc tính Trạm tớ EtherCAT** | Tầng vật lý | Chuẩn Ethernet | 100BASE-TX (IEEE 802.3) |
+| **Đặc tính Trạm tớ EtherCAT** | Tốc độ truyền (Baud rate) | Băng thông | 100 Mbit/s |
+| **Đặc tính Trạm tớ EtherCAT** | Chế độ truyền | Song công | Full duplex (Song công toàn phần) |
+| **Đặc tính Trạm tớ EtherCAT** | Cấu trúc mạng (Topology) | Kiểu đấu nối | Mạng tuyến tính (Linear), mạng vòng (Ring) |
+| **Đặc tính Trạm tớ EtherCAT** | Số lượng trạm tớ | Quy mô mạng | Khuyến nghị sử dụng thực tế dưới 128 trạm trong một mạng |
+| **Đặc tính Trạm tớ EtherCAT** | Độ rung pha đồng bộ | Synchronous Jitter | $1\ \mu\text{s}$ |
+| **Tài nguyên phần cứng EtherCAT** | Khối FMMU | Số lượng FMMU | 8 |
+| **Tài nguyên phần cứng EtherCAT** | Kênh quản lý đồng bộ | SyncManager (SM) | 8 |
+| **Tài nguyên phần cứng EtherCAT** | Bộ nhớ dữ liệu quá trình | Process Data RAM | 8 KB |
+| **Tài nguyên phần cứng EtherCAT** | Đồng hồ phân tán | Độ rộng thanh ghi DC | 64-bit |
+| **Tài nguyên phần cứng EtherCAT** | Dung lượng EEPROM | Bộ nhớ cấu hình ESC | 32 Kbit |
+| **Ngõ vào / Ngõ ra số** | Ngõ vào số (DI) | Số lượng kênh DI | 6 kênh DI cách ly quang |
+| **Ngõ vào / Ngõ ra số** | Ngõ ra số (DO) | Số lượng kênh DO | 3 kênh DO cách ly quang |
+
+#### (3) Các chức năng tích hợp (Support functions)
+
+| Nhóm chức năng | Hạng mục | Mô tả chi tiết |
+| :--- | :--- | :--- |
+| **Ngõ vào / Ngõ ra** | **Tín hiệu ngõ vào số (DI)** | Bật Servo (`S-ON`), Xóa lỗi và cảnh báo (`A-CLR`), Cấm chạy thuận (`POT`), Cấm chạy nghịch (`NOT`), Xóa bộ đếm sai lệch (`CL`), Dừng khẩn cấp (`E-STOP`), Tín hiệu điểm gốc (`HOMEORG`), Đầu dò Touch Probe... |
+| **Ngõ vào / Ngõ ra** | **Tín hiệu ngõ ra số (DO)** | Servo sẵn sàng (`RDY`), Tín hiệu báo lỗi (`ALM`), Giới hạn tốc độ (`V-LIMIT`), Ngõ ra mở phanh từ (`BRK-OFF`), Tín hiệu cảnh báo (`WARN`), Trạng thái Servo đang chạy (`SRV-ST`), Phát hiện động cơ quay (`TGON`), Ngõ ra truyền thông ảo (`COM_VDO1`, `COM_VDO2`, `COM_VDO3`), Tín hiệu tốc độ bằng 0 (`ZSP`), Hoàn tất định vị (`P-COIN`), Đạt lân cận tốc độ (`V-NEAR`), Đạt ngưỡng mô-men (`T-COIN`). |
+| **Chức năng tích hợp** | **Tỷ số bánh răng điện tử** | Phạm vi cài đặt (với $R_{\text{enc}}$ là độ phân giải Encoder): $0.001 \times \frac{R_{\text{enc}}}{10000}$ đến $4000 \times \frac{R_{\text{enc}}}{10000}$ |
+| **Chức năng tích hợp** | **Chức năng bảo vệ** | Bảo vệ quá dòng, quá áp, thấp áp, quá tải, mất pha mạch động lực, quá nhiệt, lỗi tham số bất thường, lỗi truyền thông/mất kết nối Encoder... |
+| **Chức năng tích hợp** | **Màn hình hiển thị** | Màn hình LED 7 thanh 5 chữ số tích hợp 5 phím điều khiển trên mặt máy |
+| **Chức năng tích hợp** | **Chức năng khác** | Tự động/thủ công chỉnh định độ lợi (Gain adjustment), lưu lịch sử mã lỗi & cảnh báo, chạy nhấp thử tải (JOG / Inching operation). |
+
+---
+
+## Động cơ Servo (Servo Motors)
+
+### Quy tắc đặt mã hiệu Động cơ Servo (Servo Motor Model Naming)
+
+![Hình 2-9 Quy tắc đặt mã hiệu động cơ Servo WECON](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1743588175216-958.png?rev=1.1)
+
+*Hình 2-9: Quy tắc đặt mã hiệu động cơ Servo WECON*
+
+![Hình 2-10 Nhãn thông số động cơ Servo](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1687679422746-560.png?rev=1.1)
+
+*Hình 2-10: Nhãn thông số (Nameplate) động cơ Servo*
+
+### Cấu tạo Động cơ Servo (Composition of Servo Motor)
+
+![Hình 2-11 Cấu tạo động cơ mặt bích 40/60/80](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1687679462196-189.png?rev=1.1)
+
+*Hình 2-11: Sơ đồ cấu tạo động cơ mặt bích 40 / 60 / 80*
+
+![Hình 2-12 Cấu tạo chi tiết động cơ mặt bích 40/60/80](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1687679478549-425.png?rev=1.1)
+
+*Hình 2-12: Các bộ phận của động cơ mặt bích 40 / 60 / 80*
+
+![Hình 2-13 Cấu tạo chi tiết động cơ mặt bích 110/130/180](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1727685039158-475.png?width=445&height=337&rev=1.1)
+
+*Hình 2-13: Các bộ phận của động cơ mặt bích 110 / 130 / 180*
+
+### Thông số kỹ thuật Động cơ Servo tiêu biểu (Specification of Servo Motor)
+
+**Bảng 2-5: Thông số kỹ thuật một số dòng động cơ Servo WECON tiêu biểu**
+
+| Model động cơ WECON | Mã động cơ (Motor Code) | Kích thước mặt bích (mm) | Công suất định mức (kW) | Mô-men xoắn định mức (N·m) | Điện áp (V) | Tốc độ định mức (rpm) | Loại bộ mã hóa (Encoder) | Tích hợp Phanh từ (Brake) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `WE130M-10025S-A1F` | `A091` | 130 | 1.0 | 4.0 | 220 | 2500 | Tuyệt đối 17-bit đơn vòng (Từ tính) | Không hỗ trợ |
+| `WE130M-15025S-A1G` | `A111` | 130 | 1.5 | 6.0 | 220 | 2500 | Tuyệt đối 17-bit đơn vòng (Từ tính) | Có phanh từ |
+| `WE130M-26025S-C1F` | `C191` | 130 | 2.6 | 10.0 | 220 | 2500 | Tuyệt đối 17-bit đa vòng (Từ tính) | Không hỗ trợ |
+| `WE80M-12030S-C1G` | `C231` | 80 | 1.2 | 4.0 | 220 | 3000 | Tuyệt đối 17-bit đa vòng (Từ tính) | Có phanh từ |
+| `WE110M-18030S-D2G` | `D131` | 110 | 1.8 | 6.0 | 220 | 3000 | Tuyệt đối 23-bit đa vòng (Quang học) | Có phanh từ |
+| `WE130M-23015S-D2F` | `D161` | 130 | 2.3 | 15.0 | 220 | 1500 | Tuyệt đối 23-bit đa vòng (Quang học) | Không hỗ trợ |
+
+:::tip
+Bảng trên chỉ liệt kê một số model động cơ đại diện. Vui lòng tham khảo tài liệu [Sổ tay lựa chọn cấu hình (Model Selection Manual)] hoặc Chương 8 (Tham số `P10-07` / `200A-07h`) để tra cứu toàn bộ danh mục mã động cơ.
+:::
+
+---
+
+## Sơ đồ Đấu nối Tổng thể Hệ thống Servo (Servo System Wiring Diagram)
+
+![Hình 2-14 Sơ đồ đấu nối tổng thể hệ thống Servo 1 pha 220V](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1687679674400-114.png?rev=1.1)
+
+*Hình 2-14: Sơ đồ đấu nối tổng thể hệ thống bộ điều khiển Servo 1 pha 220V*
+
+:::warning
+![Lưu ý quan trọng khi đấu nối hệ thống](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/02%20Product%20Information/WebHome/1687679707695-336.png?rev=1.1)
+
+1. Khi sử dụng **điện trở xả ngoài (External braking resistor)**, bắt buộc phải tháo thanh cầu đấu nối tắt giữa hai cực `C` và `D` của bộ điều khiển Servo trước khi cấp nguồn vận hành!
+2. Chú ý công suất của bộ nguồn DC 24V cấp cho phanh điện từ (Brake). Khi dùng chung một bộ nguồn để cấp cho nhiều phanh từ cùng lúc, nếu công suất nguồn không đủ sẽ làm phanh không nhả hết, gây kẹt cháy phanh!
+3. **Nghiêm cấm** sử dụng phanh điện từ để hãm dừng động cơ đang quay ở tốc độ cao! Phanh từ chỉ dùng để giữ cố định trục khi động cơ đã dừng hẳn.
+4. Để ngăn ngừa sự cố ngắn mạch lan truyền trong hệ thống Servo, bắt buộc phải lắp cầu chì hoặc aptomat (CB) bảo vệ ở phía nguồn điện đầu vào!
+:::

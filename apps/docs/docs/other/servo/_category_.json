@@ -1,0 +1,8 @@
+{
+  "label": "Servo",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Tổng hợp tài liệu kỹ thuật và hướng dẫn vận hành các dòng bộ điều khiển động cơ Servo công nghiệp."
+  }
+}

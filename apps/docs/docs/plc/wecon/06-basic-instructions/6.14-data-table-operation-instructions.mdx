@@ -137,7 +137,7 @@ Dữ liệu điều khiển vào trước ra sau (LIFO)
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761018592821-392.png?width=932&height=454&rev=1.1)
 
 :::tip
-✎ Lưu ý: Nếu lệnh POP(P) được lập trình ở chế độ thực thi liên tục, lệnh sẽ rút dữ liệu ở mọi chu kỳ quét và có thể gây sai lệch. Thông thường, lệnh POP(P) nên được sử dụng ở chế độ thực thi xung (POPP) hoặc kích hoạt bằng tiếp điểm sườn xung.
+Nếu lệnh POP(P) được lập trình ở chế độ thực thi liên tục, lệnh sẽ rút dữ liệu ở mọi chu kỳ quét và có thể gây sai lệch. Thông thường, lệnh POP(P) nên được sử dụng ở chế độ thực thi xung (POPP) hoặc kích hoạt bằng tiếp điểm sườn xung.
 
 ✎ When the current value of pointer (s) is 0, the zero flag SM153 turns on, and the POP(P) instruction becomes no processing.
 
@@ -345,9 +345,9 @@ Xóa dữ liệu thứ (n) của bảng dữ liệu được chỉ định tại
 ![Sơ đồ kỹ thuật](https://docs.we-con.com.cn/bin/download/PLC%20Editor2%20%28LX6A500%29/07%20Basic%20instructions/6.14/WebHome/1761026280809-833.png?width=659&height=271&rev=1.1)
 
 :::tip
-✎ Lưu ý: Người lập trình chịu trách nhiệm quản lý phạm vi vùng nhớ thiết bị được sử dụng trong bảng dữ liệu.
+Người lập trình chịu trách nhiệm quản lý phạm vi vùng nhớ thiết bị được sử dụng trong bảng dữ liệu.
 
-✎ Lưu ý: Phạm vi lưu trữ dữ liệu thực tế của bảng bắt đầu từ địa chỉ ((d) + 1) ngay sau thanh ghi (d) lưu số lượng phần tử.
+Phạm vi lưu trữ dữ liệu thực tế của bảng bắt đầu từ địa chỉ ((d) + 1) ngay sau thanh ghi (d) lưu số lượng phần tử.
 :::
 
 #### Mã lỗi (Error Code)

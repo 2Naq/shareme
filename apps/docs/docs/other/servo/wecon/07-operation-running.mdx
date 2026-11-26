@@ -1,0 +1,525 @@
+---
+id: "07-operation-running"
+title: "07 Vận hành Cơ bản, Các Chế độ Điều khiển (CSP, CSV, CST, PT, HM) & Touch Probe"
+sidebar_position: 7
+sidebar_label: "07 Operation"
+tags: ["wecon", "vd3e", "servo", "csp", "csv", "cst", "homing", "touch-probe", "manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 07 Hướng dẫn vận hành cơ bản, cấu hình phanh từ, từ điều khiển 6040h/6041h, các chế độ CSP, CSV, CST, PT, 30 phương pháp về gốc Homing (6098h) và đầu dò Touch Probe."
+---
+
+## Cài đặt Vận hành Cơ bản (Basic Settings)
+
+### 1. Danh mục Kiểm tra trước khi Cấp nguồn Vận hành (Pre-operation Inspection)
+
+**Bảng 7-1: Các hạng mục bắt buộc kiểm tra trước khi vận hành**
+
+| Phân nhóm | STT | Nội dung kiểm tra chi tiết |
+| :--- | :--- | :--- |
+| **Đấu nối điện (Wiring)** | **1** | Các cầu đấu nguồn đầu vào mạch động lực (`L1, L3` hoặc `L1, L2, L3`) của bộ điều khiển Servo đã được đấu nối đúng cấp điện áp quy định. |
+| **Đấu nối điện (Wiring)** | **2** | Các cầu đấu ngõ ra động lực (`U, V, W`) của bộ điều khiển Servo và cáp động lực (`U, V, W`) của động cơ Servo phải được đấu khớp đúng thứ tự pha với nhau (`U-U`, `V-V`, `W-W`). |
+| **Đấu nối điện (Wiring)** | **3** | Các cực nguồn đầu vào (`L1, L2, L3`) và các cực ngõ ra động cơ (`U, V, W`) không bị chạm chập hoặc đấu nhầm lẫn nhau. |
+| **Đấu nối điện (Wiring)** | **4** | Cáp tín hiệu điều khiển (`CN2`) được đấu nối chính xác: các tín hiệu ngoại vi như phanh điện từ (`BRK-OFF`) và công tắc giới hạn hành trình (`POT`, `NOT`) đã kết nối tin cậy. |
+| **Đấu nối điện (Wiring)** | **5** | Vỏ bộ điều khiển Servo và vỏ động cơ Servo đã được tiếp địa (PE) chắc chắn. |
+| **Đấu nối điện (Wiring)** | **6** | Khi sử dụng điện trở xả ngoài (giữa `P+` và `C`), thanh cầu nối tắt giữa hai chân `C` và `D` bắt buộc đã được tháo ra. |
+| **Đấu nối điện (Wiring)** | **7** | Lực căng và bán kính uốn của tất cả các dây cáp nằm trong phạm vi cho phép. |
+| **Đấu nối điện (Wiring)** | **8** | Các đầu cốt cầu đấu nguồn đã được bọc cách điện an toàn. |
+| **Môi trường & Cơ khí** | **1** | Không có mạt sắt, mảnh vụn kim loại hoặc dị vật dẫn điện bên trong hoặc xung quanh bộ điều khiển Servo có nguy cơ gây ngắn mạch. |
+| **Môi trường & Cơ khí** | **2** | Bộ điều khiển Servo và điện trở xả ngoài không đặt trên các vật liệu dễ cháy. |
+| **Môi trường & Cơ khí** | **3** | Đế lắp đặt, trục động cơ Servo và cơ cấu truyền động cơ khí đã được cố định chắc chắn. |
+
+---
+
+### 2. Quy trình Cấp nguồn (Power On)
+
+1. **Đóng nguồn mạch động lực:** Sau khi cấp nguồn mạch động lực, đèn báo điện áp Bus hiển thị bình thường và màn hình LED 5 chữ số hiển thị **`"ry"`**, báo hiệu bộ điều khiển Servo đã ở trạng thái sẵn sàng vận hành, chờ tín hiệu kích hoạt (`S-ON` / `Enable Operation`) từ bộ điều khiển thượng tầng (PLC). Nếu màn hình hiển thị mã lỗi `Er.xx`, vui lòng tham khảo **[Chương 10: Chẩn đoán & Xử lý lỗi](./10-malfunctions.mdx)** để khắc phục.
+2. **Đảm bảo tín hiệu kích hoạt Servo (`S-ON`) đang ở trạng thái tắt (OFF)** trước khi thực hiện cài đặt cấu hình hoặc chạy thử JOG.
+
+---
+
+### 3. Chạy thử JOG kiểm tra Động cơ (Jog Operation)
+
+Chức năng chạy nhấp JOG (Inching operation) dùng để kiểm tra xem động cơ Servo có quay êm, đúng chiều và không có tiếng kêu hay rung chấn bất thường hay không trước khi ghép nối vào chu trình máy. Tốc độ chạy JOG được lấy từ giá trị lưu trong đối tượng **`200A-01h` (`P10-01`)**.
+
+#### (1) Chạy thử JOG trực tiếp trên Bảng điều khiển LED
+
+Thao tác trên bàn phím để chọn mã hàm `P10-01` (`200A-01h`), nhấn phím `Enter` để màn hình hiển thị tốc độ JOG hiện tại. Dùng phím `Up` / `Down` để chỉnh tốc độ JOG mong muốn rồi nhấn `Enter` — màn hình sẽ nhấp nháy chữ **`"JOG"`**. Nhấn `Enter` thêm lần nữa để kích hoạt cấp nguồn khóa trục động cơ vào chế độ JOG. Nhấn giữ phím **`Up`** hoặc **`Down`** để quay thuận hoặc quay nghịch liên tục. Nhấn phím **`Mode`** để thoát khỏi chế độ JOG.
+
+| Mã đối tượng | Tên tham số | Phương thức cài đặt | Thời điểm hiệu lực | Mặc định | Phạm vi | Định nghĩa | Đơn vị |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `200A-01h`<br/>(`P10-01`) | Tốc độ chạy JOG (`JOG speed`) | Cài đặt khi chạy | Hiệu lực ngay | `100` | `0 ~ 3000` | Tốc độ quay khi chạy nhấp thử tải JOG. | rpm |
+
+#### (2) Chạy thử JOG trên phần mềm máy tính WECON SCTool
+
+Mở giao diện chạy JOG trên phần mềm **WECON SCTool**, nhập tốc độ JOG trong mục *"Manual operation"*, nhấn nút **"Servo ON"**, sau đó nhấn giữ nút **"Forward rotation"** hoặc **"Reverse rotation"** trên giao diện để quay thuận/nghịch. Nhấn **"Servo Close"** để thoát chế độ JOG.
+
+:::warning
+- Chức năng điều khiển qua mạng của trạm chủ EtherCAT và chức năng chạy JOG nội bộ của Servo Drive **không thể sử dụng đồng thời**;
+- Nếu đang ở trong chế độ JOG, bạn bắt buộc phải thoát chế độ JOG trước thì mới có thể điều khiển qua mạng EtherCAT;
+- Ngược lại, nếu trục đã được kích hoạt qua mạng EtherCAT, cần ngắt điều khiển EtherCAT trước khi thực hiện chạy JOG trên Drive.
+:::
+
+---
+
+### 4. Lựa chọn Chiều quay Động cơ (Rotation Direction Selection)
+
+Bằng cách cài đặt tham số `2000-04h` (`P00-04`), người dùng có thể đảo chiều quay quy ước của động cơ mà không cần thay đổi dấu của lệnh vị trí/vận tốc từ PLC:
+
+| Mã đối tượng | Tên tham số | Phương thức cài đặt | Thời điểm hiệu lực | Mặc định | Phạm vi | Định nghĩa chiều quay (Nhìn thẳng vào đầu trục động cơ) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2000-04h`<br/>(`P00-04`) | Chiều quay động cơ (`Rotate direction`) | Cài đặt khi dừng | Hiệu lực ngay | `0` | `0 ~ 1` | • **`0`**: Cài đặt chuẩn (Nhìn từ đầu trục: Quay cùng chiều kim đồng hồ **CW** hoặc dịch chuyển tuyến tính sang phải là chiều thuận);<br/>• **`1`**: Đảo chiều (Nhìn từ đầu trục: Quay ngược chiều kim đồng hồ **CCW** là chiều thuận). |
+
+---
+
+### 5. Cấu hình Điện trở xả Hãm tái sinh (Braking Resistance)
+
+Khi động cơ Servo giảm tốc hoặc hãm dừng tải có quán tính lớn, động cơ hoạt động như một máy phát điện trả năng lượng ngược về thanh cái DC Bus làm tăng điện áp Bus. Khi điện áp DC Bus vượt ngưỡng hãm, mạch Chopper sẽ đóng để tiêu tán năng lượng dư thừa dưới dạng nhiệt qua điện trở xả (Braking resistor). Không được dùng đồng thời điện trở xả nội và điện trở xả ngoài (khi lắp điện trở xả ngoài vào `P+` và `C`, bắt buộc phải tháo cầu nối tắt giữa `C` và `D`).
+
+**Nguyên tắc lựa chọn điện trở xả:**
+- Nếu năng lượng hãm cực đại tính toán $>$ năng lượng hấp thụ tối đa của tụ DC Bus, và công suất hãm tính toán $\le$ công suất điện trở xả tích hợp sẵn $\rightarrow$ Dùng **điện trở xả nội** (`2000-09h = 0`).
+- Nếu công suất hãm tính toán $>$ công suất điện trở xả tích hợp sẵn $\rightarrow$ Dùng **điện trở xả ngoài** (`2000-09h = 1`).
+
+| Mã đối tượng | Tên tham số | Cài đặt | Hiệu lực | Mặc định | Phạm vi | Định nghĩa chi tiết | Đơn vị |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2000-09h`<br/>(`P00-09`) | Cài đặt chọn điện trở xả | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 3` | • **`0`**: Sử dụng điện trở xả tích hợp sẵn bên trong (Built-in);<br/>• **`1`**: Sử dụng điện trở xả ngoài và làm mát tự nhiên;<br/>• **`2`**: Sử dụng điện trở xả ngoài và làm mát cưỡng bức bằng quạt (Dự phòng);<br/>• **`3`**: Không sử dụng điện trở xả (Toàn bộ năng lượng tái sinh hấp thụ bằng tụ điện). | - |
+| `2000-0Ah`<br/>(`P00-10`) | Giá trị điện trở của điện trở xả ngoài | Khi chạy | Hiệu lực ngay | `50` | `0 ~ 65535` | Cài đặt trị số điện trở ($\Omega$) của điện trở xả ngoài lắp thêm. | $\Omega$ |
+| `2000-0Bh`<br/>(`P00-11`) | Công suất của điện trở xả ngoài | Khi chạy | Hiệu lực ngay | `100` | `0 ~ 65535` | Cài đặt công suất định mức (W) của điện trở xả ngoài lắp thêm. | W |
+
+---
+
+### 6. Khởi động và Các chế độ Dừng Servo (Servo Operation & Stop)
+
+#### (1) Giản đồ thời gian khởi động khi cấp nguồn
+
+![Hình 7-1 Giản đồ thời gian khởi động khi cấp nguồn](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16878549772258.png?rev=1.1)
+
+*Hình 7-1: Giản đồ thời gian từ lúc cấp nguồn mạch động lực đến khi sẵn sàng nhận lệnh chạy*
+
+#### (2) Phân loại phương thức dừng và trạng thái sau khi dừng
+
+**Bảng 7-2: So sánh 2 phương thức giảm tốc dừng máy**
+
+| Phương thức dừng | Mô tả nguyên lý | Đặc tính vận hành |
+| :--- | :--- | :--- |
+| **Dừng tự do (Free stop)** | Bộ điều khiển ngắt dòng cấp cho động cơ ngay lập tức, trục động cơ giảm tốc tự do về 0 dưới tác dụng của ma sát cơ khí. | Giảm tốc êm, không gây xung lực cơ khí nhưng quãng đường và thời gian dừng kéo dài. |
+| **Dừng về tốc độ 0 (Zero-speed shutdown)** | Bộ điều khiển xuất mô-men hãm ngược chiều để hãm cưỡng bức động cơ giảm tốc nhanh về tốc độ 0. | Thời gian dừng cực nhanh và chính xác, nhưng có lực quán tính hãm lên cơ khí. |
+
+**Bảng 7-3: So sánh 2 trạng thái giữ trục sau khi dừng**
+
+| Trạng thái sau khi dừng | Trạng thái trục tự do (Free operation status) | Trạng thái khóa vị trí (Position locked) |
+| :--- | :--- | :--- |
+| **Đặc điểm** | Sau khi động cơ dừng hẳn, Drive ngắt dòng kích từ, trục động cơ có thể xoay tự do bằng ngoại lực. | Sau khi động cơ dừng hẳn, Drive vẫn duy trì dòng khóa cứng trục tại vị trí dừng. |
+
+**Bảng 7-4: Tham số chọn chế độ dừng khi tắt kích hoạt Servo (`S-ON` OFF - `2000-05h`)**
+
+| Mã đối tượng | Tên tham số | Cài đặt | Hiệu lực | Mặc định | Phạm vi | Định nghĩa chi tiết |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2000-05h`<br/>(`P00-05`) | Chế độ dừng khi tắt Servo (`Servo OFF shutdown mode`) | Khi dừng | Hiệu lực ngay | `0` | `0 ~ 1` | • **`0`**: Dừng tự do (Free stop), sau khi dừng trục ở trạng thái tự do;<br/>• **`1`**: Hãm nhanh về tốc độ 0 (Zero-speed stop), sau khi dừng trục ở trạng thái tự do. |
+
+- **Dừng khẩn cấp (Emergency shutdown - `DI 08: E-STOP`):** Thực hiện dừng tự do và giữ trục ở trạng thái tự do.
+- **Dừng khi vượt hành trình (Overtravel shutdown - `DI 03: POT` & `DI 04: NOT`):** Khi công tắc giới hạn hành trình chiều thuận (`POT` - mặc định gán tại `DI3` / `P06-08 = 3`) hoặc chiều nghịch (`NOT` - mặc định gán tại `DI4` / `P06-11 = 4`) tác động, bộ điều khiển lập tức cưỡng bức tốc độ theo chiều vượt hành trình về **0** và **khóa cứng vị trí trục** (nhưng vẫn cho phép nhận lệnh chạy ngược lại để thoát khỏi công tắc hành trình).
+- **Dừng khi xảy ra lỗi (Malfunction shutdown):** Khi xuất hiện lỗi (`Er.xx`), hệ thống thực hiện dừng tự do và ngắt kích từ trục động cơ.
+
+---
+
+### 7. Cấu hình và Giản đồ Phối hợp Phanh điện từ Giữ trục (Brake Holding Device)
+
+Phanh điện từ tích hợp trong động cơ có phanh là cơ cấu cơ khí dùng để giữ cố định trục động cơ khi Servo ngừng cấp điện (`Servo OFF`), ngăn bàn máy/trục đứng trôi do trọng lực.
+
+:::warning
+- Phanh điện từ bên trong động cơ Servo **chỉ dùng làm cơ cấu giữ cố định trục khi không cấp điện (Holding brake)**, tuyệt đối không dùng để phanh hãm giảm tốc khi động cơ đang quay!
+- Cuộn dây phanh điện từ không phân cực tính (24V DC).
+- Khi cuộn dây phanh được cấp điện (nhả phanh), có thể xuất hiện từ thông rò nhẹ ở đầu trục — lưu ý nếu lắp cảm biến từ tính sát đầu trục động cơ.
+- Khi động cơ có phanh hoạt động, đĩa phanh có thể phát ra tiếng "tách" cơ khí nhẹ khi đóng/nhả, đây là hiện tượng hoàn toàn bình thường.
+:::
+
+#### (1) Sơ đồ đấu nối mạch phanh điện từ
+
+![Hình 7-2 Sơ đồ đấu nối mạch phanh điện từ tiêu chuẩn](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/image-20230627162641-3.png?rev=1.1)
+
+*Hình 7-2: Sơ đồ đấu nối nguồn 24V DC và Rơ-le điều khiển phanh điện từ qua ngõ ra `BRK-OFF`*
+
+:::tip
+Khi cấp nguồn cho phanh điện từ:
+1. Chiều dài cáp phanh cần tính đến độ sụt áp trên đường dây để đảm bảo điện áp tại đầu cuộn phanh đạt đủ **24V DC ±10%**.
+2. Khuyến nghị dùng bộ nguồn 24V DC riêng biệt cho phanh từ để tránh sụt áp khi các thiết bị ngoại vi khác đóng cắt.
+3. Tiết diện dây cấp nguồn phanh khuyến nghị từ **$0.5\ \text{mm}^2$ trở lên**.
+:::
+
+#### (2) Cài đặt tham số phối hợp thời gian đóng/nhả phanh (`2001-1Eh ~ 2001-21h`)
+
+Để sử dụng phanh từ, bắt buộc phải gán một chân `DO` của bộ điều khiển thành chức năng **`141: BRK-OFF`** (Tín hiệu mở phanh) và cấu hình 4 tham số phối hợp thời gian trong Bảng 7-6:
+
+**Bảng 7-6: Các tham số cài đặt phối hợp thời gian đóng/mở phanh điện từ**
+
+| Mã đối tượng | Tên tham số | Mặc định | Phạm vi | Đơn vị | Định nghĩa chi tiết |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `2001-1Eh`<br/>(`P01-30`) | Thời gian trễ từ khi mở phanh (`BRK-OFF` ON) đến khi nhận lệnh chạy | `250` | `0 ~ 500` | ms | Khoảng thời gian chờ sau khi xuất tín hiệu mở phanh để má phanh cơ khí nhả hoàn toàn trước khi cho phép động cơ nhận lệnh quay. |
+| `2001-1Fh`<br/>(`P01-31`) | Ở trạng thái tĩnh: Thời gian trễ từ khi đóng phanh (`BRK-OFF` OFF) đến khi ngắt dòng động cơ | `150` | `1 ~ 1000` | ms | Khi động cơ đang dừng tĩnh mà tắt `S-ON`, ngõ ra `BRK-OFF` tắt ngay để đóng phanh, nhưng Drive vẫn giữ dòng khóa trục thêm khoảng thời gian `2001-1Fh` để chờ má phanh kẹp chặt trục (chống tụt trục Z). |
+| `2001-20h`<br/>(`P01-32`) | Ở trạng thái đang quay: Ngưỡng tốc độ cho phép đóng phanh (`BRK-OFF` OFF) | `30` | `0 ~ 3000` | rpm | Khi động cơ đang quay mà tắt `S-ON`, phanh chỉ được đóng lại sau khi tốc độ động cơ đã giảm xuống thấp hơn ngưỡng tốc độ này. |
+| `2001-21h`<br/>(`P01-33`) | Ở trạng thái đang quay: Thời gian trễ tối đa từ khi tắt `S-ON` đến khi đóng phanh (`BRK-OFF` OFF) | `500` | `1 ~ 2000` | ms | Thời gian chờ tối đa từ lúc tắt `S-ON` đến khi xuất lệnh đóng phanh `BRK-OFF` OFF khi động cơ đang quay. |
+
+#### (3) Giản đồ phối hợp thời gian phanh ở trạng thái bình thường và khi có lỗi
+
+- **① Giản đồ đóng/mở phanh khi động cơ đang ở trạng thái tĩnh (Tốc độ thực tế $< 20\ \text{rpm}$):**
+
+![Hình 7-3 Giản đồ thời gian phanh khi động cơ ở trạng thái tĩnh](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/image-20230627162641-6.png?rev=1.1)
+
+*Hình 7-3: Giản đồ phối hợp thời gian phanh điện từ khi động cơ dừng tĩnh*
+
+- **② Giản đồ đóng/mở phanh khi động cơ đang quay (Tốc độ thực tế $\ge 20\ \text{rpm}$):** Ngõ ra `BRK-OFF` sẽ chuyển sang OFF ngay khi thỏa mãn **1 trong 2 điều kiện** (điều kiện nào đến trước): Thời gian `2001-21h` chưa hết nhưng tốc độ động cơ đã giảm xuống dưới ngưỡng `2001-20h`, HOẶC đã hết thời gian chờ `2001-21h`. Sau khi `BRK-OFF` chuyển sang OFF, động cơ vẫn được cấp dòng giữ thêm `50 ms` trước khi ngắt hoàn toàn.
+
+![Hình 7-4 Giản đồ thời gian phanh khi động cơ đang quay](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/image-20230627162641-8.png?rev=1.1)
+
+*Hình 7-4: Giản đồ phối hợp thời gian phanh điện từ khi động cơ đang quay*
+
+- **③ Giản đồ phanh khi bộ điều khiển Servo xảy ra lỗi (Dừng tự do):**
+
+![Hình 7-5 Giản đồ thời gian phanh khi xảy ra lỗi](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/image-20230627162641-9.png?rev=1.1)
+
+*Hình 7-5: Giản đồ thời gian đóng phanh khi xảy ra lỗi dừng tự do*
+
+---
+
+## Điều khiển Trạng thái Servo theo Chuẩn CiA 402 (Servo State Setting)
+
+![Hình 7-6 Sơ đồ chuyển đổi máy trạng thái CiA 402](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/image-20230627164050-1.png?rev=1.1)
+
+*Hình 7-6: Sơ đồ máy trạng thái điều khiển chuyển động CiA 402*
+
+### Bảng lệnh chuyển tiếp trạng thái qua Từ điều khiển `6040h`
+
+| Quá trình chuyển trạng thái | Giá trị ghi vào Từ điều khiển `6040h` |
+| :--- | :--- |
+| `Cấp nguồn => Khởi tạo (Initialization)` | Chuyển tự động không cần lệnh điều khiển |
+| `Khởi tạo => Không có lỗi (Servo trouble-free / Switch On Disabled)` | Chuyển tự động sau khi tự kiểm tra xong (nếu lỗi chuyển thẳng sang `Fault`) |
+| `Không có lỗi => Servo sẵn sàng (Servo ready / Ready to Switch On)` | **`0x0006`** |
+| `Servo sẵn sàng => Chờ bật kích hoạt (Wait to turn on / Switched On)` | **`0x0007`** |
+| `Chờ bật kích hoạt => Vận hành Servo (Servo operation / Operation Enabled)` | **`0x000F`** |
+| `Vận hành Servo => Chờ bật kích hoạt` | **`0x0007`** |
+| `Chờ bật kích hoạt => Servo sẵn sàng` | **`0x0006`** |
+| `Servo sẵn sàng => Không có lỗi` | **`0x0000`** |
+| `Vận hành Servo => Servo sẵn sàng` | **`0x0006`** |
+| `Vận hành Servo => Không có lỗi` | **`0x0000`** |
+| `Vận hành Servo => Dừng nhanh (Quick shutdown)` | **`0x0002`** |
+| `Lỗi (Fault) => Không có lỗi (Xóa lỗi Fault Reset)` | **`0x0080`** (Kích cạnh lên Bit 7) |
+
+### Định nghĩa Bit của Từ điều khiển `6040h` (Control Word)
+
+| Bit | Tên chức năng | Mô tả giá trị logic |
+| :--- | :--- | :--- |
+| **Bit 0** | Cho phép khởi động (`Switch On`) | `0`: Không tích cực; `1`: Tích cực |
+| **Bit 1** | Cấp áp mạch chính (`Enable Voltage`) | `0`: Không tích cực; `1`: Tích cực |
+| **Bit 2** | Dừng nhanh (`Quick Stop` — Logic đảo) | `0`: Kích hoạt dừng nhanh; `1`: Vận hành bình thường |
+| **Bit 3** | Cho phép vận hành (`Enable Operation`) | `0`: Không tích cực; `1`: Tích cực (Khi cả Bit 0 ~ Bit 3 đều bằng `1` $\rightarrow$ `0x000F`: Servo ON) |
+| **Bit 4 ~ 6** | Bit phụ thuộc chế độ vận hành | Định nghĩa riêng theo từng chế độ vận hành (`PP`, `HM`...) |
+| **Bit 7** | Xóa lỗi (`Fault Reset`) | Kích cạnh lên (`0 → 1`) để xóa các lỗi có thể xóa. Khi giữ Bit 7 = `1`, các lệnh điều khiển khác bị bỏ qua. |
+| **Bit 8** | Tạm dừng (`Halt`) | `0`: Chạy theo lệnh; `1`: Tạm dừng theo phương thức cài đặt tại `605Dh`. |
+
+### Định nghĩa Bit của Từ trạng thái `6041h` (Status Word)
+
+| Bit | Tên trạng thái | Mô tả giá trị logic |
+| :--- | :--- | :--- |
+| **Bit 0** | Sẵn sàng khởi động (`Ready to switch on`) | `0`: Không tích cực; `1`: Tích cực |
+| **Bit 1** | Đã khởi động (`Switched on`) | `0`: Không tích cực; `1`: Tích cực |
+| **Bit 2** | Đang vận hành (`Operation enabled`) | `0`: Không tích cực; `1`: Tích cực (Servo đang ON) |
+| **Bit 3** | Lỗi (`Fault`) | `0`: Không có lỗi; `1`: Đang có lỗi dừng máy |
+| **Bit 4** | Điện áp mạch động lực (`Voltage enabled`) | `0`: Chưa có áp; `1`: Mạch động lực đã có điện áp |
+| **Bit 5** | Dừng nhanh (`Quick stop` — Logic đảo) | `0`: Đang thực thi dừng nhanh; `1`: Bình thường |
+| **Bit 6** | Cấm khởi động (`Switch on disabled`) | `0`: Bình thường; `1`: Servo chưa sẵn sàng khởi động |
+| **Bit 7** | Cảnh báo (`Warning`) | `0`: Không có cảnh báo; `1`: Đang có cảnh báo (`A-xx`) |
+| **Bit 9** | Điều khiển từ xa qua mạng (`Remote`) | `1`: Trạm chủ đang nắm quyền điều khiển qua từ điều khiển `6040h` |
+| **Bit 10** | Đã đạt giá trị đích (`Target reached`) | `0`: Chưa đạt đích; `1`: Đã đạt vị trí / vận tốc / mô-men đích |
+| **Bit 11** | Vượt giới hạn vị trí phần mềm nội bộ | `1`: Vị trí vượt giới hạn phần mềm `607Dh` |
+| **Bit 12** | Phản hồi theo từng chế độ vận hành | Trong chế độ CSP/CSV/CST: `1` = Trạm tớ đang bám theo lệnh từ trạm chủ |
+| **Bit 13** | Lỗi sai lệch bám vị trí (`Following error`) | `1`: Sai lệch bám vị trí vượt ngưỡng `6065h` |
+| **Bit 15** | Hoàn tất về gốc (`Homing completed`) | `1`: Quá trình tìm điểm gốc đã hoàn tất thành công |
+
+**Bảng giải mã tổ hợp Bit trạng thái (`6041h`):**
+
+| Mẫu nhị phân (`6041h`) | Trạng thái CiA 402 tương ứng |
+| :--- | :--- |
+| `xxxx xxxx x0xx 0000` | Servo chưa sẵn sàng (`Not ready to switch on`) |
+| `xxxx xxxx x1xx 0000` | Khóa khởi động (`Switch on disabled` - `nr` / `nF`) |
+| `xxxx xxxx x01x 0001` | Servo sẵn sàng (`Ready to switch on` - `ry`) |
+| `xxxx xxxx x01x 0011` | Đã bật mạch chính (`Switched on` - `ry`) |
+| `xxxx xxxx x01x 0111` | Đang kích hoạt vận hành (`Operation enabled` - `rn`) |
+| `xxxx xxxx x00x 0111` | Đang dừng nhanh (`Quick stop active` - `Qs`) |
+| `xxxx xxxx x0xx 1111` | Đang xử lý dừng khi có lỗi (`Fault reaction active`) |
+| `xxxx xxxx x0xx 1000` | Trạng thái lỗi (`Fault` - `Er.xx`) |
+
+---
+
+## Cài đặt Chế độ Vận hành Servo (`6060h` - Servo Mode Settings)
+
+Đối tượng **`6060h` (Modes of operation)** dùng để chọn chế độ điều khiển của bộ điều khiển Servo VD3E:
+
+| Giá trị `6060h` (Dec) | Ký hiệu LED (Hex) | Tên chế độ điều khiển | Mô tả / Tham chiếu |
+| :--- | :--- | :--- | :--- |
+| **`1`** | `1` | Chế độ Vị trí biên dạng (`PP` - Profile Position Mode) | Định vị điểm-tới-điểm theo biên dạng nội bộ |
+| **`3`** | `3` | Chế độ Vận tốc biên dạng (`PV` - Profile Velocity Mode) | Điều khiển tốc độ theo biên dạng nội bộ |
+| **`4`** | `4` | Chế độ Mô-men biên dạng (`PT` - Profile Torque Mode) | Xem chi tiết mục **Chế độ Mô-men biên dạng (PT)** bên dưới |
+| **`6`** | `6` | Chế độ Về gốc (`HM` - Homing Mode) | Xem chi tiết mục **Chế độ Về gốc (HM)** bên dưới |
+| **`7`** | `7` | Chế độ Nội suy (`IP` - Interpolation Mode) | Nội suy vị trí |
+| **`8`** | `8` | Chế độ Vị trí đồng bộ chu kỳ (`CSP` - Cyclic Synchronous Position) | Xem chi tiết mục **Chế độ CSP** bên dưới (Phổ biến nhất với PLCopen) |
+| **`9`** | `9` | Chế độ Vận tốc đồng bộ chu kỳ (`CSV` - Cyclic Synchronous Velocity) | Xem chi tiết mục **Chế độ CSV** bên dưới |
+| **`10`** | `A` | Chế độ Mô-men đồng bộ chu kỳ (`CST` - Cyclic Synchronous Torque) | Xem chi tiết mục **Chế độ CST** bên dưới |
+
+:::tip
+Khi chuyển đổi giữa các chế độ vận hành (Mode Switching):
+1. Khi chuyển từ chế độ **Vị trí đồng bộ chu kỳ (CSP)** sang chế độ khác, các lệnh vị trí chưa thực thi hết sẽ bị hủy bỏ.
+2. Khi chuyển từ chế độ **Vận tốc đồng bộ chu kỳ (CSV)** sang chế độ khác, Servo sẽ thực hiện giảm tốc theo độ dốc về 0 trước, sau khi dừng hẳn mới chuyển sang chế độ mới.
+3. Khi đang thực thi chế độ **Về gốc (HM)**, hệ thống không cho phép chuyển sang chế độ khác; chỉ sau khi hoàn tất về gốc hoặc quá trình về gốc bị ngắt thì mới chuyển được.
+4. Khi Servo đang ở trạng thái chạy (`rn`), sau khi chuyển sang các chế độ đồng bộ chu kỳ (CSP/CSV/CST), hãy đợi tối thiểu **1 ms** trước khi phát xung lệnh đầu tiên.
+- **Chu kỳ truyền thông hỗ trợ:** Tất cả các chế độ CSP, CSV, CST, HM đều hỗ trợ chu kỳ đồng bộ tối thiểu từ **$125\ \mu\text{s}$** (và các bội số $250\ \mu\text{s}, 500\ \mu\text{s}, 1\ \text{ms}, 2\ \text{ms}, 4\ \text{ms}$).
+:::
+
+---
+
+## 1. Chế độ Vị trí Đồng bộ Chu kỳ (Cyclic Synchronous Position Mode - CSP, `6060h = 8`)
+
+Trong chế độ **CSP**, bộ điều khiển thượng tầng (như PLC WECON LX6V/LX6A500) thực hiện quy hoạch quỹ đạo chuyển động và gửi vị trí đích tức thời (`607Ah`) xuống Servo Drive trong mỗi chu kỳ đồng bộ EtherCAT. Bên trong Servo Drive thực hiện điều khiển khép kín cả 3 vòng: Vị trí, Vận tốc và Dòng điện (Mô-men).
+
+### Sơ đồ khối điều khiển chế độ CSP
+
+![Hình 7-7 Sơ đồ khối điều khiển chế độ vị trí đồng bộ chu kỳ CSP](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879200265901.png?rev=1.1)
+
+*Hình 7-7: Sơ đồ khối nguyên lý điều khiển chế độ Vị trí đồng bộ chu kỳ (CSP)*
+
+![Hình 7-8 Các đối tượng ngõ vào và ngõ ra của chế độ CSP](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17208543114091.png?rev=1.1)
+
+*Hình 7-8: Các đối tượng dữ liệu vào/ra trong chế độ CSP*
+
+### Cấu hình PDO khuyến nghị cho chế độ CSP
+
+| Danh sách RPDO (Master → Slave) | Danh sách TPDO (Slave → Master) | Ghi chú |
+| :--- | :--- | :--- |
+| **`6040h`** (Từ điều khiển - Control word) | **`6041h`** (Từ trạng thái - Status word) | **Bắt buộc** |
+| **`607Ah`** (Vị trí đích - Target position) | **`6064h`** (Vị trí phản hồi thực tế - Position actual value) | **Bắt buộc / Khuyến nghị** |
+| `6060h` (Chọn chế độ vận hành) | `6061h` (Hiển thị chế độ vận hành) | Tùy chọn |
+
+---
+
+## 2. Chế độ Vận tốc Đồng bộ Chu kỳ (Cyclic Synchronous Velocity Mode - CSV, `6060h = 9`)
+
+Trong chế độ **CSV**, trạm chủ gửi vận tốc đích (`60FFh`) theo từng chu kỳ đồng bộ EtherCAT, và bộ điều khiển Servo thực hiện điều khiển vòng vận tốc và vòng dòng điện.
+
+![Hình 7-9 Sơ đồ khối điều khiển chế độ vận tốc đồng bộ chu kỳ CSV](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/1728439901836-367.png?rev=1.1)
+
+*Hình 7-9: Sơ đồ khối điều khiển chế độ Vận tốc đồng bộ chu kỳ (CSV)*
+
+![Hình 7-10 Các đối tượng vào/ra của chế độ CSV](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/1728439944347-729.png?rev=1.1)
+
+*Hình 7-10: Các đối tượng dữ liệu vào/ra trong chế độ CSV*
+
+### Cấu hình PDO khuyến nghị cho chế độ CSV
+
+| Danh sách RPDO (Master → Slave) | Danh sách TPDO (Slave → Master) | Ghi chú |
+| :--- | :--- | :--- |
+| **`6040h`** (Từ điều khiển - Control word) | **`6041h`** (Từ trạng thái - Status word) | **Bắt buộc** |
+| **`60FFh`** (Vận tốc đích - Target velocity) | `606Ch` (Vận tốc phản hồi thực tế) / `6064h` (Vị trí thực tế) | **Bắt buộc (`60FFh`)** |
+| `6060h` (Chọn chế độ vận hành) | `6061h` (Hiển thị chế độ vận hành) | Tùy chọn |
+
+---
+
+## 3. Chế độ Mô-men Đồng bộ Chu kỳ (Cyclic Synchronous Torque Mode - CST, `6060h = 10`)
+
+Trong chế độ **CST**, trạm chủ gửi lệnh mô-men đích (`6071h`, đơn vị $0.1\%$ mô-men định mức) trong mỗi chu kỳ đồng bộ EtherCAT xuống Servo Drive.
+
+![Hình 7-11 Sơ đồ khối điều khiển chế độ mô-men đồng bộ chu kỳ CST](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/1728382028529-136.png?rev=1.1)
+
+*Hình 7-11: Sơ đồ khối điều khiển chế độ Mô-men đồng bộ chu kỳ (CST)*
+
+![Hình 7-12 Các đối tượng vào/ra của chế độ CST](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/1728382028531-666.png?rev=1.1)
+
+*Hình 7-12: Các đối tượng dữ liệu vào/ra trong chế độ CST*
+
+### Cấu hình PDO khuyến nghị cho chế độ CST
+
+| Danh sách RPDO (Master → Slave) | Danh sách TPDO (Slave → Master) | Ghi chú |
+| :--- | :--- | :--- |
+| **`6040h`** (Từ điều khiển - Control word) | **`6041h`** (Từ trạng thái - Status word) | **Bắt buộc** |
+| **`6071h`** (Mô-men đích - Target torque) | `6077h` (Mô-men thực tế) / `606Ch` (Tốc độ) / `6064h` (Vị trí) | **Bắt buộc (`6071h`)** |
+| `6060h` (Chọn chế độ vận hành) | `6061h` (Hiển thị chế độ vận hành) | Tùy chọn |
+
+---
+
+## 4. Chế độ Mô-men Biên dạng (Profile Torque Mode - PT, `6060h = 4`)
+
+Trong chế độ **PT**, trạm chủ gửi mô-men đích (`6071h`) cùng độ dốc biến thiên mô-men (`6087h` - Torque slope, đơn vị $0.1\%/\text{s}$), và bộ điều khiển Servo tự nội suy tuyến tính mô-men theo độ dốc đã cài đặt.
+
+![Hình 7-13 Sơ đồ khối điều khiển chế độ mô-men biên dạng PT](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/1728382028532-775.png?rev=1.1)
+
+*Hình 7-13: Sơ đồ khối điều khiển chế độ Mô-men biên dạng (PT)*
+
+![Hình 7-14 Các đối tượng vào/ra của chế độ PT](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/1728382028533-858.png?rev=1.1)
+
+*Hình 7-14: Các đối tượng dữ liệu vào/ra trong chế độ PT*
+
+---
+
+## 5. Chế độ Về gốc Tọa độ (Homing Mode - HM, `6060h = 6`)
+
+Chế độ về gốc (**Homing Mode - HM**) dùng để dò tìm **Điểm gốc cơ khí (Mechanical Origin)** dựa trên cảm biến điểm gốc (`HOMEORG` / `HW`), công tắc giới hạn hành trình (`POT` / `NOT`) và xung `Z` của Encoder, sau đó thiết lập hệ tọa độ máy theo độ lệch điểm gốc **`607Ch` (Home offset)**:
+
+$$X_{\text{origin}} = X_{\text{mech\_zero}} + \text{Home\_Offset}\ (\texttt{607Ch})$$
+
+(Trong đó $X_{\text{origin}}$ là tọa độ tại điểm gốc cơ khí sau khi Homing, $X_{\text{mech\_zero}}$ là điểm 0 cơ khí. Khi `607Ch = 0`, vị trí dừng tại điểm gốc cơ khí sẽ được đặt giá trị tọa độ `6064h = 0`).
+
+### Sơ đồ khối và Các bit điều khiển chế độ Homing
+
+![Hình 7-15 Sơ đồ khối điều khiển chế độ về gốc Homing](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1687920818740.png?rev=1.1)
+
+*Hình 7-15: Sơ đồ khối điều khiển chế độ Về gốc (Homing Mode)*
+
+- **Kích hoạt chạy về gốc qua Từ điều khiển `6040h`:** Khi Servo đã ON (`Bit 0 ~ Bit 3 = 1`, tức `0x000F`), chuyển **Bit 4 từ `0 → 1`** (`6040h: 0x000F → 0x001F`) để bắt đầu quy trình về gốc.
+- **Giám sát hoàn tất qua Từ trạng thái `6041h`:** Khi **Bit 10 (`Target reached`) = 1** và **Bit 15 (`Homing completed`) = 1** (đồng thời Bit 12 = 1), quá trình về gốc đã hoàn tất thành công.
+
+### Chi tiết 30 Phương pháp Về gốc Chuẩn CiA 402 (`6098h = 1 ~ 35`)
+
+:::tip
+Chú giải ký hiệu trên các giản đồ quỹ đạo về gốc dưới đây:
+- **`H`**: Tốc độ cao khi tìm công tắc điểm giảm tốc (`6099h:01` - Speed during search for switch);
+- **`L`**: Tốc độ thấp khi dò chính xác điểm gốc / xung Z (`6099h:02` - Speed during search for zero);
+- **`NOT`**: Công tắc giới hạn hành trình nghịch; **`POT`**: Công tắc giới hạn hành trình thuận; **`HW`**: Công tắc điểm gốc (`HOMEORG`); **`Z`**: Xung Z của Encoder động cơ.
+:::
+
+#### (1) Phương pháp `6098h = 1` (Điểm giảm tốc: Công tắc giới hạn nghịch `NOT` | Điểm gốc: Xung `Z`)
+- **① Khi bắt đầu `NOT = 0`:** Chạy nghịch ở tốc độ cao `H` $\rightarrow$ Gặp cạnh lên `NOT` thì giảm tốc, đảo chiều chạy thuận ở tốc độ thấp `L` $\rightarrow$ Sau khi thoát qua cạnh xuống của `NOT`, dừng tại **xung `Z` đầu tiên**.
+  ![Homing 1-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879209344793.png?rev=1.1)
+- **② Khi bắt đầu `NOT = 1`:** Chạy thuận ngay ở tốc độ thấp `L` $\rightarrow$ Sau khi gặp cạnh xuống của `NOT`, dừng tại **xung `Z` đầu tiên**.
+  ![Homing 1-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879209634533.png?rev=1.1)
+
+#### (2) Phương pháp `6098h = 2` (Điểm giảm tốc: Công tắc giới hạn thuận `POT` | Điểm gốc: Xung `Z`)
+- **① Khi bắt đầu `POT = 0`:** Chạy thuận ở tốc độ cao `H` $\rightarrow$ Gặp cạnh lên `POT` thì giảm tốc, đảo chiều chạy nghịch ở tốc độ thấp `L` $\rightarrow$ Sau khi thoát qua cạnh xuống của `POT`, dừng tại **xung `Z` đầu tiên**.
+  ![Homing 2-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879210102689.png?rev=1.1)
+- **② Khi bắt đầu `POT = 1`:** Chạy nghịch ngay ở tốc độ thấp `L` $\rightarrow$ Sau khi gặp cạnh xuống của `POT`, dừng tại **xung `Z` đầu tiên**.
+  ![Homing 2-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879210404539.png?rev=1.1)
+
+#### (3) Phương pháp `6098h = 3` (Điểm giảm tốc: Cảm biến gốc `HW` | Điểm gốc: Xung `Z` phía âm của `HW`)
+- **① Khi bắt đầu `HW = 0`:** Chạy thuận tốc độ cao `H` $\rightarrow$ Gặp cạnh lên `HW` thì giảm tốc, đảo chiều chạy nghịch tốc độ thấp `L` $\rightarrow$ Sau khi qua cạnh xuống của `HW`, dừng tại **xung `Z` đầu tiên**.
+  ![Homing 3-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1687921196129.png?rev=1.1)
+- **② Khi bắt đầu `HW = 1`:** Chạy nghịch ngay ở tốc độ thấp `L` $\rightarrow$ Sau khi qua cạnh xuống của `HW`, dừng tại **xung `Z` đầu tiên**.
+  ![Homing 3-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879212232875.png?rev=1.1)
+
+#### (4) Phương pháp `6098h = 4` (Điểm giảm tốc: Cảm biến gốc `HW` | Điểm gốc: Xung `Z` bên trong `HW` theo chiều thuận)
+- **① Khi bắt đầu `HW = 0`:** Chạy thuận tốc độ thấp `L` $\rightarrow$ Dừng tại **xung `Z` đầu tiên** sau khi gặp cạnh lên của `HW`.
+  ![Homing 4-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879212462305.png?rev=1.1)
+- **② Khi bắt đầu `HW = 1`:** Chạy nghịch tốc độ cao `H` thoát khỏi `HW` $\rightarrow$ Đảo chiều chạy thuận tốc độ thấp `L` và dừng tại **xung `Z` đầu tiên** sau khi gặp cạnh lên của `HW`.
+  ![Homing 4-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879212732164.png?rev=1.1)
+
+#### (5) Phương pháp `6098h = 5` & `6098h = 6` (Dò `HW` theo chiều nghịch, dừng tại xung `Z`)
+- **`6098h = 5`:** Chạy nghịch tìm `HW`, dừng tại xung `Z` đầu tiên sau khi lùi qua cạnh xuống của `HW` theo chiều thuận:
+  ![Homing 5-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879212954296.png?rev=1.1)
+  ![Homing 5-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1687921313471.png?rev=1.1)
+- **`6098h = 6`:** Dừng tại xung `Z` đầu tiên sau khi gặp cạnh lên của `HW` theo chiều nghịch:
+  ![Homing 6-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879213387231.png?rev=1.1)
+  ![Homing 6-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1687921361369.png?rev=1.1)
+
+#### (6) Phương pháp `6098h = 7 ~ 10` (Chạy thuận tìm `HW`, tự động đảo chiều nếu chạm công tắc giới hạn thuận `POT`, dừng tại xung `Z`)
+- **`6098h = 7`:**
+  ![Homing 7-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1687921385738.png?rev=1.1)
+  ![Homing 7-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879214037996.png?rev=1.1)
+  ![Homing 7-3](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879214355228.png?rev=1.1)
+- **`6098h = 8`:**
+  ![Homing 8-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879214599188.png?rev=1.1)
+  ![Homing 8-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879214848648.png?rev=1.1)
+  ![Homing 8-3](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879215126227.png?rev=1.1)
+- **`6098h = 9`:**
+  ![Homing 9-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879215378769.png?rev=1.1)
+  ![Homing 9-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879215701828.png?rev=1.1)
+  ![Homing 9-3](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879215935474.png?rev=1.1)
+- **`6098h = 10`:**
+  ![Homing 10-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879216249731.png?rev=1.1)
+  ![Homing 10-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879216463046.png?rev=1.1)
+  ![Homing 10-3](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879221109043.png?rev=1.1)
+
+#### (7) Phương pháp `6098h = 11 ~ 14` (Chạy nghịch tìm `HW`, tự động đảo chiều nếu chạm công tắc giới hạn nghịch `NOT`, dừng tại xung `Z`)
+- **`6098h = 11`:**
+  ![Homing 11-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_168792213395.png?rev=1.1)
+  ![Homing 11-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879221578371.png?rev=1.1)
+  ![Homing 11-3](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879221748795.png?rev=1.1)
+- **`6098h = 12`:**
+  ![Homing 12-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879222124074.png?rev=1.1)
+  ![Homing 12-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879222362488.png?rev=1.1)
+  ![Homing 12-3](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879222587005.png?rev=1.1)
+- **`6098h = 13`:**
+  ![Homing 13-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879222742969.png?rev=1.1)
+  ![Homing 13-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879222956477.png?rev=1.1)
+  ![Homing 13-3](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879223124721.png?rev=1.1)
+- **`6098h = 14`:**
+  ![Homing 14-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879223379790.png?rev=1.1)
+  ![Homing 14-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879223589971.png?rev=1.1)
+  ![Homing 14-3](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879223696211.png?rev=1.1)
+
+#### (8) Phương pháp `6098h = 17 ~ 30` (Về gốc trực tiếp theo sườn cảm biến `NOT`, `POT` hoặc `HW` — Không dùng xung `Z`)
+Các phương pháp từ **`17` đến `30`** có quỹ đạo di chuyển tương ứng giống hệt các phương pháp từ **`1` đến `14`**, nhưng thay vì dừng tại xung `Z` của Encoder, động cơ sẽ **dừng và lấy trực tiếp sườn chuyển trạng thái (cạnh lên hoặc cạnh xuống) của công tắc `NOT`, `POT` hoặc cảm biến gốc `HW`** làm điểm gốc cơ khí:
+
+- **`6098h = 17` (Dừng tại cạnh xuống của `NOT`):**
+  ![Homing 17-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879223852675.png?rev=1.1)
+  ![Homing 17-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1687922402334.png?rev=1.1)
+- **`6098h = 18` (Dừng tại cạnh xuống của `POT`):**
+  ![Homing 18-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879224167411.png?rev=1.1)
+  ![Homing 18-2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1687922433532.png?rev=1.1)
+- **`6098h = 19 ~ 22` (Dừng tại sườn của cảm biến gốc `HW`):**
+  ![Homing 19-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879224482295.png?rev=1.1)
+  ![Homing 20-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879224779568.png?rev=1.1)
+  ![Homing 21-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879225132355.png?rev=1.1)
+  ![Homing 22-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879225575250.png?rev=1.1)
+- **`6098h = 23 ~ 30` (Dò cảm biến gốc `HW` có tự đảo chiều khi chạm `POT` / `NOT`):**
+  ![Homing 23-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_168792258810000.png?rev=1.1)
+  ![Homing 27-1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16879228349151.png?rev=1.1)
+
+#### (9) Phương pháp `6098h = 33` và `6098h = 34` (Chỉ tìm xung `Z` gần nhất)
+- **`6098h = 33`:** Quay theo chiều nghịch ở tốc độ thấp `L` và dừng ngay tại **xung `Z` đầu tiên** bắt gặp.
+- **`6098h = 34`:** Quay theo chiều thuận ở tốc độ thấp `L` và dừng ngay tại **xung `Z` đầu tiên** bắt gặp.
+
+![Homing 33 và 34](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/07%20Operation%20Running/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1687923119809.png?rev=1.1)
+
+#### (10) Phương pháp `6098h = 35` (Đặt vị trí hiện tại làm Điểm gốc — Zeroing at current position)
+Lấy ngay vị trí đứng yên hiện tại của động cơ làm điểm gốc cơ khí mà không cần quay trục. Ngay khi kích cạnh lên Bit 4 của `6040h` (`0x000F → 0x001F`), giá trị vị trí phản hồi `6064h` được cập nhật theo độ lệch điểm gốc `607Ch`.
+
+---
+
+## Chức năng Đầu dò Chốt Vị trí Tốc độ cao (Touch Probe Function)
+
+Chức năng đầu dò (**Touch Probe**) cho phép bộ điều khiển Servo chốt (Latch) tức thì giá trị vị trí hiện tại của trục (theo đơn vị lệnh) và lưu vào thanh ghi chuyên dụng ngay tại thời điểm tín hiệu ngõ vào số tốc độ cao (`DI5` / `DI6`) hoặc xung `Z` của Encoder chuyển trạng thái.
+
+:::tip
+Khi sử dụng chức năng Touch Probe:
+1. Trên cùng một kênh Probe, nên tránh bật chốt cả cạnh lên và cạnh xuống cùng lúc nếu tần số xung quá cao;
+2. Khi chọn nguồn kích hoạt là **xung `Z` của Encoder**, chỉ hỗ trợ chốt theo **cạnh lên (Rising edge)**, không hỗ trợ cạnh xuống;
+3. Đối với chế độ **Chốt đơn (Single trigger)**, nếu muốn kích hoạt chốt lần tiếp theo, cần xóa bit Enable trong `60B8h` về `0` rồi mới bật lại lên `1`.
+4. Bộ điều khiển Servo VD3E hỗ trợ 2 kênh đầu dò độc lập: **`DI5` mặc định là Probe 1** và **`DI6` mặc định là Probe 2**. Ngay cả khi `P06-14` (`DI5`) hoặc `P06-17` (`DI6`) được gán chức năng DI khác, chức năng Touch Probe vẫn hoạt động song song mà không ảnh hưởng lẫn nhau.
+:::
+
+### Bảng định nghĩa từng Bit của Từ điều khiển Đầu dò (`60B8h`) và Từ trạng thái Đầu dò (`60B9h`)
+
+| Bit | Từ điều khiển chức năng Đầu dò (`60B8h` - RW) | Từ trạng thái Đầu dò (`60B9h` - RO) |
+| :--- | :--- | :--- |
+| **Bit 0** | **Kích hoạt Probe 1:** `0` = Tắt Probe 1; `1` = Bật Probe 1 | **Trạng thái Probe 1:** `0` = Đang tắt; `1` = Đang bật |
+| **Bit 1** | **Chế độ kích Probe 1:** `0` = Kích đơn (Single); `1` = Kích liên tục (Continuous) | **Đã chốt cạnh lên Probe 1:** `0` = Chưa chốt; `1` = Đã chốt vị trí cạnh lên vào `60BAh` |
+| **Bit 2** | **Nguồn kích Probe 1:** `0` = Chân `DI5`; `1` = Tín hiệu xung `Z` | **Đã chốt cạnh xuống Probe 1:** `0` = Chưa chốt; `1` = Đã chốt vị trí cạnh xuống vào `60BBh` |
+| **Bit 3** | Dự phòng | Dự phòng |
+| **Bit 4** | **Cho phép chốt cạnh lên Probe 1:** `0` = Tắt; `1` = Bật | Dự phòng |
+| **Bit 5** | **Cho phép chốt cạnh xuống Probe 1:** `0` = Tắt; `1` = Bật | Dự phòng |
+| **Bit 6** | Dự phòng | Phản hồi nguồn kích Probe 1 (`0` = `DI5`; `1` = Xung `Z`) |
+| **Bit 7** | Dự phòng | Mức logic hiện tại của `DI5` (`0` = Mức thấp; `1` = Mức cao) |
+| **Bit 8** | **Kích hoạt Probe 2:** `0` = Tắt Probe 2; `1` = Bật Probe 2 | **Trạng thái Probe 2:** `0` = Đang tắt; `1` = Đang bật |
+| **Bit 9** | **Chế độ kích Probe 2:** `0` = Kích đơn (Single); `1` = Kích liên tục (Continuous) | **Đã chốt cạnh lên Probe 2:** `0` = Chưa chốt; `1` = Đã chốt vị trí cạnh lên vào `60BCh` |
+| **Bit 10** | **Nguồn kích Probe 2:** `0` = Chân `DI6`; `1` = Tín hiệu xung `Z` | **Đã chốt cạnh xuống Probe 2:** `0` = Chưa chốt; `1` = Đã chốt vị trí cạnh xuống vào `60BDh` |
+| **Bit 11** | Dự phòng | Dự phòng |
+| **Bit 12** | **Cho phép chốt cạnh lên Probe 2:** `0` = Tắt; `1` = Bật | Dự phòng |
+| **Bit 13** | **Cho phép chốt cạnh xuống Probe 2:** `0` = Tắt; `1` = Bật | Dự phòng |
+| **Bit 14** | Dự phòng | Phản hồi nguồn kích Probe 2 (`0` = `DI6`; `1` = Xung `Z`) |
+| **Bit 15** | Dự phòng | Mức logic hiện tại của `DI6` (`0` = Mức thấp; `1` = Mức cao) |
+
+### Các đối tượng liên quan đến chức năng Touch Probe
+
+| Mã đối tượng (Hex) | Tên đối tượng | Quyền truy cập | Đơn vị | Độ dài Bit | Phạm vi dữ liệu |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`60B8h`** | Từ điều khiển chức năng Touch Probe | RW | - | 16 Bit | `0 ~ 65535` |
+| **`60B9h`** | Từ trạng thái Touch Probe | RO | - | 16 Bit | `0 ~ 65535` |
+| **`60BAh`** | Vị trí chốt cạnh lên của Probe 1 (`DI5`) | RO | Đơn vị lệnh | 32 Bit | `-2147483648 ~ 2147483647` |
+| **`60BBh`** | Vị trí chốt cạnh xuống của Probe 1 (`DI5`) | RO | Đơn vị lệnh | 32 Bit | `-2147483648 ~ 2147483647` |
+| **`60BCh`** | Vị trí chốt cạnh lên của Probe 2 (`DI6`) | RO | Đơn vị lệnh | 32 Bit | `-2147483648 ~ 2147483647` |
+| **`60BDh`** | Vị trí chốt cạnh xuống của Probe 2 (`DI6`) | RO | Đơn vị lệnh | 32 Bit | `-2147483648 ~ 2147483647` |

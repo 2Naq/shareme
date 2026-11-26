@@ -1,0 +1,277 @@
+---
+id: "10-malfunctions"
+title: "10 Chẩn đoán Sự cố, Bảng Mã lỗi (Er.xx) và Cảnh báo (A-xx)"
+sidebar_position: 10
+sidebar_label: "10 Malfunctions"
+tags: ["wecon", "vd3e", "servo", "faults", "alarms", "troubleshooting", "manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 10 Quy trình phân loại, chẩn đoán nguyên nhân và hướng dẫn xử lý toàn bộ mã lỗi (Er.01~Er.65) và mã cảnh báo (A-80~A-93) trên Servo VD3E Series."
+---
+
+## Xử lý Sự cố và Cảnh báo khi Khởi động (Faults and Warnings Handling at Startup)
+
+| Quá trình khởi động | Hiện tượng sự cố | Nguyên nhân | Phương pháp kiểm tra & Xử lý |
+| :--- | :--- | :--- | :--- |
+| **Cấp nguồn mạch động lực (`L1, L3` / `L1, L2, L3`)** | ① Màn hình LED 7 thanh không sáng<br/>② Không hiển thị trạng thái sẵn sàng `"ry"` | ① Cầu đấu nguồn đầu vào bị lỏng hoặc mất điện áp cấp | ☆ Kiểm tra nguồn áp và đấu nối lại dây nguồn đầu vào. |
+| **Cấp nguồn mạch động lực (`L1, L3` / `L1, L2, L3`)** | ① Màn hình LED 7 thanh không sáng<br/>② Không hiển thị trạng thái sẵn sàng `"ry"` | ② Hư hỏng phần cứng nguồn nội bộ của bộ điều khiển Servo | ☆ Liên hệ kỹ thuật viên của hãng để kiểm tra sửa chữa. |
+| **Cấp nguồn mạch động lực (`L1, L3` / `L1, L2, L3`)** | Màn hình hiển thị mã lỗi `"Er.xx"` hoặc cảnh báo `"A-xx"` | Tham khảo mục **Xử lý lỗi và cảnh báo trong quá trình vận hành** bên dưới để tra nguyên nhân và khắc phục | Sau khi khắc phục triệt để sự cố, màn hình LED của bộ điều khiển Servo sẽ hiển thị **`"ry"`** (Sẵn sàng). |
+
+---
+
+## Xử lý Lỗi và Cảnh báo trong Quá trình Vận hành
+
+### Tổng quan Phân cấp Mức độ Lỗi (Overview)
+
+Các lỗi (`Er.xx`) và cảnh báo (`A-xx`) của bộ điều khiển Servo WECON VD3E Series được phân làm **4 cấp độ (Category 1 ~ Category 4)** tùy theo mức độ nghiêm trọng giảm dần:
+
+> **Mức độ nghiêm trọng:** **Loại 1 (Category 1)** > **Loại 2 (Category 2)** > **Loại 3 (Category 3)** > **Loại 4 (Category 4)**
+
+- **Loại 1 (Category 1):** Lỗi nghiêm trọng **không thể xóa** bằng tín hiệu Reset (bắt buộc phải tắt nguồn, khắc phục phần cứng và cấp nguồn lại);
+- **Loại 2 (Category 2):** Lỗi dừng máy **có thể xóa**;
+- **Loại 3 (Category 3):** Lỗi dừng máy **có thể xóa**;
+- **Loại 4 (Category 4):** Cảnh báo vận hành **có thể xóa** (Servo vẫn tiếp tục chạy nhưng cảnh báo trên màn hình).
+
+**Phương pháp xóa lỗi (Fault Clearing):**
+1. Ghi tham số **`200A-03h = 1` (`P10-03 = 1`)**, hoặc kích hoạt chân `DI` được gán chức năng **`02: A-CLR`**, hoặc kích cạnh lên Bit 7 của từ điều khiển **`6040h` (`0x0080`)**.
+2. Đối với lỗi **Loại 2 và Loại 3**: Trước tiên phải **ngắt tín hiệu kích hoạt Servo (`S-ON` = OFF)**, khắc phục nguyên nhân gây lỗi, sau đó mới đặt `P10-03 = 1` hoặc kích chân `DI (A-CLR)`.
+3. Đối với cảnh báo **Loại 4**: Có thể đặt trực tiếp `200A-03h = 1` hoặc kích chân `DI (A-CLR)`.
+
+:::warning
+Đối với các lỗi và cảnh báo do cài đặt sai tham số, vui lòng sửa lại tham số đúng trước khi xóa lỗi. Lưu ý rằng đối với những tham số có thuộc tính **"Cấp nguồn lại mới có hiệu lực (Power-on again)"**, việc xóa lỗi chưa làm tham số mới có tác dụng ngay mà bắt buộc phải tắt nguồn và bật lại thiết bị; đối với tham số yêu cầu **"Cài đặt khi dừng (Shutdown setting)"**, phải ngắt `S-ON` trước khi thay đổi.
+:::
+
+**Các tham số và chức năng liên quan đến xóa lỗi & tra cứu lịch sử lỗi:**
+
+| Mã đối tượng / Chức năng | Tên tham số | Mặc định | Phạm vi | Mô tả chi tiết |
+| :--- | :--- | :--- | :--- | :--- |
+| **`200A-03h`** (`P10-03`) | Xóa lỗi Servo (`Fault clearing`) | `0` | `0 ~ 1` | • `0`: Không thao tác;<br/>• `1`: Sau khi loại bỏ nguyên nhân lỗi, ghi `1` vào tham số này để tắt hiển thị lỗi và đưa Drive trở lại trạng thái `ry` (hoặc `rn`).<br/>**Lưu ý:** Nếu tín hiệu `S-ON` đang giữ ON, ngay khi xóa lỗi Servo sẽ lập tức chuyển vào trạng thái chạy (`rn`). Để đảm bảo an toàn, hãy ngừng phát lệnh điều khiển và ngắt `S-ON` trước khi xóa lỗi! |
+| **Mã DI `02`** (`A-CLR`) | Xóa lỗi và cảnh báo | - | - | Khi chân DI chuyển sang mức tích cực (Valid), hệ thống thực hiện Reset các lỗi và cảnh báo cho phép xóa. |
+| **`U1-01` (`201F-01h`)** | Mã lỗi hiện tại | - | - | Hiển thị mã lỗi đang xảy ra. |
+| **`U1-02` (`201F-02h`)** | Mã cảnh báo hiện tại | - | - | Hiển thị mã cảnh báo đang xảy ra. |
+| **`U1-16 ~ U1-25`** (`201F-10h ~ 19h`) | Lịch sử 5 lỗi & 5 cảnh báo gần nhất | - | - | Lưu trữ 5 mã lỗi gần nhất (`U1-16 ~ U1-20`) và 5 mã cảnh báo gần nhất (`U1-21 ~ U1-25`) ngay cả sau khi đã xóa lỗi. |
+
+---
+
+### Bảng Phân loại Toàn bộ Mã lỗi và Cảnh báo (Fault and Warning Code Table)
+
+| Phân loại | Tên lỗi / Cảnh báo | Mã hiển thị | Cho phép xóa (Clearable) |
+| :--- | :--- | :--- | :--- |
+| **Loại 1 (Category 1)** | Hỏng dữ liệu tham số (Parameter damage) | `Er.01` | Không |
+| **Loại 1 (Category 1)** | Lỗi lưu trữ tham số (Parameter storage error) | `Er.02` | Không |
+| **Loại 1 (Category 1)** | Lỗi nguồn tham chiếu ADC (ADC reference source error) | `Er.03` | Không |
+| **Loại 1 (Category 1)** | Lỗi chuyển đổi lấy mẫu dòng điện AD | `Er.04` | Không |
+| **Loại 1 (Category 1)** | Lỗi truyền thông FPGA bất thường | `Er.05` | Không |
+| **Loại 1 (Category 1)** | Sai phiên bản chương trình FPGA | `Er.06` | Không |
+| **Loại 1 (Category 1)** | Lỗi xung nhịp đồng hồ hệ thống (Clock abnormality) | `Er.07` | Không |
+| **Loại 1 (Category 1)** | Quá dòng phần mềm (Software overcurrent) | `Er.19` | Không |
+| **Loại 1 (Category 1)** | Quá dòng phần cứng (Overcurrent) | `Er.20` | Không |
+| **Loại 1 (Category 1)** | Mạch kích điện trở xả dẫn thông bất thường | `Er.24` | Không |
+| **Loại 1 (Category 1)** | Sai mã model động cơ (Wrong motor model) | `Er.26` | Không |
+| **Loại 1 (Category 1)** | Mất kết nối cáp Encoder (Encoder disconnected - từ V2.0) | `Er.27` | Không (V2.0+) |
+| **Loại 1 (Category 1)** | Mất xung Z của Encoder (Encoder Z pulse is lost) | `Er.28` | Không |
+| **Loại 1 (Category 1)** | Lỗi tín hiệu UVW của Encoder | `Er.30` | Không |
+| **Loại 1 (Category 1)** | Vượt quá tốc độ tối đa của động cơ | `Er.32` | Không |
+| **Loại 1 (Category 1)** | Chuyển đổi ADC chưa hoàn tất | `Er.60` | Không |
+| **Loại 1 (Category 1)** | Lỗi phần mềm nội bộ (Internal software fault) | `Er.61 ~ Er.65` | Không |
+| **Loại 2 (Category 2)** | Chuyển trạng thái mạng EtherCAT bất thường | `Er.09` | Có |
+| **Loại 2 (Category 2)** | Mất đồng bộ mạng EtherCAT (Loss of synchronization) | `Er.10` | Có |
+| **Loại 2 (Category 2)** | Chưa nạp tệp cấu hình XML (Unburned XML configuration file) | `Er.11` | Có |
+| **Loại 2 (Category 2)** | Khởi tạo mạng thất bại (Network initialization failed) | `Er.12` | Có |
+| **Loại 2 (Category 2)** | Lỗi cài đặt chu kỳ đồng bộ (Synchronization period setting error) | `Er.13` | Có |
+| **Loại 2 (Category 2)** | Sai số chu kỳ đồng bộ quá lớn | `Er.14` | Có |
+| **Loại 2 (Category 2)** | Quá áp nguồn mạch động lực (Main power supply overvoltage) | `Er.22` | Có |
+| **Loại 2 (Category 2)** | Đứt/hở dây cáp động lực động cơ (Power line disconnection) | `Er.31` | Có |
+| **Loại 3 (Category 3)** | Thấp áp nguồn mạch động lực (Main power supply undervoltage) | `Er.21` | Có |
+| **Loại 3 (Category 3)** | Chưa đấu nối điện trở xả (Braking resistor is not connected) | `Er.23` | Có |
+| **Loại 3 (Category 3)** | Giá trị điện trở xả quá lớn (Braking resistor resistance too large) | `Er.25` | Có |
+| **Loại 3 (Category 3)** | Quá nhiệt mô-đun công suất (Power module over temperature) | `Er.33` | Có |
+| **Loại 3 (Category 3)** | Bảo vệ quá tải động cơ (Motor overload protection) | `Er.34` | Có |
+| **Loại 3 (Category 3)** | Tỷ số bánh răng điện tử vượt giới hạn | `Er.35` | Có |
+| **Loại 3 (Category 3)** | Sai lệch bám vị trí quá lớn (Position deviation too large) | `Er.36` | Có |
+| **Loại 3 (Category 3)** | Bão hòa mô-men bất thường (Abnormal torque saturation) | `Er.37` | Có |
+| **Loại 3 (Category 3)** | Mất pha nguồn mạch động lực (Main circuit phase loss) | `Er.38` | Có |
+| **Loại 3 (Category 3)** | Dừng khẩn cấp (Emergency stop) | `Er.39` | Có |
+| **Loại 3 (Category 3)** | Lỗi mất nguồn pin Encoder đa vòng (Encoder battery failure) | `Er.40` | Có |
+| **Loại 3 (Category 3)** | Quá nhiệt động cơ / Encoder | `Er.41` | Có |
+| **Loại 3 (Category 3)** | Lỗi ghi dữ liệu vào Encoder (Encoder write failure) | `Er.42` | Có |
+| **Loại 3 (Category 3)** | Quá tải bộ điều khiển Servo (Drive overload fault) | `Er.43` | Có |
+| **Loại 3 (Category 3)** | Quá thời gian chờ về gốc (Homing timeout fault) | `Er.44` | Có |
+| **Loại 3 (Category 3)** | Bảo vệ quá nhiệt khi kẹt cứng trục động cơ | `Er.45` | Có |
+| **Loại 4 (Category 4)** | Cảnh báo vượt giới hạn công suất (Power limit alarm) | `A-80` | Có |
+| **Loại 4 (Category 4)** | Cảnh báo quá tốc độ (Overspeed alarm) | `A-81` | Có |
+| **Loại 4 (Category 4)** | Cảnh báo quá tải (Overload) | `A-82` | Có |
+| **Loại 4 (Category 4)** | Cảnh báo quá nhiệt hoặc quá tải điện trở xả | `A-83` | Có |
+| **Loại 4 (Category 4)** | Đã sửa tham số yêu cầu tắt/bật lại nguồn điện | `A-84` | Có |
+| **Loại 4 (Category 4)** | Mất điện thoáng qua mạch động lực | `A-88` | Có |
+| **Loại 4 (Category 4)** | Trùng lặp cấu hình chức năng cổng `DI` | `A-89` | Có |
+| **Loại 4 (Category 4)** | Trùng lặp cấu hình chức năng cổng `DO` | `A-90` | Có |
+| **Loại 4 (Category 4)** | Ghi sửa đổi tham số quá tần suất cho phép | `A-91` | Có |
+| **Loại 4 (Category 4)** | Cảnh báo điện áp pin Encoder thấp | `A-92` | Có |
+| **Loại 4 (Category 4)** | Lỗi kiểm tra đọc/ghi Encoder xảy ra quá thường xuyên | `A-93` | Có |
+
+---
+
+## Hướng dẫn Chi tiết Chẩn đoán và Khắc phục từng Mã lỗi (Troubleshooting)
+
+### 1. Nhóm lỗi hệ thống & truyền thông EtherCAT (`Er.01` ~ `Er.14`)
+
+#### `Er.01`: Hỏng dữ liệu tham số (Parameter damage)
+- **Hiển thị LED:** ![Er.01](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1688091905781.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Không thể đọc/ghi chip nhớ EEPROM. Hãy thực hiện khôi phục cài đặt gốc (`200A-02h = 1` / `P10-02 = 1`) và cấp nguồn lại. Nếu vẫn báo lỗi sau nhiều lần khởi động lại, phần cứng EEPROM đã hỏng — liên hệ hãng để bảo hành.
+
+#### `Er.02`: Lỗi lưu trữ tham số (Parameter storage error)
+- **Hiển thị LED:** ![Er.02](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880919233735.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Tổng số lượng mã hàm hoặc cấu trúc lưu trữ thay đổi (thường xuất hiện ngay sau khi nâng cấp Firmware). Hãy thực hiện khôi phục cài đặt gốc (`200A-02h = 1`) rồi tắt/bật lại nguồn.
+
+#### `Er.03`: Lỗi nguồn tham chiếu ADC (ADC reference source error)
+- **Hiển thị LED:** ![Er.03](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880919424342.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Điện áp tham chiếu Analog nội bộ bị lệch. Thử khôi phục cài đặt gốc (`200A-02h = 1`) và cấp nguồn lại; nếu vẫn lỗi thì gửi bảo trì.
+
+#### `Er.04`: Lỗi chuyển đổi lấy mẫu dòng điện AD (AD current sampling conversion error)
+- **Hiển thị LED:** ![Er.04](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880920489971.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Quá thời gian lấy mẫu dòng điện hoặc lỗi cảm biến dòng điện. Khôi phục cài đặt gốc (`200A-02h = 1`) và bật lại nguồn; nếu không hết lỗi thì gửi bảo hành phần cứng.
+
+#### `Er.05`: Lỗi truyền thông FPGA (`Abnormal FPGA communication`) & `Er.06`: Sai phiên bản chương trình FPGA (`Wrong FPGA program version`)
+- **Hiển thị LED:** ![Er.05](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1688092069624.png?rev=1.1) / ![Er.06](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1688092126898.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Kiểm tra biến giám sát `2020-04h` (`U2-04`: Phiên bản Firmware) và `2020-05h` (`U2-05`: Phiên bản phần cứng FPGA) xem có tương thích với nhau không. Liên hệ kỹ thuật viên hãng để nạp đồng bộ phiên bản FPGA.
+
+#### `Er.07`: Lỗi xung nhịp đồng hồ hệ thống (Clock abnormality)
+- **Hiển thị LED:** ![Er.07](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1688092168750.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Nhiễu điện từ mạnh bên ngoài (từ trường mạnh hoặc biến tần công suất lớn đặt sát bên). Hãy tách biệt dây động lực và dây tín hiệu, tiếp địa chuẩn cho Drive và Motor.
+
+#### `Er.09`: Chuyển trạng thái mạng EtherCAT bất thường (Abnormal network status switching)
+- **Hiển thị LED:** ![Er.09](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880922101282.png?rev=1.1)
+- **Nguyên nhân & Xử lý:**
+  1. Trạm chủ (PLC) chuyển hạ trạng thái mạng EtherCAT (từ `OP` về `Pre-OP`/`Init`) trong khi trục Servo vẫn đang ở trạng thái kích hoạt (`Servo ON`) $\rightarrow$ Sửa lại chương trình PLC: ngắt `MC_Power` (Servo OFF) trước khi ngắt mạng.
+  2. Lỏng cáp mạng truyền thông $\rightarrow$ Kiểm tra và cắm chặt cáp mạng RJ45.
+
+#### `Er.10`: Mất đồng bộ mạng EtherCAT (Loss of synchronization)
+- **Hiển thị LED:** ![Er.10](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880922544557.png?rev=1.1)
+- **Nguyên nhân & Xử lý:**
+  1. **Nhiễu đường truyền hoặc lỏng cáp:** Kiểm tra đèn báo cổng mạng trên LED số 1; thay cáp mạng bọc kim chống nhiễu chuẩn **Cat5e/Cat6 STP** và tiếp địa tốt cho Drive.
+  2. **Cắm ngược cổng IN/OUT:** Đảm bảo cáp mạng từ PLC hoặc trạm trước đi vào cổng **`CN5 (IN)`** và đi ra sang trạm sau từ cổng **`CN6 (OUT)`**.
+  3. **Trạm chủ PLC bị dừng hoặc treo:** Kiểm tra trạng thái RUN và cấu hình đồng hồ phân tán DC trên PLC.
+
+#### `Er.11`: Chưa nạp tệp cấu hình XML (`Unburned XML configuration file`) & `Er.12`: Khởi tạo mạng thất bại (`Network initialization failed`)
+- **Hiển thị LED:** ![Er.11](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_168809236026.png?rev=1.1) / ![Er.12](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880924075031.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Chip EEPROM của ESC chưa được nạp tệp mô tả thiết bị ESI (XML) hoặc ID trạm trống khi quét mạng. Liên hệ kỹ thuật viên hoặc dùng công cụ nạp lại tệp ESI XML vào trạm tớ.
+
+#### `Er.13`: Lỗi cài đặt chu kỳ đồng bộ (`Synchronization period setting error`) & `Er.14`: Sai số chu kỳ đồng bộ quá lớn (`Synchronization period error is too large`)
+- **Hiển thị LED:** ![Er.13](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880924734115.png?rev=1.1) / ![Er.14](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880925221925.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Chu kỳ đồng bộ (`SYNC0`) đặt trên trạm chủ không phải là bội số nguyên của **$125\ \mu\text{s}$ hoặc $250\ \mu\text{s}$** (ví dụ chuẩn là $500\ \mu\text{s}, 1\ \text{ms}, 2\ \text{ms}, 4\ \text{ms}$). Hãy chỉnh lại chu kỳ đồng bộ trên PLC Editor 2 và cập nhật tệp XML mới nhất.
+
+---
+
+### 2. Nhóm lỗi công suất, nguồn, điện trở xả & Encoder (`Er.20` ~ `Er.32`)
+
+#### `Er.20`: Quá dòng (Overcurrent)
+- **Hiển thị LED:** ![Er.20](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1688092547557.png?rev=1.1)
+- **Nguyên nhân & Xử lý:**
+  1. **Đấu sai thứ tự pha `U, V, W` hoặc chạm chập dây động cơ ra vỏ PE:** Kiểm tra đấu đúng thứ tự pha `U-U`, `V-V`, `W-W` và đo cách điện cáp động lực.
+  2. **Lỗi đấu nối hoặc ngắn mạch điện trở xả:** Kiểm tra cầu nối `C-D` (khi dùng điện trở nội) hoặc điện trở xả ngoài giữa `P+` và `C` (đảm bảo trị số $\Omega$ không nhỏ hơn mức tối thiểu cho phép).
+  3. **Lỏng giắc cắm cáp Encoder (`CN1`):** Siết chặt vít cố định giắc cắm Encoder.
+  4. **Độ lợi (Gain) hoặc cấp độ cứng vững (`2003-02h`) quá cao gây tự kích, hoặc thời gian tăng/giảm tốc quá ngắn:** Giảm Gain/độ cứng vững và tăng thời gian tăng/giảm tốc.
+
+#### `Er.21`: Thấp áp nguồn mạch động lực (Main power supply undervoltage)
+- **Hiển thị LED:** ![Er.21](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880956882225.png?rev=1.1)
+- **Ngưỡng phát hiện:**
+  - Dòng 220V: Điện áp DC Bus chuẩn là **310V DC**, ngưỡng báo lỗi thấp áp là **$< 200\text{V DC}$**;
+  - Dòng 380V: Điện áp DC Bus chuẩn là **540V DC**, ngưỡng báo lỗi thấp áp là **$< 420\text{V DC}$**.
+- **Nguyên nhân & Xử lý:** Kiểm tra điện áp DC Bus qua biến giám sát `U0-31` (`201E-1Fh`), kiểm tra sụt áp lưới điện khi tải lớn cùng khởi động hoặc mất pha đầu vào `L1, L2, L3`.
+
+#### `Er.22`: Quá áp nguồn mạch động lực (Main power supply overvoltage)
+- **Hiển thị LED:** ![Er.22](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880958031031.png?rev=1.1)
+- **Ngưỡng phát hiện:**
+  - Dòng 220V: Điện áp DC Bus chuẩn là **310V DC**, ngưỡng báo lỗi quá áp là **$> 390\text{V DC}$**;
+  - Dòng 380V: Điện áp DC Bus chuẩn là **540V DC**, ngưỡng báo lỗi quá áp là **$> 670\text{V DC}$**.
+- **Nguyên nhân & Xử lý:**
+  1. Điện áp nguồn cấp vượt quá dải cho phép (220V: $198 \sim 242\text{V AC}$; 380V: $342 \sim 440\text{V AC}$).
+  2. Chưa nối cầu `C-D` (điện trở xả nội) hoặc đứt/hở mạch điện trở xả ngoài giữa `P+` và `C`, hoặc trị số điện trở xả quá lớn khiến năng lượng tái sinh khi giảm tốc tải quán tính lớn không tiêu tán kịp $\rightarrow$ Đấu nối điện trở xả phù hợp và kéo dài thời gian giảm tốc.
+
+#### `Er.23`: Chưa đấu nối điện trở xả (`Braking resistor is not connected`), `Er.24`: Mạch kích điện trở xả bất thường & `Er.25`: Điện trở xả quá lớn
+- **Hiển thị LED:** ![Er.23](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880959078033.png?rev=1.1) / ![Er.24](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880959356079.png?rev=1.1) / ![Er.25](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880959916002.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Kiểm tra cầu nối tắt giữa `C` và `D` (nếu dùng điện trở nội `2000-09h = 0`) hoặc kiểm tra điện trở ngoài giữa `P+` và `C` cùng tham số `2000-0Ah` (`P00-10`). Nếu không dùng điện trở xả, đặt `2000-09h = 3`.
+
+#### `Er.26`: Sai mã model động cơ (`Wrong motor model`)
+- **Hiển thị LED:** ![Er.26](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880960355714.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Mã động cơ lưu trong Encoder không khớp với dải công suất của bộ điều khiển Servo. Kiểm tra nhãn động cơ và mã động cơ `U0-53` (`201E-35h`).
+
+#### `Er.27`: Mất kết nối Encoder (`Encoder is disconnected`), `Er.28`: Mất xung Z & `Er.30`: Lỗi tín hiệu UVW Encoder
+- **Hiển thị LED:** ![Er.27](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880960635688.png?rev=1.1) / ![Er.28](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880960983686.png?rev=1.1) / ![Er.30](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880961444250.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Kiểm tra giắc cắm cáp Encoder ở cả hai đầu Drive (`CN1`) và đầu Động cơ, kiểm tra thứ tự hàn chân cáp (`5V, GND, SD+, SD-`), bọc chống nhiễu và tiếp địa. Có thể xoay tay trục động cơ và quan sát biến giám sát góc điện `U0-30` (`201E-1Eh`) xem có biến thiên đều từ $0^\circ \sim 360^\circ$ hay không.
+
+#### `Er.31`: Đứt/hở dây động lực động cơ (`Power line disconnection`) & `Er.32`: Vượt quá tốc độ tối đa (`Exceeding motor maximum speed`)
+- **Hiển thị LED:** ![Er.31](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880961876025.png?rev=1.1) / ![Er.32](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880962252053.png?rev=1.1)
+- **Nguyên nhân & Xử lý:**
+  - `Er.31`: Kiểm tra cầu đấu `U, V, W` và giắc cắm cáp động lực động cơ bị lỏng hoặc đứt 1 pha.
+  - `Er.32`: Kiểm tra thứ tự pha `U, V, W` (đấu ngược pha sẽ gây vọt tốc độ mất kiểm soát), kiểm tra ngưỡng tốc độ tối đa `2001-0Ah` (`P01-10`) và lệnh tốc độ/tỷ số bánh răng điện tử.
+
+---
+
+### 3. Nhóm lỗi bảo vệ vận hành, cơ khí & về gốc (`Er.33` ~ `Er.65`)
+
+#### `Er.33`: Quá nhiệt mô-đun công suất (`Power module over temperature`)
+- **Hiển thị LED:** ![Er.33](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880962579316.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Kiểm tra nhiệt độ IPM qua `U0-32`, kiểm tra quạt làm mát của Drive có bị kẹt/hỏng không, đảm bảo khoảng cách thông gió tủ điện.
+
+#### `Er.34`: Bảo vệ quá tải động cơ (`Motor overload protection`)
+- **Hiển thị LED:** ![Er.34](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880963091343.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Tải cơ khí quá nặng hoặc bị kẹt, phanh điện từ (`BRK-OFF`) chưa mở khi động cơ quay, đấu sai dây `U, V, W`, hoặc tăng/giảm tốc quá gấp.
+
+#### `Er.35`: Tỷ số bánh răng điện tử vượt giới hạn (`Electronic gear ratio exceeds limit`)
+- **Hiển thị LED:** ![Er.35](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880963358940.png?rev=1.1)
+- **Nguyên nhân & Xử lý:** Tỷ số bánh răng điện tử $\frac{6091\text{h}:01}{6091\text{h}:02}$ vượt ngoài phạm vi $\left[0.001 \times \frac{R_{\text{enc}}}{10000},\ 4000 \times \frac{R_{\text{enc}}}{10000}\right]$ với $R_{\text{enc}}$ là độ phân giải Encoder (Giới hạn trên của Encoder 17-bit là `52428`, của Encoder 23-bit là `3355443`). Chỉnh lại `6091h:01` và `6091h:02` rồi xóa lỗi.
+
+#### `Er.36`: Sai lệch bám vị trí quá lớn (`Position deviation is too large`)
+- **Nguyên nhân & Xử lý:** Sai lệch giữa vị trí lệnh và vị trí phản hồi (`60F4h` / `U0-05`) vượt quá ngưỡng cửa sổ báo lỗi `6065h`. Kiểm tra xem trục cơ khí có bị kẹt không, phanh từ đã nhả chưa, dây `U, V, W` đã đấu đúng chưa, tăng cấp độ cứng vững `2003-02h` hoặc mở rộng ngưỡng `6065h` hợp lý.
+
+#### `Er.37`: Bão hòa mô-men bất thường (`Abnormal torque saturation`) & `Er.38`: Mất pha nguồn mạch động lực
+- **Hiển thị LED:** ![Er.37](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880964215095.png?rev=1.1) / ![Er.38](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880964607020.png?rev=1.1)
+- **Nguyên nhân & Xử lý:**
+  - `Er.37`: Mô-men ngõ ra chạm ngưỡng giới hạn (`2001-0Fh` / `2001-10h`) liên tục vượt quá thời gian chờ `2001-13h` (`P01-19`) do kẹt cơ khí hoặc chạm cữ cứng.
+  - `Er.38`: Bộ điều khiển 3 pha bị mất 1 pha nguồn đầu vào `L1, L2, L3`.
+
+#### `Er.39`: Dừng khẩn cấp (`Emergency stop`), `Er.40`: Lỗi pin Encoder đa vòng, `Er.41`: Quá nhiệt động cơ & `Er.42`: Lỗi ghi Encoder
+- **Hiển thị LED:** ![Er.39](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880965069444.png?rev=1.1) / ![Er.40](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880965345683.png?rev=1.1) / ![Er.41](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880965886160.png?rev=1.1) / ![Er.42](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880966135417.png?rev=1.1)
+- **Nguyên nhân & Xử lý:**
+  - `Er.39`: Chân `DI` gán chức năng `08: E-STOP` bị kích hoạt.
+  - `Er.40`: Hộp pin của Encoder đa vòng bị tháo ra khi mất nguồn hoặc hết pin ($< 3.1\text{V}$). Nếu không cần lưu vị trí đa vòng, có thể đặt `2000-1Eh = 1` (`P00-30 = 1`) để bỏ qua lỗi pin, hoặc thay pin mới rồi xóa lỗi (`200A-03h = 1`) và reset đa vòng (`200A-06h = 1`).
+
+#### `Er.43`: Lỗi quá tải bộ điều khiển Servo (`Drive overload fault`)
+- **Hiển thị LED:** ![Er.43](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/1703148185224-614.png?width=202&height=76&rev=1.1)
+- **Nguyên nhân & Xử lý:** Công suất ngõ ra trung bình `U0-34` vượt quá ngưỡng công suất giới hạn (**110% công suất định mức**) liên tục trên **20 phút**:
+
+| Model Bộ điều khiển Servo | Công suất định mức (W) | Ngưỡng công suất giới hạn 110% (W) |
+| :--- | :--- | :--- |
+| `VD3E-003SA1G` | 100 | 110 |
+| `VD3E-010SA1G` | 400 | 440 |
+| `VD3E-014SA1G` | 750 | 825 |
+| `VD3E-016SA1G` | 1500 | 1650 |
+| `VD3E-019SA1G` / `021SA1G` | 2300 | 2530 |
+| `VD3E-025SA1G` / `030SA1G` | 2600 | 2860 |
+| `VD3E-016TA1G` | 1500 | 1650 |
+| `VD3E-019TA1G` | 2000 | 2200 |
+| `VD3E-021TA1G` | 3000 | 3300 |
+
+#### `Er.44`: Quá thời gian chờ về gốc (`Homing timeout fault`) & `Er.45`: Bảo vệ quá nhiệt khi kẹt trục (`Drive stall overtemperature protection`)
+- **Hiển thị LED:** ![Er.44](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880966676702.png?rev=1.1) / ![Er.45](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/Er45.png?width=213&height=77&rev=1.1)
+- **Nguyên nhân & Xử lý:**
+  - `Er.44`: Kiểm tra đấu nối và cấu hình chân `DI` cảm biến điểm gốc (`26: HOMEORG`), kiểm tra tốc độ tìm gốc `6099h:01` có quá chậm không.
+  - `Er.45`: Khi `P10-11 = 0`, nếu trục động cơ bị kẹt cứng (tốc độ thực tế $< 10\ \text{rpm}$) mà lệnh mô-men vượt quá mô-men định mức kéo dài đến ngưỡng bảo vệ nhiệt, Drive sẽ báo lỗi `Er.45` và ngắt kích hoạt ngay để bảo vệ cuộn dây động cơ.
+
+---
+
+### 4. Nhóm Mã Cảnh báo Vận hành (`A-80` ~ `A-93`)
+
+| Mã cảnh báo | Hình ảnh hiển thị LED | Tên cảnh báo | Nguyên nhân & Cách khắc phục |
+| :--- | :--- | :--- | :--- |
+| **`A-80`** | ![A-80](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/1697424845253-936.png?width=243&height=88&rev=1.1) | Cảnh báo vượt giới hạn công suất (Power limit alarm) | Công suất trung bình `U0-34` vượt quá 110% công suất định mức của Drive liên tục trên **5 giây**. Kiểm tra giảm tải hoặc nâng cấp công suất Drive. |
+| **`A-81`** | ![A-81](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880969433592.png?rev=1.1) | Cảnh báo quá tốc độ (Overspeed alarm) | Tốc độ động cơ vượt quá ngưỡng cảnh báo `2001-0Bh` (`P01-11`, mặc định 3300 rpm). Kiểm tra lệnh tốc độ hoặc tăng `2001-0Bh` phù hợp. |
+| **`A-82`** | ![A-82](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880970003481.png?rev=1.1) | Cảnh báo quá tải (Overload) | Động cơ hoạt động vượt tải định mức trước khi chạm ngưỡng cắt lỗi `Er.34`. Kiểm tra cơ khí, thời gian tăng/giảm tốc và Gain. |
+| **`A-83`** | ![A-83](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880970422218.png?rev=1.1) | Cảnh báo quá nhiệt / quá tải điện trở xả | Năng lượng xả tái sinh vượt công suất điện trở xả. Kiểm tra cầu `C-D` hoặc thay điện trở xả ngoài công suất lớn hơn và cài đặt đúng `2000-09h ~ 0Bh`. |
+| **`A-84`** | ![A-84](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1688097166904.png?rev=1.1) | Tham số yêu cầu tắt/bật lại nguồn điện | Đã sửa đổi tham số có thuộc tính cần khởi động lại nguồn. Hãy tắt nguồn và cấp nguồn lại cho Servo Drive. |
+| **`A-88`** | ![A-88](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880973398974.png?rev=1.1) | Mất điện thoáng qua mạch động lực | Điện áp nguồn lưới đầu vào bị sụt/mất thoáng qua. Kiểm tra độ ổn định của nguồn cấp. |
+| **`A-89`** | ![A-89](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880973801692.png?rev=1.1) | Trùng lặp cấu hình cổng `DI` | Cùng một mã chức năng DI ($\neq 0$) đang được gán cho 2 hoặc nhiều chân `DI` khác nhau trong nhóm `2006h` (`P06`). Hãy gán lại và cấp nguồn lại. |
+| **`A-90`** | ![A-90](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880974147810.png?rev=1.1) | Trùng lặp cấu hình cổng `DO` | Cùng một mã chức năng DO ($\neq 128$) đang được gán cho nhiều chân `DO` trong nhóm `2006h` (`P06`). Hãy đặt các cổng DO không dùng về `128`. |
+| **`A-91`** | ![A-91](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880974619099.png?rev=1.1) | Ghi sửa đổi tham số quá tần suất cho phép | Trạm chủ PLC đang ghi SDO lưu EEPROM liên tục vượt quá giới hạn **150 lần / 4 giờ** (mỗi tham số 32-bit tính là 2 lần). Hãy sửa chương trình PLC không ghi SDO lặp lại trong mỗi chu kỳ quét! |
+| **`A-92`** | ![A-92](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16880975002084.png?rev=1.1) | Cảnh báo pin Encoder yếu | Điện áp pin nuôi Encoder đa vòng thấp hơn **3.1V**. Hãy thay pin mới (trong khi vẫn giữ nguồn Servo ON để không mất gốc tọa độ). |
+| **`A-93`** | ![A-93](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/10%20Malfunctions/WebHome/1697439535557-879.png?rev=1.1) | Lỗi kiểm tra đọc/ghi Encoder xảy ra quá thường xuyên | Do nhiễu điện từ trên cáp Encoder. Hãy kiểm tra tiếp địa vỏ Motor và Drive, tách xa cáp động lực. Giải pháp tạm thời: tăng ngưỡng `P00-31`. |

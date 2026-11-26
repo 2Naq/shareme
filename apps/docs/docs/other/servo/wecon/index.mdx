@@ -1,0 +1,52 @@
+---
+id: "tong-quan-servo-wecon-vd3e"
+title: "Tài liệu kỹ thuật Servo Mạng EtherCAT WECON VD3E Series"
+sidebar_position: 0
+sidebar_label: "00. Tổng quan Servo VD3E"
+tags: ["wecon", "vd3e", "servo", "ethercat", "cia402", "manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: Sổ tay hướng dẫn sử dụng bộ điều khiển động cơ Servo mạng EtherCAT dòng VD3E Series (Chuẩn CiA 402)."
+---
+
+## Giới thiệu tổng quan hệ thống Servo WECON VD3E Series
+
+Sổ tay hướng dẫn sử dụng này áp dụng cho dòng **bộ điều khiển động cơ Servo mạng truyền thông (Bus Servo Drive) WECON VD3E Series** (giao thức **EtherCAT / CoE - CiA 402**).
+
+Để vận hành đúng cách và khai thác tối đa hiệu suất của dòng bộ điều khiển Servo này, vui lòng đọc kỹ tài liệu hướng dẫn trước khi lắp đặt, đấu nối và lưu giữ để tra cứu khi cần thiết.
+
+Trong quá trình sử dụng, nếu có bất kỳ thắc mắc nào về chức năng và đặc tính kỹ thuật của thiết bị, vui lòng liên hệ đội ngũ kỹ thuật để được hỗ trợ. Sản phẩm của WECON liên tục được cải tiến và nâng cấp, do đó nội dung tài liệu có thể được cập nhật mà không cần báo trước.
+
+:::danger
+**NGUY HIỂM (DANGER):** Rủi ro phát sinh do không vận hành đúng theo quy định có thể dẫn đến thương tích nghiêm trọng hoặc tử vong.
+:::
+
+:::warning
+**CẢNH BÁO (CAUTION):** Rủi ro phát sinh do không vận hành đúng theo quy định có thể dẫn đến thương tích mức độ vừa hoặc nhẹ, cũng như gây hư hỏng thiết bị.
+:::
+
+---
+
+## Cấu trúc toàn bộ 11 chuyên mục Tài liệu Servo WECON VD3E Series
+
+1. **[01 Precautions (Lưu ý an toàn)](./01-precautions.mdx):** Quy tắc an toàn khi bảo quản, vận chuyển, lắp đặt, đấu dây, vận hành, bảo trì và khuyến nghị chọn aptomat (CB) / thiết bị chống dòng rò (RCD).
+2. **[02 Product Information (Thông tin sản phẩm)](./02-product-information.mdx):** Quy tắc đặt mã hiệu bộ điều khiển Servo VD3E (Type A, Type B, Type C / 220V & 380V) và động cơ Servo (WD / WE Series), cấu tạo phần cứng, thông số kỹ thuật điện và sơ đồ tổng thể hệ thống.
+3. **[03 Installation (Kích thước & Lắp đặt)](./03-installation.mdx):** Bản vẽ kích thước cơ khí (mm) của bộ điều khiển Servo VD3E và các dòng động cơ mặt bích 40/60/80/110/130/180, khoảng cách tản nhiệt tủ điện và quy chuẩn lắp đặt cơ khí.
+4. **[04 Wiring (Đấu nối phần cứng)](./04-wiring.mdx):** Sơ đồ cầu đấu mạch động lực (220V 1 pha/3 pha, 380V 3 pha), cáp động lực, cáp phanh từ, cáp Encoder tuyệt đối 17-bit/23-bit, giắc điều khiển I/O `CN2` (DI/DO) và cổng mạng EtherCAT `CN5/CN6`.
+5. **[05 Panel (Bảng điều khiển LED)](./05-panel.mdx):** Cấu tạo màn hình LED 5 chữ số và 5 phím nhấn, giải mã ký hiệu trạng thái (`rESt`, `nr`, `ry`, `rn`, `nF`, `Qs`), thao tác cài đặt tham số, chạy thử JOG và khôi phục cài đặt gốc (`P10.02`).
+6. **[06 Communication Network Configuration (Cấu hình mạng EtherCAT)](./06-communication-network-configuration.mdx):** Kiến trúc giao thức EtherCAT (CoE - CiA 402), máy trạng thái ESM (`Init`, `Pre-OP`, `Safe-OP`, `OP`), ánh xạ dữ liệu quá trình `RPDO/TPDO`, đồng hồ phân tán (`DC`) và sơ đồ chuyển trạng thái CiA 402.
+7. **[07 Operation (Vận hành & Chế độ điều khiển)](./07-operation-running.mdx):** Cấu hình từ điều khiển (`6040h`) & từ trạng thái (`6041h`), hệ số bánh răng điện tử, các chế độ vận hành chuẩn CiA 402: Vị trí đồng bộ chu kỳ (**CSP**), Vận tốc đồng bộ chu kỳ (**CSV**), Mô-men đồng bộ chu kỳ (**CST**), Vị trí biên dạng (**PP**), Vận tốc biên dạng (**PV**), Mô-men biên dạng (**PT**), Về gốc (**Homing - HM**) và chức năng đầu dò (**Touch Probe**).
+8. **[08 Object Dictionary (Từ điển đối tượng CoE)](./08-object-dictionary.mdx):** Chi tiết toàn bộ vùng giao thức truyền thông (`1000h~1FFFh`), vùng tham số chuyên biệt của hãng (`2000h~2FFFh` / `P00~P10`, `U0~U2`) và vùng thiết bị chuẩn CiA 402 (`6000h~6FFFh`).
+9. **[09 Adjustments (Tinh chỉnh hệ thống & Chống rung)](./09-adjustments.mdx):** Nhận dạng tỷ số quán tính tải, tự động/thủ công chỉnh định độ lợi (Gain Tuning), bù truyền thẳng (Feedforward), điều khiển bám mô hình (Model Tracking Control), chuyển đổi Gain và bộ lọc triệt tiêu cộng hưởng cơ học (Notch Filter).
+10. **[10 Malfunctions (Chẩn đoán & Xử lý lỗi)](./10-malfunctions.mdx):** Quy trình chẩn đoán sự cố khi khởi động và vận hành, bảng phân loại mã lỗi (`Er.xx`) và mã cảnh báo (`A-xx`) kèm nguyên nhân và hướng dẫn khắc phục chi tiết.
+11. **[11 Appendix (Phụ lục tra cứu nhanh)](./11-appendix.mdx):** Bảng tổng hợp danh mục từ điển đối tượng (`1000h`, `2000h~2020h`, `6000h`), bảng định nghĩa chức năng kênh `DI/DO`, bảng tra nhanh mã lỗi/cảnh báo, quy cách cáp và tiêu chuẩn tương thích điện từ châu Âu (EMC/CE).
+
+---
+
+## Lịch sử cập nhật phiên bản tài liệu (User Manual Change Record)
+
+| Thời gian | Phiên bản | Nội dung cập nhật chi tiết | Model áp dụng |
+| :--- | :--- | :--- | :--- |
+| Tháng 10/2022 | V1.0 | Phiên bản phát hành đầu tiên | ★ Model `VD3E-0XXSA1G` |
+| Tháng 08/2023 | V2.0 | **Chương 7:**<br/>• Bổ sung giải thích chức năng đầu dò (Touch Probe) và chức năng đầu dò DI;<br/>• Bổ sung chế độ về gốc (Homing mode) 35, và thêm đối tượng `60E6h` để cài đặt chế độ tọa độ tuyệt đối và tọa độ tương đối.<br/>**Chương 8:**<br/>• Thêm các từ điển đối tượng `60E0h`, `60C5h` và `60C6h`;<br/>• Xóa các từ điển đối tượng `6071h`, `6074h`, `607Dh:01`;<br/>• Chỉnh sửa phạm vi dữ liệu và giá trị mặc định của một số đối tượng;<br/>• Bổ sung `U0-57` hỗ trợ hiển thị vị trí tuyệt đối 64-bit;<br/>• Bổ sung mô tả bộ đếm số lần cấp nguồn Servo `U0-48` và giá trị giám sát bit Encoder `U0-52`;<br/>• Cập nhật bảng từ điển đối tượng và bổ sung vùng giao thức con thiết bị chuẩn nhóm `6000h`;<br/>• Thêm các đối tượng `2001-17h`, `2000-18h`, `2000-1Fh`...; Thêm thời gian tăng tốc JOG `2001-25h` và thời gian giảm tốc JOG `2001-26h`;<br/>• Thêm hằng số thời gian lọc phản hồi tốc độ `2004-12h`;<br/>• Thêm mã model động cơ `200A-05h` và mã động cơ nhập tay `200A-07h`;<br/>• Thay đổi giá trị mặc định và đơn vị của thời gian lọc truyền thẳng tốc độ `P2-10`;<br/>• Nguồn giới hạn mô-men `P1-14` bổ sung tùy chọn: Điều khiển qua EtherCAT.<br/>**Chương 10:**<br/>• Thêm lỗi quá tải bộ điều khiển `Er.43` và cảnh báo giới hạn công suất `A-80`;<br/>• Đổi lỗi `Er.27` [Mất kết nối Encoder] thành lỗi không thể xóa trực tiếp;<br/>• Cập nhật logic lỗi và phương pháp xử lý của cảnh báo `A-91`;<br/>• Bổ sung giải pháp xử lý tạm thời cho `A-93`.<br/>**Chương 11:**<br/>• Bổ sung yêu cầu phần cứng đạt chuẩn chứng nhận EMC châu Âu, khuyến nghị bộ lọc nhiễu đầu vào EMC và quy cách cáp đấu nối. | ★ Model `VD3E-0XXSA1G` |
+| Tháng 07/2024 | V3.0 | **Chương 4:**<br/>• Bổ sung mô tả và sơ đồ cầu đấu mạch động lực của bộ điều khiển VD3E Type B (380V);<br/>• Bổ sung sơ đồ đấu dây mạch động lực 3 pha 380V cho VD3E Type B;<br/>• Bổ sung ví dụ kết nối cáp Encoder giữa bộ điều khiển và động cơ Servo.<br/>**Chương 5:**<br/>• Bổ sung mô tả hiển thị trạng thái dừng nhanh (`Qs` - Quick Stop) trên màn hình LED.<br/>**Chương 6:**<br/>• Bổ sung lưu ý về số lượng đối tượng ánh xạ biến đổi tối đa trong PDO.<br/>**Chương 7:**<br/>• Bổ sung chế độ Vận tốc đồng bộ chu kỳ (**CSV** - Cyclic Synchronous Velocity);<br/>• Bổ sung chế độ Mô-men đồng bộ chu kỳ (**CST** - Cyclic Synchronous Torque);<br/>• Bổ sung chế độ Mô-men biên dạng (**PT** - Profile Torque).<br/>**Chương 8:**<br/>• Thêm các đối tượng `2000-20h`, `2001-09h`, `2001-11h`, `2001-12h`...;<br/>• Thêm các đối tượng `2002-07h`, `2002-08h`, `2002-10h`, `2002-14h` đến `2002-19h`...;<br/>• Thêm các đối tượng `200A-04h`, `200A-0Bh`...;<br/>• Thêm các đối tượng `6065h`, `6071h`, `60B2h`, `60F4h`, `60FDh`...<br/>**Chương 9:**<br/>• Bổ sung chức năng điều khiển bám mô hình (Model tracking control) và chức năng chuyển đổi độ lợi (Gain switching).<br/>**Chương 10:**<br/>• Bổ sung lỗi bảo vệ kẹt trục và quá nhiệt bộ điều khiển. | ★ Model `VD3E-0XXTA1G` |
+| Tháng 03/2025 | V3.0 | **Chương 1:**<br/>• Bổ sung mục 1.7 Hướng dẫn bảo vệ chống rò điện (RCD) và khuyến nghị chọn aptomat (CB).<br/>**Chương 2:**<br/>• Cập nhật mục 2.1.3 (2) Thông số kỹ thuật cơ bản.<br/>**Chương 3:**<br/>• Cập nhật mục 3.1.3 và 3.2.3 Môi trường lắp đặt.<br/>**Chương 8:**<br/>• Thêm các đối tượng `605Bh`, `605Ch`, `605Eh`, `60FFh`, `6502h`...;<br/>• Thêm giá trị lịch sử điện áp DC Bus cực đại `201E-41h` và công suất trung bình lịch sử cực đại `201E-42h`;<br/>• Cập nhật đối tượng `6040h` và `605Ah`; Cập nhật giá trị mặc định của `2002-01h`.<br/>**Chương 10:**<br/>• Bổ sung mục 10.2 Lỗi quá dòng phần mềm `Er.19`. | ★ Model `VD3E-0XXSA1G`<br/>★ Model `VD3E-0XXTA1G` |
+| Tháng 02/2025 | V3.2 | **Chương 7:**<br/>• Mục 7.8.3: Xóa đối tượng `[60E6h]` Phương pháp tính toán vị trí.<br/>**Chương 8:**<br/>• Mục 8.3: Thêm `[P06-34]` Cưỡng bức ngõ ra DO; `[P05-23]`, `[P05-24]` Hằng số thời gian lọc đầu dò (Probe); `[P05-25]`, `[P05-26]` Thời gian bù đóng/ngắt đầu dò; Các biến giám sát `[U2-12]`, `[U2-13]`, `[U2-14]`, `[U2-15]`, `[U2-16]`; `[P01-20]` Cửa sổ phát hiện quá dòng phần mềm; Cập nhật phạm vi `[P10-06]` Reset bộ mã hóa tuyệt đối đa vòng (Multi-turn);<br/>• Mục 8.4: Thêm đối tượng `[60FEh]` Ngõ ra số (Digital Output). | ★ Model `VD3E-0XXSA1G`<br/>★ Model `VD3E-0XXTA1G` |

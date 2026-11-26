@@ -1,0 +1,340 @@
+---
+id: "04-wiring"
+title: "04 Sơ đồ Đấu nối Mạch động lực, Encoder, I/O và Truyền thông (Wiring)"
+sidebar_position: 4
+sidebar_label: "04 Wiring"
+tags: ["wecon", "vd3e", "servo", "wiring", "encoder", "cn2", "manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 04 Hướng dẫn đấu nối mạch động lực 220V/380V, cáp động cơ, cáp phanh từ, cáp Encoder tuyệt đối, giắc điều khiển CN2 và cổng EtherCAT CN5/CN6."
+---
+
+## Đấu nối Mạch động lực (Main Circuit Wiring)
+
+### Sơ đồ và Chức năng Cầu đấu Mạch động lực
+
+#### (1) Phân bố cầu đấu mạch động lực bộ điều khiển Servo VD3E Type A (220V)
+
+![Hình 4-1 Sơ đồ cầu đấu mạch động lực VD3E Type A](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687683102171-561.png?rev=1.1)
+
+*Hình 4-1: Sơ đồ cầu đấu mạch động lực bộ điều khiển Servo VD3E Type A*
+
+**Bảng 4-1: Tên và chức năng cầu đấu mạch động lực VD3E Type A**
+
+| Ký hiệu chân | Tên cầu đấu | Mô tả chức năng |
+| :--- | :--- | :--- |
+| `L1`, `L2`, `L3` | Cầu đấu nguồn điện đầu vào | Đấu nguồn xoay chiều 1 pha 220V AC vào hai chân **`L1`** và **`L3`**. |
+| `P+`, `C`, `D` | Cầu đấu điện trở xả (Braking resistor) | • **Dùng điện trở xả nội (nếu có):** Đấu nối tắt giữa hai chân **`C - D`**.<br/>• **Dùng điện trở xả ngoài:** Tháo dây nối tắt giữa `C - D`, sau đó đấu điện trở xả ngoài vào giữa hai chân **`P+`** và **`C`**. |
+| `U`, `V`, `W` | Cầu đấu dây động lực động cơ | Kết nối tương ứng đúng thứ tự pha với `U, V, W` của động cơ Servo. |
+| $\underline{\perp}$ (PE) | Cực tiếp địa (Ground terminal) | Đấu nối đất bảo vệ cho bộ điều khiển Servo và vỏ động cơ. |
+
+#### (2) Phân bố cầu đấu mạch động lực bộ điều khiển Servo VD3E Type B (220V)
+
+![Hình 4-2 Sơ đồ cầu đấu mạch động lực VD3E Type B (220V)](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687683762972-581.png?width=227&height=374&rev=1.1)
+
+*Hình 4-2: Sơ đồ cầu đấu mạch động lực bộ điều khiển Servo VD3E Type B (220V)*
+
+**Bảng 4-2: Tên và chức năng cầu đấu mạch động lực VD3E Type B (220V)**
+
+| Ký hiệu chân | Tên cầu đấu | Mô tả chức năng |
+| :--- | :--- | :--- |
+| `L1`, `L2`, `L3` | Cầu đấu nguồn động lực đầu vào | • **Nguồn 1 pha 220V AC:** Đấu vào hai chân **`L1`** và **`L3`**;<br/>• **Nguồn 3 pha 220V AC:** Đấu vào ba chân **`L1, L2, L3`**. |
+| `L1C`, `L2C` | Cầu đấu nguồn mạch điều khiển | Cấp nguồn 1 pha 220V AC vào hai chân **`L1C`** và **`L2C`**. |
+| `P+`, `C`, `D` | Cầu đấu điện trở xả (Braking resistor) | • **Dùng điện trở xả nội:** Đấu nối tắt giữa **`C - D`**.<br/>• **Dùng điện trở xả ngoài:** Tháo cầu nối tắt `C - D`, sau đó đấu điện trở xả ngoài vào giữa **`P+`** và **`C`**. |
+| `U`, `V`, `W` | Cầu đấu dây động lực động cơ | Kết nối tương ứng với `U, V, W` của động cơ Servo. |
+| $\underline{\perp}$ (PE) | Cực tiếp địa (Ground terminal) | Đấu nối đất bảo vệ cho bộ điều khiển Servo. |
+
+#### (3) Phân bố cầu đấu mạch động lực bộ điều khiển Servo VD3E Type B (380V)
+
+![Hình 4-3 Sơ đồ cầu đấu mạch động lực VD3E Type B (380V)](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1728375269674-562.png?width=204&height=342&rev=1.1)
+
+*Hình 4-3: Sơ đồ cầu đấu mạch động lực bộ điều khiển Servo VD3E Type B (380V)*
+
+**Bảng 4-3: Tên và chức năng cầu đấu mạch động lực VD3E Type B (380V)**
+
+| Ký hiệu chân | Tên cầu đấu | Mô tả chức năng |
+| :--- | :--- | :--- |
+| `L1`, `L2`, `L3` | Cầu đấu nguồn động lực đầu vào | Cấp nguồn xoay chiều 3 pha 380V AC vào ba chân **`L1, L2, L3`**. |
+| `L1C`, `L2C` | Cầu đấu nguồn mạch điều khiển | Cấp nguồn 1 pha 380V AC (2 dây pha 380V) vào hai chân **`L1C`** và **`L2C`**. |
+| `P+`, `C`, `D` | Cầu đấu điện trở xả (Braking resistor) | • **Dùng điện trở xả nội:** Đấu nối tắt giữa **`C - D`**.<br/>• **Dùng điện trở xả ngoài:** Tháo cầu nối tắt `C - D`, sau đó đấu điện trở xả ngoài vào giữa **`P+`** và **`C`**. |
+| `U`, `V`, `W` | Cầu đấu dây động lực động cơ | Kết nối tương ứng với `U, V, W` của động cơ Servo. |
+| $\underline{\perp}$ (PE) | Cực tiếp địa (Ground terminal) | Đấu nối đất bảo vệ cho bộ điều khiển Servo. |
+
+#### (4) Phân bố cầu đấu mạch động lực bộ điều khiển Servo VD3E Type C (380V)
+
+![Hình 4-4 Sơ đồ cầu đấu mạch động lực VD3E Type C (380V)](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1760084313520-431.png?width=129&height=322&rev=1.1)
+
+*Hình 4-4: Sơ đồ cầu đấu mạch động lực bộ điều khiển Servo VD3E Type C (380V)*
+
+**Bảng 4-4: Tên và chức năng cầu đấu mạch động lực VD3E Type C (380V)**
+
+| Ký hiệu chân | Tên cầu đấu | Mô tả chức năng |
+| :--- | :--- | :--- |
+| `L1`, `L2`, `L3` | Cầu đấu nguồn động lực đầu vào | Cấp nguồn xoay chiều 3 pha 380V AC vào ba chân **`L1, L2, L3`**. |
+| `L1C`, `L2C` | Cầu đấu nguồn mạch điều khiển | Cấp nguồn 1 pha 380V AC vào hai chân **`L1C`** và **`L2C`**. |
+| `P+`, `C`, `D` | Cầu đấu điện trở xả (Braking resistor) | • **Dùng điện trở xả nội:** Đấu nối tắt giữa **`C - D`**.<br/>• **Dùng điện trở xả ngoài:** Tháo cầu nối tắt `C - D`, sau đó đấu điện trở xả ngoài vào giữa **`P+`** và **`C`**. |
+| `U`, `V`, `W` | Cầu đấu dây động lực động cơ | Kết nối tương ứng với `U, V, W` của động cơ Servo. |
+| $\underline{\perp}$ (PE) | Cực tiếp địa (Ground terminal) | Đấu nối đất bảo vệ cho bộ điều khiển Servo. |
+
+---
+
+### Sơ đồ Mẫu Đấu nối Nguồn Mạch động lực (Power Wiring Examples)
+
+#### (1) Đấu nối mạch động lực 1 pha 220V cho VD3E Type A
+
+![Hình 4-5 Đấu nối mạch động lực 1 pha 220V cho VD3E Type A](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/image-20230625165108-1.jpeg?width=610&height=519&rev=1.1)
+
+*Hình 4-5: Sơ đồ đấu nối mạch động lực 1 pha 220V cho VD3E Type A*
+
+#### (2) Đấu nối mạch động lực 1 pha 220V cho VD3E Type B
+
+![Hình 4-6 Đấu nối mạch động lực 1 pha 220V cho VD3E Type B](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/image-20230625165108-2.jpeg?width=620&height=534&rev=1.1)
+
+*Hình 4-6: Sơ đồ đấu nối mạch động lực 1 pha 220V cho VD3E Type B*
+
+#### (3) Đấu nối mạch động lực 3 pha 220V cho VD3E Type B
+
+![Hình 4-7 Đấu nối mạch động lực 3 pha 220V cho VD3E Type B](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/image-20230625165108-3.jpeg?width=691&height=595&rev=1.1)
+
+*Hình 4-7: Sơ đồ đấu nối mạch động lực 3 pha 220V cho VD3E Type B*
+
+#### (4) Đấu nối mạch động lực 3 pha 380V cho VD3E Type B
+
+![Hình 4-8 Đấu nối mạch động lực 3 pha 380V cho VD3E Type B](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1760087579744-560.png?width=658&height=572&rev=1.1)
+
+*Hình 4-8: Sơ đồ đấu nối mạch động lực 3 pha 380V cho VD3E Type B*
+
+#### (5) Đấu nối mạch động lực 3 pha 380V cho VD3E Type C
+
+![Hình 4-9 Đấu nối mạch động lực 3 pha 380V cho VD3E Type C](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1760087048438-819.png?width=681&height=585&rev=1.1)
+
+*Hình 4-9: Sơ đồ đấu nối mạch động lực 3 pha 380V cho VD3E Type C*
+
+### Các lưu ý quan trọng khi đấu nối Mạch động lực
+
+1. **Tuyệt đối không** đấu nguồn điện lưới đầu vào vào các cực ngõ ra `U, V, W`, nếu không sẽ làm cháy nổ bộ điều khiển Servo. Khi sử dụng điện trở xả tích hợp bên trong, hai chân `C` và `D` bắt buộc phải được nối tắt với nhau (trạng thái đấu sẵn mặc định khi xuất xưởng).
+2. Khi bó nhiều dây cáp chung với nhau hoặc đi trong ống luồn dây kín, do điều kiện tản nhiệt giảm đi, cần tính toán hệ số suy giảm dòng điện cho phép của dây dẫn.
+3. Khi nhiệt độ trong tủ điện cao hơn giới hạn chịu nhiệt của cáp thông thường, hãy chọn loại cáp chịu nhiệt cao (khuyến nghị dùng cáp bọc Teflon). Ngược lại, trong môi trường nhiệt độ quá thấp, vỏ cáp nhựa thông thường dễ bị cứng giòn và nứt gãy nên cần có biện pháp bảo vệ giữ ấm.
+4. Bán kính uốn cong của cáp phải lớn hơn **10 lần** đường kính ngoài của chính sợi cáp đó để tránh đứt ngầm lõi đồng bên trong do uốn gập lâu ngày.
+
+---
+
+## Kết nối Cáp động lực & Cáp phanh từ giữa Bộ điều khiển và Động cơ
+
+### Cáp động lực (Power Cable)
+
+![Hình 4-10 Sơ đồ kết nối giữa bộ điều khiển Servo và động cơ Servo](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687684645551-968.png?rev=1.1)
+
+*Hình 4-10: Sơ đồ kết nối tổng quát giữa bộ điều khiển Servo và động cơ Servo*
+
+Hệ thống Servo WECON VD3E Series sử dụng 3 kiểu đầu giắc cáp động lực phía động cơ tùy theo kích thước mặt bích: **Giắc chữ nhật (Rectangular plug)**, **Giắc hàng không tròn (Aviation plug)** và **Giắc nối thẳng (In-line type plug)**.
+
+**Bảng 4-5: Quy cách chân giắc cáp động lực phía động cơ Servo**
+
+| Loại giắc cắm | Hình ảnh & Sơ đồ chân | Số chân (Pin) | Tên tín hiệu | Màu dây cáp chuẩn WECON | Kích thước mặt bích động cơ áp dụng |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Giắc chữ nhật (Rectangular plug)** | ![Giắc chữ nhật](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687684675596-372.png?rev=1.1) ![Sơ đồ chân giắc chữ nhật](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687684679111-610.png?rev=1.1) | Pin 1<br/>Pin 2<br/>Pin 3<br/>Pin 4 | `U`<br/>`V`<br/>`W`<br/>`PE` | Đỏ (Red)<br/>Trắng (White)<br/>Đen (Black)<br/>Vàng-Xanh lá (Yellow-green) | Mặt bích **60 / 80** |
+| **Giắc hàng không (Aviation plug)** | ![Giắc hàng không](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687684684152-193.png?rev=1.1) ![Sơ đồ chân giắc hàng không](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687684687903-164.png?rev=1.1) | Pin 2<br/>Pin 4<br/>Pin 3<br/>Pin 1 | `U`<br/>`V`<br/>`W`<br/>`PE` | Đen (Black)<br/>Vàng-Xanh lá (Yellow-green)<br/>Đen (Black)<br/>Đen (Black) | Mặt bích **110 / 130 / 180** |
+| **Giắc nối thẳng (In-line type plug)** | ![Giắc nối thẳng](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687684696324-620.png?rev=1.1) ![Sơ đồ chân giắc nối thẳng](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687684698756-554.png?rev=1.1) | Pin 3<br/>Pin 1<br/>Pin 2<br/>Pin 4 | `U`<br/>`V`<br/>`W`<br/>`PE` | Đỏ (Red)<br/>Trắng (White)<br/>Đen (Black)<br/>Vàng-Xanh lá (Yellow-green) | Mặt bích **60 / 80** |
+
+:::tip
+Màu sắc lõi dây thực tế có thể phụ thuộc vào lô sản xuất cáp; các màu dây mô tả trong bảng trên áp dụng cho cáp tiêu chuẩn chính hãng của WECON.
+:::
+
+### Cáp phanh điện từ (Brake Device Cable)
+
+| Dòng động cơ | Hình dạng giắc & Sơ đồ chân | Số chân (Pin) | Tên tín hiệu | Mặt bích động cơ áp dụng |
+| :--- | :--- | :--- | :--- | :--- |
+| **Giắc chữ nhật tiêu chuẩn** | ![Giắc phanh chữ nhật](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687684709179-705.png?rev=1.1) | Pin 1<br/>Pin 2<br/>Pin 3 | `DC 24V`<br/>`GND`<br/>`-` | Mặt bích **60 / 80** |
+| **Động cơ dòng WD Series** | ![Giắc phanh WD Series](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/VD3E%20manual%20wd%20barke%20cable.png?width=201&height=128&rev=1.1) | Pin 1<br/>Pin 2 | `BR+`<br/>`BR-` | Mặt bích **60 / 80** |
+| **Động cơ dòng WE Series** | ![Giắc phanh WE Series](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1728375778780-598.png?rev=1.1) | Pin 1<br/>Pin 2<br/>Pin 3 | `DC 24V`<br/>`GND`<br/>`-` | Mặt bích **80 / 110 / 130** |
+
+---
+
+## Kết nối Cáp Encoder giữa Bộ điều khiển và Động cơ Servo
+
+![Hình 4-11 Sơ đồ kết nối cáp Encoder](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687747907582-918.png?rev=1.1)
+
+*Hình 4-11: Sơ đồ kết nối cáp Encoder giữa cổng `CN1` của bộ điều khiển và động cơ Servo*
+
+**Bảng 4-6: Sơ đồ chân đầu giắc cáp Encoder phía Bộ điều khiển Servo (`CN1` - J1394)**
+
+| Hình dáng giắc cắm | Sơ đồ phân bố chân | Số chân (Pin) | Tên tín hiệu |
+| :--- | :--- | :--- | :--- |
+| ![Giắc CN1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687747991360-592.png?rev=1.1) | ![Sơ đồ chân CN1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687747994434-201.png?rev=1.1) | Pin 1<br/>Pin 2<br/>Pin 3<br/>Pin 4<br/>Pin 5<br/>Pin 6 | `5V` (Nguồn Encoder +5V)<br/>`GND` (Mass nguồn Encoder)<br/>`-`<br/>`-`<br/>`SD+` (Dữ liệu nối tiếp +)<br/>`SD-` (Dữ liệu nối tiếp -) |
+
+### (1) Cáp Encoder tuyệt đối loại Giắc chữ nhật (Mặt bích 60 / 80)
+
+![Giắc chữ nhật Encoder 1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/image-20230626105045-1.png?rev=1.1)
+![Giắc chữ nhật Encoder 2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/image-20230626105045-2.png?rev=1.1)
+
+**Bảng 4-7 & 4-8: Sơ đồ đấu nối chân cáp Encoder loại Giắc chữ nhật (Mặt bích 60 / 80)**
+
+| Chân phía Drive (`J1394`) | Tên tín hiệu | Mô tả chức năng | Chân phía Động cơ (Giắc chữ nhật) | Màu dây cáp chuẩn |
+| :--- | :--- | :--- | :--- | :--- |
+| Pin 1 | `5V` | Nguồn cấp Encoder +5V | Pin 7 | Xanh dương (Blue) |
+| Pin 2 | `GND` | Mass nguồn Encoder | Pin 8 | Cam (Orange) |
+| Pin 5 | `SD+` | Tín hiệu truyền thông nối tiếp + | Pin 4 | Xanh lá (Green) |
+| Pin 6 | `SD-` | Tín hiệu truyền thông nối tiếp - | Pin 5 | Nâu (Brown) |
+| Vỏ kim loại (Shell) | `Shield` | Lưới bọc chống nhiễu | Pin 3 | - |
+| Hộp pin rời | `Battery+` | Cực dương nguồn Pin lưu đa vòng | Pin 1* | Hồng (Pink) |
+| Hộp pin rời | `Battery-` | Cực âm nguồn Pin lưu đa vòng | Pin 2* | Hồng - Đen (Pink-Black) |
+
+:::tip
+✎Lưu ý:
+- Các chân đánh dấu `*` là đường dây cấp nguồn từ hộp Pin nuôi bộ nhớ Encoder đa vòng (Multi-turn). Nếu không sử dụng chức năng lưu vị trí đa vòng khi mất điện (chỉ dùng như Encoder đơn vòng Single-turn), bạn không cần kết nối hai dây Pin này.
+- Màu dây cáp thực tế tuân theo sản phẩm xuất xưởng chính hãng của WECON.
+:::
+
+### (2) Cáp Encoder tuyệt đối loại Giắc hàng không tròn (Mặt bích 110 / 130 / 180)
+
+![Giắc hàng không Encoder 1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/image-20230626105045-5.png?rev=1.1)
+![Giắc hàng không Encoder 2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/image-20230626105045-6.png?rev=1.1)
+
+**Bảng 4-9 & 4-10: Sơ đồ đấu nối chân cáp Encoder loại Giắc hàng không (Mặt bích 110 / 130 / 180)**
+
+| Chân phía Drive (`J1394`) | Tên tín hiệu | Mô tả chức năng | Chân phía Động cơ (Giắc hàng không) | Màu dây cáp chuẩn |
+| :--- | :--- | :--- | :--- | :--- |
+| Pin 1 | `5V` | Nguồn cấp Encoder +5V | Pin 7 | Xanh dương (Blue) |
+| Pin 2 | `GND` | Mass nguồn Encoder | Pin 5 | Cam (Orange) |
+| Pin 5 | `SD+` | Tín hiệu truyền thông nối tiếp + | Pin 6 | Xanh lá (Green) |
+| Pin 6 | `SD-` | Tín hiệu truyền thông nối tiếp - | Pin 4 | Nâu (Brown) |
+| Vỏ kim loại (Shell) | `Shield` | Lưới bọc chống nhiễu | Pin 1 | - |
+| Hộp pin rời | `Battery+` | Cực dương nguồn Pin lưu đa vòng | Pin 3* | Hồng (Pink) |
+| Hộp pin rời | `Battery-` | Cực âm nguồn Pin lưu đa vòng | Pin 2* | Hồng - Đen (Pink-Black) |
+
+### (3) Cáp Encoder tuyệt đối loại Giắc nối thẳng kiểu L (In-line L Type - Mặt bích 60 / 80)
+
+![Giắc Encoder kiểu L](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/image-20230626105045-7.png?rev=1.1)
+![Sơ đồ chân giắc kiểu L](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1760147139274-845.png?width=181&height=187&rev=1.1)
+
+**Bảng 4-11 & 4-12: Sơ đồ đấu nối chân cáp Encoder loại Giắc nối thẳng kiểu L (Mặt bích 60 / 80)**
+
+| Chân phía Drive (`J1394`) | Tên tín hiệu | Mô tả chức năng | Chân phía Động cơ (Kiểu L) | Màu dây cáp chuẩn |
+| :--- | :--- | :--- | :--- | :--- |
+| Pin 1 | `5V` | Nguồn cấp Encoder +5V | Pin 7 | Xanh dương (Blue) |
+| Pin 2 | `GND` | Mass nguồn Encoder | Pin 5 | Cam (Orange) |
+| Pin 5 | `SD+` | Tín hiệu truyền thông nối tiếp + | Pin 6 | Xanh lá (Green) |
+| Pin 6 | `SD-` | Tín hiệu truyền thông nối tiếp - | Pin 4 | Nâu (Brown) |
+| Vỏ kim loại (Shell) | `Shield` | Lưới bọc chống nhiễu | Pin 1 | - |
+| Hộp pin rời | `Battery+` | Cực dương nguồn Pin lưu đa vòng | Pin 3* | Nâu (Brown) |
+| Hộp pin rời | `Battery-` | Cực âm nguồn Pin lưu đa vòng | Pin 2* | Đen (Black) |
+
+### (4) Cáp Encoder tuyệt đối loại Giắc nối thẳng kiểu L2 (In-line L2 Type - Mặt bích 60 / 80)
+
+![Giắc Encoder kiểu L2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1760147639136-686.png?width=327&height=180&rev=1.1)
+![Sơ đồ chân giắc kiểu L2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1760147661713-880.png?width=171&height=178&rev=1.1)
+
+**Bảng 4-13 & 4-14: Sơ đồ đấu nối chân cáp Encoder loại Giắc nối thẳng kiểu L2 (Mặt bích 60 / 80)**
+
+| Chân phía Drive (`J1394`) | Tên tín hiệu | Mô tả chức năng | Chân phía Động cơ (Kiểu L2) | Màu dây cáp chuẩn |
+| :--- | :--- | :--- | :--- | :--- |
+| Pin 1 | `5V` | Nguồn cấp Encoder +5V | Pin 1 | Trắng (White) |
+| Pin 2 | `GND` | Mass nguồn Encoder | Pin 2 | Nâu (Brown) |
+| Pin 5 | `SD+` | Tín hiệu truyền thông nối tiếp + | Pin 3 | Xanh lá (Green) |
+| Pin 6 | `SD-` | Tín hiệu truyền thông nối tiếp - | Pin 4 | Vàng (Yellow) |
+| Vỏ kim loại (Shell) | `Shield` | Lưới bọc chống nhiễu | Pin 5 | - |
+| Hộp pin rời | `Battery+` | Cực dương nguồn Pin lưu đa vòng | Pin 6* | Hồng (Pink) |
+| Hộp pin rời | `Battery-` | Cực âm nguồn Pin lưu đa vòng | Pin 7* | Đen (Black) |
+
+---
+
+## Đấu nối Giắc tín hiệu Điều khiển Ngõ vào / Ngõ ra (`CN2`)
+
+### Sơ đồ phân bố chân giắc `CN2` (DB15)
+
+![Hình 4-12 Sơ đồ phân bố chân giắc điều khiển I/O CN2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/WXWorkCapture_17416797677562.png?rev=1.1)
+
+*Hình 4-12: Sơ đồ phân bố chân giắc điều khiển ngõ vào/ngõ ra `CN2` trên bộ điều khiển Servo VD3E*
+
+**Bảng 4-15: Định nghĩa chân giao tiếp giắc `CN2` (15 chân)**
+
+| Số chân (Pin) | Tên tín hiệu | Số chân (Pin) | Tên tín hiệu |
+| :--- | :--- | :--- | :--- |
+| **1** | `DO2-` | **9** | `DI1` |
+| **2** | `DO2+` | **10** | `DI3` |
+| **3** | `SS` (Chân chung nguồn DI) | **11** | `DO3-` |
+| **4** | `DI2` | **12** | `DO3+` |
+| **5** | `DI4` | **13** | `-` (Không sử dụng) |
+| **6** | `DO1-` | **14** | `DI6` |
+| **7** | `DO1+` | **15** | `DI5` |
+| **8** | `-` (Không sử dụng) | - | - |
+
+### Chức năng mặc định và Sơ đồ mạch giao tiếp DI / DO
+
+**Bảng 4-16: Mô tả tín hiệu DI/DO và chức năng gán mặc định**
+
+| Số chân (Pin) | Tên tín hiệu | Chức năng mặc định khi xuất xưởng |
+| :--- | :--- | :--- |
+| Pin 9 | `DI1` | Chưa gán chức năng (None) |
+| Pin 4 | `DI2` | Xóa lỗi và cảnh báo (`A-CLR` - Fault and warning clear) |
+| Pin 10 | `DI3` | Cấm chạy chiều thuận (`POT` - Forward drive prohibition) |
+| Pin 5 | `DI4` | Cấm chạy chiều nghịch (`NOT` - Reverse drive prohibition) |
+| Pin 15 | `DI5` | Chưa gán chức năng (None — thường dùng cho Touch Probe 1) |
+| Pin 14 | `DI6` | Chưa gán chức năng (None — thường dùng cho Touch Probe 2 / Điểm gốc) |
+| Pin 3 | `SS` | Chân chung nguồn ngõ vào số (12V ~ 24V DC, hỗ trợ cả Sink/NPN và Source/PNP) |
+| Pin 6, Pin 7 | `DO1-`, `DO1+` | Phát hiện động cơ đang quay (`TGON` - Rotation detection) |
+| Pin 1, Pin 2 | `DO2-`, `DO2+` | Tín hiệu báo lỗi Servo (`ALM` - Fault signal) |
+| Pin 11, Pin 12 | `DO3-`, `DO3+` | Tín hiệu Servo sẵn sàng (`RDY` - Servo ready) |
+
+#### (1) Sơ đồ đấu nối mạch ngõ vào số (Digital Input Circuit - `DI1 ~ DI6`)
+
+Lấy `DI1` làm ví dụ, mạch giao tiếp bên trong của cả 6 kênh `DI1 ~ DI6` hoàn toàn giống nhau:
+
+- **Khi thiết bị điều khiển thượng tầng (PLC/HMI) là ngõ ra tiếp điểm Rơ-le (Relay Output):**
+
+![Hình 4-13 Đấu nối DI với ngõ ra Rơ-le](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1760149362698-814.png?width=343&height=432&rev=1.1)
+
+*Hình 4-13: Sơ đồ đấu nối DI khi dùng tiếp điểm Rơ-le*
+
+- **Khi thiết bị điều khiển thượng tầng (PLC/HMI) là ngõ ra Transistor cực thu hở (Open Collector Output - NPN/PNP):**
+
+![Hình 4-14 Đấu nối DI với ngõ ra Open Collector](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1760149461566-805.png?width=339&height=406&rev=1.1)
+
+*Hình 4-14: Sơ đồ đấu nối DI khi dùng ngõ ra Transistor cực thu hở*
+
+#### (2) Sơ đồ đấu nối mạch ngõ ra số (Digital Output Circuit - `DO1 ~ DO3`)
+
+Lấy `DO1` làm ví dụ, mạch giao tiếp của các kênh `DO1 ~ DO3` là transistor quang (Optocoupler) hoàn toàn giống nhau:
+
+- **Khi tải bên ngoài là cuộn hút Rơ-le trung gian (Relay Input):**
+
+![Hình 4-15 Đấu nối DO với tải Rơ-le](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/image-20230626105836-11.png?width=343&height=467&rev=1.1)
+
+*Hình 4-15: Sơ đồ đấu nối DO kích cuộn hút Rơ-le (Chú ý lắp Diode chống dòng ngược đúng chiều)*
+
+- **Khi thiết bị nhận (PLC) là ngõ vào cách ly quang (Optocoupler Input):**
+
+![Hình 4-16 Đấu nối DO với ngõ vào Optocoupler của PLC](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/image-20230626105836-12.png?width=372&height=440&rev=1.1)
+
+*Hình 4-16: Sơ đồ đấu nối DO vào ngõ vào Optocoupler của PLC*
+
+### Sơ đồ đấu nối Phanh điện từ giữ trục (Brake Wiring)
+
+Phanh điện từ (Electromagnetic Holding Brake) là cơ cấu cơ khí dùng để khóa cứng trục động cơ Servo khi bộ điều khiển ngừng cấp dòng (Servo OFF hoặc mất nguồn), giúp giữ trục đứng yên để cơ cấu máy (đặc biệt là trục Z thẳng đứng) không bị trôi hoặc rơi xuống do trọng lực hay ngoại lực.
+
+Cuộn dây phanh điện từ không phân biệt cực tính và yêu cầu nguồn cấp **24V DC** độc lập thông qua tiếp điểm Rơ-le trung gian được điều khiển bởi ngõ ra `BRK-OFF` của Servo Drive. Sơ đồ đấu nối chuẩn như sau:
+
+![Hình 4-17 Sơ đồ đấu nối mạch phanh điện từ VD3E](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/image-20230626105836-13.png?rev=1.1)
+
+*Hình 4-17: Sơ đồ đấu nối mạch điều khiển phanh điện từ trên bộ điều khiển Servo VD3E*
+
+---
+
+## Đấu nối Cáp tín hiệu Truyền thông EtherCAT (`CN5` / `CN6`)
+
+Cổng `CN5 (IN)` của bộ điều khiển Servo đầu tiên được kết nối trực tiếp với cổng EtherCAT của bộ điều khiển trạm chủ (ví dụ: **PLC WECON LX6V / LX6A500**), và cổng `CN6 (OUT)` nối tiếp sang cổng `CN5 (IN)` của bộ điều khiển Servo tiếp theo theo cấu trúc chuỗi (Daisy-chain):
+
+![Hình 4-18 Sơ đồ kết nối mạng truyền thông EtherCAT](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/04%20Wiring/WebHome/1687748619942-118.png?rev=1.1)
+
+*Hình 4-18: Sơ đồ kết nối mạng truyền thông chuỗi (Topology) giữa PLC LX6V và các trạm Servo VD3E*
+
+**Bảng 4-17: Định nghĩa chân cổng mạng RJ45 `CN5 / CN6`**
+
+| Số chân (Pin) | Tên tín hiệu | Mô tả chức năng |
+| :--- | :--- | :--- |
+| **1** | `TX+` / `RX-` | Cực truyền/nhận dữ liệu vi sai |
+| **2** | `TX-` / `RX+` | Cực truyền/nhận dữ liệu vi sai |
+| **3** | `RX+` / `TX-` | Cực nhận/truyền dữ liệu vi sai |
+| **4** | `GND` | Chân nối đất / Không sử dụng |
+| **5** | `Not used` | Không sử dụng |
+| **6** | `RX-` / `TX+` | Cực nhận/truyền dữ liệu vi sai |
+| **7, 8** | `-` | Không sử dụng |

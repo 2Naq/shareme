@@ -132,8 +132,6 @@ Công thức tính cụ thể để cài đặt cờ sửa đổi tham số cổ
 Ví dụ: đặt tham số cổng nối tiếp COM1 thành 193 (HC1), tức là (193 + 2541 - 2540 + 10)*2, bằng (193 + 1 + 10)*2 = 408. Khi đó, SD2540 được đặt thành 193 (HC1) và SD2541 được đặt thành 408.
 
 :::tip
-✎ Note:
-
 Dù giá trị được cài đặt bằng cách tự tính toán rồi sửa đổi cờ xác nhận (COM1 SD2541, COM2 SD2591) cho tham số cổng nối tiếp, hay sử dụng lệnh này, các tham số cổng nối tiếp đều có thể được sửa đổi khi PLC đang ở trạng thái RUN.
 
 Cờ sửa đổi tham số cổng nối tiếp (COM1 SD2541 và COM2 SD2591): trong quá trình RUN, khi tham số cổng nối tiếp và cờ sửa đổi được đặt đúng (tính đúng đắn sẽ được kiểm tra tại lệnh END của chương trình), chu kỳ đó sẽ được coi là chu kỳ hợp lệ đầu tiên; sau đó tham số cổng nối tiếp và cờ sửa đổi (COM1 SD2541, COM2 SD2591) sẽ được xóa sau khi hoàn tất sửa đổi và cùng một giá trị đặt tiếp theo sẽ không được xử lý lại. Điều này nhằm tránh việc cài đặt lặp lại nhiều lần.
@@ -485,7 +483,6 @@ Bản thân lệnh RS được sử dụng giống như lệnh RS trước đây
 | RS               | Parameter 4 |     |     |     |     |     |        |        |         |          |     |     |     |     |     |  ●  |  ●  |  ●  |  ●  |     |     |     |  ●  |  ●  |     |                       |                    |
 
 :::tip
-✎ Note:
 
 Mặc dù lệnh RS hiện tại cho phép tất cả các tham số của lệnh sử dụng hằng số như K và H, các giao thức khác nhau có những giới hạn khác nhau.
 
@@ -523,7 +520,6 @@ Các nội dung sẽ được sử dụng hoặc cài đặt bởi giao thức t
 Ngoài ra, các phần tử được dùng làm điều kiện phán đoán đã được đánh dấu “in đậm” trong bảng.
 
 :::tip
-✎ Note:
 
 Hiện tại, COM1 không hỗ trợ giao thức tự định nghĩa.
 :::

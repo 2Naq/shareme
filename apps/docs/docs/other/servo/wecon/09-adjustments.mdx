@@ -1,0 +1,337 @@
+---
+id: "09-adjustments"
+title: "09 Nhận dạng Quán tính, Tinh chỉnh Độ lợi (Gain) và Chống Rung Cộng hưởng"
+sidebar_position: 9
+sidebar_label: "09 Adjustments"
+tags: ["wecon", "vd3e", "servo", "gain-tuning", "inertia", "notch-filter", "manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 09 Hướng dẫn nhận dạng tỷ số quán tính tải, chỉnh định độ lợi tự động/thủ công, điều khiển bám mô hình và bộ lọc Notch Filter trên Servo VD3E Series."
+---
+
+## Tổng quan Quy trình Tinh chỉnh (Overview)
+
+Bộ điều khiển Servo cần điều khiển động cơ bám sát theo mệnh lệnh từ bộ điều khiển thượng tầng (PLC) với độ trễ nhỏ nhất có thể. Để động cơ đáp ứng chính xác theo quỹ đạo đặt và phát huy tối đa hiệu năng cơ khí của máy, kỹ thuật viên cần thực hiện tinh chỉnh độ lợi (**Gain Adjustment**). Lưu đồ tổng thể quy trình tinh chỉnh độ lợi được trình bày tại Hình 9-1:
+
+![Hình 9-1 Lưu đồ quy trình tinh chỉnh độ lợi Servo](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/image-20230630094203-1.png?rev=1.1)
+
+*Hình 9-1: Lưu đồ quy trình tinh chỉnh độ lợi (Gain Adjustment Process)*
+
+Hệ thống độ lợi của Servo bao gồm sự kết hợp của nhiều thông số như vòng vị trí (Position loop), vòng vận tốc (Speed loop), các bộ lọc (Filter), tỷ số quán tính tải (Load inertia ratio)... có tác động qua lại mật thiết với nhau. Khi chỉnh định, phải luôn cân bằng giữa tốc độ đáp ứng nhanh và độ ổn định (không rung, không vọt lố) của hệ thống.
+
+:::warning
+Trước khi thực hiện tinh chỉnh độ lợi (Gain), khuyến nghị chạy thử nhấp tải (**JOG / Inching test run**) trước để xác nhận động cơ và cơ cấu truyền động hoạt động bình thường!
+:::
+
+**Bảng 9-1: Mô tả các bước trong quy trình tinh chỉnh độ lợi**
+
+| Bước | Quy trình tinh chỉnh | Nhóm thông số | Chức năng thực hiện | Mục tham chiếu |
+| :--- | :--- | :--- | :--- | :--- |
+| **1** | Nhận dạng quán tính (Inertia identification) | Tỷ số quán tính tải | Thực hiện nhận dạng tự động tỷ số quán tính tải thông qua phần mềm máy tính **WECON SCTool** kết nối với bộ điều khiển. | Mục 9.2 |
+| **2** | Tinh chỉnh độ lợi tự động (Automatic gain adjustment) | Độ cứng vững (Rigidity) | Trên cơ sở đã cài đặt đúng tỷ số quán tính tải, bộ điều khiển tự động tính toán bộ thông số độ lợi tối ưu theo cấp độ cứng vững. | Mục 9.3.1 |
+| **3** | Tinh chỉnh độ lợi thủ công (Manual gain adjustment) | Độ lợi cơ bản (Basic gain) | Dựa trên bộ thông số tự động, nếu chưa đạt hiệu quả mong muốn, tinh chỉnh tay từng vòng vị trí/tốc độ để tối ưu hóa. | Mục 9.3.2 |
+| **3** | Tinh chỉnh độ lợi thủ công (Manual gain adjustment) | Độ lợi truyền thẳng (Feedforward) | Bật chức năng bù truyền thẳng vận tốc/mô-men để nâng cao khả năng bám quỹ đạo và giảm sai lệch vị trí. | Mục 9.3.3 |
+| **4** | Triệt tiêu rung động (Vibration suppression) | Cộng hưởng cơ học | Bật bộ lọc thông thấp mô-men và bộ lọc chắn dải (**Notch Filter**) để triệt tiêu tần số cộng hưởng cơ khí. | Mục 9.4 |
+
+---
+
+## Nhận dạng Tỷ số Quán tính Tải (Inertia Identification)
+
+Tỷ số quán tính tải `2003-01h` (`P03-01`) được định nghĩa theo công thức (với $J_L$ là mô-men quán tính của tải quy đổi về trục động cơ, $J_M$ là mô-men quán tính của Rotor động cơ):
+
+$$\text{Load Inertia Ratio} = \frac{J_L}{J_M}$$
+
+![Công thức tỷ số quán tính tải](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/image-20230630094203-3.png?rev=1.1)
+
+Tỷ số quán tính tải là thông số nền tảng quan trọng nhất của hệ thống Servo. Việc xác định và cài đặt đúng tỷ số quán tính tải giúp hoàn thành quá trình chỉnh định nhanh chóng và chính xác.
+
+:::warning
+**Trước khi thực hiện nhận dạng quán tính tải trực tuyến, cần đảm bảo các điều kiện sau:**
+- Tốc độ cực đại của động cơ trong quá trình đo phải lớn hơn **300 rpm**;
+- Tỷ số quán tính tải thực tế nằm trong khoảng **0.00 ~ 100.00 lần**;
+- Mô-men cản của tải tương đối ổn định, tải không biến thiên đột ngột trong suốt quá trình đo;
+- Độ rơ cơ khí (Backlash) của cơ cấu truyền động nằm trong giới hạn cho phép.
+
+**Hành trình di chuyển tự do của động cơ phải đáp ứng 2 yêu cầu an toàn sau:**
+1. Phải có hành trình di chuyển tự do **lớn hơn 1 vòng quay** theo cả chiều thuận và chiều nghịch tính từ vị trí hiện tại đến các công tắc hành trình giới hạn cơ khí. Trước khi đo, hãy kiểm tra đảm bảo công tắc giới hạn hành trình (Limit Switch) đã hoạt động tốt để tránh va chạm cơ khí;
+2. Hành trình còn lại tại vị trí dừng phải lớn hơn số vòng quay nhận dạng quán tính cài đặt tại `[2003-05h]` (`P03-05`); nếu hành trình máy ngắn, hãy giảm tốc độ tối đa khi nhận dạng `[2003-06h]` (`P03-06`).
+3. Trong quá trình nhận dạng quán tính tự động, nếu xảy ra rung động bất thường, phải lập tức dừng quá trình nhận dạng ngay.
+:::
+
+**Bảng 9-2: Chi tiết các tham số liên quan đến nhận dạng quán tính tải**
+
+| Mã đối tượng (Hex) | Tên tham số | Phương thức cài đặt | Thời điểm hiệu lực | Mặc định | Phạm vi | Định nghĩa chi tiết | Đơn vị |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2003-01h`<br/>(`P03-01`) | Tỷ số quán tính tải (Load inertia ratio) | Cài đặt khi đang chạy | Hiệu lực ngay | `300` | `100 ~ 10000` | Cài đặt tỷ số quán tính tải từ $1.00 \sim 100.00$ lần so với Rotor động cơ. | $0.01$ lần |
+| `2003-05h`<br/>(`P03-05`) | Số vòng quay nhận dạng quán tính | Cài đặt khi dừng | Hiệu lực ngay | `2` | `1 ~ 20` | Cài đặt số vòng quay động cơ trong quá trình nhận dạng quán tính tải ngoại tuyến. | Vòng (Circle) |
+| `2003-06h`<br/>(`P03-06`) | Tốc độ tối đa khi nhận dạng quán tính | Cài đặt khi dừng | Hiệu lực ngay | `1000` | `300 ~ 2000` | Cài đặt lệnh tốc độ tối đa cho phép trong chế độ nhận dạng quán tính. Tốc độ càng cao thì kết quả nhận dạng càng chính xác (thông thường giữ nguyên giá trị mặc định). | rpm |
+| `2003-07h`<br/>(`P03-07`) | Chiều quay nhận dạng tham số | Cài đặt khi dừng | Hiệu lực ngay | `0` | `0 ~ 2` | • `0`: Quay đảo chiều qua lại Thuận và Nghịch<br/>• `1`: Chỉ quay một chiều Thuận<br/>• `2`: Chỉ quay một chiều Nghịch | - |
+
+---
+
+## Tinh chỉnh Độ lợi (Gain Adjustment)
+
+Thông thường, các hệ cơ khí có độ cứng vững cao (High-rigidity) có thể nâng cao tốc độ đáp ứng bằng cách tăng độ lợi Servo. Tuy nhiên, với các cơ cấu máy có độ cứng vững thấp (như truyền động dây đai), khi tăng độ lợi quá cao sẽ phát sinh rung chấn và tiếng ồn.
+
+Bộ điều khiển Servo VD3E hỗ trợ cả **Tinh chỉnh độ lợi tự động (Automatic Gain Adjustment)** và **Tinh chỉnh độ lợi thủ công (Manual Gain Adjustment)**. Khuyến nghị ưu tiên sử dụng chế độ tinh chỉnh tự động trước.
+
+### 1. Tinh chỉnh Độ lợi Tự động theo Cấp độ Cứng vững (Automatic Gain Adjustment)
+
+Tinh chỉnh độ lợi tự động sử dụng tham số chọn cấp độ cứng vững **`2003-02h` (`P03-02` - Rigidity Level)**: bộ điều khiển Servo sẽ tự động sinh ra một bộ tham số độ lợi phối hợp đồng bộ (gồm độ lợi vòng vị trí, độ lợi vòng tốc độ, hằng số thời gian tích phân vòng tốc độ và hằng số thời gian lọc mô-men) để đáp ứng đồng thời tính nhanh nhạy và ổn định.
+
+:::tip
+Trước khi điều chỉnh cấp độ cứng vững `[2003-02h]`, bắt buộc phải cài đặt đúng tỷ số quán tính tải tại `[2003-01h]` (`P03-01`).
+:::
+
+Phạm vi cấp độ cứng vững từ **Cấp 0 đến Cấp 31** (Cấp 0 có độ cứng vững yếu nhất / độ lợi nhỏ nhất; Cấp 31 có độ cứng vững mạnh nhất / độ lợi lớn nhất). Tham khảo giá trị thực nghiệm theo loại cơ cấu tải tại Bảng 9-3:
+
+**Bảng 9-3: Bảng tham khảo chọn cấp độ cứng vững theo loại cơ cấu tải**
+
+| Cấp độ cứng vững (`2003-02h` / `P03-02`) | Loại cơ cấu truyền động cơ khí điển hình |
+| :--- | :--- |
+| **Cấp 4 ~ Cấp 8** | Các cơ cấu máy kích thước lớn, quán tính lớn |
+| **Cấp 8 ~ Cấp 15** | Các ứng dụng có độ cứng vững thấp như truyền động dây đai (Belt drive), xích tải |
+| **Cấp 15 ~ Cấp 20** | Các ứng dụng có độ cứng vững cao như trục vít me bi (Ball screw), nối trục trực tiếp (Direct coupling) |
+
+Khi đặt tham số chọn chế độ tự chỉnh **`2003-03h` (`P03-03`) = `0`**, việc thay đổi cấp độ cứng vững `2003-02h` sẽ tự động cập nhật bộ tham số độ lợi thứ nhất (1st Gain).
+
+**Các bước đo quán tính và chỉnh định tự động trên phần mềm máy tính WECON SCTool:**
+1. **Bước 1:** Xác nhận bộ điều khiển Servo đang ở trạng thái sẵn sàng (màn hình LED hiển thị `ry`) và cáp kết nối máy tính đã sẵn sàng;
+2. **Bước 2:** Mở phần mềm **WECON SCTool**, vào giao diện chạy thử (Trial Run), thiết lập thông số và nhấn **"Servo ON"**;
+3. **Bước 3:** Nhấn nút chạy **"Forward" (Thuận)** hoặc **"Reverse" (Nghịch)** để kiểm tra xác nhận phạm vi hành trình an toàn;
+4. **Bước 4:** Khi nút **"Start Identification"** sáng lên, nhấn vào để bắt đầu quá trình tự động đo nhận dạng quán tính tải;
+5. **Bước 5:** Sau khi đo xong, nhấn **"Save inertia value"** để lưu tỷ số quán tính tải;
+6. **Bước 6:** Nhấn **"Next"** ở góc dưới bên phải để chuyển sang giao diện chỉnh định tham số, nhấn **"Parameter Measurement"** để bắt đầu đo;
+7. **Bước 7:** Sau khi hoàn tất, phần mềm sẽ bật hộp thoại xác nhận ghi và lưu bộ tham số vào Servo Drive.
+
+:::warning
+Trong quá trình đo tự động có thể xuất hiện tiếng rít cơ khí ngắn rồi tự động dừng. Nếu xảy ra tình huống bất thường không tự dừng, hãy nhấn ngay nút **"Servo OFF"** trên giao diện phần mềm hoặc ngắt nguồn máy!
+:::
+
+**Bảng 9-4: Chi tiết tham số chọn chế độ tự chỉnh độ lợi (`2003-03h`)**
+
+| Mã đối tượng | Tên tham số | Phương thức cài đặt | Thời điểm hiệu lực | Mặc định | Phạm vi | Định nghĩa chi tiết |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2003-03h`<br/>(`P03-03`) | Chọn chế độ tự chỉnh định (Self-adjusting mode selection) | Cài đặt khi đang chạy | Hiệu lực ngay | `0` | `0 ~ 2` | • **`0`**: **Chế độ tự động theo cấp độ cứng vững.** Độ lợi vòng vị trí, độ lợi vòng tốc độ, thời gian tích phân vòng tốc độ và bộ lọc mô-men được tự động tính toán theo cấp độ cứng vững `2003-02h`.<br/>• **`1`**: **Chế độ chỉnh định thủ công.** Người dùng tự nhập tay từng thông số độ lợi vòng vị trí, vòng tốc độ, thời gian tích phân và lọc mô-men.<br/>• **`2`**: Chế độ tự chỉnh trực tuyến (Dự phòng). |
+
+---
+
+### 2. Tinh chỉnh Độ lợi Thủ công (Manual Gain Adjustment)
+
+Khi chế độ tự động chưa đạt được độ chính xác hoặc đặc tính đáp ứng mong muốn (khi đặt `2003-03h = 1`), bạn có thể tinh chỉnh thủ công từng vòng điều khiển.
+
+Hệ thống điều khiển Servo gồm 3 vòng kín lồng nhau từ ngoài vào trong: **Vòng vị trí (Position Loop) → Vòng vận tốc (Speed Loop) → Vòng dòng điện (Current Loop)** như minh họa tại Hình 9-2:
+
+![Hình 9-2 Sơ đồ khối cơ bản 3 vòng điều khiển Servo](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/image-20230630094203-6.png?rev=1.1)
+
+*Hình 9-2: Sơ đồ khối cấu trúc độ lợi các vòng điều khiển của Servo*
+
+:::tip
+Nguyên tắc vàng: **Vòng điều khiển càng nằm ở bên trong thì tần số đáp ứng bắt buộc phải càng cao hơn vòng bên ngoài.** Nếu vi phạm nguyên tắc này (ví dụ tăng Gain vòng vị trí quá cao trong khi Gain vòng tốc độ quá thấp) sẽ làm hệ thống mất ổn định và dao động mạnh! Độ lợi vòng dòng điện đã được hãng tối ưu sẵn ở mức cao nhất, người dùng chỉ cần chỉnh vòng vận tốc, vòng vị trí và các bộ lọc phụ trợ.
+:::
+
+#### (1) Độ lợi tỷ lệ vòng vận tốc (`2002-02h` / `P02-02` - Speed Loop Gain)
+
+Quyết định tần số biến thiên cao nhất của lệnh tốc độ mà vòng vận tốc có thể bám theo. Trong điều kiện hệ cơ khí không bị rung hoặc phát tiếng ồn, giá trị `2002-02h` càng lớn thì tốc độ đáp ứng toàn hệ thống càng nhanh. Nếu xuất hiện tiếng ồn tần số cao, hãy giảm thông số này xuống.
+
+**Bảng 9-5: Thông số độ lợi vòng vận tốc thứ nhất**
+
+| Mã đối tượng | Tên tham số | Cài đặt | Hiệu lực | Mặc định | Phạm vi | Định nghĩa | Đơn vị |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2002-02h`<br/>(`P02-02`) | Độ lợi vòng vận tốc thứ 1 (1st speed loop gain) | Khi đang chạy | Hiệu lực ngay | `65` | `0 ~ 35000` | Cài đặt hệ số khuếch đại tỷ lệ (P) của vòng vận tốc. | $0.1\ \text{Hz}$ |
+
+![Hình 9-3 Ảnh hưởng của độ lợi vòng vận tốc](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/image-20230630094203-7.png?rev=1.1)
+
+*Hình 9-3: Biểu đồ đáp ứng bước của vòng vận tốc theo các mức độ lợi khác nhau*
+
+#### (2) Hằng số thời gian tích phân vòng vận tốc (`2002-03h` / `P02-03` - Speed Loop Integral Time Constant)
+
+Dùng để triệt tiêu sai lệch xác lập của vòng vận tốc. **Giảm** hằng số thời gian tích phân sẽ làm tăng tác động tích phân, giúp bám tốc độ nhanh hơn và cứng trục hơn; tuy nhiên nếu đặt quá nhỏ sẽ dễ gây vọt lố tốc độ (Overshoot) hoặc dao động. Ngược lại, nếu đặt quá lớn thì khâu tích phân yếu đi, làm tăng sai lệch tốc độ khi có tải.
+
+**Bảng 9-6: Thông số hằng số thời gian tích phân vòng vận tốc thứ nhất**
+
+| Mã đối tượng | Tên tham số | Cài đặt | Hiệu lực | Mặc định | Phạm vi | Định nghĩa | Đơn vị |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2002-03h`<br/>(`P02-03`) | Thời gian tích phân vòng vận tốc thứ 1 | Khi đang chạy | Hiệu lực ngay | `1000` | `100 ~ 65535` | Cài đặt hằng số thời gian tích phân (I) của vòng vận tốc. Giá trị càng nhỏ tác động tích phân càng mạnh. | $0.1\ \text{ms}$ |
+
+![Hình 9-4 Ảnh hưởng của thời gian tích phân vòng vận tốc](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/image-20230630094203-8.png?rev=1.1)
+
+*Hình 9-4: Biểu đồ ảnh hưởng của hằng số thời gian tích phân vòng vận tốc*
+
+#### (3) Độ lợi tỷ lệ vòng vị trí (`2002-01h` / `P02-01` - Position Loop Gain)
+
+Quyết định tần số bám tối đa của vòng vị trí theo lệnh vị trí. Tăng thông số này giúp rút ngắn thời gian hoàn tất định vị (Positioning settling time) và tăng khả năng giữ cứng trục chống nhiễu ngoại lực khi động cơ dừng đứng yên. Nếu đặt quá lớn sẽ gây vọt lố vị trí và rung giật.
+
+**Bảng 9-7: Thông số độ lợi vòng vị trí thứ nhất**
+
+| Mã đối tượng | Tên tham số | Cài đặt | Hiệu lực | Mặc định | Phạm vi | Định nghĩa | Đơn vị |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2002-01h`<br/>(`P02-01`) | Độ lợi vòng vị trí thứ 1 (1st position loop gain) | Khi đang chạy | Hiệu lực ngay | `400` | `0 ~ 6200` | Cài đặt hệ số khuếch đại tỷ lệ (P) của vòng điều khiển vị trí. | $0.1\ \text{Hz}$ |
+
+![Hình 9-5 Ảnh hưởng của độ lợi vòng vị trí](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/image-20230630094203-9.png?rev=1.1)
+
+*Hình 9-5: Biểu đồ đáp ứng theo độ lợi vòng vị trí*
+
+#### (4) Hằng số thời gian lọc lệnh mô-men (`2004-04h` / `P04-04` - Torque Instruction Filter Time)
+
+Chọn hằng số thời gian lọc thông thấp mô-men phù hợp giúp suy giảm nhiễu tần số cao và triệt tiêu cộng hưởng cơ học. Giá trị càng lớn khả năng lọc rung càng mạnh, nhưng nếu đặt quá lớn sẽ làm trễ pha vòng dòng điện và gây dao động ngược.
+
+**Bảng 9-8: Thông số hằng số thời gian lọc mô-men**
+
+| Mã đối tượng | Tên tham số | Cài đặt | Hiệu lực | Mặc định | Phạm vi | Định nghĩa | Đơn vị |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2004-04h`<br/>(`P04-04`) | Hằng số thời gian lọc mô-men | Khi đang chạy | Hiệu lực ngay | `50` | `10 ~ 2500` | Tự động cập nhật khi chọn chế độ tự chỉnh `2003-03h = 0`. | $0.01\ \text{ms}$ |
+
+![Hình 9-6 Ảnh hưởng của hằng số thời gian lọc mô-men](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/image-20230630094203-10.png?rev=1.1)
+
+*Hình 9-6: Biểu đồ ảnh hưởng của hằng số thời gian lọc lệnh mô-men*
+
+---
+
+### 3. Độ lợi Truyền thẳng (Feedforward Gain)
+
+- **Truyền thẳng vận tốc (Speed Feedforward):** Sử dụng trong chế độ điều khiển vị trí nhằm cải thiện tốc độ đáp ứng lệnh vận tốc và giảm sai lệch bám vị trí (Following error) khi chạy ở tốc độ không đổi.
+
+![Hình 9-7 Hiệu quả của bù truyền thẳng vận tốc](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/image-20230630094203-11.png?rev=1.1)
+
+*Hình 9-7: Giản đồ giảm sai lệch bám vị trí khi sử dụng bù truyền thẳng vận tốc*
+
+**Bảng 9-9: Các tham số truyền thẳng vận tốc (`2002-09h` & `2002-0Ah`)**
+
+| Mã đối tượng | Tên tham số | Hướng dẫn điều chỉnh và công thức tính |
+| :--- | :--- | :--- |
+| `2002-09h`<br/>(`P02-09`) | Độ lợi truyền thẳng vận tốc (Speed feedforward gain) | Khi giữ bộ lọc truyền thẳng vận tốc `2002-0Ah` ở mức `50` ($0.5\ \text{ms}$), tăng dần độ lợi truyền thẳng vận tốc `2002-09h` ($K_{vff}$) để giảm sai lệch bám vị trí ($\Delta E_{\text{pos}}$, tính bằng xung) theo tốc độ lệnh $V_{\text{cmd}}$ (đơn vị lệnh/s) và độ lợi vòng vị trí $K_p$ ($1/\text{s}$):<br/>$$\Delta E_{\text{pos}} = \frac{V_{\text{cmd}}}{K_p} \times \frac{100 - K_{vff}\ [\%]}{100}$$ |
+| `2002-0Ah`<br/>(`P02-10`) | Hằng số thời gian lọc truyền thẳng vận tốc | Làm mượt tín hiệu truyền thẳng vận tốc. Giá trị càng lớn thì tiếng ồn giảm nhưng độ trễ tại các điểm thay đổi tốc độ tăng lên. |
+
+- **Truyền thẳng mô-men (Torque Feedforward):** Cải thiện đáp ứng lệnh mô-men và giảm sai lệch bám vị trí trong các giai đoạn tăng tốc và giảm tốc cố định.
+
+**Bảng 9-10: Các tham số truyền thẳng mô-men (`2002-0Bh` & `2002-0Ch`)**
+
+| Mã đối tượng | Tên tham số | Hướng dẫn điều chỉnh |
+| :--- | :--- | :--- |
+| `2002-0Bh`<br/>(`P02-11`) | Độ lợi truyền thẳng mô-men (Torque feedforward gain) | Tăng độ lợi truyền thẳng mô-men giúp đưa sai lệch bám vị trí trong giai đoạn tăng/giảm tốc tiến về gần 0 (trên biên dạng tốc độ hình thang). |
+| `2002-0Ch`<br/>(`P02-12`) | Hằng số thời gian lọc truyền thẳng mô-men | Giảm chấn xung mô-men tại các điểm gãy gia tốc. Hằng số lọc càng lớn thì tác động truyền thẳng càng êm nhưng sai lệch vị trí tại điểm đổi gia tốc sẽ lớn hơn. |
+
+---
+
+### 4. Chức năng Điều khiển Bám Mô hình (Model Tracking Control Function)
+
+Điều khiển bám mô hình (Model Tracking Control) áp dụng chuyên biệt cho **chế độ điều khiển vị trí**. Ngoài 3 vòng điều khiển kinh điển, thuật toán bổ sung thêm một **Vòng mô hình lý tưởng (Model Loop)**: tự động sinh ra lệnh vị trí mới, lượng bù truyền thẳng vận tốc và truyền thẳng mô-men dựa trên mô hình động học lý tưởng của động cơ, giúp rút ngắn đáng kể thời gian định vị và tăng khả năng bám quỹ đạo mà không gây vọt lố.
+
+![Hình 9-8 Sơ đồ khối thiết kế điều khiển bám mô hình](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/9-8.png?rev=1.1)
+
+*Hình 9-8: Sơ đồ khối kiến trúc điều khiển bám mô hình (Model Tracking Control)*
+
+**Quy trình kích hoạt và chỉnh định điều khiển bám mô hình:**
+1. Cài đặt chính xác tỷ số quán tính tải `P03-01` (`2003-01h`), có thể tham chiếu từ biến giám sát tỷ số quán tính thời gian thực `U0-20` (`201E-14h`);
+2. Cài đặt cấp độ cứng vững `P03-02` (`2003-02h`) ở mức vừa phải (với tải cứng khuyến nghị từ **17 ~ 21**, không cần đặt quá cao);
+3. Đặt **`P02-20 = 1`** (`2002-14h = 1`) để bật chức năng điều khiển bám mô hình;
+4. Tăng dần độ lợi điều khiển bám mô hình **`P02-21`** (`2002-15h`) từ nhỏ đến lớn theo từng nấc `100` ~ `1000` cho đến khi tốc độ đáp ứng đạt yêu cầu thực tế;
+5. Sau khi tốc độ đáp ứng đạt yêu cầu, có thể tinh chỉnh thêm cấp độ cứng vững `P03-02`;
+6. Nếu có hiện tượng vọt lố nhỏ hoặc đáp ứng giữa hai chiều thuận/nghịch không đều nhau, tinh chỉnh bù hệ số tắt dần `P02-22` (`2002-16h`), bù mô-men chiều thuận `P02-23` (`2002-17h`), chiều nghịch `P02-24` (`2002-18h`) và bù truyền thẳng tốc độ `P02-25` (`2002-19h`).
+
+:::tip
+Chức năng điều khiển bám mô hình chỉ khả dụng trong chế độ điều khiển vị trí (CSP / PP / HM), không hoạt động trong các chế độ vận tốc hoặc mô-men.
+:::
+
+| Mã đối tượng | Tên tham số | Cài đặt | Hiệu lực | Mặc định | Phạm vi | Định nghĩa chi tiết | Đơn vị |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2002-14h`<br/>(`P02-20`) | Bật điều khiển bám mô hình | Khi dừng | Hiệu lực ngay | `0` | `0 ~ 1` | Đặt bằng `1` để kích hoạt chức năng điều khiển bám mô hình. | - |
+| `2002-15h`<br/>(`P02-21`) | Độ lợi điều khiển bám mô hình | Khi dừng | Hiệu lực ngay | `1000` | `200 ~ 20000` | Tăng độ lợi giúp tăng tốc độ đáp ứng vị trí của vòng mô hình. Đặt quá cao có thể gây vọt lố. | $0.1/\text{s}$ |
+| `2002-16h`<br/>(`P02-22`) | Bù độ lợi điều khiển bám mô hình | Khi dừng | Hiệu lực ngay | `1000` | `500 ~ 2000` | Ảnh hưởng đến hệ số tắt dần (Damping ratio) của vòng mô hình; giá trị càng lớn hệ số tắt dần càng cao. | $0.1\%$ |
+| `2002-17h`<br/>(`P02-23`) | Bù lệch chiều thuận bám mô hình | Khi chạy | Hiệu lực ngay | `1000` | `0 ~ 10000` | Biên độ bù truyền thẳng mô-men theo chiều quay thuận trong điều khiển bám mô hình. | $0.1\%$ |
+| `2002-18h`<br/>(`P02-24`) | Bù lệch chiều nghịch bám mô hình | Khi chạy | Hiệu lực ngay | `1000` | `0 ~ 10000` | Biên độ bù truyền thẳng mô-men theo chiều quay nghịch trong điều khiển bám mô hình. | $0.1\%$ |
+| `2002-19h`<br/>(`P02-25`) | Bù truyền thẳng tốc độ bám mô hình | Khi chạy | Hiệu lực ngay | `1000` | `0 ~ 10000` | Biên độ bù truyền thẳng vận tốc trong điều khiển bám mô hình. | $0.1\%$ |
+
+---
+
+### 5. Chức năng Chuyển đổi Độ lợi (Gain Switching)
+
+Chức năng chuyển đổi giữa 2 bộ độ lợi (**Bộ Gain thứ 1: `P02-01 ~ P02-03`** và **Bộ Gain thứ 2: `P02-04 ~ P02-06`**) mang lại các lợi ích:
+1. Chuyển sang bộ Gain thấp hơn khi động cơ đang dừng đứng yên (Servo ON) để triệt tiêu tiếng kêu và rung động;
+2. Chuyển sang bộ Gain cao hơn ngay khi dừng định vị để rút ngắn thời gian ổn định vị trí (Settling time);
+3. Chuyển sang bộ Gain cao hơn khi đang chạy để tăng độ cứng bám quỹ đạo;
+4. Chuyển đổi linh hoạt bằng tín hiệu ngõ vào số bên ngoài (`DI` gán chức năng `10: GAIN-SEL`) khi điều kiện tải thay đổi.
+
+#### (1) Cấu hình chế độ chuyển đổi độ lợi (`P02-07` & `P02-08`)
+
+- **① Khi `P02-07 = 0` (`2002-07h = 0`):** Cố định sử dụng bộ Gain thứ 1 (`P02-01 ~ P02-03`), nhưng cho phép dùng chân `DI` (chức năng `10: GAIN-SEL`) để chuyển đổi vòng vận tốc giữa điều khiển **PI (Tỷ lệ - Tích phân)** và điều khiển **P (Chỉ tỷ lệ)**:
+
+![Hình 9-9 Lưu đồ chuyển đổi P/PI khi P02-07 = 0](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728543919690-787.png?rev=1.1)
+
+*Hình 9-9: Lưu đồ chuyển đổi điều khiển P / PI bằng tín hiệu DI khi `P02-07 = 0`*
+
+- **② Khi `P02-07 = 1` (`2002-07h = 1`):** Chuyển đổi giữa **Bộ Gain thứ 1 (`P02-01 ~ P02-03`)** và **Bộ Gain thứ 2 (`P02-04 ~ P02-06`)** dựa theo điều kiện cài đặt tại tham số **`P02-08` (`2002-08h`)**:
+
+![Hình 9-10 Lưu đồ chuyển đổi Gain 1 / Gain 2 khi P02-07 = 1](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728543955894-634.png?rev=1.1)
+
+*Hình 9-10: Lưu đồ chuyển đổi giữa Bộ Gain 1 và Bộ Gain 2 khi `P02-07 = 1`*
+
+**Bảng tổng hợp 11 điều kiện chuyển đổi độ lợi theo giá trị `P02-08` (`2002-08h`):**
+
+| Giá trị `P02-08` | Điều kiện chuyển đổi | Giản đồ nguyên lý & Mô tả hoạt động |
+| :--- | :--- | :--- |
+| **`0`** | Cố định dùng Bộ Gain thứ 1 | Luôn sử dụng bộ độ lợi thứ 1 (`P02-01 ~ P02-03`). |
+| **`1`** | Chuyển đổi bằng chân `DI` (`GAIN-SEL`) | Dùng chân DI gán mã chức năng `10`:<br/>• DI = OFF (Invalid): Dùng Bộ Gain 1 (`P02-01 ~ P02-03`);<br/>• DI = ON (Valid): Dùng Bộ Gain 2 (`P02-04 ~ P02-06`). |
+| **`2`** | Khi lệnh mô-men lớn | ![P02-08=2](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728543978417-565.png?rev=1.1)<br/>Chuyển sang Gain 2 khi $\|T_{\text{cmd}}\| > (\text{Level} + \text{Hysteresis})$; quay về Gain 1 khi $\|T_{\text{cmd}}\| < (\text{Level} - \text{Hysteresis})$ duy trì hết thời gian trễ. |
+| **`3`** | Khi mô-men thực tế lớn | ![P02-08=3](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728543978424-962.png?rev=1.1)<br/>So sánh giá trị tuyệt đối của mô-men thực tế với ngưỡng $(\text{Level} \pm \text{Hysteresis})$. |
+| **`4`** | Khi lệnh tốc độ lớn | ![P02-08=4](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728543978425-669.png?rev=1.1)<br/>So sánh giá trị tuyệt đối của lệnh tốc độ với ngưỡng $(\text{Level} \pm \text{Hysteresis})$. |
+| **`5`** | Khi tốc độ thực tế lớn | ![P02-08=5](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728543978426-314.png?rev=1.1)<br/>So sánh giá trị tuyệt đối của tốc độ thực tế với ngưỡng $(\text{Level} \pm \text{Hysteresis})$. |
+| **`6`** | Khi tốc độ biến thiên lệnh vận tốc lớn | ![P02-08=6](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728543978427-924.png?rev=1.1)<br/>So sánh độ dốc thay đổi của lệnh vận tốc với ngưỡng $(\text{Level} \pm \text{Hysteresis})$. |
+| **`7`** | Khi sai lệch vị trí lớn | ![P02-08=7](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728543978429-789.png?rev=1.1)<br/>So sánh sai lệch bám vị trí với ngưỡng $(\text{Level} \pm \text{Hysteresis})$. |
+| **`8`** | Khi có lệnh vị trí ($\neq 0$) | ![P02-08=8](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728543978430-143.png?rev=1.1)<br/>Khi đang ở Gain 1, nếu có lệnh vị trí $\neq 0$ thì chuyển sang Gain 2; khi lệnh vị trí $= 0$ duy trì suốt thời gian trễ thì trở về Gain 1. |
+| **`9`** | Theo trạng thái hoàn tất định vị | ![P02-08=9](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728543978431-908.png?rev=1.1)<br/>Chuyển sang Gain 2 khi chưa hoàn tất định vị; quay về Gain 1 sau khi định vị xong và hết thời gian trễ. |
+| **`10`** | Kết hợp Lệnh vị trí + Tốc độ thực tế | Xem giản đồ Hình 9-11 bên dưới. |
+
+![Hình 9-11 Giản đồ chuyển đổi độ lợi khi P02-08 = 10](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/9-11.png?rev=1.1)
+
+*Hình 9-11: Giản đồ thời gian chuyển đổi độ lợi kết hợp lệnh vị trí và tốc độ thực tế (`P02-08 = 10`)*
+
+#### (2) Các tham số phụ trợ chuyển đổi độ lợi
+
+| Mã đối tượng | Tên tham số | Mặc định | Phạm vi | Đơn vị | Mô tả chức năng & Giản đồ |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`2002-0Ch`** | Thời gian trễ chuyển đổi độ lợi (Gain switching delay time) | `20` | `0 ~ 10000` | $0.1\ \text{ms}$ | Khoảng thời gian điều kiện chuyển đổi phải duy trì liên tục trước khi chuyển từ Bộ Gain 2 quay về Bộ Gain 1.<br/>![Delay time](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728544757487-849.png?rev=1.1) |
+| **`2002-0Dh`** | Ngưỡng mức chuyển đổi độ lợi (Gain switching level) | `50` | `0 ~ 20000` | Theo điều kiện | Ngưỡng trung tâm (Level) kích hoạt chuyển đổi độ lợi (kết hợp cùng độ trễ Hysteresis).<br/>![Level](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728544766998-888.png?rev=1.1) |
+| **`2002-0Eh`** | Độ trễ vi sai chuyển đổi độ lợi (Gain switching hysteresis) | `20` | `0 ~ 20000` | Theo điều kiện | Dải trễ vi sai (Hysteresis) chống dao động bật/tắt liên tục quanh ngưỡng chuyển đổi.<br/>![Hysteresis](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728544777185-642.png?rev=1.1) |
+| **`2002-10h`** | Thời gian chuyển tiếp độ lợi vị trí (Position gain switching time) | `30` | `0 ~ 10000` | $0.1\ \text{ms}$ | Thời gian tăng tuyến tính khi chuyển từ độ lợi vòng vị trí 1 (`P02-01`) lên độ lợi vòng vị trí 2 (`P02-04`, nếu `P02-04 > P02-01`).<br/>![Switching time](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/1728544784126-889.png?rev=1.1) |
+
+---
+
+## Triệt tiêu Cộng hưởng Cơ học (Mechanical Resonance Suppression)
+
+### Phương pháp triệt tiêu cộng hưởng cơ học
+
+Khi độ cứng vững của hệ cơ khí thấp, hiện tượng xoắn trục có thể gây ra cộng hưởng dẫn đến rung chấn và tiếng rít tần số cao, khiến người dùng không thể tăng thêm độ lợi Servo. Có 2 phương pháp để triệt tiêu cộng hưởng cơ học:
+
+1. **Bộ lọc thông thấp lệnh mô-men (Torque instruction filter - `2004-04h` / `P04-04`):** Suy giảm các thành phần tần số cao nằm trên tần số cắt $f_c$:
+   $$f_c\ (\text{Hz}) = \frac{1}{2\pi \times T_f}$$
+   ![Công thức tần số cắt bộ lọc mô-men](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/image-20230630094203-12.png?rev=1.1)
+2. **Bộ lọc chắn dải (Notch Filter):** Cắt giảm mạnh độ lợi tại đúng một dải tần số cộng hưởng hẹp xác định mà không làm giảm băng thông chung của hệ thống.
+
+### Cấu hình Bộ lọc Chắn dải (Notch Filter)
+
+Bộ điều khiển Servo WECON VD3E được trang bị **2 bộ lọc Notch Filter độc lập**, mỗi bộ gồm 3 thông số: **Tần số tâm (Notch Frequency)**, **Cấp độ rộng (Width Grade)** và **Cấp độ sâu (Depth Grade)**.
+
+- **Cấp độ rộng của bộ lọc Notch ($Q$):** Biểu thị tỷ số giữa bề rộng dải chắn $\Delta f = f_H - f_L$ (tại mức suy giảm $-3\ \text{dB}$) và tần số tâm cộng hưởng $f_T$:
+
+![Công thức độ rộng Notch Filter](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/image-20230630094203-13.png?width=386&height=75&rev=1.1)
+
+- **Cấp độ sâu của bộ lọc Notch:** Biểu thị tỷ lệ suy giảm biên độ tín hiệu tại đúng tần số tâm $f_T$. Khi đặt cấp độ sâu bằng **`0`**, tín hiệu tại tần số tâm bị chặn hoàn toàn; khi đặt bằng **`100`**, tín hiệu đi qua toàn bộ (vô hiệu hóa bộ lọc).
+
+![Hình 9-12 Đặc tuyến biên độ, bề rộng và độ sâu của Notch Filter](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/image-20230630094203-16.png?rev=1.1)
+
+*Hình 9-12: Đặc tuyến tần số, độ rộng dải chắn và độ sâu của bộ lọc Notch Filter*
+
+![Hình 9-13 Đặc tính đáp ứng tần số theo cấp độ sâu của Notch Filter](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/09%20Adjustments/WebHome/image-20230630094203-17.png?rev=1.1)
+
+*Hình 9-13: Đặc tính suy giảm biên độ và dịch pha theo cấp độ sâu của Notch Filter*
+
+**Bảng 9-11: Chi tiết các tham số cấu hình 2 bộ lọc Notch Filter (`2004-05h ~ 2004-0Ah`)**
+
+| Mã đối tượng | Tên tham số | Cài đặt | Hiệu lực | Mặc định | Phạm vi | Định nghĩa chi tiết | Đơn vị |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2004-05h`<br/>(`P04-05`) | Tần số bộ lọc Notch thứ 1 | Khi chạy | Hiệu lực ngay | `300` | `250 ~ 5000` | Tần số tâm cộng hưởng của bộ lọc Notch 1 (có thể xem tần số rung tại `U0-23`). Khi đặt bằng `5000`, bộ lọc không tác dụng. | Hz |
+| `2004-06h`<br/>(`P04-06`) | Độ sâu bộ lọc Notch thứ 1 | Khi chạy | Hiệu lực ngay | `100` | `0 ~ 100` | • `0`: Chặn triệt để hoàn toàn tại tần số tâm<br/>• `100`: Cho đi qua hoàn toàn (Tắt bộ lọc) | - |
+| `2004-07h`<br/>(`P04-07`) | Độ rộng bộ lọc Notch thứ 1 | Khi chạy | Hiệu lực ngay | `4` | `0 ~ 12` | • `0`: $0.5$ lần băng thông<br/>• `4`: $1$ lần băng thông<br/>• `8`: $2$ lần băng thông<br/>• `12`: $4$ lần băng thông | - |
+| `2004-08h`<br/>(`P04-08`) | Tần số bộ lọc Notch thứ 2 | Khi chạy | Hiệu lực ngay | `500` | `250 ~ 5000` | Tần số tâm cộng hưởng của bộ lọc Notch 2. Khi đặt bằng `5000`, bộ lọc không tác dụng. | Hz |
+| `2004-09h`<br/>(`P04-09`) | Độ sâu bộ lọc Notch thứ 2 | Khi chạy | Hiệu lực ngay | `100` | `0 ~ 100` | • `0`: Chặn triệt để hoàn toàn tại tần số tâm<br/>• `100`: Cho đi qua hoàn toàn (Tắt bộ lọc) | - |
+| `2004-0Ah`<br/>(`P04-10`) | Độ rộng bộ lọc Notch thứ 2 | Khi chạy | Hiệu lực ngay | `4` | `0 ~ 12` | • `0`: $0.5$ lần băng thông<br/>• `4`: $1$ lần băng thông<br/>• `8`: $2$ lần băng thông<br/>• `12`: $4$ lần băng thông | - |

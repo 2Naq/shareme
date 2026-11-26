@@ -1,0 +1,428 @@
+---
+id: "11-appendix"
+title: "11 Phụ lục Bảng Tổng hợp Từ điển Đối tượng, Mã lỗi, Cáp và Tiêu chuẩn EMC"
+sidebar_position: 11
+sidebar_label: "11 Appendix"
+tags: ["wecon", "vd3e", "servo", "appendix", "object-dictionary", "emc", "cables", "manual"]
+description: "Tài liệu kỹ thuật chuẩn hãng WECON: 11 Phụ lục bảng tra cứu nhanh Từ điển đối tượng (1000h, 2000h, 6000h), chức năng DI/DO, mã lỗi Er/A, mã cáp động lực/Encoder và tiêu chuẩn EMC/CE."
+---
+
+## Bảng Tổng hợp Danh mục Từ điển Đối tượng (Object Dictionary List)
+
+### 1. Nhóm `1000h` (Vùng giao thức truyền thông CoE)
+
+| Mã đối tượng (Hex) | Tên đối tượng | Quyền truy cập | Ánh xạ PDO | Giá trị mặc định | Phạm vi dữ liệu | Đơn vị | Kiểu dữ liệu |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `1000h` | Loại thiết bị (Device type) | RO | Không | `0x00020192` | - | - | `UDINT` |
+| `1001h` | Thanh ghi lỗi (Error record) | RO | Không | `0x00` | - | - | `USINT` |
+| `1008h` | Tên thiết bị (Device name) | RO | Không | - | - | - | `STRING` |
+| `1009h` | Phiên bản phần cứng nhà sản xuất | RO | Không | - | - | - | `STRING` |
+| `100Ah` | Phiên bản phần mềm nhà sản xuất | RO | Không | - | - | - | `STRING` |
+| `1018h:01` | Mã nhà sản xuất (Vendor ID) | RO | Không | `0x00000EFF` | - | - | `UDINT` |
+| `1018h:02` | Mã sản phẩm (Product code) | RO | Không | `0x10003101` | - | - | `UDINT` |
+| `1018h:03` | Số phiên bản sửa đổi (Revision number) | RO | Không | `0x00000001` | - | - | `UDINT` |
+| `1018h:04` | Số sê-ri (Serial number) | RO | Không | `0x00001419` | - | - | `UDINT` |
+| `1600h:01` | Đối tượng ánh xạ RPDO thứ 1 | RW | RPDO | `0x60400010` | - | - | `UDINT` |
+| `1600h:02` | Đối tượng ánh xạ RPDO thứ 2 | RW | RPDO | `0x607A0020` | - | - | `UDINT` |
+| `1600h:03` | Đối tượng ánh xạ RPDO thứ 3 | RW | RPDO | `0x60B80010` | - | - | `UDINT` |
+| `1600h:04` | Đối tượng ánh xạ RPDO thứ 4 | RW | RPDO | `0x60600008` | - | - | `UDINT` |
+| `1701h:01` | Đối tượng ánh xạ cố định 1701 thứ 1 | RW | RPDO | `0x60400010` | - | - | `UDINT` |
+| `1701h:02` | Đối tượng ánh xạ cố định 1701 thứ 2 | RW | RPDO | `0x607A0020` | - | - | `UDINT` |
+| `1701h:03` | Đối tượng ánh xạ cố định 1701 thứ 3 | RW | RPDO | `0x60B80010` | - | - | `UDINT` |
+| `1701h:04` | Đối tượng ánh xạ cố định 1701 thứ 4 | RW | RPDO | `0x60600008` | - | - | `UDINT` |
+| `1702h:01` | Đối tượng ánh xạ cố định 1702 thứ 1 | RW | RPDO | `0x60400010` | - | - | `UDINT` |
+| `1702h:02` | Đối tượng ánh xạ cố định 1702 thứ 2 | RW | RPDO | `0x607A0020` | - | - | `UDINT` |
+| `1702h:03` | Đối tượng ánh xạ cố định 1702 thứ 3 | RW | RPDO | `0x60FF0020` | - | - | `UDINT` |
+| `1702h:04` | Đối tượng ánh xạ cố định 1702 thứ 4 | RW | RPDO | `0x60710010` | - | - | `UDINT` |
+| `1702h:05` | Đối tượng ánh xạ cố định 1702 thứ 5 | RW | RPDO | `0x60600008` | - | - | `UDINT` |
+| `1702h:06` | Đối tượng ánh xạ cố định 1702 thứ 6 | RW | RPDO | `0x60B80010` | - | - | `UDINT` |
+| `1702h:07` | Đối tượng ánh xạ cố định 1702 thứ 7 | RW | RPDO | `0x607F0020` | - | - | `UDINT` |
+| `1A00h:01` | Đối tượng ánh xạ TPDO thứ 1 | RW | TPDO | `0x60410010` | - | - | `UDINT` |
+| `1A00h:02` | Đối tượng ánh xạ TPDO thứ 2 | RW | TPDO | `0x60640020` | - | - | `UDINT` |
+| `1A00h:03` | Đối tượng ánh xạ TPDO thứ 3 | RW | TPDO | `0x60B90010` | - | - | `UDINT` |
+| `1A00h:04` | Đối tượng ánh xạ TPDO thứ 4 | RW | TPDO | `0x60BA0020` | - | - | `UDINT` |
+| `1A00h:05` | Đối tượng ánh xạ TPDO thứ 5 | RW | TPDO | `0x60BC0020` | - | - | `UDINT` |
+| `1A00h:06` | Đối tượng ánh xạ TPDO thứ 6 | RW | TPDO | `0x603F0010` | - | - | `UDINT` |
+| `1A00h:07` | Đối tượng ánh xạ TPDO thứ 7 | RW | TPDO | `0x60610008` | - | - | `UDINT` |
+| `1B01h:01` | Đối tượng ánh xạ cố định 1B01 thứ 1 | RO | TPDO | `0x603F0010` | - | - | `UDINT` |
+| `1B01h:02` | Đối tượng ánh xạ cố định 1B01 thứ 2 | RO | TPDO | `0x60410010` | - | - | `UDINT` |
+| `1B01h:03` | Đối tượng ánh xạ cố định 1B01 thứ 3 | RO | TPDO | `0x60640020` | - | - | `UDINT` |
+| `1B01h:04` | Đối tượng ánh xạ cố định 1B01 thứ 4 | RO | TPDO | `0x60770010` | - | - | `UDINT` |
+| `1B01h:05` | Đối tượng ánh xạ cố định 1B01 thứ 5 | RO | TPDO | `0x60F40020` | - | - | `UDINT` |
+| `1B01h:06` | Đối tượng ánh xạ cố định 1B01 thứ 6 | RO | TPDO | `0x60610008` | - | - | `UDINT` |
+| `1C12h:01` | Chỉ số đối tượng gán cho kênh RPDO (SM2) | RW | RPDO | `0x1701` | - | - | `ARR` |
+| `1C13h:01` | Chỉ số đối tượng gán cho kênh TPDO (SM3) | RW | Không | `0x0001` | - | - | `ARR` |
+| `1C32h:01` | Kiểu đồng bộ ngõ ra SM2 | RW | Không | `0x0002` | - | - | `UINT` |
+| `1C32h:04` | Các kiểu đồng bộ SM2 hỗ trợ | RO | Không | `0x0005` | - | - | `UDINT` |
+| `1C32h:05` | Thời gian chu kỳ tối thiểu SM2 | RO | Không | `0x0001E848` ($125\ \mu\text{s}$) | - | - | `UINT` |
+| `1C33h:01` | Kiểu đồng bộ ngõ vào SM3 | RW | Không | `0x0002` | - | - | `UINT` |
+| `1C33h:04` | Các kiểu đồng bộ SM3 hỗ trợ | RO | Không | `0x0005` | - | - | `UDINT` |
+| `1C33h:05` | Thời gian chu kỳ tối thiểu SM3 | RO | Không | `0x0001E848` ($125\ \mu\text{s}$) | - | - | `UINT` |
+
+---
+
+### 2. Nhóm `2000h` (`P00`: Cài đặt cơ bản)
+
+| Index | Sub-index | Mã hàm (Dec) | Tên tham số | Phương thức cài đặt | Thời điểm hiệu lực | Mặc định | Phạm vi | Đơn vị | Kiểu dữ liệu |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2000h` | `04h` | `P00-04` | Chiều quay động cơ (Rotation direction) | Khi dừng | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2000h` | `09h` | `P00-09` | Cài đặt chọn điện trở xả (Braking resistance setting) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 3` | - | 16 Bit |
+| `2000h` | `0Ah` | `P00-10` | Giá trị điện trở của điện trở xả ngoài | Khi chạy | Hiệu lực ngay | `50` | `0 ~ 65535` | $\Omega$ | 16 Bit |
+| `2000h` | `0Bh` | `P00-11` | Công suất của điện trở xả ngoài | Khi chạy | Hiệu lực ngay | `100` | `0 ~ 65535` | W | 16 Bit |
+| `2000h` | `1Eh` | `P00-30` | Bỏ qua lỗi pin của Encoder tuyệt đối đa vòng | Khi chạy | Cấp nguồn lại | `0` | `0 ~ 1` | - | 16 Bit |
+
+### 3. Nhóm `2001h` (`P01`: Giới hạn Tốc độ, Mô-men & Phanh từ)
+
+| Index | Sub-index | Mã hàm (Dec) | Tên tham số | Phương thức cài đặt | Thời điểm hiệu lực | Mặc định | Phạm vi | Đơn vị | Kiểu dữ liệu |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2001h` | `0Ah` | `P01-10` | Giới hạn tốc độ tối đa (`MaxSpeedLimit`) | Khi chạy | Hiệu lực ngay | `3600` | `0 ~ 5000` | rpm | 16 Bit |
+| `2001h` | `0Bh` | `P01-11` | Ngưỡng cảnh báo quá tốc độ (`WarmSpeedTh`) | Khi chạy | Hiệu lực ngay | `3300` | `0 ~ 5000` | rpm | 16 Bit |
+| `2001h` | `0Ch` | `P01-12` | Ngưỡng giới hạn tốc độ chiều thuận (`PosSpeedTh`) | Khi chạy | Hiệu lực ngay | `3000` | `0 ~ 5000` | rpm | 16 Bit |
+| `2001h` | `0Dh` | `P01-13` | Ngưỡng giới hạn tốc độ chiều nghịch (`NegSpeedTh`) | Khi chạy | Hiệu lực ngay | `3000` | `0 ~ 5000` | rpm | 16 Bit |
+| `2001h` | `0Eh` | `P01-14` | Nguồn giới hạn mô-men (`ToqLimitSrc`) | Khi dừng | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2001h` | `0Fh` | `P01-15` | Giới hạn mô-men chiều thuận nội bộ (`PToqLim`) | Khi chạy | Hiệu lực ngay | `3000` | `0 ~ 3000` | $0.1\%$ | 16 Bit |
+| `2001h` | `10h` | `P01-16` | Giới hạn mô-men chiều nghịch nội bộ (`NToqLim`) | Khi chạy | Hiệu lực ngay | `3000` | `0 ~ 3000` | $0.1\%$ | 16 Bit |
+| `2001h` | `13h` | `P01-19` | Thời gian chờ báo lỗi bão hòa mô-men (`ToqLimTime`) | Khi chạy | Hiệu lực ngay | `1000` | `0 ~ 65535` | ms | 16 Bit |
+| `2001h` | `1Eh` | `P01-30` | Thời gian trễ từ khi mở phanh (`BRK-OFF` ON) đến khi nhận lệnh chạy | Khi chạy | Hiệu lực ngay | `250` | `0 ~ 500` | ms | 16 Bit |
+| `2001h` | `1Fh` | `P01-31` | Ở trạng thái tĩnh: Thời gian trễ từ khi đóng phanh (`BRK-OFF` OFF) đến khi ngắt dòng động cơ | Khi chạy | Hiệu lực ngay | `150` | `1 ~ 1000` | ms | 16 Bit |
+| `2001h` | `20h` | `P01-32` | Ở trạng thái đang quay: Ngưỡng tốc độ cho phép đóng phanh (`BRK-OFF` OFF) | Khi chạy | Hiệu lực ngay | `30` | `0 ~ 3000` | rpm | 16 Bit |
+| `2001h` | `21h` | `P01-33` | Ở trạng thái đang quay: Thời gian trễ tối đa từ khi tắt `S-ON` đến khi đóng phanh (`BRK-OFF` OFF) | Khi chạy | Hiệu lực ngay | `500` | `1 ~ 1000` | ms | 16 Bit |
+
+### 4. Nhóm `2002h` (`P02`: Tham số Độ lợi Vòng điều khiển)
+
+| Index | Sub-index | Mã hàm (Dec) | Tên tham số | Phương thức cài đặt | Thời điểm hiệu lực | Mặc định | Phạm vi | Đơn vị | Kiểu dữ liệu |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2002h` | `01h` | `P02-01` | Độ lợi vòng vị trí thứ 1 (`PosLoop1stGain`) | Khi chạy | Hiệu lực ngay | `400` | `0 ~ 6200` | $0.1\ \text{Hz}$ | 16 Bit |
+| `2002h` | `02h` | `P02-02` | Độ lợi vòng vận tốc thứ 1 (`SpdLoop1stGain`) | Khi chạy | Hiệu lực ngay | `65` | `0 ~ 35000` | $0.1\ \text{Hz}$ | 16 Bit |
+| `2002h` | `03h` | `P02-03` | Thời gian tích phân vòng vận tốc thứ 1 (`SpdLoop1stIntgTime`) | Khi chạy | Hiệu lực ngay | `1000` | `100 ~ 65535` | $0.1\ \text{ms}$ | 16 Bit |
+| `2002h` | `09h` | `P02-09` | Độ lợi truyền thẳng vận tốc (`SpdFeedForwardGain`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1000` | $0.1\%$ | 16 Bit |
+| `2002h` | `0Ah` | `P02-10` | Hằng số thời gian lọc truyền thẳng vận tốc (`SpdFeedForwardFilter`) | Khi chạy | Hiệu lực ngay | `50` | `0 ~ 10000` | $0.01\ \text{ms}$ | 16 Bit |
+| `2002h` | `0Bh` | `P02-11` | Độ lợi truyền thẳng mô-men (`ToqFeedForwardGain`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 2000` | $0.1\%$ | 16 Bit |
+| `2002h` | `0Ch` | `P02-12` | Hằng số thời gian lọc truyền thẳng mô-men (`ToqFeedForwardFilter`) | Khi chạy | Hiệu lực ngay | `50` | `0 ~ 10000` | $0.01\ \text{ms}$ | 16 Bit |
+
+### 5. Nhóm `2003h` (`P03`: Tự chỉnh định & Nhận dạng Quán tính)
+
+| Index | Sub-index | Mã hàm (Dec) | Tên tham số | Phương thức cài đặt | Thời điểm hiệu lực | Mặc định | Phạm vi | Đơn vị | Kiểu dữ liệu |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2003h` | `01h` | `P03-01` | Tỷ số quán tính tải (`LoadInerRatio`) | Khi chạy | Hiệu lực ngay | `300` | `100 ~ 10000` | $0.01$ lần | 16 Bit |
+| `2003h` | `02h` | `P03-02` | Chọn cấp độ cứng vững (`RigiditySel`) | Khi chạy | Hiệu lực ngay | `14` | `0 ~ 31` | - | 16 Bit |
+| `2003h` | `03h` | `P03-03` | Chế độ tự chỉnh định độ lợi (`SelfAdjustMode`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 2` | - | 16 Bit |
+| `2003h` | `04h` | `P03-04` | Nhận dạng quán tính trực tuyến (`InerIdOnline`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 2` | - | 16 Bit |
+| `2003h` | `05h` | `P03-05` | Số vòng quay nhận dạng quán tính (`InerIdCircle`) | Khi dừng | Hiệu lực ngay | `2` | `1 ~ 20` | Vòng | 16 Bit |
+| `2003h` | `06h` | `P03-06` | Tốc độ tối đa nhận dạng quán tính (`InerIdMaxSpd`) | Khi dừng | Hiệu lực ngay | `1000` | `300 ~ 2000` | rpm | 16 Bit |
+| `2003h` | `07h` | `P03-07` | Chế độ chiều quay nhận dạng quán tính (`InerIdRollMode`) | Khi dừng | Hiệu lực ngay | `0` | `0 ~ 2` | - | 16 Bit |
+| `2003h` | `08h` | `P03-08` | Thời gian chờ giữa các lần đảo chiều nhận dạng (`InerIdWaitTime`) | Khi dừng | Hiệu lực ngay | `1000` | `300 ~ 10000` | ms | 16 Bit |
+
+### 6. Nhóm `2004h` (`P04`: Bộ lọc Triệt tiêu Rung động)
+
+| Index | Sub-index | Mã hàm (Dec) | Tên tham số | Phương thức cài đặt | Thời điểm hiệu lực | Mặc định | Phạm vi | Đơn vị | Kiểu dữ liệu |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2004h` | `01h` | `P04-01` | Kiểu lọc lệnh xung vị trí (`PulseFilterType`) | Khi dừng | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2004h` | `02h` | `P04-02` | Thời gian lọc thông thấp lệnh vị trí (`LowpassFilterTime`) | Khi dừng | Hiệu lực ngay | `0` | `0 ~ 1000` | ms | 16 Bit |
+| `2004h` | `03h` | `P04-03` | Thời gian lọc trung bình trượt (`AveragingFilterTime`) | Khi dừng | Hiệu lực ngay | `0` | `0 ~ 128` | ms | 16 Bit |
+| `2004h` | `04h` | `P04-04` | Hằng số thời gian lọc mô-men (`ToqFilterTime`) | Khi chạy | Hiệu lực ngay | `50` | `10 ~ 2500` | $0.01\ \text{ms}$ | 16 Bit |
+| `2004h` | `05h` | `P04-05` | Tần số bộ lọc Notch 1 (`NotchFilter1_Freq`) | Khi chạy | Hiệu lực ngay | `300` | `250 ~ 5000` | Hz | 16 Bit |
+| `2004h` | `06h` | `P04-06` | Độ sâu bộ lọc Notch 1 (`NotchFilter1_Deep`) | Khi chạy | Hiệu lực ngay | `100` | `0 ~ 100` | - | 16 Bit |
+| `2004h` | `07h` | `P04-07` | Độ rộng bộ lọc Notch 1 (`NotchFilter1_Band`) | Khi chạy | Hiệu lực ngay | `4` | `0 ~ 12` | - | 16 Bit |
+| `2004h` | `08h` | `P04-08` | Tần số bộ lọc Notch 2 (`NotchFilter2_Freq`) | Khi chạy | Hiệu lực ngay | `500` | `250 ~ 5000` | Hz | 16 Bit |
+| `2004h` | `09h` | `P04-09` | Độ sâu bộ lọc Notch 2 (`NotchFilter2_Deep`) | Khi chạy | Hiệu lực ngay | `100` | `0 ~ 100` | - | 16 Bit |
+| `2004h` | `0Ah` | `P04-10` | Độ rộng bộ lọc Notch 2 (`NotchFilter2_Band`) | Khi chạy | Hiệu lực ngay | `4` | `0 ~ 12` | - | 16 Bit |
+
+### 7. Nhóm `2005h` (`P05`) & Nhóm `2006h` (`P06`: Cấu hình Ngõ vào/ra DI/DO)
+
+| Index | Sub-index | Mã hàm (Dec) | Tên tham số | Phương thức cài đặt | Thời điểm hiệu lực | Mặc định | Phạm vi | Đơn vị | Kiểu dữ liệu |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `2005h` | `10h` | `P05-16` | Ngưỡng phát hiện động cơ đang quay (`RotateSpdDtTh`) | Khi chạy | Hiệu lực ngay | `20` | `0 ~ 1000` | rpm | 16 Bit |
+| `2005h` | `13h` | `P05-19` | Ngưỡng xuất tín hiệu tốc độ bằng 0 (`SpdZeroOutTh`) | Khi chạy | Hiệu lực ngay | `10` | `0 ~ 6000` | rpm | 16 Bit |
+| `2006h` | `02h` | `P06-02` | Chọn chức năng chân `DI1` (`Di1FunSel`) | Khi chạy | Cấp nguồn lại | `0` | `0 ~ 32` | - | 16 Bit |
+| `2006h` | `03h` | `P06-03` | Chọn mức logic chân `DI1` (`Di1LogSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `04h` | `P06-04` | Chọn nguồn tín hiệu `DI1` (`Di1SrcSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `05h` | `P06-05` | Chọn chức năng chân `DI2` (`Di2FunSel`) | Khi chạy | Cấp nguồn lại | `2` (`A-CLR`) | `0 ~ 32` | - | 16 Bit |
+| `2006h` | `06h` | `P06-06` | Chọn mức logic chân `DI2` (`Di2LogSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `07h` | `P06-07` | Chọn nguồn tín hiệu `DI2` (`Di2SrcSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `08h` | `P06-08` | Chọn chức năng chân `DI3` (`Di3FunSel`) | Khi chạy | Cấp nguồn lại | `3` (`POT`) | `0 ~ 32` | - | 16 Bit |
+| `2006h` | `09h` | `P06-09` | Chọn mức logic chân `DI3` (`Di3LogSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `0Ah` | `P06-10` | Chọn nguồn tín hiệu `DI3` (`Di3SrcSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `0Bh` | `P06-11` | Chọn chức năng chân `DI4` (`Di4FunSel`) | Khi chạy | Cấp nguồn lại | `4` (`NOT`) | `0 ~ 32` | - | 16 Bit |
+| `2006h` | `0Ch` | `P06-12` | Chọn mức logic chân `DI4` (`Di4LogSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `0Dh` | `P06-13` | Chọn nguồn tín hiệu `DI4` (`Di4SrcSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `0Eh` | `P06-14` | Chọn chức năng chân `DI5` (`Di5FunSel`) | Khi chạy | Cấp nguồn lại | `0` | `0 ~ 32` | - | 16 Bit |
+| `2006h` | `0Fh` | `P06-15` | Chọn mức logic chân `DI5` (`Di5LogSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `10h` | `P06-16` | Chọn nguồn tín hiệu `DI5` (`Di5SrcSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `11h` | `P06-17` | Chọn chức năng chân `DI6` (`Di6FunSel`) | Khi chạy | Cấp nguồn lại | `0` | `0 ~ 32` | - | 16 Bit |
+| `2006h` | `12h` | `P06-18` | Chọn mức logic chân `DI6` (`Di6LogSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `13h` | `P06-19` | Chọn nguồn tín hiệu `DI6` (`Di6SrcSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `1Ah` | `P06-26` | Chọn chức năng chân `DO1` (`Do1FunSel`) | Khi chạy | Hiệu lực ngay | `132` (`TGON`) | `128 ~ 148` | - | 16 Bit |
+| `2006h` | `1Bh` | `P06-27` | Chọn mức logic chân `DO1` (`Do1LogSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `1Ch` | `P06-28` | Chọn chức năng chân `DO2` (`Do2FunSel`) | Khi chạy | Hiệu lực ngay | `130` (`ALM`) | `128 ~ 148` | - | 16 Bit |
+| `2006h` | `1Dh` | `P06-29` | Chọn mức logic chân `DO2` (`Do2LogSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `2006h` | `1Eh` | `P06-30` | Chọn chức năng chân `DO3` (`Do3FunSel`) | Khi chạy | Hiệu lực ngay | `129` (`RDY`) | `128 ~ 148` | - | 16 Bit |
+| `2006h` | `1Fh` | `P06-31` | Chọn mức logic chân `DO3` (`Do3LogSel`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+
+### 8. Nhóm `200Ah` (`P10`: Chức năng Phụ trợ) & Nhóm `200Dh` (`P13`: VDI/VDO Ảo)
+
+| Index | Sub-index | Mã hàm (Dec) | Tên tham số | Phương thức cài đặt | Thời điểm hiệu lực | Mặc định | Phạm vi | Đơn vị | Kiểu dữ liệu |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `200Ah` | `01h` | `P10-01` | Tốc độ chạy thử JOG (`SpdRefJOG`) | Khi chạy | Hiệu lực ngay | `100` | `0 ~ 3000` | rpm | 16 Bit |
+| `200Ah` | `02h` | `P10-02` | Khôi phục cài đặt gốc (`RstFuncFac`) | Khi dừng | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `200Ah` | `03h` | `P10-03` | Xóa lỗi Servo (`ServoErrClear`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `200Ah` | `04h` | `P10-04` | Hệ số thời gian bảo vệ quá tải động cơ (`MotOLProtect_Coef`) | Khi chạy | Hiệu lực ngay | `100` | `0 ~ 800` | % | 16 Bit |
+| `200Ah` | `06h` | `P10-06` | Reset vị trí đa vòng Encoder tuyệt đối (`AbsEncRst`) | Khi dừng | Hiệu lực ngay | `0` | `0 ~ 2` | - | 16 Bit |
+| `200Dh` | `01h ~ 06h` | `P13-01 ~ P13-06` | Tín hiệu ngõ vào số ảo qua truyền thông (`CommVdi_1 ~ 6`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+| `200Dh` | `0Bh ~ 0Dh` | `P13-11 ~ P13-13` | Tín hiệu ngõ ra số ảo qua truyền thông (`CommVdo_1 ~ 3`) | Khi chạy | Hiệu lực ngay | `0` | `0 ~ 1` | - | 16 Bit |
+
+---
+
+## Bảng Định nghĩa Mã chức năng Kênh Ngõ vào / Ngõ ra (`DI / DO`)
+
+### 1. Bảng mã chức năng gán cho các kênh Ngõ vào số (`DI1 ~ DI6`)
+
+| Mã số chức năng | Ký hiệu | Tên chức năng | Mô tả trạng thái logic |
+| :--- | :--- | :--- | :--- |
+| **`0`** | `-` | Tắt (Không sử dụng) | Không gán chức năng. |
+| **`1`** | `S-ON` | Kích hoạt Servo (Servo Enabled) | • Không tích cực: Ngắt dòng kích từ động cơ (Servo OFF);<br/>• Tích cực: Cấp dòng kích hoạt động cơ (Servo ON). |
+| **`2`** | `A-CLR` | Xóa lỗi và cảnh báo (Fault and Warning Cleared) | • Không tích cực: Không thực hiện xóa lỗi;<br/>• Tích cực (Cạnh lên): Thực hiện xóa mã lỗi hoặc cảnh báo có thể xóa. |
+| **`3`** | `POT` | Cấm chạy chiều thuận (Forward Drive Prohibited) | • Không tích cực: Cho phép quay chiều thuận;<br/>• Tích cực: Cấm quay chiều thuận (Công tắc giới hạn hành trình thuận). |
+| **`4`** | `NOT` | Cấm chạy chiều nghịch (Reverse Drive Prohibited) | • Không tích cực: Cho phép quay chiều nghịch;<br/>• Tích cực: Cấm quay chiều nghịch (Công tắc giới hạn hành trình nghịch). |
+| **`6`** | `CL` | Xóa bộ đếm sai lệch vị trí (Clear Deviation Counter) | • Không tích cực: Không xóa bộ đếm sai lệch;<br/>• Tích cực: Xóa bộ đếm sai lệch vị trí về 0. |
+| **`8`** | `E-STOP` | Dừng khẩn cấp (Emergency Stop) | Khi kích hoạt sẽ hãm dừng động cơ về tốc độ 0 và báo lỗi `Er.39`. |
+| **`10`** | `GAIN-SEL` | Chuyển đổi độ lợi (Gain Switching) | Chuyển đổi giữa Bộ Gain 1 và Bộ Gain 2 (hoặc chuyển đổi P / PI). |
+| **`26`** | `HOMEORG` | Tín hiệu cảm biến điểm gốc (Origin Signal) | Tín hiệu công tắc/cảm biến điểm gốc (Home Switch) dùng trong chế độ về gốc (`HM`). |
+
+### 2. Bảng mã chức năng gán cho các kênh Ngõ ra số (`DO1 ~ DO3`)
+
+| Mã số chức năng | Ký hiệu | Tên chức năng | Mô tả chi tiết điều kiện xuất tín hiệu |
+| :--- | :--- | :--- | :--- |
+| **`128`** | `-` | Tắt (Không sử dụng) | Không gán chức năng. |
+| **`129`** | `RDY` | Servo sẵn sàng (Servo Ready) | Xuất mức tích cực khi bộ điều khiển Servo đã khởi tạo xong, không có lỗi và sẵn sàng nhận lệnh `S-ON`. |
+| **`130`** | `ALM` | Tín hiệu báo lỗi (Fault Signal) | Xuất mức tích cực khi bộ điều khiển phát hiện lỗi dừng máy (`Er.xx`). |
+| **`131`** | `WARN` | Tín hiệu cảnh báo (Warning Signal) | Xuất mức tích cực khi có cảnh báo (`A-xx`). |
+| **`132`** | `TGON` | Phát hiện động cơ đang quay (Rotation Detection) | Xuất mức tích cực khi giá trị tuyệt đối tốc độ động cơ lớn hơn ngưỡng cài đặt tại `2005-10h` (`P05-16`). |
+| **`133`** | `ZSP` | Tín hiệu tốc độ bằng 0 (Zero Speed Signal) | Xuất mức tích cực khi tốc độ động cơ nhỏ hơn ngưỡng tốc độ 0 cài đặt tại `2005-13h` (`P05-19`). |
+| **`134`** | `P-COIN` | Hoàn tất định vị (Positioning Completed) | Trong chế độ vị trí, xuất mức tích cực khi sai lệch vị trí nằm trong cửa sổ `6067h` suốt thời gian `6068h`. |
+| **`137`** | `V-NEAR` | Đạt lân cận tốc độ (Speed Approach) | Xuất mức tích cực khi tốc độ thực tế tiến vào cửa sổ tốc độ đích. |
+| **`138`** | `T-COIN` | Đạt ngưỡng mô-men (Torque Arrival) | Xuất mức tích cực khi giá trị tuyệt đối lệnh mô-men đạt ngưỡng cài đặt. |
+| **`139`** | `T-LIMIT` | Đang giới hạn mô-men (Torque Limit) | Xuất mức tích cực khi mô-men động cơ đang bị kẹp ở ngưỡng giới hạn mô-men. |
+| **`140`** | `V-LIMIT` | Đang giới hạn tốc độ (Speed Limited) | Trong chế độ mô-men, xuất mức tích cực khi tốc độ động cơ bị kẹp ở ngưỡng giới hạn tốc độ. |
+| **`141`** | `BRK-OFF` | Tín hiệu mở phanh điện từ (Brake Output) | Xuất mức tích cực để cấp nguồn nhả phanh từ. (Sau khi gán chức năng này cần tắt/bật lại nguồn). |
+| **`142`** | `SRV-ST` | Trạng thái Servo đang chạy (Servo Start State) | Xuất mức tích cực khi Servo đang ở trạng thái kích hoạt (`Operation Enabled` / `rn`). |
+| **`145 ~ 147`** | `COM_VDO1 ~ 3` | Ngõ ra ảo điều khiển qua truyền thông | Điều khiển trực tiếp trạng thái DO qua các đối tượng `200D-0Bh ~ 0Dh`. |
+
+---
+
+## Bảng Tổng hợp Các Biến Giám sát (`201Eh ~ 2020h`) và Nhóm Chuẩn CiA 402 (`6000h`)
+
+### 1. Nhóm `201Eh` (`U0`: Giám sát Vận hành Chung)
+
+| Index | Sub-index | Mã hiển thị LED | Tên biến giám sát | Đơn vị | Kiểu dữ liệu |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `201Eh` | `01h` | `U0-01` | Trạng thái Servo (`SrvStatus`) | - | 16 Bit |
+| `201Eh` | `02h` | `U0-02` | Tốc độ động cơ thực tế (`SpeedDis`) | rpm | 16 Bit |
+| `201Eh` | `03h` | `U0-03` | Lệnh tốc độ đặt (`SpdCmd`) | rpm | 16 Bit |
+| `201Eh` | `04h` | `U0-04` | Tốc độ tương đương của lệnh vị trí (`PosCmdToSpd`) | rpm | 16 Bit |
+| `201Eh` | `05h` | `U0-05` | Sai lệch bám vị trí (`PulsErr`) | Đơn vị xung tương đương | 32 Bit |
+| `201Eh` | `09h` | `U0-09` | Tổng xung lệnh tích lũy (`PulsTotal`) | Đơn vị lệnh (Instruction unit) | 32 Bit |
+| `201Eh` | `0Dh` | `U0-13` | Tổng xung phản hồi Encoder (32-bit thấp) | Đơn vị Encoder | 32 Bit |
+| `201Eh` | `0Fh` | `U0-15` | Tổng xung phản hồi Encoder (32-bit cao) | Đơn vị Encoder | 32 Bit |
+| `201Eh` | `11h` | `U0-17` | Trạng thái mức logic các chân `DI` (`DiData1`) | - | 16 Bit |
+| `201Eh` | `13h` | `U0-19` | Trạng thái mức logic các chân `DO` (`DoData1`) | - | 16 Bit |
+| `201Eh` | `14h` | `U0-20` | Tỷ số quán tính tải thời gian thực (`InerRatioReal`) | % | 16 Bit |
+| `201Eh` | `17h` | `U0-23` | Tần số rung chấn phát hiện được (`DisVibFreq`) | Hz | 16 Bit |
+| `201Eh` | `18h` | `U0-24` | Biên độ rung chấn (`DisVibMag`) | rpm | 16 Bit |
+| `201Eh` | `19h` | `U0-25` | Giới hạn mô-men thuận hiện tại (`PToqLimitDis`) | % | 16 Bit |
+| `201Eh` | `1Ah` | `U0-26` | Giới hạn mô-men nghịch hiện tại (`NToqLimitDis`) | % | 16 Bit |
+| `201Eh` | `1Bh` | `U0-27` | Giới hạn tốc độ thuận hiện tại (`PSpdLimitDis`) | rpm | 16 Bit |
+| `201Eh` | `1Ch` | `U0-28` | Giới hạn tốc độ nghịch hiện tại (`NSpdLimitDis`) | rpm | 16 Bit |
+| `201Eh` | `1Dh` | `U0-29` | Góc cơ học (`MachineAngle`) | Độ ($^\circ$) | 16 Bit |
+| `201Eh` | `1Eh` | `U0-30` | Góc điện (`ElecAngle`) | Độ ($^\circ$) | 16 Bit |
+| `201Eh` | `1Fh` | `U0-31` | Điện áp thanh cái DC Bus (`DcBusVoltDisp`) | V | 16 Bit |
+| `201Eh` | `20h` | `U0-32` | Nhiệt độ mô-đun công suất IPM (`Temperature_IPM`) | ℃ | 16 Bit |
+| `201Eh` | `21h` | `U0-33` | Công suất ngõ ra tức thời (`OutputPowerInst`) | W | 16 Bit |
+| `201Eh` | `22h` | `U0-34` | Công suất ngõ ra trung bình (`OutputPowerAverage`) | W | 16 Bit |
+| `201Eh` | `23h ~ 26h` | `U0-35 ~ 38` | Tổng thời gian vận hành tích lũy (Giờ / Phút / Giây) | h / min / s | 16 Bit |
+| `201Eh` | `27h` | `U0-39` | Tỷ lệ mô-men xoắn ngõ ra thực tế (`ToqOutRate`) | % | 16 Bit |
+| `201Eh` | `28h ~ 2Bh` | `U0-40 ~ 43` | Thời gian vận hành trong lần cấp nguồn hiện tại | h / min / s | 16 Bit |
+| `201Eh` | `2Ch / 2Eh` | `U0-44 / 46` | Công suất tiêu tán tức thời / trung bình trên điện trở xả | W | 16 Bit |
+| `201Eh` | `30h` | `U0-48` | Số lần cấp nguồn cho bộ điều khiển Servo (`PwrUpCount`) | Lần | 16 Bit |
+| `201Eh` | `32h / 33h` | `U0-50 / 51` | Tổng số vòng quay động cơ (32-bit thấp / 32-bit cao) | Vòng | 32 Bit |
+| `201Eh` | `35h` | `U0-53` | Mã model động cơ nhận diện được (`MotoModel`) | - | 16 Bit |
+| `201Eh` | `36h` | `U0-54` | Vị trí tuyệt đối trong 1 vòng quay (`AbsEncIn1Cycle`) | Đơn vị Encoder | 32 Bit |
+| `201Eh` | `37h` | `U0-55` | Số vòng quay đa vòng của Encoder tuyệt đối (`AbsEncMultiTurn`) | Vòng | 32 Bit |
+| `201Eh` | `38h` | `U0-56` | Tổng vị trí Encoder quy đổi theo đơn vị lệnh (`EncTotal_CmdUnit`) | Đơn vị lệnh | 32 Bit |
+
+### 2. Nhóm `201Fh` (`U1`: Giám sát Lỗi & Cảnh báo) & Nhóm `2020h` (`U2`: Thông tin Thiết bị)
+
+| Index | Sub-index | Mã hiển thị LED | Tên biến giám sát | Đơn vị | Kiểu dữ liệu |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `201Fh` | `01h` | `U1-01` | Mã lỗi hiện tại (`NowErrorCode`) | - | 16 Bit |
+| `201Fh` | `02h` | `U1-02` | Mã cảnh báo hiện tại (`NowWarmCode`) | - | 16 Bit |
+| `201Fh` | `03h / 04h` | `U1-03 / 04` | Dòng điện pha U / pha V tại thời điểm xảy ra lỗi | A | 16 Bit |
+| `201Fh` | `05h` | `U1-05` | Điện áp DC Bus tại thời điểm xảy ra lỗi (`UdcWarmOccur`) | V | 16 Bit |
+| `201Fh` | `06h` | `U1-06` | Nhiệt độ IPM tại thời điểm xảy ra lỗi (`T_IPMWarmOccur`) | ℃ | 16 Bit |
+| `201Fh` | `07h / 08h` | `U1-07 / 08` | Dòng trục q (`Iq`) / trục d (`Id`) tại thời điểm xảy ra lỗi | % | 16 Bit |
+| `201Fh` | `09h` | `U1-09` | Sai lệch vị trí tại thời điểm xảy ra lỗi | Đơn vị Encoder | 32 Bit |
+| `201Fh` | `0Ah` | `U1-10` | Tốc độ động cơ tại thời điểm xảy ra lỗi (`SpdWarmOccur`) | rpm | 16 Bit |
+| `201Fh` | `10h ~ 14h` | `U1-16 ~ 20` | Lịch sử 5 mã lỗi gần nhất (Lần 1 đến Lần 5) | - | 16 Bit |
+| `201Fh` | `15h ~ 19h` | `U1-21 ~ 25` | Lịch sử 5 mã cảnh báo gần nhất (Lần 1 đến Lần 5) | - | 16 Bit |
+| `2020h` | `01h ~ 03h` | `U2-01 ~ 03` | Dòng sản phẩm / Mã Model 1 / Mã Model 2 | - | 16 Bit |
+| `2020h` | `04h / 05h` | `U2-04 / 05` | Phiên bản Firmware (`FirmwareVer`) / Phiên bản Phần cứng (`HardwareVer`) | - | 16 Bit |
+| `2020h` | `06h ~ 08h` | `U2-06 ~ 08` | Năm / Tháng / Ngày xuất xưởng | Năm / Tháng / Ngày | 16 Bit |
+| `2020h` | `09h ~ 10h` | `U2-09 ~ 16` | Mã số sê-ri thiết bị (`DeviceSerNum1 ~ 8`) | - | 16 Bit |
+
+### 3. Nhóm `6000h` (Từ điển đối tượng chuẩn CiA 402)
+
+| Mã đối tượng (Hex) | Tên đối tượng | Quyền truy cập | Ánh xạ PDO | Mặc định | Phạm vi dữ liệu | Đơn vị | Kiểu dữ liệu |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `603Fh` | Mã lỗi CiA 402 (`Error code`) | RO | TPDO | `0` | `0 ~ 65535` | - | 16 Bit |
+| `6040h` | Từ điều khiển (`Control word`) | RW | RPDO | `0` | `0 ~ 65535` | - | 16 Bit |
+| `6041h` | Từ trạng thái (`Status word`) | RO | TPDO | `0` | `0 ~ 65535` | - | 16 Bit |
+| `605Ah` | Mã tùy chọn dừng nhanh (`Quick-stop option code`) | RW | Không | `2` | `0 ~ 7` | - | 16 Bit |
+| `605Dh` | Mã tùy chọn tạm dừng (`Halt option code`) | RW | Không | `1` | `1 ~ 3` | - | 16 Bit |
+| `6060h` | Chế độ vận hành (`Modes of operation`) | RW | RPDO | `0` | `0 ~ 10` | - | 8 Bit |
+| `6061h` | Hiển thị chế độ vận hành hiện tại (`Modes of operation display`) | RO | TPDO | `0` | `0 ~ 10` | - | 8 Bit |
+| `6062h` | Giá trị vị trí yêu cầu (`Position demand value`) | RO | TPDO | `0` | - | Đơn vị lệnh | 32 Bit |
+| `6063h` | Giá trị vị trí thực tế theo Encoder (`Position actual internal value`) | RO | TPDO | `0` | - | Đơn vị Encoder | 32 Bit |
+| `6064h` | Giá trị vị trí thực tế (`Position actual value`) | RO | TPDO | `0` | - | Đơn vị lệnh | 32 Bit |
+| `6065h` | Cửa sổ báo lỗi sai lệch bám vị trí (`Following error window`) | RW | RPDO | `524288` | $1 \sim (2^{32}-1)$ | Đơn vị lệnh | 32 Bit |
+| `6067h` | Cửa sổ hoàn tất định vị (`Position window`) | RW | RPDO | `0` | $0 \sim 2^{32}$ | Đơn vị Encoder | 32 Bit |
+| `6068h` | Thời gian xác nhận cửa sổ định vị (`Position window time`) | RW | RPDO | `0` | `0 ~ 65535` | $1\ \text{ms}$ | 16 Bit |
+| `606Ch` | Giá trị vận tốc thực tế (`Velocity actual value`) | RO | TPDO | `0` | - | Đơn vị lệnh/s | 32 Bit |
+| `606Dh` | Cửa sổ đạt vận tốc (`Velocity window`) | RW | RPDO | `10` | `0 ~ 65535` | rpm | 16 Bit |
+| `606Eh` | Thời gian xác nhận cửa sổ vận tốc (`Velocity window time`) | RW | RPDO | `0` | `0 ~ 65535` | ms | 16 Bit |
+| `6071h` | Mô-men đích (`Target torque`) | RW | RPDO | `0` | `-5000 ~ 5000` | $0.1\%$ | 16 Bit |
+| `6072h` | Mô-men tối đa (`Max torque`) | RW | RPDO | `5000` | `0 ~ 5000` | $0.1\%$ | 16 Bit |
+| `6074h` | Mô-men yêu cầu (`Torque demand`) | RO | TPDO | `0` | `-5000 ~ 5000` | $0.1\%$ | 16 Bit |
+| `6077h` | Giá trị mô-men thực tế (`Torque actual value`) | RO | TPDO | `0` | `-5000 ~ 5000` | $0.1\%$ | 16 Bit |
+| `607Ah` | Vị trí đích (`Target position`) | RW | RPDO | `0` | $-2^{31} \sim (2^{31}-1)$ | Đơn vị lệnh | 32 Bit |
+| `607Ch` | Độ lệch điểm gốc (`Home offset`) | RW | RPDO | `0` | $-2^{31} \sim (2^{31}-1)$ | Đơn vị lệnh | 32 Bit |
+| `607Dh:01` | Giới hạn vị trí phần mềm tối thiểu (`Min position limit`) | RW | RPDO | $-2^{31}$ | $-2^{31} \sim (2^{31}-1)$ | Đơn vị lệnh | 32 Bit |
+| `607Dh:02` | Giới hạn vị trí phần mềm tối đa (`Max position limit`) | RW | RPDO | $2^{31}-1$ | $-2^{31} \sim (2^{31}-1)$ | Đơn vị lệnh | 32 Bit |
+| `607Eh` | Đảo cực tính lệnh (`Polarity`) | RW | RPDO | `0` | `0 ~ 255` | - | 8 Bit |
+| `607Fh` | Vận tốc biên dạng tối đa (`Max profile velocity`) | RW | RPDO | - | $0 \sim (2^{32}-1)$ | Đơn vị lệnh/s | 32 Bit |
+| `6081h` | Vận tốc chạy biên dạng (`Profile velocity`) | RW | RPDO | `0` | $0 \sim (2^{32}-1)$ | Đơn vị lệnh/s | 32 Bit |
+| `6083h` | Gia tốc tăng tốc biên dạng (`Profile acceleration`) | RW | RPDO | `100` | $0 \sim (2^{32}-1)$ | Đơn vị lệnh/$\text{s}^2$ | 32 Bit |
+| `6084h` | Gia tốc giảm tốc biên dạng (`Profile deceleration`) | RW | RPDO | `100` | $0 \sim (2^{32}-1)$ | Đơn vị lệnh/$\text{s}^2$ | 32 Bit |
+| `6085h` | Gia tốc giảm tốc dừng nhanh (`Quick stop deceleration`) | RW | RPDO | `100` | $0 \sim (2^{32}-1)$ | Đơn vị lệnh/$\text{s}^2$ | 32 Bit |
+| `6086h` | Kiểu biên dạng chuyển động (`Motion profile type`) | RW | RPDO | `0` | $-2^{15} \sim (2^{15}-1)$ | - | 16 Bit |
+| `6087h` | Độ dốc biến thiên mô-men (`Torque slope`) | RW | RPDO | $2^{32}-1$ | $0 \sim (2^{32}-1)$ | $0.1\%/\text{s}$ | 32 Bit |
+| `6091h:01` | Tử số bánh răng điện tử — Số vòng trục động cơ (`Motor revolutions`) | RW | RPDO | `1` | $1 \sim (2^{32}-1)$ | - | 32 Bit |
+| `6091h:02` | Mẫu số bánh răng điện tử — Số vòng trục tải (`Shaft revolutions`) | RW | RPDO | `1` | $1 \sim (2^{32}-1)$ | - | 32 Bit |
+| `6098h` | Phương pháp về gốc (`Homing method`) | RW | RPDO | `1` | `1 ~ 35` | - | 8 Bit |
+| `6099h:01` | Tốc độ tìm công tắc điểm gốc (`Speed during search for switch`) | RW | RPDO | `100` | $0 \sim (2^{32}-1)$ | Đơn vị lệnh/s | 32 Bit |
+| `6099h:02` | Tốc độ tìm điểm Zero/Z-pulse (`Speed during search for zero`) | RW | RPDO | `100` | $0 \sim (2^{32}-1)$ | Đơn vị lệnh/s | 32 Bit |
+| `609Ah` | Gia tốc về gốc (`Homing acceleration`) | RW | RPDO | `100` | $0 \sim (2^{32}-1)$ | Đơn vị lệnh/$\text{s}^2$ | 32 Bit |
+| `60B0h` | Lượng bù vị trí (`Position offset`) | RW | RPDO | `0` | $-2^{31} \sim (2^{31}-1)$ | Đơn vị lệnh | 32 Bit |
+| `60B1h` | Lượng bù vận tốc (`Velocity offset`) | RW | RPDO | `0` | $-2^{31} \sim (2^{31}-1)$ | Đơn vị lệnh/s | 32 Bit |
+| `60B2h` | Lượng bù mô-men (`Torque offset`) | RW | RPDO | `0` | `-5000 ~ 5000` | $0.1\%$ | 16 Bit |
+| `60B8h` | Từ điều khiển chức năng đầu dò (`Touch probe function`) | RW | RPDO | `0` | `0 ~ 65535` | - | 16 Bit |
+| `60B9h` | Từ trạng thái đầu dò (`Touch probe status`) | RO | TPDO | `0` | `0 ~ 65535` | - | 16 Bit |
+| `60BAh` | Vị trí chốt cạnh lên đầu dò 1 (`Touch probe 1 positive edge`) | RO | TPDO | `0` | $-2^{31} \sim (2^{31}-1)$ | Đơn vị lệnh | 32 Bit |
+| `60BBh` | Vị trí chốt cạnh xuống đầu dò 1 (`Touch probe 1 negative edge`) | RO | TPDO | `0` | $-2^{31} \sim (2^{31}-1)$ | Đơn vị lệnh | 32 Bit |
+| `60BCh` | Vị trí chốt cạnh lên đầu dò 2 (`Touch probe 2 positive edge`) | RO | TPDO | `0` | $-2^{31} \sim (2^{31}-1)$ | Đơn vị lệnh | 32 Bit |
+| `60BDh` | Vị trí chốt cạnh xuống đầu dò 2 (`Touch probe 2 negative edge`) | RO | TPDO | `0` | $-2^{31} \sim (2^{31}-1)$ | Đơn vị lệnh | 32 Bit |
+| `60E0h` | Giới hạn mô-men chiều thuận (`Positive torque limit value`) | RW | RPDO | `5000` | `0 ~ 5000` | $0.1\%$ | 16 Bit |
+| `60E1h` | Giới hạn mô-men chiều nghịch (`Negative torque limit value`) | RW | RPDO | `5000` | `0 ~ 5000` | $0.1\%$ | 16 Bit |
+| `60F4h` | Giá trị sai lệch bám vị trí thực tế (`Following error actual value`) | RO | TPDO | - | - | Đơn vị lệnh | 32 Bit |
+| `60FCh` | Giá trị vị trí yêu cầu theo đơn vị Encoder (`Position demand internal value`) | RO | TPDO | - | - | Đơn vị Encoder | 32 Bit |
+| `60FDh` | Trạng thái ngõ vào số (`Digital inputs`) | RO | TPDO | - | $0 \sim 2^{32}$ | - | 32 Bit |
+| `60FFh` | Vận tốc đích (`Target velocity`) | RW | RPDO | `0` | - | Đơn vị lệnh/s | 32 Bit |
+
+---
+
+## Bảng Tra cứu Nhanh Mã lỗi (`Er.xx`) và Mã cảnh báo (`A-xx`)
+
+- **Có thể xóa (Clearable = ✔):** Cho phép xóa trạng thái báo lỗi trên màn hình bằng tín hiệu xóa lỗi (`P10-03 = 1`, `DI A-CLR` hoặc bit 7 `6040h`) sau khi đã khắc phục nguyên nhân.
+- **Dừng ngay lập tức (Immediately Stop = o):** Bộ điều khiển ngắt kích hoạt và dừng quá trình điều khiển ngay lập tức.
+
+| Mã lỗi | Nội dung lỗi | Xóa được | Dừng ngay | Mã lỗi / Cảnh báo | Nội dung lỗi / cảnh báo | Xóa được | Dừng ngay |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **`Er.01`** | Hỏng dữ liệu tham số (Parameter damage) | - | o | **`Er.34`** | Bảo vệ quá tải động cơ (Motor overload) | ✔ | o |
+| **`Er.02`** | Lỗi lưu trữ tham số (Parameter storage error) | - | o | **`Er.35`** | Tỷ số bánh răng điện tử vượt giới hạn | ✔ | o |
+| **`Er.03`** | Lỗi nguồn tham chiếu ADC | - | o | **`Er.36`** | Sai lệch bám vị trí quá lớn | ✔ | o |
+| **`Er.04`** | Lỗi chuyển đổi lấy mẫu dòng điện AD | - | o | **`Er.37`** | Bão hòa mô-men bất thường | ✔ | o |
+| **`Er.05`** | Lỗi truyền thông chip FPGA | - | o | **`Er.38`** | Mất pha nguồn mạch động lực | ✔ | o |
+| **`Er.06`** | Sai phiên bản chương trình FPGA | - | o | **`Er.39`** | Dừng khẩn cấp (`E-STOP`) | ✔ | o |
+| **`Er.07`** | Lỗi xung nhịp đồng hồ hệ thống | - | o | **`Er.40`** | Lỗi mất nguồn pin Encoder đa vòng | ✔ | o |
+| **`Er.09`** | Chuyển trạng thái mạng EtherCAT bất thường | ✔ | o | **`Er.41`** | Quá nhiệt động cơ / Encoder | ✔ | o |
+| **`Er.10`** | Mất đồng bộ mạng EtherCAT (Loss of sync) | ✔ | o | **`Er.42`** | Lỗi ghi dữ liệu vào Encoder | ✔ | o |
+| **`Er.11`** | Chưa nạp tệp cấu hình XML (ESI) vào EEPROM | ✔ | o | **`Er.43`** | Quá tải bộ điều khiển Servo (Drive overload) | ✔ | o |
+| **`Er.12`** | Khởi tạo mạng thất bại | ✔ | o | **`Er.44`** | Quá thời gian chờ về gốc (Homing timeout) | ✔ | o |
+| **`Er.13`** | Lỗi cài đặt chu kỳ đồng bộ (Không phải bội số $125/250\ \mu\text{s}$) | ✔ | o | **`Er.45`** | Bảo vệ quá nhiệt khi kẹt cứng trục động cơ | ✔ | o |
+| **`Er.14`** | Sai số chu kỳ đồng bộ quá lớn | ✔ | - | **`Er.60`** | Chuyển đổi ADC chưa hoàn tất | - | o |
+| **`Er.19`** | Quá dòng phần mềm (Software overcurrent) | - | o | **`Er.61 ~ 65`** | Lỗi phần mềm nội bộ (Internal software fault) | - | o |
+| **`Er.20`** | Quá dòng phần cứng (Overcurrent) | - | o | **`A-80`** | Cảnh báo vượt giới hạn công suất (110% trên 5s) | ✔ | - |
+| **`Er.21`** | Thấp áp nguồn mạch động lực (Undervoltage) | ✔ | o | **`A-81`** | Cảnh báo quá tốc độ (Overspeed alarm) | ✔ | - |
+| **`Er.22`** | Quá áp nguồn mạch động lực (Overvoltage) | ✔ | o | **`A-82`** | Cảnh báo quá tải (Overload warning) | ✔ | - |
+| **`Er.23`** | Chưa đấu nối điện trở xả | ✔ | o | **`A-83`** | Cảnh báo quá nhiệt / quá tải điện trở xả | ✔ | - |
+| **`Er.24`** | Mạch kích điện trở xả dẫn thông bất thường | - | o | **`A-84`** | Đã sửa tham số yêu cầu khởi động lại nguồn | ✔ | - |
+| **`Er.25`** | Giá trị điện trở xả quá lớn / Sai mã động cơ | ✔ | o | **`A-88`** | Mất điện thoáng qua mạch động lực | ✔ | - |
+| **`Er.26`** | Sai mã model động cơ (Wrong motor model) | - | o | **`A-89`** | Trùng lặp cấu hình chức năng chân `DI` | ✔ | - |
+| **`Er.27`** | Mất kết nối cáp Encoder (Encoder disconnected) | - / ✔ | o | **`A-90`** | Trùng lặp cấu hình chức năng chân `DO` | ✔ | - |
+| **`Er.28`** | Mất xung Z của Encoder | - | o | **`A-91`** | Ghi sửa đổi tham số quá tần suất cho phép | ✔ | - |
+| **`Er.30`** | Lỗi tín hiệu UVW của Encoder | - | o | **`A-92`** | Cảnh báo điện áp pin Encoder thấp ($< 3.1\text{V}$) | ✔ | - |
+| **`Er.31`** | Đứt/hở dây cáp động lực động cơ (`U, V, W`) | ✔ | o | **`A-93`** | Lỗi kiểm tra đọc/ghi Encoder xảy ra quá thường xuyên | ✔ | - |
+| **`Er.32`** | Vượt quá tốc độ tối đa của động cơ | - | o | - | - | - | - |
+| **`Er.33`** | Quá nhiệt mô-đun công suất của Drive | ✔ | o | - | - | - | - |
+
+---
+
+## Phụ lục Mã hiệu Cáp Động lực & Cáp Encoder Chính hãng (Wire Selection)
+
+### 1. Bảng mã hiệu Cáp động lực động cơ Servo (Bảng 11-1)
+
+| Mã hiệu cáp động lực | Chiều dài $L$ | Hình dáng bản vẽ & Khả năng tương thích |
+| :--- | :--- | :--- |
+| `P-Z3O1-R4M-3MX4`<br/>`P-Z3O1-R4M-5MX4`<br/>`P-Z3O1-R4M-10MX4` | 3 mét<br/>5 mét<br/>10 mét | ![Cáp P-Z3O1-R4M](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/11%20Appendix/WebHome/image-20230630105229-1.png?rev=1.1)<br/>Phù hợp cho **[Bộ điều khiển VD3E Type A]**, kết nối với **[Động cơ mặt bích 60 / 80 (giắc chữ nhật)]**. |
+| `P-U3O1-R4M-3MX4`<br/>`P-U3O1-R4M-5MX4`<br/>`P-U3O1-R4M-10MX4` | 3 mét<br/>5 mét<br/>10 mét | ![Cáp P-U3O1-R4M](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/11%20Appendix/WebHome/image-20230630105229-2.png?rev=1.1)<br/>Phù hợp cho **[Bộ điều khiển VD3E Type B]**, kết nối với **[Động cơ mặt bích 80 (giắc chữ nhật)]**. |
+| `P-Z3O1-H28J4M-3MX4`<br/>`P-Z3O1-H28J4M-5MX4`<br/>`P-Z3O1-H28J4M-10MX4` | 3 mét<br/>5 mét<br/>10 mét | ![Cáp P-Z3O1-H28J4M](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/11%20Appendix/WebHome/image-20230630105229-3.png?rev=1.1)<br/>Phù hợp cho **[Bộ điều khiển VD3E Type A]**, kết nối với **[Động cơ mặt bích 110 / 130 (giắc hàng không)]**. |
+| `P-U3O1-H28J4M-3MX4`<br/>`P-U3O1-H28J4M-5MX4`<br/>`P-U3O1-H28J4M-10MX4` | 3 mét<br/>5 mét<br/>10 mét | ![Cáp P-U3O1-H28J4M](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/11%20Appendix/WebHome/image-20230630105229-4.png?rev=1.1)<br/>Phù hợp cho **[Bộ điều khiển VD3E Type B]**, kết nối với **[Động cơ mặt bích 110 / 130 (giắc hàng không)]**. |
+| `P-Z3O1-MC4S-3MX4`<br/>`P-Z3O1-MC4S-5MX4`<br/>`P-Z3O1-MC4S-10MX4` | 3 mét<br/>5 mét<br/>10 mét | ![Cáp P-Z3O1-MC4S](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/11%20Appendix/WebHome/image-20230630105229-5.png?rev=1.1)<br/>Phù hợp cho **[Bộ điều khiển VD3E Type A]**, kết nối với **[Động cơ mặt bích 60 / 80 (giắc nối thẳng)]**. |
+
+### 2. Bảng mã hiệu Cáp Encoder động cơ Servo (Bảng 11-2)
+
+| Mã hiệu cáp Encoder | Chiều dài $L$ | Hình dáng bản vẽ & Khả năng tương thích |
+| :--- | :--- | :--- |
+| `E-J1394-R9M-3MX5-A`<br/>`E-J1394-R9M-5MX5-A`<br/>`E-J1394-R9M-10MX5-A` | 3 mét<br/>5 mét<br/>10 mét | ![Cáp E-J1394-R9M-5](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/11%20Appendix/WebHome/image-20230630105229-6.png?rev=1.1)<br/>Dùng cho **[VD3E Series]**, kết nối với **[Động cơ mặt bích 60 / 80 — Encoder đơn vòng (Giắc chữ nhật, không hộp pin)]**. |
+| `E-J1394-R9M-3MX7-A1`<br/>`E-J1394-R9M-5MX7-A1`<br/>`E-J1394-R9M-10MX7-A1` | 3 mét<br/>5 mét<br/>10 mét | ![Cáp E-J1394-R9M-7](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/11%20Appendix/WebHome/image-20230630105229-7.png?rev=1.1)<br/>Dùng cho **[VD3E Series]**, kết nối với **[Động cơ mặt bích 60 / 80 — Encoder đa vòng (Giắc chữ nhật, kèm hộp pin)]**. |
+| `E-J1394-MC7S-3MX5-A`<br/>`E-J1394-MC7S-5MX5-A`<br/>`E-J1394-MC7S-10MX5-A` | 3 mét<br/>5 mét<br/>10 mét | ![Cáp E-J1394-MC7S-5](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/11%20Appendix/WebHome/image-20230630105229-8.png?rev=1.1)<br/>Dùng cho **[VD3E Series]**, kết nối với **[Động cơ mặt bích 60 / 80 — Encoder đơn vòng (Giắc nối thẳng, không hộp pin)]**. |
+| `E-J1394-MC7S-3MX7-A1`<br/>`E-J1394-MC7S-5MX7-A1`<br/>`E-J1394-MC7S-10MX7-A1` | 3 mét<br/>5 mét<br/>10 mét | ![Cáp E-J1394-MC7S-7](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/11%20Appendix/WebHome/image-20230630105229-9.png?rev=1.1)<br/>Dùng cho **[VD3E Series]**, kết nối với **[Động cơ mặt bích 60 / 80 — Encoder đa vòng (Giắc nối thẳng, kèm hộp pin)]**. |
+| `E-J1394-H28K7M-3MX5-A`<br/>`E-J1394-H28K7M-5MX5-A`<br/>`E-J1394-H28K7M-10MX5-A` | 3 mét<br/>5 mét<br/>10 mét | ![Cáp E-J1394-H28K7M-5](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/11%20Appendix/WebHome/image-20230630105229-10.png?rev=1.1)<br/>Dùng cho **[VD3E Series]**, kết nối với **[Động cơ mặt bích 110 / 130 — Encoder đơn vòng (Giắc hàng không, không hộp pin)]**. |
+| `E-J1394-H28K7M-3MX7-A1`<br/>`E-J1394-H28K7M-5MX7-A1`<br/>`E-J1394-H28K7M-10MX7-A1` | 3 mét<br/>5 mét<br/>10 mét | ![Cáp E-J1394-H28K7M-7](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/11%20Appendix/WebHome/image-20230630105229-11.png?rev=1.1)<br/>Dùng cho **[VD3E Series]**, kết nối với **[Động cơ mặt bích 110 / 130 — Encoder đa vòng (Giắc hàng không, kèm hộp pin)]**. |
+
+---
+
+## Tuân thủ Tiêu chuẩn Quốc tế và Tương thích Điện từ (EMC / CE Standards)
+
+Dòng sản phẩm WECON VD3E Series đáp ứng các yêu cầu của tiêu chuẩn tương thích điện từ châu Âu (**CE / EMC Directive 2014/30/EU**):
+
+| Tên chứng nhận | Biểu tượng | Chỉ thị áp dụng | Đối tượng áp dụng | Tiêu chuẩn |
+| :--- | :--- | :--- | :--- | :--- |
+| **Chứng nhận CE (CE Certification)** | ![CE Logo](https://docs.we-con.com.cn/bin/download/Servo/Manual/03%20VD3E%20Series/11%20Appendix/WebHome/1703148373752-698.png?rev=1.1) | EMC Directive `2014/30/EU` | Bộ điều khiển Servo & Động cơ Servo | `EN 61800-3 C2` |
+
+### 1. Khuyến nghị chọn Bộ lọc nhiễu đầu vào EMC (Bảng 11-3)
+
+Để đạt chuẩn `EN 61800-3 C2`, khuyến nghị lắp bộ lọc nhiễu đầu vào EMC của hãng **SCHAFFNER** theo bảng dưới đây:
+
+| Cấp điện áp | Model Bộ điều khiển Servo | Dòng điện đầu vào định mức $I_N$ (A) | Mã bộ lọc EMC khuyến nghị (SCHAFFNER) |
+| :--- | :--- | :--- | :--- |
+| 1 pha 220V | `VD3E-003SA1G` | 0.9 | `FN 2090-1-06` |
+| 1 pha 220V | `VD3E-010SA1G` | 3.6 | `FN 2090-4-06` |
+| 1 pha 220V | `VD3E-014SA1G` | 6.7 | `FN 2090-8-06` |
+| 1 pha 220V | `VD3E-016SA1G` | 13.4 | `FN 2090-16-06` |
+| 1 pha 220V | `VD3E-021SA1G` | 20.0 | `FN 2090-20-06` |
+| 3 pha 220V | `VD3E-016SA1G` | 7.7 | `FN 3258-16-44` |
+| 3 pha 220V | `VD3E-021SA1G` | 11.9 | `FN 3258-16-44` |
+| 3 pha 220V | `VD3E-030SA1G` | 13.4 | `FN 3258-16-44` |
+| 3 pha 380V | `VD3E-021TA1G` | 8.6 | `FN 3258-16-44` |
+
+### 2. Yêu cầu về Cuộn kháng AC, Cáp bọc kim và Giải pháp Xử lý Nhiễu EMC
+
+- **Yêu cầu về cáp và đi dây:** Cáp động lực động cơ bắt buộc phải là cáp có lớp lưới đồng đan chống nhiễu (mật độ đan $> 90\%$) và tiếp địa $360^\circ$ ở cả hai đầu. Đi cáp động lực, cáp nguồn đầu vào và cáp tín hiệu điều khiển trong các máng cáp tách biệt nhau. Nếu bắt buộc phải giao cắt, hãy cho cắt vuông góc $90^\circ$.
+- **Bảng 11-4: Các hiện tượng nhiễu EMC thường gặp và biện pháp khắc phục:**
+
+| Hiện tượng nhiễu | Biện pháp xử lý triệt để |
+| :--- | :--- |
+| **Nhảy aptomat chống dòng rò (RCD Trip)** | • Rút ngắn chiều dài cáp động lực động cơ;<br/>• Quấn thêm vòng từ Ferrite (Magnetic ring) tại đầu vào nguồn của Drive;<br/>• Sử dụng RCD loại B (Type B) có dòng rò định mức $\ge 100\ \text{mA}/1\ \text{Drive}$ hoặc $\ge 300\ \text{mA}$ cho cụm nhiều Drive. |
+| **Nhiễu phát sinh khi Servo đang chạy** | • Đấu nối chắc chắn vỏ động cơ về chân `PE` của Drive và từ chân `PE` của Drive về thanh cái tiếp địa chuẩn;<br/>• Lắp thêm vòng từ Ferrite trên đường nguồn đầu vào và trên đường cáp tín hiệu bị nhiễu;<br/>• Nối đẳng thế (Common ground) giữa các thiết bị trong tủ điện. |
+| **Nhiễu đường truyền thông** | • Sử dụng cáp xoắn đôi bọc kim chống nhiễu (STP), nối lớp giáp chống nhiễu về mass chung;<br/>• Lắp điện trở đầu cuối (Terminating resistor) đúng quy định;<br/>• Đi dây mạng theo cấu trúc chuỗi Daisy-chain, chiều dài dây nhánh rẽ (stub) nhỏ hơn 30 cm. |
+| **Nhiễu tín hiệu I/O** | • Với các chân `DI` tốc độ thấp, có thể mắc thêm tụ lọc nhiễu (tối đa $0.1\ \mu\text{F}$);<br/>• Với ngõ vào tương tự (`AI`), có thể mắc tụ lọc tối đa $0.22\ \mu\text{F}$. |
